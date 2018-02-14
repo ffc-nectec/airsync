@@ -5,19 +5,32 @@ import java.io.IOException;
 
 
 
-public class Read {
+
+public class ReadLogOld {
+
+    interface OnnewLine{
+        void newLine(String line);
+    }
+
+
     public long init_linenumber = 0;
     public long ln = 0;
+
+    private OnnewLine listener;
+
+    public void setListener(OnnewLine listener) {
+        this.listener = listener;
+    }
 
     File file;
     BufferedReader br;
 
-    Read (long init_linenumber, File file){
+    ReadLogOld(long init_linenumber, File file){
         this.file=file;
 
 
     }
-    Read(){
+    ReadLogOld(){
         file    = new File(Config.path);
         try{
             br = new BufferedReader(new FileReader(file));
@@ -37,6 +50,10 @@ public class Read {
             while(true)
             {
                 while ((line = br.readLine()) != null) {
+
+
+
+                    listener.newLine(line);
                     time=Markline.getTime(line);
 
                     temp=(ln++)+time+line;
@@ -44,7 +61,7 @@ public class Read {
 
                     if(Markline.readActivity(line)){
                         line=Markline.repletNow(line,time);
-                        System.out.println(Markline.createHash(temp)+"\t"+ln+"\t"+time+"\t"+Markline.readQuery(line));
+                        //
                     }
                 }
                 Thread.sleep(2000);
