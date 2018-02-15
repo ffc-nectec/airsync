@@ -8,14 +8,23 @@ public class ReadLog{
     File file;
     BufferedReader br;
     private Filter listener;
+    private boolean alloop;
 
     public void setListener(Filter listener) {
         this.listener = listener;
     }
 
     ReadLog(){
+        this(Config.path);
+    }
+    ReadLog(String fileparth){
+           this(fileparth,true);
+    }
+
+    ReadLog(String fileparth,boolean alwalloop){
         {
-            file    = new File(Config.path);
+            this.alloop=alwalloop;
+            file  = new File(Config.path);
             try{
                 br = new BufferedReader(new FileReader(file));
             } catch (IOException e) {
@@ -28,7 +37,7 @@ public class ReadLog{
     public void process() {
         String line;
         try {
-            while(true)
+            while(alloop)
             {
                 while ((line = br.readLine()) != null) {
                     listener.process(line,ln++,"");
