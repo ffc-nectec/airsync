@@ -1,18 +1,8 @@
 import org.apache.commons.codec.digest.DigestUtils;
 
-public class CreateHash implements Filter{
+public class CreateHash {
 
-    interface onCreateHash{
-        void process(String line, long linenumber, String time,String hash);
-    }
-    private onCreateHash listener;
-
-    public void setListener(onCreateHash listener) {
-        this.listener = listener;
-    }
-
-    @Override
-    public void process(String line, long linenumber, String time) {
-        listener.process(line,linenumber,time, DigestUtils.sha1Hex(line+time+linenumber));
+    public String process(String line, long linenumber, String time) {
+        return(DigestUtils.sha1Hex(line+time+linenumber));
     }
 }

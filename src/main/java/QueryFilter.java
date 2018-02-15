@@ -1,20 +1,12 @@
 import java.util.regex.Matcher;
 
-public class QueryFilter implements  Filter{
-
-
-    private Filter listener;
-
-    public void setListener(Filter listener) {
-        this.listener = listener;
-    }
-
+public class QueryFilter implements  Filters{
 
     @Override
-    public void process(String line, long linenumber, String time) {
-        Matcher m = Config.pattern.matcher(line);
+    public String process(String line) {
+        Matcher m = Config.logpattern.matcher(line);
         if (m.find( )) {
-            listener.process(line.replaceFirst("^.*Query( {7}|\\t)",""),linenumber,time);
-        }
+            return(line.replaceFirst("^.*Query( {7}|\\t)",""));
+        }return "";
     }
 }

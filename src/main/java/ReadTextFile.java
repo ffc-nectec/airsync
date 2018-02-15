@@ -3,28 +3,32 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class ReadLog{
+public class ReadTextFile {
+    interface LogEvent{
+        void process(String line,long linenumber);
+    }
     public long ln = 0;
     File file;
     BufferedReader br;
-    private Filter listener;
-    private boolean alloop;
+    private LogEvent listener;
+    private boolean runmode;
 
-    public void setListener(Filter listener) {
+
+    public void setListener(LogEvent listener) {
         this.listener = listener;
     }
 
-    ReadLog(){
-        this(Config.path);
+    ReadTextFile(){
+        this(Config.logpath);
     }
-    ReadLog(String fileparth){
+    ReadTextFile(String fileparth){
            this(fileparth,true);
     }
 
-    ReadLog(String fileparth,boolean alwalloop){
+    ReadTextFile(String fileparth, boolean alwalloop){
         {
-            this.alloop=alwalloop;
-            file  = new File(Config.path);
+            this.runmode =alwalloop;
+            file  = new File(Config.logpath);
             try{
                 br = new BufferedReader(new FileReader(file));
             } catch (IOException e) {
@@ -37,10 +41,10 @@ public class ReadLog{
     public void process() {
         String line;
         try {
-            while(alloop)
+            while(runmode)
             {
                 while ((line = br.readLine()) != null) {
-                    listener.process(line,ln++,"");
+                    listener.process(line,ln++);
                 }
                 Thread.sleep(2000);
 
