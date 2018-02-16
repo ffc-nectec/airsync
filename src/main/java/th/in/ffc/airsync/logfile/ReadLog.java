@@ -28,23 +28,24 @@ public class ReadLog {
 
     private String logfile;
     private boolean realtime;
+    private long delay;
 
     /**
      * สร้างโดยการระบุพารามิเตอร์
      * @param logfile ตำแหน่งของไฟล์ log mysql
      * @param realtime กำหนดเป็น true เมื่อต้องการให้อ่านตลอดเวลาอัพเดทเวลามีข้อมูลใหม่ ถ้ากำหนดเป็น false เมื่อต้องการอ่านรอบเดียวจบ
      */
-    ReadLog(String logfile, boolean realtime) {
+    public ReadLog(String logfile, boolean realtime,long delay) {
         this.logfile = logfile;
         this.realtime = realtime;
+        this.delay=delay;
     }
-
-    ReadLog(){
-        this(Config.logfilepath,true);
+    public ReadLog(String logfile, boolean realtime){
+        this(logfile,realtime,1500);
     }
 
     public void run() throws IOException {
-        ReadTextFile readTextFile = new ReadTextFile(logfile, realtime);
+        ReadTextFile readTextFile = new ReadTextFile(logfile, realtime,delay);
         readTextFile.setListener(record -> {
                 for(Filters filter : filters){
                     filter.process(record);

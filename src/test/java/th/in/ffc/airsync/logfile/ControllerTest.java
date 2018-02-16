@@ -13,4 +13,10 @@ public class ControllerTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void processSingle(){
+        //Controller controller = new Controller("src/test/resources/jlog_test.log","src/test/resources/jlog_test.csv",false);
+        //controller.processSingle();
+
+    }
 }

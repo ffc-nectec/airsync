@@ -16,7 +16,7 @@ public class Controller {
     private onLogFileException onLogFileExceptionListener;
     private onCsvFileException onCsvFileExceptionListener;
 
-    Controller(onLogFileException onLogFileExceptionListener, onCsvFileException onCsvFileExceptionListener,String logfilepath,String csvfilepath,boolean realtime) {
+    public Controller(onLogFileException onLogFileExceptionListener, onCsvFileException onCsvFileExceptionListener,String logfilepath,String csvfilepath,boolean realtime) {
         this.onLogFileExceptionListener = onLogFileExceptionListener;
         this.onCsvFileExceptionListener = onCsvFileExceptionListener;
         readlogmodule = new ReadLog(logfilepath,realtime);
@@ -38,28 +38,33 @@ public class Controller {
         });
     }
 
-    Controller() {
+    public Controller() {
         this(ex -> {},ex -> {},Config.logfilepath,Config.csvfilepath,true);
     }
-    Controller(String logfilepath,String csvfilepath,boolean realtime){
+    public Controller(String logfilepath,String csvfilepath,boolean realtime){
         this(ex -> {},ex -> {},logfilepath,csvfilepath,realtime);
     }
 
 
 
     public void process(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    readlogmodule.run();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    onLogFileExceptionListener.ioException(e);
-                }
+        Thread thread = new Thread(() -> {
+            try {
+                readlogmodule.run();
+            } catch (IOException e) {
+                e.printStackTrace();
+                onLogFileExceptionListener.ioException(e);
             }
         });
         thread.start();
 
+    }
+    public void processSingle(){
+        try {
+            readlogmodule.run();
+        } catch (IOException e) {
+            e.printStackTrace();
+            onLogFileExceptionListener.ioException(e);
+        }
     }
 }

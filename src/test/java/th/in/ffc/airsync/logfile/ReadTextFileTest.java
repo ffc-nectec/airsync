@@ -7,42 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ReadLogTest {
-
-
+public class ReadTextFileTest {
     @Test
-    public void notRealtime(){
-        ReadLog readLogModule = new ReadLog("src/test/resources/jlog_test.log",false);
-        AtomicInteger linenumber= new AtomicInteger();
-        AtomicReference<QueryRecord> recordTest = new AtomicReference<>();
-
-        readLogModule.setListener( (QueryRecord record) -> {
-            recordTest.set(record);
-            linenumber.getAndIncrement();
-        });
-        try {
-            readLogModule.run();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Assert.assertEquals(linenumber.getAndIncrement(),13);
-        Assert.assertEquals(recordTest.get().getLog(),"update visit set timeservice ='1' where pcucode ='07934' AND visitno='188301'");
-    }
-
-    @Test
-    public void realTime(){
-
-        ReadLog readLog;
-        String logfilepart="src/test/resources/readLogRT.txt";
+    public void read(){
+        ReadTextFile readTextFile;
+        String logfilepart="src/test/resources/ReadTextFileRT.txt";
         AtomicReference<QueryRecord> recordTest = new AtomicReference<>();
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(logfilepart, "UTF-8");
-            readLog=new ReadLog(logfilepart,true,100);
-            readLog.setListener(record -> {
+            readTextFile=new ReadTextFile(logfilepart,true,100);
+            readTextFile.setListener(record -> {
                 //System.out.println(record.getLog());
                 recordTest.set(record);
             });
@@ -51,7 +28,7 @@ public class ReadLogTest {
                 public void run() {
 
                     try {
-                        readLog.run();
+                        readTextFile.process();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -76,12 +53,6 @@ public class ReadLogTest {
         }
 
         writer.close();
-        Assert.assertEquals(recordTest.get().getLog(),"INSERT INTO `visit` (`pcucode`,`visitno`,`visitdate`,`pcucodeperson`,`pid`,`flagservice`,`username`,`rightcode`,`rightno`,`hosmain`,`hossub`,`dateupdate`)  VALUES ('07934','188301','2018-02-15','07934','177','02','จตุรงค์','89','R89700026887797','10729','07934','2018-02-15 10:29:20')");
-    }
-
-
-    public void run(){
-        Controller controller = new Controller();
-        controller.processSingle();
+        Assert.assertEquals(recordTest.get().getLog(),"\t\t      1 Query       INSERT INTO `visit` (`pcucode`,`visitno`,`visitdate`,`pcucodeperson`,`pid`,`flagservice`,`username`,`rightcode`,`rightno`,`hosmain`,`hossub`,`dateupdate`)  VALUES ('07934','188301','2018-02-15','07934','177','02','จตุรงค์','89','R89700026887797','10729','07934',now())");
     }
 }

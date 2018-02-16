@@ -9,9 +9,6 @@ public class Config {
     public static final Pattern timePattern = Pattern.compile("(^\\d{6} .{8})");
     public static final String csvfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.csv";
 
-
-
-
     private Config(){
 
     }
