@@ -1,0 +1,215 @@
+C:\Program Files\JHCIS\MySQL\bin\mysqld-nt, Version: 5.0.51b-community-nt-log (MySQL Community Edition (GPL)). started with:
+TCP Port: 3333, Named Pipe: (null)
+Time                 Id Command    Argument
+180215 10:29:20	      1 Connect     root@localhost on jhcisdb
+		      1 Query       SET NAMES utf8
+		      1 Query       SET character_set_results = NULL
+		      1 Query       SHOW VARIABLES
+		      1 Query       SHOW WARNINGS
+		      1 Query       SHOW COLLATION
+		      1 Query       SET autocommit=1
+		      1 Query       SELECT `chospital`.`hoscode` AS `hcode`,`chospital`.`hosname` AS `offname`, `chospital`.`address`,`chospital`.`road`,`chospital`.`mu`, `office`.`offid`,`office`.`daystartrep`,`office`.`monthstartrep`,`office`.`dayendrep`, `office`.`nationcode`,`office`.`religcode`,`office`.`occupacode`, `office`.`foodsbn`,`office`.`foodsbr`,`office`.`foodnofsbn`,`office`.`foodnofsbr`, `office`.`upperhypern`,`office`.`lowerhypern`,`office`.`lowerhyperr`,`office`.`upperhyperh`, `cprovince`.`provname`,`cdistrict`.`distname`,`csubdistrict`.`subdistname`, `chospital`.`subdistcode`,`chospital`.`distcode`,`chospital`.`provcode`,  `office`.`diagoption` ,`office`.`dateverupdate`,`office`.`daydrugstore`,  `office`.`foodsbl`,`office`.`foodnofsbl`  FROM `office` Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND                  `cdistrict`.`distcode` = `chospital`.`distcode` Left Outer Join `csubdistrict` ON `csubdistrict`.`provcode` = `chospital`.`provcode` AND                  `csubdistrict`.`distcode` = `chospital`.`distcode` AND                  `csubdistrict`.`subdistcode` = `chospital`.`subdistcode` Where office.offid = 'null'
+		      1 Query       select database()
+		      1 Query       show databases
+		      1 Query       select drugcode,drugname from cdrug LEFT join _tmpicd_9_proced on drugcode = icd9_op_code WHERE (drugtype = '02') and (icd9_op_code is NULL) and (MID(drugcode,4,1)) <> '-' and LEFT(trim(drugcode),7)<>'3020401' and LEFT(trim(drugcode),7) <>'2372700'
+		      1 Query       SHOW KEYS FROM `cdrug` FROM `jhcisdb`
+		      1 Query       select rightcode from cright where LCASE(rightcode) = 'xx'
+		      1 Query       SHOW KEYS FROM `cright` FROM `jhcisdb`
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       update office set dateverupdate ='2016-10-11'
+		      1 Query       SELECT DATE_FORMAT(NOW(),'%Y%m%d')
+		      1 Query       SELECT visitdate FROM visit WHERE visitno = ''
+		      1 Query       show TABLES FROM jhcisdb LIKE 'visitdiag'
+		      1 Query       show TABLES FROM jhcisdb LIKE 'visitdrug'
+		      1 Query       SELECT hosname,hoscode FROM chospital INNER JOIN office ON (office.offid=chospital.hoscode) WHERE hoscode like '%07934%'
+		      1 Query       SHOW KEYS FROM `chospital` FROM `jhcisdb`
+		      1 Query       select CONCAT(`username`,' :[',IFNULL(titlename,'...') ,ifnull(fname,' ไม่ระบุชื่อ'),'  ',ifnull(lname,' ไม่ระบุสกุล'),']'),password,concat(pcucode,':',ifnull(grouplevel,'-'))  from `user` left join ctitle on prename = titlecode  where pcucode='07934' AND (markdelete is null OR markdelete <> 'd')
+180215 10:29:21	      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='zero2null'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='pressurec'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='getageymd'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='getAgeYearNum'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='getAgeMonthNum'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='getagemonth'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='getAgeDayNum'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='expStdWomenReplace'
+		      1 Query       SELECT SPECIFIC_NAME FROM information_schema.ROUTINES WHERE ROUTINE_SCHEMA = 'jhcisdb' AND SPECIFIC_NAME ='cid13Chk'
+180215 10:30:01	      1 Query       SELECT drugcode,drugcode24 FROM cdrug
+		      1 Query       SHOW KEYS FROM `cdrug` FROM `jhcisdb`
+		      1 Query       SELECT drugcode,files18epi FROM cdrug WHERE drugtype = '05'
+		      1 Query       SHOW KEYS FROM `cdrug` FROM `jhcisdb`
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       drop TABLE IF EXISTS _tmpicd10tmv4
+		      1 Query       SHOW WARNINGS
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       update cdisease set diseasecode =UCase(diseasecode) WHERE ASCII(LEFT(diseasecode,1)) <> ASCII(UCase(LEFT(diseasecode,1)))
+		      1 Query       select CONCAT(`username`,' :[',IFNULL(titlename,'...') ,ifnull(fname,' ไม่ระบุชื่อ'),'  ',ifnull(lname,' ไม่ระบุสกุล'),']') as pfl, officertype  from `user` left join ctitle on prename = titlecode  where pcucode='07934' AND (markdelete is null OR markdelete <> 'd')  AND username ='จตุรงค์'
+		      1 Query       select if(length(ifnull(licenseno,''))=0,'nolicenthai',licenseno) from `user`  where pcucode='07934' AND username ='จตุรงค์' AND       (markdelete is null OR markdelete <> 'd')
+		      1 Query       SELECT `chospital`.`hoscode` AS `hcode`,`chospital`.`hosname` AS `offname`, `chospital`.`address`,`chospital`.`road`,`chospital`.`mu`, `office`.`offid`,`office`.`daystartrep`,`office`.`monthstartrep`,`office`.`dayendrep`, `office`.`nationcode`,`office`.`religcode`,`office`.`occupacode`, `office`.`foodsbn`,`office`.`foodsbr`,`office`.`foodnofsbn`,`office`.`foodnofsbr`, `office`.`upperhypern`,`office`.`lowerhypern`,`office`.`lowerhyperr`,`office`.`upperhyperh`, `cprovince`.`provname`,`cdistrict`.`distname`,`csubdistrict`.`subdistname`, `chospital`.`subdistcode`,`chospital`.`distcode`,`chospital`.`provcode`,  `office`.`diagoption` ,`office`.`dateverupdate`,`office`.`daydrugstore`,  `office`.`foodsbl`,`office`.`foodnofsbl`  FROM `office` Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND                  `cdistrict`.`distcode` = `chospital`.`distcode` Left Outer Join `csubdistrict` ON `csubdistrict`.`provcode` = `chospital`.`provcode` AND                  `csubdistrict`.`distcode` = `chospital`.`distcode` AND                  `csubdistrict`.`subdistcode` = `chospital`.`subdistcode` Where office.offid = '07934'
+		      1 Query       select hcode from house where house.pcucode ='07934' AND substring(villcode,7,2) = '00'
+		      1 Query       SHOW KEYS FROM `house` FROM `jhcisdb`
+		      1 Query       SELECT offid from office
+		      1 Query       SHOW KEYS FROM `office` FROM `jhcisdb`
+		      1 Query       SELECT zero2null(datevernow) as datevernow,zero2null(dateverupdate) as dateverupdate from office order by datevernow desc,dateverupdate
+		      1 Query       SELECT ifnull(diagautozcode,'1') from office where offid ='07934'
+		      1 Query       SELECT ifnull(money2opt,'2') as m2o from office where offid ='07934'
+		      1 Query       SELECT cup from village  where pcucode ='07934' AND cup is not null AND right(villcode,2) <> '00'
+		      1 Query       SELECT ifnull(outcuprc,'0') as outcuprc from office where offid ='07934'
+		      1 Query       select tabno from `usertab`  where pcucode='07934' AND username ='จตุรงค์'
+		      1 Query       SHOW KEYS FROM `usertab` FROM `jhcisdb`
+		      1 Query       SELECT `chospital`.`hosname`,`cprovince`.`provname`,`cdistrict`.`distname` FROM office  Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND `cdistrict`.`distcode` = `chospital`.`distcode` WHERE offid = '07934'
+		      1 Query       select optque from office where offid ='07934'
+		      1 Query       select privilegeucode from `user` where pcucode ='07934' AND username ='จตุรงค์'
+		      1 Query       show columns from office like 'sti_vct'
+		      1 Query       select sti_vct from office where offid ='07934'
+		      1 Query       show columns from `user` like 'sti_vct'
+		      1 Query       select sti_vct from `user` where username ='จตุรงค์'
+180215 10:30:03	      1 Query       SELECT `chospital`.`hoscode` AS `hcode`,`chospital`.`hosname` AS `offname`, `chospital`.`address`,`chospital`.`road`,`chospital`.`mu`, `office`.`offid`,`office`.`daystartrep`,`office`.`monthstartrep`,`office`.`dayendrep`, `office`.`nationcode`,`office`.`religcode`,`office`.`occupacode`, `office`.`foodsbn`,`office`.`foodsbr`,`office`.`foodnofsbn`,`office`.`foodnofsbr`, `office`.`upperhypern`,`office`.`lowerhypern`,`office`.`lowerhyperr`,`office`.`upperhyperh`, `cprovince`.`provname`,`cdistrict`.`distname`,`csubdistrict`.`subdistname`, `chospital`.`subdistcode`,`chospital`.`distcode`,`chospital`.`provcode`,  `office`.`diagoption` ,`office`.`dateverupdate`,`office`.`daydrugstore`,  `office`.`foodsbl`,`office`.`foodnofsbl`  FROM `office` Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND                  `cdistrict`.`distcode` = `chospital`.`distcode` Left Outer Join `csubdistrict` ON `csubdistrict`.`provcode` = `chospital`.`provcode` AND                  `csubdistrict`.`distcode` = `chospital`.`distcode` AND                  `csubdistrict`.`subdistcode` = `chospital`.`subdistcode` Where office.offid = '07934'
+		      1 Query       SELECT `chospital`.`hoscode` AS `hcode`,`chospital`.`hosname` AS `offname`, `chospital`.`address`,`chospital`.`road`,`chospital`.`mu`, `office`.`offid`,`office`.`daystartrep`,`office`.`monthstartrep`,`office`.`dayendrep`, `office`.`nationcode`,`office`.`religcode`,`office`.`occupacode`, `office`.`foodsbn`,`office`.`foodsbr`,`office`.`foodnofsbn`,`office`.`foodnofsbr`, `office`.`upperhypern`,`office`.`lowerhypern`,`office`.`lowerhyperr`,`office`.`upperhyperh`, `cprovince`.`provname`,`cdistrict`.`distname`,`csubdistrict`.`subdistname`, `chospital`.`subdistcode`,`chospital`.`distcode`,`chospital`.`provcode`,  `office`.`diagoption` ,`office`.`dateverupdate`,`office`.`daydrugstore`,  `office`.`foodsbl`,`office`.`foodnofsbl`  FROM `office` Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND                  `cdistrict`.`distcode` = `chospital`.`distcode` Left Outer Join `csubdistrict` ON `csubdistrict`.`provcode` = `chospital`.`provcode` AND                  `csubdistrict`.`distcode` = `chospital`.`distcode` AND                  `csubdistrict`.`subdistcode` = `chospital`.`subdistcode` Where office.offid = '07934'
+		      1 Query       select database()
+		      1 Query       show databases
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       update visitdrug set unit = 1 where unit is null OR unit <= 0
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       update cdisease  set mapdisease = Concat(left(mapdisease,locate('.',mapdisease)-1),trim(mid(mapdisease,locate('.',mapdisease)+1,4)))  where locate('.',mapdisease) > 0
+		      1 Query       SELECT a.pid  FROM     (SELECT p.pcucodeperson,p.pid,diagcode from person p      JOIN visit ON p.pcucodeperson = visit.pcucodeperson and p.pid = visit.pid      join visitdiag ON visit.pcucode = visitdiag.pcucode and visit.visitno = visitdiag.visitno      join cdisease ON diagcode = diseasecode      WHERE codechronic is not NULL AND TRIM(codechronic)<>''      GROUP BY pid,diagcode ORDER BY pid,diagcode) AS a  LEFT JOIN personchronic pcn ON a.pcucodeperson = pcn.pcucodeperson AND a.pid = pcn.pid AND a.diagcode = pcn.chroniccode  WHERE pcn.chroniccode IS NULL LIMIT 1
+180215 10:30:04	      1 Query       SELECT e1.pcucodeperson FROM (SELECT p.pcucodeperson,p.pid,IFNULL(c.titlename,'...') prename,fname,lname,birth ,DATEDIFF(date(NOW()),birth) as ada FROM person p JOIN house h ON p.pcucodeperson=h.pcucode and p.hcode=h.hcode LEFT JOIN ctitle c ON prename=c.titlecode WHERE RIGHT(villcode,2)<>'00' AND typelive IN('0','1','3')   AND (DATEDIFF(DATE(NOW()),birth)> 14 AND DATEDIFF(DATE(NOW()),birth)< 2190) AND p.pcucodeperson ='07934') as e1 LEFT JOIN (SELECT DISTINCT p.pcucodeperson,p.pid ,e.vaccinecode FROM person p JOIN house h ON p.pcucodeperson=h.pcucode and p.hcode=h.hcode JOIN visitepi e ON p.pcucodeperson=e.pcucodeperson AND p.pid=e.pid WHERE RIGHT(villcode,2)<>'00' AND typelive IN('0','1','3')   AND (DATEDIFF(DATE(NOW()),birth)> 14 AND DATEDIFF(DATE(NOW()),birth)< 2190)   AND LCASE(e.vaccinecode) IN('bcg','bcgs1')) AS e2 ON e1.pcucodeperson = e2.pcucodeperson AND e1.pid = e2.pid WHERE e2.pid IS NULL LIMIT 1
+180215 10:30:09	      1 Query       select officertype from `user` where username='จตุรงค์'
+		      1 Query       SELECT `chospital`.`hoscode` AS `hcode`,`chospital`.`hosname` AS `offname`, `chospital`.`address`,`chospital`.`road`,`chospital`.`mu`, `office`.`offid`,`office`.`daystartrep`,`office`.`monthstartrep`,`office`.`dayendrep`, `office`.`nationcode`,`office`.`religcode`,`office`.`occupacode`, `office`.`foodsbn`,`office`.`foodsbr`,`office`.`foodnofsbn`,`office`.`foodnofsbr`, `office`.`upperhypern`,`office`.`lowerhypern`,`office`.`lowerhyperr`,`office`.`upperhyperh`, `cprovince`.`provname`,`cdistrict`.`distname`,`csubdistrict`.`subdistname`, `chospital`.`subdistcode`,`chospital`.`distcode`,`chospital`.`provcode`,  `office`.`diagoption` ,`office`.`dateverupdate`,`office`.`daydrugstore`,  `office`.`foodsbl`,`office`.`foodnofsbl`  FROM `office` Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND                  `cdistrict`.`distcode` = `chospital`.`distcode` Left Outer Join `csubdistrict` ON `csubdistrict`.`provcode` = `chospital`.`provcode` AND                  `csubdistrict`.`distcode` = `chospital`.`distcode` AND                  `csubdistrict`.`subdistcode` = `chospital`.`subdistcode` Where office.offid = '07934'
+		      1 Query       SELECT `chospital`.`hoscode` AS `hcode`,`chospital`.`hosname` AS `offname`, `chospital`.`address`,`chospital`.`road`,`chospital`.`mu`, `office`.`offid`,`office`.`daystartrep`,`office`.`monthstartrep`,`office`.`dayendrep`, `office`.`nationcode`,`office`.`religcode`,`office`.`occupacode`, `office`.`foodsbn`,`office`.`foodsbr`,`office`.`foodnofsbn`,`office`.`foodnofsbr`, `office`.`upperhypern`,`office`.`lowerhypern`,`office`.`lowerhyperr`,`office`.`upperhyperh`, `cprovince`.`provname`,`cdistrict`.`distname`,`csubdistrict`.`subdistname`, `chospital`.`subdistcode`,`chospital`.`distcode`,`chospital`.`provcode`,  `office`.`diagoption` ,`office`.`dateverupdate`,`office`.`daydrugstore`,  `office`.`foodsbl`,`office`.`foodnofsbl`  FROM `office` Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND                  `cdistrict`.`distcode` = `chospital`.`distcode` Left Outer Join `csubdistrict` ON `csubdistrict`.`provcode` = `chospital`.`provcode` AND                  `csubdistrict`.`distcode` = `chospital`.`distcode` AND                  `csubdistrict`.`subdistcode` = `chospital`.`subdistcode` Where office.offid = '07934'
+		      1 Query       SELECT CONCAT(screenotherdiseasecode,"-",screenotherdiseasedesc) AS displayField, screenotherdiseasecode FROM cscreenotherdisease
+		      1 Query       SELECT CONCAT(receivepatientcode,'-',receivepatientdesc) AS displayField, receivepatientcode FROM cpatientreceive
+		      1 Query       SELECT CONCAT(refercode,'-',referdesc) AS displayField, refercode FROM cpatientrefer
+		      1 Query       SELECT CONCAT(counselingcode,'-',counselingname) AS displayField, counselingcode FROM ccounseling
+		      1 Query       SELECT CONCAT(timeservicecode,'-',timeservicedesc) AS displayField, timeservicecode FROM ctimeservice
+		      1 Query       SELECT CONCAT(incupcode,'-',incupdesc) AS displayField, incupcode FROM cincup
+		      1 Query       SELECT CONCAT(screenotherdiseasecode,'-',screenotherdiseasedesc) AS displayField, screenotherdiseasecode FROM cscreenotherdisease
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+180215 10:30:10	      1 Query       SELECT DATE_FORMAT(NOW(),'%Y%m%d')
+		      1 Query       SELECT visitdate FROM visit WHERE visitno = ''
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+		      1 Query       SELECT DATE_FORMAT(NOW(),'%Y%m%d')
+		      1 Query       SELECT visitdate FROM visit WHERE visitno = 'INSERT INTO request_update (dateupdate,tablename,pk_values,values_set,provider) VALUES(DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'),"diagnosis_opd","{}","{\"DIAGCODE\":\"UCase(DIAGCODE)\"}","จตุรงค์");INSERT INTO request_delete (dateupdate,tablename,pk_values,provider) VALUES(DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'),"diagnosis_opd","{}","จตุรงค์")'
+180215 10:30:15	      1 Query       SELECT `chospital`.`hoscode` AS `hcode`,`chospital`.`hosname` AS `offname`, `chospital`.`address`,`chospital`.`road`,`chospital`.`mu`, `office`.`offid`,`office`.`daystartrep`,`office`.`monthstartrep`,`office`.`dayendrep`, `office`.`nationcode`,`office`.`religcode`,`office`.`occupacode`, `office`.`foodsbn`,`office`.`foodsbr`,`office`.`foodnofsbn`,`office`.`foodnofsbr`, `office`.`upperhypern`,`office`.`lowerhypern`,`office`.`lowerhyperr`,`office`.`upperhyperh`, `cprovince`.`provname`,`cdistrict`.`distname`,`csubdistrict`.`subdistname`, `chospital`.`subdistcode`,`chospital`.`distcode`,`chospital`.`provcode`,  `office`.`diagoption` ,`office`.`dateverupdate`,`office`.`daydrugstore`,  `office`.`foodsbl`,`office`.`foodnofsbl`  FROM `office` Left Outer Join `chospital` ON `chospital`.`hoscode` = `office`.`offid` Left Outer Join `cprovince` ON `cprovince`.`provcode` = `chospital`.`provcode`  Left Outer Join `cdistrict` ON `cdistrict`.`provcode` = `chospital`.`provcode` AND                  `cdistrict`.`distcode` = `chospital`.`distcode` Left Outer Join `csubdistrict` ON `csubdistrict`.`provcode` = `chospital`.`provcode` AND                  `csubdistrict`.`distcode` = `chospital`.`distcode` AND                  `csubdistrict`.`subdistcode` = `chospital`.`subdistcode` Where office.offid = '07934'
+180215 10:30:17	      1 Query       select CONCAT(villname,'-',villcode,' หมู่ ',if(villno is null,right(villcode,2),CONVERT(villno USING  utf8))), villcode, villno from village WHERE pcucode='07934' AND RIGHT(villcode,2)<>'00'  union select '-------------------','-','-'  union select 'ทุกหมู่ฯ ในเขตฯ','allvc',''
+180215 10:30:18	      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname = '_ _x_ _'  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+		      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname = '-1' AND P.lname LIKE '%'  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+180215 10:30:19	      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname = '-1' AND P.lname LIKE '%'  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+		      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname = '-1' AND P.lname LIKE '%'  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+		      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname = '-1' AND P.lname LIKE '%'  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+		      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname = '_ _x_ _'  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+180215 10:30:20	      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname LIKE 'สม%' AND (P.lname LIKE '%' OR P.lname is null)  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+		      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname LIKE 'สมช%' AND (P.lname LIKE '%' OR P.lname is null)  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+		      1 Query       SELECT DISTINCT '' AS visitno,P.pcucodeperson,P.pid,concat(ifnull(titlename,ifnull(P.prename,'...'))) as prename  ,Concat(P.fname,IF((P.nickname is null OR trim(P.nickname)=''),'',CONCAT('(',nickname,')'))) ,P.lname,P.birth ,getageymd(birth,CURDATE()) bdate,P.hnomoi,P.mumoi ,P.birth  FROM person P left join ctitle on prename = titlecode  LEFT JOIN persondeath pd on P.pcucodeperson=pd.pcucodeperson and P.pid=pd.pid  WHERE  P.fname LIKE 'สมชา%' AND (P.lname LIKE '%' OR P.lname is null)  and (pd.pid IS NULL OR deaddate >= '2018-02-15') ORDER BY P.fname,P.lname
+180215 10:30:24	      1 Query       SELECT `pcucode`,`visitno` FROM `visit` WHERE `pcucodeperson`='07934' AND `pid`='177' AND `visitdate`='2018-02-15' AND flagservice NOT IN('99')
+		      1 Query       SHOW KEYS FROM `visit` FROM `jhcisdb`
+		      1 Query       SELECT * FROM `visit` WHERE `pcucode`='07934' AND `visitno`=''
+		      1 Query       SHOW KEYS FROM `visit` FROM `jhcisdb`
+		      2 Connect     root@localhost on jhcisdb
+		      2 Query       SET NAMES utf8
+		      2 Query       SET character_set_results = NULL
+		      2 Query       SHOW VARIABLES
+		      2 Query       SHOW WARNINGS
+		      2 Query       SHOW COLLATION
+		      2 Query       SET autocommit=1
+		      2 Query       UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`=''
+		      2 Quit       
+		      1 Query       LOCK TABLEs visit WRITE,replicate_log WRITE,person READ
+		      1 Query       SELECT ifnull(MAX(`visitno`),0)+1 AS `visitno_max` FROM `visit` where pcucode ='07934'
+		      1 Query       SELECT `rightcode` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `rightcode` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `rightcode` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `rightno` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `rightno` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `rightno` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `hosmain` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `hosmain` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `hosmain` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `hossub` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `hossub` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `hossub` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       LOCK TABLEs village READ
+		      1 Query       SELECT DISTINCT cup FROM village WHERE cup IS NOT NULL AND TRIM(cup)<>'' AND cup ='10729'
+		      1 Query       LOCK TABLEs visit WRITE,replicate_log WRITE,person READ
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       INSERT INTO `visit` (`pcucode`,`visitno`,`visitdate`,`pcucodeperson`,`pid`,`flagservice`,`username`,`rightcode`,`rightno`,`hosmain`,`hossub`,`dateupdate`)  VALUES ('07934','188301','2018-02-15','07934','177','02','จตุรงค์','89','R89700026887797','10729','07934',now())
+		      1 Query       SELECT DATE_FORMAT(NOW(),'%Y%m%d')
+		      1 Query       SELECT visitdate FROM visit WHERE visitno = ''
+		      1 Query       UNLOCK TABLES
+		      1 Query       UNLOCK TABLES
+		      1 Query       SELECT * FROM `visit` WHERE `pcucode`='07934' AND `visitno`='188301'
+		      1 Query       SHOW KEYS FROM `visit` FROM `jhcisdb`
+		      1 Query       SELECT `rightcode` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `rightno` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      1 Query       SELECT `hosmain` FROM `person` WHERE `pcucodeperson`='07934' AND `pid`='177'
+		      3 Connect     root@localhost on jhcisdb
+		      3 Query       SET NAMES utf8
+		      3 Query       SET character_set_results = NULL
+		      3 Query       SHOW VARIABLES
+		      3 Query       SHOW WARNINGS
+		      3 Query       SHOW COLLATION
+		      3 Query       SET autocommit=1
+		      3 Query       UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`='188301'
+		      3 Quit       
+		      1 Query       SELECT * FROM person  WHERE pid = '177' and pcucodeperson ='07934'
+		      1 Query       SHOW KEYS FROM `person` FROM `jhcisdb`
+180215 10:30:25	      1 Query       SELECT * FROM person  WHERE pid = '177' and pcucodeperson ='07934'
+		      1 Query       SHOW KEYS FROM `person` FROM `jhcisdb`
+		      1 Query       select servicetype from visit Where pcucode ='07934' And visitno ='188301'
+		      1 Query       select concat(ifnull(titlename,ifnull(prename,'...'))) as prename  from person left join ctitle on prename = titlecode where pcucodeperson ='07934' AND pid ='177'
+		      1 Query       SELECT CONCAT(d.diseasecode,'-',d.diseasenamethai),d.diseasecode FROM cdisease d where d.diseasecode='!!!!!'
+		      1 Query       SELECT concat(`dxtypecode`,'-',`dxtypedesc`),`dxtypecode`  FROM `cdxtype` WHERE dxtypecode not in('02','03','06')
+		      1 Query       SELECT visitno,diagcode,dxtype,conti,x.appod,appointtype,'','',pcucode,'',  dateupdate,doctordiag FROM visitdiag left join (SELECT min(mvd) as appod,pcu,vn,dac from (SELECT v.appodate mvd,v.pcucode as pcu,v.visitno as vn,v.diagcode as dac  from visitdiagappoint v) as insel GROUP BY pcu,vn,dac ORDER BY mvd) as x ON pcucode = pcu and visitno = vn and diagcode = dac  WHERE visitno =188301 and pcucode ='07934' UNION SELECT 188301,NULL,NULL,NULL,NULL,NULL,null,null,'07934',null,null,null
+		      1 Query       SHOW CHARACTER SET
+		      1 Query       SELECT * FROM `visit` WHERE `pcucode`='07934' AND `visitno`='188301'
+		      1 Query       SHOW KEYS FROM `visit` FROM `jhcisdb`
+		      1 Query       SELECT * FROM `visit` WHERE `pcucode`='07934' AND `visitno`='188301'
+		      1 Query       SHOW KEYS FROM `visit` FROM `jhcisdb`
+		      4 Connect     root@localhost on jhcisdb
+		      4 Query       SET NAMES utf8
+		      4 Query       SET character_set_results = NULL
+		      4 Query       SHOW VARIABLES
+		      4 Query       SHOW WARNINGS
+		      4 Query       SHOW COLLATION
+		      4 Query       SET autocommit=1
+		      4 Query       UPDATE `visit` SET `flagservice`='02'  WHERE `pcucode`='07934' AND `visitno`='188301'
+		      4 Quit       
+		      1 Query       select visit.rightcode,rightno,hosmain,timeservice,timestart,timeend  from visit where pcucode ='07934' AND visitno ='188301'
+		      1 Query       SELECT concat(rightcode,': ',`rightname`) as rightname FROM `cright` WHERE `rightcode`='89'
+		      1 Query       SELECT `hosname` FROM `chospital` WHERE `hoscode`='10729'
+		      1 Query       SELECT `visit`.`weight` as weightlast FROM `visit`  WHERE visitdate = (SELECT max(visitdate) FROM `visit`                     WHERE `pcucodeperson`='07934' AND `pid`='177'                           and visitdate <= '2018-02-15'                           and (weight is not null and trim(weight)<>'')) and `pcucodeperson`='07934' AND `pid`='177' and (weight is not null and trim(weight)<>'') LIMIT 1
+		      1 Query       SELECT `visit`.`height` as heightlast FROM `visit`  WHERE visitdate = (SELECT max(visitdate) FROM `visit`                     WHERE `pcucodeperson`='07934' AND `pid`='177'                           and visitdate <= '2018-02-15'                           and (height is not null and trim(height)<>'')) and `pcucodeperson`='07934' AND `pid`='177' and (height is not null and trim(height)<>'') LIMIT 1
+		      1 Query       SELECT `visit`.`waist` as waistlast FROM `visit`  WHERE visitdate = (SELECT max(visitdate) FROM `visit`                     WHERE `pcucodeperson`='07934' AND `pid`='177'                           and visitdate <= '2018-02-15'                           and (waist is not null and trim(waist)<>'')) and `pcucodeperson`='07934' AND `pid`='177' LIMIT 1
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       update visit set bmilevel ='3' where pcucode ='07934' AND visitno ='188301'
+		      1 Query       SELECT DATE_FORMAT(NOW(),'%Y%m%d')
+		      1 Query       SELECT visitdate FROM visit WHERE visitno = ''
+		      1 Query       SELECT CONCAT(d.diseasecode,'-',d.diseasenamethai),d.diseasecode FROM cdisease d where d.diseasecode='!!!!!'
+		      1 Query       SELECT concat(`dxtypecode`,'-',`dxtypedesc`),`dxtypecode`  FROM `cdxtype` WHERE dxtypecode not in('02','03','06')
+		      1 Query       SELECT visitno,diagcode,dxtype,conti,x.appod,appointtype,'','',pcucode,'',  dateupdate,doctordiag FROM visitdiag left join (SELECT min(mvd) as appod,pcu,vn,dac from (SELECT v.appodate mvd,v.pcucode as pcu,v.visitno as vn,v.diagcode as dac  from visitdiagappoint v) as insel GROUP BY pcu,vn,dac ORDER BY mvd) as x ON pcucode = pcu and visitno = vn and diagcode = dac  WHERE visitno =188301 and pcucode ='07934' UNION SELECT 188301,NULL,NULL,NULL,NULL,NULL,null,null,'07934',null,null,null
+		      1 Query       select diagnote from visit where pcucode ='07934' AND visitno ='188301'
+		      1 Query       SELECT drugname,drugcode FROM cdrug  WHERE drugcode = '!!!!!' AND drugtype not in('04','05','91') order by drugname
+		      1 Query       SHOW KEYS FROM `cdrug` FROM `jhcisdb`
+		      1 Query       select formulaname,formulano from sysdrugformula where pcucode='07934' order by formulaname
+		      1 Query       SHOW KEYS FROM `sysdrugformula` FROM `jhcisdb`
+		      1 Query       select if(allergic IS NULL,'...ไม่ระบุการแพ้ยา / อาหาร',allergic) as allergic from person where pcucodeperson ='07934' and pid ='177'
+		      1 Query       select visitdrug.pcucode, visitno, visitdrug.drugcode, unit, realprice,  unit*realprice amt, dose, doctor1, costprice, ifnull(visitdrug.dose,dosedescription) as d,  ifnull(visitdrug.costprice,ifnull(cdrug.cost,'1.00')) as c, dateupdate,'', ifnull(visitdrug.realprice,ifnull(cdrug.sell,'1.00')) as b FROM visitdrug  left outer join cdrug on visitdrug.drugcode = cdrug.drugcode  left outer join sysdrugdose on visitdrug.drugcode = sysdrugdose.drugcode and visitdrug.pcucode=sysdrugdose.pcucode and sysdrugdose.doseno=1  WHERE visitdrug.pcucode = '07934' and  visitno = '188301'    AND drugtype not in('04','05','91')  union select '07934','188301',null,null,null,null,null,null,null,null,null,Now(),null,null
+		      1 Query       select money2 from visit where pcucode = '07934' and visitno='188301'
+		      1 Query       select moneynoclaim from visit where pcucode ='07934' and visitno ='188301'
+		      1 Query       SET NAMES 'UTF8'
+		      1 Query       update visit set money1 = '',money3 = '',money2 = '0.0' ,dateupdate=now()  where pcucode ='07934' and visitno = '188301'
+		      1 Query       SHOW WARNINGS
+		      5 Connect     root@localhost on jhcisdb
+		      5 Query       SET NAMES utf8
+		      5 Query       SET character_set_results = NULL
+		      5 Query       SHOW VARIABLES
+		      5 Query       SHOW WARNINGS
+		      5 Query       SHOW COLLATION
+		      5 Query       SET autocommit=1
+		      5 Query       SELECT CURTIME() FROM office WHERE CURTIME() BETWEEN '08:30' AND '16:30' AND WEEKDAY(CURDATE()) BETWEEN 0 AND 4 LIMIT 1
+		      5 Query       SET NAMES 'UTF8'
+		      5 Query       update visit set timeservice ='1' where pcucode ='07934' AND visitno='188301'
+		      5 Query       SELECT DATE_FORMAT(NOW(),'%Y%m%d')
+		      5 Query       SELECT visitdate FROM visit WHERE visitno = ''
+		      5 Query       SELECT visit.hosmain FROM visit  WHERE visit.pcucodeperson='07934' AND visit.pid='177' AND visit.visitno ='188301'   AND visit.hosmain IN (SELECT village.cup FROM village WHERE village.cup IS NOT NULL AND village.cup<>'' AND village.pcucode='07934')

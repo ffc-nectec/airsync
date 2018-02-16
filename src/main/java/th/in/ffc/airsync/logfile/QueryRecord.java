@@ -1,3 +1,5 @@
+package th.in.ffc.airsync.logfile;
+
 public class QueryRecord {
     private String log;
     private String hash;
@@ -12,10 +14,29 @@ public class QueryRecord {
         this.time = time;
     }
 
+    public QueryRecord(String log, long linenumber) {
+        this(linenumber,"","",log);
+    }
+
+    public void setLog(String log) {
+        this.log = log;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public void setLinenumber(long linenumber) {
+        this.linenumber = linenumber;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     public String getLog() {
         return log;
     }
-
     public String getHash() {
         return hash;
     }
