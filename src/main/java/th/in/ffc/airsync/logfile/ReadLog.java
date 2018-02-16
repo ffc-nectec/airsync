@@ -44,7 +44,18 @@ public class ReadLog {
         this(logfile,realtime,1500);
     }
 
+    public QueryRecord process(QueryRecord record){
+
+        for(Filters filter : filters){
+            filter.process(record);
+            if(record.getLog().equals(""))return record;
+        }
+        return record;
+    }
+
     public void run() throws IOException {
+
+
         ReadTextFile readTextFile = new ReadTextFile(logfile, realtime,delay);
         readTextFile.setListener(record -> {
                 for(Filters filter : filters){

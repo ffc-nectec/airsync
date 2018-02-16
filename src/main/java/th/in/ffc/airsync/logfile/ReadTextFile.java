@@ -12,17 +12,17 @@ public class ReadTextFile {
     ReadTextFile(String fileparth, boolean realtime,long delay) throws FileNotFoundException {
         {
             this.realtime =realtime;
-            textfilepath = new File(fileparth);
+            this.delay=delay;
+            File textfilepath = new File(fileparth);
             bufferReader = new BufferedReader(new FileReader(textfilepath));
         }
     }
 
     interface LogEvent{
-        void process(QueryRecord record) throws IOException;
+        void process(QueryRecord record);
     }
-    public long linenumber = 0;
-    File textfilepath;
-    BufferedReader bufferReader;
+    private long linenumber = 0;
+    private BufferedReader bufferReader;
     private LogEvent listener;
     private boolean realtime;
     private long delay;
@@ -43,7 +43,7 @@ public class ReadTextFile {
                     listener.process(new QueryRecord(line,linenumber++));
                 }
                 try {
-                    if(realtime)Thread.sleep(1500);
+                    if(realtime)Thread.sleep(delay);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
