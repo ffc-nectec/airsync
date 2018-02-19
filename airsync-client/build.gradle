@@ -3,9 +3,8 @@ apply plugin: 'kotlin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':airsync-mysql-log-reader')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'net.sourceforge.javacsv:javacsv:2.0'
-    implementation 'commons-codec:commons-codec:1.11'
 
     testImplementation 'junit:junit:4.12'
 }
