@@ -1,2 +1,3 @@
-rootProject.name = 'ReadMySQL'
+rootProject.name = 'FFC-AirSync'
+include 'airsync-mysql-log-reader'
 
