@@ -14,7 +14,7 @@ import java.util.List;
 @Path("/pcu")
 public class PcuService {
 
-    static private Hashtable<String,Pcu> pcuMap=new Hashtable<String,Pcu>();//ใช้สำหรับทดสอบ
+    static private Hashtable<String,Pcu> pcuMap=new Hashtable<String,Pcu>();
 
     class PcuList{
         List<Pcu> pcu=new ArrayList<Pcu>();
@@ -35,7 +35,9 @@ public class PcuService {
 
         if(mypcu) {
             //pcu.add(new Pcu("ipr",req.getRemoteAddr()+"  "+req.getRemoteHost()));
-            pcu.add(pcuMap.get(req.getRemoteAddr()));
+            Pcu pcutemp=pcuMap.get(req.getRemoteAddr());
+
+            if(pcutemp!=null)pcu.add(pcutemp);
 
         }else {
             //pcu.add(new Pcu("Nectec", "0093kjsdfsadfdasf"));
@@ -44,6 +46,7 @@ public class PcuService {
                 pcu.add(pcu1);
             });
         }
+        if(pcu.size()<1)throw new NotFoundException();
         return Response.status(Response.Status.OK).entity(new PcuList(pcu)).build();
     }
 
@@ -59,7 +62,7 @@ public class PcuService {
         String out = "Pcu Register getRemoteAddr="+req.getRemoteAddr()+" getRemoteHost="+req.getRemoteHost()+" ";
         System.out.println(out);
 
-        return Response.status(Response.Status.OK).entity(out).build();
+        return Response.status(Response.Status.OK).build();
     }
 
 
