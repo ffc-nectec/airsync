@@ -33,6 +33,8 @@ dependencies {
 
 
     //implementation
+    implementation project(':ffc-model')
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "com.google.code.gson:gson:2.8.1"
     compile "org.eclipse.jetty:jetty-server:$jettyVersion"
@@ -47,6 +49,14 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
     compile group: 'org.elasticsearch.client', name: 'transport', version: '6.2.1'
+
+
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
+    implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
+
+
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.8.v20171121'
 
 
 
