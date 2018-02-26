@@ -6,38 +6,39 @@ import java.util.concurrent.Future;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.Test
+import th.`in`.ffc.airsync.api.websocket.AirSyncSocket
 
 class SocketTest {
 
     @Test
-    fun test1(){
+    fun test1() {
 
-        val  uri = URI.create("ws://127.0.0.1:8080/v0/events");
+        val uri = URI.create("ws://127.0.0.1:8080/airsync");
 
         val client = WebSocketClient()
-        try
-        {
-            try
-            {
-                client.start();
+        val socket: AirSyncSocket
+        try {
+            try {
+                client.start()
                 // The socket that receives events
-                val socket = EventSocket()
+                socket = AirSyncSocket()
                 // Attempt Connect
-                val fut : Future<Session> = client.connect(socket,uri);
+                val fut: Future<Session> = client.connect(socket, uri)
                 // Wait for Connect
-                val session : Session = fut.get();
+                val session: Session = fut.get()
                 // Send a message
-                session.getRemote().sendString("Hello");
+                while (true) {
+                    session.getRemote().sendString("Hello")
+                    Thread.sleep(5000)
+                }
                 // Close session
-                session.close();
+                session.close()
+
+            } finally {
+
+                client.stop()
             }
-            finally
-            {
-                client.stop();
-            }
-        }
-        catch (t :Throwable)
-        {
+        } catch (t: Throwable) {
             t.printStackTrace(System.err);
         }
     }

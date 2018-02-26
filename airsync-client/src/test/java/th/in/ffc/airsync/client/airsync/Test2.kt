@@ -7,7 +7,6 @@ import org.junit.Test
 import th.`in`.ffc.airsync.client.airsync.clientsocket.ClientSocket
 import th.`in`.ffc.airsync.client.airsync.clientsocket.ClientSocketManage
 import th.`in`.ffc.module.struct.Pcu
-import th.`in`.ffc.module.struct.QueryAction
 import java.net.URI
 import java.util.*
 import java.util.concurrent.Future

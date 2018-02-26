@@ -19,14 +19,9 @@ class ClientSocketManage {
                 val fut: Future<Session> = client.connect(socket, uri)
                 // Wait for Connect
                 this.session = fut.get()
-                // Send a message
-
-                // Close session
-                //this.session.close()
 
             } finally {
 
-                //client.stop()
             }
         } catch (t: Throwable) {
             t.printStackTrace(System.err)

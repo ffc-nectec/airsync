@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
+import th.`in`.ffc.module.struct.MessageSync
 import th.`in`.ffc.module.struct.Pcu
 import java.util.*
 
@@ -23,23 +24,27 @@ class AirSyncSocket : WebSocketAdapter() {
 
     override fun onWebSocketConnect(sess: Session?) {
         super.onWebSocketConnect(sess)
-        System.out.println("Socket Connected: " + sess)
         this.session= DigestUtils.sha1Hex(sess.toString())
-        println("Session= "+this.session)
+        println("onWebSocketConnect "+this.session)
+
     }
 
     override fun onWebSocketText(message: String?) {
         super.onWebSocketText(message)
-        //println("Session "+session)
-        println("Stage = "+stage)
-        System.out.println("Count:"+(count++)+"\tReceived TEXT message: " + message)
+        println("onWebSocketText " + session)
+        println("Stage = "+stage+" Count:"+(count++)+"\tMessage: " + message)
         if(stage==0){
             pcu = gson.fromJson(message,Pcu::class.java)
-            println("Pcu Name= "+pcu.Name)
+            //println("Pcu Name= "+pcu.Name)
             stage=1
+            val messageOk= MessageSync(200,"H")
+            this.getSession().remote.sendString(gson.toJson(messageOk))
 
         }else if (stage ==1){
             println(message)
+            if(!message.equals("H")){
+
+            }
         }
 
     }
