@@ -4,7 +4,12 @@ apply plugin: 'kotlin'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':airsync-mysql-log-reader')
+    implementation project(':ffc-model')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
+    implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
+
+    compile "com.google.code.gson:gson:2.8.1"
     testImplementation 'junit:junit:4.12'
 }
