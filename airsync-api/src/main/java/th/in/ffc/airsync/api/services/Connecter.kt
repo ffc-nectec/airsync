@@ -4,6 +4,6 @@ import th.`in`.ffc.airsync.api.dao.HashMapsConnecter
 
 class Connecter {
     companion object {
-        var connecter = HashMapsConnecter()
+        //var connecter = HashMapsConnecter()
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/pcu")
+@Path("/pcuold")
 public class PcuService {
 
     static private Hashtable<String,Pcu> pcuMap=new Hashtable<String,Pcu>();
