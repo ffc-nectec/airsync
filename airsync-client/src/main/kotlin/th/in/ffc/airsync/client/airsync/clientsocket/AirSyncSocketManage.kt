@@ -5,10 +5,10 @@ import org.eclipse.jetty.websocket.client.WebSocketClient
 import java.net.URI
 import java.util.concurrent.Future
 
-class ClientSocketManage {
+class AirSyncSocketManage {
     val uri = URI.create("ws://127.0.0.1:8080/airsync");
     val client = WebSocketClient()
-    val socket = ClientSocket()
+    val socket = AirSyncSocket()
     var session: Session? = null
 
     constructor() {

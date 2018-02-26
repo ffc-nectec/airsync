@@ -1,6 +1,6 @@
 package th.`in`.ffc.airsync.api.services
 
-import th.`in`.ffc.module.struct.FfcDevice
+import th.`in`.ffc.module.struct.MobileToken
 import th.`in`.ffc.module.struct.QueryAction
 import java.util.*
 import javax.servlet.http.HttpServletRequest
@@ -20,7 +20,7 @@ class DeviceAction {
 
     @POST
     @Path("/topcu")
-    fun post(@Context req: HttpServletRequest, @DefaultValue("00000000-0000-0000-0000-000000000000") @QueryParam("tricket") tricket: UUID,queryAction: QueryAction){
+    fun post(@Context req: HttpServletRequest, @DefaultValue("00000000-0000-0000-0000-000000000000") @QueryParam("token") tricket: UUID,queryAction: QueryAction){
         Connecter.connecter.sendToPcu(tricket,queryAction)
     }
 
@@ -28,7 +28,7 @@ class DeviceAction {
     @Path("/register")
     fun regis(@Context req: HttpServletRequest) :Response{
 
-        val ffcDevice=FfcDevice(UUID.fromString("00000000-0000-0000-0000-000000000000"),Connecter.connecter.getAllPcu().pcuList.get(0))
+        val ffcDevice= MobileToken(UUID.fromString("00000000-0000-0000-0000-000000000000"),Connecter.connecter.getAllPcu().pcuList.get(0))
 
         Connecter.connecter.mapDevice(ffcDevice)
 

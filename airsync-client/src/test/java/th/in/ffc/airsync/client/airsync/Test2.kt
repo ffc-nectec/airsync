@@ -4,8 +4,8 @@ import com.google.gson.Gson
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.client.WebSocketClient
 import org.junit.Test
-import th.`in`.ffc.airsync.client.airsync.clientsocket.ClientSocket
-import th.`in`.ffc.airsync.client.airsync.clientsocket.ClientSocketManage
+import th.`in`.ffc.airsync.client.airsync.clientsocket.AirSyncSocket
+import th.`in`.ffc.airsync.client.airsync.clientsocket.AirSyncSocketManage
 import th.`in`.ffc.module.struct.Pcu
 import java.net.URI
 import java.util.*
@@ -37,12 +37,12 @@ class Test2 {
         val uri = URI.create("ws://127.0.0.1:8080/airsync");
 
         val client = WebSocketClient()
-        val socket: ClientSocket
+        val socket: AirSyncSocket
         try {
             try {
                 client.start()
                 // The socket that receives events
-                socket = ClientSocket()
+                socket = AirSyncSocket()
                 // Attempt Connect
                 val fut: Future<Session> = client.connect(socket, uri)
                 // Wait for Connect
@@ -67,7 +67,7 @@ class Test2 {
 
     @Test
     fun testAirSyncSocket(){
-        var client = ClientSocketManage()
+        var client = AirSyncSocketManage()
         var pcu = Pcu("112233","Nectec1999", UUID.randomUUID(),false)
         client.sendText(Gson().toJson(pcu))
         Thread.sleep(5000)

@@ -12,13 +12,13 @@ class HashMapsConnecter :PcuDataAccessObject{
     companion object {
         var ipMaps = HashMap<String,Pcu>()
         var uuidMaps = HashMap<UUID,Pcu>()
-        var deviceMaps = HashMap<UUID,FfcDevice>()
+        var deviceMaps = HashMap<UUID, MobileToken>()
         var pcuAction = HashMap<UUID,HashMap<UUID,QueryAction>>()
 
     }
 
-    override fun mapDevice(ffcDevice: FfcDevice) {
-        deviceMaps.put(ffcDevice.tricket,ffcDevice)
+    override fun mapDevice(mobileToken: MobileToken) {
+        deviceMaps.put(mobileToken.token, mobileToken)
     }
     override fun sendToPcu(tricket: UUID, queryAction: QueryAction) {
         val device = findByDeviceTicket(tricket)
@@ -86,9 +86,9 @@ class HashMapsConnecter :PcuDataAccessObject{
         uuidMaps.put(pcu.uuid,pcu)
     }
 
-    override fun insertDevice(device: FfcDevice) {
+    override fun insertDevice(device: MobileToken) {
          //To change body of created functions use File | Settings | File Templates.
-        deviceMaps.put(device.tricket,device)
+        deviceMaps.put(device.token,device)
 
     }
 
@@ -101,7 +101,7 @@ class HashMapsConnecter :PcuDataAccessObject{
         return ipMaps.getValue(ipAddress)
     }
 
-    override fun findByDeviceTicket(tricket: UUID): FfcDevice {
+    override fun findByDeviceTicket(tricket: UUID): MobileToken {
         return deviceMaps.getValue(tricket)
     }
 
