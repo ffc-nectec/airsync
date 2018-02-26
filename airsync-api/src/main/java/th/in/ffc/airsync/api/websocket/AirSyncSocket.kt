@@ -37,12 +37,14 @@ class AirSyncSocket : WebSocketAdapter() {
             pcu = gson.fromJson(message,Pcu::class.java)
             //println("Pcu Name= "+pcu.Name)
             stage=1
-            val messageOk= MessageSync(200,"H")
+            val messageOk= MessageSync(200,message = "H")
             this.getSession().remote.sendString(gson.toJson(messageOk))
 
         }else if (stage ==1){
             println(message)
-            if(!message.equals("H")){
+            if(message.equals("H")){
+                this.getSession().remote.sendString("H")
+            }else{
 
             }
         }
@@ -51,7 +53,7 @@ class AirSyncSocket : WebSocketAdapter() {
 
     override fun onWebSocketClose(statusCode: Int, reason: String?) {
         super.onWebSocketClose(statusCode, reason)
-        System.out.println("Socket Closed: [" + statusCode + "] " + reason)
+        println("Socket Closed: [" + statusCode + "] " + reason)
     }
 
     override fun onWebSocketError(cause: Throwable?) {
