@@ -28,7 +28,7 @@ class HashMapsConnecter :PcuDataAccessObject{
 
         try{
             hashAction=pcuAction.getValue(device.pcu.uuid)
-        }catch (e :java.util.NoSuchElementException){
+        }catch (e :NoSuchElementException){
             hashAction= HashMap<UUID,QueryAction>()/////////////----------------------Remove
         }finally {
             hashAction.put(queryAction.uuidAction,queryAction)

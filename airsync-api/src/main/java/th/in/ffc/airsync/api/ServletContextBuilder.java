@@ -17,9 +17,9 @@ public class ServletContextBuilder {
         jersey.setInitOrder(0);
         context.addServlet(jersey, "/v0/*");
 
-        ServletHolder holderEvents = new ServletHolder("ws-events", SocketServlet.class);
+        ServletHolder holderEvents = new ServletHolder("ws-socket", SocketServlet.class);
         //holderEvents.setInitOrder(1);
-        context.addServlet(holderEvents, "/socket/*");
+        context.addServlet(holderEvents, "/airsync/*");
 
         return context;
     }

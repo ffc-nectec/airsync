@@ -2,11 +2,17 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 
 dependencies {
+    def jettyVersion="9.4.1.v20170120"
+    def jerseyVersion="2.25.1"
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':airsync-mysql-log-reader')
     implementation project(':ffc-model')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
+    // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
+    compile group: 'org.elasticsearch.client', name: 'transport', version: '6.2.1'
+
+    compile "org.eclipse.jetty:jetty-http:$jettyVersion"
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
     implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
 

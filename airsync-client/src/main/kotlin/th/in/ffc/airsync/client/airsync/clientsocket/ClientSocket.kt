@@ -1,19 +1,24 @@
-package th.`in`.ffc.airsync.api.websocket
+package th.`in`.ffc.airsync.client.airsync.clientsocket
 
-
+import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
 
+class ClientSocket : WebSocketAdapter() {
+    var session: String = ""
+    var count = 0
 
-class EventSocket : WebSocketAdapter() {
     override fun onWebSocketConnect(sess: Session?) {
         super.onWebSocketConnect(sess)
         System.out.println("Socket Connected: " + sess)
+        this.session = DigestUtils.sha1Hex(sess.toString())
+        System.out.println("Session= " + this.session)
     }
 
     override fun onWebSocketText(message: String?) {
         super.onWebSocketText(message)
-        System.out.println("Received TEXT message: " + message)
+        System.out.println("Session " + session)
+        System.out.println("Count:" + (count++) + "\tReceived TEXT message: " + message)
     }
 
     override fun onWebSocketClose(statusCode: Int, reason: String?) {

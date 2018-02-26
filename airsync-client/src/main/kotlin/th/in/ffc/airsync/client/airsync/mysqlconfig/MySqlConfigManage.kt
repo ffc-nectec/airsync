@@ -3,7 +3,6 @@ package th.`in`.ffc.airsync.client.airsync.mysqlconfig
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
-import java.util.*
 
 class MySqlConfigManage {
 
