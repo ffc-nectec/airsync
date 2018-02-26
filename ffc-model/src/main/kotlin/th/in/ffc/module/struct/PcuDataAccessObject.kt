@@ -1,5 +1,6 @@
 package th.`in`.ffc.module.struct
 
+import org.eclipse.jetty.websocket.api.Session
 import java.util.*
 import kotlin.collections.ArrayList
 

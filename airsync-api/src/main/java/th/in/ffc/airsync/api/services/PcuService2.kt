@@ -50,7 +50,7 @@ class PcuService2 {
         print("Before = "+ Connecter.connecter.getAllPcu().pcuList.size)
         Connecter.connecter.insert(pcu, req.getRemoteAddr())
         println("After = "+ Connecter.connecter.getAllPcu().pcuList.size)
-        val out = "Pcu Register getRemoteAddr=" + req.remoteAddr + " getRemoteHost=" + req.remoteHost + " "
+        val out = "Pcu RegisterElasticSearch getRemoteAddr=" + req.remoteAddr + " getRemoteHost=" + req.remoteHost + " "
         println(out)
         //var list : Pcu = Connecter.connecter.getAllPcu().get(1)
         //println(list.Code+"\t"+list.Name+"\t"+list.uuid+"\t"+list.haveWork)
@@ -60,7 +60,7 @@ class PcuService2 {
     @GET
     @Path("/template")
     fun getTemplate(): Response {
-        var pcu = Pcu("939923", "nectec", UUID.randomUUID(), false)
+        var pcu = Pcu("939923", "nectec", UUID.randomUUID(), "fsfdsgdsf","127.0.0.1")
         return Response.status(Response.Status.OK).entity(pcu).build()
 
     }

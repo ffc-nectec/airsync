@@ -18,7 +18,7 @@ class AirSyncSocket : WebSocketAdapter() {
     var session : String = ""
     var count = 0
     var stage = 0  //stage 0:init   1:run
-    var pcu :Pcu= Pcu("","", UUID.randomUUID(),false)
+    var pcu :Pcu= Pcu("","", UUID.randomUUID(),"","")
 
 
 

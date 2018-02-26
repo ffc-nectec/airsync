@@ -32,7 +32,7 @@ public class PcuService {
     @GET
     public Response getPcu(@Context HttpServletRequest req, @DefaultValue("false") @QueryParam("mypcu") boolean mypcu){
         List<Pcu> pcu=new ArrayList<Pcu>();
-        String out = "Pcu Register getRemoteAddr="+req.getRemoteAddr()+" getRemoteHost="+req.getRemoteHost()+" ";
+        String out = "Pcu RegisterElasticSearch getRemoteAddr="+req.getRemoteAddr()+" getRemoteHost="+req.getRemoteHost()+" ";
         System.out.println(out);
 
         if(mypcu) {
@@ -61,7 +61,7 @@ public class PcuService {
         pcuMap.put(req.getRemoteAddr(),pcu);
 
 
-        String out = "Pcu Register getRemoteAddr="+req.getRemoteAddr()+" getRemoteHost="+req.getRemoteHost()+" ";
+        String out = "Pcu RegisterElasticSearch getRemoteAddr="+req.getRemoteAddr()+" getRemoteHost="+req.getRemoteHost()+" ";
         System.out.println(out);
 
         return Response.status(Response.Status.OK).build();

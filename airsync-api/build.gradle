@@ -54,6 +54,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
     implementation group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
 
+    // https://mvnrepository.com/artifact/io.searchbox/jest
+    compile group: 'io.searchbox', name: 'jest', version: '2.4.0'
+
 
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.8.v20171121'
