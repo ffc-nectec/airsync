@@ -1,6 +1,30 @@
 apply plugin: 'java'
 apply plugin: 'kotlin'
 
+jar {
+
+    from {
+        configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+
+    }
+
+    destinationDir = file("$rootDir/build/bin")
+
+    manifest { attributes 'Main-Class': 'th.in.ffc.airsync.client.airsync.Main' }
+
+
+
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE*'
+    exclude 'META-INF/LICENSE*'
+    exclude 'about.html'
+
+}
+
 dependencies {
     def jettyVersion="9.4.1.v20170120"
     def jerseyVersion="2.25.1"

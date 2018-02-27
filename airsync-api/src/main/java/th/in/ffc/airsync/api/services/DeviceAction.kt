@@ -1,7 +1,6 @@
 package th.`in`.ffc.airsync.api.services
 
-import th.`in`.ffc.module.struct.MobileToken
-import th.`in`.ffc.module.struct.QueryAction
+import th.`in`.ffc.module.struct.obj.QueryAction
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*

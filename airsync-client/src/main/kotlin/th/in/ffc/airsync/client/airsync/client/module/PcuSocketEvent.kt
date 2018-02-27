@@ -1,16 +1,14 @@
-package th.`in`.ffc.airsync.client.airsync.clientsocket
+package th.`in`.ffc.airsync.client.airsync.client.module
 
-import com.google.gson.Gson
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
-import th.`in`.ffc.module.struct.JhcisUserAuth
-import th.`in`.ffc.module.struct.MessageSync
+import th.`in`.ffc.module.struct.obj.mobiletoken.MobileUserAuth
+import th.`in`.ffc.module.struct.obj.MessageSync
+import java.util.*
 
-class AirSyncSocket : WebSocketAdapter() {
-    companion object {
-        val gson = Gson()
-    }
+class PcuSocketEvent : WebSocketAdapter() {
+
 
     var session: String = ""
     var count = 0
@@ -29,18 +27,22 @@ class AirSyncSocket : WebSocketAdapter() {
         println("Count:" + (count++) + "\tReceived TEXT message: " + message)
 
         if (!message.equals("H")) {
-            val messageSync = gson.fromJson(message, MessageSync::class.java)
+            val messageSync = GsonConvert.gson.fromJson(message, MessageSync::class.java)
             println("Status " + messageSync.status +" Action = "+ messageSync.action+ " Message = " + messageSync.message)
 
+            if(messageSync.action==1){// Action 1 Check username
+                println("Check Auth")
+                val mobileSync= GsonConvert.gson.fromJson(messageSync.message, MobileUserAuth::class.java)
+                if(mobileSync.username.equals("ADM") && mobileSync.password.equals("MDA")){
 
-            if(messageSync.status==1){// Action 1 Check username
-                var jhcisUser=gson.fromJson(messageSync.message, JhcisUserAuth::class.java)
-                if(jhcisUser.username.equals("ADM") && jhcisUser.password.equals("MDA")){
-                    val authPass=MessageSync(200,1, gson.toJson(jhcisUser))
-                    this.getSession().remote.sendString(gson.toJson(authPass))
+                    messageSync.status=200
+                    messageSync.to =UUID.fromString(mobileSync.mobileUuid.toString())
+                    println("Auth pass")
+                }else{
+                    messageSync.status=-1
+                    println("Not pass")
                 }
-
-
+                this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))
             }
 
         }

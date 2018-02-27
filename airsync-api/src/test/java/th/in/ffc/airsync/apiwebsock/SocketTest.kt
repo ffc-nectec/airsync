@@ -6,7 +6,7 @@ import java.util.concurrent.Future;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.client.WebSocketClient;
 import org.junit.Test
-import th.`in`.ffc.airsync.api.websocket.AirSyncSocket
+import th.`in`.ffc.airsync.api.websocket.ApiSocket
 
 class SocketTest {
 
@@ -16,12 +16,12 @@ class SocketTest {
         val uri = URI.create("ws://127.0.0.1:8080/airsync");
 
         val client = WebSocketClient()
-        val socket: AirSyncSocket
+        val socket: ApiSocket
         try {
             try {
                 client.start()
                 // The socket that receives events
-                socket = AirSyncSocket()
+                socket = ApiSocket()
                 // Attempt Connect
                 val fut: Future<Session> = client.connect(socket, uri)
                 // Wait for Connect

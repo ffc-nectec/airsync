@@ -1,6 +1,6 @@
 package th.in.ffc.airsync.api.services;
 
-import th.in.ffc.module.struct.Pcu;
+import th.in.ffc.module.struct.obj.Pcu;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;

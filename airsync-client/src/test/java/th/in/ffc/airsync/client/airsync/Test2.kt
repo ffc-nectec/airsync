@@ -4,9 +4,9 @@ import com.google.gson.Gson
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.client.WebSocketClient
 import org.junit.Test
-import th.`in`.ffc.airsync.client.airsync.clientsocket.AirSyncSocket
-import th.`in`.ffc.airsync.client.airsync.clientsocket.AirSyncSocketManage
-import th.`in`.ffc.module.struct.Pcu
+import th.`in`.ffc.airsync.client.airsync.client.module.PcuSocketEvent
+import th.`in`.ffc.airsync.client.airsync.client.module.PcuSocketEventManage
+import th.`in`.ffc.module.struct.obj.Pcu
 import java.net.URI
 import java.util.*
 import java.util.concurrent.Future
@@ -37,15 +37,15 @@ class Test2 {
         val uri = URI.create("ws://127.0.0.1:8080/airsync");
 
         val client = WebSocketClient()
-        val socket: AirSyncSocket
+        val socket: PcuSocketEvent
         try {
             try {
                 client.start()
                 // The socket that receives events
-                socket = AirSyncSocket()
-                // Attempt Connect
+                socket = PcuSocketEvent()
+                // Attempt Connecter
                 val fut: Future<Session> = client.connect(socket, uri)
-                // Wait for Connect
+                // Wait for Connecter
                 val session: Session = fut.get()
                 // Send a message
                 while (true) {
@@ -66,9 +66,9 @@ class Test2 {
 
 
     @Test
-    fun testAirSyncSocket(){
-        var client = AirSyncSocketManage()
-        var pcu = Pcu("112233","Nectec1999", UUID.randomUUID(),false)
+    fun testAirSyncSocketAndRegister(){
+        var client = PcuSocketEventManage()
+        var pcu = Pcu("112233", "Nectec1999", UUID.randomUUID(), "sadsdafdsaf", "202.99.11.22 ")
         client.sendText(Gson().toJson(pcu))
         Thread.sleep(5000)
         client.sendText(Gson().toJson(pcu))

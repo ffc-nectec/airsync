@@ -1,0 +1,33 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.8
+
+
+dependencies {
+
+    def jettyVersion="9.4.1.v20170120"
+    def jerseyVersion="2.25.1"
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':airsync-mysql-log-reader')
+    implementation project(':ffc-model')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    implementation "com.google.code.gson:gson:2.8.1"
+    implementation "org.eclipse.jetty:jetty-server:$jettyVersion"
+    implementation "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+    implementation "org.eclipse.jetty:jetty-http:$jettyVersion"
+    implementation "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
+    implementation "org.glassfish.jersey.containers:jersey-container-jetty-servlet:$jerseyVersion"
+    implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
+    implementation "args4j:args4j:2.33"
+    implementation "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
+
+    implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+
+
+    testImplementation 'junit:junit:4.12'
+}
+

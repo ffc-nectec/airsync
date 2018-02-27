@@ -1,4 +1,4 @@
-package th.`in`.ffc.module.struct
+package th.`in`.ffc.module.struct.obj
 
 import org.eclipse.jetty.websocket.api.Session
 import java.util.*

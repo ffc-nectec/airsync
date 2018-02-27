@@ -1,4 +1,4 @@
-package th.`in`.ffc.module.struct
+package th.`in`.ffc.module.struct.obj
 
 import java.util.*
 

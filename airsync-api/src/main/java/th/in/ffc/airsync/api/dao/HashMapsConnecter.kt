@@ -1,19 +1,23 @@
 package th.`in`.ffc.airsync.api.dao
 
-import th.`in`.ffc.module.struct.*
+import th.`in`.ffc.module.struct.interfa.PcuDataAccessObject
+import th.`in`.ffc.module.struct.obj.mobiletoken.MobileToken
+import th.`in`.ffc.module.struct.obj.Pcu
+import th.`in`.ffc.module.struct.obj.PcuList
+import th.`in`.ffc.module.struct.obj.QueryAction
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 @Suppress("UNREACHABLE_CODE")
-class HashMapsConnecter :PcuDataAccessObject{
+class HashMapsConnecter : PcuDataAccessObject {
 
 
     companion object {
-        var ipMaps = HashMap<String,Pcu>()
-        var uuidMaps = HashMap<UUID,Pcu>()
+        var ipMaps = HashMap<String, Pcu>()
+        var uuidMaps = HashMap<UUID, Pcu>()
         var deviceMaps = HashMap<UUID, MobileToken>()
-        var pcuAction = HashMap<UUID,HashMap<UUID,QueryAction>>()
+        var pcuAction = HashMap<UUID,HashMap<UUID, QueryAction>>()
 
     }
 
@@ -24,12 +28,12 @@ class HashMapsConnecter :PcuDataAccessObject{
         val device = findByDeviceTicket(tricket)
 
 
-        var hashAction : HashMap<UUID,QueryAction> = HashMap<UUID,QueryAction>()
+        var hashAction : HashMap<UUID, QueryAction> = HashMap<UUID, QueryAction>()
 
         try{
             hashAction=pcuAction.getValue(device.pcu.uuid)
         }catch (e :NoSuchElementException){
-            hashAction= HashMap<UUID,QueryAction>()/////////////----------------------Remove
+            hashAction= HashMap<UUID, QueryAction>()/////////////----------------------Remove
         }finally {
             hashAction.put(queryAction.uuidAction,queryAction)
         }
