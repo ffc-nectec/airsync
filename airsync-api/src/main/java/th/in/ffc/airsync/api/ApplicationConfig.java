@@ -8,10 +8,10 @@ public class ApplicationConfig extends ResourceConfig {
     public ApplicationConfig() {
         packages("th.in.ffc.airsync.api");
 
-        //register(ApiWebSocks.class);
-        //register(JacksonFeature.class);
-        //register(RolesAllowedDynamicFeature.class);
-        //register(CsrfProtectionFilter.class);
+        //store(ApiWebSocks.class);
+        //store(JacksonFeature.class);
+        //store(RolesAllowedDynamicFeature.class);
+        //store(CsrfProtectionFilter.class);
     }
 }
 

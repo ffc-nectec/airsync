@@ -33,7 +33,7 @@ class PcuSocketEvent : WebSocketAdapter() {
             if(messageSync.action==1){// Action 1 Check username
                 println("Check Auth")
                 val mobileSync= GsonConvert.gson.fromJson(messageSync.message, MobileUserAuth::class.java)
-                if(mobileSync.username.equals("ADM") && mobileSync.password.equals("MDA")){
+                if(mobileSync.username.equals("adminffcair") && mobileSync.password.equals("ffc@irffc@ir")){
 
                     messageSync.status=200
                     messageSync.to =UUID.fromString(mobileSync.mobileUuid.toString())
@@ -42,6 +42,10 @@ class PcuSocketEvent : WebSocketAdapter() {
                     messageSync.status=-1
                     println("Not pass")
                 }
+                this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))
+            }else if (messageSync.action==10){//Replay Message
+                println("Replay Message = "+messageSync.message)
+                switSendTo(messageSync)
                 this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))
             }
 
@@ -58,5 +62,10 @@ class PcuSocketEvent : WebSocketAdapter() {
     override fun onWebSocketError(cause: Throwable?) {
         super.onWebSocketError(cause)
         cause!!.printStackTrace(System.err)
+    }
+    private fun switSendTo(messageSync: MessageSync){
+        val uuidBackup = messageSync.to
+        messageSync.to=messageSync.from
+        messageSync.from=uuidBackup
     }
 }

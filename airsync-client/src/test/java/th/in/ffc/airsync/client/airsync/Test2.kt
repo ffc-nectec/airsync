@@ -67,13 +67,13 @@ class Test2 {
 
     @Test
     fun testAirSyncSocketAndRegister(){
-        var client = PcuSocketEventManage()
+        /*var client = PcuSocketEventManage()
         var pcu = Pcu("112233", "Nectec1999", UUID.randomUUID(), "sadsdafdsaf", "202.99.11.22 ")
         client.sendText(Gson().toJson(pcu))
         Thread.sleep(5000)
         client.sendText(Gson().toJson(pcu))
         client.sendText(Gson().toJson(pcu))
-        client.close()
+        client.close()*/
 
     }
 

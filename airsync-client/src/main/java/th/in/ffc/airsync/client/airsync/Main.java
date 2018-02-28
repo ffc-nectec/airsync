@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class Main {
 
-    static Pcu pcuDataTest = new Pcu("207", "คลองหลวง", UUID.fromString(Config.Companion.getPcuUuid()), "", "");
+    static Pcu pcuDataTest = new Pcu("520", "Nectec", UUID.fromString(Config.Companion.getPcuUuid()), "", "");
 
     public static void main(String[] args) {
 

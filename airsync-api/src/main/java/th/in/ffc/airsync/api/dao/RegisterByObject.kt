@@ -1,4 +1,4 @@
-package th.`in`.ffc.airsync.api
+package th.`in`.ffc.airsync.api.dao
 
 import com.google.gson.Gson
 import th.`in`.ffc.module.struct.obj.Pcu

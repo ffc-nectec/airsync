@@ -1,7 +1,7 @@
 package th.`in`.ffc.airsync
 
 import org.junit.Test
-import th.`in`.ffc.airsync.api.RegisterElasticSearch
+import th.`in`.ffc.airsync.api.dao.RegisterElasticSearch
 import th.`in`.ffc.module.struct.obj.Pcu
 import java.util.*
 

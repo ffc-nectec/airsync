@@ -1,4 +1,4 @@
-package th.`in`.ffc.airsync.api
+package th.`in`.ffc.airsync.api.dao
 
 import com.google.gson.Gson
 import org.elasticsearch.action.delete.DeleteResponse
@@ -25,9 +25,9 @@ class RegisterElasticSearch : RegisterDAO {
 
     }
     override fun registerPcu(pcu: Pcu) {
-        insertElastic("airsync","air",pcu.uuid.toString(),gson.toJson(pcu))
-        insertElastic("ipaddress","ip",pcu.ipaddress,gson.toJson(pcu)) //อนาคตต้องเก็บเป็นแบบ list ป้องกัน IP ซ้ำ   ดึงค่ามาอ่าน ตรวจสอบ uuid ถ้าซ้ำ update ถ้าคนละ uuid ให้เพิ่มใน List
-        insertElastic("session","sess",pcu.session,gson.toJson(pcu))
+        insertElastic("airsync","air",pcu.uuid.toString(), gson.toJson(pcu))
+        insertElastic("ipaddress","ip",pcu.ipaddress, gson.toJson(pcu)) //อนาคตต้องเก็บเป็นแบบ list ป้องกัน IP ซ้ำ   ดึงค่ามาอ่าน ตรวจสอบ uuid ถ้าซ้ำ update ถ้าคนละ uuid ให้เพิ่มใน List
+        insertElastic("session","sess",pcu.session, gson.toJson(pcu))
 
     }
 
