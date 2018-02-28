@@ -17,9 +17,9 @@ interface MobileServices {
     fun getAll() : List<Pcu>
     fun getMyPcu(ipAddress : String): List<Pcu>
     fun registerMobile(mobileUserAuth: MobileUserAuth) : MessageSync
-    fun sendAndRecive(messageSync: MessageSync, onReceiveListener : OnReceiveListener, pcu :Pcu = Pcu("","", UUID.randomUUID(),"",""))
+    fun sendAndRecive(messageSync: MessageSync, onReceiveListener: OnReceiveListener, pcu: Pcu = Pcu(UUID.randomUUID()))
 
-    //fun sendPcu(messageSync: MessageSync,onReceiveListener : OnReceiveListener,pcu :Pcu = Pcu("","", UUID.randomUUID(),"",""))
+    //fun sendPcu(messageSync: MessageSync,onReceiveListener : OnReceiveListener,pcu :PcuResource = PcuResource("","", UUID.randomUUID(),"",""))
 
     /*fun recivePcu(message: String){
         onReceiveListener?.onReceive(message)

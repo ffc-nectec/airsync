@@ -1,7 +1,16 @@
 package th.`in`.ffc.module.struct.obj
 
-import org.eclipse.jetty.websocket.api.Session
 import java.util.*
-import kotlin.collections.HashMap
 
-data class Pcu(val Code: String, val Name: String, val uuid: UUID,var session: String,var ipaddress:String)
+data class Pcu(val uuid: UUID = UUID.randomUUID()) {
+    var code: String = "099912"
+    var name: String = "NECTEC"
+
+    constructor(uuid: UUID, code: String, name: String) : this(uuid) {
+        this.code = code
+        this.name = name
+    }
+
+    var session: String? = null
+    var lastKnownIp: String? = null
+}

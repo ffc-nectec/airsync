@@ -1,10 +1,10 @@
 package th.`in`.ffc.airsync.api.websocket.module
 
-import com.google.gson.Gson
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
+import th.`in`.ffc.airsync.api.dao.DaoFactory
 import th.`in`.ffc.airsync.api.dao.GsonConvert
-import th.`in`.ffc.airsync.api.services.Store
+import th.`in`.ffc.airsync.api.dao.PcuDao
 import th.`in`.ffc.airsync.api.websocket.module.PcuService.Companion.connectionMap
 import th.`in`.ffc.airsync.api.websocket.module.PcuService.Companion.gson
 import th.`in`.ffc.airsync.api.websocket.module.PcuService.Companion.mobileHashMap
@@ -18,7 +18,8 @@ class PcuWebSocketService(val sess: Session) : PcuService {
     private var session: String = ""
     private var count = 0
     private var stage = 0  //stage 0:init   1:run
-    private var pcu: Pcu = Pcu("", "", UUID.randomUUID(), "", "")
+    private var pcu: Pcu = Pcu()
+    var pcuDao: PcuDao = DaoFactory().buildPcuDao()
 
     init {
         this.session = DigestUtils.sha1Hex(sess.toString())
@@ -47,9 +48,9 @@ class PcuWebSocketService(val sess: Session) : PcuService {
         } else {
             if (stage == 0) {//Register PCU
                 val pcu = gson.fromJson(message, Pcu::class.java)
-                this.pcu = Pcu(pcu.Code, pcu.Name, UUID.fromString(pcu.uuid.toString()), session, sess.remote.inetSocketAddress.address.hostAddress)
+                this.pcu = pcu
 
-                Store.store.registerPcu(this.pcu)
+                pcuDao.insert(this.pcu)
                 stage = 1
                 val messageConfirmOK = MessageSync(UUID.randomUUID(), UUID.fromString(pcu.uuid.toString()), 200, message = "H")
                 sess.remote.sendString(gson.toJson(messageConfirmOK))
