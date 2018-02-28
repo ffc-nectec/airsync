@@ -17,7 +17,7 @@
 
 package th.`in`.ffc.airsync.api.services.module
 
-import ffc.model.MessageSync
+import ffc.model.Message
 import ffc.model.MobileUserAuth
 import ffc.model.Pcu
 import java.util.*
@@ -32,8 +32,8 @@ interface MobileServices {
 
     fun getAll() : List<Pcu>
     fun getMyPcu(ipAddress : String): List<Pcu>
-    fun registerMobile(mobileUserAuth: MobileUserAuth) : MessageSync
-    fun sendAndRecive(messageSync: MessageSync, onReceiveListener: OnReceiveListener, pcu: Pcu = Pcu(UUID.randomUUID()))
+    fun registerMobile(mobileUserAuth: MobileUserAuth): Message
+    fun sendAndRecive(message: Message, onReceiveListener: OnReceiveListener, pcu: Pcu = Pcu(UUID.randomUUID()))
 
     //fun sendPcu(messageSync: MessageSync,onReceiveListener : OnReceiveListener,pcu :PcuResource = PcuResource("","", UUID.randomUUID(),"",""))
 

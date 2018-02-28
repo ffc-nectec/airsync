@@ -17,7 +17,7 @@
 
 package th.`in`.ffc.airsync.api.websocket.module
 
-import ffc.model.MessageSync
+import ffc.model.Message
 import ffc.model.Pcu
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
@@ -69,12 +69,12 @@ class PcuWebSocketService(val sess: Session) : PcuService {
 
                 pcuDao.insert(this.pcu)
                 stage = 1
-                val messageConfirmOK = MessageSync(UUID.randomUUID(), UUID.fromString(pcu.uuid.toString()), 200, message = "H")
+                val messageConfirmOK = Message(UUID.randomUUID(), UUID.fromString(pcu.uuid.toString()), 200, message = "H")
                 sess.remote.sendString(gson.toJson(messageConfirmOK))
 
             } else if (stage == 1) { //Brocker
                 println(message)
-                val messageSync = GsonConvert.gson.fromJson(message, MessageSync::class.java)
+                val messageSync = GsonConvert.gson.fromJson(message, Message::class.java)
                 println("Status " + messageSync.status + " Action = " + messageSync.action + " Message = " + messageSync.message)
                 mobileHashMap.get(messageSync.to)?.setOnReceiveMessage(GsonConvert.gson.toJson(messageSync))
 

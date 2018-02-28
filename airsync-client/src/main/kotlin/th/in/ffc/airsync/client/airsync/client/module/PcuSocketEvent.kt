@@ -17,7 +17,7 @@
 
 package th.`in`.ffc.airsync.client.airsync.client.module
 
-import ffc.model.MessageSync
+import ffc.model.Message
 import ffc.model.MobileUserAuth
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
@@ -44,10 +44,10 @@ class PcuSocketEvent : WebSocketAdapter() {
         println("Count:" + (count++) + "\tReceived TEXT message: " + message)
 
         if (!message.equals("H")) {
-            val messageSync = GsonConvert.gson.fromJson(message, MessageSync::class.java)
+            val messageSync = GsonConvert.gson.fromJson(message, Message::class.java)
             println("Status " + messageSync.status +" Action = "+ messageSync.action+ " Message = " + messageSync.message)
 
-            if (messageSync.action == MessageSync.Action.REGISTER) {// Action 1 Check username
+            if (messageSync.action == Message.Action.REGISTER) {// Action 1 Check username
                 println("Check Auth")
                 val mobileSync= GsonConvert.gson.fromJson(messageSync.message, MobileUserAuth::class.java)
                 if(mobileSync.username.equals("adminffcair") && mobileSync.password.equals("ffc@irffc@ir")){
@@ -60,7 +60,7 @@ class PcuSocketEvent : WebSocketAdapter() {
                     println("Not pass")
                 }
                 this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))
-            } else if (messageSync.action == MessageSync.Action.PING) {//Replay Message
+            } else if (messageSync.action == Message.Action.PING) {//Replay Message
                 println("Replay Message = "+messageSync.message)
                 switSendTo(messageSync)
                 this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))
@@ -80,9 +80,10 @@ class PcuSocketEvent : WebSocketAdapter() {
         super.onWebSocketError(cause)
         cause!!.printStackTrace(System.err)
     }
-    private fun switSendTo(messageSync: MessageSync){
-        val uuidBackup = messageSync.to
-        messageSync.to=messageSync.from
-        messageSync.from=uuidBackup
+
+    private fun switSendTo(message: Message) {
+        val uuidBackup = message.to
+        message.to = message.from
+        message.from = uuidBackup
     }
 }

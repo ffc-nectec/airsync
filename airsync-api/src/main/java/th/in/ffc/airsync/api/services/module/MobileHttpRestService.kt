@@ -17,7 +17,7 @@
 
 package th.`in`.ffc.airsync.api.services.module
 
-import ffc.model.MessageSync
+import ffc.model.Message
 import ffc.model.Mobile
 import ffc.model.MobileUserAuth
 import ffc.model.Pcu
@@ -25,6 +25,8 @@ import th.`in`.ffc.airsync.api.dao.DaoFactory
 import th.`in`.ffc.airsync.api.dao.GsonConvert
 import th.`in`.ffc.airsync.api.dao.MobileDao
 import th.`in`.ffc.airsync.api.dao.PcuDao
+import th.`in`.ffc.airsync.api.dao.fromJson
+import th.`in`.ffc.airsync.api.dao.toJson
 import th.`in`.ffc.airsync.api.websocket.module.PcuService
 import java.util.*
 
@@ -45,17 +47,17 @@ class MobileHttpRestService : MobileServices {
         return pculist
     }
 
-    override fun registerMobile(mobileUserAuth: MobileUserAuth): MessageSync {
+    override fun registerMobile(mobileUserAuth: MobileUserAuth): Message {
 
-        val message = MessageSync(UUID.fromString(mobileUserAuth.mobileUuid.toString()), UUID.fromString(mobileUserAuth.pcu.uuid.toString()), 0, MessageSync.Action.REGISTER, GsonConvert.gson.toJson(mobileUserAuth))
-        var messageReturn = MessageSync(UUID.randomUUID(), UUID.randomUUID(), -1, MessageSync.Action.NULL, "")
+        val message = Message(mobileUserAuth.mobileUuid, mobileUserAuth.pcu.uuid, 0, Message.Action.REGISTER, mobileUserAuth.toJson())
+        var messageReturn = Message(UUID.randomUUID(), UUID.randomUUID(), -1, Message.Action.NULL, "")
         val pcu = pcuDao.findByUuid(mobileUserAuth.pcu.uuid)
 
         sendAndRecive(message, object : MobileServices.OnReceiveListener {
             override fun onReceive(message: String) {
-                messageReturn = GsonConvert.gson.fromJson(message, MessageSync::class.java)
+                messageReturn = message.fromJson()
                 if (messageReturn.status == 200) {
-                    mobileDao.insert(Mobile(UUID.fromString(messageReturn.to.toString()), pcu))
+                    mobileDao.insert(Mobile(messageReturn.to, pcu))
                     println("Register Mobile " + messageReturn.to.toString())
                 }
             }
@@ -65,21 +67,19 @@ class MobileHttpRestService : MobileServices {
         return messageReturn
     }
 
-
-
-    override fun sendAndRecive(messageSync: MessageSync, onReceiveListener: MobileServices.OnReceiveListener, pcu: Pcu) {
+    override fun sendAndRecive(message: Message, onReceiveListener: MobileServices.OnReceiveListener, pcu: Pcu) {
 
         val pcu2: Pcu
         println("sendAndRecive")
         println("Pcu = "+pcu.session)
 
         if (pcu.session.equals("")) {
-            pcu2 = mobileDao.findByUuid(messageSync.from).pcu
+            pcu2 = mobileDao.findByUuid(message.from).pcu
         } else {
             pcu2 = pcu
         }
         println("Pcu2 = "+pcu2.session)
-        messageSync.to = pcu2.uuid
+        message.to = pcu2.uuid
 
 
         val pcuNetwork = PcuService.connectionMap.get(pcu2.session)
@@ -88,14 +88,14 @@ class MobileHttpRestService : MobileServices {
         if (pcuNetwork != null) {
             var waitReciveData = true
             var count = 0
-            PcuService.mobileHashMap.put(messageSync.from, object : PcuService.onReciveMessage {
+            PcuService.mobileHashMap.put(message.from, object : PcuService.onReciveMessage {
                 override fun setOnReceiveMessage(message: String) {
                     println("messageReceive")
                     onReceiveListener.onReceive(message)
                     waitReciveData = false
                 }
             })
-            pcuNetwork.remote.sendString(GsonConvert.gson.toJson(messageSync))
+            pcuNetwork.remote.sendString(GsonConvert.gson.toJson(message))
             while (waitReciveData && count < 10) {
                 count++
                 Thread.sleep(2000)

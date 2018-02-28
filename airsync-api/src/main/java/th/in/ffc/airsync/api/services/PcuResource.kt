@@ -17,7 +17,7 @@
 
 package th.`in`.ffc.airsync.api.services
 
-import ffc.model.MessageSync
+import ffc.model.Message
 import ffc.model.MobileUserAuth
 import ffc.model.Pcu
 import th.`in`.ffc.airsync.api.dao.DaoFactory
@@ -68,12 +68,12 @@ class PcuResource {
     }
 
     @POST
-    fun post(@Context req: HttpServletRequest, message: MessageSync): Response {
+    fun post(@Context req: HttpServletRequest, message: Message): Response {
         var messageReceive = messagetemplate
         mobileHttpRestService.sendAndRecive(message, object : MobileServices.OnReceiveListener {
             override fun onReceive(messagestr: String) {
                 println("Http POST pcu")
-                messageReceive = GsonConvert.gson.fromJson(messagestr, MessageSync::class.java)
+                messageReceive = GsonConvert.gson.fromJson(messagestr, Message::class.java)
             }
 
         })
@@ -103,6 +103,6 @@ class PcuResource {
         return Response.status(Response.Status.OK).entity(messagetemplate).build()
     }
 
-    private val messagetemplate = MessageSync(UUID.randomUUID(), UUID.randomUUID(), -1, MessageSync.Action.PING)
+    private val messagetemplate = Message(UUID.randomUUID(), UUID.randomUUID(), -1, Message.Action.PING)
 
 }
