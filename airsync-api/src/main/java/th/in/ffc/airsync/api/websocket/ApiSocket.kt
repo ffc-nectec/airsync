@@ -7,6 +7,8 @@ import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
 import th.`in`.ffc.airsync.api.dao.GsonConvert
 import th.`in`.ffc.airsync.api.services.Store
+import th.`in`.ffc.airsync.api.websocket.module.PcuService
+import th.`in`.ffc.airsync.api.websocket.module.PcuWebSocketService
 import th.`in`.ffc.module.struct.obj.MessageSync
 import th.`in`.ffc.module.struct.obj.Pcu
 import java.util.*
@@ -14,56 +16,21 @@ import kotlin.collections.HashMap
 
 
 class ApiSocket : WebSocketAdapter() {
-    interface onReciveMessage {
-        fun setOnReceiveMessage(message: String)
-    }
 
-    companion object {
-        val gson = Gson()
-        val connectionMap = HashMap<String, WebSocketAdapter>()
-        val mobileHashMap = HashMap<UUID, onReciveMessage>()
-    }
-
-
-    var session: String = ""
-    var count = 0
-    var stage = 0  //stage 0:init   1:run
-    var pcu: Pcu = Pcu("", "", UUID.randomUUID(), "", "")
-
+    var pcuService: PcuService? = null
 
     override fun onWebSocketConnect(sess: Session?) {
         super.onWebSocketConnect(sess)
-        this.session = DigestUtils.sha1Hex(sess.toString())
-        connectionMap.put(session, this)
-        println("onWebSocketConnect " + this.session)
-
+        if (sess != null) {
+            pcuService = PcuWebSocketService(sess)
+        }
     }
 
     override fun onWebSocketText(message: String?) {
         super.onWebSocketText(message)
-        println("onWebSocketText " + session)
-        println("Stage = " + stage + " Count:" + (count++) + "\tMessage: " + message)
 
-
-        if (message.equals("H")) {//Heatbeat
-            this.getSession().remote.sendString("H")
-        } else {
-            if (stage == 0) {//Register PCU
-                val pcu = gson.fromJson(message, Pcu::class.java)
-                this.pcu = Pcu(pcu.Code, pcu.Name, UUID.fromString(pcu.uuid.toString()), session, this.remote.inetSocketAddress.address.hostAddress)
-
-                Store.store.registerPcu(this.pcu)
-                stage = 1
-                val messageConfirmOK = MessageSync(UUID.randomUUID(), UUID.fromString(pcu.uuid.toString()), 200, message = "H")
-                this.getSession().remote.sendString(gson.toJson(messageConfirmOK))
-
-            } else if (stage == 1) { //Brocker
-                println(message)
-                val messageSync = GsonConvert.gson.fromJson(message, MessageSync::class.java)
-                println("Status " + messageSync.status + " Action = " + messageSync.action + " Message = " + messageSync.message)
-                mobileHashMap.get(messageSync.to)?.setOnReceiveMessage(GsonConvert.gson.toJson(messageSync))
-
-            }
+        if (message != null) {
+            pcuService?.receiveTextData(message)
         }
 
     }
@@ -77,6 +44,5 @@ class ApiSocket : WebSocketAdapter() {
         super.onWebSocketError(cause)
         cause!!.printStackTrace(System.err)
     }
-
 
 }
