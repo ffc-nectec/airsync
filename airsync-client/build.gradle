@@ -1,10 +1,48 @@
 apply plugin: 'java'
 apply plugin: 'kotlin'
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':airsync-mysql-log-reader')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+jar {
 
+    from {
+        configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+
+    }
+
+    destinationDir = file("$rootDir/build/bin")
+
+    manifest { attributes 'Main-Class': 'th.in.ffc.airsync.client.airsync.Main' }
+
+
+
+    exclude 'META-INF/*.RSA'
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/NOTICE*'
+    exclude 'META-INF/LICENSE*'
+    exclude 'about.html'
+
+}
+
+dependencies {
+    def jettyVersion="9.4.1.v20170120"
+    def jerseyVersion="2.25.1"
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':airsync-mysql-log-reader')
+    compile project(':ffc-model')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+
+    // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
+    compile group: 'org.elasticsearch.client', name: 'transport', version: '6.2.1'
+
+    compile "org.eclipse.jetty:jetty-http:$jettyVersion"
+    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
+    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
+
+    compile "com.google.code.gson:gson:2.8.1"
     testImplementation 'junit:junit:4.12'
 }
