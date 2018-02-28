@@ -3,6 +3,7 @@ package th.`in`.ffc.airsync.api.services.module
 import th.`in`.ffc.airsync.api.dao.GsonConvert
 import th.`in`.ffc.airsync.api.services.Store
 import th.`in`.ffc.airsync.api.websocket.ApiSocket
+import th.`in`.ffc.airsync.api.websocket.module.PcuService
 import th.`in`.ffc.module.struct.obj.MessageSync
 import th.`in`.ffc.module.struct.obj.Pcu
 import th.`in`.ffc.module.struct.obj.mobiletoken.MobileToken
@@ -43,6 +44,8 @@ class MobileHttpRestService : MobileServices {
         return messageReturn
     }
 
+
+
     override fun sendAndRecive(messageSync: MessageSync, onReceiveListener: MobileServices.OnReceiveListener, pcu: Pcu) {
 
         val pcu2: Pcu
@@ -56,20 +59,22 @@ class MobileHttpRestService : MobileServices {
         }
         println("Pcu2 = "+pcu2.session)
         messageSync.to = pcu2.uuid
-        val pcuNetwork = ApiSocket.connectionMap.get(pcu2.session)
+
+
+        val pcuNetwork = PcuService.connectionMap.get(pcu2.session)
 
 
         if (pcuNetwork != null) {
             var waitReciveData = true
             var count = 0
-            ApiSocket.mobileHashMap.put(messageSync.from, object : ApiSocket.onReciveMessage {
+            PcuService.mobileHashMap.put(messageSync.from, object : PcuService.onReciveMessage {
                 override fun setOnReceiveMessage(message: String) {
                     println("messageReceive")
                     onReceiveListener.onReceive(message)
                     waitReciveData = false
                 }
             })
-            pcuNetwork.session.remote.sendString(GsonConvert.gson.toJson(messageSync))
+            pcuNetwork.remote.sendString(GsonConvert.gson.toJson(messageSync))
             while (waitReciveData && count < 10) {
                 count++
                 Thread.sleep(2000)
