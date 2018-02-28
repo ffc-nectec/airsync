@@ -17,11 +17,11 @@
 
 package th.`in`.ffc.airsync.api.dao
 
+import ffc.model.Mobile
 import org.elasticsearch.client.transport.TransportClient
 import org.elasticsearch.common.settings.Settings
 import org.elasticsearch.common.transport.TransportAddress
 import org.elasticsearch.transport.client.PreBuiltTransportClient
-import th.`in`.ffc.module.struct.obj.mobiletoken.Mobile
 import java.net.InetAddress
 import java.util.*
 

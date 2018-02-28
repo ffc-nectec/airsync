@@ -17,7 +17,7 @@
 
 package th.`in`.ffc.airsync.api.dao
 
-import th.`in`.ffc.module.struct.obj.mobiletoken.Mobile
+import ffc.model.Mobile
 import java.util.*
 
 interface MobileDao {

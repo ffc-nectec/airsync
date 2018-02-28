@@ -15,27 +15,19 @@
  * limitations under the License.
  */
 
-package th.`in`.ffc.module.struct.obj
+package ffc.model
 
-import org.junit.Test
 import java.util.*
 
-class PcuTest {
+data class Pcu(val uuid: UUID = UUID.randomUUID()) {
+    var code: String = "099912"
+    var name: String = "NECTEC"
 
-    @Test
-    fun testEqual() {
-        val uuid = UUID.randomUUID()
-        val pcu1 = Pcu(uuid)
-        val pcu2 = Pcu(uuid, "100153", "Nectec41")
-
-        assert(pcu1 == pcu2)
+    constructor(uuid: UUID, code: String, name: String) : this(uuid) {
+        this.code = code
+        this.name = name
     }
 
-    @Test
-    fun testNotEqual() {
-        val pcu1 = Pcu(UUID.randomUUID(), "100154", "Nectec41")
-        val pcu2 = Pcu(UUID.randomUUID(), "100154", "Nectec41")
-
-        assert(pcu1 != pcu2)
-    }
+    var session: String? = null
+    var lastKnownIp: String? = null
 }

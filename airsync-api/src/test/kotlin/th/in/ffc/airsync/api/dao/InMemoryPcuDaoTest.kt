@@ -17,14 +17,13 @@
 
 package th.`in`.ffc.airsync.api.dao
 
+import ffc.model.Pcu
 import org.junit.Test
-
-import th.`in`.ffc.module.struct.obj.Pcu
 import java.util.*
 
 class InMemoryPcuDaoTest {
 
-    private val dao = InMemoryPcuDao()
+    private val dao = InMemoryPcuDao.instance
 
     @Test
     fun findPcuByUuid() {

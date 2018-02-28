@@ -15,15 +15,11 @@
  * limitations under the License.
  */
 
-package th.`in`.ffc.airsync.api.dao
+package ffc.model
 
-import ffc.model.Pcu
 import java.util.*
 
-interface PcuDao {
-    fun insert(pcu: Pcu)
-    fun find(): List<Pcu>
-    fun findByUuid(uuid: UUID): Pcu
-    fun findByIpAddress(ipAddress: String): Pcu
-    fun remove(pcu: Pcu)
-}
+data class MobileUserAuth(val username: String,
+                          val password: String,
+                          val mobileUuid: UUID,
+                          val pcu: Pcu)

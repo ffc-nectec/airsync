@@ -15,15 +15,27 @@
  * limitations under the License.
  */
 
-package th.`in`.ffc.airsync.api.dao
+package ffc.model
 
-import ffc.model.Pcu
+import org.junit.Test
 import java.util.*
 
-interface PcuDao {
-    fun insert(pcu: Pcu)
-    fun find(): List<Pcu>
-    fun findByUuid(uuid: UUID): Pcu
-    fun findByIpAddress(ipAddress: String): Pcu
-    fun remove(pcu: Pcu)
+class PcuTest {
+
+    @Test
+    fun testEqual() {
+        val uuid = UUID.randomUUID()
+        val pcu1 = Pcu(uuid)
+        val pcu2 = Pcu(uuid, "100153", "Nectec41")
+
+        assert(pcu1 == pcu2)
+    }
+
+    @Test
+    fun testNotEqual() {
+        val pcu1 = Pcu(UUID.randomUUID(), "100154", "Nectec41")
+        val pcu2 = Pcu(UUID.randomUUID(), "100154", "Nectec41")
+
+        assert(pcu1 != pcu2)
+    }
 }

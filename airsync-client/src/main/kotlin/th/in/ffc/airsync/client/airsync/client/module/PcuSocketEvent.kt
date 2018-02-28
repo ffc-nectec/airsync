@@ -1,10 +1,27 @@
+/*
+ * Copyright (c) 2018 NECTEC
+ *   National Electronics and Computer Technology Center, Thailand
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package th.`in`.ffc.airsync.client.airsync.client.module
 
+import ffc.model.MessageSync
+import ffc.model.MobileUserAuth
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
-import th.`in`.ffc.module.struct.obj.mobiletoken.MobileUserAuth
-import th.`in`.ffc.module.struct.obj.MessageSync
 import java.util.*
 
 class PcuSocketEvent : WebSocketAdapter() {
@@ -30,7 +47,7 @@ class PcuSocketEvent : WebSocketAdapter() {
             val messageSync = GsonConvert.gson.fromJson(message, MessageSync::class.java)
             println("Status " + messageSync.status +" Action = "+ messageSync.action+ " Message = " + messageSync.message)
 
-            if(messageSync.action==1){// Action 1 Check username
+            if (messageSync.action == MessageSync.Action.REGISTER) {// Action 1 Check username
                 println("Check Auth")
                 val mobileSync= GsonConvert.gson.fromJson(messageSync.message, MobileUserAuth::class.java)
                 if(mobileSync.username.equals("adminffcair") && mobileSync.password.equals("ffc@irffc@ir")){
@@ -43,7 +60,7 @@ class PcuSocketEvent : WebSocketAdapter() {
                     println("Not pass")
                 }
                 this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))
-            }else if (messageSync.action==10){//Replay Message
+            } else if (messageSync.action == MessageSync.Action.PING) {//Replay Message
                 println("Replay Message = "+messageSync.message)
                 switSendTo(messageSync)
                 this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))

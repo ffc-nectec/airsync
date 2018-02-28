@@ -15,15 +15,17 @@
  * limitations under the License.
  */
 
-package th.`in`.ffc.airsync.api.dao
+package ffc.model
 
-import ffc.model.Pcu
 import java.util.*
 
-interface PcuDao {
-    fun insert(pcu: Pcu)
-    fun find(): List<Pcu>
-    fun findByUuid(uuid: UUID): Pcu
-    fun findByIpAddress(ipAddress: String): Pcu
-    fun remove(pcu: Pcu)
+data class MessageSync(var from: UUID,
+                       var to: UUID,
+                       var status: Int,
+                       val action: Action = Action.NULL,
+                       val message: String = "H") {
+
+    enum class Action(code: Int) {
+        REGISTER(1), PING(10), NULL(0)
+    }
 }
