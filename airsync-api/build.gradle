@@ -12,7 +12,7 @@ jar {
 
     destinationDir = file("$rootDir/build/bin")
 
-    manifest { attributes 'Main-Class': 'th.in.ffc.airsync.api.FFCApiServer' }
+    manifest { attributes 'Main-Class': 'ffc.airsync.api.FFCApiServer' }
 
 
 
