@@ -11,4 +11,7 @@ data class MessageSync(var from: UUID,
     enum class Action(code: Int) {
         REGISTER(1), PING(10), NULL(0)
     }
+    enum class Status(code: Int){
+        ERROR(500), SUCC(200),NOTFOUND(404)
+    }
 }
