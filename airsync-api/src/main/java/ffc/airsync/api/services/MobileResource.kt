@@ -33,14 +33,14 @@ import javax.ws.rs.core.Response
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/pcu")
+@Path("/mobile")
 
-class PcuResource {
+class MobileResource {
     companion object {
         val mobileHttpRestService = MobileHttpRestService()
     }
 
-    val pcuDao = DaoFactory().buildPcuDao()
+    private val pcuDao = DaoFactory().buildPcuDao()
 
     @GET
     fun find(@Context req: HttpServletRequest,
@@ -75,7 +75,7 @@ class PcuResource {
     }
 
     @POST
-    @Path("/deviceregister")
+    @Path("/register")
     fun deviceRegister(mobileUserAuth: MobileUserAuth): Response {
         return Response.status(Response.Status.OK).entity(mobileHttpRestService.registerMobile(mobileUserAuth)).build()
     }

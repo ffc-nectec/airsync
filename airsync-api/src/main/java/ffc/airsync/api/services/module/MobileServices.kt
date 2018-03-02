@@ -35,10 +35,4 @@ interface MobileServices {
     fun registerMobile(mobileUserAuth: MobileUserAuth): Message
     fun sendAndRecive(message: Message, onReceiveListener: OnReceiveListener, pcu: Pcu = Pcu(UUID.randomUUID()))
 
-    //fun sendPcu(messageSync: MessageSync,onReceiveListener : OnReceiveListener,pcu :PcuResource = PcuResource("","", UUID.randomUUID(),"",""))
-
-    /*fun recivePcu(message: String){
-        onReceiveListener?.onReceive(message)
-    }*/
-
 }
