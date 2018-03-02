@@ -52,11 +52,11 @@ class PcuSocketEvent : WebSocketAdapter() {
                 val mobileSync= GsonConvert.gson.fromJson(messageSync.message, MobileUserAuth::class.java)
                 if(mobileSync.username.equals("adminffcair") && mobileSync.password.equals("ffc@irffc@ir")){
 
-                    messageSync.status=200
+                    messageSync.status=Message.Status.SUCC
                     messageSync.to =UUID.fromString(mobileSync.mobileUuid.toString())
                     println("Auth pass")
                 }else{
-                    messageSync.status=-1
+                    messageSync.status=Message.Status.ERROR
                     println("Not pass")
                 }
                 this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))

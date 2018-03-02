@@ -18,12 +18,12 @@
 package ffc.airsync.api.websocket.module
 
 import ffc.airsync.api.dao.*
+import ffc.airsync.api.websocket.module.PcuService.Companion.connectionMap
+import ffc.airsync.api.websocket.module.PcuService.Companion.mobileHashMap
 import ffc.model.Message
 import ffc.model.Pcu
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
-import ffc.airsync.api.websocket.module.PcuService.Companion.connectionMap
-import ffc.airsync.api.websocket.module.PcuService.Companion.mobileHashMap
 import java.util.*
 
 class PcuWebSocketService(val sess: Session) : PcuService {
@@ -72,7 +72,7 @@ class PcuWebSocketService(val sess: Session) : PcuService {
                 this.pcu = pcu
                 pcuDao.insert(pcu)
                 stage = 1
-                val messageConfirmOK = Message(UUID.randomUUID(), UUID.fromString(pcu.uuid.toString()), 200, message = "H")
+                val messageConfirmOK = Message(UUID.randomUUID(), UUID.fromString(pcu.uuid.toString()), Message.Status.SUCC, message = "H")
                 sess.remote.sendString(messageConfirmOK.toJson())
 
             } else if (stage == 1) { //Brocker

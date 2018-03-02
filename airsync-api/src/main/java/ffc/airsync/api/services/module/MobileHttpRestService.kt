@@ -17,17 +17,12 @@
 
 package ffc.airsync.api.services.module
 
+import ffc.airsync.api.dao.*
+import ffc.airsync.api.websocket.module.PcuService
 import ffc.model.Message
 import ffc.model.Mobile
 import ffc.model.MobileUserAuth
 import ffc.model.Pcu
-import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.dao.GsonConvert
-import ffc.airsync.api.dao.MobileDao
-import ffc.airsync.api.dao.PcuDao
-import ffc.airsync.api.dao.fromJson
-import ffc.airsync.api.dao.toJson
-import ffc.airsync.api.websocket.module.PcuService
 import java.util.*
 
 class MobileHttpRestService : MobileServices {
@@ -49,8 +44,8 @@ class MobileHttpRestService : MobileServices {
 
     override fun registerMobile(mobileUserAuth: MobileUserAuth): Message {
 
-        val message = Message(mobileUserAuth.mobileUuid, mobileUserAuth.pcu.uuid, 0, Message.Action.REGISTER, mobileUserAuth.toJson())
-        var messageReturn = Message(UUID.randomUUID(), UUID.randomUUID(), -1, Message.Action.NULL, "")
+        val message = Message(mobileUserAuth.mobileUuid, mobileUserAuth.pcu.uuid, Message.Status.DEFAULT, Message.Action.REGISTER, mobileUserAuth.toJson())
+        var messageReturn = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.ERROR, Message.Action.DEFAULT, "")
         println("registerMobile \n Message =" + mobileUserAuth.toJson())
         val pcu = pcuDao.findByUuid(mobileUserAuth.pcu.uuid)
 
@@ -60,7 +55,7 @@ class MobileHttpRestService : MobileServices {
         sendAndRecive(message, object : MobileServices.OnReceiveListener {
             override fun onReceive(message: String) {
                 messageReturn = message.fromJson()
-                if (messageReturn.status == 200) {
+                if (messageReturn.status == Message.Status.SUCC) {
                     mobileDao.insert(Mobile(messageReturn.to, pcu))
                     println("Register Mobile " + messageReturn.to.toString())
                 }
