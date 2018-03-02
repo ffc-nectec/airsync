@@ -17,7 +17,10 @@
 
 package ffc.airsync.api.websocket.module
 
-import ffc.airsync.api.dao.*
+import ffc.airsync.api.dao.DaoFactory
+import ffc.airsync.api.dao.PcuDao
+import ffc.airsync.api.dao.fromJson
+import ffc.airsync.api.dao.toJson
 import ffc.airsync.api.websocket.module.PcuService.Companion.connectionMap
 import ffc.airsync.api.websocket.module.PcuService.Companion.mobileHashMap
 import ffc.model.Message
@@ -77,9 +80,9 @@ class PcuWebSocketService(val sess: Session) : PcuService {
 
             } else if (stage == 1) { //Brocker
                 println(message)
-                val messageSync = GsonConvert.gson.fromJson(message, Message::class.java)
+                val messageSync :Message = message.fromJson()
                 println("Status " + messageSync.status + " Action = " + messageSync.action + " Message = " + messageSync.message)
-                mobileHashMap.get(messageSync.to)?.setOnReceiveMessage(GsonConvert.gson.toJson(messageSync))
+                mobileHashMap.get(messageSync.to)?.setOnReceiveMessage(messageSync.toJson())
 
             }
         }

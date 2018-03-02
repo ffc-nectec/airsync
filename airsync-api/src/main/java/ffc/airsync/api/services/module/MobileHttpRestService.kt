@@ -97,7 +97,7 @@ class MobileHttpRestService : MobileServices {
                     waitReciveData = false
                 }
             })
-            pcuNetwork.remote.sendString(GsonConvert.gson.toJson(message))
+            pcuNetwork.remote.sendString(message.toJson())
             while (waitReciveData && count < 10) {
                 count++
                 Thread.sleep(2000)

@@ -18,7 +18,7 @@
 package ffc.airsync.api.services
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.dao.GsonConvert
+import ffc.airsync.api.dao.fromJson
 import ffc.airsync.api.services.module.MobileHttpRestService
 import ffc.airsync.api.services.module.MobileServices
 import ffc.model.Message
@@ -67,7 +67,7 @@ class PcuResource {
         mobileHttpRestService.sendAndRecive(message, object : MobileServices.OnReceiveListener {
             override fun onReceive(message: String) {
                 println("Http POST pcu")
-                messageReceive = GsonConvert.gson.fromJson(message, Message::class.java)
+                messageReceive  = message.fromJson()
             }
 
         })
