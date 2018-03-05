@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,16 +15,13 @@
  * limitations under the License.
  */
 
-package th.`in`.ffc.airsync.client.airsync.client
+package ffc.airsync.client.client
 
 import ffc.model.Pcu
-import th.`in`.ffc.airsync.client.airsync.client.module.GsonConvert
+import ffc.model.QueryAction
 
-class RegisterPcuToCentral {
-
-    fun register(pcu: Pcu){
-
-        NetworkClient.client.sendText(GsonConvert.gson.toJson(pcu))
-    }
+interface CentralData {
+    fun registerPcu(pcu :Pcu)
+    fun getData() : QueryAction
 
 }

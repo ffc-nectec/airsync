@@ -1,4 +1,4 @@
-package th.`in`.ffc.airsync.client.airsync.client.module
+package ffc.airsync.client.client.module
 
 import com.google.gson.Gson
 

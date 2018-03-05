@@ -1,4 +1,4 @@
-package th.`in`.ffc.airsync.client.airsync.mysqlconfig
+package ffc.airsync.client.mysqlconfig
 
 import java.io.BufferedReader
 import java.io.File

@@ -11,7 +11,7 @@ jar {
 
     destinationDir = file("$rootDir/build/bin")
 
-    manifest { attributes 'Main-Class': 'th.in.ffc.airsync.client.airsync.Main' }
+    manifest { attributes 'Main-Class': 'ffc.airsync.client.Main' }
 
 
 
@@ -44,5 +44,6 @@ dependencies {
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
 
     compile "com.google.code.gson:gson:2.8.1"
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
     testImplementation 'junit:junit:4.12'
 }

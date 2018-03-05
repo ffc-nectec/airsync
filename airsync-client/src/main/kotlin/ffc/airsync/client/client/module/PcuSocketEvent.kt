@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package th.`in`.ffc.airsync.client.airsync.client.module
+package ffc.airsync.client.client.module
 
 import ffc.model.Message
 import ffc.model.MobileUserAuth

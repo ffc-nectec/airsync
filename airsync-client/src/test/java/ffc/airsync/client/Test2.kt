@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package th.`in`.ffc.airsync.client.airsync
+package ffc.airsync.client
 
 import com.google.gson.Gson
+import ffc.airsync.client.client.module.PcuSocketEvent
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.client.WebSocketClient
 import org.junit.Test
-import th.`in`.ffc.airsync.client.airsync.client.module.PcuSocketEvent
 import java.net.URI
 import java.util.*
 import java.util.concurrent.Future

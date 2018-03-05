@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,20 @@
  * limitations under the License.
  */
 
-package th.in.ffc.airsync.client.airsync;
+package ffc.airsync.client;
 
+import ffc.airsync.client.client.Config;
+import ffc.airsync.client.client.HealthConnection;
+import ffc.airsync.client.client.RegisterPcuToCentral;
 import ffc.model.Pcu;
-import th.in.ffc.airsync.client.airsync.client.Config;
-import th.in.ffc.airsync.client.airsync.client.HealthConnection;
-import th.in.ffc.airsync.client.airsync.client.RegisterPcuToCentral;
 
 import java.util.UUID;
 
 public class Main {
 
-    static Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()), "520", "Nectec");
+    static Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()), "520", "Nectec","","","","");
 
+    //Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()),"","");
     public static void main(String[] args) {
         //get config
         //check my.ini

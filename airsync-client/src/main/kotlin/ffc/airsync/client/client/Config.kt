@@ -1,7 +1,6 @@
-package th.`in`.ffc.airsync.client.airsync.client
+package ffc.airsync.client.client
 
 import java.net.URI
-import java.util.*
 
 class Config (){
     companion object {
