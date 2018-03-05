@@ -23,11 +23,26 @@ data class Pcu(val uuid: UUID = UUID.randomUUID()) {
     var code: String = "099912"
     var name: String = "NECTEC"
 
-    constructor(uuid: UUID, code: String, name: String) : this(uuid) {
+
+    constructor(uuid: UUID, code: String, name: String, pcuToken: String? = null, session: String?= null, lastKnownIp: String?= null, centralToken: String?= null) : this(uuid) {
         this.code = code
         this.name = name
+        this.pcuToken=pcuToken
+        this.session=session
+        this.lastKnownIp=lastKnownIp
+        this.centralToken=centralToken
+
     }
+
+
 
     var session: String? = null
     var lastKnownIp: String? = null
+    var pcuToken: String? = null
+    var centralToken: String? =null
+
+    override fun toString(): String {
+        return "Pcu(uuid=$uuid)"
+    }
+
 }

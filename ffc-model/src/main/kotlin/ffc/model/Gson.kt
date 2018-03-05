@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +17,8 @@
 
 package ffc.model
 
-import java.util.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-data class QueryAction(val from: UUID = UUID.randomUUID(), val to: UUID = UUID.randomUUID(), val uuidAction: UUID = UUID.randomUUID(), val sqlQuery: List<String> = java.util.ArrayList()){
-
-    override fun equals(other: Any?): Boolean {
-        val action : QueryAction = other as QueryAction
-        return (action.to == to) && (action.from == from) && (action.uuidAction == uuidAction)
-    }
-}
+fun Any.toJson() = Gson().toJson(this)
+inline fun <reified T> String.fromJson(): T = Gson().fromJson(this, object : TypeToken<T>() {}.type)

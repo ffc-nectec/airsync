@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,10 +15,6 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.model
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-
-fun Any.toJson() = Gson().toJson(this)
-inline fun <reified T> String.fromJson(): T = Gson().fromJson(this, object : TypeToken<T>() {}.type)
+data class TokenMessage (val mobileToken :String)

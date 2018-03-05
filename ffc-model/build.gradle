@@ -12,8 +12,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
-
-
+    compile "com.google.code.gson:gson:2.8.1"
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.8.v20171121'
 
