@@ -17,10 +17,35 @@
 
 package ffc.airsync.api.dao
 
-class DaoFactory(val dev: Boolean = true) {
+import ffc.model.QueryAction
+import java.util.*
 
-    fun buildMobileDao(): MobileDao = if (dev) InMemoryMobileDao.instance else EsMobileDao()
-    fun buildPcuDao(): PcuDao = if (dev) InMemoryPcuDao.instance else EsPcuDao()
-    //fun buildMessageActionDao(): MessageActionDao = if (dev) InMemoryMessageActionDao.instance else EsPcuDao()
+class InMemoryMessageActionDao : MessageActionDao {
+
+    private constructor()
+    val actionList = arrayListOf<QueryAction>()
+
+
+    companion object {
+        val instance = InMemoryMessageActionDao()
+
+    }
+
+    override fun insert(action: QueryAction) {
+        actionList.add(action)
+    }
+
+    override fun next(to: UUID): QueryAction {
+        val action =  actionList.find { it.to == to }
+
+        if(action != null)
+            return action
+        else
+            return QueryAction()
+    }
+
+    override fun remove(action: QueryAction) {
+        actionList.removeIf { it.equals(action) }
+    }
 
 }

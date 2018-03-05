@@ -30,11 +30,11 @@ class EsMobileDao : MobileDao {
       .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"), 9300))
 
     override fun insert(mobile: Mobile) {
-        client.insert("mobile", "token", mobile.token.toString(), mobile.toJson())
+        client.insert("mobile", "pcuToken", mobile.token.toString(), mobile.toJson())
     }
 
     override fun remove(mobile: Mobile) {
-        client.delete("mobile", "token", mobile.token.toString())
+        client.delete("mobile", "pcuToken", mobile.token.toString())
     }
 
     override fun findByUuid(uuid: UUID): Mobile {

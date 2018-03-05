@@ -15,12 +15,25 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.airsync.api.websocket.module
 
-class DaoFactory(val dev: Boolean = true) {
+import org.eclipse.jetty.websocket.api.Session
+import java.util.*
 
-    fun buildMobileDao(): MobileDao = if (dev) InMemoryMobileDao.instance else EsMobileDao()
-    fun buildPcuDao(): PcuDao = if (dev) InMemoryPcuDao.instance else EsPcuDao()
-    //fun buildMessageActionDao(): MessageActionDao = if (dev) InMemoryMessageActionDao.instance else EsPcuDao()
+
+interface PcuEventService  {
+    interface onReciveMessage {
+        fun setOnReceiveMessage(message: String)
+    }
+    companion object {
+        val connectionMap = HashMap<String, Session>()
+        //val gson = Gson()
+        val mobileHashMap = HashMap<UUID, onReciveMessage>()
+
+    }
+
+    fun getSession():String
+    fun receiveTextData(message :String)
+    fun getSessionObject() :Session
 
 }

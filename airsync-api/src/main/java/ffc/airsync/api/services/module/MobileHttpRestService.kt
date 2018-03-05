@@ -18,7 +18,7 @@
 package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.*
-import ffc.airsync.api.websocket.module.PcuService
+import ffc.airsync.api.websocket.module.PcuEventService
 import ffc.model.Message
 import ffc.model.Mobile
 import ffc.model.MobileUserAuth
@@ -50,8 +50,6 @@ class MobileHttpRestService : MobileServices {
         val pcu = pcuDao.findByUuid(mobileUserAuth.pcu.uuid)
 
 
-
-
         sendAndRecive(message, object : MobileServices.OnReceiveListener {
             override fun onReceive(message: String) {
                 messageReturn = message.fromJson()
@@ -81,7 +79,7 @@ class MobileHttpRestService : MobileServices {
         message.to = pcu2.uuid
 
 
-        val pcuNetwork = PcuService.connectionMap.get(pcu2.session)
+        val pcuNetwork = PcuEventService.connectionMap.get(pcu2.session)
 
         println("Mobile find session Pcu = ")
         //print(pcuNetwork!!.remote.inetSocketAddress.hostName)
@@ -90,7 +88,7 @@ class MobileHttpRestService : MobileServices {
             println("pcuNetwork Not Null")
             var waitReciveData = true
             var count = 0
-            PcuService.mobileHashMap.put(message.from, object : PcuService.onReciveMessage {
+            PcuEventService.mobileHashMap.put(message.from, object : PcuEventService.onReciveMessage {
                 override fun setOnReceiveMessage(message: String) {
                     println("messageReceive")
                     onReceiveListener.onReceive(message)

@@ -47,17 +47,24 @@ class MobileResource {
              @DefaultValue("false") @QueryParam("mypcu") mypcu: Boolean = false): List<Pcu> {
 
         val pcuList = arrayListOf<Pcu>()
+        val pcuReturn = arrayListOf<Pcu>()
         if (mypcu) {
             pcuList.add(pcuDao.findByIpAddress(req.getRemoteAddr()))
         } else {
             pcuList.addAll(pcuDao.find())
+
         }
 
         if (pcuList.isEmpty()) {
             throw NotFoundException("Not pcu")
         }
 
-        return pcuList
+        pcuList.forEach {
+            val pcu = Pcu(it.uuid,it.code,it.name)
+            pcuReturn.add(pcu)
+        }
+
+        return pcuReturn
     }
 
     @POST

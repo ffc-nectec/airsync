@@ -21,15 +21,14 @@ import ffc.airsync.api.dao.DaoFactory
 import ffc.airsync.api.dao.PcuDao
 import ffc.airsync.api.dao.fromJson
 import ffc.airsync.api.dao.toJson
-import ffc.airsync.api.websocket.module.PcuService.Companion.connectionMap
-import ffc.airsync.api.websocket.module.PcuService.Companion.mobileHashMap
+import ffc.airsync.api.websocket.module.PcuEventService.Companion.connectionMap
 import ffc.model.Message
 import ffc.model.Pcu
+import ffc.model.TokenMessage
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
-import java.util.*
 
-class PcuWebSocketService(val sess: Session) : PcuService {
+class PcuWebSocketEventService(val sess: Session) : PcuEventService {
 
 
     private var session: String = ""
@@ -62,10 +61,34 @@ class PcuWebSocketService(val sess: Session) : PcuService {
         println("onWebSocketText " + session)
         println("Stage = " + stage + " Count:" + (count++) + "\tMessage: " + message)
 
+        if (stage == 0) {//Register Channel
+            val token :TokenMessage =message.fromJson()
+            val pcu = pcuDao.findByToken(token.mobileToken)
+            if (pcu.centralToken != null)
+            {
+                sess.remote.sendString(TokenMessage(pcu.centralToken.toString()).toJson())
+                stage=1
+            }else{
+                sess.remote.sendString("C")
+            }
 
+
+        }else if (stage == 1) {//Sync
+            if (message.equals("H"))sess.remote.sendString("H")
+            else{
+                val messageSync :Message = message.fromJson()
+            }
+        }
+
+
+
+
+        /*
         if (message.equals("H")) {//Heatbeat
             sess.remote.sendString("H")
-        } else {
+        }
+
+        else {
             //val messageObj: Message = message.fromJson()
             if (stage == 0) {//Register PCU
                 //
@@ -85,6 +108,6 @@ class PcuWebSocketService(val sess: Session) : PcuService {
                 mobileHashMap.get(messageSync.to)?.setOnReceiveMessage(messageSync.toJson())
 
             }
-        }
+        }*/
     }
 }

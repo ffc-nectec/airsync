@@ -18,26 +18,26 @@
 package ffc.airsync.api.websocket
 
 
+import ffc.airsync.api.websocket.module.PcuEventService
+import ffc.airsync.api.websocket.module.PcuWebSocketEventService
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
-import ffc.airsync.api.websocket.module.PcuService
-import ffc.airsync.api.websocket.module.PcuWebSocketService
 
 class ApiSocket : WebSocketAdapter() {
 
-    var pcuService: PcuService? = null
+    var pcuEventService: PcuEventService? = null
 
     override fun onWebSocketConnect(sess: Session?) {
         super.onWebSocketConnect(sess)
         if (sess != null) {
-            pcuService = PcuWebSocketService(sess)
+            pcuEventService = PcuWebSocketEventService(sess)
         }
     }
 
     override fun onWebSocketText(message: String?) {
         super.onWebSocketText(message)
         if (message != null) {
-            pcuService?.receiveTextData(message)
+            pcuEventService?.receiveTextData(message)
         }
 
     }

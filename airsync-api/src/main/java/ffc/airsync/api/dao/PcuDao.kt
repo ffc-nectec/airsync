@@ -25,5 +25,6 @@ interface PcuDao {
     fun find(): List<Pcu>
     fun findByUuid(uuid: UUID): Pcu
     fun findByIpAddress(ipAddress: String): Pcu
+    fun findByToken(token :String) :Pcu
     fun remove(pcu: Pcu)
 }

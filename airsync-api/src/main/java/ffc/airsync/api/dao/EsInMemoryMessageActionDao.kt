@@ -15,26 +15,21 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.websocket.module
+package ffc.airsync.api.dao
 
-import com.google.gson.Gson
-import org.eclipse.jetty.websocket.api.Session
+import ffc.model.QueryAction
 import java.util.*
 
-
-interface PcuService  {
-    interface onReciveMessage {
-        fun setOnReceiveMessage(message: String)
-    }
-    companion object {
-        val connectionMap = HashMap<String, Session>()
-        //val gson = Gson()
-        val mobileHashMap = HashMap<UUID, onReciveMessage>()
-
+class EsInMemoryMessageActionDao : MessageActionDao{
+    override fun insert(action: QueryAction) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    fun getSession():String
-    fun receiveTextData(message :String)
-    fun getSessionObject() :Session
+    override fun next(to: UUID): QueryAction {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override fun remove(action: QueryAction) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

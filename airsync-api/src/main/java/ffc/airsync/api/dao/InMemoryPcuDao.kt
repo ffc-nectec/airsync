@@ -31,6 +31,10 @@ class InMemoryPcuDao : PcuDao {
 
     }
 
+    override fun findByToken(token: String): Pcu {
+        return pcuList.find { it.pcuToken.equals(token) }!!
+    }
+
     override fun insert(pcu: Pcu) {
         if (!pcuList.contains(pcu)) {
             println("Pcu insert InMemoryPcuDao \nPcu data = "+pcu.toJson())

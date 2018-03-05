@@ -35,6 +35,7 @@ class EsPcuDao : PcuDao {
         client.insert("airsync", "air", pcu.uuid.toString(), pcu.toJson())
         pcu.lastKnownIp?.let { client.insert("lastKnownIp", "ip", it, pcu.toJson()) }//อนาคตต้องเก็บเป็นแบบ list ป้องกัน IP ซ้ำ   ดึงค่ามาอ่าน ตรวจสอบ uuid ถ้าซ้ำ update ถ้าคนละ uuid ให้เพิ่มใน List
         pcu.session?.let { client.insert("session", "sess", it, pcu.toJson()) }
+        pcu.pcuToken?.let { client.insert("pcuToken","pcuToken" ,it,pcu.toJson() ) }
     }
 
     override fun remove(pcu: Pcu) {
@@ -42,12 +43,19 @@ class EsPcuDao : PcuDao {
 
         pcu.lastKnownIp?.let { client.delete("lastKnownIp", "ip", it) }
         pcu.session?.let { client.delete("session", "sess", it) }
+        pcu.pcuToken?.let { client.delete("pcuToken","pcuToken" ,it) }
     }
 
     override fun findByUuid(uuid: UUID): Pcu {
         var response = client.get("airsync", "air", uuid.toString())
         println(response.sourceAsString)
         return response.sourceAsString.fromJson()
+    }
+
+    override fun findByToken(token: String): Pcu {
+        val response = client.get("pcuToken","pcuToken",token)
+        return response.sourceAsString.fromJson()
+
     }
 
     override fun findByIpAddress(ipAddress: String): Pcu {

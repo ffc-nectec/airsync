@@ -15,12 +15,14 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.airsync.api.services.module
 
-class DaoFactory(val dev: Boolean = true) {
+import ffc.model.Message
+import ffc.model.Pcu
+import ffc.model.TokenMessage
 
-    fun buildMobileDao(): MobileDao = if (dev) InMemoryMobileDao.instance else EsMobileDao()
-    fun buildPcuDao(): PcuDao = if (dev) InMemoryPcuDao.instance else EsPcuDao()
-    //fun buildMessageActionDao(): MessageActionDao = if (dev) InMemoryMessageActionDao.instance else EsPcuDao()
-
+interface PcuService {
+    fun register(pcu :Pcu,KnownIp :String) :Pcu
+    fun getData(token :TokenMessage) :Message
+    fun sendEventGetData(token :TokenMessage)
 }
