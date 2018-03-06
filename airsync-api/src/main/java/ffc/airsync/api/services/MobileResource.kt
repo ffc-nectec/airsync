@@ -18,12 +18,12 @@
 package ffc.airsync.api.services
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.dao.fromJson
 import ffc.airsync.api.services.module.MobileHttpRestService
 import ffc.airsync.api.services.module.MobileServices
 import ffc.model.Message
 import ffc.model.MobileUserAuth
 import ffc.model.Pcu
+import ffc.model.fromJson
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*

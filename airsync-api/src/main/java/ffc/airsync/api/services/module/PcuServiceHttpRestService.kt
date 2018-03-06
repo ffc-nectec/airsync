@@ -39,7 +39,7 @@ class PcuServiceHttpRestService : PcuService {
 
     override fun sendEventGetData(token: TokenMessage) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        val pcu = pcuDao.findByToken(token.mobileToken)
+        val pcu = pcuDao.findByToken(token.token)
         if(pcu.session != null) {
             val session = pcu.session
         }

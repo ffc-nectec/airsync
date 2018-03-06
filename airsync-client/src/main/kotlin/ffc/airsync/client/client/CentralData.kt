@@ -21,7 +21,7 @@ import ffc.model.Pcu
 import ffc.model.QueryAction
 
 interface CentralData {
-    fun registerPcu(pcu :Pcu)
+    fun registerPcu(pcu :Pcu, url :String) :Pcu
     fun getData() : QueryAction
 
 }

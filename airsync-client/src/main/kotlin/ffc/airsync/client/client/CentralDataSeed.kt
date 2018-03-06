@@ -19,13 +19,40 @@ package ffc.airsync.client.client
 
 import ffc.model.Pcu
 import ffc.model.QueryAction
+import ffc.model.fromJson
+import ffc.model.toJson
+import okhttp3.*
 
 class CentralDataSeed : CentralData {
-    override fun registerPcu(pcu: Pcu) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    val JSON = MediaType.parse("application/json; charset=utf-8")
+    val client = OkHttpClient()
+
+    override fun registerPcu(pcu: Pcu,url :String) :Pcu {
+        val pcu :Pcu = putToServer(url,pcu.toJson()).body()!!.string().fromJson()
+        return pcu
     }
 
     override fun getData(): QueryAction {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun postToServer(url :String, json:String) :Response{
+        val body = RequestBody.create(JSON, json)
+        val request = Request.Builder()
+          .url(url)
+          .post(body)
+          .build()
+        val response = client.newCall(request).execute();
+        return response
+    }
+    private fun putToServer(url :String, json:String) :Response{
+        val body = RequestBody.create(JSON, json)
+        val request = Request.Builder()
+          .url(url)
+          .put(body)
+          .build()
+        val response = client.newCall(request).execute();
+        return response
     }
 }

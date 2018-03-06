@@ -19,12 +19,11 @@ package ffc.airsync.api.websocket.module
 
 import ffc.airsync.api.dao.DaoFactory
 import ffc.airsync.api.dao.PcuDao
-import ffc.airsync.api.dao.fromJson
-import ffc.airsync.api.dao.toJson
 import ffc.airsync.api.websocket.module.PcuEventService.Companion.connectionMap
-import ffc.model.Message
 import ffc.model.Pcu
 import ffc.model.TokenMessage
+import ffc.model.fromJson
+import ffc.model.toJson
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 
@@ -63,20 +62,20 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
 
         if (stage == 0) {//Register Channel
             val token :TokenMessage =message.fromJson()
-            val pcu = pcuDao.findByToken(token.mobileToken)
+            val pcu = pcuDao.findByToken(token.token)
             if (pcu.centralToken != null)
             {
                 sess.remote.sendString(TokenMessage(pcu.centralToken.toString()).toJson())
                 stage=1
             }else{
-                sess.remote.sendString("C")
+                throw SecurityException("Cannot handcheck")
             }
 
 
         }else if (stage == 1) {//Sync
             if (message.equals("H"))sess.remote.sendString("H")
             else{
-                val messageSync :Message = message.fromJson()
+
             }
         }
 

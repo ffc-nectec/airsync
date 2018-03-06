@@ -17,4 +17,4 @@
 
 package ffc.model
 
-data class TokenMessage (val mobileToken :String)
+data class TokenMessage (val token :String)

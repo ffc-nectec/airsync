@@ -17,19 +17,20 @@
 
 package ffc.airsync.client.client.module
 
+import ffc.airsync.client.Main
 import ffc.model.Message
-import ffc.model.MobileUserAuth
+import ffc.model.TokenMessage
+import ffc.model.fromJson
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
-import java.util.*
 
 class PcuSocketEvent : WebSocketAdapter() {
 
 
     var session: String = ""
     var count = 0
-    var clientStatus = 0
+    var stage = 0
 
     override fun onWebSocketConnect(sess: Session?) {
         super.onWebSocketConnect(sess)
@@ -44,7 +45,25 @@ class PcuSocketEvent : WebSocketAdapter() {
         println("Count:" + (count++) + "\tReceived TEXT message: " + message)
 
         if (!message.equals("H")) {
-            val messageSync = GsonConvert.gson.fromJson(message, Message::class.java)
+            if (stage==0){//handcheck
+
+                val centraltoken :TokenMessage = message!!.fromJson()
+                println("Clent handcheck central recive token = "+centraltoken)
+                if(centraltoken.token.equals(Main.pcuDataTest.centralToken)){
+                    println("Auth pass handcheck")
+                    stage = 1
+                }else
+                {
+                    throw SecurityException("Cannot handcheck")
+                }
+            }else{//Message Receive
+                println("Message Receiver Stage = " + stage +"Message = "+message)
+                if(message.equals("X")){
+                    //Call get message Thread sync
+                }
+            }
+
+            /*val messageSync = GsonConvert.gson.fromJson(message, Message::class.java)
             println("Status " + messageSync.status +" Action = "+ messageSync.action+ " Message = " + messageSync.message)
 
             if (messageSync.action == Message.Action.REGISTER) {// Action 1 Check username
@@ -64,7 +83,7 @@ class PcuSocketEvent : WebSocketAdapter() {
                 println("Replay Message = "+messageSync.message)
                 switSendTo(messageSync)
                 this.getSession().remote.sendString(GsonConvert.gson.toJson(messageSync))
-            }
+            }*/
 
         }
 

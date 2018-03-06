@@ -18,6 +18,7 @@
 package ffc.airsync.api.dao
 
 import ffc.model.Pcu
+import ffc.model.toJson
 import java.util.*
 
 class InMemoryPcuDao : PcuDao {
@@ -34,6 +35,7 @@ class InMemoryPcuDao : PcuDao {
     override fun findByToken(token: String): Pcu {
         return pcuList.find { it.pcuToken.equals(token) }!!
     }
+
 
     override fun insert(pcu: Pcu) {
         if (!pcuList.contains(pcu)) {

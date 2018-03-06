@@ -17,12 +17,27 @@
 
 package ffc.airsync.client.client
 
+import ffc.airsync.client.Main
+import ffc.model.TokenMessage
+import ffc.model.toJson
+
 class HealthConnection() {
+
+
+
+
+
     companion object {
         private var runLoop = false
         private val thread = Thread(Runnable {
+            var state=0
             while (true) {
                 if(runLoop) {
+                    if (state==0)
+                    {
+                        NetworkClient.client.sendText(TokenMessage(Main.pcuDataTest.pcuToken!!).toJson())
+                        state=1
+                    }
                     NetworkClient.client.sendText("H")
                 }
                 Thread.sleep(5000)

@@ -18,6 +18,8 @@
 package ffc.airsync.api.dao
 
 import ffc.model.Mobile
+import ffc.model.fromJson
+import ffc.model.toJson
 import java.util.*
 
 class InMemoryMobileDao : MobileDao {

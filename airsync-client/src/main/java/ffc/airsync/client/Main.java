@@ -17,16 +17,17 @@
 
 package ffc.airsync.client;
 
+import ffc.airsync.client.client.CentralDataSeed;
 import ffc.airsync.client.client.Config;
 import ffc.airsync.client.client.HealthConnection;
-import ffc.airsync.client.client.RegisterPcuToCentral;
 import ffc.model.Pcu;
 
 import java.util.UUID;
 
 public class Main {
 
-    static Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()), "520", "Nectec","","","","");
+    public static Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()), "520", "Nectec","","","","");
+
 
     //Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()),"","");
     public static void main(String[] args) {
@@ -35,7 +36,9 @@ public class Main {
         //check log resume
         //check database connection
         //register central
-        new RegisterPcuToCentral().register(pcuDataTest);
+        //old new RegisterPcuToCentral().register(pcuDataTest);
+        pcuDataTest = new CentralDataSeed().registerPcu(pcuDataTest,Config.Companion.getUrlRest());
+
         //heal connection to central
         HealthConnection healConnection = new HealthConnection();
         healConnection.start();
