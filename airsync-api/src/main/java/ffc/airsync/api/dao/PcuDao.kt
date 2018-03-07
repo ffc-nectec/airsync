@@ -27,4 +27,5 @@ interface PcuDao {
     fun findByIpAddress(ipAddress: String): Pcu
     fun findByToken(token :String) :Pcu
     fun remove(pcu: Pcu)
+    fun updateToken(pcu: Pcu): Pcu
 }

@@ -42,7 +42,9 @@ class InMemoryPcuDao : PcuDao {
             println("Pcu insert InMemoryPcuDao \nPcu data = "+pcu.toJson())
             pcuList.add(pcu)
             println("Test get Pcu Before insert\nPcu data ="+findByUuid(pcu.uuid).toJson())
-
+        }else{
+            pcuList.remove(pcu)
+            insert(pcu)
         }
     }
 
@@ -54,6 +56,7 @@ class InMemoryPcuDao : PcuDao {
         //return pcuList.find { it.uuid }
     }
 
+
     override fun findByIpAddress(ipAddress: String): Pcu {
         return pcuList.find { it.lastKnownIp == ipAddress }!!
     }
@@ -64,5 +67,13 @@ class InMemoryPcuDao : PcuDao {
 
     override fun find(): List<Pcu> {
         return pcuList.toList()
+    }
+
+    override fun updateToken(pcu: Pcu): Pcu {
+        val pcuFind = findByUuid(pcu.uuid)
+        pcuFind.centralToken = UUID.randomUUID().toString()
+        pcuFind.pcuToken = UUID.randomUUID().toString()
+        insert(pcuFind)
+        return pcuFind
     }
 }

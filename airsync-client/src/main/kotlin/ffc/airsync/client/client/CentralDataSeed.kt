@@ -29,8 +29,8 @@ class CentralDataSeed : CentralData {
     val client = OkHttpClient()
 
     override fun registerPcu(pcu: Pcu,url :String) :Pcu {
-        val pcu :Pcu = putToServer(url,pcu.toJson()).body()!!.string().fromJson()
-        return pcu
+        val pcu2:Pcu  = putToServer(url,pcu.toJson()).body()!!.string().fromJson()
+        return pcu2
     }
 
     override fun getData(): QueryAction {

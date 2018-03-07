@@ -74,5 +74,12 @@ class EsPcuDao : PcuDao {
         return pcuList
     }
 
+    override fun updateToken(pcu: Pcu): Pcu {
+        val pcuFind = findByUuid(pcu.uuid)
+        pcuFind.centralToken = UUID.randomUUID().toString()
+        pcuFind.pcuToken = UUID.randomUUID().toString()
+        insert(pcuFind)
+        return pcuFind
+    }
 }
 

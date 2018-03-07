@@ -19,7 +19,8 @@ package ffc.airsync.client;
 
 import ffc.airsync.client.client.CentralDataSeed;
 import ffc.airsync.client.client.Config;
-import ffc.airsync.client.client.HealthConnection;
+import ffc.airsync.client.client.module.PcuSocket;
+import ffc.airsync.client.client.module.PcuSocketAuthByToken;
 import ffc.model.Pcu;
 
 import java.util.UUID;
@@ -35,13 +36,18 @@ public class Main {
         //check my.ini
         //check log resume
         //check database connection
+
+
         //register central
-        //old new RegisterPcuToCentral().register(pcuDataTest);
         pcuDataTest = new CentralDataSeed().registerPcu(pcuDataTest,Config.Companion.getUrlRest());
+        PcuSocket socket = new PcuSocketAuthByToken(Config.Companion.getUri());
+        socket.connect();
+        socket.join();
+
 
         //heal connection to central
-        HealthConnection healConnection = new HealthConnection();
-        healConnection.start();
-        healConnection.join();
+        //HealthConnection healConnection = new HealthConnection();
+        //healConnection.start();
+        //healConnection.join();
     }
 }

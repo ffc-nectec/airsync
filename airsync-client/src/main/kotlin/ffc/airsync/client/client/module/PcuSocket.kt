@@ -15,16 +15,21 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client
+package ffc.airsync.client.client.module
 
-import ffc.airsync.client.client.module.GsonConvert
-import ffc.model.Pcu
-
-class RegisterPcuToCentral {
-
-    fun register(pcu: Pcu){
-
-        NetworkClient.client.sendText(GsonConvert.gson.toJson(pcu))
+interface PcuSocket {
+    interface OnEventCallbackMessageListener{
+        fun EventCallBackMessage(message :String)
     }
 
+    fun sendText(message :String)
+    fun receiveMessage(message :String,count :Long)
+    fun join()
+
+
+    var eventCallBack : OnEventCallbackMessageListener
+
+
+    fun connect()
+    fun close()
 }

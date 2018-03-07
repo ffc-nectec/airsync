@@ -75,38 +75,14 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
         }else if (stage == 1) {//Sync
             if (message.equals("H"))sess.remote.sendString("H")
             else{
+                val messageerr: String = ("Connection not H IP="+ pcu.lastKnownIp
+                +" Pcu code = "+pcu.code
+                +" Pcu name = "+pcu.name
+                + " Pcu uuid = "+pcu.uuid)
+
+                throw SecurityException(messageerr)
 
             }
         }
-
-
-
-
-        /*
-        if (message.equals("H")) {//Heatbeat
-            sess.remote.sendString("H")
-        }
-
-        else {
-            //val messageObj: Message = message.fromJson()
-            if (stage == 0) {//Register PCU
-                //
-                val pcu :Pcu =message.fromJson()
-                pcu.session=this.session
-                pcu.lastKnownIp=sess.remoteAddress.hostName
-                this.pcu = pcu
-                pcuDao.insert(pcu)
-                stage = 1
-                val messageConfirmOK = Message(UUID.randomUUID(), UUID.fromString(pcu.uuid.toString()), Message.Status.SUCC, message = "H")
-                sess.remote.sendString(messageConfirmOK.toJson())
-
-            } else if (stage == 1) { //Brocker
-                println(message)
-                val messageSync :Message = message.fromJson()
-                println("Status " + messageSync.status + " Action = " + messageSync.action + " Message = " + messageSync.message)
-                mobileHashMap.get(messageSync.to)?.setOnReceiveMessage(messageSync.toJson())
-
-            }
-        }*/
     }
 }

@@ -18,7 +18,7 @@
 package ffc.airsync.client
 
 import com.google.gson.Gson
-import ffc.airsync.client.client.module.PcuSocketEvent
+import ffc.airsync.client.client.module.BaseNetworkSocket
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.client.WebSocketClient
 import org.junit.Test
@@ -52,12 +52,12 @@ class Test2 {
         val uri = URI.create("ws://127.0.0.1:8080/airsync");
 
         val client = WebSocketClient()
-        val socket: PcuSocketEvent
+        val socket: BaseNetworkSocket
         try {
             try {
                 client.start()
                 // The socket that receives events
-                socket = PcuSocketEvent()
+                socket = BaseNetworkSocket()
                 // Attempt Connecter
                 val fut: Future<Session> = client.connect(socket, uri)
                 // Wait for Connecter
@@ -67,7 +67,7 @@ class Test2 {
                     session.getRemote().sendString("Hello")
                     Thread.sleep(5000)
                 }
-                // Close session
+                // Close sessionObj
                 session.close()
 
             } finally {
