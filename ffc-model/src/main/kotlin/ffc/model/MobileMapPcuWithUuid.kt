@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,11 +19,4 @@ package ffc.model
 
 import java.util.*
 
-data class MobileUserAuth(val username: String,
-                          val password: String,
-                          val mobileUuid: UUID,
-                          val pcu: Pcu){
-    fun getKey():String{
-        return pcu.uuid.toString()+"_"+mobileUuid
-    }
-}
+data class MobileMapPcuWithUuid(val mobileUuid : UUID,val pcuUuid : UUID)

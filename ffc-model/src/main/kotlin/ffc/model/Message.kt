@@ -19,8 +19,8 @@ package ffc.model
 
 import java.util.*
 
-data class Message(var from: UUID,
-                   var to: UUID,
+data class Message(var from: UUID = UUID.randomUUID(),
+                   var to: UUID = UUID.randomUUID(),
                    var status: Status = Status.DEFAULT,
                    val action: Action = Action.DEFAULT,
                    val message: String = "H") {

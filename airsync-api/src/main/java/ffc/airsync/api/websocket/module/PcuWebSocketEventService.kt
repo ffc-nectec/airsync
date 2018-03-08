@@ -66,6 +66,8 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
             if (pcu.centralToken != null)
             {
                 sess.remote.sendString(TokenMessage(pcu.centralToken.toString()).toJson())
+                //connectionMap.put(session,sess)
+                pcu.session=session
                 stage=1
             }else{
                 throw SecurityException("Cannot handcheck")
@@ -74,14 +76,12 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
 
         }else if (stage == 1) {//Sync
             if (message.equals("H"))sess.remote.sendString("H")
-            else{
+            else{// Throw
                 val messageerr: String = ("Connection not H IP="+ pcu.lastKnownIp
                 +" Pcu code = "+pcu.code
                 +" Pcu name = "+pcu.name
                 + " Pcu uuid = "+pcu.uuid)
-
                 throw SecurityException(messageerr)
-
             }
         }
     }

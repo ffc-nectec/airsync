@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,19 @@
  * limitations under the License.
  */
 
-package ffc.model
+package ffc.airsync.api.dao
 
-import java.util.*
+import ffc.model.MobileMapPcuWithUuid
+import ffc.model.MobileUserAuth
+import ffc.model.Pcu
 
-data class MobileUserAuth(val username: String,
-                          val password: String,
-                          val mobileUuid: UUID,
-                          val pcu: Pcu){
-    fun getKey():String{
-        return pcu.uuid.toString()+"_"+mobileUuid
-    }
+interface UserAuthDao {
+    fun insert(mobileUserAuth: MobileUserAuth)
+    fun remove(mobileUserAuth: MobileUserAuth)
+    fun findByPcu(pcu: Pcu) :MobileUserAuth
+    fun updateStatusPass(mobileUserAuth: MobileUserAuth)
+    fun updateStatusPass(mapMobileObject : MobileMapPcuWithUuid)
+    fun updateStatusNotPass(mobileUserAuth: MobileUserAuth)
+    fun updateStatusNotPass(mapMobileObject : MobileMapPcuWithUuid)
+
 }

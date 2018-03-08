@@ -21,6 +21,8 @@ class DaoFactory(val dev: Boolean = true) {
 
     fun buildMobileDao(): MobileDao = if (dev) InMemoryMobileDao.instance else EsMobileDao()
     fun buildPcuDao(): PcuDao = if (dev) InMemoryPcuDao.instance else EsPcuDao()
-    //fun buildMessageActionDao(): MessageActionDao = if (dev) InMemoryMessageActionDao.instance else EsPcuDao()
+    fun buildMessageActionDao(): MessageActionDao = InMemoryMessageActionDao.instance
+    fun buildUserAuthDao(): UserAuthDao = InMemoryUserAuthDao.instance
+
 
 }

@@ -18,7 +18,7 @@
 package ffc.airsync.api.services
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.services.module.MobileHttpRestService
+import ffc.airsync.api.services.module.MobileHttpRestServiceV2
 import ffc.airsync.api.services.module.MobileServices
 import ffc.model.Message
 import ffc.model.MobileUserAuth
@@ -37,7 +37,7 @@ import javax.ws.rs.core.Response
 
 class MobileResource {
     companion object {
-        val mobileHttpRestService = MobileHttpRestService()
+        val mobileHttpRestService = MobileHttpRestServiceV2()
     }
 
     private val pcuDao = DaoFactory().buildPcuDao()
