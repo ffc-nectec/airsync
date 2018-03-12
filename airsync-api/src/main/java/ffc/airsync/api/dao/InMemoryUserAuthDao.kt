@@ -17,15 +17,16 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.MobileMapPcuWithUuid
+import ffc.model.MobileRoutePcu
 import ffc.model.MobileUserAuth
 import ffc.model.Pcu
+import java.util.*
 
 class InMemoryUserAuthDao :UserAuthDao {
 
     private constructor()
     private val userList = arrayListOf<MobileUserAuth>()
-    private val userPass = arrayListOf<MobileMapPcuWithUuid>()
+    private val userPass = arrayListOf<MobileRoutePcu>()
 
 
     companion object {
@@ -38,6 +39,11 @@ class InMemoryUserAuthDao :UserAuthDao {
         remove(mobileUserAuth)
         userList.add(mobileUserAuth)
 
+    }
+
+    override fun find(mobileUserAuth: MobileUserAuth) : MobileUserAuth? {
+        val userAuth = userList.find { it.getKey() == mobileUserAuth.getKey() }
+        return userAuth
     }
 
     override fun remove(mobileUserAuth: MobileUserAuth) {
@@ -62,25 +68,37 @@ class InMemoryUserAuthDao :UserAuthDao {
 
     }
 
+    override fun findRouteByMobileUuid(mobileUUID: UUID): MobileRoutePcu {
+
+        val mobileRoutePcu = userPass.find { it.mobileUuid==mobileUUID }
+        if(mobileRoutePcu != null)
+            return mobileRoutePcu
+
+        throw NoSuchElementException("Not found mobile routing to pcu.")
+
+    }
+
     override fun updateStatusPass(mobileUserAuth: MobileUserAuth) {
-        val userAuth = userList.find { it.getKey() == mobileUserAuth.getKey() }
+
+        val userAuth = find(mobileUserAuth)
         if(userAuth != null) {
-            updateStatusPass(MobileMapPcuWithUuid(mobileUuid = userAuth.mobileUuid, pcuUuid = userAuth.pcu.uuid))
+            updateStatusPass(MobileRoutePcu(mobileUuid = userAuth.mobileUuid, pcuUuid = userAuth.pcu.uuid))
         }
 
     }
-    override fun updateStatusPass(mapMobileObject: MobileMapPcuWithUuid) {
+    override fun updateStatusPass(mapMobileObject: MobileRoutePcu) {
+        userList.removeIf { it.mobileUuid==mapMobileObject.mobileUuid }
         userPass.add(mapMobileObject)
     }
 
     override fun updateStatusNotPass(mobileUserAuth: MobileUserAuth) {
 
-        updateStatusNotPass(MobileMapPcuWithUuid(mobileUuid = mobileUserAuth.mobileUuid , pcuUuid = mobileUserAuth.pcu.uuid))
+        updateStatusNotPass(MobileRoutePcu(mobileUuid = mobileUserAuth.mobileUuid , pcuUuid = mobileUserAuth.pcu.uuid))
     }
 
 
 
-    override fun updateStatusNotPass(mapMobileObject: MobileMapPcuWithUuid) {
+    override fun updateStatusNotPass(mapMobileObject: MobileRoutePcu) {
         userPass.removeIf { it==mapMobileObject }
     }
 }

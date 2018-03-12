@@ -28,6 +28,8 @@ interface PcuService {
 
 
     fun getMobileUser(pcu: Pcu):List<MobileUserAuth>
+    fun setUserPass(userAuth :MobileUserAuth)
+    fun setUserNotPass(userAuth: MobileUserAuth)
 
 
     fun sendEventGetData(token :TokenMessage)

@@ -17,7 +17,7 @@
 
 package ffc.airsync.client.client.module
 
-import ffc.airsync.client.Main
+import ffc.model.Pcu
 import ffc.model.TokenMessage
 import ffc.model.fromJson
 import ffc.model.toJson
@@ -26,17 +26,19 @@ import org.eclipse.jetty.websocket.client.WebSocketClient
 import java.net.URI
 import java.util.concurrent.Future
 
-class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallbackMessageListener) : PcuSocket {
+class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallbackMessageListener,pcu :Pcu) : PcuSocket {
     val client = WebSocketClient()
     var socket :BaseNetworkSocket?=null
     var sessionObj: Session? = null
     var stage = 0
+    val pcu :Pcu
 
 
     private var healthConnectionWorking = true
     private val healthConnectionThread: Thread
 
     init {
+        this.pcu=pcu
         healthConnectionThread = Thread(Runnable {
             println("Thread health connection start")
             var state = 0
@@ -45,7 +47,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 if (healthConnectionWorking) {
                     if (state == 0) {
 
-                        sendText(TokenMessage(Main.pcuDataTest.pcuToken!!).toJson())
+                        sendText(TokenMessage(pcu.pcuToken!!).toJson())
                         state = 1
                     }
                     sendText("H")
@@ -103,7 +105,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
 
                 val centraltoken: TokenMessage = message!!.fromJson()
                 println("Clent handcheck central recive token = " + centraltoken)
-                if (centraltoken.token.equals(Main.pcuDataTest.centralToken)) {
+                if (centraltoken.token.equals(pcu.centralToken)) {
                     println("Auth pass handcheck")
                     stage = 1
                 } else {

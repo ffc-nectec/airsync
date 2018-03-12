@@ -22,8 +22,12 @@ import java.util.*
 data class MobileUserAuth(val username: String,
                           val password: String,
                           val mobileUuid: UUID,
-                          val pcu: Pcu){
+                          val pcu: Pcu,
+                          var checkUser: UserStatus = UserStatus.VALIDATE){
     fun getKey():String{
         return pcu.uuid.toString()+"_"+mobileUuid
+    }
+    enum class UserStatus() {
+        VALIDATE,PASS,NOTPASS
     }
 }

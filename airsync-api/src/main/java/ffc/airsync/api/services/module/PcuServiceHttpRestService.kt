@@ -44,6 +44,14 @@ class PcuServiceHttpRestService : PcuService {
         return mobileUserList
     }
 
+    override fun setUserPass(userAuth: MobileUserAuth) {
+        mobileUserAuthDao.updateStatusPass(userAuth)
+    }
+
+    override fun setUserNotPass(userAuth: MobileUserAuth) {
+        mobileUserAuthDao.updateStatusNotPass(userAuth)
+    }
+
     override fun sendEventGetData(token: TokenMessage) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         val pcu = pcuDao.findByToken(token.token)

@@ -19,10 +19,7 @@ package ffc.airsync.api.services
 
 import ffc.airsync.api.services.module.PcuService
 import ffc.airsync.api.services.module.PcuServiceHttpRestService
-import ffc.model.Message
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
-import ffc.model.fromJson
+import ffc.model.*
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
@@ -43,22 +40,35 @@ class PcuResource {
     }
 
     @POST
-    fun post(@Context req: HttpServletRequest,message: Message):Response {
+    fun post(@Context req: HttpServletRequest, message: Message): Response {
 
-        if(message.action==Message.Action.GETUSER){
-            val pcu :Pcu = message.message.fromJson()
-            val userList : List<MobileUserAuth> = pcuServices.getMobileUser(pcu)
-           return Response.status(Response.Status.OK).entity(userList).build()
+        println("Http Post /pcu message = " + message.toJson())
+        if (message.action == Message.Action.GETUSER) {
+            val pcu: Pcu = message.message.fromJson()
+            val userList: List<MobileUserAuth> = pcuServices.getMobileUser(pcu)
+            return Response.status(Response.Status.OK).entity(userList).build()
+        } else if (message.action == Message.Action.CONFIRMUSER) {
+            val userAuth: MobileUserAuth = message.message.fromJson()
+            if (userAuth.checkUser == MobileUserAuth.UserStatus.PASS) {
+                //When validate pass
+                //sdf
+                pcuServices.setUserPass(userAuth)
+                println("User auth pass receive. User= " + userAuth.username)
+                //println(userAuth.checkUser)
 
+            }else if (userAuth.checkUser== MobileUserAuth.UserStatus.NOTPASS){
+                println("User auth not pass receive. user= "+userAuth.username)
+                pcuServices.setUserNotPass(userAuth)
+            }
         }
 
-       return Response.status(Response.Status.OK).build()
+        return Response.status(Response.Status.OK).build()
     }
 
     @GET
     @Path("/tem")
-    fun gettemplate() :Pcu{
-        val pcu = Pcu(UUID.randomUUID(),"225","template","safsafsdf","sdfsdfa","192.231.4.21","sdkjfslkjfsa")
+    fun gettemplate(): Pcu {
+        val pcu = Pcu(UUID.randomUUID(), "225", "template", "safsafsdf", "sdfsdfa", "192.231.4.21", "sdkjfslkjfsa")
         return pcu
     }
 }

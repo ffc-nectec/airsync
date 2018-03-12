@@ -36,12 +36,12 @@ class CentralMessageManageV1 : CentralMessageManage {
         return pcu2
     }
 
-    override fun checkMobileRegisterAuth(userAuthFilter: (username :String, password :String) -> Unit) {
+    override fun checkMobileRegisterAuth(userAuthFilter: (mobileUserAuth : MobileUserAuth) -> Unit) {
         val messageGetUserList = Message(from = pcu!!.uuid,action = Message.Action.GETUSER,status = Message.Status.DEFAULT,message = pcu!!.toJson())
-        val userList :List<MobileUserAuth> =messageGetUserList.toJson().httpPost(urlBase!!).body()!!.string().fromJson()
+        val userList :List<MobileUserAuth> =messageGetUserList.toJson().httpPost(urlBase!!).body()!!.string().fromJson() //get User list
         userList.forEach {
             println("User Get1 = "+ it.mobileUuid)
-            userAuthFilter(it.username,it.password)
+            userAuthFilter(it)
         }
 
     }

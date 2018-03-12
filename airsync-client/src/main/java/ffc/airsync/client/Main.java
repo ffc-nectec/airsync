@@ -17,70 +17,13 @@
 
 package ffc.airsync.client;
 
-import ffc.airsync.client.client.CentralMessageManage;
-import ffc.airsync.client.client.CentralMessageManageV1;
-import ffc.airsync.client.client.Config;
-import ffc.airsync.client.client.module.DaoFactory;
-import ffc.airsync.client.client.module.PcuSocket;
-import ffc.airsync.client.client.module.PcuSocketAuthByToken;
-import ffc.airsync.client.client.module.UserAuthDAO;
-import ffc.model.Pcu;
-import kotlin.Unit;
-
-import java.util.UUID;
+import ffc.airsync.client.client.MainContraller;
 
 public class Main {
 
-    public static Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()), "520", "Nectec", "", "", "", "");
 
-
-
-    //Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()),"","");
     public static void main(String[] args) {
-        //get config
-        //check my.ini
-        //check log resume
-        //check database connection
-
-
-        //register central
-        UserAuthDAO userAuthDao = new DaoFactory().buildUserAuthDao();
-        CentralMessageManage messageCentral = new CentralMessageManageV1();
-
-        pcuDataTest = messageCentral.registerPcu(pcuDataTest, Config.Companion.getUrlRest());
-        PcuSocket socket = new PcuSocketAuthByToken(message -> {
-            if (message.equals("X")) {
-                messageCentral.checkMobileRegisterAuth((String username, String password) -> {
-                    System.out.println("Username = " + username + " Password = " + password);
-
-                    if(userAuthDao.checkUserAurh(username,password)){
-                        sdf
-                    }
-                    return Unit.INSTANCE;
-                });
-
-
-            }else {
-
-            }
-        });
-
-        /*socket.setEventCallBack(new PcuSocket.OnEventCallbackMessageListener() {
-            @Override
-            public void EventCallBackMessage(@NotNull String message) {
-                
-            }
-        });*/
-
-
-        socket.connect(Config.Companion.getUri());
-        socket.join();
-
-
-        //heal connection to central
-        //HealthConnection healConnection = new HealthConnection();
-        //healConnection.start();
-        //healConnection.join();
+        new MainContraller().main(args);
     }
 
 }

@@ -19,4 +19,4 @@ package ffc.model
 
 import java.util.*
 
-data class MobileMapPcuWithUuid(val mobileUuid : UUID,val pcuUuid : UUID)
+data class MobileRoutePcu(val mobileUuid : UUID, val pcuUuid : UUID)
