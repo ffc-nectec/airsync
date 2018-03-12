@@ -26,7 +26,7 @@ import org.eclipse.jetty.websocket.client.WebSocketClient
 import java.net.URI
 import java.util.concurrent.Future
 
-class PcuSocketAuthByToken(val uri: URI) : PcuSocket {
+class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallbackMessageListener) : PcuSocket {
     val client = WebSocketClient()
     var socket :BaseNetworkSocket?=null
     var sessionObj: Session? = null
@@ -56,7 +56,7 @@ class PcuSocketAuthByToken(val uri: URI) : PcuSocket {
     }
 
 
-    override fun connect() {
+    override fun connect(uri: URI) {
         close()
         try {
             try {
@@ -111,19 +111,14 @@ class PcuSocketAuthByToken(val uri: URI) : PcuSocket {
                 }
             } else {//Message Receive
                 println("Message Receiver Stage = " + stage + "Message = " + message)
-                if (message.equals("X")) {
                     //Call get message Thread sync
                     eventCallBack.EventCallBackMessage(message)
-                }
+
             }
         }
     }
 
-    override var eventCallBack: PcuSocket.OnEventCallbackMessageListener
-        get() = this.eventCallBack
-        set(value) {
-            this.eventCallBack = value
-        }
+
 
     override fun close() {
         this.sessionObj?.close()

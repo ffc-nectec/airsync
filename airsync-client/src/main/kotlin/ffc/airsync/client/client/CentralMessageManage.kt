@@ -20,8 +20,8 @@ package ffc.airsync.client.client
 import ffc.model.Pcu
 import ffc.model.QueryAction
 
-interface CentralData {
+interface CentralMessageManage {
     fun registerPcu(pcu :Pcu, url :String) :Pcu
     fun getData() : QueryAction
-
+    fun checkMobileRegisterAuth(userAuthFilter: (username :String, password :String) -> Unit )
 }

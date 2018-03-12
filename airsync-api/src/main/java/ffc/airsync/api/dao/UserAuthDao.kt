@@ -24,7 +24,9 @@ import ffc.model.Pcu
 interface UserAuthDao {
     fun insert(mobileUserAuth: MobileUserAuth)
     fun remove(mobileUserAuth: MobileUserAuth)
-    fun findByPcu(pcu: Pcu) :MobileUserAuth
+
+    fun findByPcu(pcu: Pcu) :List<MobileUserAuth>
+
     fun updateStatusPass(mobileUserAuth: MobileUserAuth)
     fun updateStatusPass(mapMobileObject : MobileMapPcuWithUuid)
     fun updateStatusNotPass(mobileUserAuth: MobileUserAuth)

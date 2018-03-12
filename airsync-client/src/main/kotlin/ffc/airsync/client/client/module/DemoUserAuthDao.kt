@@ -15,20 +15,23 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.airsync.client.client.module
 
-import ffc.model.Message
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
-import ffc.model.TokenMessage
+class DemoUserAuthDao :UserAuthDAO {
 
-interface PcuService {
-    fun register(pcu :Pcu,KnownIp :String) :Pcu
-    fun getData(token :TokenMessage) :Message
+    private constructor()
 
+    companion object {
+        val instance = DemoUserAuthDao()
 
-    fun getMobileUser(pcu: Pcu):List<MobileUserAuth>
+    }
 
+    override fun checkUserAurh(username: String, password: String): Boolean {
 
-    fun sendEventGetData(token :TokenMessage)
+        if(username == "ADM" && password == "MDA")
+            return true
+
+        return false
+
+    }
 }

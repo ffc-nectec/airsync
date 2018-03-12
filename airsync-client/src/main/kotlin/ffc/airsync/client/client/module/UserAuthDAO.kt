@@ -15,20 +15,8 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.airsync.client.client.module
 
-import ffc.model.Message
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
-import ffc.model.TokenMessage
-
-interface PcuService {
-    fun register(pcu :Pcu,KnownIp :String) :Pcu
-    fun getData(token :TokenMessage) :Message
-
-
-    fun getMobileUser(pcu: Pcu):List<MobileUserAuth>
-
-
-    fun sendEventGetData(token :TokenMessage)
+interface UserAuthDAO {
+    fun checkUserAurh(username :String, password :String) : Boolean
 }

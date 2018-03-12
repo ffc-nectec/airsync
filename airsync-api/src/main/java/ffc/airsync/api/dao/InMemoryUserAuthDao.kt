@@ -20,7 +20,6 @@ package ffc.airsync.api.dao
 import ffc.model.MobileMapPcuWithUuid
 import ffc.model.MobileUserAuth
 import ffc.model.Pcu
-import java.lang.NullPointerException
 
 class InMemoryUserAuthDao :UserAuthDao {
 
@@ -47,13 +46,19 @@ class InMemoryUserAuthDao :UserAuthDao {
         }
     }
 
-    override fun findByPcu(pcu: Pcu): MobileUserAuth {
+    override fun findByPcu(pcu: Pcu): List<MobileUserAuth> {
 
-        val userAuth = userList.find { it.pcu.uuid == pcu.uuid }
-        if (userAuth == null){
-            throw NullPointerException("Cannot find UserAuth")
+        val userAuthList = ArrayList<MobileUserAuth>()
+
+        userList.forEach {
+            if (it.pcu.uuid == pcu.uuid){
+                userAuthList.add(it)
+            }
         }
-        return userAuth
+
+        if (userAuthList.size<1) throw NoSuchElementException("Not Found User Auth")
+
+        return userAuthList
 
     }
 

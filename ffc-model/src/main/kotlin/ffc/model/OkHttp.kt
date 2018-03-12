@@ -15,20 +15,27 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.model
 
-import ffc.model.Message
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
-import ffc.model.TokenMessage
+import okhttp3.*
 
-interface PcuService {
-    fun register(pcu :Pcu,KnownIp :String) :Pcu
-    fun getData(token :TokenMessage) :Message
+val JSON = MediaType.parse("application/json; charset=utf-8")
+val client = OkHttpClient()
 
+fun String.httpPost(url :String) : Response {
+    val body = RequestBody.create(JSON, this)
+    val request = Request.Builder()
+      .url(url)
+      .post(body)
+      .build()
+    return client.newCall(request).execute()
+}
 
-    fun getMobileUser(pcu: Pcu):List<MobileUserAuth>
-
-
-    fun sendEventGetData(token :TokenMessage)
+fun String.httpPut(url :String) : Response {
+    val body = RequestBody.create(JSON, this)
+    val request = Request.Builder()
+      .url(url)
+      .put(body)
+      .build()
+    return client.newCall(request).execute()
 }

@@ -19,6 +19,7 @@ package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
 import ffc.model.Message
+import ffc.model.MobileUserAuth
 import ffc.model.Pcu
 import ffc.model.TokenMessage
 import java.util.*
@@ -26,6 +27,7 @@ import java.util.*
 class PcuServiceHttpRestService : PcuService {
 
     val pcuDao = DaoFactory().buildPcuDao()
+    val mobileUserAuthDao = DaoFactory().buildUserAuthDao()
 
 
     override fun register(pcu: Pcu, lastKnownIp: String): Pcu {
@@ -35,6 +37,11 @@ class PcuServiceHttpRestService : PcuService {
         pcu.lastKnownIp=lastKnownIp
         pcuDao.insert(pcu)
         return pcu
+    }
+
+    override fun getMobileUser(pcu: Pcu): List<MobileUserAuth> {
+        val mobileUserList = mobileUserAuthDao.findByPcu(pcu)
+        return mobileUserList
     }
 
     override fun sendEventGetData(token: TokenMessage) {

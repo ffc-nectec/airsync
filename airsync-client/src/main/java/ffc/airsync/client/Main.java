@@ -17,17 +17,22 @@
 
 package ffc.airsync.client;
 
-import ffc.airsync.client.client.CentralDataSeed;
+import ffc.airsync.client.client.CentralMessageManage;
+import ffc.airsync.client.client.CentralMessageManageV1;
 import ffc.airsync.client.client.Config;
+import ffc.airsync.client.client.module.DaoFactory;
 import ffc.airsync.client.client.module.PcuSocket;
 import ffc.airsync.client.client.module.PcuSocketAuthByToken;
+import ffc.airsync.client.client.module.UserAuthDAO;
 import ffc.model.Pcu;
+import kotlin.Unit;
 
 import java.util.UUID;
 
 public class Main {
 
-    public static Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()), "520", "Nectec","","","","");
+    public static Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()), "520", "Nectec", "", "", "", "");
+
 
 
     //Pcu pcuDataTest = new Pcu(UUID.fromString(Config.Companion.getPcuUuid()),"","");
@@ -39,9 +44,36 @@ public class Main {
 
 
         //register central
-        pcuDataTest = new CentralDataSeed().registerPcu(pcuDataTest,Config.Companion.getUrlRest());
-        PcuSocket socket = new PcuSocketAuthByToken(Config.Companion.getUri());
-        socket.connect();
+        UserAuthDAO userAuthDao = new DaoFactory().buildUserAuthDao();
+        CentralMessageManage messageCentral = new CentralMessageManageV1();
+
+        pcuDataTest = messageCentral.registerPcu(pcuDataTest, Config.Companion.getUrlRest());
+        PcuSocket socket = new PcuSocketAuthByToken(message -> {
+            if (message.equals("X")) {
+                messageCentral.checkMobileRegisterAuth((String username, String password) -> {
+                    System.out.println("Username = " + username + " Password = " + password);
+
+                    if(userAuthDao.checkUserAurh(username,password)){
+                        sdf
+                    }
+                    return Unit.INSTANCE;
+                });
+
+
+            }else {
+
+            }
+        });
+
+        /*socket.setEventCallBack(new PcuSocket.OnEventCallbackMessageListener() {
+            @Override
+            public void EventCallBackMessage(@NotNull String message) {
+                
+            }
+        });*/
+
+
+        socket.connect(Config.Companion.getUri());
         socket.join();
 
 
@@ -50,4 +82,5 @@ public class Main {
         //healConnection.start();
         //healConnection.join();
     }
+
 }

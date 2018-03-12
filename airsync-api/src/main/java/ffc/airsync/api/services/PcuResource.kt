@@ -19,12 +19,16 @@ package ffc.airsync.api.services
 
 import ffc.airsync.api.services.module.PcuService
 import ffc.airsync.api.services.module.PcuServiceHttpRestService
+import ffc.model.Message
+import ffc.model.MobileUserAuth
 import ffc.model.Pcu
+import ffc.model.fromJson
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
+import javax.ws.rs.core.Response
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -36,6 +40,19 @@ class PcuResource {
     fun put(@Context req: HttpServletRequest, pcu: Pcu): Pcu {
         val pcuUpdate = pcuServices.register(pcu, req.getRemoteAddr())
         return pcuUpdate
+    }
+
+    @POST
+    fun post(@Context req: HttpServletRequest,message: Message):Response {
+
+        if(message.action==Message.Action.GETUSER){
+            val pcu :Pcu = message.message.fromJson()
+            val userList : List<MobileUserAuth> = pcuServices.getMobileUser(pcu)
+           return Response.status(Response.Status.OK).entity(userList).build()
+
+        }
+
+       return Response.status(Response.Status.OK).build()
     }
 
     @GET

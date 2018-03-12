@@ -17,19 +17,22 @@
 
 package ffc.airsync.client.client.module
 
+import java.net.URI
+
 interface PcuSocket {
-    interface OnEventCallbackMessageListener{
-        fun EventCallBackMessage(message :String)
+    interface OnEventCallbackMessageListener {
+        fun EventCallBackMessage(message: String)
     }
 
-    fun sendText(message :String)
-    fun receiveMessage(message :String,count :Long)
+    fun sendText(message: String)
+    fun receiveMessage(message: String, count: Long)
     fun join()
 
 
-    var eventCallBack : OnEventCallbackMessageListener
+    var eventCallBack: OnEventCallbackMessageListener
 
 
-    fun connect()
+    fun connect(uri: URI)
     fun close()
+
 }
