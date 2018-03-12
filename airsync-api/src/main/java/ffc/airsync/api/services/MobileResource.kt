@@ -19,11 +19,7 @@ package ffc.airsync.api.services
 
 import ffc.airsync.api.dao.DaoFactory
 import ffc.airsync.api.services.module.MobileHttpRestServiceV2
-import ffc.airsync.api.services.module.MobileServices
-import ffc.model.Message
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
-import ffc.model.fromJson
+import ffc.model.*
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
@@ -69,23 +65,41 @@ class MobileResource {
 
     @POST
     fun post(@Context req: HttpServletRequest, message: Message): Response {
-        var messageReceive = messagetemplate
+        var messageReturn: Message = messagetemplate
         println("Post pcu action = "+ message.action)
-        mobileHttpRestService.sendAndRecive(message, object : MobileServices.OnReceiveListener {
-            override fun onReceive(message: String) {
-                println("Http POST pcu")
-                messageReceive  = message.fromJson()
-            }
 
-        })
-        return Response.status(Response.Status.OK).entity(messageReceive).build()
+
+        if(message.action==Message.Action.REGISTER){
+            val mobileUserAuth: MobileUserAuth = message.message.fromJson()
+            return Response.status(Response.Status.OK).entity(mobileHttpRestService.registerMobile(mobileUserAuth)).build()
+        }
+
+
+        else if(message.action==Message.Action.SENDTO){
+
+
+
+
+        }
+
+
+
+        else if(message.action==Message.Action.PING)
+
+        {
+
+
+
+
+        }
+
+
+
+
+
+        return Response.status(Response.Status.OK).entity(messageReturn).build()
     }
 
-    @POST
-    @Path("/register")
-    fun deviceRegister(mobileUserAuth: MobileUserAuth): Response {
-        return Response.status(Response.Status.OK).entity(mobileHttpRestService.registerMobile(mobileUserAuth)).build()
-    }
 
     @GET
     @Path("/mobileauthtemplate")
@@ -99,11 +113,11 @@ class MobileResource {
     }
 
     @GET
-    @Path("/messagesynctemplate")
+    @Path("/msgauth")
     fun getMessageSyncPattern(): Response {
         return Response.status(Response.Status.OK).entity(messagetemplate).build()
     }
 
-    private val messagetemplate = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.DEFAULT, Message.Action.DEFAULT)
+    private val messagetemplate = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.DEFAULT, Message.Action.DEFAULT,MobileUserAuth("ADM","MDA",UUID.fromString("d57c809d-8ee8-4c8d-9a47-a4a7982a4768"), Pcu(UUID.fromString("00000000-0000-0000-0000-000000000009")),MobileUserAuth.UserStatus.VALIDATE).toJson())
 
 }

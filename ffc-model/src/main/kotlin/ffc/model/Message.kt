@@ -26,7 +26,7 @@ data class Message(var from: UUID = UUID.randomUUID(),
                    val message: String = "H") {
 
     enum class Action(code: Int) {
-        DEFAULT(0),REGISTER(1), PING(10), GETUSER(2), CONFIRMUSER(3)
+        DEFAULT(0),REGISTER(1), PING(10), GETUSER(2), CONFIRMUSER(3),SENDTO(4)
     }
     enum class Status(code: Int){
         DEFAULT(0),ERROR(500), SUCC(200),NOTFOUND(404)
