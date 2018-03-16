@@ -18,10 +18,7 @@
 package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.model.Message
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
-import ffc.model.TokenMessage
+import ffc.model.*
 import java.util.*
 
 class PcuServiceHttpRestService : PcuService {
@@ -62,7 +59,7 @@ class PcuServiceHttpRestService : PcuService {
 
     }
 
-    override fun getData(token: TokenMessage): Message {
+    override fun getData(token: TokenMessage): Message<QueryAction> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

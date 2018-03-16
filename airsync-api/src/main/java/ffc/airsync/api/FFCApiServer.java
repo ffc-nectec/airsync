@@ -35,10 +35,10 @@ public class FFCApiServer {
     @Option(name = "-dev", usage = "mode")
     protected boolean dev = false;
 
-    @Option(name = "-port", usage = "port destination to start server")
+    @Option(name = "-port", usage = "port destination ownAction start server")
     protected int port = DEFAULT_PORT;
 
-    @Option(name = "-host", usage = "port destination to start server")
+    @Option(name = "-host", usage = "port destination ownAction start server")
     protected String host = DEFAULT_HOST;
 
     public FFCApiServer(String[] args) {

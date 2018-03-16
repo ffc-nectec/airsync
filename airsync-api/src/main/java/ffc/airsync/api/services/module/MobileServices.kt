@@ -32,7 +32,7 @@ interface MobileServices {
 
     fun getAll() : List<Pcu>
     fun getMyPcu(ipAddress : String): List<Pcu>
-    fun registerMobile(mobileUserAuth: MobileUserAuth): Message
-    fun sendAndRecive(message: Message, onReceiveListener: OnReceiveListener, pcu: Pcu = Pcu(UUID.randomUUID()))
-
+    fun registerMobile(mobileUserAuth: MobileUserAuth): Message<MobileUserAuth>
+    fun <T> sendAndRecive(message: Message<T>, onReceiveListener: OnReceiveListener, pcu: Pcu = Pcu(UUID.randomUUID()))
+    fun <T> sendToPcu(message: Message<T>)
 }

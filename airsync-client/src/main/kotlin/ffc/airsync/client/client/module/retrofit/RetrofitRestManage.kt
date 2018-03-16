@@ -15,19 +15,15 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
-
-import ffc.model.*
-
-interface PcuService {
-    fun register(pcu :Pcu,KnownIp :String) :Pcu
-    fun getData(token :TokenMessage) :Message<QueryAction>
+package ffc.airsync.client.client.module.retrofit
 
 
-    fun getMobileUser(pcu: Pcu):List<MobileUserAuth>
-    fun setUserPass(userAuth :MobileUserAuth)
-    fun setUserNotPass(userAuth: MobileUserAuth)
+import retrofit2.Call
 
 
-    fun sendEventGetData(token :TokenMessage)
+fun <T> T.toPcuPost(url :String):Call<T> {
+    val respond :Call<T>  = APIClient().getCient(url)!!.create(Retoservice::class.java).post(this)
+    return respond
 }
+
+

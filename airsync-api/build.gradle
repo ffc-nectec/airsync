@@ -47,18 +47,18 @@ dependencies {
 
 
     // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
-    compile group: 'org.elasticsearch.client', name: 'transport', version: '6.2.1'
+    compile "org.elasticsearch.client:transport:6.2.1"
 
 
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
-    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
+    compile "org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121"
 
     // https://mvnrepository.com/artifact/io.searchbox/jest
-    compile group: 'io.searchbox', name: 'jest', version: '2.4.0'
+    compile "io.searchbox:jest:2.4.0"
 
 
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
-    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.8.v20171121'
+    compile "org.eclipse.jetty.websocket:websocket-server:9.4.8.v20171121"
 
 
 

@@ -36,7 +36,7 @@ class InMemoryMessageActionDao : MessageActionDao {
     }
 
     override fun next(to: UUID): QueryAction {
-        val action =  actionList.find { it.to == to }
+        val action =  actionList.find { it.ownAction == to }
 
         if(action != null)
             return action

@@ -43,7 +43,7 @@ class BaseNetworkSocket : WebSocketAdapter() {
     override fun onWebSocketText(message: String?) {
         super.onWebSocketText(message)
         println("onWebSocketText")
-        println("Count:" + (count++) + "\tReceived TEXT message: " + message)
+        println("Count:" + (count++) + "\tReceived TEXT data: " + message)
         onWebSocketText?.onWebSocketText(message,count)
 
     }

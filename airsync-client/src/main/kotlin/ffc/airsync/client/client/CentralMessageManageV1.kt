@@ -37,7 +37,7 @@ class CentralMessageManageV1 : CentralMessageManage {
     }
 
     override fun checkMobileRegisterAuth(userAuthFilter: (mobileUserAuth : MobileUserAuth) -> Unit) {
-        val messageGetUserList = Message(from = pcu!!.uuid,action = Message.Action.GETUSER,status = Message.Status.DEFAULT,message = pcu!!.toJson())
+        val messageGetUserList = Message(from = pcu!!.uuid,action = Message.Action.GETUSER,status = Message.Status.DEFAULT,data = pcu!!.toJson())
         val userList :List<MobileUserAuth> =messageGetUserList.toJson().httpPost(urlBase!!).body()!!.string().fromJson() //get User list
         userList.forEach {
             println("User Get1 = "+ it.mobileUuid)

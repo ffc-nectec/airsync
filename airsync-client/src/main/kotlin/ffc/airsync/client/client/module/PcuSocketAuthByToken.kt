@@ -72,7 +72,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 client.start()
                 // Attempt Connect
                 val fut: Future<Session> = client.connect(socket, uri)
-                println("Connection to Central")
+                println("Connection ownAction Central")
                 // Wait for Connect
                 sessionObj = fut.get()
 
@@ -90,7 +90,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
     override fun sendText(message: String) {
         println("sendText ")
         if (sessionObj != null) {
-            println("message = "+message)
+            println("data = "+message)
             sessionObj!!.getRemote().sendString(message)
         } else {
             throw NoSuchFieldException("Session Null")
@@ -98,7 +98,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
     }
 
     override fun receiveMessage(message: String,count :Long) {
-        //println("Count:" + (count++) + "\tReceived TEXT message: " + message)
+        //println("Count:" + (count++) + "\tReceived TEXT data: " + data)
 
         if (!message.equals("H")) {
             if (stage == 0) {//handcheck
@@ -113,7 +113,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 }
             } else {//Message Receive
                 println("Message Receiver Stage = " + stage + "Message = " + message)
-                    //Call get message Thread sync
+                    //Call get data Thread sync
                     eventCallBack.EventCallBackMessage(message)
 
             }

@@ -74,7 +74,7 @@ class InMemoryUserAuthDao :UserAuthDao {
         if(mobileRoutePcu != null)
             return mobileRoutePcu
 
-        throw NoSuchElementException("Not found mobile routing to pcu.")
+        throw NoSuchElementException("Not found mobile routing ownAction pcu.")
 
     }
 

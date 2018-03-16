@@ -3,7 +3,6 @@ package ffc.airsync.api
 import io.searchbox.client.JestClient
 import io.searchbox.client.JestClientFactory
 import io.searchbox.client.config.HttpClientConfig
-import org.elasticsearch.action.index.IndexResponse
 import org.elasticsearch.client.transport.TransportClient
 import org.elasticsearch.common.settings.Settings
 import org.elasticsearch.common.transport.TransportAddress
@@ -29,7 +28,7 @@ class ElasticTest {
         var json:String = "{" +
         "\"user\":\"max\"," +
         "\"postDate\":\"2013-01-30\"," +
-        "\"message\":\"hahaha out kjsdafkf\"" +
+        "\"data\":\"hahaha out kjsdafkf\"" +
     "}"
         var response = client.prepareIndex("twitter", "tweet","32")
           .setSource(json, XContentType.JSON)
@@ -46,7 +45,7 @@ class ElasticTest {
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
 
         var response = client.prepareGet("twitter", "tweet", "32").get()
-        println(response.source.getValue("message"))
+        println(response.source.getValue("data"))
     }
 
     @Test

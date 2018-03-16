@@ -19,7 +19,10 @@ package ffc.airsync.api.services
 
 import ffc.airsync.api.dao.DaoFactory
 import ffc.airsync.api.services.module.MobileHttpRestServiceV2
-import ffc.model.*
+import ffc.model.Message
+import ffc.model.MobileUserAuth
+import ffc.model.Pcu
+import ffc.model.toJson
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
@@ -64,31 +67,22 @@ class MobileResource {
     }
 
     @POST
-    fun post(@Context req: HttpServletRequest, message: Message): Response {
-        var messageReturn: Message = messagetemplate
-        println("Post pcu action = "+ message.action)
+    fun post(@Context req: HttpServletRequest, message: Message<Any>): Response {
+        var messageReturn: Message<MobileUserAuth> = messagetemplate
+        println("Post mobile action = "+ message.action)
 
 
-        if(message.action==Message.Action.REGISTER){
-            val mobileUserAuth: MobileUserAuth = message.message.fromJson()
+        if(message.action==Message.Action.REGISTER){ //ให้เพิ่มรอเช็คกับ Pcu ๗นเสร็จก่อน แล้วค่อย Returun
+            println("Register Send to Pcu data = "+message.toJson())
+            val mobileUserAuth: MobileUserAuth = message.data as MobileUserAuth
+            println("Mobile auty user = "+mobileUserAuth.toJson())
             return Response.status(Response.Status.OK).entity(mobileHttpRestService.registerMobile(mobileUserAuth)).build()
         }
 
 
         else if(message.action==Message.Action.SENDTO){
-
-
-
-
-        }
-
-
-
-        else if(message.action==Message.Action.PING)
-
-        {
-
-
+            //ตรวจสอบเรื่องการ ค้นหาเเส้นทางก่อน  /อันนี้มันส่ง สดๆ ไม่ใช่ผ่่าน web Service ลองทำใหม่
+            mobileHttpRestService.sendToPcu(message)
 
 
         }
@@ -118,6 +112,6 @@ class MobileResource {
         return Response.status(Response.Status.OK).entity(messagetemplate).build()
     }
 
-    private val messagetemplate = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.DEFAULT, Message.Action.DEFAULT,MobileUserAuth("ADM","MDA",UUID.fromString("d57c809d-8ee8-4c8d-9a47-a4a7982a4768"), Pcu(UUID.fromString("00000000-0000-0000-0000-000000000009")),MobileUserAuth.UserStatus.VALIDATE).toJson())
+    private val messagetemplate = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.DEFAULT, Message.Action.DEFAULT,MobileUserAuth("ADM","MDA",UUID.fromString("d57c809d-8ee8-4c8d-9a47-a4a7982a4768"), Pcu(UUID.fromString("00000000-0000-0000-0000-000000000009")),MobileUserAuth.UserStatus.VALIDATE))
 
 }

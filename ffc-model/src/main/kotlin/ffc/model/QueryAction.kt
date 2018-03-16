@@ -19,10 +19,10 @@ package ffc.model
 
 import java.util.*
 
-data class QueryAction(val from: UUID = UUID.randomUUID(), val to: UUID = UUID.randomUUID(), val uuidAction: UUID = UUID.randomUUID(), val sqlQuery: List<String> = java.util.ArrayList()){
+data class QueryAction(val ownAction: UUID = UUID.randomUUID(), val uuidAction: UUID = UUID.randomUUID(), val sqlQuery: List<String> = java.util.ArrayList()){
 
     override fun equals(other: Any?): Boolean {
         val action : QueryAction = other as QueryAction
-        return (action.to == to) && (action.from == from) && (action.uuidAction == uuidAction)
+        return (action.ownAction == ownAction)  && (action.uuidAction == uuidAction)
     }
 }

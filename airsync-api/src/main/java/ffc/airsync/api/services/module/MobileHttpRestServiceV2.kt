@@ -44,39 +44,40 @@ class MobileHttpRestServiceV2 : MobileServices {
         return pculist
     }
 
-    override fun registerMobile(mobileUserAuth: MobileUserAuth): Message {
+    override fun registerMobile(mobileUserAuth: MobileUserAuth): Message<MobileUserAuth> {
 
         val userStore = DaoFactory().buildUserAuthDao()
         userStore.insert(mobileUserAuth)
 
 
-        sendStringToPcu(Message(to = mobileUserAuth.pcu.uuid,from = mobileUserAuth.mobileUuid,message = "X"))
+        sendToPcu(Message(to = mobileUserAuth.pcu.uuid,from = mobileUserAuth.mobileUuid,data = "X"))
 
         /*
-        val message = Message(mobileUserAuth.mobileUuid, mobileUserAuth.pcu.uuid, Message.Status.DEFAULT, Message.Action.REGISTER, mobileUserAuth.toJson())
+        val data = Message(mobileUserAuth.mobileUuid, mobileUserAuth.pcu.uuid, Message.Status.DEFAULT, Message.Action.REGISTER, mobileUserAuth.toJson())
         var messageReturn = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.ERROR, Message.Action.DEFAULT, "")
         println("registerMobile \n Message =" + mobileUserAuth.toJson())
         val pcu = pcuDao.findByUuid(mobileUserAuth.pcu.uuid)
 
 
-        sendAndRecive(message, object : MobileServices.OnReceiveListener {
-            override fun onReceive(message: String) {
-                messageReturn = message.fromJson()
+        sendAndRecive(data, object : MobileServices.OnReceiveListener {
+            override fun onReceive(data: String) {
+                messageReturn = data.fromJson()
                 if (messageReturn.status == Message.Status.SUCC) {
-                    mobileDao.insert(Mobile(messageReturn.to, pcu))
-                    println("Register Mobile " + messageReturn.to.toString())
+                    mobileDao.insert(Mobile(messageReturn.ownAction, pcu))
+                    println("Register Mobile " + messageReturn.ownAction.toString())
                 }
             }
 
         }, pcu)
 */
-        val messageReturn = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.SUCC, Message.Action.DEFAULT, "")
+        val messageReturn: Message<MobileUserAuth> = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.SUCC, Message.Action.DEFAULT)
         return messageReturn
     }
 
-    fun sendStringToPcu(message: Message){
-        val pcu2: Pcu =pcuDao.findByUuid(message.to)
-        println("sendStringToPcu")
+    fun <T> sendToPcu2(message: Message<T>){
+        val pcu2: Pcu =pcuDao.findByUuid(message.to) //Not safe.
+        //val pcu2 = mobileDao.findByUuid(data.from).pcu   //Safe.
+        println("sendToPcu")
 
         println("Pcu2 = "+pcu2.toJson())
         message.to = pcu2.uuid
@@ -90,11 +91,17 @@ class MobileHttpRestServiceV2 : MobileServices {
 
         if (pcuNetwork != null) {
             println("pcuNetwork Not Null")
-            pcuNetwork.remote.sendString(message.message)
+            pcuNetwork.remote.sendString(message.toJson())
         }
     }
 
-    override fun sendAndRecive(message: Message, onReceiveListener: MobileServices.OnReceiveListener, pcu: Pcu) {
+    override fun <T> sendToPcu(message: Message<T>) {
+        val pcu2 = mobileDao.findByUuid(message.from).pcu   //Safe.
+        message.to = pcu2.uuid
+        sendToPcu2(message)
+    }
+
+    override fun <T> sendAndRecive(message: Message<T>, onReceiveListener: MobileServices.OnReceiveListener, pcu: Pcu) {
 
         val pcu2: Pcu
         println("sendAndRecive")

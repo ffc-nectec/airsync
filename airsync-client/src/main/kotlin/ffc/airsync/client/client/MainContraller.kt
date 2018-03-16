@@ -20,6 +20,7 @@ package ffc.airsync.client.client
 import ffc.airsync.client.client.module.DaoFactory
 import ffc.airsync.client.client.module.PcuSocket
 import ffc.airsync.client.client.module.PcuSocketAuthByToken
+import ffc.airsync.client.client.module.UserAuthDAO
 import ffc.model.*
 import java.util.*
 
@@ -37,8 +38,8 @@ class MainContraller {
 
 
         //register central
-        val userAuthDao = DaoFactory().buildUserAuthDao()
-        val messageCentral = CentralMessageManageV1()
+        val userAuthDao : UserAuthDAO = DaoFactory().buildUserAuthDao()
+        val messageCentral : CentralMessageManage = CentralMessageManageV1()
 
         pcuDataTest = messageCentral.registerPcu(pcuDataTest, Config.baseUrlRest)
 
@@ -48,26 +49,38 @@ class MainContraller {
 
 
 
-                    messageCentral.checkMobileRegisterAuth ({ mobileUserAuth -> //Call back with post get data
-                        println("Username = " + mobileUserAuth.username + " Password = " + mobileUserAuth.password)
+                    try {
+                        messageCentral.checkMobileRegisterAuth({ mobileUserAuth ->
+                            //Call back with post get data
+                            println("Username = " + mobileUserAuth.username + " Password = " + mobileUserAuth.password)
 
-                        if (userAuthDao.checkUserAurh(mobileUserAuth.username, mobileUserAuth.password)) {
-                            println("User pass")
-                            mobileUserAuth.checkUser=MobileUserAuth.UserStatus.PASS
-                        }else{
-                            println("User not pass.")
-                            mobileUserAuth.checkUser=MobileUserAuth.UserStatus.NOTPASS
-                        }
-                        //mobileUserAuth.toJson().httpPost(Config.baseUrlRest)
-                        val message = Message(
-                          mobileUserAuth.pcu.uuid,
-                          mobileUserAuth.mobileUuid,
-                          Message.Status.DEFAULT,
-                          Message.Action.CONFIRMUSER,
-                          mobileUserAuth.toJson())
-                        println("Send Userpas to central")
-                        message.toJson().httpPost(Config.baseUrlRest)
-                    })
+                            if (userAuthDao.checkUserAurh(mobileUserAuth.username, mobileUserAuth.password)) {
+                                println("User pass")
+                                mobileUserAuth.checkUser = MobileUserAuth.UserStatus.PASS
+                            } else {
+                                println("User not pass.")
+                                mobileUserAuth.checkUser = MobileUserAuth.UserStatus.NOTPASS
+                            }
+                            //mobileUserAuth.toJson().httpPost(Config.baseUrlRest)
+                            val message = Message(
+                              mobileUserAuth.pcu.uuid,
+                              mobileUserAuth.mobileUuid,
+                              Message.Status.DEFAULT,
+                              Message.Action.CONFIRMUSER,
+                              mobileUserAuth.toJson())
+                            println("Send Userpas ownAction central")
+                            message.toJson().httpPost(Config.baseUrlRest)
+                        })
+                    }catch (e :Exception){
+                        println(e)
+                    }
+
+
+
+
+                    messageCentral.getData()
+
+
 
 
                 } else {// Cannot X
@@ -84,7 +97,7 @@ class MainContraller {
         socket.join()
 
 
-        //heal connection to central
+        //heal connection ownAction central
         //HealthConnection healConnection = new HealthConnection();
         //healConnection.start();
         //healConnection.join();

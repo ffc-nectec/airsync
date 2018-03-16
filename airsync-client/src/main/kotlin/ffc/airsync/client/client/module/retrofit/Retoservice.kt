@@ -15,19 +15,15 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.airsync.client.client.module.retrofit
 
-import ffc.model.*
-
-interface PcuService {
-    fun register(pcu :Pcu,KnownIp :String) :Pcu
-    fun getData(token :TokenMessage) :Message<QueryAction>
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 
-    fun getMobileUser(pcu: Pcu):List<MobileUserAuth>
-    fun setUserPass(userAuth :MobileUserAuth)
-    fun setUserNotPass(userAuth: MobileUserAuth)
+interface Retoservice {
+    @POST
+    fun <T> post(@Body body: T ): Call<T>
 
-
-    fun sendEventGetData(token :TokenMessage)
 }

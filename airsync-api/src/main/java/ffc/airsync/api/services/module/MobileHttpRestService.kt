@@ -41,10 +41,14 @@ class MobileHttpRestService : MobileServices {
         return pculist
     }
 
-    override fun registerMobile(mobileUserAuth: MobileUserAuth): Message {
+    override fun <T> sendToPcu(message: Message<T>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun registerMobile(mobileUserAuth: MobileUserAuth): Message<MobileUserAuth> {
 
         val message = Message(mobileUserAuth.mobileUuid, mobileUserAuth.pcu.uuid, Message.Status.DEFAULT, Message.Action.REGISTER, mobileUserAuth.toJson())
-        var messageReturn = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.ERROR, Message.Action.DEFAULT, "")
+        var messageReturn :Message<MobileUserAuth>  = Message(UUID.randomUUID(), UUID.randomUUID(), Message.Status.ERROR, Message.Action.DEFAULT)
         println("registerMobile \n Message =" + mobileUserAuth.toJson())
         val pcu = pcuDao.findByUuid(mobileUserAuth.pcu.uuid)
 
@@ -63,7 +67,7 @@ class MobileHttpRestService : MobileServices {
         return messageReturn
     }
 
-    override fun sendAndRecive(message: Message, onReceiveListener: MobileServices.OnReceiveListener, pcu: Pcu) {
+    override fun <T> sendAndRecive(message: Message<T>, onReceiveListener: MobileServices.OnReceiveListener, pcu: Pcu) {
 
         val pcu2: Pcu
         println("sendAndRecive")

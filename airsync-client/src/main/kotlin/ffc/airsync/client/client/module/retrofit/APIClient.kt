@@ -15,19 +15,24 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.airsync.client.client.module.retrofit
 
-import ffc.model.*
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
-interface PcuService {
-    fun register(pcu :Pcu,KnownIp :String) :Pcu
-    fun getData(token :TokenMessage) :Message<QueryAction>
-
-
-    fun getMobileUser(pcu: Pcu):List<MobileUserAuth>
-    fun setUserPass(userAuth :MobileUserAuth)
-    fun setUserNotPass(userAuth: MobileUserAuth)
+class APIClient {
 
 
-    fun sendEventGetData(token :TokenMessage)
+    fun getCient(baseUrl :String): Retrofit? {
+        val client = OkHttpClient.Builder().build()
+
+        var retrofit = Retrofit.Builder()
+          .baseUrl(baseUrl)
+          .addConverterFactory(GsonConverterFactory.create())
+          .client(client)
+          .build()
+        return retrofit
+    }
+
 }
