@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,35 @@
  * limitations under the License.
  */
 
-package ffc.model
+package ffc.airsync.api.dao
 
+import ffc.model.Organization
+import org.junit.Test
 import java.util.*
 
-data class MobileUserAuth(val username: String,
-                          val password: String,
-                          val mobileUuid: UUID,
-                          val pcu: Pcu,
-                          var checkUser: UserStatus = UserStatus.VALIDATE){
-    fun getKey():String{
-        return pcu.uuid.toString()+"_"+mobileUuid
+class InMemoryOrganizationDaoTest {
+
+    private val dao = InMemoryOrgDao.instance
+
+    @Test
+    fun findPcuByUuid() {
+        val uuid = UUID.randomUUID()
+        val pcu = Organization(uuid)
+        dao.insert(pcu)
+
+        val findPcu = dao.findByUuid(uuid)
+
+        assert(findPcu == pcu)
     }
-    enum class UserStatus() {
-        VALIDATE,PASS,NOTPASS
+
+    @Test
+    fun findByIp() {
+        val pcu = Organization().apply { lastKnownIp = "127.0.0.1" }
+        dao.insert(pcu)
+
+        val findPcu = dao.findByIpAddress("127.0.0.1")
+
+        //assert(findPcu == pcu)
     }
+
 }

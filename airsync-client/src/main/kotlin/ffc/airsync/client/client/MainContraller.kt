@@ -21,13 +21,13 @@ import ffc.airsync.client.client.module.DaoFactory
 import ffc.airsync.client.client.module.PcuSocket
 import ffc.airsync.client.client.module.PcuSocketAuthByToken
 import ffc.airsync.client.client.module.UserAuthDAO
-import ffc.model.*
+import ffc.model.Organization
 import java.util.*
 
 class MainContraller {
 
 
-    var pcuDataTest = Pcu(UUID.fromString(Config.pcuUuid), "520", "Nectec", "", "", "", "")
+    var orgDataTest = Organization(UUID.fromString(Config.pcuUuid),"-1", "520", "Nectec")
 
 
     fun main(args: Array<String>) {
@@ -39,9 +39,11 @@ class MainContraller {
 
         //register central
         val userAuthDao : UserAuthDAO = DaoFactory().buildUserAuthDao()
-        val messageCentral : CentralMessageManage = CentralMessageManageV1()
+        val messageCentral : CentralMessageManage = CentralMessageMaorgUpdatenageV1()
 
-        pcuDataTest = messageCentral.registerPcu(pcuDataTest, Config.baseUrlRest)
+        orgDataTest = messageCentral.registerOrganization(orgDataTest, Config.baseUrlRest)
+
+
 
         val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
             override fun EventCallBackMessage(message: String) {
@@ -52,24 +54,24 @@ class MainContraller {
                     try {
                         messageCentral.checkMobileRegisterAuth({ mobileUserAuth ->
                             //Call back with post get data
-                            println("Username = " + mobileUserAuth.username + " Password = " + mobileUserAuth.password)
-
-                            if (userAuthDao.checkUserAurh(mobileUserAuth.username, mobileUserAuth.password)) {
-                                println("User pass")
-                                mobileUserAuth.checkUser = MobileUserAuth.UserStatus.PASS
+                            println("Username = " + mobileUserAuth.user.user + " Password = " + mobileUserAuth.user.pass)
+/*
+                            if (userAuthDao.checkUserAurh(mobileUserAuth.user, mobileUserAuth.pass)) {
+                                println("UserInfo pass")
+                                mobileUserAuth.checkUser = UserInfo.UserStatus.PASS
                             } else {
-                                println("User not pass.")
-                                mobileUserAuth.checkUser = MobileUserAuth.UserStatus.NOTPASS
-                            }
+                                println("UserInfo not pass.")
+                                mobileUserAuth.checkUser = UserInfo.UserStatus.NOTPASS
+                            }*/
                             //mobileUserAuth.toJson().httpPost(Config.baseUrlRest)
-                            val message = Message(
-                              mobileUserAuth.pcu.uuid,
+                            /*val message = Message<UserInfo>(
+                              mobileUserAuth.orgUuid.uuid,
                               mobileUserAuth.mobileUuid,
                               Message.Status.DEFAULT,
                               Message.Action.CONFIRMUSER,
-                              mobileUserAuth.toJson())
+                              mobileUserAuth)*/
                             println("Send Userpas ownAction central")
-                            message.toJson().httpPost(Config.baseUrlRest)
+                            //message.toJson().httpPost(Config.baseUrlRest)
                         })
                     }catch (e :Exception){
                         println(e)
@@ -88,7 +90,7 @@ class MainContraller {
                 }
             }
 
-        },pcuDataTest)
+        },orgDataTest)
 
 
 

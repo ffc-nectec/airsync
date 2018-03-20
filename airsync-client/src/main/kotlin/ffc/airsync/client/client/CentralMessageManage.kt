@@ -17,12 +17,15 @@
 
 package ffc.airsync.client.client
 
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
+import ffc.model.Organization
 import ffc.model.QueryAction
+import ffc.model.UserInfo
 
 interface CentralMessageManage {
-    fun registerPcu(pcu :Pcu, url :String) :Pcu
+    fun registerOrganization(organization :Organization, url :String) :Organization
+
+    fun putUser(userInfoList : ArrayList<UserInfo>)
+
     fun getData() : QueryAction
-    fun checkMobileRegisterAuth(userAuthFilter: (mobileUserAuth: MobileUserAuth) -> Unit )
+    fun checkMobileRegisterAuth(userAuthFilter: (userInfo: UserInfo) -> Unit )
 }

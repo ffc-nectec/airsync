@@ -18,14 +18,14 @@
 package ffc.airsync.api.dao
 
 import ffc.model.MobileRoutePcu
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
+import ffc.model.Organization
+import ffc.model.UserInfo
 import java.util.*
 
 class InMemoryUserAuthDao :UserAuthDao {
 
     private constructor()
-    private val userList = arrayListOf<MobileUserAuth>()
+    private val userList = arrayListOf<UserInfo>()
     private val userPass = arrayListOf<MobileRoutePcu>()
 
 
@@ -34,35 +34,35 @@ class InMemoryUserAuthDao :UserAuthDao {
 
     }
 
-    override fun insert(mobileUserAuth: MobileUserAuth) {
+    override fun insert(userInfo: UserInfo) {
 
-        remove(mobileUserAuth)
-        userList.add(mobileUserAuth)
+        remove(userInfo)
+        userList.add(userInfo)
 
     }
 
-    override fun find(mobileUserAuth: MobileUserAuth) : MobileUserAuth? {
-        val userAuth = userList.find { it.getKey() == mobileUserAuth.getKey() }
+    override fun find(userInfo: UserInfo) : UserInfo? {
+        val userAuth = userList.find { it.getKey() == userInfo.getKey() }
         return userAuth
     }
 
-    override fun remove(mobileUserAuth: MobileUserAuth) {
+    override fun remove(userInfo: UserInfo) {
         userList.removeIf {
-            it.getKey().equals(mobileUserAuth.getKey())
+            it.getKey().equals(userInfo.getKey())
         }
     }
 
-    override fun findByPcu(pcu: Pcu): List<MobileUserAuth> {
+    override fun findByPcu(organization: Organization): List<UserInfo> {
 
-        val userAuthList = ArrayList<MobileUserAuth>()
+        val userAuthList = ArrayList<UserInfo>()
 
         userList.forEach {
-            if (it.pcu.uuid == pcu.uuid){
+            if (it.orgUuid == organization.uuid){
                 userAuthList.add(it)
             }
         }
 
-        if (userAuthList.size<1) throw NoSuchElementException("Not Found User Auth")
+        if (userAuthList.size<1) throw NoSuchElementException("Not Found UserInfo Auth")
 
         return userAuthList
 
@@ -74,15 +74,15 @@ class InMemoryUserAuthDao :UserAuthDao {
         if(mobileRoutePcu != null)
             return mobileRoutePcu
 
-        throw NoSuchElementException("Not found mobile routing ownAction pcu.")
+        throw NoSuchElementException("Not found mobile routing ownAction orgUuid.")
 
     }
 
-    override fun updateStatusPass(mobileUserAuth: MobileUserAuth) {
+    override fun updateStatusPass(userInfo: UserInfo) {
 
-        val userAuth = find(mobileUserAuth)
+        val userAuth = find(userInfo)
         if(userAuth != null) {
-            updateStatusPass(MobileRoutePcu(mobileUuid = userAuth.mobileUuid, pcuUuid = userAuth.pcu.uuid))
+            updateStatusPass(MobileRoutePcu(mobileUuid = userAuth.mobileUuid, pcuUuid = userAuth.orgUuid))
         }
 
     }
@@ -91,9 +91,9 @@ class InMemoryUserAuthDao :UserAuthDao {
         userPass.add(mapMobileObject)
     }
 
-    override fun updateStatusNotPass(mobileUserAuth: MobileUserAuth) {
+    override fun updateStatusNotPass(userInfo: UserInfo) {
 
-        updateStatusNotPass(MobileRoutePcu(mobileUuid = mobileUserAuth.mobileUuid , pcuUuid = mobileUserAuth.pcu.uuid))
+        updateStatusNotPass(MobileRoutePcu(mobileUuid = userInfo.mobileUuid , pcuUuid = userInfo.orgUuid))
     }
 
 

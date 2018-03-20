@@ -18,14 +18,14 @@
 package ffc.airsync.api.websocket.module
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.dao.PcuDao
+import ffc.airsync.api.dao.OrgDao
 import ffc.airsync.api.websocket.module.PcuEventService.Companion.connectionMap
-import ffc.model.Pcu
+import ffc.model.Organization
 import ffc.model.TokenMessage
 import ffc.model.fromJson
-import ffc.model.toJson
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
+import java.util.*
 
 class PcuWebSocketEventService(val sess: Session) : PcuEventService {
 
@@ -33,8 +33,8 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
     private var session: String = ""
     private var count = 0
     private var stage = 0  //stage 0:init   1:run
-    private var pcu: Pcu = Pcu()
-    var pcuDao: PcuDao = DaoFactory().buildPcuDao()
+    private var organization: Organization = Organization(UUID.randomUUID(),"-1")
+    var orgDao: OrgDao = DaoFactory().buildPcuDao()
 
     init {
         this.session = DigestUtils.sha1Hex(sess.toString())
@@ -62,10 +62,10 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
 
         if (stage == 0) {//Register Channel
             val token :TokenMessage =message.fromJson()
-            val pcu = pcuDao.findByToken(token.token)
-            if (pcu.centralToken != null)
+            val pcu = orgDao.findByToken(token.token)
+            if (pcu != null)
             {
-                sess.remote.sendString(TokenMessage(pcu.centralToken.toString()).toJson())
+                //sess.remote.sendString(TokenMessage(pcu.centralToken.toString()).toJson())
                 //connectionMap.put(session,sess)
                 pcu.session=session
                 stage=1
@@ -77,10 +77,10 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
         }else if (stage == 1) {//Sync
             if (message.equals("H"))sess.remote.sendString("H")
             else{// Throw
-                val messageerr: String = ("Connection not H IP="+ pcu.lastKnownIp
-                +" Pcu code = "+pcu.code
-                +" Pcu name = "+pcu.name
-                + " Pcu uuid = "+pcu.uuid)
+                val messageerr: String = ("Connection not H IP="+ organization.lastKnownIp
+                +" Organization pcuCode = "+organization.pcuCode
+                +" Organization name = "+organization.name
+                + " Organization uuid = "+organization.uuid)
                 throw SecurityException(messageerr)
             }
         }

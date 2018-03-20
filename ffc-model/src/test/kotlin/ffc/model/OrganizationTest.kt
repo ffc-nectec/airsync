@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,15 +15,27 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client
+package ffc.model
 
-import java.net.URI
+import org.junit.Test
+import java.util.*
 
-class Config (){
-    companion object {
-        var pcuUuid ="00000000-0000-0000-0000-000000000009"
-        val baseUrlSocket = URI.create("ws://127.0.0.1:8080/airsync")
-        val baseUrlRest = "http://127.0.0.1:8080/v0/org"
-        //val baseUrlSocket = URI.create("ws://188.166.249.72:80/airsync")
+class OrganizationTest {
+
+    @Test
+    fun testEqual() {
+        val uuid = UUID.randomUUID()
+        val pcu1 = Organization(uuid)
+        val pcu2 = Organization(uuid, "100153", "Nectec41")
+
+        assert(pcu1 == pcu2)
+    }
+
+    @Test
+    fun testNotEqual() {
+        val pcu1 = Organization(UUID.randomUUID(), "100154", "Nectec41")
+        val pcu2 = Organization(UUID.randomUUID(), "100154", "Nectec41")
+
+        assert(pcu1 != pcu2)
     }
 }

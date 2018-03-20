@@ -31,7 +31,7 @@ class Test2 {
     @Test
     fun test1() {
 
-        //val testobj: Pcu = Pcu("32432", "Nectec01", UUID.randomUUID())
+        //val testobj: Organization = Organization("32432", "Nectec01", UUID.randomUUID())
 
 
         //System.out.println(
@@ -83,11 +83,11 @@ class Test2 {
     @Test
     fun testAirSyncSocketAndRegister(){
         /*var client = PcuSocketEventManage()
-        var pcu = Pcu("112233", "Nectec1999", UUID.randomUUID(), "sadsdafdsaf", "202.99.11.22 ")
-        client.sendText(Gson().toJson(pcu))
+        var orgUuid = Organization("112233", "Nectec1999", UUID.randomUUID(), "sadsdafdsaf", "202.99.11.22 ")
+        client.sendText(Gson().toJson(orgUuid))
         Thread.sleep(5000)
-        client.sendText(Gson().toJson(pcu))
-        client.sendText(Gson().toJson(pcu))
+        client.sendText(Gson().toJson(orgUuid))
+        client.sendText(Gson().toJson(orgUuid))
         client.close()*/
 
     }

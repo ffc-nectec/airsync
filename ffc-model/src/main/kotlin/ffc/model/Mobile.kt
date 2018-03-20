@@ -19,4 +19,4 @@ package ffc.model
 
 import java.util.*
 
-data class Mobile(val token: UUID, val pcu: Pcu)
+data class Mobile(val token: UUID, val organization: Organization)

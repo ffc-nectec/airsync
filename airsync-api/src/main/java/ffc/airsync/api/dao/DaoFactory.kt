@@ -17,12 +17,34 @@
 
 package ffc.airsync.api.dao
 
+import java.util.*
+
 class DaoFactory(val dev: Boolean = true) {
 
+
     fun buildMobileDao(): MobileDao = if (dev) InMemoryMobileDao.instance else EsMobileDao()
-    fun buildPcuDao(): PcuDao = if (dev) InMemoryPcuDao.instance else EsPcuDao()
+    fun buildPcuDao(): OrgDao = if (dev) InMemoryOrgDao.instance else EsOrgDao()
     fun buildMessageActionDao(): MessageActionDao = InMemoryMessageActionDao.instance
     fun buildUserAuthDao(): UserAuthDao = InMemoryUserAuthDao.instance
+    fun buildOrgUserDao(): OrgUserDao = InMemoryOrgUserDao.INSTANT
 
+
+    var tokenOrgMap: TokenMapDao<UUID>? = null
+    var tokenMobileMap: TokenMapDao<UUID>? = null
+
+    fun buildTokenOrgMapDao(): TokenMapDao<UUID> {
+        if (tokenOrgMap == null) {
+            tokenOrgMap = InMemoryTokenMapDao()
+        }
+        return tokenOrgMap as TokenMapDao<UUID>
+    }
+
+    fun buildTokenMobileMapDao(): TokenMapDao<UUID> {
+
+        if (tokenMobileMap == null) {
+            tokenMobileMap = InMemoryTokenMapDao()
+        }
+        return tokenMobileMap as TokenMapDao<UUID>
+    }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,17 +15,28 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.airsync.api.services.module
 
-import ffc.model.Pcu
+import ffc.model.*
 import java.util.*
 
-interface PcuDao {
-    fun insert(pcu: Pcu)
-    fun find(): List<Pcu>
-    fun findByUuid(uuid: UUID): Pcu
-    fun findByIpAddress(ipAddress: String): Pcu
-    fun findByToken(token :String) :Pcu
-    fun remove(pcu: Pcu)
-    fun updateToken(pcu: Pcu): Pcu
+interface OrgService {
+    fun register(organization :Organization, KnownIp :String) :Organization
+
+    fun getData(uuid :UUID) :Message<QueryAction>
+
+
+    fun getMobileUser(organization: Organization):List<UserInfo>
+    fun setUserPass(userInfo :UserInfo)
+    fun setUserNotPass(userInfo: UserInfo)
+
+    fun getMyOrg(ipAddress :String)   : List <Organization>
+
+    fun createUser(token: String,
+                   orgId :String,
+                   userList : ArrayList<User>)
+
+
+
+    fun sendEventGetData(uuid :UUID)
 }

@@ -17,18 +17,13 @@
 
 package ffc.model
 
-import java.util.*
 
-data class Message <T> (var from: UUID = UUID.randomUUID(),
-                   var to: UUID = UUID.randomUUID(),
-                   var status: Status = Status.DEFAULT,
-                   val action: Action = Action.DEFAULT,
+//Action to from in header
+data class Message <T> (
                    val data: T? = null) {
 
     enum class Action(code: Int) {//เปลี่ยน พาท เมทอด
         DEFAULT(0),REGISTER(1), PING(10), GETUSER(2), CONFIRMUSER(3),SENDTO(4)
     }
-    enum class Status(code: Int){//ใช้เป็น http status มี Error ภายในภายนอก
-        DEFAULT(0),ERROR(500), SUCC(200),NOTFOUND(404)
-    }
+
 }

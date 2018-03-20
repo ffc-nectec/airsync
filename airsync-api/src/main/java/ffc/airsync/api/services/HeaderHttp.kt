@@ -15,24 +15,19 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.airsync.api.services
 
-import ffc.model.Message
-import ffc.model.Organization
-import ffc.model.UserInfo
 import java.util.*
+import javax.servlet.http.HttpServletRequest
 
-interface MobileServices {
-    interface OnReceiveListener{
-        fun onReceive(message :String)
+
+fun HttpServletRequest.buildHeaderMap() :Map<String, String>{
+    val map = HashMap<String, String>()
+    val headerNames : Enumeration<String> = this.headerNames
+    while (headerNames.hasMoreElements()) {
+        val key = headerNames.nextElement() as String
+        val value = this.getHeader(key)
+        map[key] = value
     }
-    var onReceiveListener : OnReceiveListener?
-        get() = onReceiveListener
-        set(value) {}
-
-    fun getAll() : List<Organization>
-    fun getMyPcu(ipAddress : String): List<Organization>
-    fun registerMobile(userInfo: UserInfo): Message<UserInfo>
-    fun <T> sendAndRecive(message: Message<T>, onReceiveListener: OnReceiveListener, organization: Organization = Organization(UUID.randomUUID(),"-1"))
-    fun <T> sendToPcu(message: Message<T>)
+    return map
 }

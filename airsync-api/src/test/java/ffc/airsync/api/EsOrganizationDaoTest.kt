@@ -17,22 +17,22 @@
 
 package ffc.airsync.api
 
-import ffc.model.Pcu
+import ffc.airsync.api.dao.EsOrgDao
+import ffc.model.Organization
 import org.junit.Test
-import ffc.airsync.api.dao.EsPcuDao
 import java.util.*
 
-class EsPcuDaoTest {
+class EsOrganizationDaoTest {
     companion object {
-        var pcu = Pcu(UUID.fromString("6ae2f41e-5df7-44d5-8e8d-e6bf08730cd1"), "203", "Sing-To").apply {
+        var pcu = Organization(UUID.fromString("6ae2f41e-5df7-44d5-8e8d-e6bf08730cd1"),"-1", "203", "Sing-To").apply {
             session = "ksdfkjfesdfdsfjhhjkoiii"
             lastKnownIp = "127.0.0.1"
         }
-        var pcu2 = Pcu(UUID.fromString("6ae2f41e-5df7-44d5-8e8d-e6bf08730111"), "208", "Sing-To208").apply {
+        var pcu2 = Organization(UUID.fromString("6ae2f41e-5df7-44d5-8e8d-e6bf08730111"),"-1", "208", "Sing-To208").apply {
             session = "ijkjsskkjsdsnksnsd"
             lastKnownIp = "192.0.0.1"
         }
-        var register = EsPcuDao()
+        var register = EsOrgDao()
     }
 
     @Test
@@ -63,7 +63,7 @@ class EsPcuDaoTest {
     @Test
     fun findPcuByIpAddressTest(){
         var pcu = register.findByIpAddress("127.0.0.1")
-        println("PCU=" + pcu.name)
+        //println("PCU=" + pcu.name)
     }
 
     @Test

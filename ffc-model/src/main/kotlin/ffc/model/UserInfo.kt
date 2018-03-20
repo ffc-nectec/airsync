@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,35 +15,19 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.model
 
-import ffc.model.Pcu
-import org.junit.Test
 import java.util.*
 
-class InMemoryPcuDaoTest {
-
-    private val dao = InMemoryPcuDao.instance
-
-    @Test
-    fun findPcuByUuid() {
-        val uuid = UUID.randomUUID()
-        val pcu = Pcu(uuid)
-        dao.insert(pcu)
-
-        val findPcu = dao.findByUuid(uuid)
-
-        assert(findPcu == pcu)
+//user pass mobileuuid orgUuid check in header set Action is Regis
+data class UserInfo(val user :User,
+                    val mobileUuid: UUID,//PK
+                    val orgUuid: UUID,//PK
+                    var checkUser: UserStatus = UserStatus.VALIDATE){
+    fun getKey():String{
+        return orgUuid.toString()+"_"+mobileUuid
     }
-
-    @Test
-    fun findByIp() {
-        val pcu = Pcu().apply { lastKnownIp = "127.0.0.1" }
-        dao.insert(pcu)
-
-        val findPcu = dao.findByIpAddress("127.0.0.1")
-
-        assert(findPcu == pcu)
+    enum class UserStatus() {
+        VALIDATE,PASS,NOTPASS
     }
-
 }

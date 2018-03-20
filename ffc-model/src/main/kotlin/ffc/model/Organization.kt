@@ -19,30 +19,31 @@ package ffc.model
 
 import java.util.*
 
-data class Pcu(val uuid: UUID = UUID.randomUUID()) {
-    var code: String = "099912"
-    var name: String = "NECTEC"
+data class Organization(val uuid: UUID = UUID.randomUUID(),var id: String="-1") {
 
 
-    constructor(uuid: UUID, code: String, name: String, pcuToken: String? = null, session: String?= null, lastKnownIp: String?= null, centralToken: String?= null) : this(uuid) {
-        this.code = code
+
+    constructor(uuid: UUID,id : String, pcuCode: String, name: String, pcuToken: String? = null, session: String?= null, lastKnownIp: String?= null,  deviceToken:String?=null) : this(uuid,id) {
+
+        this.pcuCode = pcuCode
         this.name = name
-        this.pcuToken=pcuToken
+        this.orgToken=pcuToken
         this.session=session
         this.lastKnownIp=lastKnownIp
-        this.centralToken=centralToken
+        this.deviceToken=deviceToken
 
     }
 
-
-
+    var pcuCode: String = "099912"
+    var name: String = "NECTEC"
     var session: String? = null
     var lastKnownIp: String? = null
-    var pcuToken: String? = null
-    var centralToken: String? =null
+    var orgToken: String? = null
+    var deviceToken: String? = null
+
 
     override fun toString(): String {
-        return "Pcu(uuid=$uuid)"
+        return "Organization(uuid=$uuid)"
     }
 
 }

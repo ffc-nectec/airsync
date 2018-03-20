@@ -18,22 +18,22 @@
 package ffc.airsync.api.dao
 
 import ffc.model.MobileRoutePcu
-import ffc.model.MobileUserAuth
-import ffc.model.Pcu
+import ffc.model.Organization
+import ffc.model.UserInfo
 import java.util.*
 
 interface UserAuthDao {
-    fun insert(mobileUserAuth: MobileUserAuth)
-    fun remove(mobileUserAuth: MobileUserAuth)
-    fun find(mobileUserAuth: MobileUserAuth): MobileUserAuth?
+    fun insert(userInfo: UserInfo)
+    fun remove(userInfo: UserInfo)
+    fun find(userInfo: UserInfo): UserInfo?
 
     fun findRouteByMobileUuid(mobileUUID: UUID) :MobileRoutePcu
 
-    fun findByPcu(pcu: Pcu) :List<MobileUserAuth>
+    fun findByPcu(organization: Organization) :List<UserInfo>
 
-    fun updateStatusPass(mobileUserAuth: MobileUserAuth)
+    fun updateStatusPass(userInfo: UserInfo)
     fun updateStatusPass(mapMobileObject : MobileRoutePcu)
-    fun updateStatusNotPass(mobileUserAuth: MobileUserAuth)
+    fun updateStatusNotPass(userInfo: UserInfo)
     fun updateStatusNotPass(mapMobileObject : MobileRoutePcu)
 
 }

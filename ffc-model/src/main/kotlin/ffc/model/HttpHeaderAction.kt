@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,25 +17,6 @@
 
 package ffc.model
 
-import org.junit.Test
-import java.util.*
-
-class PcuTest {
-
-    @Test
-    fun testEqual() {
-        val uuid = UUID.randomUUID()
-        val pcu1 = Pcu(uuid)
-        val pcu2 = Pcu(uuid, "100153", "Nectec41")
-
-        assert(pcu1 == pcu2)
-    }
-
-    @Test
-    fun testNotEqual() {
-        val pcu1 = Pcu(UUID.randomUUID(), "100154", "Nectec41")
-        val pcu2 = Pcu(UUID.randomUUID(), "100154", "Nectec41")
-
-        assert(pcu1 != pcu2)
-    }
+enum class HttpHeaderAction {
+    ORGREGIS, PING, GETUSER, DEVICEREGIS,GETQUERY,PUTQUERY,GETNEWS
 }

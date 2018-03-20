@@ -17,7 +17,7 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.Pcu
+import ffc.model.Organization
 import ffc.model.fromJson
 import ffc.model.toJson
 import org.elasticsearch.client.transport.TransportClient
@@ -28,56 +28,55 @@ import java.net.InetAddress
 import java.util.*
 import kotlin.collections.ArrayList
 
-class EsPcuDao : PcuDao {
+class EsOrgDao : OrgDao {
 
     var client: TransportClient = PreBuiltTransportClient(Settings.EMPTY)
       .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"), 9300))
 
-    override fun insert(pcu: Pcu) {
-        client.insert("airsync", "air", pcu.uuid.toString(), pcu.toJson())
-        pcu.lastKnownIp?.let { client.insert("lastKnownIp", "ip", it, pcu.toJson()) }//อนาคตต้องเก็บเป็นแบบ list ป้องกัน IP ซ้ำ   ดึงค่ามาอ่าน ตรวจสอบ uuid ถ้าซ้ำ update ถ้าคนละ uuid ให้เพิ่มใน List
-        pcu.session?.let { client.insert("session", "sess", it, pcu.toJson()) }
-        pcu.pcuToken?.let { client.insert("pcuToken","pcuToken" ,it,pcu.toJson() ) }
+    override fun insert(organization: Organization) {
+        client.insert("airsync", "air", organization.uuid.toString(), organization.toJson())
+        organization.lastKnownIp?.let { client.insert("lastKnownIp", "ip", it, organization.toJson()) }//อนาคตต้องเก็บเป็นแบบ list ป้องกัน IP ซ้ำ   ดึงค่ามาอ่าน ตรวจสอบ uuid ถ้าซ้ำ update ถ้าคนละ uuid ให้เพิ่มใน List
+        organization.session?.let { client.insert("session", "sess", it, organization.toJson()) }
+        organization.orgToken?.let { client.insert("orgToken","orgToken" ,it,organization.toJson() ) }
     }
 
-    override fun remove(pcu: Pcu) {
-        client.delete("airsync", "air", pcu.uuid.toString())
+    override fun remove(organization: Organization) {
+        client.delete("airsync", "air", organization.uuid.toString())
 
-        pcu.lastKnownIp?.let { client.delete("lastKnownIp", "ip", it) }
-        pcu.session?.let { client.delete("session", "sess", it) }
-        pcu.pcuToken?.let { client.delete("pcuToken","pcuToken" ,it) }
+        organization.lastKnownIp?.let { client.delete("lastKnownIp", "ip", it) }
+        organization.session?.let { client.delete("session", "sess", it) }
+        organization.orgToken?.let { client.delete("orgToken","orgToken" ,it) }
     }
 
-    override fun findByUuid(uuid: UUID): Pcu {
+    override fun findByUuid(uuid: UUID): Organization {
         var response = client.get("airsync", "air", uuid.toString())
         println(response.sourceAsString)
         return response.sourceAsString.fromJson()
     }
 
-    override fun findByToken(token: String): Pcu {
-        val response = client.get("pcuToken","pcuToken",token)
+    override fun findByToken(token: String): Organization? {
+        val response = client.get("orgToken","orgToken",token)
         return response.sourceAsString.fromJson()
 
     }
 
-    override fun findByIpAddress(ipAddress: String): Pcu {
+    override fun findByIpAddress(ipAddress: String): List<Organization> {
         var response = client.get("lastKnownIp", "ip", ipAddress)
         println(response.sourceAsString)
         return response.sourceAsString.fromJson()
     }
 
-    override fun find(): List<Pcu> {
+    override fun find(): List<Organization> {
         var response = client.search("airsync", "air")
-        val pcuList = ArrayList<Pcu>()
+        val pcuList = ArrayList<Organization>()
 
         response.hits.hits.forEach { result -> pcuList.add(result.sourceAsString.fromJson()) }
         return pcuList
     }
 
-    override fun updateToken(pcu: Pcu): Pcu {
-        val pcuFind = findByUuid(pcu.uuid)
-        pcuFind.centralToken = UUID.randomUUID().toString()
-        pcuFind.pcuToken = UUID.randomUUID().toString()
+    override fun updateToken(organization: Organization): Organization {
+        val pcuFind = findByUuid(organization.uuid)
+        pcuFind.orgToken = UUID.randomUUID().toString()
         insert(pcuFind)
         return pcuFind
     }

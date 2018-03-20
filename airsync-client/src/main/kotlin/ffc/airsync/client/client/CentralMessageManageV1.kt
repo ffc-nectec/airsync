@@ -19,30 +19,28 @@ package ffc.airsync.client.client
 
 import ffc.model.*
 
-class CentralMessageManageV1 : CentralMessageManage {
+class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
 
-    var pcu: Pcu?=null
+    var organization: Organization?=null
     var urlBase: String?=null
     var stage:Int = 0
-
-
-    override fun registerPcu(pcu :Pcu, url :String) :Pcu {
-        this.pcu=pcu
-        this.urlBase=url
-        //val pcu2:Pcu  = putToServer(url,pcu.toJson()).body()!!.string().fromJson()
-        val pcu2:Pcu  = pcu.toJson().httpPut(url).body()!!.string().fromJson()
-
-        return pcu2
+    override fun putUser(userInfoList: ArrayList<UserInfo>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun checkMobileRegisterAuth(userAuthFilter: (mobileUserAuth : MobileUserAuth) -> Unit) {
-        val messageGetUserList = Message(from = pcu!!.uuid,action = Message.Action.GETUSER,status = Message.Status.DEFAULT,data = pcu!!.toJson())
-        val userList :List<MobileUserAuth> =messageGetUserList.toJson().httpPost(urlBase!!).body()!!.string().fromJson() //get User list
-        userList.forEach {
-            println("User Get1 = "+ it.mobileUuid)
-            userAuthFilter(it)
-        }
+    override fun registerOrganization(organization :Organization, url :String) :Organization {
+        this.organization=organization
+        this.urlBase=url
+        //val organization2:Organization  = putToServer(url,orgUuid.toJson()).body()!!.string().fromJson()
+        val organization2:Organization  = organization.toJson().httpPost(url).body()!!.string().fromJson()
+
+        return organization2
+    }
+
+    override fun checkMobileRegisterAuth(userAuthFilter: (userInfo : UserInfo) -> Unit) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
 
     }
 
