@@ -18,14 +18,17 @@
 package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.model.*
+import ffc.model.Message
+import ffc.model.Organization
+import ffc.model.QueryAction
+import ffc.model.User
 import java.util.*
 import javax.ws.rs.NotFoundException
 
 class OrgServiceHttpRestService : OrgService {
 
     val pcuDao = DaoFactory().buildPcuDao()
-    val mobileUserAuthDao = DaoFactory().buildUserAuthDao()
+    //val mobileUserAuthDao = DaoFactory().buildUserAuthDao()
     val orgUser = DaoFactory().buildOrgUserDao()
 
 
@@ -37,18 +40,7 @@ class OrgServiceHttpRestService : OrgService {
         return organization
     }
 
-    override fun getMobileUser(organization: Organization): List<UserInfo> {
-        val mobileUserList = mobileUserAuthDao.findByPcu(organization)
-        return mobileUserList
-    }
 
-    override fun setUserPass(userInfo: UserInfo) {
-        mobileUserAuthDao.updateStatusPass(userInfo)
-    }
-
-    override fun setUserNotPass(userInfo: UserInfo) {
-        mobileUserAuthDao.updateStatusNotPass(userInfo)
-    }
 
     override fun createUser(token: String, orgId: String, userList: ArrayList<User>) {
         val org = pcuDao.findByToken(token)

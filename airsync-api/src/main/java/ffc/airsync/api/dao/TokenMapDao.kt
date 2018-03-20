@@ -15,27 +15,12 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.airsync.api.dao
 
-import ffc.model.Message
-import ffc.model.Organization
-import ffc.model.QueryAction
-import ffc.model.User
-import java.util.*
+import ffc.model.TokenMap
 
-interface OrgService {
-    fun register(organization :Organization, KnownIp :String) :Organization
-
-    fun getData(uuid :UUID) :Message<QueryAction>
-
-
-    fun getMyOrg(ipAddress :String)   : List <Organization>
-
-    fun createUser(token: String,
-                   orgId :String,
-                   userList : ArrayList<User>)
-
-
-
-    fun sendEventGetData(uuid :UUID)
+interface TokenMapDao <T> {
+    fun insert(token :TokenMap<T> )
+    fun find(token:String): T
+    fun remove(token:String)
 }

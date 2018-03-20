@@ -35,7 +35,6 @@ class OrgAutorizeResource {
 
 
     val orgServices: OrgService = OrgServiceHttpRestService()
-    val userDao = DaoFactory().buildUserAuthDao()
     val userOrgDao = DaoFactory().buildOrgUserDao()
 
 

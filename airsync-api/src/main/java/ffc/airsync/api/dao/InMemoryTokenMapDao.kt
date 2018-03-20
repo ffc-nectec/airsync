@@ -17,23 +17,31 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.MobileRoutePcu
-import ffc.model.Organization
-import ffc.model.UserInfo
+import ffc.model.TokenMap
 import java.util.*
+import javax.ws.rs.NotFoundException
 
-interface UserAuthDao {
-    fun insert(userInfo: UserInfo)
-    fun remove(userInfo: UserInfo)
-    fun find(userInfo: UserInfo): UserInfo?
+class InMemoryTokenMapDao : TokenMapDao<UUID> {
 
-    fun findRouteByMobileUuid(mobileUUID: UUID) :MobileRoutePcu
+    val tokenMap = arrayListOf<TokenMap<UUID>>()
 
-    fun findByPcu(organization: Organization) :List<UserInfo>
+    override fun insert(token: TokenMap<UUID>) {
+        tokenMap.add(token)
 
-    fun updateStatusPass(userInfo: UserInfo)
-    fun updateStatusPass(mapMobileObject : MobileRoutePcu)
-    fun updateStatusNotPass(userInfo: UserInfo)
-    fun updateStatusNotPass(mapMobileObject : MobileRoutePcu)
+    }
+
+    override fun find(token: String): UUID {
+        val device = tokenMap.find { it.token == token }
+
+        if (device != null) return device.uuid
+        else
+            throw NotFoundException()
+
+    }
+
+    override fun remove(token: String) {
+        tokenMap.removeIf { it.token == token }
+
+    }
 
 }
