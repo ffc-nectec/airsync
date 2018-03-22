@@ -17,12 +17,8 @@
 
 package ffc.airsync.api
 
-import ffc.airsync.api.dao.EsOrgDao
-import ffc.model.Organization
-import org.junit.Test
-import java.util.*
-
 class EsOrganizationDaoTest {
+    /*
     companion object {
         var pcu = Organization(UUID.fromString("6ae2f41e-5df7-44d5-8e8d-e6bf08730cd1"),"-1", "203", "Sing-To").apply {
             session = "ksdfkjfesdfdsfjhhjkoiii"
@@ -71,4 +67,5 @@ class EsOrganizationDaoTest {
         var pculist = register.find()
         pculist.forEach { pcu -> println("name " + pcu.name) }
     }
+    */
 }

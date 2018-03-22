@@ -18,17 +18,14 @@
 package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.model.Message
-import ffc.model.Organization
-import ffc.model.QueryAction
-import ffc.model.User
+import ffc.model.*
 import java.util.*
 import javax.ws.rs.NotFoundException
 
 class OrgServiceHttpRestService : OrgService {
 
     val pcuDao = DaoFactory().buildPcuDao()
-    //val mobileUserAuthDao = DaoFactory().buildUserAuthDao()
+    val tokenMobileMap = DaoFactory().buildTokenMobileMapDao()
     val orgUser = DaoFactory().buildOrgUserDao()
 
 
@@ -36,10 +33,11 @@ class OrgServiceHttpRestService : OrgService {
 
         organization.orgToken = UUID.randomUUID().toString()
         organization.lastKnownIp=lastKnownIp
+        organization.socketUrl="ws://127.0.0.1:8080/airsync"
+
         pcuDao.insert(organization)
         return organization
     }
-
 
 
     override fun createUser(token: String, orgId: String, userList: ArrayList<User>) {
@@ -58,11 +56,21 @@ class OrgServiceHttpRestService : OrgService {
         return pcuDao.findByIpAddress(ipAddress)
     }
 
+
+    override fun orgUserAuth(id: String, user: String, pass: String): TokenMessage {
+        val checkUser=orgUser.isAllowById(User(user,pass),id)
+
+        if (checkUser){
+            val token =UUID.randomUUID().toString()
+            return TokenMessage(token)
+        }
+        throw NotFoundException()
+    }
+
     override fun sendEventGetData(uuid: UUID) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
         //
-
     }
 
     override fun getData(uuid: UUID): Message<QueryAction> {

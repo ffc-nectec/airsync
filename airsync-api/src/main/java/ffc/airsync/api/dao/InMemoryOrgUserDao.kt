@@ -43,6 +43,12 @@ class InMemoryOrgUserDao :OrgUserDao {
         return userOrg
     }
 
+    override fun findById(id: String): List<UserStor> {
+        val userOrg=userList.filter { it.orgId==id }
+        return userOrg
+
+    }
+
     override fun removeAll(orgUuid: UUID) {
         userList.removeIf { it.orgUuid==orgUuid }
 
@@ -54,6 +60,13 @@ class InMemoryOrgUserDao :OrgUserDao {
           it.user.user==user.user &&
           it.user.pass==user.pass }
         return user != null
+    }
 
+    override fun isAllowById(user: User, id: String): Boolean {
+
+        val user = userList.find { it.orgId==id &&
+          it.user.user==user.user &&
+          it.user.pass==user.pass }
+        return user != null
     }
 }

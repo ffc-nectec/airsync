@@ -17,10 +17,7 @@
 
 package ffc.airsync.api.services.module
 
-import ffc.model.Message
-import ffc.model.Organization
-import ffc.model.QueryAction
-import ffc.model.User
+import ffc.model.*
 import java.util.*
 
 interface OrgService {
@@ -34,6 +31,9 @@ interface OrgService {
     fun createUser(token: String,
                    orgId :String,
                    userList : ArrayList<User>)
+
+
+    fun orgUserAuth(id :String,user:String,pass:String) :TokenMessage
 
 
 

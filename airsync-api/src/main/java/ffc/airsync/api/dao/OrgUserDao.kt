@@ -24,9 +24,11 @@ import java.util.*
 
 
 interface OrgUserDao {
-    fun insert(user :User , org:Organization)
-    fun find(orgUuid: UUID) : List<UserStor>
+    fun insert(user: User, org: Organization)
+    fun find(orgUuid: UUID): List<UserStor>
+    fun findById(id: String): List<UserStor>
     fun removeAll(orgUuid: UUID)
-    fun isAllow(user :User,orgUuid: UUID):Boolean
+    fun isAllow(user: User, orgUuid: UUID): Boolean
+    fun isAllowById(user: User, id: String): Boolean
 
 }

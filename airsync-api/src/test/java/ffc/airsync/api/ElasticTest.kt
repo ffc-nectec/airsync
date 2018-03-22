@@ -3,13 +3,7 @@ package ffc.airsync.api
 import io.searchbox.client.JestClient
 import io.searchbox.client.JestClientFactory
 import io.searchbox.client.config.HttpClientConfig
-import org.elasticsearch.client.transport.TransportClient
-import org.elasticsearch.common.settings.Settings
-import org.elasticsearch.common.transport.TransportAddress
-import org.elasticsearch.common.xcontent.XContentType
-import org.elasticsearch.transport.client.PreBuiltTransportClient
 import org.junit.Test
-import java.net.InetAddress
 
 class ElasticTest {
     @Test
@@ -22,7 +16,7 @@ class ElasticTest {
 
     @Test
     fun testInsert(){
-        var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
+        /*var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
 
         var json:String = "{" +
@@ -35,25 +29,25 @@ class ElasticTest {
           .get()
 
         println(response.result)
-        toString()
+        toString()*/
     }
 
 
     @Test
     fun testGet(){
-        var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
+        /*var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
 
         var response = client.prepareGet("twitter", "tweet", "32").get()
-        println(response.source.getValue("data"))
+        println(response.source.getValue("data"))*/
     }
 
     @Test
     fun testDelete(){
 
-        var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
+        /*var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
         var response = client.prepareDelete("twitter", "tweet", "32").get()
-        println(response)
+        println(response)*/
     }
 }
