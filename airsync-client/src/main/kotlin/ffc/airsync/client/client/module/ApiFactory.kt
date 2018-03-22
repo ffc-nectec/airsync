@@ -17,6 +17,17 @@
 
 package ffc.airsync.client.client.module
 
-interface UserAuthDAO {
-    fun checkUserAurh(username :String, password :String) : Boolean
+import ffc.airsync.client.client.module.retrofit.APIClient
+import ffc.airsync.client.client.module.retrofit.AuthAirSync
+
+class ApiFactory {
+    //fun buildUserAuthDao(): UserAuthDAO = DemoUserAuthDao.instance
+    fun buildApiClient(url :String) : AuthAirSync? {
+
+
+        val restService = APIClient().getCient(url)
+
+        return restService!!.create(AuthAirSync::class.java)
+
+    }
 }

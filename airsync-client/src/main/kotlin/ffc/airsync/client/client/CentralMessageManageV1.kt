@@ -17,36 +17,47 @@
 
 package ffc.airsync.client.client
 
-import ffc.model.*
+import ffc.airsync.client.client.module.ApiFactory
+import ffc.model.Organization
+import ffc.model.User
+import javax.ws.rs.NotFoundException
 
 class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
 
-    var organization: Organization?=null
-    var urlBase: String?=null
-    var stage:Int = 0
-    override fun putUser(userInfoList: ArrayList<UserInfo>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    var organization: Organization? = null
+    var urlBase: String? = null
+    var stage: Int = 0
+    override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
 
-    override fun registerOrganization(organization :Organization, url :String) :Organization {
-        this.organization=organization
-        this.urlBase=url
-        //val organization2:Organization  = putToServer(url,orgUuid.toJson()).body()!!.string().fromJson()
-        val organization2:Organization  = organization.toJson().httpPost(url).body()!!.string().fromJson()
+        val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
+        val org = restService!!.regisUser(user = userInfoList,orgId = org.id,authkey = "Bearer "+org.orgToken!!).execute().body()
 
-        return organization2
-    }
 
-    override fun checkMobileRegisterAuth(userAuthFilter: (userInfo : UserInfo) -> Unit) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
 
     }
 
-    override fun getData(): QueryAction {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+
+
+    override fun registerOrganization(organization: Organization, url: String): Organization {
+        this.organization = organization
+        this.urlBase = url
+
+        //val organization2: Organization = organization.toJson().httpPost(url).body()!!.string().fromJson()
+        val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
+        val org = restService!!.regisOrg(organization).execute().body()
+
+        println(org)
+        Thread.sleep(3000)
+
+        if(org!=null)
+            return org
+        throw NotFoundException()
     }
 
 
 }
+
+

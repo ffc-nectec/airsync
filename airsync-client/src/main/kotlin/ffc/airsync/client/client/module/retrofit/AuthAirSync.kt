@@ -15,23 +15,24 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module
+package ffc.airsync.client.client.module.retrofit
 
-class DemoUserAuthDao :UserAuthDAO {
+import ffc.model.Organization
+import ffc.model.User
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.Path
 
-    private constructor()
+interface AuthAirSync {
+    @POST("/v0/org")
+    fun regisOrg(@Body body: Organization): Call<Organization>
 
-    companion object {
-        val instance = DemoUserAuthDao()
 
-    }
 
-    override fun checkUserAurh(username: String, password: String): Boolean {
 
-        if(username == "ADM" && password == "MDA")
-            return true
+    @POST("/v0/org/{orgId}/user")
+    fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : ArrayList<User>): Call<Any>
 
-        return false
-
-    }
 }

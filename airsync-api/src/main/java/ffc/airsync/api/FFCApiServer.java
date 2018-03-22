@@ -30,7 +30,7 @@ public class FFCApiServer {
 
 
     protected static final int DEFAULT_PORT = 8080;
-    protected static final String DEFAULT_HOST = "0.0.0.0";
+    protected static final String DEFAULT_HOST = "127.0.0.1";
     private static FFCApiServer instance;
     @Option(name = "-dev", usage = "mode")
     protected boolean dev = false;

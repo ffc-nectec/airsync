@@ -23,7 +23,7 @@ data class Organization(val uuid: UUID = UUID.randomUUID(),var id: String="-1") 
 
 
 
-    constructor(uuid: UUID,id : String, pcuCode: String, name: String, pcuToken: String? = null, session: String?= null, lastKnownIp: String?= null,  deviceToken:String?=null) : this(uuid,id) {
+    constructor(uuid: UUID,id : String, pcuCode: String, name: String, pcuToken: String? = null, session: String?= null, lastKnownIp: String?= null,  deviceToken:String?=null, socketUrl:String? =null) : this(uuid,id) {
 
         this.pcuCode = pcuCode
         this.name = name
@@ -31,6 +31,7 @@ data class Organization(val uuid: UUID = UUID.randomUUID(),var id: String="-1") 
         this.session=session
         this.lastKnownIp=lastKnownIp
         this.deviceToken=deviceToken
+        this.socketUrl=socketUrl
 
     }
 
@@ -40,6 +41,7 @@ data class Organization(val uuid: UUID = UUID.randomUUID(),var id: String="-1") 
     var lastKnownIp: String? = null
     var orgToken: String? = null
     var deviceToken: String? = null
+    var socketUrl:String? = null
 
 
     override fun toString(): String {

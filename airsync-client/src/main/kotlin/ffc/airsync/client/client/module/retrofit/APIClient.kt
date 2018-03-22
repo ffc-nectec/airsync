@@ -24,14 +24,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 class APIClient {
 
 
-    fun getCient(baseUrl :String): Retrofit? {
-        val client = OkHttpClient.Builder().build()
 
-        var retrofit = Retrofit.Builder()
+
+    fun getCient(baseUrl :String): Retrofit? {
+
+        val client = OkHttpClient.Builder()
+
+        val retrofit = Retrofit.Builder()
           .baseUrl(baseUrl)
           .addConverterFactory(GsonConverterFactory.create())
-          .client(client)
+          .client(client.build())
           .build()
+
+
+
         return retrofit
     }
 
