@@ -17,10 +17,10 @@
 
 package ffc.airsync.client.client
 
+import ffc.airsync.client.client.module.ApiFactory
 import ffc.airsync.client.client.module.PcuSocket
 import ffc.airsync.client.client.module.PcuSocketAuthByToken
 import ffc.model.Organization
-import ffc.model.User
 import java.net.URI
 import java.util.*
 
@@ -39,17 +39,18 @@ class MainContraller {
 
         //register central
 
+
+
         val messageCentral : CentralMessageManage = CentralMessageMaorgUpdatenageV1()
 
         org = messageCentral.registerOrganization(org, Config.baseUrlRest)
 
-        val userList = arrayListOf<User>()
+        val userList = ApiFactory().buildUserDao().findAll()
 
-        userList.add(User("adminttes","xxaabb"))
-        userList.add(User("sadfsdf","xxaabb"))
-
-        println("Add put user org = " + org.orgToken)
+        println("Add put username org = " + org.token)
         messageCentral.putUser(userList,org)
+
+
 
 
         val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
@@ -72,6 +73,7 @@ class MainContraller {
 
         socket.connect(URI.create(org.socketUrl))
         socket.join()
+
 
     }
 }

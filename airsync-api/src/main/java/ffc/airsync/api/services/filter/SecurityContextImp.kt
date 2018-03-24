@@ -43,7 +43,7 @@ class SecurityContextImp : SecurityContext {
 
 
     override fun isUserInRole(role: String?): Boolean {
-        return "user".equals(role)
+        return "username".equals(role)
     }
 
     override fun getAuthenticationScheme(): String {

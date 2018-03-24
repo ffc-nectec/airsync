@@ -27,7 +27,7 @@ data class Organization(val uuid: UUID = UUID.randomUUID(),var id: String="-1") 
 
         this.pcuCode = pcuCode
         this.name = name
-        this.orgToken=pcuToken
+        this.token=pcuToken
         this.session=session
         this.lastKnownIp=lastKnownIp
         this.deviceToken=deviceToken
@@ -39,7 +39,7 @@ data class Organization(val uuid: UUID = UUID.randomUUID(),var id: String="-1") 
     var name: String = "NECTEC"
     var session: String? = null
     var lastKnownIp: String? = null
-    var orgToken: String? = null
+    var token: String? = null
     var deviceToken: String? = null
     var socketUrl:String? = null
 

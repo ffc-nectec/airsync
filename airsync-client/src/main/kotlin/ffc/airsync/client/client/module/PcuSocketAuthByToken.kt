@@ -46,7 +46,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 if (healthConnectionWorking) {
                     if (state == 0) {
 
-                        sendText(TokenMessage(organization.orgToken!!).toJson())
+                        sendText(TokenMessage(organization.token!!).toJson())
                         state = 1
                     }
                     sendText("H")
@@ -110,7 +110,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 val centraltoken: TokenMessage = message!!.fromJson()
                 println("Clent handcheck central recive token = " + centraltoken)
                 if (centraltoken.token.equals(organization.centralToken)) {
-                    println("Auth pass handcheck")
+                    println("Auth password handcheck")
                     stage = 1
                 } else {
                     throw SecurityException("Cannot handcheck")

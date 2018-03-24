@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,19 +15,18 @@
  * limitations under the License.
  */
 
-package ffc.model
+package ffc.airsync.client
 
-import java.util.*
+import org.junit.Test
 
-//username password mobileuuid orgUuid check in header set Action is Regis
-data class UserInfo(val user :User,
-                    val mobileUuid: UUID,//PK
-                    val orgUuid: UUID,//PK
-                    var checkUser: UserStatus = UserStatus.VALIDATE){
-    fun getKey():String{
-        return orgUuid.toString()+"_"+mobileUuid
-    }
-    enum class UserStatus() {
-        VALIDATE,PASS,NOTPASS
+class MySqlTest {
+    @Test
+fun testMySqlDb(){
+
+
+
+
+
+
     }
 }

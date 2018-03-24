@@ -57,16 +57,16 @@ class InMemoryOrgUserDao :OrgUserDao {
     override fun isAllow(user: User,orgUuid: UUID): Boolean {
 
         val user = userList.find { it.orgUuid==orgUuid &&
-          it.user.user==user.user &&
-          it.user.pass==user.pass }
+          it.user.username==user.username &&
+          it.user.password==user.password }
         return user != null
     }
 
     override fun isAllowById(user: User, id: String): Boolean {
 
         val user = userList.find { it.orgId==id &&
-          it.user.user==user.user &&
-          it.user.pass==user.pass }
+          it.user.username==user.username &&
+          it.user.password==user.password }
         return user != null
     }
 }

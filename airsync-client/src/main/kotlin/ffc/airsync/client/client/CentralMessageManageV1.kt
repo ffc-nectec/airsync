@@ -20,25 +20,31 @@ package ffc.airsync.client.client
 import ffc.airsync.client.client.module.ApiFactory
 import ffc.model.Organization
 import ffc.model.User
-import javax.ws.rs.NotFoundException
+import java.util.*
+
 
 class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
 
     var organization: Organization? = null
     var urlBase: String? = null
-    var stage: Int = 0
     override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
 
         val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
-        val org = restService!!.regisUser(user = userInfoList,orgId = org.id,authkey = "Bearer "+org.orgToken!!).execute().body()
-
-
+        val org = restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token!!).execute().body()
 
 
     }
 
 
+
+    fun getUserFromDb2(){
+
+
+
+
+
+    }
 
 
     override fun registerOrganization(organization: Organization, url: String): Organization {
@@ -52,9 +58,9 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         println(org)
         Thread.sleep(3000)
 
-        if(org!=null)
+        if (org != null)
             return org
-        throw NotFoundException()
+        throw ClassNotFoundException()
     }
 
 

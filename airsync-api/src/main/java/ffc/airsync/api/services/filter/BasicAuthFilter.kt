@@ -41,16 +41,16 @@ class BasicAuthFilter :ContainerRequestFilter{
         */
 
         //val userDao = DaoFactory.build(UserDao::class.java)
-        /*val user = userDao.findCall(authenInfo.getUser(), authenInfo.getPass())
+        /*val username = userDao.findCall(authenInfo.getUsername(), authenInfo.getPassword())
           ?: throw FaarmisException(401, UNAUTHORIZED)
-        if (!isAllow(user))
+        if (!isAllow(username))
             throw FaarmisException(403, FORBIDDEN)
 */
 
 
         /*
         val urlScheme = requestContext.uriInfo.baseUri.scheme //http or https
-        val securityContext = SecurityContextImp(user, urlScheme)
+        val securityContext = SecurityContextImp(username, urlScheme)
         requestContext.securityContext = securityContext
         */
     }
@@ -63,11 +63,11 @@ class BasicAuthFilter :ContainerRequestFilter{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 /*
 
-        if(userInfo.user=="adminffcair" && userInfo.pass=="ffc@irffc@ir")
+        if(userInfo.username=="adminffcair" && userInfo.password=="ffc@irffc@ir")
         {
             return Organization(uuid = UUID.fromString(userInfo.orgUuid.uuid.toString()),name = "รพสต. เนคเทค",pcuCode = "283",deviceToken = "00xad")
         }
-        else if(userInfo.user=="adminffcair520" && userInfo.pass=="ffc@irffc@ir520")
+        else if(userInfo.username=="adminffcair520" && userInfo.password=="ffc@irffc@ir520")
         {
             return Organization(uuid = UUID.fromString(userInfo.orgUuid.uuid.toString()),name = "รพสต. ห้าสองศูนย์บี",pcuCode = "288",deviceToken = "00xdfvad")
         }

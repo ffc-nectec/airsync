@@ -46,7 +46,7 @@ class OrgAutorizeResource {
           + " UUID = " + organization.uuid)
         val orgUpdate = orgServices.register(organization, req.remoteAddr)
         println("Gen ip = " + orgUpdate.lastKnownIp
-          + " Org token = " + orgUpdate.orgToken)
+          + " Org token = " + orgUpdate.token)
         return orgUpdate
     }
 
@@ -59,9 +59,9 @@ class OrgAutorizeResource {
         throw NotFoundException()
     }
 
-    //Post user to central.
+    //Post username to central.
     @POST
-    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/user")
+    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/username")
     fun createUser(@Context req: HttpServletRequest,
                    @PathParam("orgUuid") orgId: String,
                    userList: ArrayList<User>) {

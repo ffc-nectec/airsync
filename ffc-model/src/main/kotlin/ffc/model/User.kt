@@ -17,4 +17,4 @@
 
 package ffc.model
 
-data class User(val user:String, val pass:String)
+data class User(val username:String, val password:String)

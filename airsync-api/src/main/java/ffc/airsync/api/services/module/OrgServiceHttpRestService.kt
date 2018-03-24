@@ -22,6 +22,7 @@ import ffc.model.*
 import java.util.*
 import javax.ws.rs.NotFoundException
 
+
 class OrgServiceHttpRestService : OrgService {
 
     val pcuDao = DaoFactory().buildPcuDao()
@@ -31,7 +32,7 @@ class OrgServiceHttpRestService : OrgService {
 
     override fun register(organization: Organization, lastKnownIp: String): Organization {
 
-        organization.orgToken = UUID.randomUUID().toString()
+        organization.token = UUID.randomUUID().toString()
         organization.lastKnownIp=lastKnownIp
         organization.socketUrl="ws://127.0.0.1:8080/airsync"
 
@@ -47,7 +48,7 @@ class OrgServiceHttpRestService : OrgService {
         if(org.id != orgId) throw NotFoundException()
 
         userList.forEach {
-            println("insert user "+ org.name +" User = "+it.user)
+            println("insert username "+ org.name +" User = "+it.username)
             orgUser.insert(it,org)
         }
     }

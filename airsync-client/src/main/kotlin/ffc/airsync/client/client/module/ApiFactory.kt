@@ -23,11 +23,8 @@ import ffc.airsync.client.client.module.retrofit.AuthAirSync
 class ApiFactory {
     //fun buildUserAuthDao(): UserAuthDAO = DemoUserAuthDao.instance
     fun buildApiClient(url :String) : AuthAirSync? {
-
-
         val restService = APIClient().getCient(url)
-
         return restService!!.create(AuthAirSync::class.java)
-
     }
+    fun buildUserDao() : UserDao = MySqlUserDao()
 }

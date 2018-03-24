@@ -32,7 +32,7 @@ interface AuthAirSync {
 
 
 
-    @POST("/v0/org/{orgId}/user")
+    @POST("/v0/org/{orgId}/username")
     fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : ArrayList<User>): Call<Any>
 
 }
