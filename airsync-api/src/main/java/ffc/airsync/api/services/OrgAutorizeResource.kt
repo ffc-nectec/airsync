@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
+import javax.ws.rs.core.Response
 import javax.xml.bind.DatatypeConverter
 
 @Produces(MediaType.APPLICATION_JSON)
@@ -40,19 +41,23 @@ class OrgAutorizeResource {
 
     //Register orgUuid.
     @POST
-    fun create(@Context req: HttpServletRequest, organization: Organization): Organization {
+    fun create(@Context req: HttpServletRequest, organization: Organization): Response {
         println("Org register pcuCode = " + organization.pcuCode
           + " Name = " + organization.name
           + " UUID = " + organization.uuid)
+
+
         val orgUpdate = orgServices.register(organization, req.remoteAddr)
         println("Gen ip = " + orgUpdate.lastKnownIp
           + " Org token = " + orgUpdate.token)
-        return orgUpdate
+
+        return Response.status(Response.Status.CREATED).entity(orgUpdate).build()
     }
 
     @GET
     fun getMyOrg(@QueryParam("my") my: Boolean = false,
                  @Context req: HttpServletRequest): List<Organization> {
+
         if (my) {
             return orgServices.getMyOrg(req.remoteAddr)
         }
@@ -61,25 +66,30 @@ class OrgAutorizeResource {
 
     //Post username to central.
     @POST
-    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/username")
+    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/user")
     fun createUser(@Context req: HttpServletRequest,
                    @PathParam("orgUuid") orgId: String,
-                   userList: ArrayList<User>) {
+                   userList: ArrayList<User>) :Response {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
+        println("Raw user list.")
+        userList.forEach {
+            println("User = "+it.username+" Pass = "+it.password)
+        }
 
         if (token != null)
             orgServices.createUser(token, orgId, userList)
 
+        return Response.status(Response.Status.CREATED).build()
 
     }
 
 
     @POST
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/autorize")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/authorize")
     fun regisMobile(@Context req: HttpServletRequest,
-                    @PathParam("orgId") orgId: String): TokenMessage {
+                    @PathParam("orgId") orgId: String): Response {
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Basic ", "")
@@ -92,12 +102,10 @@ class OrgAutorizeResource {
         val tokenMessage = orgServices.orgUserAuth(orgId,user,pass)
 
 
+        //Thread.sleep(3000)
 
 
-        Thread.sleep(3000)
-
-
-        return tokenMessage
+        return Response.status(Response.Status.CREATED).entity(tokenMessage).build()
 
     }
 

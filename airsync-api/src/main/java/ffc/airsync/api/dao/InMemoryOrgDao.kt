@@ -41,6 +41,10 @@ class InMemoryOrgDao : OrgDao {
 
 
     override fun insert(organization: Organization) {
+
+        pcuList.removeIf { it.uuid==organization.uuid }
+
+
         if (!pcuList.contains(organization)) {
             println("Organization insert InMemoryOrgDao \nOrganization data = "+organization.toJson())
             organization.id= (i++.toString())
@@ -74,7 +78,8 @@ class InMemoryOrgDao : OrgDao {
     }
 
     override fun remove(organization: Organization) {
-        pcuList.remove(organization)
+        //pcuList.remove(organization)
+        pcuList.removeIf { it.uuid==organization.uuid }
     }
 
     override fun find(): List<Organization> {

@@ -34,7 +34,8 @@ class OrgServiceHttpRestService : OrgService {
 
         organization.token = UUID.randomUUID().toString()
         organization.lastKnownIp=lastKnownIp
-        organization.socketUrl="ws://127.0.0.1:8080/airsync"
+        //organization.socketUrl="ws://127.0.0.1:8080/airsync"
+        organization.socketUrl="ws://188.166.249.72/airsync"
 
         pcuDao.insert(organization)
         return organization
@@ -54,7 +55,12 @@ class OrgServiceHttpRestService : OrgService {
     }
 
     override fun getMyOrg(ipAddress: String): List<Organization> {
-        return pcuDao.findByIpAddress(ipAddress)
+
+        val pcuReturn = pcuDao.findByIpAddress(ipAddress)
+        if(pcuReturn.isNotEmpty())
+            return pcuReturn
+        throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
+
     }
 
 
