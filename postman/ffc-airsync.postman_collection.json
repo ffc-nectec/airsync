@@ -65,7 +65,7 @@
 			},
 			"response": [
 				{
-					"id": "83435423-b082-4ab8-a1b3-1597bd9a6f51",
+					"id": "e1a41cc3-5792-457e-a48a-bfd3748f75af",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -155,7 +155,7 @@
 			},
 			"response": [
 				{
-					"id": "3619bb4f-1db0-4890-876e-ced27caf3c58",
+					"id": "2984c989-f878-4d1d-bf2e-b28ece583c93",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -316,7 +316,152 @@
 			},
 			"response": [
 				{
-					"id": "8fdd9d12-18fc-45e9-a574-717d0ebec666",
+					"id": "54ad19a7-5536-4758-b8be-1fe707408b40",
+					"name": "Find my Org",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/org?my=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"org"
+							],
+							"query": [
+								{
+									"key": "my",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"name": "Access-Control-Allow-Credentials",
+							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"name": "Access-Control-Allow-Methods",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "",
+							"name": "Access-Control-Expose-Headers",
+							"description": "Lets a server whitelist headers that browsers are allowed to access."
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"name": "Content-Encoding",
+							"description": "The type of encoding used on the data."
+						},
+						{
+							"key": "Content-Length",
+							"value": "153",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 20 Mar 2018 04:28:58 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"aa-kumJZhwOSO2WTj+KJgW7gg\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Server",
+							"value": "nginx",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"name": "Vary",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"code\": \"145\",\n        \"name\": \"เนคเทค\",\n        \"uuid\": \"15169\",\n        \"id\": \"1\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Find all Org",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aa474888-1071-4bb7-83d7-7c72b8407756",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/org",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "f0526648-81a6-4ba8-89b1-c772167a5466",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -498,7 +643,7 @@
 			},
 			"response": [
 				{
-					"id": "4e531a20-9f61-4dea-87fe-543795a755df",
+					"id": "ce52dc68-ad67-4745-b16d-d6260a921634",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -533,7 +678,7 @@
 					"body": ""
 				},
 				{
-					"id": "47d83327-5f03-4776-b7d6-762e32f1bc21",
+					"id": "cb478e53-4b44-4ba4-8684-99e07b200a1e",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
