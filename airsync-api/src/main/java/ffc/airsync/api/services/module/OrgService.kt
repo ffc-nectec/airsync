@@ -26,6 +26,7 @@ interface OrgService {
     fun getData(uuid :UUID) :Message<QueryAction>
 
 
+    fun getOrg() : List <Organization>
     fun getMyOrg(ipAddress :String)   : List <Organization>
 
     fun createUser(token: String,

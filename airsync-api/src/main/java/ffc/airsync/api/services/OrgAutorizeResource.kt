@@ -58,10 +58,13 @@ class OrgAutorizeResource {
     fun getMyOrg(@QueryParam("my") my: Boolean = false,
                  @Context req: HttpServletRequest): List<Organization> {
 
+        println("Get Org by ip = "+ req.remoteAddr)
+
         if (my) {
             return orgServices.getMyOrg(req.remoteAddr)
+        }else{
+            return orgServices.getOrg()
         }
-        throw NotFoundException()
     }
 
     //Post username to central.

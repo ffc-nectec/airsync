@@ -63,6 +63,10 @@ class OrgServiceHttpRestService : OrgService {
 
     }
 
+    override fun getOrg(): List<Organization> {
+        val pcuReturn = pcuDao.find()
+        return pcuReturn
+    }
 
     override fun orgUserAuth(id: String, user: String, pass: String): TokenMessage {
         val checkUser=orgUser.isAllowById(User(user,pass),id)
