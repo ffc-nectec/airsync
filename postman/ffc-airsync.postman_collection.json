@@ -51,7 +51,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"pcuCode\":\"145\",\n  \"name\": \"เนคเทค\",\n  \"uuid\": \"151b9\"\n}"
+					"raw": "{\n  \"pcuCode\":\"145\",\n  \"name\": \"เนคเทค\",\n  \"uuid\": \"674dd68f-b803-415c-a08a-5fb9ced30df6\"\n}"
 				},
 				"url": {
 					"raw": "{{url}}/org",
@@ -65,7 +65,7 @@
 			},
 			"response": [
 				{
-					"id": "780d90c7-3dab-4a10-82ea-6a991eccf8d7",
+					"id": "83435423-b082-4ab8-a1b3-1597bd9a6f51",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -155,7 +155,7 @@
 			},
 			"response": [
 				{
-					"id": "49d23d48-9368-4d64-8795-709e1682552a",
+					"id": "3619bb4f-1db0-4890-876e-ced27caf3c58",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -316,7 +316,7 @@
 			},
 			"response": [
 				{
-					"id": "03d378f8-9f34-4547-b2b6-873c0029457e",
+					"id": "8fdd9d12-18fc-45e9-a574-717d0ebec666",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -459,12 +459,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "",
+							"value": "1234admin0",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "",
+							"value": "admin0",
 							"type": "string"
 						}
 					]
@@ -498,7 +498,7 @@
 			},
 			"response": [
 				{
-					"id": "176d1560-f785-483d-aef8-72a806cf3391",
+					"id": "4e531a20-9f61-4dea-87fe-543795a755df",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -533,7 +533,7 @@
 					"body": ""
 				},
 				{
-					"id": "330b11d8-9975-4286-9532-32aa011d0adf",
+					"id": "47d83327-5f03-4776-b7d6-762e32f1bc21",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
