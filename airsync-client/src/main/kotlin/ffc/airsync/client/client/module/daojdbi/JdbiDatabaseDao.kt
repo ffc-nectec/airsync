@@ -17,6 +17,8 @@
 
 package ffc.airsync.client.client.module.daojdbi
 
+import ffc.model.HouseOrg
+import ffc.model.PersonOrg
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.extension.ExtensionCallback
 import org.jdbi.v3.core.kotlin.KotlinPlugin
@@ -25,19 +27,19 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 
 
 class JdbiDatabaseDao : DatabaseDao {
-    override fun getPerson(): List<Person> {
+    override fun getPerson(): List<PersonOrg> {
 
         val jdbi = createJdbi()
 
-        return jdbi.withExtension<List<Person>,QueryPerson,Exception>(QueryPerson::class.java, ExtensionCallback {
+        return jdbi.withExtension<List<PersonOrg>,QueryPerson,Exception>(QueryPerson::class.java, ExtensionCallback {
             it.getPerson()
         })
     }
 
-    override fun getHouse(): List<House> {
+    override fun getHouse(): List<HouseOrg> {
         val jdbi = createJdbi()
 
-        val resultHouse = jdbi.withExtension<List<House>,QueryHouse,Exception>(QueryHouse::class.java, ExtensionCallback {
+        val resultHouse = jdbi.withExtension<List<HouseOrg>,QueryHouse,Exception>(QueryHouse::class.java, ExtensionCallback {
             it.getHouse()
         })
 

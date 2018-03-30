@@ -19,6 +19,7 @@ package ffc.airsync.api.services.module
 
 import ffc.model.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 interface OrgService {
     fun register(organization :Organization, KnownIp :String) :Organization
@@ -32,6 +33,10 @@ interface OrgService {
     fun createUser(token: String,
                    orgId :String,
                    userList : ArrayList<User>)
+
+    fun createHouse(token:String,
+                    orgId:String,
+                    houseList: ArrayList<HouseOrg>)
 
 
     fun orgUserAuth(id :String,user:String,pass:String) :TokenMessage

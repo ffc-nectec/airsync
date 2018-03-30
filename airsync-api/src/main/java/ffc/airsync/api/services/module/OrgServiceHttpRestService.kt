@@ -21,6 +21,7 @@ import ffc.airsync.api.dao.DaoFactory
 import ffc.model.*
 import java.util.*
 import javax.ws.rs.NotFoundException
+import kotlin.collections.ArrayList
 
 
 class OrgServiceHttpRestService : OrgService {
@@ -42,11 +43,10 @@ class OrgServiceHttpRestService : OrgService {
     }
 
 
-    override fun createUser(token: String, orgId: String, userList: ArrayList<User>) {
-        val org = pcuDao.findByToken(token)
 
-        if(org==null) throw NotFoundException()
-        if(org.id != orgId) throw NotFoundException()
+
+    override fun createUser(token: String, orgId: String, userList: ArrayList<User>) {
+        val org = checkToken(token,orgId)
 
         userList.forEach {
             println("insert username "+ org.name +" User = "+it.username)
@@ -78,6 +78,13 @@ class OrgServiceHttpRestService : OrgService {
         throw NotFoundException()
     }
 
+    override fun createHouse(token: String, orgId: String, houseList: ArrayList<HouseOrg>) {
+        val org = checkToken(token,orgId)
+        val houseDao = DaoFactory().buildHouseDao()
+        houseDao.insert(org.uuid,houseList)
+
+    }
+
     override fun sendEventGetData(uuid: UUID) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
 
@@ -86,5 +93,14 @@ class OrgServiceHttpRestService : OrgService {
 
     override fun getData(uuid: UUID): Message<QueryAction> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun checkToken(token:String, orgId: String) :Organization{
+        val org = pcuDao.findByToken(token)
+
+        if(org==null) throw NotFoundException()
+        if(org.id != orgId) throw NotFoundException()
+
+        return org
     }
 }

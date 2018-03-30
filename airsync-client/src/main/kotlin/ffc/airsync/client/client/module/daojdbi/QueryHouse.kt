@@ -62,7 +62,7 @@ class HouseMapper : RowMapper<HouseOrg> {
         if (rs == null) throw ClassNotFoundException()
 
         return HouseOrg(
-          houseId = rs.getString("hcode"),
+          houseId = rs.getInt("hcode"),
           road =rs.getString("road"),
           xgis = rs.getString("xgis"),
           ygis = rs.getString("ygis"),

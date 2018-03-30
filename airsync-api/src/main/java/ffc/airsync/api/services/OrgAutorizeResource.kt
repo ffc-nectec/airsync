@@ -83,10 +83,14 @@ class OrgAutorizeResource {
             println("User = "+it.username+" Pass = "+it.password)
         }
 
-        if (token != null)
+        if (token != null) {
             orgServices.createUser(token, orgId, userList)
+            return Response.status(Response.Status.CREATED).build()
+        }else{
+            throw NotAuthorizedException("Not Pass")
+        }
 
-        return Response.status(Response.Status.CREATED).build()
+
 
     }
 
@@ -134,9 +138,19 @@ class OrgAutorizeResource {
     @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/place/house")
     fun createPlace(@Context req: HttpServletRequest,
                     @PathParam("orgId") orgId: String,
-                    houseList : ArrayList<HouseOrg>){
+                    houseList : ArrayList<HouseOrg>) :Response {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+
+
+        if (token != null) {
+            orgServices.createHouse(token,orgId,houseList)
+            return Response.status(Response.Status.CREATED).build()
+        }else{
+            throw NotAuthorizedException("Not Pass")
+        }
+
+
 
     }
 

@@ -17,9 +17,13 @@
 
 package ffc.model
 
+import java.util.*
+
 data class HouseOrg (
-  val houseId:String? ,
+  val houseId:Int? ,
   val road :String?,
   val xgis:String?,
   val ygis:String?,
-  var haveChronics:Boolean)
+  var haveChronics:Boolean,
+  var orgUUID: UUID?=null
+  )

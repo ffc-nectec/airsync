@@ -15,10 +15,18 @@
  * limitations under the License.
  */
 
-package ffc.model
+package ffc.airsync.api.dao
 
+import ffc.model.HouseOrg
 import java.util.*
 
-data class PersonOrg(val id :String,val fname :String, val lname :String,val hcode:String, val pcucodeperson :String,
-                     var orgUUID: UUID?=null)
+interface HouseDao {
+    fun insert(orgUuid: UUID,house : HouseOrg)
+    fun insert(orgUuid: UUID,houseList: List<HouseOrg>)
 
+    fun find(orgUuid: UUID) : List<HouseOrg>
+
+    fun findByHid(orgUuid: UUID,hid :Int) : List<HouseOrg>
+
+    fun remove(orgUuid: UUID)
+}
