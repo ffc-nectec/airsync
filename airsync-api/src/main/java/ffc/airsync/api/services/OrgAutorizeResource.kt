@@ -113,6 +113,25 @@ class OrgAutorizeResource {
     }
 
 
+
+    @GET
+    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/person")
+    fun getPerson(@QueryParam("page") page: Int = 1,@QueryParam("per_page") per_page: Int = 1,@Context req: HttpServletRequest) {
+        val httpHeader = req.buildHeaderMap()
+
+
+    }
+
+    @GET
+    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/place/house")
+    fun getPlace(){
+
+    }
+
+
+
+
+
     @GET
     @Path("/orgtemp")
     fun getOrgTemp(): Organization {

@@ -27,7 +27,7 @@ import java.util.*
 class MainContraller {
 
 
-    var org = Organization(UUID.fromString(Config.pcuUuid),"-1", "520", "Nectec")
+    var org = Organization(UUID.fromString(Config.pcuUuid),"-1", "589", "Nectecพี่โล่")
 
 
     fun main(args: Array<String>) {

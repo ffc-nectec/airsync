@@ -18,11 +18,26 @@
 package ffc.airsync.client;
 
 import ffc.airsync.client.client.MainContraller;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 
 public class Main {
 
 
+    protected static final String HOSTNAMEDB="127.0.0.1";
+    protected static final String HOSTPORTDB="3333";
+    protected static final String HOSTDB="jhcisdb";
+    protected static final String HOSTUSERNAME="root";
+    protected static final String HOSTPASSWORD="123456";
+
+
+
+    //@Option(name = "-hostdb", usage = "Database hostserver Ex. 127.0.0.1 ")
+    //protected int port = DEFAULT_PORT;
+
     public static void main(String[] args) {
+
         new MainContraller().main(args);
     }
 

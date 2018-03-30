@@ -15,22 +15,18 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module.retrofit
+package ffc.airsync.client
 
-import ffc.model.Organization
-import ffc.model.User
-import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
+import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
+import org.junit.Test
 
-interface AuthAirSync {
-    @POST("/v0/org")
-    fun regisOrg(@Body body: Organization): Call<Organization>
+class JdbiDatabaseDaoTest {
+    @Test
+    fun testGetPerson() {
+        val person = JdbiDatabaseDao()
+        //person.getPerson()
+        person.getHouse()
 
 
-    @POST("/v0/org/{orgId}/user")
-    fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : ArrayList<User>): Call<Any>
-
+    }
 }

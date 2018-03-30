@@ -15,22 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module.retrofit
+package ffc.model
 
-import ffc.model.Organization
-import ffc.model.User
-import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
+data class PersonOrg(val id :String,val fname :String, val lname :String,val hcode:String, val pcucodeperson :String)
 
-interface AuthAirSync {
-    @POST("/v0/org")
-    fun regisOrg(@Body body: Organization): Call<Organization>
-
-
-    @POST("/v0/org/{orgId}/user")
-    fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : ArrayList<User>): Call<Any>
-
-}
