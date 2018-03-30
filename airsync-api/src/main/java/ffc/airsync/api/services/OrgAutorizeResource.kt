@@ -19,6 +19,7 @@ package ffc.airsync.api.services
 
 import ffc.airsync.api.services.module.OrgService
 import ffc.airsync.api.services.module.OrgServiceHttpRestService
+import ffc.model.HouseOrg
 import ffc.model.Organization
 import ffc.model.TokenMessage
 import ffc.model.User
@@ -29,6 +30,7 @@ import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 import javax.xml.bind.DatatypeConverter
+import kotlin.collections.ArrayList
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -125,6 +127,16 @@ class OrgAutorizeResource {
     @GET
     @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/place/house")
     fun getPlace(){
+
+    }
+
+    @POST
+    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/place/house")
+    fun createPlace(@Context req: HttpServletRequest,
+                    @PathParam("orgId") orgId: String,
+                    houseList : ArrayList<HouseOrg>){
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
     }
 

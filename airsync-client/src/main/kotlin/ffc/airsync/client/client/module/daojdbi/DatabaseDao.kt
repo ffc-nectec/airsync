@@ -17,10 +17,11 @@
 
 package ffc.airsync.client.client.module.daojdbi
 
-import ffc.airsync.client.client.module.daojdbi.Person
+import ffc.model.HouseOrg
+import ffc.model.PersonOrg
 
 interface DatabaseDao {
-    fun getPerson() : List<Person>
-    fun getHouse() : List<House>
+    fun getPerson() : List<PersonOrg>
+    fun getHouse() : List<HouseOrg>
 
 }
