@@ -18,26 +18,24 @@
 package ffc.airsync.client.client.module.daojdbi
 
 import ffc.model.PersonOrg
-import org.jdbi.v3.core.config.ConfigRegistry
 import org.jdbi.v3.core.mapper.RowMapper
-import org.jdbi.v3.core.mapper.RowMapperFactory
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
-import org.jdbi.v3.sqlobject.config.RegisterRowMapperFactory
 import org.jdbi.v3.sqlobject.statement.SqlQuery
-import java.lang.reflect.Type
 import java.sql.ResultSet
-import java.util.*
 
 interface QueryPerson {
-    @SqlQuery("SELECT \n" +
-      "person.idcard,\n" +
-      "person.fname,\n" +
-      "person.lname,\n" +
-      "person.hcode,\n" +
-      "person.pcucodeperson\n" +
-      "\n" +
-      "FROM person")
+    @SqlQuery("SELECT " +
+      "person.idcard," +
+      "person.fname," +
+      "person.lname," +
+      "person.hcode," +
+      "person.pcucodeperson," +
+      "person.birth," +
+      "person.pid," +
+      "person.dischargetype," +
+      "ctitle.titlename " +
+      "FROM person LEFT JOIN ctitle ON person.prename=ctitle.titlecode")
     @RegisterRowMapper(PersonMapper::class)
     fun getPerson() :List<PersonOrg>
 }
@@ -48,13 +46,28 @@ class PersonMapper : RowMapper<PersonOrg> {
 
         if (rs == null) throw ClassNotFoundException()
 
-        val idcard = rs.getString("idcard")
-        val fname = rs.getString("fname")
-        val lname = rs.getString("lname")
-        val hcode = rs.getString("hcode")
-        val pcucodeperson = rs.getString("pcucodeperson")
+        val citizenId = rs.getString("idcard")
+        val firstname = rs.getString("fname")
+        val lastname = rs.getString("lname")
 
-        return PersonOrg(fname = fname, hcode = hcode, id = idcard, lname = lname, pcucodeperson = pcucodeperson)
+        val hospCode = rs.getString("pcucodeperson")
+
+
+        val id=rs.getInt("pid")
+        val prename=rs.getString("titlename")
+        val houseId = rs.getInt("hcode")
+        val birth=rs.getString("birth")
+        val statusLive=rs.getString("dischargetype")
+
+        return PersonOrg(firstname = firstname,
+          citizenId = citizenId,
+          lastname = lastname,
+          hospCode = hospCode,
+          birthDate = birth,
+          pid = id,
+          prename = prename,
+          statusLive = statusLive
+          )
 
     }
 }

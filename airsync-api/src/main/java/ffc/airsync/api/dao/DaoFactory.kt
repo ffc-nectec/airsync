@@ -30,6 +30,8 @@ class DaoFactory(val dev: Boolean = true) {
 
     fun buildHouseDao() : HouseDao = InMemoryHouseDao.instant
 
+    fun buildPersonDao():PersonDao = InMemoryPersonDao.instant
+
 
 
     var tokenOrgMap: TokenMapDao<UUID>? = null

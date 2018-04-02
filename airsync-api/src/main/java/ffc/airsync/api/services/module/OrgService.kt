@@ -36,7 +36,7 @@ interface OrgService {
 
     fun createHouse(token:String,
                     orgId:String,
-                    houseList: ArrayList<HouseOrg>)
+                    houseList: List<HouseOrg>)
 
 
     fun orgUserAuth(id :String,user:String,pass:String) :TokenMessage
@@ -44,4 +44,7 @@ interface OrgService {
 
 
     fun sendEventGetData(uuid :UUID)
+    fun createPerson(token: String,
+                     orgId: String,
+                     personList: List<PersonOrg>)
 }

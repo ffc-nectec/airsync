@@ -27,16 +27,17 @@ import kotlin.collections.ArrayList
 class OrgServiceHttpRestService : OrgService {
 
     val pcuDao = DaoFactory().buildPcuDao()
-    val tokenMobileMap = DaoFactory().buildTokenMobileMapDao()
     val orgUser = DaoFactory().buildOrgUserDao()
+    val houseDao = DaoFactory().buildHouseDao()
+    val personDao=DaoFactory().buildPersonDao()
 
 
     override fun register(organization: Organization, lastKnownIp: String): Organization {
 
         organization.token = UUID.randomUUID().toString()
         organization.lastKnownIp=lastKnownIp
-        //organization.socketUrl="ws://127.0.0.1:8080/airsync"
-        organization.socketUrl="ws://188.166.249.72/airsync"
+        organization.socketUrl="ws://127.0.0.1:8080/airsync"
+        //organization.socketUrl="ws://188.166.249.72/airsync"
 
         pcuDao.insert(organization)
         return organization
@@ -78,10 +79,14 @@ class OrgServiceHttpRestService : OrgService {
         throw NotFoundException()
     }
 
-    override fun createHouse(token: String, orgId: String, houseList: ArrayList<HouseOrg>) {
+    override fun createHouse(token: String, orgId: String, houseList: List<HouseOrg>) {
         val org = checkToken(token,orgId)
-        val houseDao = DaoFactory().buildHouseDao()
         houseDao.insert(org.uuid,houseList)
+    }
+
+    override fun createPerson(token: String, orgId: String, personList: List<PersonOrg>) {
+        val org = checkToken(token,orgId)
+        personDao.insert(org.uuid,personList)
 
     }
 

@@ -17,47 +17,42 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.HouseOrg
+import ffc.model.PersonOrg
 import java.util.*
+import kotlin.collections.ArrayList
 
-class InMemoryHouseDao :HouseDao {
+class InMemoryPersonDao : PersonDao {
 
     private constructor()
 
     companion object {
-        val instant = InMemoryHouseDao()
+        val instant = InMemoryPersonDao()
     }
 
+    val personList: ArrayList<PersonOrg> = arrayListOf()
 
 
-    val houseList = arrayListOf<HouseOrg>()
-
-
-
-    override fun insert(orgUuid: UUID, house: HouseOrg) {
-        house.orgUUID=orgUuid
-        println("Insert house = "+house.houseId+" XY= "+house.xgis+" "+house.ygis)
-        houseList.add(house)
+    override fun insert(orgUUID: UUID, person: PersonOrg) {
+        personList.removeIf { it.citizenId == person.citizenId }
+        person.orgUUID = orgUUID
+        personList.add(person)
     }
 
-    override fun insert(orgUuid: UUID, houseList: List<HouseOrg>) {
-        houseList.forEach {
-            insert(orgUuid,it)
-        }
-
-    }
-
-    override fun find(orgUuid: UUID) : List<HouseOrg>{
-        return houseList.filter {
-            it.orgUUID==orgUuid
+    override fun insert(orgUUID: UUID, personList: List<PersonOrg>) {
+        personList.forEach {
+            insert(orgUUID, it)
         }
     }
 
-    override fun findByHid(orgUuid: UUID, hid: Int) : List<HouseOrg>{
-        return houseList.filter { it.houseId==hid &&(it.orgUUID==orgUuid)  }
+    override fun find(orgUuid: UUID): List<PersonOrg> {
+        return personList.filter { it.orgUUID == orgUuid }
+    }
+
+    override fun findByCitizen(citizenId: String): List<PersonOrg> {
+        return personList.filter { it.citizenId == citizenId }
     }
 
     override fun remove(orgUuid: UUID) {
-        houseList.removeIf { it.orgUUID==orgUuid }
+        personList.removeIf { it.orgUUID == orgUuid }
     }
 }

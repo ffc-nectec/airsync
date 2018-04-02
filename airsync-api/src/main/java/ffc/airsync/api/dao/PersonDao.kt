@@ -15,30 +15,18 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client
+package ffc.airsync.api.dao
 
-import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
-import org.junit.Test
+import ffc.model.PersonOrg
+import java.util.*
 
-class JdbiDatabaseDaoTest {
-    @Test
-    fun testGetPerson() {
-        val jdbi = JdbiDatabaseDao()
-        val persons=jdbi.getPerson()
-        println("Person test list.")
-        persons.forEach {
-            System.out.println(it)
-        }
+interface PersonDao {
+    fun insert(orgUUID: UUID,person: PersonOrg)
+    fun insert(orgUUID: UUID,personList: List<PersonOrg>)
 
-    }
-    @Test
-    fun getHouse(){
-        val jdbi = JdbiDatabaseDao()
-        val houses=jdbi.getHouse()
+    fun find(orgUuid: UUID) : List<PersonOrg>
 
-        println("House test list.")
-        houses.forEach {
-            println(it)
-        }
-    }
+    fun findByCitizen(citizenId: String): List<PersonOrg>
+
+    fun remove(orgUuid: UUID)
 }

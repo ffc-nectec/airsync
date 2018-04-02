@@ -18,7 +18,9 @@
 package ffc.airsync.client.client
 
 import ffc.airsync.client.client.module.ApiFactory
+import ffc.model.HouseOrg
 import ffc.model.Organization
+import ffc.model.PersonOrg
 import ffc.model.User
 import java.util.*
 
@@ -28,24 +30,35 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     var organization: Organization? = null
     var urlBase: String? = null
+    val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
     override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
 
-        val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
-        val org = restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token!!).execute().body()
+        //val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
+        restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token!!).execute()
 
 
     }
 
+    override fun putHouse(houseList: List<HouseOrg>, org: Organization) {
 
+        houseList.forEach { println(it) }
+
+        restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!,houseList = houseList).execute()
+
+
+    }
 
     fun getUserFromDb2(){
 
 
-
-
-
     }
 
+    override fun putPerson(personList: List<PersonOrg>, org: Organization) {
+        restService!!.createPerson(orgId = org.id,
+          authkey = "Bearer " + org.token!!,
+          personList = personList).execute()
+
+    }
 
     override fun registerOrganization(organization: Organization, url: String): Organization {
         this.organization = organization

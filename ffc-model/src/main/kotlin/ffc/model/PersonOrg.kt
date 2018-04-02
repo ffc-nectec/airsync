@@ -19,6 +19,19 @@ package ffc.model
 
 import java.util.*
 
-data class PersonOrg(val id :String,val fname :String, val lname :String,val hcode:String, val pcucodeperson :String,
+data class PersonOrg(val id: Long = Random().nextLong() * -1,
+                     val firstname :String,
+                     val lastname :String,
+                     val hospCode:String,
+
+
+                     val prename:String,
+                     val birthDate:String,
+                     val pid: Int,
+                     val citizenId : String,
+                     val statusLive: String,
+
+
+
                      var orgUUID: UUID?=null)
 

@@ -30,7 +30,7 @@ class MySqlUserDao : UserDao {
 
         try {
             Class.forName("com.mysql.jdbc.Driver")
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/jhcisdb" + "?autoReconnect=true&useSSL=false","root","123456789")
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3333/jhcisdb" + "?autoReconnect=true&useSSL=false","root","123456")
 
             if (conn != null) {
                 println("Database Connected.")

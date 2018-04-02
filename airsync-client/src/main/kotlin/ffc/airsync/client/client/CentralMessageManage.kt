@@ -17,7 +17,9 @@
 
 package ffc.airsync.client.client
 
+import ffc.model.HouseOrg
 import ffc.model.Organization
+import ffc.model.PersonOrg
 import ffc.model.User
 
 interface CentralMessageManage {
@@ -25,5 +27,8 @@ interface CentralMessageManage {
 
     fun putUser(userInfoList : ArrayList<User>,org: Organization)
 
+    fun putHouse(houseList: List<HouseOrg>, org: Organization)
+
+    fun putPerson(personList: List<PersonOrg>,org: Organization)
 
 }

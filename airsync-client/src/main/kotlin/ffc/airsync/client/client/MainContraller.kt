@@ -20,7 +20,11 @@ package ffc.airsync.client.client
 import ffc.airsync.client.client.module.ApiFactory
 import ffc.airsync.client.client.module.PcuSocket
 import ffc.airsync.client.client.module.PcuSocketAuthByToken
+import ffc.airsync.client.client.module.daojdbi.DatabaseDao
+import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
+import ffc.model.HouseOrg
 import ffc.model.Organization
+import ffc.model.toJson
 import java.net.URI
 import java.util.*
 
@@ -38,28 +42,33 @@ class MainContraller {
 
 
         //register central
-
-
-
         val messageCentral : CentralMessageManage = CentralMessageMaorgUpdatenageV1()
-
         org = messageCentral.registerOrganization(org, Config.baseUrlRest)
 
+        //put user
         val userList = ApiFactory().buildUserDao().findAll()
-
         println("Add put username org = " + org.token)
         messageCentral.putUser(userList,org)
 
 
+        //put house
+        val databaseDao : DatabaseDao = JdbiDatabaseDao()
+        val houseList = databaseDao.getHouse()
+        messageCentral.putHouse(houseList,org)
+
+        //put person
+        val personList = databaseDao.getPerson()
+        messageCentral.putPerson(personList,org)
 
 
-        val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
+
+
+
+
+       /* val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
             override fun EventCallBackMessage(message: String) {
                 if (message == "X") {
-
                    // messageCentral.getData()
-
-
 
                 } else {// Cannot X
 
@@ -73,6 +82,8 @@ class MainContraller {
 
         socket.connect(URI.create(org.socketUrl))
         socket.join()
+        */
+        Thread.sleep(3000)
 
 
     }

@@ -17,7 +17,9 @@
 
 package ffc.airsync.client.client.module.retrofit
 
+import ffc.model.HouseOrg
 import ffc.model.Organization
+import ffc.model.PersonOrg
 import ffc.model.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -25,12 +27,19 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface AuthAirSync {
+interface CentralClient {
     @POST("/v0/org")
     fun regisOrg(@Body body: Organization): Call<Organization>
 
 
     @POST("/v0/org/{orgId}/user")
-    fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : ArrayList<User>): Call<Any>
+    fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : List<User>): Call<Void>
+
+
+    @POST("/v0/org/{orgId}/place/house/base")
+    fun createHouse(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body houseList : List<HouseOrg>): Call<Void>
+
+    @POST("/v0/org/{orgId}/person/base")
+    fun createPerson(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body personList : List<PersonOrg>): Call<Void>
 
 }

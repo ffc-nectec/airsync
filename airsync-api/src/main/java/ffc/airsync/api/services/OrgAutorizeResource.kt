@@ -19,10 +19,7 @@ package ffc.airsync.api.services
 
 import ffc.airsync.api.services.module.OrgService
 import ffc.airsync.api.services.module.OrgServiceHttpRestService
-import ffc.model.HouseOrg
-import ffc.model.Organization
-import ffc.model.TokenMessage
-import ffc.model.User
+import ffc.model.*
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
@@ -121,24 +118,25 @@ class OrgAutorizeResource {
 
 
     @GET
-    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/person")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
     fun getPerson(@QueryParam("page") page: Int = 1,@QueryParam("per_page") per_page: Int = 1,@Context req: HttpServletRequest) {
         val httpHeader = req.buildHeaderMap()
 
 
     }
 
-    @GET
-    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/place/house")
-    fun getPlace(){
-
-    }
 
     @POST
-    @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/place/house")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/base")
     fun createPlace(@Context req: HttpServletRequest,
                     @PathParam("orgId") orgId: String,
-                    houseList : ArrayList<HouseOrg>) :Response {
+                    houseList : List<HouseOrg>) :Response {
+        println("\nCall create house by ip = "+req.remoteAddr)
+
+        houseList.forEach {
+            println(it)
+        }
+
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
@@ -149,12 +147,31 @@ class OrgAutorizeResource {
         }else{
             throw NotAuthorizedException("Not Pass")
         }
-
-
-
     }
 
 
+    @POST
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person/base")
+    fun createPerson(@Context req: HttpServletRequest,
+                    @PathParam("orgId") orgId: String,
+                    personList : List<PersonOrg>) :Response {
+        println("\nCall create house by ip = "+req.remoteAddr)
+
+        personList.forEach {
+            println(it)
+        }
+
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+
+
+        if (token != null) {
+            orgServices.createPerson(token,orgId,personList)
+            return Response.status(Response.Status.CREATED).build()
+        }else{
+            throw NotAuthorizedException("Not Pass")
+        }
+    }
 
 
 
