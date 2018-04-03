@@ -35,8 +35,7 @@ import kotlin.collections.ArrayList
 class OrgAutorizeResource {
 
 
-    val orgServices: OrgService = HttpRestOrgService()
-
+    val orgServices: OrgService = HttpRestOrgService.instant
 
     //Register orgUuid.
     @POST
@@ -57,11 +56,11 @@ class OrgAutorizeResource {
     fun getMyOrg(@QueryParam("my") my: Boolean = false,
                  @Context req: HttpServletRequest): List<Organization> {
 
-        println("Get Org by ip = "+ req.remoteAddr)
+        println("Get Org by ip = " + req.remoteAddr)
 
         if (my) {
             return orgServices.getMyOrg(req.remoteAddr)
-        }else{
+        } else {
             return orgServices.getOrg()
         }
     }
@@ -71,22 +70,21 @@ class OrgAutorizeResource {
     @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/user")
     fun createUser(@Context req: HttpServletRequest,
                    @PathParam("orgUuid") orgId: String,
-                   userList: ArrayList<User>) :Response {
+                   userList: ArrayList<User>): Response {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
         println("Raw user list.")
         userList.forEach {
-            println("User = "+it.username+" Pass = "+it.password)
+            println("User = " + it.username + " Pass = " + it.password)
         }
 
         if (token != null) {
             orgServices.createUser(token, orgId, userList)
             return Response.status(Response.Status.CREATED).build()
-        }else{
+        } else {
             throw NotAuthorizedException("Not Pass")
         }
-
 
 
     }
@@ -103,9 +101,9 @@ class OrgAutorizeResource {
         val user = userpass.get(index = 0)
         val pass = userpass.get(index = 1)
         println("Mobile Login Auid = " + orgId +
-        " User = "+user+
-        " Pass = "+pass)
-        val tokenMessage = orgServices.orgUserAuth(orgId,user,pass)
+          " User = " + user +
+          " Pass = " + pass)
+        val tokenMessage = orgServices.orgUserAuth(orgId, user, pass)
 
 
         //Thread.sleep(3000)
@@ -114,101 +112,6 @@ class OrgAutorizeResource {
         return Response.status(Response.Status.CREATED).entity(tokenMessage).build()
 
     }
-
-
-
-    @GET
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
-    fun getPerson(@QueryParam("page") page: Int = 1,
-                  @QueryParam("per_page") per_page: Int = 1,
-                  @Context req: HttpServletRequest) {
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-
-    }
-
-
-    @GET
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
-    fun getHouse(@QueryParam("page") page: Int = 1,
-                 @QueryParam("per_page") per_page: Int = 1,
-                 @Context req: HttpServletRequest) {
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-
-
-    }
-    @POST
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/base")
-    fun createPlace(@Context req: HttpServletRequest,
-                    @PathParam("orgId") orgId: String,
-                    houseList: List<Address>): Response {
-        println("\nCall create house by ip = "+req.remoteAddr)
-
-        houseList.forEach {
-            println(it)
-        }
-
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-
-
-        if (token != null) {
-            orgServices.createHouse(token,orgId,houseList)
-            return Response.status(Response.Status.CREATED).build()
-        }else{
-            throw NotAuthorizedException("Not Pass")
-        }
-    }
-
-
-    @POST
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/chronic/base")
-    fun createChronic(@Context req: HttpServletRequest,
-                      @PathParam("orgId") orgId: String,
-                      chronicList: List<Chronic>): Response {
-        println("\nCall create chronic by ip = " + req.remoteAddr)
-
-        chronicList.forEach {
-            println(it)
-        }
-
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-
-
-        if (token != null) {
-            orgServices.createChronic(token, orgId, chronicList)
-            return Response.status(Response.Status.CREATED).build()
-        } else {
-            throw NotAuthorizedException("Not Pass")
-        }
-    }
-
-
-    @POST
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person/base")
-    fun createPerson(@Context req: HttpServletRequest,
-                     @PathParam("orgId") orgId: String,
-                     personList: List<Person>): Response {
-        println("\nCall create house by ip = "+req.remoteAddr)
-
-        personList.forEach {
-            println(it)
-        }
-
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-
-
-        if (token != null) {
-            orgServices.createPerson(token,orgId,personList)
-            return Response.status(Response.Status.CREATED).build()
-        }else{
-            throw NotAuthorizedException("Not Pass")
-        }
-    }
-
 
 
     @GET

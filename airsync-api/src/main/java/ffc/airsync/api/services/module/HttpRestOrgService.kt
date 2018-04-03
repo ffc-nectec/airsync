@@ -26,6 +26,12 @@ import kotlin.collections.ArrayList
 
 class HttpRestOrgService : OrgService {
 
+    private constructor()
+
+    companion object {
+        val instant = HttpRestOrgService()
+    }
+
     val pcuDao = DaoFactory().buildPcuDao()
     val orgUser = DaoFactory().buildOrgUserDao()
     val houseDao = DaoFactory().buildHouseDao()

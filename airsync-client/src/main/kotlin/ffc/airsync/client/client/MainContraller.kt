@@ -56,11 +56,11 @@ class MainContraller {
 
         //put house
         val houseList = databaseDao.getHouse()
-        //messageCentral.putHouse(houseList,org)
+        messageCentral.putHouse(houseList, org)
 
         //put person
         val personOrgList = databaseDao.getPerson()
-        //messageCentral.putPerson(personOrgList,org)
+        messageCentral.putPerson(personOrgList, org)
 
         //put chronic
         val chronicList = databaseDao.getChronic()
