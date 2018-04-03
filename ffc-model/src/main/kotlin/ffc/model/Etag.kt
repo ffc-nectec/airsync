@@ -17,13 +17,28 @@
 
 package ffc.model
 
-import java.util.*
+import org.apache.commons.codec.digest.DigestUtils
 
-data class HouseOrg (
-  val houseId:Int? ,
-  val road :String?,
-  val xgis:String?,
-  val ygis:String?,
-  var haveChronics:Boolean,
-  var orgUUID: UUID?=null
-  )
+class Etag <T :Any> (val data : T) {
+
+    private var etagP : String
+    private var etagCache:String
+
+
+    init {
+        etagCache=DigestUtils.sha1Hex(data.toString())
+        etagP=etagCache
+    }
+
+    fun checkEtagUpdate() :Boolean{
+        etagCache=DigestUtils.sha1Hex(data.toString())
+        return etagP!=etagCache
+    }
+    fun setUpdate(): String
+    {
+        checkEtagUpdate()
+        etagP=etagCache
+        return etagP
+    }
+
+}

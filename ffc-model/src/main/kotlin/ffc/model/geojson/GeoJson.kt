@@ -15,23 +15,11 @@
  * limitations under the License.
  */
 
-package ffc.model
+package ffc.model.geojson
 
-import java.util.*
-
-data class PersonOrg(val id: Long = Random().nextLong() * -1,
-                     val firstname :String,
-                     val lastname :String,
-                     val hospCode:String,
+class GeoJson{
 
 
-                     val prename:String,
-                     val birthDate:String,
-                     val pid: Int,
-                     val citizenId : String,
-                     val statusLive: String,
+}
 
-
-
-                     var orgUUID: UUID?=null)
 

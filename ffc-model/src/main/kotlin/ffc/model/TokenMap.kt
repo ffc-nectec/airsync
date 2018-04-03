@@ -17,5 +17,5 @@
 
 package ffc.model
 
-data class TokenMap <T> (val token :String, val uuid : T)
+data class TokenMap <T> (val token :String,val user:String, val uuid : T)
 
