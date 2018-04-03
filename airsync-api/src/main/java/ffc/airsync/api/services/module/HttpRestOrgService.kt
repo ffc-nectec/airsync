@@ -19,6 +19,10 @@ package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
 import ffc.model.*
+import me.piruin.geok.LatLng
+import me.piruin.geok.geometry.Feature
+import me.piruin.geok.geometry.FeatureCollection
+import me.piruin.geok.geometry.Geometry
 import java.util.*
 import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
@@ -39,6 +43,48 @@ class HttpRestOrgService : OrgService {
     val personDao = DaoFactory().buildPersonDao()
     val chronicDao = DaoFactory().buildChronicDao()
 
+
+    override fun getHouse(token: String, orgId: String, page: Int, per_page: Int): FeatureCollection {
+
+        println("Token = $token")
+
+        //val tokenObj = checkTokenMobile(UUID.fromString(token), orgId)
+
+        println("Befor check token")
+        //val tokenObj = tokenMobile.find(UUID.fromString(token))
+        //if (orgUuid ) throw NotFoundException()
+        //if (tokenObj.id != orgId.toInt()) throw NotFoundException()
+
+        //val tokenObj = StorageOrg<UUID>(o)
+        val uuid = UUID.fromString("00000000-0000-0000-0000-000000000010")
+
+        println("Token pass org ")
+
+
+        println("Search house match")
+        val houseList = houseDao.find(uuid/*tokenObj.uuid*/)
+
+        println("count house = ${houseList.count()}")
+        //println("Test get house 1 ${houseList.get(0)}")
+
+        //val featureList = arrayListOf<Feature<Address>>()
+
+        val geoJson = FeatureCollection()
+
+        data class myGeo(override val type: String, val coordinates: LatLng) : Geometry
+
+
+        houseList.forEach {
+
+            val geometry = myGeo("Point", it.data.latlng!!)
+            val feture: Feature<Address> = Feature(geometry, it.data)
+            geoJson.features.add(feture)
+        }
+
+        return geoJson
+
+
+    }
 
     override fun register(organization: Organization, lastKnownIp: String): Organization {
 
@@ -82,11 +128,14 @@ class HttpRestOrgService : OrgService {
             val org = pcuDao.findById(id)
             if (org == null) throw NotFoundException()
 
-            val token = UUID.randomUUID().toString()
+            val token = UUID.randomUUID()
 
-            tokenMobile.insert(TokenMap(token = token, uuid = org.uuid, user = user))
+            tokenMobile.insert(token = token,
+              uuid = org.uuid,
+              user = user,
+              id = id.toInt())
 
-            return TokenMessage(token)
+            return TokenMessage(token.toString())
         }
         throw NotFoundException()
     }
@@ -124,5 +173,16 @@ class HttpRestOrgService : OrgService {
         if (org.id != orgId) throw NotFoundException()
 
         return org
+    }
+
+    private fun checkTokenMobile(token: UUID, orgId: String): StorageOrg<UUID> {
+        println("Befor check token")
+        val orgUuid = tokenMobile.find(token)
+        //if (orgUuid ) throw NotFoundException()
+        if (orgUuid.id != orgId.toInt()) throw NotFoundException()
+
+        println("Token pass org ")
+
+        return orgUuid
     }
 }

@@ -105,6 +105,7 @@ class OrgAutorizeResource {
           " Pass = " + pass)
         val tokenMessage = orgServices.orgUserAuth(orgId, user, pass)
 
+        println("Token is $tokenMessage")
 
         //Thread.sleep(3000)
 

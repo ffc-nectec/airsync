@@ -17,9 +17,16 @@
 
 package ffc.airsync.client.client.module.daojdbi
 
+import com.fatboyindustrial.gsonjodatime.Converters
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import ffc.model.Identity
+import ffc.model.IdentityDeserializer
 import ffc.model.Person
 import ffc.model.ThaiCitizenId
+import me.piruin.geok.LatLng
+import me.piruin.geok.gson.LatLngSerializer
+import me.piruin.geok.gson.adapterFor
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -69,10 +76,11 @@ class PersonMapper : RowMapper<Person> {
         person.prename=prename
 
 
-        //person.identities.add(ThaiCitizenId(citizenId))
+        person.identities.add(ThaiCitizenId(citizenId))
 
-        //person.birthData= LocalDate.fromDateFields(birth)
+        person.birthData = LocalDate.fromDateFields(birth)
         person.pid=pid.toLong()
+
 
 
         return person

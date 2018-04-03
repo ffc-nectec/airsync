@@ -21,7 +21,7 @@ import ffc.model.Address
 import ffc.model.StorageOrg
 import java.util.*
 
-class InMemoryHouseDao :HouseDao {
+class InMemoryHouseDao : HouseDao {
 
     private constructor()
 
@@ -34,26 +34,34 @@ class InMemoryHouseDao :HouseDao {
 
 
     override fun insert(orgUuid: UUID, house: Address) {
-        houseList.removeIf { it.uuid == orgUuid && it.data.identity?.id == house.identity?.id }
+        //houseList.removeIf { it.uuid == orgUuid && it.data.identity?.id == house.identity?.id }
         println("Insert house = ${house.identity?.id} XY= ${house.latlng}")
         houseList.add(StorageOrg(orgUuid, house))
     }
 
     override fun insert(orgUuid: UUID, houseList: List<Address>) {
         houseList.forEach {
-            insert(orgUuid,it)
+            insert(orgUuid, it)
         }
 
     }
 
-    override fun find(): List<StorageOrg<Address>> {
-        return houseList
+    override fun find(latlng: Boolean): List<StorageOrg<Address>> {
+        if (latlng)
+            return houseList.filter { it.data.latlng!!.latitude != 0.0 || it.data.latlng!!.longitude != 0.0 }
+        else
+            return houseList
     }
 
-    override fun find(orgUuid: UUID): List<StorageOrg<Address>> {
-        return houseList.filter {
-            it.uuid == orgUuid
-        }
+    override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
+        if (latlng)
+            return houseList.filter {
+                (it.data.latlng!!.latitude != 0.0 || it.data.latlng!!.longitude != 0.0) && it.uuid == orgUuid
+            }
+        else
+            return houseList.filter {
+                it.uuid == orgUuid
+            }
     }
 
 

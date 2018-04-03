@@ -18,6 +18,7 @@
 package ffc.airsync.api.services.module
 
 import ffc.model.*
+import me.piruin.geok.geometry.FeatureCollection
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,4 +50,5 @@ interface OrgService {
                      personList: List<Person>)
 
     fun createChronic(token: String, orgId: String, chronicList: List<Chronic>)
+    fun getHouse(token: String, orgId: String, page: Int, per_page: Int): FeatureCollection
 }

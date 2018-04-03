@@ -33,24 +33,7 @@ class DaoFactory(val dev: Boolean = true) {
     fun buildPersonDao():PersonDao = InMemoryPersonDao.instant
 
 
-
-    var tokenOrgMap: TokenMapDao<UUID>? = null
-    var tokenMobileMap: TokenMapDao<UUID>? = null
-
-    fun buildTokenOrgMapDao(): TokenMapDao<UUID> {
-        if (tokenOrgMap == null) {
-            tokenOrgMap = InMemoryTokenMapDao()
-        }
-        return tokenOrgMap as TokenMapDao<UUID>
-    }
-
-    fun buildTokenMobileMapDao(): TokenMapDao<UUID> {
-
-        if (tokenMobileMap == null) {
-            tokenMobileMap = InMemoryTokenMapDao()
-        }
-        return tokenMobileMap as TokenMapDao<UUID>
-    }
+    fun buildTokenMobileMapDao(): MobileTokenDao = InMemoryMobileTokenDao.instant
 
     fun buildChronicDao(): ChronicDao = InMemoryChronicDao.instant
 

@@ -24,6 +24,8 @@ dependencies {
     implementation 'me.piruin:geok-gson:1.0.0-alpha'
 
 
+// https://mvnrepository.com/artifact/com.fatboyindustrial.gson-jodatime-serialisers/gson-jodatime-serialisers
+    compile group: 'com.fatboyindustrial.gson-jodatime-serialisers', name: 'gson-jodatime-serialisers', version: '1.6.0'
 
 
 

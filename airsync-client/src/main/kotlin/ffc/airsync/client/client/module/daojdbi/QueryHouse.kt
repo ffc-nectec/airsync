@@ -41,7 +41,6 @@ FROM house
     fun getHouse(): List<Address>
 
 
-
 }
 
 
@@ -58,10 +57,7 @@ class HouseMapper : RowMapper<Address> {
 
         house.road = road
 
-
-        val latlng = arrayListOf<Double>()
-        latlng.add(xgis)
-        latlng.add(ygis)
+        //if (xgis != 0.0 && ygis != 0.0)
         house.latlng = LatLng(ygis, xgis)
 
         return house

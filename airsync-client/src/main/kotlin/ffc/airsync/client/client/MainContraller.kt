@@ -59,12 +59,12 @@ class MainContraller {
         messageCentral.putHouse(houseList, org)
 
         //put person
-        val personOrgList = databaseDao.getPerson()
-        messageCentral.putPerson(personOrgList, org)
+        //val personOrgList = databaseDao.getPerson()
+        //messageCentral.putPerson(personOrgList, org)
 
         //put chronic
-        val chronicList = databaseDao.getChronic()
-        messageCentral.putChronic(chronicList,org)
+        //val chronicList = databaseDao.getChronic()
+        //messageCentral.putChronic(chronicList,org)
 
 
         /* val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
