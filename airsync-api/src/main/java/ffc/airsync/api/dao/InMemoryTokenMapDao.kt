@@ -26,6 +26,9 @@ class InMemoryTokenMapDao : TokenMapDao<UUID> {
     val tokenMap = arrayListOf<TokenMap<UUID>>()
 
     override fun insert(token: TokenMap<UUID>) {
+
+        //Device 1 per 1 token
+        tokenMap.removeIf { it.user == token.user && it.uuid == token.uuid }
         tokenMap.add(token)
 
     }

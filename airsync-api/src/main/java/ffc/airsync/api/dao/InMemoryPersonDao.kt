@@ -17,7 +17,8 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.PersonOrg
+import ffc.model.Person
+import ffc.model.StorageOrg
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -29,30 +30,26 @@ class InMemoryPersonDao : PersonDao {
         val instant = InMemoryPersonDao()
     }
 
-    val personList: ArrayList<PersonOrg> = arrayListOf()
+    val personList: ArrayList<StorageOrg<Person>> = arrayListOf()
 
 
-    override fun insert(orgUUID: UUID, person: PersonOrg) {
-        personList.removeIf { it.citizenId == person.citizenId }
-        person.orgUUID = orgUUID
-        personList.add(person)
+    override fun insert(orgUUID: UUID, person: Person) {
+        personList.removeIf { it.uuid == orgUUID && it.data.pid == person.pid }
+
+        personList.add(StorageOrg(orgUUID, person))
     }
 
-    override fun insert(orgUUID: UUID, personList: List<PersonOrg>) {
+    override fun insert(orgUUID: UUID, personList: List<Person>) {
         personList.forEach {
             insert(orgUUID, it)
         }
     }
 
-    override fun find(orgUuid: UUID): List<PersonOrg> {
-        return personList.filter { it.orgUUID == orgUuid }
-    }
-
-    override fun findByCitizen(citizenId: String): List<PersonOrg> {
-        return personList.filter { it.citizenId == citizenId }
+    override fun find(orgUuid: UUID): List<StorageOrg<Person>> {
+        return personList.filter { it.uuid == orgUuid }
     }
 
     override fun remove(orgUuid: UUID) {
-        personList.removeIf { it.orgUUID == orgUuid }
+        personList.removeIf { it.uuid == orgUuid }
     }
 }

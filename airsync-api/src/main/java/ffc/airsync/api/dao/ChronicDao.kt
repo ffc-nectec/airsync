@@ -15,24 +15,15 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.services.module
+package ffc.airsync.api.dao
 
-import ffc.model.Message
-import ffc.model.Organization
-import ffc.model.UserInfo
+import ffc.model.Chronic
+import ffc.model.StorageOrg
 import java.util.*
 
-interface MobileServices {
-    interface OnReceiveListener{
-        fun onReceive(message :String)
-    }
-    var onReceiveListener : OnReceiveListener?
-        get() = onReceiveListener
-        set(value) {}
-
-    fun getAll() : List<Organization>
-    fun getMyPcu(ipAddress : String): List<Organization>
-    fun registerMobile(userInfo: UserInfo): Message<UserInfo>
-    fun <T> sendAndRecive(message: Message<T>, onReceiveListener: OnReceiveListener, organization: Organization = Organization(UUID.randomUUID(),"-1"))
-    fun <T> sendToPcu(message: Message<T>)
+interface ChronicDao {
+    fun insert(orgUUID: UUID, chronic: Chronic)
+    fun insert(orgUUID: UUID, chronicList: List<Chronic>)
+    fun find(orgUuid: UUID): List<StorageOrg<Chronic>>
+    fun remove(orgUuid: UUID)
 }

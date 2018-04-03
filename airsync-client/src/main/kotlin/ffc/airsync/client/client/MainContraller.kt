@@ -31,7 +31,7 @@ import java.util.*
 class MainContraller {
 
 
-    var org = Organization(UUID.fromString(Config.pcuUuid),"-1", "589", "Nectecพี่โล่")
+    var org = Organization(UUID.fromString(Config.pcuUuid), "-1", "589", "Nectecพี่โล่")
 
 
     fun main(args: Array<String>) {
@@ -42,51 +42,49 @@ class MainContraller {
 
 
         //register central
-        val messageCentral : CentralMessageManage = CentralMessageMaorgUpdatenageV1()
+        val messageCentral: CentralMessageManage = CentralMessageMaorgUpdatenageV1()
         org = messageCentral.registerOrganization(org, Config.baseUrlRest)
 
         //put user
         val userList = ApiFactory().buildUserDao().findAll()
         println("Add put username org = " + org.token)
-        messageCentral.putUser(userList,org)
+        messageCentral.putUser(userList, org)
 
 
         //Create connect database
-        val databaseDao : DatabaseDao = JdbiDatabaseDao()
+        val databaseDao: DatabaseDao = JdbiDatabaseDao()
 
         //put house
         val houseList = databaseDao.getHouse()
-        messageCentral.putHouse(houseList,org)
+        //messageCentral.putHouse(houseList,org)
 
         //put person
         val personOrgList = databaseDao.getPerson()
-        messageCentral.putPerson(personOrgList,org)
+        //messageCentral.putPerson(personOrgList,org)
 
         //put chronic
         val chronicList = databaseDao.getChronic()
         messageCentral.putChronic(chronicList,org)
 
 
+        /* val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
+             override fun EventCallBackMessage(message: String) {
+                 if (message == "X") {
+                    // messageCentral.getData()
 
+                 } else {// Cannot X
 
-       /* val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
-            override fun EventCallBackMessage(message: String) {
-                if (message == "X") {
-                   // messageCentral.getData()
+                 }
+             }
 
-                } else {// Cannot X
-
-                }
-            }
-
-        },org)
+         },org)
 
 
 
 
-        socket.connect(URI.create(org.socketUrl))
-        socket.join()
-        */
+         socket.connect(URI.create(org.socketUrl))
+         socket.join()
+         */
         Thread.sleep(3000)
 
 

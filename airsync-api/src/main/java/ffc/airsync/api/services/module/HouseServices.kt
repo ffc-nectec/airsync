@@ -15,20 +15,13 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.airsync.api.services.module
 
-import ffc.model.Address
-import ffc.model.StorageOrg
-import org.elasticsearch.cluster.metadata.AliasAction
+import me.piruin.geok.geometry.FeatureCollection
 import java.util.*
 
-interface HouseDao {
-    fun insert(orgUuid: UUID, house: Address)
-    fun insert(orgUuid: UUID, houseList: List<Address>)
+interface HouseServices {
 
-    fun find(): List<StorageOrg<Address>>
+    fun getHouse(page: Int, per_page: Int, id: String): FeatureCollection
 
-    fun find(orgUuid: UUID): List<StorageOrg<Address>>
-
-    fun remove(orgUuid: UUID)
 }

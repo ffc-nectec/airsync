@@ -35,6 +35,10 @@ class InMemoryOrgDao : OrgDao {
 
     }
 
+    override fun findById(id: String): Organization? {
+        return pcuList.find { it.id == id }
+    }
+
     override fun findByToken(token: String): Organization? {
         return pcuList.find { it.token.equals(token) }
     }

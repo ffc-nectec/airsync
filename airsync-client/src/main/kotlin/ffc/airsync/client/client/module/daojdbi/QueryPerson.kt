@@ -19,7 +19,7 @@ package ffc.airsync.client.client.module.daojdbi
 
 import ffc.model.Identity
 import ffc.model.Person
-import ffc.model.PersonOrg
+import ffc.model.ThaiCitizenId
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -67,18 +67,11 @@ class PersonMapper : RowMapper<Person> {
         person.lastname=lastname
         person.hospCode=hospCode
         person.prename=prename
-        person.identities.add(object :Identity{
-            override val id: String
-                get() = citizenId
-            override val type: String
-                get() = "thailand-citizen-id"
 
-            override fun isValid(): Boolean {
-                return true
-            }
-        })
 
-        person.birthData= LocalDate.fromDateFields(birth)
+        //person.identities.add(ThaiCitizenId(citizenId))
+
+        //person.birthData= LocalDate.fromDateFields(birth)
         person.pid=pid.toLong()
 
 

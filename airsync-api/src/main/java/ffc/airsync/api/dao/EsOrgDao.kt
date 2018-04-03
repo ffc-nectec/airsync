@@ -40,6 +40,10 @@ class EsOrgDao : OrgDao {
         organization.token?.let { client.insert("token","token" ,it,organization.toJson() ) }
     }
 
+    override fun findById(id: String): Organization? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun remove(organization: Organization) {
         client.delete("airsync", "air", organization.uuid.toString())
 

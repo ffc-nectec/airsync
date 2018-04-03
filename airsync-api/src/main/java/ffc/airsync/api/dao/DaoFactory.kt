@@ -52,4 +52,6 @@ class DaoFactory(val dev: Boolean = true) {
         return tokenMobileMap as TokenMapDao<UUID>
     }
 
+    fun buildChronicDao(): ChronicDao = InMemoryChronicDao.instant
+
 }

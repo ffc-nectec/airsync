@@ -35,10 +35,12 @@ package ffc.model
  */
 
 
+import me.piruin.geok.LatLng
 import org.joda.time.LocalDate
-import java.util.Random
+import java.util.*
 
 data class Person(val id: Long = Random().nextLong() * -1) {
+    val orgId: Int? = null
     var hospCode: String? = null
     var pid: Long? = null
     var prename: String = ""
@@ -61,7 +63,7 @@ data class Address(val id: Long = Random().nextLong() * -1) {
     var tambon: String? = null
     var ampur: String? = null
     var changwat: String? = null
-    var latlng: List<Double>? = null
+    var latlng: LatLng? = null
 
     enum class Type {
         House, Condo
@@ -76,18 +78,18 @@ data class Chronic(val idc10: String, val diagDate: LocalDate) {
 }
 
 interface Identity {
-    val id : String
-    val type : String
+    val id: String
+    val type: String
     fun isValid(): Boolean
 }
 
-class ThaiCitizenId(override val id: String): Identity {
+class ThaiCitizenId(override val id: String) : Identity {
     override val type: String = "thailand-citizen-id"
 
     override fun isValid(): Boolean = id.length == 13
 }
 
-class ThaiHouseholdId(override val id: String): Identity {
+class ThaiHouseholdId(override val id: String) : Identity {
     override val type: String = "thailand-household-id"
 
     override fun isValid(): Boolean = id.length == 11

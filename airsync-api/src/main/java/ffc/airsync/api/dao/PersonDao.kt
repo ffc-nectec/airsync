@@ -17,16 +17,16 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.PersonOrg
+import ffc.model.Person
+import ffc.model.StorageOrg
 import java.util.*
 
 interface PersonDao {
-    fun insert(orgUUID: UUID,person: PersonOrg)
-    fun insert(orgUUID: UUID,personList: List<PersonOrg>)
+    fun insert(orgUUID: UUID, person: Person)
+    fun insert(orgUUID: UUID, personList: List<Person>)
 
-    fun find(orgUuid: UUID) : List<PersonOrg>
+    fun find(orgUuid: UUID): List<StorageOrg<Person>>
 
-    fun findByCitizen(citizenId: String): List<PersonOrg>
 
     fun remove(orgUuid: UUID)
 }

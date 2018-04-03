@@ -18,7 +18,7 @@
 package ffc.airsync.api.services
 
 import ffc.airsync.api.services.module.OrgService
-import ffc.airsync.api.services.module.OrgServiceHttpRestService
+import ffc.airsync.api.services.module.HttpRestOrgService
 import ffc.model.*
 import java.util.*
 import javax.servlet.http.HttpServletRequest
@@ -35,7 +35,7 @@ import kotlin.collections.ArrayList
 class OrgAutorizeResource {
 
 
-    val orgServices: OrgService = OrgServiceHttpRestService()
+    val orgServices: OrgService = HttpRestOrgService()
 
 
     //Register orgUuid.
@@ -119,18 +119,30 @@ class OrgAutorizeResource {
 
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
-    fun getPerson(@QueryParam("page") page: Int = 1,@QueryParam("per_page") per_page: Int = 1,@Context req: HttpServletRequest) {
+    fun getPerson(@QueryParam("page") page: Int = 1,
+                  @QueryParam("per_page") per_page: Int = 1,
+                  @Context req: HttpServletRequest) {
         val httpHeader = req.buildHeaderMap()
-
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
     }
 
 
+    @GET
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
+    fun getHouse(@QueryParam("page") page: Int = 1,
+                 @QueryParam("per_page") per_page: Int = 1,
+                 @Context req: HttpServletRequest) {
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+
+
+    }
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/base")
     fun createPlace(@Context req: HttpServletRequest,
                     @PathParam("orgId") orgId: String,
-                    houseList : List<HouseOrg>) :Response {
+                    houseList: List<Address>): Response {
         println("\nCall create house by ip = "+req.remoteAddr)
 
         houseList.forEach {
@@ -151,10 +163,34 @@ class OrgAutorizeResource {
 
 
     @POST
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/chronic/base")
+    fun createChronic(@Context req: HttpServletRequest,
+                      @PathParam("orgId") orgId: String,
+                      chronicList: List<Chronic>): Response {
+        println("\nCall create chronic by ip = " + req.remoteAddr)
+
+        chronicList.forEach {
+            println(it)
+        }
+
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+
+
+        if (token != null) {
+            orgServices.createChronic(token, orgId, chronicList)
+            return Response.status(Response.Status.CREATED).build()
+        } else {
+            throw NotAuthorizedException("Not Pass")
+        }
+    }
+
+
+    @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/person/base")
     fun createPerson(@Context req: HttpServletRequest,
-                    @PathParam("orgId") orgId: String,
-                    personList : List<PersonOrg>) :Response {
+                     @PathParam("orgId") orgId: String,
+                     personList: List<Person>): Response {
         println("\nCall create house by ip = "+req.remoteAddr)
 
         personList.forEach {

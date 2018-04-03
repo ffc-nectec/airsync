@@ -19,8 +19,8 @@ package ffc.airsync.client.client.module.daojdbi
 
 import ffc.model.Address
 import ffc.model.Chronic
-import ffc.model.HouseOrg
 import ffc.model.Person
+import me.piruin.geok.LatLng
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -46,15 +46,13 @@ FROM house
 
 
 class HouseMapper : RowMapper<Address> {
-    override fun map(rs: ResultSet?, ctx: StatementContext?): Address {
+    override fun map(rs: ResultSet, ctx: StatementContext?): Address {
 
-        if (rs == null) throw ClassNotFoundException()
 
         val hcode = rs.getInt("hcode")
         val road = rs.getString("road")
         val xgis = rs.getDouble("xgis")
         val ygis = rs.getDouble("ygis")
-        val haveChronics = rs.getString("chronichcode") != null
 
         val house = Address()
 
@@ -64,9 +62,7 @@ class HouseMapper : RowMapper<Address> {
         val latlng = arrayListOf<Double>()
         latlng.add(xgis)
         latlng.add(ygis)
-        house.latlng = latlng
-
-
+        house.latlng = LatLng(ygis, xgis)
 
         return house
 

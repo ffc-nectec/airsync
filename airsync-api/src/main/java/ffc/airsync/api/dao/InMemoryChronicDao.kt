@@ -17,47 +17,35 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.Address
+import ffc.model.Chronic
 import ffc.model.StorageOrg
 import java.util.*
 
-class InMemoryHouseDao :HouseDao {
+class InMemoryChronicDao : ChronicDao {
 
     private constructor()
 
     companion object {
-        val instant = InMemoryHouseDao()
+        val instant = InMemoryChronicDao()
     }
 
+    val chronicList = arrayListOf<StorageOrg<Chronic>>()
 
-    val houseList = arrayListOf<StorageOrg<Address>>()
-
-
-    override fun insert(orgUuid: UUID, house: Address) {
-        houseList.removeIf { it.uuid == orgUuid && it.data.identity?.id == house.identity?.id }
-        println("Insert house = ${house.identity?.id} XY= ${house.latlng}")
-        houseList.add(StorageOrg(orgUuid, house))
+    override fun insert(orgUUID: UUID, chronic: Chronic) {
+        chronicList.add(StorageOrg(orgUUID, chronic))
     }
 
-    override fun insert(orgUuid: UUID, houseList: List<Address>) {
-        houseList.forEach {
-            insert(orgUuid,it)
-        }
-
-    }
-
-    override fun find(): List<StorageOrg<Address>> {
-        return houseList
-    }
-
-    override fun find(orgUuid: UUID): List<StorageOrg<Address>> {
-        return houseList.filter {
-            it.uuid == orgUuid
+    override fun insert(orgUUID: UUID, chronicList: List<Chronic>) {
+        chronicList.forEach {
+            insert(orgUUID, it)
         }
     }
 
+    override fun find(orgUuid: UUID): List<StorageOrg<Chronic>> {
+        return chronicList.filter { it.uuid == orgUuid }
+    }
 
     override fun remove(orgUuid: UUID) {
-        houseList.removeIf { it.uuid == orgUuid }
+        chronicList.removeIf { it.uuid == orgUuid }
     }
 }

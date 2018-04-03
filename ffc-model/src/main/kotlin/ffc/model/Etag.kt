@@ -26,7 +26,7 @@ class Etag <T :Any> (val data : T) {
 
 
     init {
-        etagCache=DigestUtils.sha1Hex(data.toString())
+        etagCache = DigestUtils.sha1Hex(data.toString())
         etagP=etagCache
     }
 

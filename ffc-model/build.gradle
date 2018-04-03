@@ -12,15 +12,16 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
-    compile "com.google.code.gson:gson:2.8.1"
+    implementation "com.google.code.gson:gson:2.8.1"
     // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
     compile group: 'org.eclipse.jetty.websocket', name: 'websocket-server', version: '9.4.8.v20171121'
 
     //compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     // https://mvnrepository.com/artifact/joda-time/joda-time
-    compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
+    implementation group: 'joda-time', name: 'joda-time', version: '2.9.9'
+    implementation 'me.piruin:geok-gson:1.0.0-alpha'
 
 
 
