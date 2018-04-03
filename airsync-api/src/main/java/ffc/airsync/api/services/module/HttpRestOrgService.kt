@@ -48,21 +48,21 @@ class HttpRestOrgService : OrgService {
 
         println("Token = $token")
 
-        //val tokenObj = checkTokenMobile(UUID.fromString(token), orgId)
+        val tokenObj = checkTokenMobile(UUID.fromString(token.trim()), orgId)
 
         println("Befor check token")
-        //val tokenObj = tokenMobile.find(UUID.fromString(token))
+        println(tokenObj)
         //if (orgUuid ) throw NotFoundException()
         //if (tokenObj.id != orgId.toInt()) throw NotFoundException()
 
         //val tokenObj = StorageOrg<UUID>(o)
-        val uuid = UUID.fromString("00000000-0000-0000-0000-000000000010")
+        //val uuid = UUID.fromString("00000000-0000-0000-0000-000000000010")
 
         println("Token pass org ")
 
 
         println("Search house match")
-        val houseList = houseDao.find(uuid/*tokenObj.uuid*/)
+        val houseList = houseDao.find(tokenObj.uuid)
 
         println("count house = ${houseList.count()}")
         //println("Test get house 1 ${houseList.get(0)}")

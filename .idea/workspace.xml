@@ -2,30 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MobileTokenDao.kt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryTokenMapDao.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/TokenMapDao.kt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Etag.kt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/build.gradle" afterPath="$PROJECT_DIR$/airsync-api/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/OrgService.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/OrgService.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-client/build.gradle" afterPath="$PROJECT_DIR$/airsync-client/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryPerson.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryPerson.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/retrofit/APIClient.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/retrofit/APIClient.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ffc-model/build.gradle" afterPath="$PROJECT_DIR$/ffc-model/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" afterPath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/StorageOrg.kt" afterPath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/StorageOrg.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/airsync-api/.gradle/" />
     <ignored path="$PROJECT_DIR$/airsync-client/.gradle/" />
@@ -122,8 +102,8 @@
       <file leaf-file-name="GsonJerseyProvider.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1125">
-              <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+            <state relative-caret-position="648">
+              <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,11 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainContraller.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainContraller.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state relative-caret-position="783">
+              <caret line="66" column="8" lean-forward="false" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
               <folding>
                 <element signature="e#696#1098#0" expanded="true" />
               </folding>
@@ -154,8 +134,8 @@
       <file leaf-file-name="HttpRestOrgService.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="64" column="34" lean-forward="false" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
+            <state relative-caret-position="481">
+              <caret line="63" column="37" lean-forward="true" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -171,12 +151,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InMemoryHouseDao.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InMemoryHouseDao.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="86">
-              <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+            <state relative-caret-position="1224">
+              <caret line="56" column="19" lean-forward="true" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InMemoryMobileTokenDao.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+              <folding>
+                <element signature="e#690#773#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -186,16 +178,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="459">
               <caret line="57" column="25" lean-forward="true" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1000">
-              <caret line="40" column="1" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="40" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -1492,7 +1474,6 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/StorageOrg.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MobileTokenDao.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt" />
         <option value="$PROJECT_DIR$/airsync-client/build.gradle" />
         <option value="$PROJECT_DIR$/ffc-model/build.gradle" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
@@ -1503,10 +1484,11 @@
         <option value="$PROJECT_DIR$/airsync-api/build.gradle" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt" />
-        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
+        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt" />
       </list>
     </option>
   </component>
@@ -2079,7 +2061,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522739666520</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="filter latlng != 0">
+      <created>1522768761259</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1522768761259</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2125,7 +2114,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39446366" sideWeight="0.5016116" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32698962" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32698962" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22645503" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2198,7 +2187,8 @@
     <MESSAGE value="Re-code" />
     <MESSAGE value="Cloud เก็บ&#10;Chronic, Address, Person&#10;มีบัก joda Localdate ถ้าใส่จะไม่สามารถส่งข้อมูลผ่าน Retrofit ได้" />
     <MESSAGE value="Refactor webservice" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor webservice" />
+    <MESSAGE value="filter latlng != 0" />
+    <option name="LAST_COMMIT_MESSAGE" value="filter latlng != 0" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2221,6 +2211,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
           <caret line="19" column="24" lean-forward="false" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2228,6 +2219,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="319">
           <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding>
+            <element signature="e#690#761#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2235,6 +2229,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="27" column="52" lean-forward="false" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="52" />
+          <folding>
+            <element signature="e#690#760#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2242,6 +2239,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="341">
           <caret line="31" column="52" lean-forward="false" selection-start-line="31" selection-start-column="45" selection-end-line="31" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2249,6 +2247,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
           <caret line="19" column="23" lean-forward="false" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2271,6 +2270,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
           <caret line="32" column="52" lean-forward="false" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="60" />
+          <folding>
+            <element signature="e#695#992#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2278,6 +2280,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="464">
           <caret line="33" column="60" lean-forward="false" selection-start-line="33" selection-start-column="60" selection-end-line="33" selection-end-column="60" />
+          <folding>
+            <element signature="e#695#991#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2342,13 +2347,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-116">
           <caret line="87" column="0" lean-forward="true" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6">
-          <caret line="28" column="46" lean-forward="true" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2373,6 +2372,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
           <caret line="23" column="62" lean-forward="false" selection-start-line="23" selection-start-column="62" selection-end-line="23" selection-end-column="62" />
+          <folding>
+            <element signature="e#690#736#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2412,6 +2414,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="598">
           <caret line="42" column="39" lean-forward="false" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2512,14 +2515,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1125">
-          <caret line="82" column="0" lean-forward="false" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
@@ -2546,24 +2541,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <element signature="e#696#1098#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="64" column="34" lean-forward="false" selection-start-line="64" selection-start-column="34" selection-end-line="64" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/BasicAuthInfo.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
@@ -2582,9 +2559,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="53" column="5" lean-forward="true" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+        <state relative-caret-position="1224">
+          <caret line="56" column="19" lean-forward="true" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="42" column="31" lean-forward="false" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+          <folding>
+            <element signature="e#690#773#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="63" column="37" lean-forward="true" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="81" column="0" lean-forward="false" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="783">
+          <caret line="66" column="8" lean-forward="false" selection-start-line="66" selection-start-column="8" selection-end-line="66" selection-end-column="8" />
+          <folding>
+            <element signature="e#696#1098#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

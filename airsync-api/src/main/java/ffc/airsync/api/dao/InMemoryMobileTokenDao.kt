@@ -40,6 +40,11 @@ class InMemoryMobileTokenDao : MobileTokenDao {
           user = user,
           id = id))
 
+        println("Token insert. Before add token")
+        tokenList.forEach {
+            println(it)
+        }
+
     }
 
     override fun find(token: UUID): StorageOrg<UUID> {
