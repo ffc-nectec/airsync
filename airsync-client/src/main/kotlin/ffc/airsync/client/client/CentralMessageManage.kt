@@ -17,18 +17,17 @@
 
 package ffc.airsync.client.client
 
-import ffc.model.HouseOrg
-import ffc.model.Organization
-import ffc.model.PersonOrg
-import ffc.model.User
+import ffc.model.*
 
 interface CentralMessageManage {
-    fun registerOrganization(organization :Organization, url :String) :Organization
+    fun registerOrganization(organization: Organization, url: String): Organization
 
-    fun putUser(userInfoList : ArrayList<User>,org: Organization)
+    fun putUser(userInfoList: ArrayList<User>, org: Organization)
 
-    fun putHouse(houseList: List<HouseOrg>, org: Organization)
+    fun putHouse(houseList: List<Address>, org: Organization)
 
-    fun putPerson(personList: List<PersonOrg>,org: Organization)
+    fun putPerson(personList: List<Person>, org: Organization)
+
+    fun putChronic(chronicList: List<Chronic>, org: Organization)
 
 }

@@ -18,10 +18,7 @@
 package ffc.airsync.client.client
 
 import ffc.airsync.client.client.module.ApiFactory
-import ffc.model.HouseOrg
-import ffc.model.Organization
-import ffc.model.PersonOrg
-import ffc.model.User
+import ffc.model.*
 import java.util.*
 
 
@@ -39,7 +36,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     }
 
-    override fun putHouse(houseList: List<HouseOrg>, org: Organization) {
+    override fun putHouse(houseList: List<Address>, org: Organization) {
 
         houseList.forEach { println(it) }
 
@@ -53,10 +50,17 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     }
 
-    override fun putPerson(personList: List<PersonOrg>, org: Organization) {
+    override fun putPerson(personList: List<Person>, org: Organization) {
         restService!!.createPerson(orgId = org.id,
           authkey = "Bearer " + org.token!!,
           personList = personList).execute()
+
+    }
+
+    override fun putChronic(chronicList: List<Chronic>, org: Organization) {
+        restService!!.createChronic(orgId = org.id,
+          authkey = "Bearer " + org.token!!,
+          chronicList = chronicList).execute()
 
     }
 

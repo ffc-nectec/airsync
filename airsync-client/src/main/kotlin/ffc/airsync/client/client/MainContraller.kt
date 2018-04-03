@@ -22,8 +22,8 @@ import ffc.airsync.client.client.module.PcuSocket
 import ffc.airsync.client.client.module.PcuSocketAuthByToken
 import ffc.airsync.client.client.module.daojdbi.DatabaseDao
 import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
-import ffc.model.HouseOrg
 import ffc.model.Organization
+import ffc.model.Person
 import ffc.model.toJson
 import java.net.URI
 import java.util.*
@@ -51,16 +51,20 @@ class MainContraller {
         messageCentral.putUser(userList,org)
 
 
-        //put house
+        //Create connect database
         val databaseDao : DatabaseDao = JdbiDatabaseDao()
+
+        //put house
         val houseList = databaseDao.getHouse()
         messageCentral.putHouse(houseList,org)
 
         //put person
-        val personList = databaseDao.getPerson()
-        messageCentral.putPerson(personList,org)
+        val personOrgList = databaseDao.getPerson()
+        messageCentral.putPerson(personOrgList,org)
 
-
+        //put chronic
+        val chronicList = databaseDao.getChronic()
+        messageCentral.putChronic(chronicList,org)
 
 
 

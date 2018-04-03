@@ -17,11 +17,14 @@
 
 package ffc.airsync.client.client.module.daojdbi
 
+import ffc.model.Identity
+import ffc.model.Person
 import ffc.model.PersonOrg
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.joda.time.LocalDate
 import java.sql.ResultSet
 
 interface QueryPerson {
@@ -37,12 +40,12 @@ interface QueryPerson {
       "ctitle.titlename " +
       "FROM person LEFT JOIN ctitle ON person.prename=ctitle.titlecode")
     @RegisterRowMapper(PersonMapper::class)
-    fun getPerson() :List<PersonOrg>
+    fun getPerson() :List<Person>
 }
 
 
-class PersonMapper : RowMapper<PersonOrg> {
-    override fun map(rs: ResultSet?, ctx: StatementContext?): PersonOrg {
+class PersonMapper : RowMapper<Person> {
+    override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
 
         if (rs == null) throw ClassNotFoundException()
 
@@ -52,22 +55,34 @@ class PersonMapper : RowMapper<PersonOrg> {
 
         val hospCode = rs.getString("pcucodeperson")
 
-
-        val id=rs.getInt("pid")
+        val pid=rs.getInt("pid")
         val prename=rs.getString("titlename")
         val houseId = rs.getInt("hcode")
-        val birth=rs.getString("birth")
+        val birth=rs.getDate("birth")
         val statusLive=rs.getString("dischargetype")
 
-        return PersonOrg(firstname = firstname,
-          citizenId = citizenId,
-          lastname = lastname,
-          hospCode = hospCode,
-          birthDate = birth,
-          pid = id,
-          prename = prename,
-          statusLive = statusLive
-          )
+
+        val person = Person()
+        person.firstname=firstname
+        person.lastname=lastname
+        person.hospCode=hospCode
+        person.prename=prename
+        person.identities.add(object :Identity{
+            override val id: String
+                get() = citizenId
+            override val type: String
+                get() = "thailand-citizen-id"
+
+            override fun isValid(): Boolean {
+                return true
+            }
+        })
+
+        person.birthData= LocalDate.fromDateFields(birth)
+        person.pid=pid.toLong()
+
+
+        return person
 
     }
 }

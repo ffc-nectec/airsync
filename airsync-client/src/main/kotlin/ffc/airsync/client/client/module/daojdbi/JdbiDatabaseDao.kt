@@ -17,8 +17,7 @@
 
 package ffc.airsync.client.client.module.daojdbi
 
-import ffc.model.HouseOrg
-import ffc.model.PersonOrg
+import ffc.model.*
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.extension.ExtensionCallback
 import org.jdbi.v3.core.kotlin.KotlinPlugin
@@ -27,35 +26,42 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 
 
 class JdbiDatabaseDao : DatabaseDao {
-    override fun getPerson(): List<PersonOrg> {
+
+
+    override fun getPerson(): List<Person> {
 
         val jdbi = createJdbi()
 
-        return jdbi.withExtension<List<PersonOrg>,QueryPerson,Exception>(QueryPerson::class.java, ExtensionCallback {
+        return jdbi.withExtension<List<Person>,QueryPerson,Exception>(QueryPerson::class.java, ExtensionCallback {
             it.getPerson()
         })
     }
 
-    override fun getHouse(): List<HouseOrg> {
+    override fun getHouse(): List<Address> {
         val jdbi = createJdbi()
 
-        val resultHouse = jdbi.withExtension<List<HouseOrg>,QueryHouse,Exception>(QueryHouse::class.java, ExtensionCallback {
+        val resultHouse = jdbi.withExtension<List<Address>,QueryHouse,Exception>(QueryHouse::class.java, ExtensionCallback {
             it.getHouse()
         })
 
 
         var i=0
         resultHouse.forEach {
-            println("House= "+it.houseId+" XY = "+it.xgis+", "+it.ygis+" Chronic = "+it.haveChronics+" "+i++)
+            println("House= "+it.changwat+" XY = "+it.latlng+", "+i++)
         }
-
-
-
-
         return resultHouse
 
     }
 
+    override fun getChronic(): List<Chronic> {
+        val jdbi = createJdbi()
+        val resultChronic = jdbi.withExtension<List<Chronic>,QueryChronic,Exception>(QueryChronic::class.java, ExtensionCallback {
+            it.getChronic()
+        })
+
+        return resultChronic
+
+    }
 
     private fun createJdbi() :Jdbi{
         Class.forName("com.mysql.jdbc.Driver")

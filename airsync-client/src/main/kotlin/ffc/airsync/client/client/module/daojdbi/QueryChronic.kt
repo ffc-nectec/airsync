@@ -17,59 +17,41 @@
 
 package ffc.airsync.client.client.module.daojdbi
 
-import ffc.model.Address
+
 import ffc.model.Chronic
-import ffc.model.HouseOrg
-import ffc.model.Person
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.joda.time.LocalDate
 import java.sql.ResultSet
 
-
-interface QueryHouse {
+interface QueryChronic {
     @SqlQuery("""
-SELECT house.pcucode,
-	house.hcode,
-	house.road,
-	house.xgis,
-	house.ygis
-FROM house
-""")
-    @RegisterRowMapper(HouseMapper::class)
-    fun getHouse(): List<Address>
-
-
-
+        SELECT personchronic.pcucodeperson,person.hcode,personchronic.chroniccode,personchronic.datedxfirst FROM person
+            JOIN personchronic
+                ON person.pcucodeperson=personchronic.pcucodeperson
+                AND person.pid=personchronic.pid
+            ORDER BY person.hcode""")
+    @RegisterRowMapper(ChronicMapper::class)
+    fun getChronic(): List<Chronic>
 }
 
 
-class HouseMapper : RowMapper<Address> {
-    override fun map(rs: ResultSet?, ctx: StatementContext?): Address {
+class ChronicMapper : RowMapper<Chronic> {
+
+    override fun map(rs: ResultSet?, ctx: StatementContext?): Chronic {
 
         if (rs == null) throw ClassNotFoundException()
 
         val hcode = rs.getInt("hcode")
-        val road = rs.getString("road")
-        val xgis = rs.getDouble("xgis")
-        val ygis = rs.getDouble("ygis")
-        val haveChronics = rs.getString("chronichcode") != null
+        val idc10 = rs.getString("chroniccode")
+        val diagDate = rs.getDate("datedxfirst")
 
-        val house = Address()
+        val chronic = Chronic(idc10 = idc10, diagDate = LocalDate.fromDateFields(diagDate))
 
-        house.road = road
+        return chronic
 
-
-        val latlng = arrayListOf<Double>()
-        latlng.add(xgis)
-        latlng.add(ygis)
-        house.latlng = latlng
-
-
-
-        return house
 
     }
 }
-
