@@ -28,7 +28,7 @@ import java.sql.ResultSet
 
 interface QueryChronic {
     @SqlQuery("""
-        SELECT personchronic.pcucodeperson,person.hcode,personchronic.chroniccode,personchronic.datedxfirst FROM person
+        SELECT personchronic.pcucodeperson,person.hcode,personchronic.chroniccode,personchronic.datedxfirst,personchronic.pid FROM person
             JOIN personchronic
                 ON person.pcucodeperson=personchronic.pcucodeperson
                 AND person.pid=personchronic.pid
@@ -49,11 +49,13 @@ class ChronicMapper : RowMapper<Chronic> {
         val idc10 = rs.getString("chroniccode")
         val diagDate = rs.getDate("datedxfirst")
         val hospCode = rs.getString("pcucodeperson")
+        val pid = rs.getInt("pid")
 
         val chronic = Chronic(idc10 = idc10, diagDate = LocalDate.fromDateFields(diagDate))
         chronic.diagHospCode = hospCode
         chronic.careHospCode = hospCode
         chronic.houseId = hcode
+        chronic.pid = pid
 
         return chronic
 

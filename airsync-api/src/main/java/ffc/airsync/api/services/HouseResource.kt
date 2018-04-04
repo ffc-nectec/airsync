@@ -38,6 +38,8 @@ class HouseResource {
     val orgServices: OrgService = HttpRestOrgService.instant
 
 
+    @Produces("application/vnd.geo+json")
+    @Consumes("application/vnd.geo+json")
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun getHouse(@QueryParam("page") page: Int = 1,
@@ -58,6 +60,8 @@ class HouseResource {
         return geoJso
     }
 
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/base")
     fun createPlace(@Context req: HttpServletRequest,

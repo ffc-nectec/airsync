@@ -51,4 +51,5 @@ interface OrgService {
 
     fun createChronic(token: String, orgId: String, chronicList: List<Chronic>)
     fun getHouse(token: String, orgId: String, page: Int, per_page: Int): FeatureCollection
+    fun getPerson(token: String, orgId: String): List<Person>
 }

@@ -72,7 +72,10 @@ class HouseMapper : RowMapper<Address> {
 
 
         //if (xgis != 0.0 && ygis != 0.0)
-        house.latlng = LatLng(ygis, xgis)
+        if (ygis > xgis)
+            house.latlng = LatLng(ygis, xgis)
+        else
+            house.latlng = LatLng(xgis, ygis)
 
         return house
 

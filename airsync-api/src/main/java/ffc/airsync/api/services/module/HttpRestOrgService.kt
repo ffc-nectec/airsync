@@ -66,19 +66,23 @@ class HttpRestOrgService : OrgService {
         //val peopleInHouse=HashMap<String,ArrayList<People>>()
 
 
+        println("For each house")
         houseList.forEach {
 
             val geometry = MyGeo("Point", it.data.latlng!!)
+            println(geometry)
             val properits = ProperitsGeoJson(it.data.houseId)
+            println(properits)
             val houseId = it.data.houseId
+            println(houseId)
             val house = it.data
+            println(house)
 
             properits.identity = it.data.identity
             properits.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId!!)
             properits.no = house.no
             properits.road = house.road
             properits.coordinates = house.latlng
-
 
 
             try {
@@ -88,6 +92,7 @@ class HttpRestOrgService : OrgService {
             }
 
 
+            println("Befor add feture")
             val feture: Feature<ProperitsGeoJson> = Feature(geometry, properties = properits)
 
             geoJson.features.add(feture)
@@ -98,6 +103,28 @@ class HttpRestOrgService : OrgService {
         return geoJson
 
 
+    }
+
+
+    override fun getPerson(token: String, orgId: String): List<Person> {
+
+        val tokenObj = checkTokenMobile(UUID.fromString(token.trim()), orgId)
+
+
+        val personList = personDao.find(orgUuid = tokenObj.uuid)
+
+
+        val personReturn = arrayListOf<Person>()
+
+        personList.forEach {
+            personReturn.add(it.data)
+
+
+        }
+
+
+
+        return personReturn
     }
 
     override fun register(organization: Organization, lastKnownIp: String): Organization {
@@ -181,10 +208,17 @@ class HttpRestOrgService : OrgService {
     }
 
     private fun checkToken(token: String, orgId: String): Organization {
+        println("Token check")
         val org = pcuDao.findByToken(token)
 
-        if (org == null) throw NotFoundException()
-        if (org.id != orgId) throw NotFoundException()
+        if (org == null) {
+            println("Org = null")
+            throw NotFoundException()
+        }
+        if (org.id != orgId) {
+            println("org ไม่ตรงกัน")
+            throw NotFoundException()
+        }
 
         return org
     }

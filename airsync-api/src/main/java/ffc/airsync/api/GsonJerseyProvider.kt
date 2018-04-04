@@ -43,8 +43,8 @@ import java.io.OutputStreamWriter
 import java.lang.reflect.Type
 
 @Provider
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON, "application/vnd.geo+json")
+@Consumes(MediaType.APPLICATION_JSON, "application/vnd.geo+json")
 class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
 
 
