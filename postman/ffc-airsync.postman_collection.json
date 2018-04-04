@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f97e98ce-91e2-4d43-b111-cb679276b153",
+						"id": "be16197b-6205-477a-8d72-0fa4fcc74473",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
@@ -24,7 +24,7 @@
 							"    ",
 							"    //set token to global variable for later use",
 							"    var orgRes = pm.response.json();",
-							"    pm.globals.set(\"org_token\", orgRes.token)",
+							"    pm.globals.set(\"org_token\", orgRes.token);",
 							"    ",
 							"});",
 							"",
@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "cf02c930-c511-48a5-ada5-8c97c2b15e3a",
+					"id": "a20ef45f-0a87-40c1-b149-162ee682f318",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -158,7 +158,7 @@
 			},
 			"response": [
 				{
-					"id": "76d232af-d15d-417a-a6e1-ad5a96ff1098",
+					"id": "40819244-2e1c-4157-b9b1-c8eb97cb2945",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -322,7 +322,7 @@
 			},
 			"response": [
 				{
-					"id": "ef358ab2-9bd2-4c67-a5ed-7cf5c0f8b997",
+					"id": "33b66be8-8379-40b5-92af-2fe873908497",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -473,7 +473,7 @@
 			},
 			"response": [
 				{
-					"id": "a7ebf87a-704a-49b0-a99f-56b2fb76c6cf",
+					"id": "6f7423d9-5110-4100-a82f-6b0de10fe156",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -592,7 +592,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f06a6109-94f6-4130-b999-63615fcb5d54",
+						"id": "733a5ede-9d90-482b-9d57-a28108889913",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
@@ -605,7 +605,7 @@
 							"    ",
 							"    //set token to global variable for later use",
 							"    var orgRes = pm.response.json();",
-							"    pm.globals.set(\"mobile_token\", orgRes.token)",
+							"    pm.globals.set(\"mobile_token\", orgRes.token);",
 							"    ",
 							"});",
 							""
@@ -654,7 +654,7 @@
 			},
 			"response": [
 				{
-					"id": "acc7b829-9fb8-4351-8c9d-b82fa1719818",
+					"id": "b1d9c3d1-a341-4ab1-84d7-4455641ea6b4",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -773,7 +773,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "6dbeaae0-3f05-405e-a2dc-c6829e94e4d0",
+					"id": "8e804a77-5e46-4498-9797-dbbe2a903170",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -815,24 +815,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3ac06d95-7b89-44f9-93b9-bf670eceafb5",
+						"id": "5bd4d530-3571-450c-8885-1a9b8b75a1d6",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
 							"    pm.response.to.have.status(201);",
 							"});",
-							"",
-							"pm.test(\"Response have id\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"id\");",
-							"    ",
-							"    //set token to global variable for later use",
-							"    var personRes = pm.response.json();",
-							"    pm.globals.set(\"person_id\", personRes[0].id);",
-							"",
-							"});",
-							"",
-							"",
-							"",
 							""
 						]
 					}
@@ -844,7 +832,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{mobile_token}}",
+							"value": "{{org_token}}",
 							"type": "string"
 						}
 					]
@@ -858,23 +846,24 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": -5844940478120182000\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": -582440454820180500\n}"
+					"raw": "[\n  {\n    \"hospCode\": \"15032\",\n    \"pid\": 1,\n    \"prename\": \"นาย\",\n    \"firstname\": \"สมหญิง\",\n    \"lastname\": \"ทีชานนท์\",\n    \"birthData\": \"1950-09-21\",\n    \"identities\": [\n      {\n        \"type\": \"thailand-citizen-id\",\n        \"id\": \"2018032920177\"\n      }\n    ],\n    \"house\": {\n      \"identity\": {\n        \"type\": \"thailand-household-id\",\n        \"id\": \"20180329101\"\n      },\n      \"type\": \"House\",\n      \"no\": \"99/1\",\n      \"road\": \"รังสิต-นครนายก\",\n      \"tambon\": \"คลองหนึ่ง\",\n      \"ampur\": \"คลองหลวง\",\n      \"changwat\": \"ปุทมธานี\",\n      \"latlng\": [\n        120,\n        10\n      ],\n      \"id\": -5844940478120182000\n    },\n    \"chronics\": [\n      {\n        \"status\": \"active\",\n        \"idc10\": \"N18.3\",\n        \"diagDate\": \"2015-05-21\"\n      },\n      {\n        \"status\": \"active\",\n        \"idc10\": \"I10\",\n        \"diagDate\": \"2016-05-21\"\n      }\n    ],\n    \"houseId\": 21,\n    \"id\": -582440454820180500\n  }\n]"
 				},
 				"url": {
-					"raw": "{{url}}/org/{{org_id}}/person",
+					"raw": "{{url}}/org/{{org_id}}/person/base",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"org",
 						"{{org_id}}",
-						"person"
+						"person",
+						"base"
 					]
 				}
 			},
 			"response": [
 				{
-					"id": "233a00a8-4f39-4495-9049-a640a87a0891",
+					"id": "294c0f24-9019-4a10-bd65-7e2799787e00",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -979,184 +968,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"hospCode\": \"15032\",\n        \"pid\": 1,\n        \"prename\": \"นาย\",\n        \"firstname\": \"สมหญิง\",\n        \"lastname\": \"ทีชานนท์\",\n        \"birthData\": \"1950-09-21\",\n        \"identities\": [\n            {\n                \"type\": \"thailand-citizen-id\",\n                \"id\": \"2018032920177\"\n            }\n        ],\n        \"house\": {\n            \"identity\": {\n                \"type\": \"thailand-household-id\",\n                \"id\": \"20180329101\"\n            },\n            \"type\": \"House\",\n            \"no\": \"99/1\",\n            \"road\": \"รังสิต-นครนายก\",\n            \"tambon\": \"คลองหนึ่ง\",\n            \"ampur\": \"คลองหลวง\",\n            \"changwat\": \"ปุทมธานี\",\n            \"latlng\": [\n                120,\n                10\n            ],\n            \"id\": 6790\n        },\n        \"chronics\": [\n            {\n                \"status\": \"active\",\n                \"idc10\": \"N18.3\",\n                \"diagDate\": \"2015-05-21\"\n            },\n            {\n                \"status\": \"active\",\n                \"idc10\": \"I10\",\n                \"diagDate\": \"2016-05-21\"\n            }\n        ],\n        \"id\": 12346\n    }\n]"
-				}
-			]
-		},
-		{
-			"name": "Find Person",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "07482c7f-aa4b-49e2-845c-7b5281940a19",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Response have hospCode\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"hospCode\");",
-							"});",
-							"",
-							"pm.test(\"Reponse is person in global variable\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    var personId = pm.globals.get(\"person_id\");",
-							"    pm.expect(jsonData.id).to.eql(personId);",
-							"    ",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "oauth2",
-					"oauth2": [
-						{
-							"key": "addTokenTo",
-							"value": "header",
-							"type": "string"
-						},
-						{
-							"key": "accessToken",
-							"value": "{{mobile_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}/person/{{person_id}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}",
-						"person",
-						"{{person_id}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "92ed10b9-3345-47c6-9d4e-cdf21630c6f8",
-					"name": "Find Person",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {},
-						"url": {
-							"raw": "{{url}}/org/1/person",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"1",
-								"person"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Access-Control-Allow-Credentials",
-							"value": "",
-							"name": "Access-Control-Allow-Credentials",
-							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "",
-							"name": "Access-Control-Allow-Headers",
-							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "",
-							"name": "Access-Control-Allow-Methods",
-							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*",
-							"name": "Access-Control-Allow-Origin",
-							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
-						},
-						{
-							"key": "Access-Control-Expose-Headers",
-							"value": "",
-							"name": "Access-Control-Expose-Headers",
-							"description": "Lets a server whitelist headers that browsers are allowed to access."
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive",
-							"name": "Connection",
-							"description": "Options that are desired for the connection"
-						},
-						{
-							"key": "Content-Encoding",
-							"value": "gzip",
-							"name": "Content-Encoding",
-							"description": "The type of encoding used on the data."
-						},
-						{
-							"key": "Content-Length",
-							"value": "158",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 29 Mar 2018 09:00:22 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"b1-goXgQV2Fy68uZfdNHMNYcQ\"",
-							"name": "ETag",
-							"description": "An identifier for a specific version of a resource, often a message digest"
-						},
-						{
-							"key": "Server",
-							"value": "nginx",
-							"name": "Server",
-							"description": "A name for the server"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept-Encoding",
-							"name": "Vary",
-							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": 6790\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": 12346\n}"
+					"body": ""
 				}
 			]
 		},
@@ -1166,11 +978,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "59aaa85c-0e19-49a9-9b25-8ab417b6bcb4",
+						"id": "2fa32845-13a5-459c-befe-ff7c09e7b394",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
 							"});",
 							""
 						]
@@ -1183,7 +995,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{mobile_token}}",
+							"value": "{{org_token}}",
 							"type": "string"
 						}
 					]
@@ -1197,10 +1009,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"id\": -10000124,\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"112 \",\n  \"road\": \"รังสิต-นครนายก\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    102,\n    13.1\n  ],\n  \"people\": [\n    {\n      \"id\": -2000117,\n      \"name\": \"นายวัชรากร หนูทอง\"\n    }\n  ]\n}"
+					"raw": "[\n\t{\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120.0,\n      10.0\n    ],\n    \"houseId\" : 21,\n    \"id\": -5844940478183523289\n    }\n]"
 				},
 				"url": {
-					"raw": "{{url}}/org/{{org_id}}/place/house",
+					"raw": "{{url}}/org/{{org_id}}/place/house/base",
 					"host": [
 						"{{url}}"
 					],
@@ -1208,13 +1020,14 @@
 						"org",
 						"{{org_id}}",
 						"place",
-						"house"
+						"house",
+						"base"
 					]
 				}
 			},
 			"response": [
 				{
-					"id": "1f5f4a29-21f8-49c2-88f4-353dd23e31b8",
+					"id": "11c3392d-94da-43f4-a75c-e830fba0a739",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1242,12 +1055,12 @@
 							]
 						}
 					},
-					"status": "OK",
-					"code": 200,
+					"status": "Created",
+					"code": 201,
 					"_postman_previewlanguage": "json",
 					"header": [],
 					"cookie": [],
-					"body": "{\n  \"type\": \"FeatureCollection\",\n  \"features\": [\n    {\n      \"type\": \"Feature\",\n      \"properties\": {\n        \"id\": 10000124,\n        \"identity\": {\n          \"type\": \"thailand-household-id\",\n          \"id\": \"54520015001\"\n        },\n        \"haveChronics\": true,\n        \"type\": \"House\",\n        \"no\": \"112 \",\n        \"road\": \"รังสิต-นครนายก\",\n        \"tambon\": \"คลองหนึ่ง\",\n        \"ampur\": \"คลองหลวง\",\n        \"changwat\": \"ปุทมธานี\",\n        \"coordinates\": [\n          102,\n          13.1\n        ],\n        \"people\": [\n          {\n            \"id\": 2000117,\n            \"name\": \"นายวัชรากร หนูทอง\"\n          }\n        ]\n      },\n      \"geometry\": {\n        \"type\": \"Point\",\n        \"coordinates\": [\n          102,\n          13.1\n        ]\n      }\n    }\n  ]\n}"
+					"body": ""
 				}
 			]
 		},
@@ -1257,7 +1070,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "72bcb7bf-974f-490a-ac7c-69855ca707ba",
+						"id": "c7c01f75-875c-4028-8ca3-f5550a81471b",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -1276,6 +1089,15 @@
 							"    pm.response.to.have.header(\"Link\") === \"last\";",
 							"});",
 							"",
+							"pm.test(\"Response have id\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"id\");",
+							"    ",
+							"    //set token to global variable for later use",
+							"    var personRes = pm.response.json();",
+							"    pm.globals.set(\"person_id\", personRes[0].id);",
+							"",
+							"});",
+							"",
 							""
 						]
 					}
@@ -1283,10 +1105,15 @@
 			],
 			"request": {
 				"auth": {
-					"type": "bearer",
-					"bearer": [
+					"type": "oauth2",
+					"oauth2": [
 						{
-							"key": "token",
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "accessToken",
 							"value": "{{mobile_token}}",
 							"type": "string"
 						}
@@ -1318,7 +1145,7 @@
 			},
 			"response": [
 				{
-					"id": "e3d05074-40d6-4b82-a451-56de0e21c208",
+					"id": "09fb44da-2a26-4be6-a346-fa5f4b724056",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1451,6 +1278,299 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"type\": \"FeatureCollection\",\n    \"features\": [\n        {\n            \"type\": \"Feature\",\n            \"properties\": {\n                \"id\": 10000124,\n                \"identity\": {\n                    \"type\": \"thailand-household-id\",\n                    \"id\": \"54520015001\"\n                },\n                \"haveChronics\": true,\n                \"type\": \"House\",\n                \"no\": \"510/45\",\n                \"road\": \"รังสิต-นครนายก\",\n                \"tambon\": \"คลองหนึ่ง\",\n                \"ampur\": \"คลองหลวง\",\n                \"changwat\": \"ปุทมธานี\",\n                \"coordinates\": [\n                    102,\n                    13\n                ],\n                \"people\": [\n                    {\n                        \"id\": 3000214,\n                        \"name\": \"นายพิรุณ พานิชผล\"\n                    },\n                    {\n                        \"id\": 3000215,\n                        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n                    },\n                    {\n                        \"id\": 3000216,\n                        \"name\": \"นายธนชัย ทองคำ\"\n                    }\n                ]\n            },\n            \"geometry\": {\n                \"type\": \"Point\",\n                \"coordinates\": [\n                    102,\n                    13\n                ]\n            }\n        },\n        {\n            \"type\": \"Feature\",\n            \"properties\": {\n                \"id\": 10000124,\n                \"identity\": {\n                    \"type\": \"thailand-household-id\",\n                    \"id\": \"54520015001\"\n                },\n                \"haveChronics\": true,\n                \"type\": \"House\",\n                \"no\": \"112 \",\n                \"road\": \"รังสิต-นครนายก\",\n                \"tambon\": \"คลองหนึ่ง\",\n                \"ampur\": \"คลองหลวง\",\n                \"changwat\": \"ปุทมธานี\",\n                \"coordinates\": [\n                    102,\n                    13.1\n                ],\n                \"people\": [\n                    {\n                        \"id\": 2000117,\n                        \"name\": \"นายวัชรากร หนูทอง\"\n                    }\n                ]\n            },\n            \"geometry\": {\n                \"type\": \"Point\",\n                \"coordinates\": [\n                    102,\n                    13.1\n                ]\n            }\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Find Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07482c7f-aa4b-49e2-845c-7b5281940a19",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response have hospCode\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"hospCode\");",
+							"});",
+							"",
+							"pm.test(\"Reponse is person in global variable\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var personId = pm.globals.get(\"person_id\");",
+							"    pm.expect(jsonData.id).to.eql(personId);",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "accessToken",
+							"value": "{{mobile_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/person/{{person_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"person",
+						"{{person_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "5d808680-c8a3-4584-8bb7-7b42eb5530c1",
+					"name": "Find Person",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/org/1/person",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"org",
+								"1",
+								"person"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"name": "Access-Control-Allow-Credentials",
+							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"name": "Access-Control-Allow-Methods",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "",
+							"name": "Access-Control-Expose-Headers",
+							"description": "Lets a server whitelist headers that browsers are allowed to access."
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"name": "Content-Encoding",
+							"description": "The type of encoding used on the data."
+						},
+						{
+							"key": "Content-Length",
+							"value": "158",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 29 Mar 2018 09:00:22 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b1-goXgQV2Fy68uZfdNHMNYcQ\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Server",
+							"value": "nginx",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"name": "Vary",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": 6790\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": 12346\n}"
+				}
+			]
+		},
+		{
+			"name": "New Chronic",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "444a7c5c-4768-481e-8e8f-0f4180a2830f",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "{{org_token}}",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"status\": \"active\",\n    \"idc10\": \"N18.3\",\n    \"diagDate\": \"2015-05-21\",\n    \"houseId\": 21\n  }\n]"
+				},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/chronic/base",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"chronic",
+						"base"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "c3a59a69-36f0-4013-b456-644d671c3aa6",
+					"name": "New Chronic",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"disabled": false
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"status\": \"active\",\n    \"idc10\": \"N18.3\",\n    \"diagDate\": \"2015-05-21\",\n    \"houseId\": 21\n  }\n]"
+						},
+						"url": {
+							"raw": "{{url}}/org/0/chronic/base",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"org",
+								"0",
+								"chronic",
+								"base"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "0",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 04 Apr 2018 08:11:12 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Jetty(9.4.z-SNAPSHOT)",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"body": ""
 				}
 			]
 		}
