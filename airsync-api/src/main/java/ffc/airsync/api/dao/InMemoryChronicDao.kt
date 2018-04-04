@@ -41,6 +41,13 @@ class InMemoryChronicDao : ChronicDao {
         }
     }
 
+    override fun houseIsChronic(orgUuid: UUID, houseId: Int): Boolean {
+        val chronicHouse = chronicList.find { it.data.houseId == houseId && it.uuid == orgUuid }
+        return chronicHouse != null
+
+
+    }
+
     override fun find(orgUuid: UUID): List<StorageOrg<Chronic>> {
         return chronicList.filter { it.uuid == orgUuid }
     }

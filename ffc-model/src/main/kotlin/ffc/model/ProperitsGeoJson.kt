@@ -15,16 +15,28 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.model
 
-import ffc.model.Chronic
-import ffc.model.StorageOrg
-import java.util.*
+import me.piruin.geok.LatLng
+import me.piruin.geok.geometry.Geometry
 
-interface ChronicDao {
-    fun insert(orgUUID: UUID, chronic: Chronic)
-    fun insert(orgUUID: UUID, chronicList: List<Chronic>)
-    fun find(orgUuid: UUID): List<StorageOrg<Chronic>>
-    fun houseIsChronic(orgUuid: UUID, houseId: Int): Boolean
-    fun remove(orgUuid: UUID)
+
+data class ProperitsGeoJson(val id: Int? = null) {
+
+
+    var haveChronics: Boolean = false
+    var type: String = "House"
+    var no: String? = null
+    var road: String? = null
+    var tambon: String? = null
+    var ampur: String? = null
+    var changwat: String? = null
+    var coordinates: LatLng? = null
+    var people: ArrayList<People>? = arrayListOf()
+    var identity: Identity? = null
 }
+
+data class People(val id: String, val name: String)
+data class MyGeo(override val type: String, val coordinates: LatLng) : Geometry
+
+

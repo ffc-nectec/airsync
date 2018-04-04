@@ -18,6 +18,7 @@
 package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
+import ffc.airsync.api.dao.PersonDao
 import ffc.model.*
 import me.piruin.geok.LatLng
 import me.piruin.geok.geometry.Feature
@@ -52,33 +53,46 @@ class HttpRestOrgService : OrgService {
 
         println("Befor check token")
         println(tokenObj)
-        //if (orgUuid ) throw NotFoundException()
-        //if (tokenObj.id != orgId.toInt()) throw NotFoundException()
-
-        //val tokenObj = StorageOrg<UUID>(o)
-        //val uuid = UUID.fromString("00000000-0000-0000-0000-000000000010")
-
-        println("Token pass org ")
 
 
         println("Search house match")
         val houseList = houseDao.find(tokenObj.uuid)
 
         println("count house = ${houseList.count()}")
-        //println("Test get house 1 ${houseList.get(0)}")
-
-        //val featureList = arrayListOf<Feature<Address>>()
 
         val geoJson = FeatureCollection()
 
-        data class myGeo(override val type: String, val coordinates: LatLng) : Geometry
+
+        //val peopleInHouse=HashMap<String,ArrayList<People>>()
 
 
         houseList.forEach {
 
-            val geometry = myGeo("Point", it.data.latlng!!)
-            val feture: Feature<Address> = Feature(geometry, it.data)
+            val geometry = MyGeo("Point", it.data.latlng!!)
+            val properits = ProperitsGeoJson(it.data.houseId)
+            val houseId = it.data.houseId
+            val house = it.data
+
+            properits.identity = it.data.identity
+            properits.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId!!)
+            properits.no = house.no
+            properits.road = house.road
+            properits.coordinates = house.latlng
+
+
+
+            try {
+                properits.people = personDao.getPeopleInHouse(tokenObj.uuid, houseId!!)
+            } catch (ex: Exception) {
+                println("People null")
+            }
+
+
+            val feture: Feature<ProperitsGeoJson> = Feature(geometry, properties = properits)
+
             geoJson.features.add(feture)
+
+
         }
 
         return geoJson

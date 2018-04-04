@@ -17,10 +17,12 @@
 
 package ffc.airsync.api.dao
 
+import ffc.model.People
 import ffc.model.Person
 import ffc.model.StorageOrg
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class InMemoryPersonDao : PersonDao {
 
@@ -33,10 +35,13 @@ class InMemoryPersonDao : PersonDao {
     val personList: ArrayList<StorageOrg<Person>> = arrayListOf()
 
 
+    val peopleList = arrayListOf<StorageOrg<HashMap<Int, ArrayList<People>>>>()
+
+
     override fun insert(orgUUID: UUID, person: Person) {
         personList.removeIf { it.uuid == orgUUID && it.data.pid == person.pid }
-
         personList.add(StorageOrg(orgUUID, person))
+        peopleToHouse(orgUUID = orgUUID, person = person)
     }
 
     override fun insert(orgUUID: UUID, personList: List<Person>) {
@@ -52,4 +57,68 @@ class InMemoryPersonDao : PersonDao {
     override fun remove(orgUuid: UUID) {
         personList.removeIf { it.uuid == orgUuid }
     }
+
+    private fun peopleToHouse(orgUUID: UUID, person: Person) {
+
+        val houseId = person.houseId
+        if (houseId == null) {
+            return
+        }
+
+        var peopleInOrg = getPeopleInOrg(orgUUID)
+        if (peopleInOrg == null) {
+            peopleInOrg = HashMap()
+            peopleList.add(StorageOrg(orgUUID, peopleInOrg))
+        }
+
+
+        var peopleInHouse = peopleInOrg.get(houseId)
+        if (peopleInHouse == null) {
+            peopleInHouse = arrayListOf<People>()
+            peopleInOrg.put(houseId, peopleInHouse)
+        }
+
+
+        val name = person.prename + " " + person.firstname + " " + person.lastname
+        val cardId = person.identities[0].id
+        val people = People(cardId, name)
+
+
+        peopleInHouse.removeIf { it.id == cardId }
+        peopleInHouse.add(people)
+
+
+    }
+
+    override fun getPeopleInHouse(orgUUID: UUID, houseId: Int): ArrayList<People>? {
+        val peopleInOrg = getPeopleInOrg(orgUUID = orgUUID)
+
+
+
+        if (peopleInOrg == null) {
+            println("People in org Null")
+            return null
+        }
+
+
+        val peopleInHouse = peopleInOrg[houseId]
+
+
+        if (peopleInHouse == null) {
+            println("House find null $houseId")
+        }
+
+        println("Print all people in house $houseId")
+        peopleInHouse?.forEach { println(it) }
+
+        return peopleInHouse
+    }
+
+    private inline fun getPeopleInOrg(orgUUID: UUID): HashMap<Int, ArrayList<People>>? {
+        val peopleInOrg = peopleList.find { it.uuid == orgUUID }?.data
+        return peopleInOrg
+
+    }
+
+
 }

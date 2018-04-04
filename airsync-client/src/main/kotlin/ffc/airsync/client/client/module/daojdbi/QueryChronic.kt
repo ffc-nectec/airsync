@@ -32,7 +32,8 @@ interface QueryChronic {
             JOIN personchronic
                 ON person.pcucodeperson=personchronic.pcucodeperson
                 AND person.pid=personchronic.pid
-            ORDER BY person.hcode""")
+            ORDER BY person.hcode
+            """)
     @RegisterRowMapper(ChronicMapper::class)
     fun getChronic(): List<Chronic>
 }
@@ -47,8 +48,12 @@ class ChronicMapper : RowMapper<Chronic> {
         val hcode = rs.getInt("hcode")
         val idc10 = rs.getString("chroniccode")
         val diagDate = rs.getDate("datedxfirst")
+        val hospCode = rs.getString("pcucodeperson")
 
         val chronic = Chronic(idc10 = idc10, diagDate = LocalDate.fromDateFields(diagDate))
+        chronic.diagHospCode = hospCode
+        chronic.careHospCode = hospCode
+        chronic.houseId = hcode
 
         return chronic
 

@@ -54,6 +54,7 @@ data class Person(val id: Long = Random().nextLong() * -1) {
     var identities: MutableList<Identity> = mutableListOf()
     var house: Address? = null
     var chronics: MutableList<Chronic> = mutableListOf()
+    var houseId: Int? = null
 }
 
 
@@ -66,6 +67,7 @@ data class Address(val id: Long = Random().nextLong() * -1) {
     var ampur: String? = null
     var changwat: String? = null
     var latlng: LatLng? = null
+    var houseId: Int? = null
 
     enum class Type {
         House, Condo
@@ -77,6 +79,7 @@ data class Chronic(val idc10: String, val diagDate: LocalDate) {
     var careHospCode: String? = null
     var status: String = "active"
     var dischardDate: LocalDate? = null
+    var houseId: Int? = null
 }
 
 interface Identity {

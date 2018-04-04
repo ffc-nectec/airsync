@@ -75,6 +75,7 @@ class PersonMapper : RowMapper<Person> {
         person.hospCode=hospCode
         person.prename=prename
 
+        person.houseId = houseId
 
         person.identities.add(ThaiCitizenId(citizenId))
 

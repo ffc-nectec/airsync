@@ -17,6 +17,7 @@
 
 package ffc.airsync.api.dao
 
+import ffc.model.People
 import ffc.model.Person
 import ffc.model.StorageOrg
 import java.util.*
@@ -29,4 +30,10 @@ interface PersonDao {
 
 
     fun remove(orgUuid: UUID)
+
+
+    fun getPeopleInHouse(orgUUID: UUID, houseId: Int): ArrayList<People>?
+
+
+
 }

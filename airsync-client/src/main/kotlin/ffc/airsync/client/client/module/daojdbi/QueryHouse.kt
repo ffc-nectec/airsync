@@ -20,6 +20,7 @@ package ffc.airsync.client.client.module.daojdbi
 import ffc.model.Address
 import ffc.model.Chronic
 import ffc.model.Person
+import ffc.model.ThaiHouseholdId
 import me.piruin.geok.LatLng
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -32,8 +33,10 @@ interface QueryHouse {
     @SqlQuery("""
 SELECT house.pcucode,
 	house.hcode,
+    house.hno,
 	house.road,
 	house.xgis,
+    house.hid,
 	house.ygis
 FROM house
 """)
@@ -49,13 +52,24 @@ class HouseMapper : RowMapper<Address> {
 
 
         val hcode = rs.getInt("hcode")
+        var houseId = rs.getString("hid")
         val road = rs.getString("road")
         val xgis = rs.getDouble("xgis")
         val ygis = rs.getDouble("ygis")
+        val houseNo = rs.getString("hno")
 
         val house = Address()
 
+        house.no = houseNo
         house.road = road
+
+        if (houseId == null) {
+            houseId = "0"
+        }
+        house.identity = ThaiHouseholdId(houseId)
+
+        house.houseId = hcode
+
 
         //if (xgis != 0.0 && ygis != 0.0)
         house.latlng = LatLng(ygis, xgis)
