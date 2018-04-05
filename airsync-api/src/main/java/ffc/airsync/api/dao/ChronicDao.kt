@@ -25,6 +25,7 @@ interface ChronicDao {
     fun insert(orgUUID: UUID, chronic: Chronic)
     fun insert(orgUUID: UUID, chronicList: List<Chronic>)
     fun find(orgUuid: UUID): List<StorageOrg<Chronic>>
+    fun filterByPersonPid(orgUuid: UUID, pid: Int): List<StorageOrg<Chronic>>
     fun houseIsChronic(orgUuid: UUID, houseId: Int): Boolean
     fun remove(orgUuid: UUID)
 }

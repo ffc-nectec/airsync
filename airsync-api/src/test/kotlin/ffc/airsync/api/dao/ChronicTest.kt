@@ -17,20 +17,13 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.Address
-import ffc.model.StorageOrg
-import org.elasticsearch.cluster.metadata.AliasAction
-import java.util.*
+import ffc.airsync.api.services.module.HttpRestOrgService
+import org.junit.Test
 
-interface HouseDao {
-    fun insert(orgUuid: UUID, house: Address)
-    fun insert(orgUuid: UUID, houseList: List<Address>)
+class ChronicTest {
 
-    fun find(latlng: Boolean = true): List<StorageOrg<Address>>
-
-    fun find(orgUuid: UUID, latlng: Boolean = true): List<StorageOrg<Address>>
-
-    fun findByHouseId(orgUuid: UUID, houseId: Int): StorageOrg<Address>?
-
-    fun remove(orgUuid: UUID)
+    @Test
+    fun getChronicByPid() {
+        val restService = HttpRestOrgService.instant
+    }
 }

@@ -53,6 +53,10 @@ class InMemoryHouseDao : HouseDao {
             return houseList
     }
 
+    override fun findByHouseId(orgUuid: UUID, houseId: Int): StorageOrg<Address>? {
+        return houseList.find { it.data.houseId == houseId && it.uuid == orgUuid }
+    }
+
     override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
         if (latlng)
             return houseList.filter {

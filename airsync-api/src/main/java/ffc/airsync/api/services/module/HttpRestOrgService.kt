@@ -18,12 +18,9 @@
 package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.dao.PersonDao
 import ffc.model.*
-import me.piruin.geok.LatLng
 import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
-import me.piruin.geok.geometry.Geometry
 import java.util.*
 import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
@@ -109,18 +106,38 @@ class HttpRestOrgService : OrgService {
     override fun getPerson(token: String, orgId: String): List<Person> {
 
         val tokenObj = checkTokenMobile(UUID.fromString(token.trim()), orgId)
-
-
         val personList = personDao.find(orgUuid = tokenObj.uuid)
-
-
         val personReturn = arrayListOf<Person>()
 
+
+        var lmitLoop = 0
+
         personList.forEach {
-            personReturn.add(it.data)
+            if (lmitLoop < 100) {
+                lmitLoop++
+
+                val person = it.data
+                val chronicPerson = chronicDao.filterByPersonPid(tokenObj.uuid, it.data.pid!!.toInt())
+                val chronicList = arrayListOf<Chronic>()
+
+                if (chronicPerson.isNotEmpty())
+                    chronicPerson.forEach {
+                        printDebug("It pid = ${it.data.pid} Person pid = ${person.pid}")
+                        chronicList.add(it.data)
+                    }
+                person.chronics = chronicList
 
 
+                if (person.houseId != null) {
+                    val housePerson = houseDao.findByHouseId(tokenObj.uuid, person.houseId!!)
+                    person.house = housePerson?.data
+                }
+
+
+                personReturn.add(person)
+            }
         }
+
 
 
 

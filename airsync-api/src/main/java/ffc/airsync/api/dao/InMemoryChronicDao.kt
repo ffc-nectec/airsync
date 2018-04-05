@@ -52,6 +52,11 @@ class InMemoryChronicDao : ChronicDao {
         return chronicList.filter { it.uuid == orgUuid }
     }
 
+    override fun filterByPersonPid(orgUuid: UUID, pid: Int): List<StorageOrg<Chronic>> {
+        return chronicList.filter { it.data.pid == pid && it.uuid == orgUuid }
+
+    }
+
     override fun remove(orgUuid: UUID) {
         chronicList.removeIf { it.uuid == orgUuid }
     }

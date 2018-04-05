@@ -15,22 +15,8 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.dao
+package ffc.model
 
-import ffc.model.Address
-import ffc.model.StorageOrg
-import org.elasticsearch.cluster.metadata.AliasAction
-import java.util.*
-
-interface HouseDao {
-    fun insert(orgUuid: UUID, house: Address)
-    fun insert(orgUuid: UUID, houseList: List<Address>)
-
-    fun find(latlng: Boolean = true): List<StorageOrg<Address>>
-
-    fun find(orgUuid: UUID, latlng: Boolean = true): List<StorageOrg<Address>>
-
-    fun findByHouseId(orgUuid: UUID, houseId: Int): StorageOrg<Address>?
-
-    fun remove(orgUuid: UUID)
+inline fun printDebug(infoDebug: String) {
+    println(infoDebug)
 }
