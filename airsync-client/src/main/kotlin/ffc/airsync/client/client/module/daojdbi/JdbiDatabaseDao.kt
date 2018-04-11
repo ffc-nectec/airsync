@@ -25,14 +25,14 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 
 
-class JdbiDatabaseDao : DatabaseDao {
+class JdbiDatabaseDao(val dbHost: String, val dbPort: String, val dbName: String, val dbUsername: String, val dbPassword: String) : DatabaseDao {
 
 
     override fun getPerson(): List<Person> {
 
         val jdbi = createJdbi()
 
-        return jdbi.withExtension<List<Person>,QueryPerson,Exception>(QueryPerson::class.java, ExtensionCallback {
+        return jdbi.withExtension<List<Person>, QueryPerson, Exception>(QueryPerson::class.java, ExtensionCallback {
             it.getPerson()
         })
     }
@@ -40,14 +40,14 @@ class JdbiDatabaseDao : DatabaseDao {
     override fun getHouse(): List<Address> {
         val jdbi = createJdbi()
 
-        val resultHouse = jdbi.withExtension<List<Address>,QueryHouse,Exception>(QueryHouse::class.java, ExtensionCallback {
+        val resultHouse = jdbi.withExtension<List<Address>, QueryHouse, Exception>(QueryHouse::class.java, ExtensionCallback {
             it.getHouse()
         })
 
 
-        var i=0
+        var i = 0
         resultHouse.forEach {
-            println("House= "+it.changwat+" XY = "+it.latlng+", "+i++)
+            println("House= " + it.changwat + " XY = " + it.latlng + ", " + i++)
         }
         return resultHouse
 
@@ -55,7 +55,7 @@ class JdbiDatabaseDao : DatabaseDao {
 
     override fun getChronic(): List<Chronic> {
         val jdbi = createJdbi()
-        val resultChronic = jdbi.withExtension<List<Chronic>,QueryChronic,Exception>(QueryChronic::class.java, ExtensionCallback {
+        val resultChronic = jdbi.withExtension<List<Chronic>, QueryChronic, Exception>(QueryChronic::class.java, ExtensionCallback {
             it.getChronic()
         })
 
@@ -63,16 +63,16 @@ class JdbiDatabaseDao : DatabaseDao {
 
     }
 
-    private fun createJdbi() :Jdbi{
+    private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")
 
 
         val ds = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
-        ds.setURL("jdbc:mysql://127.0.0.1:3333/jhcisdb" + "?autoReconnect=true&useSSL=false")
-        ds.databaseName="jhcisdb"
-        ds.user = "root"
-        ds.setPassword("123456")
-        ds.port=3333
+        ds.setURL("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?autoReconnect=true&useSSL=false")
+        ds.databaseName = dbName
+        ds.user = dbUsername
+        ds.setPassword(dbPassword)
+        ds.port = dbPort.toInt()
 
 
         val jdbi = Jdbi.create(ds)

@@ -31,10 +31,7 @@ import java.util.*
 class MainContraller {
 
 
-    var org = Organization(UUID.fromString(Config.pcuUuid), "-1", "589", "Nectecพี่โล่")
-
-
-    fun main(args: Array<String>) {
+    fun main(dbHost: String, dbPort: String, dbName: String, dbUsername: String, dbPassword: String, orgUuid: String, orgName: String, orgCode: String) {
         //get config
         //check my.ini
         //check log resume
@@ -43,6 +40,8 @@ class MainContraller {
 
         //register central
         val messageCentral: CentralMessageManage = CentralMessageMaorgUpdatenageV1()
+
+        var org = Organization(uuid = UUID.fromString(orgUuid), id = "-1", pcuCode = orgCode, name = orgName)
         org = messageCentral.registerOrganization(org, Config.baseUrlRest)
 
         //put user
@@ -52,7 +51,12 @@ class MainContraller {
 
 
         //Create connect database
-        val databaseDao: DatabaseDao = JdbiDatabaseDao()
+        val databaseDao: DatabaseDao = JdbiDatabaseDao(
+          dbHost = dbHost,
+          dbPort = dbPort,
+          dbName = dbName,
+          dbUsername = dbUsername,
+          dbPassword = dbPassword)
 
         //put house
         val houseList = databaseDao.getHouse()
