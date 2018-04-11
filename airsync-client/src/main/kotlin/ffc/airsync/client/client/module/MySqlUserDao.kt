@@ -18,6 +18,7 @@
 package ffc.airsync.client.client.module
 
 import ffc.model.User
+import ffc.model.printDebug
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
@@ -33,7 +34,7 @@ class MySqlUserDao : UserDao {
             conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3333/jhcisdb" + "?autoReconnect=true&useSSL=false","root","123456")
 
             if (conn != null) {
-                println("Database Connected.")
+                printDebug("Database Connected.")
 
                 var query = "SELECT * FROM `jhcisdb`.`user` LIMIT 1000"
 
@@ -46,13 +47,13 @@ class MySqlUserDao : UserDao {
                     val username = rs.getString("username")
                     val password = rs.getString("password")
                     userList.add(User(username,password))
-                    println("User = "+username + " Pass= "+password)
+                    printDebug("User = " + username + " Pass= " + password)
                 }
 
 
 
             } else {
-                println("Database Connect Failed.")
+                printDebug("Database Connect Failed.")
             }
 
         } catch (e: Exception) {

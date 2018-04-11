@@ -40,13 +40,13 @@ class OrgAutorizeResource {
     //Register orgUuid.
     @POST
     fun create(@Context req: HttpServletRequest, organization: Organization): Response {
-        println("Org register pcuCode = " + organization.pcuCode
+        printDebug("Org register pcuCode = " + organization.pcuCode
           + " Name = " + organization.name
           + " UUID = " + organization.uuid)
 
 
         val orgUpdate = orgServices.register(organization, req.remoteAddr)
-        println("Gen ip = " + orgUpdate.lastKnownIp
+        printDebug("Gen ip = " + orgUpdate.lastKnownIp
           + " Org token = " + orgUpdate.token)
 
         return Response.status(Response.Status.CREATED).entity(orgUpdate).build()
@@ -56,7 +56,7 @@ class OrgAutorizeResource {
     fun getMyOrg(@QueryParam("my") my: Boolean = false,
                  @Context req: HttpServletRequest): List<Organization> {
 
-        println("Get Org by ip = " + req.remoteAddr)
+        printDebug("Get Org by ip = " + req.remoteAddr)
 
         if (my) {
             return orgServices.getMyOrg(req.remoteAddr)
@@ -74,16 +74,16 @@ class OrgAutorizeResource {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
-        println("Raw user list.")
+        printDebug("Raw user list.")
         userList.forEach {
-            println("User = " + it.username + " Pass = " + it.password)
+            printDebug("User = " + it.username + " Pass = " + it.password)
         }
 
         if (token != null) {
             orgServices.createUser(token, orgId, userList)
             return Response.status(Response.Status.CREATED).build()
         } else {
-            throw NotAuthorizedException("Not Pass")
+            throw NotAuthorizedException("Not Auth")
         }
 
 
@@ -100,12 +100,12 @@ class OrgAutorizeResource {
         val userpass = DatatypeConverter.parseBase64Binary(token).toString(charset("UTF-8")).split(":")
         val user = userpass.get(index = 0)
         val pass = userpass.get(index = 1)
-        println("Mobile Login Auid = " + orgId +
+        printDebug("Mobile Login Auid = " + orgId +
           " User = " + user +
           " Pass = " + pass)
         val tokenMessage = orgServices.orgUserAuth(orgId, user, pass)
 
-        println("Token is $tokenMessage")
+        printDebug("Token is $tokenMessage")
 
         //Thread.sleep(3000)
 

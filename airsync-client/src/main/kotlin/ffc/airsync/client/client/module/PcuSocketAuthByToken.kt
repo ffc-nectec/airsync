@@ -19,6 +19,7 @@ package ffc.airsync.client.client.module
 
 import ffc.model.Organization
 import ffc.model.TokenMessage
+import ffc.model.printDebug
 import ffc.model.toJson
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.client.WebSocketClient
@@ -39,10 +40,10 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
     init {
         this.organization=organization
         healthConnectionThread = Thread(Runnable {
-            println("Thread health connection start")
+            printDebug("Thread health connection start")
             var state = 0
             while (true) {
-                println("Thread health connection stage = "+state)
+                printDebug("Thread health connection stage = " + state)
                 if (healthConnectionWorking) {
                     if (state == 0) {
 
@@ -71,7 +72,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 client.start()
                 // Attempt Connect
                 val fut: Future<Session> = client.connect(socket, uri)
-                println("Connection ownAction Central")
+                printDebug("Connection ownAction Central")
                 // Wait for Connect
                 sessionObj = fut.get()
 
@@ -81,15 +82,15 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
         } catch (t: Throwable) {
             t.printStackTrace(System.err)
         }
-        println("Call thread health connection")
+        printDebug("Call thread health connection")
         healthConnectionThread.start()
 
     }
 
     override fun sendText(message: String) {
-        println("sendText ")
+        printDebug("sendText ")
         if (sessionObj != null) {
-            println("data = "+message)
+            printDebug("data = " + message)
             sessionObj!!.getRemote().sendString(message)
         } else {
             throw NoSuchFieldException("Session Null")
@@ -97,7 +98,8 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
     }
 
     override fun receiveMessage(message: String,count :Long) {
-        //println("Count:" + (count++) + "\tReceived TEXT data: " + data)
+
+        printDebug("Count:" + (count) + "\tReceived TEXT data: " + message)
 
         if (!message.equals("H")) {
 
@@ -108,15 +110,15 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
 
 
                 val centraltoken: TokenMessage = message!!.fromJson()
-                println("Clent handcheck central recive token = " + centraltoken)
+               printDebug("Clent handcheck central recive token = " + centraltoken)
                 if (centraltoken.token.equals(organization.centralToken)) {
-                    println("Auth password handcheck")
+                   printDebug("Auth password handcheck")
                     stage = 1
                 } else {
                     throw SecurityException("Cannot handcheck")
                 }
             } else {//Message Receive
-                println("Message Receiver Stage = " + stage + "Message = " + message)
+               printDebug("Message Receiver Stage = " + stage + "Message = " + message)
                     //Call get data Thread sync
                     eventCallBack.EventCallBackMessage(message)
 

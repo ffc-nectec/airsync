@@ -17,6 +17,7 @@
 
 package ffc.airsync.client.client.module
 
+import ffc.model.printDebug
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
@@ -35,22 +36,22 @@ class BaseNetworkSocket : WebSocketAdapter() {
 
     override fun onWebSocketConnect(sess: Session?) {
         super.onWebSocketConnect(sess)
-        println("Socket Connected: " + sess)
+        printDebug("Socket Connected: " + sess)
         this.session = DigestUtils.sha1Hex(sess.toString())
-        println("Session= " + this.session)
+        printDebug("Session= " + this.session)
     }
 
     override fun onWebSocketText(message: String?) {
         super.onWebSocketText(message)
-        println("onWebSocketText")
-        println("Count:" + (count++) + "\tReceived TEXT data: " + message)
+        printDebug("onWebSocketText")
+        printDebug("Count:" + (count++) + "\tReceived TEXT data: " + message)
         onWebSocketText?.onWebSocketText(message,count)
 
     }
 
     override fun onWebSocketClose(statusCode: Int, reason: String?) {
         super.onWebSocketClose(statusCode, reason)
-        println("Socket Closed: [" + statusCode + "] " + reason)
+        printDebug("Socket Closed: [" + statusCode + "] " + reason)
     }
 
     override fun onWebSocketError(cause: Throwable?) {

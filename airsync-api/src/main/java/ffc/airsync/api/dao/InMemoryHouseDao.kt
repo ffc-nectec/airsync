@@ -19,6 +19,7 @@ package ffc.airsync.api.dao
 
 import ffc.model.Address
 import ffc.model.StorageOrg
+import ffc.model.printDebug
 import java.util.*
 
 class InMemoryHouseDao : HouseDao {
@@ -35,7 +36,7 @@ class InMemoryHouseDao : HouseDao {
 
     override fun insert(orgUuid: UUID, house: Address) {
         //houseList.removeIf { it.uuid == orgUuid && it.data.identity?.id == house.identity?.id }
-        println("Insert house = ${house.identity?.id} XY= ${house.latlng}")
+        printDebug("Insert house = ${house.identity?.id} XY= ${house.latlng}")
         houseList.add(StorageOrg(orgUuid, house))
     }
 

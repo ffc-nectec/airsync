@@ -17,6 +17,6 @@
 
 package ffc.model
 
-inline fun printDebug(infoDebug: String) {
+inline fun <T> printDebug(infoDebug: T) {
     println(infoDebug)
 }

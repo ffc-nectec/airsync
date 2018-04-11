@@ -28,7 +28,7 @@ class ElasticTest {
           .setSource(json, XContentType.JSON)
           .get()
 
-        println(response.result)
+       printDebug(response.result)
         toString()*/
     }
 
@@ -39,7 +39,7 @@ class ElasticTest {
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
 
         var response = client.prepareGet("twitter", "tweet", "32").get()
-        println(response.source.getValue("data"))*/
+       printDebug(response.source.getValue("data"))*/
     }
 
     @Test
@@ -48,6 +48,6 @@ class ElasticTest {
         /*var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
         var response = client.prepareDelete("twitter", "tweet", "32").get()
-        println(response)*/
+       printDebug(response)*/
     }
 }

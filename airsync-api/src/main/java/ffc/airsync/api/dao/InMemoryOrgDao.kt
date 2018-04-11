@@ -18,6 +18,7 @@
 package ffc.airsync.api.dao
 
 import ffc.model.Organization
+import ffc.model.printDebug
 import ffc.model.toJson
 import java.util.*
 
@@ -50,10 +51,10 @@ class InMemoryOrgDao : OrgDao {
 
 
         if (!pcuList.contains(organization)) {
-            println("Organization insert InMemoryOrgDao \nOrganization data = "+organization.toJson())
+            printDebug("Organization insert InMemoryOrgDao \nOrganization data = " + organization.toJson())
             organization.id= (i++.toString())
             pcuList.add(organization)
-            println("Test get Organization Before insert\nOrganization data ="+findByUuid(organization.uuid).toJson())
+            printDebug("Test get Organization Before insert\nOrganization data =" + findByUuid(organization.uuid).toJson())
         }else{
             pcuList.remove(organization)
             insert(organization)
@@ -61,9 +62,9 @@ class InMemoryOrgDao : OrgDao {
     }
 
     override fun findByUuid(uuid: UUID): Organization {
-        println("findByUuid InMemoryOrgDao \nUUID data = "+uuid)
+        printDebug("findByUuid InMemoryOrgDao \nUUID data = " + uuid)
         val pcu = pcuList.find { it.uuid == uuid }!!
-        println("find Result = "+pcu.toJson())
+        printDebug("find Result = " + pcu.toJson())
         return pcu
         //return pcuList.findCall { it.uuid }
     }

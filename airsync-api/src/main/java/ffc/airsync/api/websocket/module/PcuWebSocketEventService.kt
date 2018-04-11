@@ -23,6 +23,7 @@ import ffc.airsync.api.websocket.module.PcuEventService.Companion.connectionMap
 import ffc.model.Organization
 import ffc.model.TokenMessage
 import ffc.model.fromJson
+import ffc.model.printDebug
 import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import java.util.*
@@ -38,10 +39,10 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
 
     init {
         this.session = DigestUtils.sha1Hex(sess.toString())
-        println("onWebSocketConnect " + this.session)
+        printDebug("onWebSocketConnect " + this.session)
         connectionMap.put(this.session, sess)
-        println("Test find session before add "+ connectionMap.get(this.session)!!.remote.inetSocketAddress.hostName)
-        println("Test find session before add 2 "+ connectionMap.get(this.session)!!.remote.inetSocketAddress.hostName)
+        printDebug("Test find session before add " + connectionMap.get(this.session)!!.remote.inetSocketAddress.hostName)
+        printDebug("Test find session before add 2 " + connectionMap.get(this.session)!!.remote.inetSocketAddress.hostName)
 
     }
 
@@ -57,8 +58,8 @@ class PcuWebSocketEventService(val sess: Session) : PcuEventService {
 
 
     override fun receiveTextData(message: String) {
-        println("onWebSocketText " + session)
-        println("Stage = " + stage + " Count:" + (count++) + "\tMessage: " + message)
+        printDebug("onWebSocketText " + session)
+        printDebug("Stage = " + stage + " Count:" + (count++) + "\tMessage: " + message)
 
         if (stage == 0) {//Register Channel
             val token :TokenMessage =message.fromJson()

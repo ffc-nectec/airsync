@@ -19,6 +19,7 @@ package ffc.airsync.api.dao
 
 import ffc.model.Organization
 import ffc.model.fromJson
+import ffc.model.printDebug
 import ffc.model.toJson
 import org.elasticsearch.client.transport.TransportClient
 import org.elasticsearch.common.settings.Settings
@@ -54,7 +55,7 @@ class EsOrgDao : OrgDao {
 
     override fun findByUuid(uuid: UUID): Organization {
         var response = client.get("airsync", "air", uuid.toString())
-        println(response.sourceAsString)
+        printDebug(response.sourceAsString)
         return response.sourceAsString.fromJson()
     }
 
@@ -66,7 +67,7 @@ class EsOrgDao : OrgDao {
 
     override fun findByIpAddress(ipAddress: String): List<Organization> {
         var response = client.get("lastKnownIp", "ip", ipAddress)
-        println(response.sourceAsString)
+        printDebug(response.sourceAsString)
         return response.sourceAsString.fromJson()
     }
 

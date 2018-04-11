@@ -18,27 +18,29 @@
 package ffc.airsync.client
 
 import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
+import ffc.model.printDebug
 import org.junit.Test
 
 class JdbiDatabaseDaoTest {
     @Test
     fun testGetPerson() {
+        /*
         val jdbi = JdbiDatabaseDao()
         val persons=jdbi.getPerson()
-        println("Person test list.")
+       printDebug("Person test list.")
         persons.forEach {
             System.out.println(it)
-        }
+        }*/
 
     }
     @Test
     fun getHouse(){
-        val jdbi = JdbiDatabaseDao()
+        /*val jdbi = JdbiDatabaseDao()
         val houses=jdbi.getHouse()
 
-        println("House test list.")
+       printDebug("House test list.")
         houses.forEach {
-            println(it)
-        }
+           printDebug(it)
+        }*/
     }
 }

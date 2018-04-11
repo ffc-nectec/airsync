@@ -22,6 +22,7 @@ import ffc.airsync.api.services.module.OrgService
 import ffc.model.Address
 import ffc.model.Organization
 import ffc.model.User
+import ffc.model.printDebug
 import me.piruin.geok.geometry.FeatureCollection
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
@@ -49,12 +50,12 @@ class HouseResource {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
-        println("getHouse method geoJson List")
+        printDebug("getHouse method geoJson List")
 
         val geoJso: FeatureCollection = orgServices.getHouse(token!!, orgId, page, per_page)
 
         geoJso.features.forEach {
-            println(it.geometry)
+            printDebug(it.geometry)
         }
 
         return geoJso
@@ -67,10 +68,10 @@ class HouseResource {
     fun createPlace(@Context req: HttpServletRequest,
                     @PathParam("orgId") orgId: String,
                     houseList: List<Address>): Response {
-        println("\nCall create house by ip = " + req.remoteAddr)
+        printDebug("\nCall create house by ip = " + req.remoteAddr)
 
         houseList.forEach {
-            println(it)
+            printDebug(it)
         }
 
         val httpHeader = req.buildHeaderMap()

@@ -20,6 +20,7 @@ package ffc.airsync.api.websocket
 
 import ffc.airsync.api.websocket.module.PcuEventService
 import ffc.airsync.api.websocket.module.PcuWebSocketEventService
+import ffc.model.printDebug
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
 
@@ -44,7 +45,7 @@ class ApiSocket : WebSocketAdapter() {
 
     override fun onWebSocketClose(statusCode: Int, reason: String?) {
         super.onWebSocketClose(statusCode, reason)
-        println("Socket Closed: [" + statusCode + "] " + reason)
+        printDebug("Socket Closed: [" + statusCode + "] " + reason)
     }
 
     override fun onWebSocketError(cause: Throwable?) {

@@ -24,6 +24,7 @@ import ffc.airsync.client.client.module.daojdbi.DatabaseDao
 import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.Organization
 import ffc.model.Person
+import ffc.model.printDebug
 import ffc.model.toJson
 import java.net.URI
 import java.util.*
@@ -46,7 +47,7 @@ class MainContraller {
 
         //put user
         val userList = ApiFactory().buildUserDao().findAll()
-        println("Add put username org = " + org.token)
+        printDebug("Add put username org = " + org.token)
         messageCentral.putUser(userList, org)
 
 

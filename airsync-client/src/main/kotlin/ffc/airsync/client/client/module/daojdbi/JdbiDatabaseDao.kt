@@ -47,7 +47,7 @@ class JdbiDatabaseDao(val dbHost: String, val dbPort: String, val dbName: String
 
         var i = 0
         resultHouse.forEach {
-            println("House= " + it.changwat + " XY = " + it.latlng + ", " + i++)
+            printDebug("House= " + it.changwat + " XY = " + it.latlng + ", " + i++)
         }
         return resultHouse
 

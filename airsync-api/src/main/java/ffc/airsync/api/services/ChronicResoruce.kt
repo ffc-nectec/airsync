@@ -20,6 +20,7 @@ package ffc.airsync.api.services
 import ffc.airsync.api.services.module.HttpRestOrgService
 import ffc.airsync.api.services.module.OrgService
 import ffc.model.Chronic
+import ffc.model.printDebug
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -36,10 +37,10 @@ class ChronicResoruce {
     fun createChronic(@Context req: HttpServletRequest,
                       @PathParam("orgId") orgId: String,
                       chronicList: List<Chronic>): Response {
-        println("\nCall create chronic by ip = " + req.remoteAddr)
+        printDebug("\nCall create chronic by ip = " + req.remoteAddr)
 
         chronicList.forEach {
-            println(it)
+            printDebug(it)
         }
 
         val httpHeader = req.buildHeaderMap()

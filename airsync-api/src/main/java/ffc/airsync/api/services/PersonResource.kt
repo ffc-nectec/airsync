@@ -21,7 +21,9 @@ import ffc.airsync.api.dao.DaoFactory
 import ffc.airsync.api.services.module.HttpRestOrgService
 import ffc.airsync.api.services.module.OrgService
 import ffc.model.Person
+import ffc.model.printDebug
 import java.util.*
+import javax.security.sasl.AuthenticationException
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -41,14 +43,16 @@ class PersonResource {
     fun getPerson(@QueryParam("page") page: Int = 1,
                   @QueryParam("per_page") per_page: Int = 1,
                   @PathParam("orgId") orgId: String,
-                  @Context req: HttpServletRequest): List<Person> {
+                  @Context req: HttpServletRequest): Response {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
-        val personList = orgServices.getPerson(token!!, orgId)
-
-        return personList
-
+        try {
+            val personList = orgServices.getPerson(token!!, orgId)
+            return Response.status(Response.Status.OK).entity(personList).build()
+        } catch (ex: NotAuthorizedException) {
+            return Response.status(401).build()
+        }
     }
 
     @POST
@@ -56,23 +60,23 @@ class PersonResource {
     fun createPerson(@Context req: HttpServletRequest,
                      @PathParam("orgId") orgId: String,
                      personList: List<Person>): Response {
-        println("\nCall create person by ip = " + req.remoteAddr)
+        printDebug("\nCall create person by ip = " + req.remoteAddr)
 
         personList.forEach {
-            println(it)
+            printDebug(it)
         }
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
 
 
-        println("Check token")
+        printDebug("Check token")
         if (token != null) {
             orgServices.createPerson(token, orgId, personList)
             return Response.status(Response.Status.CREATED).build()
         } else {
-            println("Authun not pass")
-            throw NotAuthorizedException("Not Pass")
+            printDebug("Authun not pass")
+            throw AuthenticationException("Not Pass")
         }
     }
 

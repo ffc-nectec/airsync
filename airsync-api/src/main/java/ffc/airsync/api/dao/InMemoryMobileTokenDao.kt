@@ -18,7 +18,9 @@
 package ffc.airsync.api.dao
 
 import ffc.model.StorageOrg
+import ffc.model.printDebug
 import java.util.*
+import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 
 class InMemoryMobileTokenDao : MobileTokenDao {
@@ -40,16 +42,16 @@ class InMemoryMobileTokenDao : MobileTokenDao {
           user = user,
           id = id))
 
-        println("Token insert. Before add token")
+        printDebug("Token insert. Before add token")
         tokenList.forEach {
-            println(it)
+            printDebug(it)
         }
 
     }
 
     override fun find(token: UUID): StorageOrg<UUID> {
         val tokenObj = tokenList.find { it.data == token }
-        if (tokenObj == null) throw NotFoundException()
+        if (tokenObj == null) throw NotAuthorizedException("Not Auth")
         return tokenObj
     }
 

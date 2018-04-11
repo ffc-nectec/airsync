@@ -20,6 +20,7 @@ package ffc.airsync.api.dao
 import ffc.model.People
 import ffc.model.Person
 import ffc.model.StorageOrg
+import ffc.model.printDebug
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -96,7 +97,7 @@ class InMemoryPersonDao : PersonDao {
 
 
         if (peopleInOrg == null) {
-            println("People in org Null")
+            printDebug("People in org Null")
             return null
         }
 
@@ -105,11 +106,11 @@ class InMemoryPersonDao : PersonDao {
 
 
         if (peopleInHouse == null) {
-            println("House find null $houseId")
+            printDebug("House find null $houseId")
         }
 
-        println("Print all people in house $houseId")
-        peopleInHouse?.forEach { println(it) }
+        printDebug("Print all people in house $houseId")
+        peopleInHouse?.forEach { printDebug(it) }
 
         return peopleInHouse
     }

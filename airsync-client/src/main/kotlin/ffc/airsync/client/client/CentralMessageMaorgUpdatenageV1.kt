@@ -38,7 +38,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     override fun putHouse(houseList: List<Address>, org: Organization) {
 
-        houseList.forEach { println(it) }
+        houseList.forEach { printDebug(it) }
 
         restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!,houseList = houseList).execute()
 
@@ -72,7 +72,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
         val org = restService!!.regisOrg(organization).execute().body()
 
-        println(org)
+        printDebug(org)
         Thread.sleep(3000)
 
         if (org != null)

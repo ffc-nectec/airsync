@@ -34,13 +34,13 @@ class EsOrganizationDaoTest {
     @Test
     fun registerPcuTest(){
 
-        println("UUID="+ pcu.uuid)
+       printDebug("UUID="+ pcu.uuid)
         register.insert(pcu)
     }
     @Test
     fun registerPcuTest2(){
 
-        println("UUID="+ pcu2.uuid)
+       printDebug("UUID="+ pcu2.uuid)
         register.insert(pcu2)
     }
 
@@ -53,19 +53,19 @@ class EsOrganizationDaoTest {
     @Test
     fun findPcuByUuidTest(){
         var pcu = register.findByUuid(UUID.fromString("6ae2f41e-5df7-44d5-8e8d-e6bf08730cd1"))
-        println("PCU=" + pcu.name)
+       printDebug("PCU=" + pcu.name)
     }
 
     @Test
     fun findPcuByIpAddressTest(){
         var pcu = register.findByIpAddress("127.0.0.1")
-        //println("PCU=" + pcu.name)
+        /printDebug("PCU=" + pcu.name)
     }
 
     @Test
     fun getAllPcuTest(){
         var pculist = register.find()
-        pculist.forEach { pcu -> println("name " + pcu.name) }
+        pculist.forEach { pcu ->printDebug("name " + pcu.name) }
     }
     */
 }

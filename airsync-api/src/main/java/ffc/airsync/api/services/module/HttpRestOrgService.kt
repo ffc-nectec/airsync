@@ -22,6 +22,7 @@ import ffc.model.*
 import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
 import java.util.*
+import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
 
@@ -44,18 +45,18 @@ class HttpRestOrgService : OrgService {
 
     override fun getHouse(token: String, orgId: String, page: Int, per_page: Int): FeatureCollection {
 
-        println("Token = $token")
+        printDebug("Token = $token")
 
         val tokenObj = checkTokenMobile(UUID.fromString(token.trim()), orgId)
 
-        println("Befor check token")
-        println(tokenObj)
+        printDebug("Befor check token")
+        printDebug(tokenObj)
 
 
-        println("Search house match")
+        printDebug("Search house match")
         val houseList = houseDao.find(tokenObj.uuid)
 
-        println("count house = ${houseList.count()}")
+        printDebug("count house = ${houseList.count()}")
 
         val geoJson = FeatureCollection()
 
@@ -63,17 +64,17 @@ class HttpRestOrgService : OrgService {
         //val peopleInHouse=HashMap<String,ArrayList<People>>()
 
 
-        println("For each house")
+        printDebug("For each house")
         houseList.forEach {
 
             val geometry = MyGeo("Point", it.data.latlng!!)
-            println(geometry)
+            printDebug(geometry)
             val properits = ProperitsGeoJson(it.data.houseId)
-            println(properits)
+            printDebug(properits)
             val houseId = it.data.houseId
-            println(houseId)
+            printDebug(houseId)
             val house = it.data
-            println(house)
+            printDebug(house)
 
             properits.identity = it.data.identity
             properits.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId!!)
@@ -85,11 +86,11 @@ class HttpRestOrgService : OrgService {
             try {
                 properits.people = personDao.getPeopleInHouse(tokenObj.uuid, houseId!!)
             } catch (ex: Exception) {
-                println("People null")
+                printDebug("People null")
             }
 
 
-            println("Befor add feture")
+            printDebug("Befor add feture")
             val feture: Feature<ProperitsGeoJson> = Feature(geometry, properties = properits)
 
             geoJson.features.add(feture)
@@ -160,7 +161,7 @@ class HttpRestOrgService : OrgService {
         val org = checkToken(token, orgId)
 
         userList.forEach {
-            println("insert username " + org.name + " User = " + it.username)
+            printDebug("insert username " + org.name + " User = " + it.username)
             orgUser.insert(it, org)
         }
     }
@@ -184,7 +185,7 @@ class HttpRestOrgService : OrgService {
 
         if (checkUser) {
             val org = pcuDao.findById(id)
-            if (org == null) throw NotFoundException()
+            if (org == null) throw NotAuthorizedException("Not org")
 
             val token = UUID.randomUUID()
 
@@ -195,7 +196,7 @@ class HttpRestOrgService : OrgService {
 
             return TokenMessage(token.toString())
         }
-        throw NotFoundException()
+        throw NotAuthorizedException("Not Auth")
     }
 
     override fun createHouse(token: String, orgId: String, houseList: List<Address>) {
@@ -225,28 +226,28 @@ class HttpRestOrgService : OrgService {
     }
 
     private fun checkToken(token: String, orgId: String): Organization {
-        println("Token check")
+        printDebug("Token check")
         val org = pcuDao.findByToken(token)
 
         if (org == null) {
-            println("Org = null")
-            throw NotFoundException()
+            printDebug("Org = null")
+            throw throw NotAuthorizedException("Not org")
         }
         if (org.id != orgId) {
-            println("org ไม่ตรงกัน")
-            throw NotFoundException()
+            printDebug("org ไม่ตรงกัน")
+            throw throw NotAuthorizedException("Not Auth")
         }
 
         return org
     }
 
     private fun checkTokenMobile(token: UUID, orgId: String): StorageOrg<UUID> {
-        println("Befor check token")
+        printDebug("Befor check token")
         val orgUuid = tokenMobile.find(token)
         //if (orgUuid ) throw NotFoundException()
-        if (orgUuid.id != orgId.toInt()) throw NotFoundException()
+        if (orgUuid.id != orgId.toInt()) throw NotAuthorizedException("Not Auth")
 
-        println("Token pass org ")
+        printDebug("Token pass org ")
 
         return orgUuid
     }
