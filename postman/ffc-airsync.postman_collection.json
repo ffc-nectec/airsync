@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "a20ef45f-0a87-40c1-b149-162ee682f318",
+					"id": "dba3c629-466b-4817-8915-c8e77a21e112",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -158,7 +158,7 @@
 			},
 			"response": [
 				{
-					"id": "40819244-2e1c-4157-b9b1-c8eb97cb2945",
+					"id": "bc8e251b-f4bc-4c0e-aed1-9fb28102020c",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -322,7 +322,7 @@
 			},
 			"response": [
 				{
-					"id": "33b66be8-8379-40b5-92af-2fe873908497",
+					"id": "d369c6cd-5de1-463a-8123-890c2d2fb979",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -473,7 +473,7 @@
 			},
 			"response": [
 				{
-					"id": "6f7423d9-5110-4100-a82f-6b0de10fe156",
+					"id": "edb18348-52f6-46a9-a7cf-55f4eb7486ef",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -619,12 +619,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "1234admin0",
+							"value": "mda",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "admin0",
+							"value": "adm",
 							"type": "string"
 						}
 					]
@@ -654,7 +654,7 @@
 			},
 			"response": [
 				{
-					"id": "b1d9c3d1-a341-4ab1-84d7-4455641ea6b4",
+					"id": "59e2a234-e9cf-4ba4-abb9-bb2d833fbba2",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -773,7 +773,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "8e804a77-5e46-4498-9797-dbbe2a903170",
+					"id": "327e7293-2c4b-477f-84f5-0c7635c190c7",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -849,21 +849,20 @@
 					"raw": "[\n  {\n    \"hospCode\": \"15032\",\n    \"pid\": 1,\n    \"prename\": \"นาย\",\n    \"firstname\": \"สมหญิง\",\n    \"lastname\": \"ทีชานนท์\",\n    \"birthData\": \"1950-09-21\",\n    \"identities\": [\n      {\n        \"type\": \"thailand-citizen-id\",\n        \"id\": \"2018032920177\"\n      }\n    ],\n    \"house\": {\n      \"identity\": {\n        \"type\": \"thailand-household-id\",\n        \"id\": \"20180329101\"\n      },\n      \"type\": \"House\",\n      \"no\": \"99/1\",\n      \"road\": \"รังสิต-นครนายก\",\n      \"tambon\": \"คลองหนึ่ง\",\n      \"ampur\": \"คลองหลวง\",\n      \"changwat\": \"ปุทมธานี\",\n      \"latlng\": [\n        120,\n        10\n      ],\n      \"id\": -5844940478120182000\n    },\n    \"chronics\": [\n      {\n        \"status\": \"active\",\n        \"idc10\": \"N18.3\",\n        \"diagDate\": \"2015-05-21\"\n      },\n      {\n        \"status\": \"active\",\n        \"idc10\": \"I10\",\n        \"diagDate\": \"2016-05-21\"\n      }\n    ],\n    \"houseId\": 21,\n    \"id\": -582440454820180500\n  }\n]"
 				},
 				"url": {
-					"raw": "{{url}}/org/{{org_id}}/person/base",
+					"raw": "{{url}}/org/{{org_id}}/person",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"org",
 						"{{org_id}}",
-						"person",
-						"base"
+						"person"
 					]
 				}
 			},
 			"response": [
 				{
-					"id": "294c0f24-9019-4a10-bd65-7e2799787e00",
+					"id": "77aadf5a-bbb8-41c1-ab42-bd173b523800",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -1012,7 +1011,7 @@
 					"raw": "[\n\t{\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120.0,\n      10.0\n    ],\n    \"houseId\" : 21,\n    \"id\": -5844940478183523289\n    }\n]"
 				},
 				"url": {
-					"raw": "{{url}}/org/{{org_id}}/place/house/base",
+					"raw": "{{url}}/org/{{org_id}}/place/house",
 					"host": [
 						"{{url}}"
 					],
@@ -1020,14 +1019,13 @@
 						"org",
 						"{{org_id}}",
 						"place",
-						"house",
-						"base"
+						"house"
 					]
 				}
 			},
 			"response": [
 				{
-					"id": "11c3392d-94da-43f4-a75c-e830fba0a739",
+					"id": "adb5a8e0-beeb-4762-b422-40f5193d4d85",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1145,7 +1143,7 @@
 			},
 			"response": [
 				{
-					"id": "09fb44da-2a26-4be6-a346-fa5f4b724056",
+					"id": "502d134b-7bdc-4f2b-8349-21d588c8b478",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1255,11 +1253,11 @@
 							"description": ""
 						},
 						{
-							"key": "Link",
-							"value": "rel=\"next\" ,rel=\"last\"",
+							"key": "rel",
+							"value": "next",
 							"description": "",
 							"type": "text",
-							"name": "Link"
+							"name": "rel"
 						},
 						{
 							"key": "",
@@ -1347,7 +1345,7 @@
 			},
 			"response": [
 				{
-					"id": "5d808680-c8a3-4584-8bb7-7b42eb5530c1",
+					"id": "cfabf8b6-669a-4785-9e62-4bb6e35a1d98",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
@@ -1459,18 +1457,17 @@
 			]
 		},
 		{
-			"name": "New Chronic",
+			"name": "Delete ข้อมูลของ org",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "444a7c5c-4768-481e-8e8f-0f4180a2830f",
+						"id": "720cd59d-dee7-4f63-b145-3475bf1a28ef",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							""
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
 						]
 					}
 				}
@@ -1491,88 +1488,21 @@
 						}
 					]
 				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n  {\n    \"status\": \"active\",\n    \"idc10\": \"N18.3\",\n    \"diagDate\": \"2015-05-21\",\n    \"houseId\": 21\n  }\n]"
-				},
+				"method": "DELETE",
+				"header": [],
+				"body": {},
 				"url": {
-					"raw": "{{url}}/org/{{org_id}}/chronic/base",
+					"raw": "{{url}}/org/{{org_id}}",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"org",
-						"{{org_id}}",
-						"chronic",
-						"base"
+						"{{org_id}}"
 					]
 				}
 			},
-			"response": [
-				{
-					"id": "c3a59a69-36f0-4013-b456-644d671c3aa6",
-					"name": "New Chronic",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"disabled": false
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"status\": \"active\",\n    \"idc10\": \"N18.3\",\n    \"diagDate\": \"2015-05-21\",\n    \"houseId\": 21\n  }\n]"
-						},
-						"url": {
-							"raw": "{{url}}/org/0/chronic/base",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"0",
-								"chronic",
-								"base"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "Content-Length",
-							"value": "0",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Date",
-							"value": "Wed, 04 Apr 2018 08:11:12 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "Server",
-							"value": "Jetty(9.4.z-SNAPSHOT)",
-							"name": "Server",
-							"description": "A name for the server"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
+			"response": []
 		}
 	]
 }
