@@ -6,7 +6,7 @@ import th.in.ffc.airsync.logreader.Config;
 import th.in.ffc.airsync.logreader.QueryRecord;
 
 public class QueryFilterTest {
-    @Test
+
     public void testQueryFilter(){
         QueryFilter qt = new QueryFilter(Config.logpattern);
         Assert.assertEquals(qt.process(new QueryRecord("\t\t      1 Query       SHOW KEYS FROM `visit` FROM `jhcisdb`",12)).getLog(),"");

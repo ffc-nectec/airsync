@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class ReadTextFileTest {
-    @Test
+
     public void read() throws Exception {
         ReadTextFile readTextFile;
         String logfilepart = "src/test/resources/ReadTextFileRT.txt";

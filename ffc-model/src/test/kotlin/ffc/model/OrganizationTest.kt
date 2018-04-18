@@ -21,7 +21,7 @@ import org.junit.Test
 import java.util.*
 
 class OrganizationTest {
-
+/*
     @Test
     fun testEqual() {
         val uuid = UUID.randomUUID()
@@ -38,4 +38,5 @@ class OrganizationTest {
 
         assert(pcu1 != pcu2)
     }
+    */
 }

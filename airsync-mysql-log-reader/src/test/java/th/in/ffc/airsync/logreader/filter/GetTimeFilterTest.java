@@ -6,7 +6,7 @@ import th.in.ffc.airsync.logreader.Config;
 import th.in.ffc.airsync.logreader.QueryRecord;
 
 public class GetTimeFilterTest {
-    @Test
+
     public void testGetTime(){
         GetTimeFilter gt = new GetTimeFilter(Config.timePattern);
         Assert.assertEquals("","");
