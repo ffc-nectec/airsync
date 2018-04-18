@@ -14,7 +14,7 @@ jar {
 
     }
 
-    destinationDir = file("$rootDir/build/bin")
+    destinationDir = file("$rootDir/build/cloud/bin")
 
     manifest { attributes 'Main-Class': 'ffc.airsync.api.FFCApiServer' }
 
