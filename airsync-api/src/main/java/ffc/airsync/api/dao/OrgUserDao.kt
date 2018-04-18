@@ -30,5 +30,6 @@ interface OrgUserDao {
     fun removeAll(orgUuid: UUID)
     fun isAllow(user: User, orgUuid: UUID): Boolean
     fun isAllowById(user: User, id: String): Boolean
+    fun removeByOrg(orgUUID: UUID)
 
 }
