@@ -24,3 +24,10 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.5.1'
     distributionUrl = distributionUrl.replace("bin", "all")
 }
+
+task copyToLib(type: Copy) {
+    into "$buildDir/lib"
+    from(configurations.compile)
+}
+
+stage.dependsOn(copyToLib)
