@@ -22,7 +22,7 @@ import ffc.model.User
 import ffc.model.UserStor
 import java.util.*
 
-class InMemoryOrgUserDao :OrgUserDao {
+class InMemoryOrgUserDao : OrgUserDao {
     private constructor()
 
     val userList = arrayListOf<UserStor>()
@@ -32,41 +32,45 @@ class InMemoryOrgUserDao :OrgUserDao {
     }
 
     override fun insert(user: User, org: Organization) {
-        userList.add(UserStor(user = user,orgUuid = UUID.fromString(org.uuid.toString()), orgId = org.id!!))
+        userList.add(UserStor(user = user, orgUuid = UUID.fromString(org.uuid.toString()), orgId = org.id!!))
     }
 
     override fun find(orgUuid: UUID): List<UserStor> {
 
-        val userOrg=userList.filter {
-            it.orgUuid==orgUuid
+        val userOrg = userList.filter {
+            it.orgUuid == orgUuid
         }
         return userOrg
     }
 
     override fun findById(id: String): List<UserStor> {
-        val userOrg=userList.filter { it.orgId==id }
+        val userOrg = userList.filter { it.orgId == id }
         return userOrg
 
     }
 
     override fun removeAll(orgUuid: UUID) {
-        userList.removeIf { it.orgUuid==orgUuid }
+        userList.removeIf { it.orgUuid == orgUuid }
 
     }
 
-    override fun isAllow(user: User,orgUuid: UUID): Boolean {
+    override fun isAllow(user: User, orgUuid: UUID): Boolean {
 
-        val user = userList.find { it.orgUuid==orgUuid &&
-          it.user.username==user.username &&
-          it.user.password==user.password }
+        val user = userList.find {
+            it.orgUuid == orgUuid &&
+              it.user.username == user.username &&
+              it.user.password == user.password
+        }
         return user != null
     }
 
     override fun isAllowById(user: User, id: String): Boolean {
 
-        val user = userList.find { it.orgId==id &&
-          it.user.username==user.username &&
-          it.user.password==user.password }
+        val user = userList.find {
+            it.orgId == id &&
+              it.user.username == user.username &&
+              it.user.password == user.password
+        }
         return user != null
     }
 }

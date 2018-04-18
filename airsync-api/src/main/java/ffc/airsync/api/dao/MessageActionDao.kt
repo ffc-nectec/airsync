@@ -21,7 +21,7 @@ import ffc.model.QueryAction
 import java.util.*
 
 interface MessageActionDao {
-    fun insert(action :QueryAction)
-    fun next(to : UUID) :QueryAction
-    fun remove(action :QueryAction)
+    fun insert(action: QueryAction)
+    fun next(to: UUID): QueryAction
+    fun remove(action: QueryAction)
 }

@@ -38,7 +38,7 @@ class EsOrgDao : OrgDao {
         client.insert("airsync", "air", organization.uuid.toString(), organization.toJson())
         organization.lastKnownIp?.let { client.insert("lastKnownIp", "ip", it, organization.toJson()) }//อนาคตต้องเก็บเป็นแบบ list ป้องกัน IP ซ้ำ   ดึงค่ามาอ่าน ตรวจสอบ uuid ถ้าซ้ำ update ถ้าคนละ uuid ให้เพิ่มใน List
         organization.session?.let { client.insert("session", "sess", it, organization.toJson()) }
-        organization.token?.let { client.insert("token","token" ,it,organization.toJson() ) }
+        organization.token?.let { client.insert("token", "token", it, organization.toJson()) }
     }
 
     override fun findById(id: String): Organization? {
@@ -50,7 +50,7 @@ class EsOrgDao : OrgDao {
 
         organization.lastKnownIp?.let { client.delete("lastKnownIp", "ip", it) }
         organization.session?.let { client.delete("session", "sess", it) }
-        organization.token?.let { client.delete("token","token" ,it) }
+        organization.token?.let { client.delete("token", "token", it) }
     }
 
     override fun findByUuid(uuid: UUID): Organization {
@@ -60,7 +60,7 @@ class EsOrgDao : OrgDao {
     }
 
     override fun findByToken(token: String): Organization? {
-        val response = client.get("token","token",token)
+        val response = client.get("token", "token", token)
         return response.sourceAsString.fromJson()
 
     }

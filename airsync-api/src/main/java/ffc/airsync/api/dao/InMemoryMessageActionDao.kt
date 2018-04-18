@@ -23,6 +23,7 @@ import java.util.*
 class InMemoryMessageActionDao : MessageActionDao {
 
     private constructor()
+
     val actionList = arrayListOf<QueryAction>()
 
 
@@ -36,9 +37,9 @@ class InMemoryMessageActionDao : MessageActionDao {
     }
 
     override fun next(to: UUID): QueryAction {
-        val action =  actionList.find { it.ownAction == to }
+        val action = actionList.find { it.ownAction == to }
 
-        if(action != null)
+        if (action != null)
             return action
         else
             return QueryAction()

@@ -25,14 +25,14 @@ import java.util.*
 class InMemoryOrgDao : OrgDao {
 
 
-
     private constructor()
+
     val pcuList = arrayListOf<Organization>()
 
 
     companion object {
         val instance = InMemoryOrgDao()
-        private var i :Int =0
+        private var i: Int = 0
 
     }
 
@@ -47,15 +47,15 @@ class InMemoryOrgDao : OrgDao {
 
     override fun insert(organization: Organization) {
 
-        pcuList.removeIf { it.uuid==organization.uuid }
+        pcuList.removeIf { it.uuid == organization.uuid }
 
 
         if (!pcuList.contains(organization)) {
             printDebug("Organization insert InMemoryOrgDao \nOrganization data = " + organization.toJson())
-            organization.id= (i++.toString())
+            organization.id = (i++.toString())
             pcuList.add(organization)
             printDebug("Test get Organization Before insert\nOrganization data =" + findByUuid(organization.uuid).toJson())
-        }else{
+        } else {
             pcuList.remove(organization)
             insert(organization)
         }
@@ -75,7 +75,7 @@ class InMemoryOrgDao : OrgDao {
 
 
         pcuList.forEach {
-            if(it.lastKnownIp == ipAddress ){
+            if (it.lastKnownIp == ipAddress) {
                 orgList.add(it)
             }
         }
@@ -84,7 +84,7 @@ class InMemoryOrgDao : OrgDao {
 
     override fun remove(organization: Organization) {
         //pcuList.remove(organization)
-        pcuList.removeIf { it.uuid==organization.uuid }
+        pcuList.removeIf { it.uuid == organization.uuid }
     }
 
     override fun find(): List<Organization> {

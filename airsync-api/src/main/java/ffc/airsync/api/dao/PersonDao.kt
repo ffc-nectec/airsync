@@ -35,5 +35,5 @@ interface PersonDao {
     fun getPeopleInHouse(orgUUID: UUID, houseId: Int): ArrayList<People>?
 
 
-
+    //fun removeByOrg(orgUUID: UUID)
 }

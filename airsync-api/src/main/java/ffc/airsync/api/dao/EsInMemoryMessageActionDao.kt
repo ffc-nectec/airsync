@@ -20,7 +20,7 @@ package ffc.airsync.api.dao
 import ffc.model.QueryAction
 import java.util.*
 
-class EsInMemoryMessageActionDao : MessageActionDao{
+class EsInMemoryMessageActionDao : MessageActionDao {
     override fun insert(action: QueryAction) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

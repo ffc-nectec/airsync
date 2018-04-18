@@ -33,10 +33,24 @@ class InMemoryPersonDao : PersonDao {
         val instant = InMemoryPersonDao()
     }
 
+
     val personList: ArrayList<StorageOrg<Person>> = arrayListOf()
 
 
-    val peopleList = arrayListOf<StorageOrg<HashMap<Int, ArrayList<People>>>>()
+    val peopleList = arrayListOf<StorageOrg<HashMap<Int, ArrayList<People>>>>() //คนในบ้าน
+
+
+    /*override fun removeByOrg(orgUUID: UUID) {
+        peopleList.removeIf {
+            it.uuid==orgUUID
+        }
+        personList.removeIf {
+            it.uuid==orgUUID
+        }
+
+
+    }*/
+
 
 
     override fun insert(orgUUID: UUID, person: Person) {
@@ -116,7 +130,7 @@ class InMemoryPersonDao : PersonDao {
     }
 
     private inline fun getPeopleInOrg(orgUUID: UUID): HashMap<Int, ArrayList<People>>? {
-        val peopleInOrg = peopleList.find { it.uuid == orgUUID }?.data
+        val peopleInOrg = peopleList.find { it.uuid == orgUUID }?.data //int เป็น id บ้าน
         return peopleInOrg
 
     }
