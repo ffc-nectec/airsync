@@ -29,5 +29,4 @@ interface OrgDao {
     fun findById(id: String): Organization?
     fun remove(organization: Organization)
     fun updateToken(organization: Organization): Organization
-    fun removeByOrg(orgUUID: UUID)
 }

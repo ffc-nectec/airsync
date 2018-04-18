@@ -24,5 +24,4 @@ interface MobileTokenDao {
     fun insert(token: UUID, uuid: UUID, user: String, id: Int)
     fun find(token: UUID): StorageOrg<UUID>
     fun remove(token: UUID)
-    fun removeByOrg(orgUUID: UUID)
 }

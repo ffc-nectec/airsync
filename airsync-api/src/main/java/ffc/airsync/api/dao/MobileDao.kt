@@ -25,5 +25,4 @@ interface MobileDao {
     fun insert(mobile: Mobile)
     fun findByUuid(uuid: UUID): Mobile
     fun remove(mobile: Mobile)
-    fun removeByOrg(orgUUID: UUID)
 }
