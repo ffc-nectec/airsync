@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "b1f45bb7-c03c-4529-9518-066235b9520b",
+					"id": "10c69928-88e9-4dcc-a3af-066771c0fb7b",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -134,12 +134,12 @@
 					"basic": [
 						{
 							"key": "password",
-							"value": "mda",
+							"value": "hipuy",
 							"type": "string"
 						},
 						{
 							"key": "username",
-							"value": "adm",
+							"value": "puy",
 							"type": "string"
 						}
 					]
@@ -169,7 +169,7 @@
 			},
 			"response": [
 				{
-					"id": "e5a31aa4-a738-404b-8ccb-a29e185afd1f",
+					"id": "953b2376-9df6-4e16-a649-71ea2997a751",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -288,7 +288,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "266b8591-ba61-41ce-969d-bfc98b878ab2",
+					"id": "d898fa58-ea5a-406f-ac99-1b630d017244",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
