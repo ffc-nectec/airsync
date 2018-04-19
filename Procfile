@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar build/cloud/bin/airsync-api.jar -port $PORT
+web: java $JAVA_TOOL_OPTIONS -jar build/cloud/bin/airsync-api.jar -port $PORT
