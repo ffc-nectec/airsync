@@ -43,7 +43,6 @@ public class FFCApiServer {
 
     public FFCApiServer(String[] args) {
         try {
-            System.out.println("Start main process");
             CmdLineParser parser = new CmdLineParser(this);
             parser.parseArgument(args);
         } catch (CmdLineException cmd) {
@@ -57,6 +56,7 @@ public class FFCApiServer {
     }
 
     private void run() {
+        System.out.println("Start main process");
         ServletContextHandler context = ServletContextBuilder.build();
 
         Server server = new Server(JettyServerTuning.getThreadPool());
@@ -65,7 +65,9 @@ public class FFCApiServer {
         server.setHandler(context);
         server.addBean(JettyServerTuning.getMonitor(server));
         try {
+            System.out.println("Start server bind port " + port);
             server.start();
+            System.out.println("Running process");
             server.join();
         } catch (Exception e) {
             e.printStackTrace();
