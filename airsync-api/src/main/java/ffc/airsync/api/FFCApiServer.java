@@ -43,6 +43,7 @@ public class FFCApiServer {
 
     public FFCApiServer(String[] args) {
         try {
+            System.out.println("Start main process");
             CmdLineParser parser = new CmdLineParser(this);
             parser.parseArgument(args);
         } catch (CmdLineException cmd) {
