@@ -68,7 +68,7 @@ public class FFCApiServer {
             System.out.println("Start server bind port " + port);
             server.start();
             System.out.println("Running process");
-            //server.join();
+            server.join();
         } catch (Exception e) {
             e.printStackTrace();
         }

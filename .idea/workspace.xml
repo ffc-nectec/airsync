@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Procfile" afterPath="$PROJECT_DIR$/Procfile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/airsync-api/.gradle/" />
@@ -90,18 +91,18 @@
       <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="21" />
+            <state relative-caret-position="976">
+              <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FFCApiServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FFCApiServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="849">
-              <caret line="70" column="14" lean-forward="false" selection-start-line="70" selection-start-column="14" selection-end-line="70" selection-end-column="14" />
+            <state relative-caret-position="501">
+              <caret line="61" column="60" lean-forward="false" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -117,7 +118,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Procfile" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Procfile" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Procfile">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="25">
@@ -1496,8 +1497,8 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/RootPart.kt" />
         <option value="$PROJECT_DIR$/airsync-api/build.gradle" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java" />
+        <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
   </component>
@@ -2124,7 +2125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524121872528</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="demo heroku">
+      <created>1524122221427</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1524122221427</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2259,9 +2267,9 @@
     <MESSAGE value="เพิ่ม /person&#10;-มี Chronic&#10;-มี House" />
     <MESSAGE value="Airsync-client สามารถสั่งทำงานแบบกำหนดพารามิเตอร์ได้&#10;-dbhost&#10;-dbpot&#10;-dbname&#10;-dbusername&#10;-dbpassword&#10;-orguuid&#10;-orgname&#10;-orgcode" />
     <MESSAGE value="Reformat" />
-    <MESSAGE value="demo heroku" />
     <MESSAGE value="demo heroku print log to heroku" />
-    <option name="LAST_COMMIT_MESSAGE" value="demo heroku print log to heroku" />
+    <MESSAGE value="demo heroku" />
+    <option name="LAST_COMMIT_MESSAGE" value="demo heroku" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2272,13 +2280,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="70" column="29" lean-forward="false" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -2614,26 +2615,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Procfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="9" lean-forward="false" selection-start-line="0" selection-start-column="9" selection-end-line="0" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -2646,10 +2631,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="976">
+          <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/JettyServerTuning.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="32" column="28" lean-forward="false" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="849">
-          <caret line="70" column="14" lean-forward="false" selection-start-line="70" selection-start-column="14" selection-end-line="70" selection-end-column="14" />
+        <state relative-caret-position="501">
+          <caret line="61" column="60" lean-forward="false" selection-start-line="61" selection-start-column="60" selection-end-line="61" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
