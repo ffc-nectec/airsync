@@ -1,1 +1,1 @@
-./build/cloud/bin
+web: ./build/cloud/bin
