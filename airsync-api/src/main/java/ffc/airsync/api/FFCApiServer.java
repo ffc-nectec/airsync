@@ -35,7 +35,7 @@ public class FFCApiServer {
     @Option(name = "-dev", usage = "mode")
     protected boolean dev = false;
 
-    @Option(name = "-PORT", usage = "port destination ownAction start server")
+    @Option(name = "-port", usage = "port destination ownAction start server")
     protected int port = DEFAULT_PORT;
 
     @Option(name = "-host", usage = "port destination ownAction start server")
