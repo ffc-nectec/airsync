@@ -45,14 +45,11 @@ class ChronicResoruce {
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
 
+        orgServices.createChronic(token, orgId, chronicList)
+        return Response.status(Response.Status.CREATED).build()
 
-        if (token != null) {
-            orgServices.createChronic(token, orgId, chronicList)
-            return Response.status(Response.Status.CREATED).build()
-        } else {
-            throw NotAuthorizedException("Not Pass")
-        }
     }
 
 

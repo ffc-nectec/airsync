@@ -33,6 +33,11 @@ class InMemoryMobileTokenDao : MobileTokenDao {
 
     val tokenList = arrayListOf<StorageOrg<UUID>>()
 
+    override fun removeByOrgUuid(orgUUID: UUID) {
+        tokenList.removeIf { it.uuid == orgUUID }
+
+    }
+
     override fun insert(token: UUID, uuid: UUID, user: String, id: Int) {
         //1 User per 1 Token
         tokenList.removeIf { it.uuid == uuid && it.user == user }

@@ -56,13 +56,28 @@ class OrgAutorizeResource {
     fun getMyOrg(@QueryParam("my") my: Boolean = false,
                  @Context req: HttpServletRequest): List<Organization> {
 
-        printDebug("Get Org by ip = " + req.remoteAddr)
+        printDebug("Get Org by ip = $req.remoteAddr + my = $my")
 
         if (my) {
             return orgServices.getMyOrg(req.remoteAddr)
         } else {
             return orgServices.getOrg()
         }
+    }
+
+    @DELETE
+    @Path("/{orgId:([\\dabcdefABCDEF]+)}")
+    fun removeOrg(@PathParam("orgId") orgId: String,
+                  @Context req: HttpServletRequest): Response {
+        printDebug("Remove org $orgId")
+        val httpHeader = req.buildHeaderMap()
+        printDebug("getHeader $httpHeader")
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+
+        printDebug("Call removeOrg Service id = $orgId token = $token")
+        orgServices.removeOrganize(token, orgId)
+        return Response.status(200).build()
     }
 
     //Post username to central.
@@ -73,18 +88,16 @@ class OrgAutorizeResource {
                    userList: ArrayList<User>): Response {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+
 
         printDebug("Raw user list.")
         userList.forEach {
             printDebug("User = " + it.username + " Pass = " + it.password)
         }
 
-        if (token != null) {
-            orgServices.createUser(token, orgId, userList)
-            return Response.status(Response.Status.CREATED).build()
-        } else {
-            throw NotAuthorizedException("Not Auth")
-        }
+        orgServices.createUser(token, orgId, userList)
+        return Response.status(Response.Status.CREATED).build()
 
 
     }
@@ -97,6 +110,7 @@ class OrgAutorizeResource {
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Basic ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
         val userpass = DatatypeConverter.parseBase64Binary(token).toString(charset("UTF-8")).split(":")
         val user = userpass.get(index = 0)
         val pass = userpass.get(index = 1)

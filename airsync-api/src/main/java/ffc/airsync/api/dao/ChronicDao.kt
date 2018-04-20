@@ -27,5 +27,5 @@ interface ChronicDao {
     fun find(orgUuid: UUID): List<StorageOrg<Chronic>>
     fun filterByPersonPid(orgUuid: UUID, pid: Int): List<StorageOrg<Chronic>>
     fun houseIsChronic(orgUuid: UUID, houseId: Int): Boolean
-    fun remove(orgUuid: UUID)
+    fun removeByOrgUuid(orgUuid: UUID)
 }

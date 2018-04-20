@@ -22,9 +22,7 @@ import java.util.*
 class DaoFactory(val dev: Boolean = true) {
 
 
-    fun buildMobileDao(): MobileDao = if (dev) InMemoryMobileDao.instance else EsMobileDao()
     fun buildPcuDao(): OrgDao = if (dev) InMemoryOrgDao.instance else EsOrgDao()
-    fun buildMessageActionDao(): MessageActionDao = InMemoryMessageActionDao.instance
     //fun buildUserAuthDao(): UserAuthDao = InMemoryUserAuthDao.instance
     fun buildOrgUserDao(): OrgUserDao = InMemoryOrgUserDao.INSTANT
 

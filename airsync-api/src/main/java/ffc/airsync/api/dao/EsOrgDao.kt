@@ -41,7 +41,11 @@ class EsOrgDao : OrgDao {
         organization.token?.let { client.insert("token", "token", it, organization.toJson()) }
     }
 
-    override fun findById(id: String): Organization? {
+    override fun findById(id: String): Organization {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun removeByOrgUuid(orgUUID: UUID) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -59,7 +63,7 @@ class EsOrgDao : OrgDao {
         return response.sourceAsString.fromJson()
     }
 
-    override fun findByToken(token: String): Organization? {
+    override fun findByToken(token: String): Organization {
         val response = client.get("token", "token", token)
         return response.sourceAsString.fromJson()
 

@@ -23,7 +23,6 @@ import ffc.airsync.api.services.module.OrgService
 import ffc.model.Person
 import ffc.model.printDebug
 import java.util.*
-import javax.security.sasl.AuthenticationException
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -46,9 +45,10 @@ class PersonResource {
                   @Context req: HttpServletRequest): Response {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
 
         try {
-            val personList = orgServices.getPerson(token!!, orgId)
+            val personList = orgServices.getPerson(token, orgId)
             return Response.status(Response.Status.OK).entity(personList).build()
         } catch (ex: NotAuthorizedException) {
             return Response.status(401).build()
@@ -68,16 +68,12 @@ class PersonResource {
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
 
 
-        printDebug("Check token")
-        if (token != null) {
-            orgServices.createPerson(token, orgId, personList)
-            return Response.status(Response.Status.CREATED).build()
-        } else {
-            printDebug("Authun not pass")
-            throw AuthenticationException("Not Pass")
-        }
+        orgServices.createPerson(token, orgId, personList)
+        return Response.status(Response.Status.CREATED).build()
+
     }
 
     @GET

@@ -70,7 +70,7 @@ class InMemoryHouseDao : HouseDao {
     }
 
 
-    override fun remove(orgUuid: UUID) {
+    override fun removeByOrgUuid(orgUuid: UUID) {
         houseList.removeIf { it.uuid == orgUuid }
     }
 }

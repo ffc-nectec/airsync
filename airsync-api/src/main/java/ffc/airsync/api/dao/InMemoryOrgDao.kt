@@ -21,6 +21,7 @@ import ffc.model.Organization
 import ffc.model.printDebug
 import ffc.model.toJson
 import java.util.*
+import javax.ws.rs.NotFoundException
 
 class InMemoryOrgDao : OrgDao {
 
@@ -36,12 +37,19 @@ class InMemoryOrgDao : OrgDao {
 
     }
 
-    override fun findById(id: String): Organization? {
-        return pcuList.find { it.id == id }
+    override fun removeByOrgUuid(orgUUID: UUID) {
+        findByUuid(orgUUID)
+        pcuList.removeIf { it.uuid == orgUUID }
+
     }
 
-    override fun findByToken(token: String): Organization? {
-        return pcuList.find { it.token.equals(token) }
+    override fun findById(id: String): Organization {
+        return pcuList.find { it.id == id } ?: throw NotFoundException()
+    }
+
+    override fun findByToken(token: String): Organization {
+
+        return pcuList.find { it.token.equals(token) } ?: throw NotFoundException()
     }
 
 
@@ -63,7 +71,7 @@ class InMemoryOrgDao : OrgDao {
 
     override fun findByUuid(uuid: UUID): Organization {
         printDebug("findByUuid InMemoryOrgDao \nUUID data = " + uuid)
-        val pcu = pcuList.find { it.uuid == uuid }!!
+        val pcu = pcuList.find { it.uuid == uuid } ?: throw NotFoundException()
         printDebug("find Result = " + pcu.toJson())
         return pcu
         //return pcuList.findCall { it.uuid }
@@ -74,11 +82,14 @@ class InMemoryOrgDao : OrgDao {
         val orgList = arrayListOf<Organization>()
 
 
+
+
         pcuList.forEach {
             if (it.lastKnownIp == ipAddress) {
                 orgList.add(it)
             }
         }
+        if (orgList.size < 1) throw NotFoundException()
         return orgList
     }
 

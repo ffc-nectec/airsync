@@ -22,6 +22,7 @@ import ffc.model.Person
 import ffc.model.StorageOrg
 import ffc.model.printDebug
 import java.util.*
+import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -40,7 +41,7 @@ class InMemoryPersonDao : PersonDao {
     val peopleList = arrayListOf<StorageOrg<HashMap<Int, ArrayList<People>>>>() //คนในบ้าน
 
 
-    /*override fun removeByOrg(orgUUID: UUID) {
+    override fun removeByOrgUuid(orgUUID: UUID) {
         peopleList.removeIf {
             it.uuid==orgUUID
         }
@@ -49,7 +50,7 @@ class InMemoryPersonDao : PersonDao {
         }
 
 
-    }*/
+    }
 
 
 
@@ -66,7 +67,9 @@ class InMemoryPersonDao : PersonDao {
     }
 
     override fun find(orgUuid: UUID): List<StorageOrg<Person>> {
-        return personList.filter { it.uuid == orgUuid }
+        val data = personList.filter { it.uuid == orgUuid }
+        if (data.size < 1) throw NotFoundException()
+        return data
     }
 
     override fun remove(orgUuid: UUID) {

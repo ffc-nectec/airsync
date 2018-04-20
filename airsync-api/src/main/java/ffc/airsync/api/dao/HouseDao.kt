@@ -32,5 +32,5 @@ interface HouseDao {
 
     fun findByHouseId(orgUuid: UUID, houseId: Int): StorageOrg<Address>?
 
-    fun remove(orgUuid: UUID)
+    fun removeByOrgUuid(orgUuid: UUID)
 }

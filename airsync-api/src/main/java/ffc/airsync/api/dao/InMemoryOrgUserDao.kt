@@ -21,6 +21,7 @@ import ffc.model.Organization
 import ffc.model.User
 import ffc.model.UserStor
 import java.util.*
+import javax.ws.rs.NotFoundException
 
 class InMemoryOrgUserDao : OrgUserDao {
     private constructor()
@@ -29,6 +30,12 @@ class InMemoryOrgUserDao : OrgUserDao {
 
     companion object {
         val INSTANT = InMemoryOrgUserDao()
+    }
+
+    override fun removeByOrgUuid(orgUUID: UUID) {
+        userList.removeIf {
+            it.orgUuid == orgUUID
+        }
     }
 
     override fun insert(user: User, org: Organization) {

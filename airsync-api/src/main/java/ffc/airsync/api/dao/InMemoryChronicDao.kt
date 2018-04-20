@@ -57,7 +57,7 @@ class InMemoryChronicDao : ChronicDao {
 
     }
 
-    override fun remove(orgUuid: UUID) {
+    override fun removeByOrgUuid(orgUuid: UUID) {
         chronicList.removeIf { it.uuid == orgUuid }
     }
 }

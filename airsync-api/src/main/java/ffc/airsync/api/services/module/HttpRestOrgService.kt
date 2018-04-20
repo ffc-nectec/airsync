@@ -35,7 +35,7 @@ class HttpRestOrgService : OrgService {
         val instant = HttpRestOrgService()
     }
 
-    val pcuDao = DaoFactory().buildPcuDao()
+    val orgDao = DaoFactory().buildPcuDao()
     val orgUser = DaoFactory().buildOrgUserDao()
     val houseDao = DaoFactory().buildHouseDao()
     val tokenMobile = DaoFactory().buildTokenMobileMapDao()
@@ -47,7 +47,7 @@ class HttpRestOrgService : OrgService {
 
         printDebug("Token = $token")
 
-        val tokenObj = checkTokenMobile(UUID.fromString(token.trim()), orgId)
+        val tokenObj = getOrgUuidByMobileToken(UUID.fromString(token.trim()), orgId)
 
         printDebug("Befor check token")
         printDebug(tokenObj)
@@ -103,10 +103,23 @@ class HttpRestOrgService : OrgService {
 
     }
 
+    override fun removeOrganize(token: String, orgId: String) {
+        val org = getOrgByToken(token, orgId)
+        printDebug("Remove org id = $orgId == ${org.id}")
+        if (org.id != orgId) throw NotAuthorizedException("Not Auth")
+        val uuidForRemove = UUID.fromString(org.uuid.toString())
+        orgDao.removeByOrgUuid(uuidForRemove)
+        orgUser.removeByOrgUuid(uuidForRemove)
+        houseDao.removeByOrgUuid(uuidForRemove)
+        tokenMobile.removeByOrgUuid(uuidForRemove)
+        personDao.removeByOrgUuid(uuidForRemove)
+        chronicDao.removeByOrgUuid(uuidForRemove)
+
+    }
 
     override fun getPerson(token: String, orgId: String): List<Person> {
 
-        val tokenObj = checkTokenMobile(UUID.fromString(token.trim()), orgId)
+        val tokenObj = getOrgUuidByMobileToken(UUID.fromString(token.trim()), orgId)
         val personList = personDao.find(orgUuid = tokenObj.uuid)
         val personReturn = arrayListOf<Person>()
 
@@ -152,13 +165,13 @@ class HttpRestOrgService : OrgService {
         organization.socketUrl = "ws://127.0.0.1:8080/airsync"
         //organization.socketUrl="ws://188.166.249.72/airsync"
 
-        pcuDao.insert(organization)
+        orgDao.insert(organization)
         return organization
     }
 
 
     override fun createUser(token: String, orgId: String, userList: ArrayList<User>) {
-        val org = checkToken(token, orgId)
+        val org = getOrgByToken(token, orgId)
 
         userList.forEach {
             printDebug("insert username " + org.name + " User = " + it.username)
@@ -168,15 +181,18 @@ class HttpRestOrgService : OrgService {
 
     override fun getMyOrg(ipAddress: String): List<Organization> {
 
-        val pcuReturn = pcuDao.findByIpAddress(ipAddress)
-        if (pcuReturn.isNotEmpty())
-            return pcuReturn
-        throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
+        printDebug("ip address get my org $ipAddress")
+        val pcuReturn = orgDao.findByIpAddress(ipAddress)
+        if (pcuReturn.isEmpty())
+            throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
+        return pcuReturn
+
 
     }
 
     override fun getOrg(): List<Organization> {
-        val pcuReturn = pcuDao.find()
+        val pcuReturn = orgDao.find()
+        if (pcuReturn.isEmpty()) throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
         return pcuReturn
     }
 
@@ -184,7 +200,7 @@ class HttpRestOrgService : OrgService {
         val checkUser = orgUser.isAllowById(User(user, pass), id)
 
         if (checkUser) {
-            val org = pcuDao.findById(id)
+            val org = orgDao.findById(id)
             if (org == null) throw NotAuthorizedException("Not org")
 
             val token = UUID.randomUUID()
@@ -200,18 +216,18 @@ class HttpRestOrgService : OrgService {
     }
 
     override fun createHouse(token: String, orgId: String, houseList: List<Address>) {
-        val org = checkToken(token, orgId)
+        val org = getOrgByToken(token, orgId)
         houseDao.insert(org.uuid, houseList)
     }
 
     override fun createPerson(token: String, orgId: String, personList: List<Person>) {
-        val org = checkToken(token, orgId)
+        val org = getOrgByToken(token, orgId)
         personDao.insert(org.uuid, personList)
 
     }
 
     override fun createChronic(token: String, orgId: String, chronicList: List<Chronic>) {
-        val org = checkToken(token, orgId)
+        val org = getOrgByToken(token, orgId)
         chronicDao.insert(org.uuid, chronicList)
     }
 
@@ -225,14 +241,9 @@ class HttpRestOrgService : OrgService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private fun checkToken(token: String, orgId: String): Organization {
-        printDebug("Token check")
-        val org = pcuDao.findByToken(token)
-
-        if (org == null) {
-            printDebug("Org = null")
-            throw throw NotAuthorizedException("Not org")
-        }
+    private fun getOrgByToken(token: String, orgId: String): Organization {
+        printDebug("getOrgByToken $token")
+        val org = orgDao.findByToken(token)
         if (org.id != orgId) {
             printDebug("org ไม่ตรงกัน")
             throw throw NotAuthorizedException("Not Auth")
@@ -241,7 +252,7 @@ class HttpRestOrgService : OrgService {
         return org
     }
 
-    private fun checkTokenMobile(token: UUID, orgId: String): StorageOrg<UUID> {
+    private fun getOrgUuidByMobileToken(token: UUID, orgId: String): StorageOrg<UUID> {
         printDebug("Befor check token")
         val orgUuid = tokenMobile.find(token)
         //if (orgUuid ) throw NotFoundException()
