@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "88a71716-946b-4cca-9806-80a149873f3e",
+					"id": "1c26675a-be1f-426c-b8e9-e74450523a66",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -158,7 +158,7 @@
 			},
 			"response": [
 				{
-					"id": "a3fe9f90-4f14-4324-ad5e-9760dc4b2b54",
+					"id": "fb1ce01f-bb82-4fd4-a260-df7b6e1fcc25",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -322,7 +322,7 @@
 			},
 			"response": [
 				{
-					"id": "f43815b9-88ad-4f41-b7c0-3f8679854cb3",
+					"id": "dd208729-5a68-4344-90b5-8910e79e63ad",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -473,7 +473,7 @@
 			},
 			"response": [
 				{
-					"id": "4e64d1e3-68b2-4803-85fb-3c3d62bdc4ff",
+					"id": "77eddbbb-be60-476a-a847-edb8f4dc4266",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -654,7 +654,7 @@
 			},
 			"response": [
 				{
-					"id": "2ae8ce27-eab6-4340-b67c-daf190f903b1",
+					"id": "fd0ba1e6-9520-4252-93c4-499b201eedaf",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -773,7 +773,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "50b968e9-e9bf-44b6-8eab-497564d47e9c",
+					"id": "57863e90-e061-4e34-8730-34adf90a1b6d",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -863,7 +863,7 @@
 			},
 			"response": [
 				{
-					"id": "3869ea0e-ec0c-47fe-ba95-4209fb6ca79a",
+					"id": "b2b14ce0-e44d-4839-af75-b21ec7de1bb3",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -954,7 +954,7 @@
 			},
 			"response": [
 				{
-					"id": "dc2b0a5a-6b4c-4027-b8eb-2179b23ad98c",
+					"id": "2e22b71f-c607-4f94-896a-3ac883447768",
 					"name": "New House by mobile",
 					"originalRequest": {
 						"method": "POST",
@@ -1065,7 +1065,7 @@
 			},
 			"response": [
 				{
-					"id": "565c4451-ec20-49a2-a45d-603d707be575",
+					"id": "bac7cffd-6580-4d2e-9968-002a577deb14",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1255,7 +1255,7 @@
 			},
 			"response": [
 				{
-					"id": "fcd765c5-dbd1-4700-b76f-e43ffc848c96",
+					"id": "5baafebc-e36d-4257-8dd1-588ed341b2f5",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1346,7 +1346,7 @@
 			},
 			"response": [
 				{
-					"id": "95624092-e1ae-4c6e-aa6c-c4edb227f448",
+					"id": "c7e6f908-0513-4021-842f-ee5317b6b02f",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1436,7 +1436,7 @@
 			},
 			"response": [
 				{
-					"id": "52f4ea16-1ead-4241-8500-fa408cec3703",
+					"id": "bdc1228b-e374-4714-9e91-2d3f6eb9ce4f",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -1598,7 +1598,7 @@
 			},
 			"response": [
 				{
-					"id": "cf591318-f5c7-4a83-89ac-52ce946402ea",
+					"id": "38b8130a-f674-4b8d-ace7-2b0f423cbd0b",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -1773,7 +1773,7 @@
 			},
 			"response": [
 				{
-					"id": "0050f24f-5325-4153-9c33-37d42e18ccc6",
+					"id": "9759588b-7acb-4cb9-b2d5-96f1cba780e0",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
@@ -1883,54 +1883,6 @@
 					"body": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": 6790\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": 12346\n}"
 				}
 			]
-		},
-		{
-			"name": "Delete ข้อมูลของ org",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "720cd59d-dee7-4f63-b145-3475bf1a28ef",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "oauth2",
-					"oauth2": [
-						{
-							"key": "accessToken",
-							"value": "{{org_token}}",
-							"type": "string"
-						},
-						{
-							"key": "addTokenTo",
-							"value": "header",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}"
-					]
-				}
-			},
-			"response": []
 		}
 	]
 }
