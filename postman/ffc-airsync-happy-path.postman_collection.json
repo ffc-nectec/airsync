@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "1c26675a-be1f-426c-b8e9-e74450523a66",
+					"id": "bd536ee9-ec65-4365-bb47-1c9054be4274",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -158,7 +158,7 @@
 			},
 			"response": [
 				{
-					"id": "fb1ce01f-bb82-4fd4-a260-df7b6e1fcc25",
+					"id": "ec95f3c3-8823-427c-9e2a-63b4aa094a7e",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -322,7 +322,7 @@
 			},
 			"response": [
 				{
-					"id": "dd208729-5a68-4344-90b5-8910e79e63ad",
+					"id": "c1d56287-2601-4dec-abfb-d714092b4508",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -473,7 +473,7 @@
 			},
 			"response": [
 				{
-					"id": "77eddbbb-be60-476a-a847-edb8f4dc4266",
+					"id": "600b3157-c2bc-4d7a-9566-23093001152f",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -654,7 +654,7 @@
 			},
 			"response": [
 				{
-					"id": "fd0ba1e6-9520-4252-93c4-499b201eedaf",
+					"id": "7fc7cd6b-0b68-4900-9117-276e83231d8e",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -773,7 +773,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "57863e90-e061-4e34-8730-34adf90a1b6d",
+					"id": "9178a59c-ed07-483d-9155-53dbe055415c",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -863,7 +863,7 @@
 			},
 			"response": [
 				{
-					"id": "b2b14ce0-e44d-4839-af75-b21ec7de1bb3",
+					"id": "80575ebd-1914-4861-8fe4-2578ce9b7ead",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -954,7 +954,7 @@
 			},
 			"response": [
 				{
-					"id": "2e22b71f-c607-4f94-896a-3ac883447768",
+					"id": "e7334f03-da4a-439c-8ad9-a323b762f9da",
 					"name": "New House by mobile",
 					"originalRequest": {
 						"method": "POST",
@@ -1065,7 +1065,7 @@
 			},
 			"response": [
 				{
-					"id": "bac7cffd-6580-4d2e-9968-002a577deb14",
+					"id": "16491c84-d781-4f29-b189-fc74ccdeca72",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1238,7 +1238,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"properties\": {\n    \"id\": 10000124,\n    \"hid\": \"22\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"coordinates\": [\n      100.6027656,\n      14.0805834\n    ],\n    \"people\": [\n      {\n        \"pid\": 3000214,\n        \"name\": \"นายพิรุณ พานิชผล\"\n      },\n      {\n        \"pid\": 3000215,\n        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n      },\n      {\n        \"pid\": 3000216,\n        \"name\": \"นายธนชัย ทองคำ\"\n      }\n    ]\n  }\n}"
+					"raw": "{\n    \"id\": 10000124,\n    \"hid\": \"22\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"coordinates\": [\n      100.6027656,\n      14.0805834\n    ],\n    \"people\": [\n      {\n        \"pid\": 3000214,\n        \"name\": \"นายพิรุณ พานิชผล\"\n      },\n      {\n        \"pid\": 3000215,\n        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n      },\n      {\n        \"pid\": 3000216,\n        \"name\": \"นายธนชัย ทองคำ\"\n      }\n    ]\n}\n"
 				},
 				"url": {
 					"raw": "{{url}}/org/{{org_id}}/place/house",
@@ -1255,7 +1255,7 @@
 			},
 			"response": [
 				{
-					"id": "5baafebc-e36d-4257-8dd1-588ed341b2f5",
+					"id": "f722c174-af40-428c-bdd0-97c66e075f7c",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1329,7 +1329,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"properties\": {\n    \"id\": 10000124,\n    \"hid\": \"22\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"300\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"coordinates\": [\n      100.6027656,\n      14.0805834\n    ],\n    \"people\": [\n      {\n        \"pid\": 3000214,\n        \"name\": \"นายพิรุณ พานิชผล\"\n      },\n      {\n        \"pid\": 3000215,\n        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n      },\n      {\n        \"pid\": 3000216,\n        \"name\": \"นายธนชัย ทองคำ\"\n      }\n    ]\n  }\n}"
+					"raw": "{\n    \"id\": 10000124,\n    \"hid\": \"22\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"coordinates\": [\n      100.6027656,\n      14.0805834\n    ],\n    \"people\": [\n      {\n        \"pid\": 3000214,\n        \"name\": \"นายพิรุณ พานิชผล\"\n      },\n      {\n        \"pid\": 3000215,\n        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n      },\n      {\n        \"pid\": 3000216,\n        \"name\": \"นายธนชัย ทองคำ\"\n      }\n    ]\n}\n"
 				},
 				"url": {
 					"raw": "{{url}}/org/{{org_id}}/place/house",
@@ -1346,7 +1346,7 @@
 			},
 			"response": [
 				{
-					"id": "c7e6f908-0513-4021-842f-ee5317b6b02f",
+					"id": "3d9b095a-67b4-4685-8f39-bf989072b8af",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1436,7 +1436,7 @@
 			},
 			"response": [
 				{
-					"id": "bdc1228b-e374-4714-9e91-2d3f6eb9ce4f",
+					"id": "8079744f-20e4-4765-b844-8392669ad7bd",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -1598,7 +1598,7 @@
 			},
 			"response": [
 				{
-					"id": "38b8130a-f674-4b8d-ace7-2b0f423cbd0b",
+					"id": "7e18f4fc-c852-4a0c-a95e-bbd35d5b8980",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -1773,7 +1773,7 @@
 			},
 			"response": [
 				{
-					"id": "9759588b-7acb-4cb9-b2d5-96f1cba780e0",
+					"id": "906c3267-9b6d-40aa-9d18-986e557b1543",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
