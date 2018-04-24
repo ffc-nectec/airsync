@@ -49,8 +49,7 @@ class MongoHouseDao : HouseDao {
             }
 
 
-
-            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
+            //mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
 
             instant = this
         }

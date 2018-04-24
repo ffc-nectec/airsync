@@ -39,7 +39,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     override fun putHouse(houseList: List<Address>, org: Organization) {
 
         //houseList.forEach { printDebug(it) }
-        val fixrow = 200
+        val fixrow = 100
 
         val count = houseList.size
         val split = count / fixrow
@@ -54,12 +54,13 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
             for (j in 0..fixrow) {
                 tempUpload.add(houseList[tempStamp + j])
             }
+            printDebug("fixrow $fixrow split $split splitmod $splitmod i $i")
             restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = tempUpload).execute()
         }
         if (splitmod != 0) {
             val tempUpload = arrayListOf<Address>()
-            val tempStamp = (split + 1) * fixrow
-            for (i in 0..splitmod) {
+            val tempStamp = split * fixrow
+            for (i in 0..(splitmod - 1)) {
                 tempUpload.add(houseList[tempStamp + i])
             }
         }
