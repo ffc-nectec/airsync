@@ -68,6 +68,7 @@ class mongoTest {
     }
 
 
+    @Test
     fun convertJsonTest() {
 
         val data = """
@@ -86,5 +87,12 @@ class mongoTest {
 
         val house: Address = data.fromJson()
         printDebug(house)
+    }
+
+    @Test
+    fun forTest() {
+        for (i in 0..3) {
+            println(i)
+        }
     }
 }

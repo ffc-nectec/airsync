@@ -92,5 +92,16 @@ class Test2 {
 
     }
 
+    @Test
+    fun testforeach() {
+
+        val star = 5
+        val stoop = 10
+
+        (star..stoop).forEach outer@{
+            println(it)
+        }
+    }
+
 
 }

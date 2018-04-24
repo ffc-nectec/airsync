@@ -38,9 +38,34 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     override fun putHouse(houseList: List<Address>, org: Organization) {
 
-        houseList.forEach { printDebug(it) }
+        //houseList.forEach { printDebug(it) }
+        val fixrow = 200
 
-        restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!,houseList = houseList).execute()
+        val count = houseList.size
+        val split = count / fixrow
+        val splitmod = count % fixrow
+
+
+        printDebug("House upload size $count")
+
+        for (i in 0..(split - 1)) {
+            val tempUpload = arrayListOf<Address>()
+            val tempStamp = i * fixrow
+            for (j in 0..fixrow) {
+                tempUpload.add(houseList[tempStamp + j])
+            }
+            restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = tempUpload).execute()
+        }
+        if (splitmod != 0) {
+            val tempUpload = arrayListOf<Address>()
+            val tempStamp = (split + 1) * fixrow
+            for (i in 0..splitmod) {
+                tempUpload.add(houseList[tempStamp + i])
+            }
+        }
+
+
+        //restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!,houseList = houseList).execute()
 
 
     }
@@ -72,8 +97,8 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
         val org = restService!!.regisOrg(organization).execute().body()
 
-        printDebug(org)
-        Thread.sleep(3000)
+        printDebug("Client registerOrg " + org)
+        //Thread.sleep(3000)
 
         if (org != null)
             return org

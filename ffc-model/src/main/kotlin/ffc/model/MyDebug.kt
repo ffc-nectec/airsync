@@ -20,6 +20,6 @@ package ffc.model
 val debug = System.getenv("FFC_DEBUG")
 
 inline fun <T> printDebug(infoDebug: T) {
-    if (debug == null)
+    if (debug.equals("1"))
         println(infoDebug)
 }

@@ -18,8 +18,6 @@
 package ffc.airsync.client.client.module.daojdbi
 
 import ffc.model.Address
-import ffc.model.Chronic
-import ffc.model.Person
 import ffc.model.ThaiHouseholdId
 import me.piruin.geok.LatLng
 import org.jdbi.v3.core.mapper.RowMapper
@@ -68,7 +66,7 @@ class HouseMapper : RowMapper<Address> {
         }
         house.identity = ThaiHouseholdId(houseId)
 
-        house.houseId = hcode
+        house.hid = hcode
 
 
         //if (xgis != 0.0 && ygis != 0.0)
