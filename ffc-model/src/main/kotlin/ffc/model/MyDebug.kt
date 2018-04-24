@@ -17,6 +17,9 @@
 
 package ffc.model
 
+val debug = System.getenv("FFC_DEBUG")
+
 inline fun <T> printDebug(infoDebug: T) {
-    println(infoDebug)
+    if (debug == null)
+        println(infoDebug)
 }
