@@ -31,8 +31,9 @@ class MongoHouseDao : HouseDao {
     val coll: DBCollection
 
     constructor(host: String, port: Int, databaseName: String, collection: String) {
+        val mongoUrl = System.getenv("MONGODB_URI")
         if (mongoClient == null) {
-            val mongoUrl = System.getenv("MONGODB_URI")
+
             //printDebug("Mongo URI " + mongoUrl.substring(5))
             //Ref. https://mongodb.github.io/mongo-java-driver/2.13/getting-started/quick-tour/
             //val credential = MongoCredential.createCredential(userName, database, password)
@@ -53,7 +54,10 @@ class MongoHouseDao : HouseDao {
 
             instant = this
         }
-        this.coll = getCollection(collection)
+        if (mongoUrl == null)
+            this.coll = getCollection(collection = collection, dbName = dbName)
+        else
+            this.coll = getCollection(collection = collection, dbName = null)
     }
 
     companion object {
@@ -160,7 +164,7 @@ class MongoHouseDao : HouseDao {
 
     }
 
-    private fun getCollection(collection: String): DBCollection {
+    private fun getCollection(dbName: String?, collection: String): DBCollection {
         return mongoClient!!.getDB(dbName).getCollection(collection)
     }
 
