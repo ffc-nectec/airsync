@@ -32,7 +32,7 @@ import me.piruin.geok.LatLng
 
 class mongoTest {
 
-    @Test
+
     fun insertData() {
         val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
         val house = Address(44)
@@ -48,7 +48,7 @@ class mongoTest {
 
     }
 
-    @Test
+
     fun queryData() {
         val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
 
@@ -58,7 +58,7 @@ class mongoTest {
 
     }
 
-    @Test
+
     fun queryOrgUuid() {
         val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
         val listHouse = mongoHouseDao.find(UUID.fromString("f247ead5-6383-5e74-2d9e-8ee1f50542be"))
@@ -67,7 +67,7 @@ class mongoTest {
         }
     }
 
-    @Test
+
     fun convertJsonTest() {
 
         val data = """
