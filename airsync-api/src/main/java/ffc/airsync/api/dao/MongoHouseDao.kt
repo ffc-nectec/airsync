@@ -33,10 +33,10 @@ class MongoHouseDao : HouseDao {
     constructor(host: String, port: Int, databaseName: String, collection: String) {
         if (mongoClient == null) {
             val mongoUrl = System.getenv("MONGODB_URI")
-            printDebug("Mongo URI " + mongoUrl.substring(5))
+            //printDebug("Mongo URI " + mongoUrl.substring(5))
             //Ref. https://mongodb.github.io/mongo-java-driver/2.13/getting-started/quick-tour/
             //val credential = MongoCredential.createCredential(userName, database, password)
-            if (mongoUrl != null) {
+            if (mongoUrl == null) {
                 printDebug("Create mongo client localhost")
                 mongoClient = MongoClient(Arrays.asList(
                   ServerAddress(host, port)
