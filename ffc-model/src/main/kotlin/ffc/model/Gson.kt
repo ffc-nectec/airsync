@@ -17,8 +17,18 @@
 
 package ffc.model
 
+import com.fatboyindustrial.gsonjodatime.Converters
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import me.piruin.geok.LatLng
+import me.piruin.geok.gson.LatLngSerializer
+import me.piruin.geok.gson.adapterFor
 
 fun Any.toJson() = Gson().toJson(this)
-inline fun <reified T> String.fromJson(): T = Gson().fromJson(this, object : TypeToken<T>() {}.type)
+inline fun <reified T> String.fromJson(): T {
+    val goon = Converters.registerAll(GsonBuilder())
+      .adapterFor<LatLng>(LatLngSerializer())
+      .adapterFor<Identity>(IdentityDeserializer()).create()
+    return goon.fromJson(this, T::class.java)
+}

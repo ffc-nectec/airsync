@@ -21,6 +21,7 @@ import ffc.model.Address
 import ffc.model.StorageOrg
 import ffc.model.printDebug
 import java.util.*
+import javax.ws.rs.NotFoundException
 
 class InMemoryHouseDao : HouseDao {
 
@@ -47,6 +48,22 @@ class InMemoryHouseDao : HouseDao {
 
     }
 
+    override fun update(orgUuid: UUID, house: Address) {
+        printDebug("Update house = ${house.identity?.id} XY= ${house.latlng}")
+        val houseUpdate = houseList.find {
+            it.uuid == orgUuid && it.data.hid == house.hid
+        } ?: throw NotFoundException("ไม่มีรายการบ้านให้ Update")
+        houseUpdate.data = house
+
+    }
+
+    override fun update(orgUuid: UUID, houseList: List<Address>) {
+        houseList.forEach {
+            update(orgUuid, it)
+        }
+
+    }
+
     override fun find(latlng: Boolean): List<StorageOrg<Address>> {
         if (latlng)
             return houseList.filter { it.data.latlng!!.latitude != 0.0 || it.data.latlng!!.longitude != 0.0 }
@@ -55,7 +72,8 @@ class InMemoryHouseDao : HouseDao {
     }
 
     override fun findByHouseId(orgUuid: UUID, houseId: Int): StorageOrg<Address>? {
-        return houseList.find { it.data.houseId == houseId && it.uuid == orgUuid }
+
+        return houseList.find { it.data.hid == houseId && it.uuid == orgUuid }
     }
 
     override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {

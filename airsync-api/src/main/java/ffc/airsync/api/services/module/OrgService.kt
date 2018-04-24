@@ -31,13 +31,10 @@ interface OrgService {
     fun getOrg() : List <Organization>
     fun getMyOrg(ipAddress :String)   : List <Organization>
 
+
     fun createUser(token: String,
                    orgId :String,
                    userList : ArrayList<User>)
-
-    fun createHouse(token:String,
-                    orgId:String,
-                    houseList: List<Address>)
 
 
     fun orgUserAuth(id :String,user:String,pass:String) :TokenMessage
@@ -45,14 +42,16 @@ interface OrgService {
 
 
     fun sendEventGetData(uuid :UUID)
+
+
+    fun getPerson(token: String, orgId: String): List<Person>
     fun createPerson(token: String,
                      orgId: String,
                      personList: List<Person>)
 
-    fun createChronic(token: String, orgId: String, chronicList: List<Chronic>)
-    fun getHouse(token: String, orgId: String, page: Int, per_page: Int): FeatureCollection
-    fun getPerson(token: String, orgId: String): List<Person>
 
+    fun createChronic(token: String, orgId: String, chronicList: List<Chronic>)
     fun removeOrganize(token: String, orgId: String)
+
 
 }

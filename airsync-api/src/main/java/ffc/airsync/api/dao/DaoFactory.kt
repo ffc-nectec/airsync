@@ -26,7 +26,9 @@ class DaoFactory(val dev: Boolean = true) {
     //fun buildUserAuthDao(): UserAuthDao = InMemoryUserAuthDao.instance
     fun buildOrgUserDao(): OrgUserDao = InMemoryOrgUserDao.INSTANT
 
-    fun buildHouseDao(): HouseDao = InMemoryHouseDao.instant
+    //fun buildHouseDao(): HouseDao = InMemoryHouseDao.instant
+
+    fun buildHouseDao(): HouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
 
     fun buildPersonDao(): PersonDao = InMemoryPersonDao.instant
 

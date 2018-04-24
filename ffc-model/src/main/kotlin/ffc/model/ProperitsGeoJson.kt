@@ -33,6 +33,7 @@ data class ProperitsGeoJson(val id: Int? = null) {
     var changwat: String? = null
     var coordinates: LatLng? = null
     var people: ArrayList<People>? = arrayListOf()
+    var hid: Int? = null
     var identity: Identity? = null
 }
 

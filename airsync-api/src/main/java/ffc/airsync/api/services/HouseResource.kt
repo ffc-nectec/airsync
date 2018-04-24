@@ -17,11 +17,10 @@
 
 package ffc.airsync.api.services
 
+import ffc.airsync.api.services.module.HouseService
 import ffc.airsync.api.services.module.HttpRestOrgService
 import ffc.airsync.api.services.module.OrgService
 import ffc.model.Address
-import ffc.model.Organization
-import ffc.model.User
 import ffc.model.printDebug
 import me.piruin.geok.geometry.FeatureCollection
 import javax.servlet.http.HttpServletRequest
@@ -29,7 +28,6 @@ import javax.ws.rs.*
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-import javax.xml.bind.DatatypeConverter
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -44,15 +42,20 @@ class HouseResource {
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun getHouse(@QueryParam("page") page: Int = 1,
-                 @QueryParam("per_page") per_page: Int = 1,
+                 @QueryParam("per_page") per_page: Int = 200,
+                 @QueryParam("hid") hid: Int = -1,
                  @PathParam("orgId") orgId: String,
                  @Context req: HttpServletRequest): FeatureCollection {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
 
-        printDebug("getHouse method geoJson List")
 
-        val geoJso: FeatureCollection = orgServices.getHouse(token!!, orgId, page, per_page)
+
+        printDebug("getHouse method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
+
+
+        val geoJso: FeatureCollection = HouseService.get(token, orgId, if (page == 0) 1 else page, if (per_page == 0) 200 else per_page, if (hid == 0) -1 else hid)
 
         geoJso.features.forEach {
             printDebug(it.geometry)
@@ -60,6 +63,31 @@ class HouseResource {
 
         return geoJso
     }
+
+
+    @Produces("application/vnd.geo+json")
+    @Consumes("application/vnd.geo+json")
+    @PUT
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
+    fun putHouse(@Context req: HttpServletRequest,
+                 @PathParam("orgId") orgId: String,
+                 houseList: List<Address>): Response {
+        printDebug("\nCall create house by ip = " + req.remoteAddr)
+
+        houseList.forEach {
+            printDebug(it)
+        }
+
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+
+        HouseService.update(token, orgId, houseList)
+
+        return Response.status(200).build()
+
+    }
+
 
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -76,13 +104,9 @@ class HouseResource {
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+        HouseService.create(token, orgId, houseList)
+        return Response.status(Response.Status.CREATED).build()
 
-
-        if (token != null) {
-            orgServices.createHouse(token, orgId, houseList)
-            return Response.status(Response.Status.CREATED).build()
-        } else {
-            throw NotAuthorizedException("Not Pass")
-        }
     }
 }

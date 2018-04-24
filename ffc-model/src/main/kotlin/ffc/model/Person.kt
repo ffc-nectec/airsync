@@ -67,7 +67,7 @@ data class Address(val id: Long = Random().nextLong() * -1) {
     var ampur: String? = null
     var changwat: String? = null
     var latlng: LatLng? = null
-    var houseId: Int? = null
+    var hid: Int? = null  // คือ hcode ในฐาน jhcis
 
     enum class Type {
         House, Condo
