@@ -57,7 +57,7 @@ class MongoHouseDao : HouseDao {
         if (mongoUrl == null)
             this.coll = getCollection(collection = collection, dbName = dbName)
         else
-            this.coll = getCollection(collection = collection, dbName = null)
+            this.coll = getCollection(collection = collection, dbName = System.getenv("MONGODB_DBNAME"))
     }
 
     companion object {
