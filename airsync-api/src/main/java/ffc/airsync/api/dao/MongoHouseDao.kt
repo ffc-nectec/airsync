@@ -71,12 +71,13 @@ class MongoHouseDao : HouseDao {
     override fun insert(orgUuid: UUID, house: Address) {
 
         val objId = ObjectId()
-
+        val id6Digi = objId.get6DigiId()
+        house.id = id6Digi
 
         val doc = BasicDBObject("_id", objId)
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
-          .append("id", objId.get6DigiId())
+          .append("id", id6Digi)
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
         house.coordinates = null
