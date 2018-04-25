@@ -18,6 +18,7 @@
 package ffc.airsync.api.dao
 
 import com.mongodb.*
+import ffc.airsync.api.get6DigiId
 import java.util.*
 import java.util.Arrays
 import ffc.model.*
@@ -75,7 +76,7 @@ class MongoHouseDao : HouseDao {
         val doc = BasicDBObject("_id", objId)
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
-          .append("id", house.id)
+          .append("id", objId.get6DigiId())
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
         house.coordinates = null
