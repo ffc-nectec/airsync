@@ -45,7 +45,13 @@ FROM house
 }
 
 
+
 class HouseMapper : RowMapper<Address> {
+
+    companion object {
+        var countId = 0
+    }
+
     override fun map(rs: ResultSet, ctx: StatementContext?): Address {
 
 

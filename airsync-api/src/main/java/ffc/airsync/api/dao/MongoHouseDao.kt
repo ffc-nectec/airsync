@@ -22,6 +22,7 @@ import java.util.*
 import java.util.Arrays
 import ffc.model.*
 import me.piruin.geok.LatLng
+import org.bson.types.ObjectId
 import kotlin.collections.ArrayList
 
 
@@ -48,7 +49,7 @@ class MongoHouseDao : HouseDao {
             }
 
 
-            //mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
+            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
 
             instant = this
         }
@@ -68,7 +69,10 @@ class MongoHouseDao : HouseDao {
 
     override fun insert(orgUuid: UUID, house: Address) {
 
-        val doc = BasicDBObject()
+        val objId = ObjectId()
+
+
+        val doc = BasicDBObject("_id", objId)
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
           .append("id", house.id)
@@ -92,6 +96,7 @@ class MongoHouseDao : HouseDao {
     override fun update(orgUuid: UUID, house: Address) {
         val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
+          .append("id", house.id)
         val dbObj = coll.findOne(query)
 
         val doc = BasicDBObject()

@@ -28,6 +28,7 @@ import ffc.model.printDebug
 import com.google.gson.JsonObject
 import ffc.model.Identity
 import me.piruin.geok.LatLng
+import org.bson.types.ObjectId
 
 
 class mongoTest {
@@ -35,11 +36,11 @@ class mongoTest {
 
     fun insertData() {
         val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
-        val house = Address(44)
+        val house = Address("ffffff")
         house.tambon = "เขาจันทร์ วาส"
         house.hid = 1
 
-        val house2 = Address(48)
+        val house2 = Address("aaaaaa")
         house2.tambon = "เขาขาด"
         house2.hid = 2
 
@@ -94,5 +95,19 @@ class mongoTest {
         for (i in 0..3) {
             println(i)
         }
+    }
+
+    @Test
+    fun testObjId() {
+        var objId = ObjectId().toHexString()
+        var random4 = objId.substring(7, 8) + objId.substring(13, 14) + objId.substring(20, 24)
+        println(objId)
+        println(random4)
+
+        //Thread.sleep(100)
+        objId = ObjectId().toHexString()
+        random4 = objId.substring(7, 8) + objId.substring(13, 14) + objId.substring(20, 24)
+        println(objId)
+        println(random4)
     }
 }

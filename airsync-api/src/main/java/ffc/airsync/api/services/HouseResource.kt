@@ -68,9 +68,10 @@ class HouseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:(\\d+)}")
     fun putHouse(@Context req: HttpServletRequest,
-                 @PathParam("orgId") orgId: String
+                 @PathParam("orgId") orgId: String,
+                 @PathParam("houseId") houseId: String
                  , house: Address
     ): Response {
         printDebug("\nCall create house by ip = " + req.remoteAddr + " OrgID $orgId")
@@ -83,7 +84,7 @@ class HouseResource {
           ?: throw NotAuthorizedException("Not Authorization")
 
         if (house.coordinates == null) throw javax.ws.rs.NotSupportedException("coordinates null")
-        HouseService.update(token, orgId, house)
+        HouseService.update(token, orgId, house, houseId)
 
         return Response.status(200).build()
 

@@ -58,7 +58,7 @@ data class Person(val id: Long = Random().nextLong() * -1) {
 }
 
 
-data class Address(val id: Long = Random().nextLong() * -1) {
+data class Address(val id: String = "") {
     var identity: Identity? = null
     var type: Type = Type.House
     var no: String? = null

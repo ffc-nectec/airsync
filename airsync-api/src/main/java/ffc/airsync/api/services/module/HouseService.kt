@@ -22,6 +22,7 @@ import ffc.model.*
 import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
 import java.util.*
+import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
 
@@ -34,10 +35,15 @@ object HouseService {
         houseDao.insert(org.uuid, houseList)
     }
 
-    fun update(token: String, orgId: String, house: Address) {
+    fun update(token: String, orgId: String, house: Address, houseId: String) {
         //val org = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-        val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-        houseDao.update(orgToken.uuid, house)
+        if (houseId == house.id) {
+            val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+            houseDao.update(orgToken.uuid, house)
+        } else {
+            printDebug("House id not eq update houseIdParameter=$houseId houseIdInData=${house.id}")
+            throw NotAuthorizedException("House id not eq update")
+        }
     }
 
     fun get(token: String, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection {
