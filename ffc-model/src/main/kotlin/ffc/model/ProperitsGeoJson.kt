@@ -21,7 +21,7 @@ import me.piruin.geok.LatLng
 import me.piruin.geok.geometry.Geometry
 
 
-data class ProperitsGeoJson(val id: Int? = null) {
+data class ProperitsGeoJson(val id: String? = null) {
 
 
     var haveChronics: Boolean = false

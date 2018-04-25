@@ -99,7 +99,7 @@ object HouseService {
 
             val geometry = MyGeo("Point", data.data.coordinates!!)
             //printDebug(geometry)
-            val properits = ProperitsGeoJson(data.data.hid)
+            val properits = ProperitsGeoJson(data.data.id)
             //printDebug(properits)
             val houseId = data.data.hid
             //printDebug(houseId)
