@@ -68,7 +68,7 @@ class HouseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:(\\d+)}")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{6})}")
     fun putHouse(@Context req: HttpServletRequest,
                  @PathParam("orgId") orgId: String,
                  @PathParam("houseId") houseId: String

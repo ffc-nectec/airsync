@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ProperitsGeoJson.kt" afterPath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ProperitsGeoJson.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/airsync-api/.gradle/" />
     <ignored path="$PROJECT_DIR$/airsync-client/.gradle/" />
@@ -176,11 +175,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HouseResource.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HouseResource.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="57" column="55" lean-forward="false" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="55" />
+            <state relative-caret-position="179">
+              <caret line="70" column="52" lean-forward="true" selection-start-line="70" selection-start-column="52" selection-end-line="70" selection-end-column="52" />
               <folding>
                 <element signature="e#695#1121#0" expanded="true" />
               </folding>
@@ -198,7 +197,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HouseService.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HouseService.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="209">
@@ -1545,7 +1544,6 @@
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/retrofit/RetrofitRestManage.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/retrofit/CentralClient.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/Config.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Random.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/RandomId.kt" />
@@ -1556,6 +1554,7 @@
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ProperitsGeoJson.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
       </list>
     </option>
   </component>
@@ -2463,7 +2462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524642206321</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Add iss bug house id is 6 digi">
+      <created>1524643409676</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1524643409676</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2518,7 +2524,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22577855" sideWeight="0.5016116" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3217993" sideWeight="0.49758258" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3217993" sideWeight="0.49758258" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7513181" sideWeight="0.4983884" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958478" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2894,14 +2900,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/RandomGetId.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/Config.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -2914,14 +2912,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="259">
           <caret line="61" column="32" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="69" column="21" lean-forward="true" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -2962,16 +2952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="57" column="55" lean-forward="false" selection-start-line="57" selection-start-column="55" selection-end-line="57" selection-end-column="55" />
-          <folding>
-            <element signature="e#695#1121#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ProperitsGeoJson.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -2985,6 +2965,32 @@
         <state relative-caret-position="209">
           <caret line="101" column="56" lean-forward="true" selection-start-line="101" selection-start-column="56" selection-end-line="101" selection-end-column="56" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/RandomGetId.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="25" column="0" lean-forward="true" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/MainContraller.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="454">
+          <caret line="69" column="21" lean-forward="true" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="70" column="52" lean-forward="true" selection-start-line="70" selection-start-column="52" selection-end-line="70" selection-end-column="52" />
+          <folding>
+            <element signature="e#695#1121#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
