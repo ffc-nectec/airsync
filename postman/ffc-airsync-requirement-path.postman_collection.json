@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "befe6ac1-58e7-42d5-8e5a-bb1ce4044c34",
+					"id": "905de2d3-8fcc-4ad1-916f-4eb2211ee54c",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -169,7 +169,7 @@
 			},
 			"response": [
 				{
-					"id": "7a33e718-6f10-415e-adb0-7f53b82da945",
+					"id": "78e47473-14ea-44ce-8939-dfc44d0bcbe5",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -288,7 +288,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "186f1848-9b1c-4c01-b876-ba20cf35a7bc",
+					"id": "5077e59a-b8c4-40fc-bb42-a2442ef22e16",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -381,7 +381,7 @@
 			},
 			"response": [
 				{
-					"id": "5ec996e2-134d-44af-806a-35317731b206",
+					"id": "54d5c048-ad67-496e-84e2-ec54aa003c9a",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -558,7 +558,7 @@
 			},
 			"response": [
 				{
-					"id": "1e2a8262-5264-43d5-bc9a-d6c0a612060e",
+					"id": "d616f314-0df2-4d5b-aef1-6a8061dac6e6",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -735,7 +735,7 @@
 			},
 			"response": [
 				{
-					"id": "5dad632f-8def-4482-af05-6009e21c7dba",
+					"id": "522e0fb8-22fc-42e8-83b1-e61a84209f54",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -912,7 +912,7 @@
 			},
 			"response": [
 				{
-					"id": "f2a91678-0ab8-4680-b0e0-358206c19225",
+					"id": "7b03274b-e15e-49a8-be38-3395cc17ff7d",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -1267,6 +1267,54 @@
 					"path": [
 						"org",
 						"{{org_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit House Unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a20c765-e83f-4f83-b35c-fe688752bd0c",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 10000124,\n    \"hid\": \"22\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"coordinates\": [\n      100.6027656,\n      14.0805834\n    ],\n    \"people\": [\n      {\n        \"pid\": 3000214,\n        \"name\": \"นายพิรุณ พานิชผล\"\n      },\n      {\n        \"pid\": 3000215,\n        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n      },\n      {\n        \"pid\": 3000216,\n        \"name\": \"นายธนชัย ทองคำ\"\n      }\n    ]\n}\n"
+				},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/place/house/{{house_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"place",
+						"house",
+						"{{house_id}}"
 					]
 				}
 			},
