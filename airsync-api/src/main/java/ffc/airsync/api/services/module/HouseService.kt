@@ -34,11 +34,10 @@ object HouseService {
         houseDao.insert(org.uuid, houseList)
     }
 
-    fun update(token: String, orgId: String, houseList: List<Address>) {
-        val org = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-        //val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-
-
+    fun update(token: String, orgId: String, house: Address) {
+        //val org = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+        val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+        houseDao.update(orgToken.uuid, house)
     }
 
     fun get(token: String, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection {
@@ -58,7 +57,7 @@ object HouseService {
 
         if (hid > 0) {
             val house = houseDao.findByHouseId(tokenObj.uuid, hid)
-              ?: throw NotFoundException("ไม่พบ hid บ้านให้ Update")
+              ?: throw NotFoundException("ไม่พบ hid บ้าน")
             houseList = ArrayList()
             houseList.add(house)
         } else {
@@ -92,7 +91,7 @@ object HouseService {
             //printDebug("Loop count $it")
             val data = houseList[it]
 
-            val geometry = MyGeo("Point", data.data.latlng!!)
+            val geometry = MyGeo("Point", data.data.coordinates!!)
             //printDebug(geometry)
             val properits = ProperitsGeoJson(data.data.hid)
             //printDebug(properits)
@@ -105,7 +104,7 @@ object HouseService {
             properits.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId!!)
             properits.no = house.no
             properits.road = house.road
-            properits.coordinates = house.latlng
+            properits.coordinates = house.coordinates
             properits.hid = house.hid
 
 
@@ -124,6 +123,8 @@ object HouseService {
 
         }
 
+
+        printDebug("Feture gson count ${geoJson.features.count()}")
 
         //printDebug("For each house")
         /* houseList.forEach {

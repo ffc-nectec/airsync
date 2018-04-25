@@ -33,7 +33,7 @@ interface CentralClient {
     fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : List<User>): Call<Void>
 
 
-    @POST("/v0/org/{orgId}/place/house/base")
+    @POST("/v0/org/{orgId}/place/house")
     fun createHouse(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body houseList : List<Address>): Call<Void>
 
     @POST("/v0/org/{orgId}/person/base")

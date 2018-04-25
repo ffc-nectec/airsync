@@ -22,7 +22,6 @@ import java.util.*
 import java.util.Arrays
 import ffc.model.*
 import me.piruin.geok.LatLng
-import org.elasticsearch.cluster.metadata.AliasAction
 import kotlin.collections.ArrayList
 
 
@@ -73,9 +72,9 @@ class MongoHouseDao : HouseDao {
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
           .append("id", house.id)
-          .append("latitude", house.latlng?.latitude)
-          .append("longitude", house.latlng?.longitude)
-        house.latlng = null
+          .append("latitude", house.coordinates?.latitude)
+          .append("longitude", house.coordinates?.longitude)
+        house.coordinates = null
         doc.append("property", house.toJson())
         printDebug(doc)
         coll.insert(doc)
@@ -99,10 +98,10 @@ class MongoHouseDao : HouseDao {
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
           .append("id", house.id)
-          .append("latitude", house.latlng?.latitude)
-          .append("longitude", house.latlng?.longitude)
+          .append("latitude", house.coordinates?.latitude)
+          .append("longitude", house.coordinates?.longitude)
 
-        house.latlng = null
+        house.coordinates = null
         doc.append("property", house.toJson())
 
         coll.update(dbObj, doc)
@@ -136,7 +135,7 @@ class MongoHouseDao : HouseDao {
             val property = it.get("property")
             printDebug(property)
             val house: Address = property.toString().fromJson()
-            house.latlng = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
+            house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
             printDebug(house)
             listHouse.add(StorageOrg(orgUuid, house))
 
@@ -149,7 +148,7 @@ class MongoHouseDao : HouseDao {
           .append("hid", hid)
         val dbObj = coll.findOne(query)
         val house: Address = dbObj.get("property").toString().fromJson()
-        house.latlng = LatLng(dbObj.get("latitude").toString().toDouble(), dbObj.get("longitude").toString().toDouble())
+        house.coordinates = LatLng(dbObj.get("latitude").toString().toDouble(), dbObj.get("longitude").toString().toDouble())
 
         return StorageOrg(orgUuid, house)
     }

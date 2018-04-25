@@ -37,7 +37,7 @@ class InMemoryHouseDao : HouseDao {
 
     override fun insert(orgUuid: UUID, house: Address) {
         //houseList.removeIf { it.uuid == orgUuid && it.data.identity?.id == house.identity?.id }
-        printDebug("Insert house = ${house.identity?.id} XY= ${house.latlng}")
+        printDebug("Insert house = ${house.identity?.id} XY= ${house.coordinates}")
         houseList.add(StorageOrg(orgUuid, house))
     }
 
@@ -49,7 +49,7 @@ class InMemoryHouseDao : HouseDao {
     }
 
     override fun update(orgUuid: UUID, house: Address) {
-        printDebug("Update house = ${house.identity?.id} XY= ${house.latlng}")
+        printDebug("Update house = ${house.identity?.id} XY= ${house.coordinates}")
         val houseUpdate = houseList.find {
             it.uuid == orgUuid && it.data.hid == house.hid
         } ?: throw NotFoundException("ไม่มีรายการบ้านให้ Update")
@@ -66,7 +66,7 @@ class InMemoryHouseDao : HouseDao {
 
     override fun find(latlng: Boolean): List<StorageOrg<Address>> {
         if (latlng)
-            return houseList.filter { it.data.latlng!!.latitude != 0.0 || it.data.latlng!!.longitude != 0.0 }
+            return houseList.filter { it.data.coordinates!!.latitude != 0.0 || it.data.coordinates!!.longitude != 0.0 }
         else
             return houseList
     }
@@ -79,7 +79,7 @@ class InMemoryHouseDao : HouseDao {
     override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
         if (latlng)
             return houseList.filter {
-                (it.data.latlng!!.latitude != 0.0 || it.data.latlng!!.longitude != 0.0) && it.uuid == orgUuid
+                (it.data.coordinates!!.latitude != 0.0 || it.data.coordinates!!.longitude != 0.0) && it.uuid == orgUuid
             }
         else
             return houseList.filter {

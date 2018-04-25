@@ -65,11 +65,11 @@ class MainContraller {
 
         //put person
         val personOrgList = databaseDao.getPerson()
-        //messageCentral.putPerson(personOrgList, org)
+        messageCentral.putPerson(personOrgList, org)
 
         //put chronic
         val chronicList = databaseDao.getChronic()
-        //messageCentral.putChronic(chronicList, org)
+        messageCentral.putChronic(chronicList, org)
 
 
         /* val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
@@ -90,8 +90,10 @@ class MainContraller {
          socket.connect(URI.create(org.socketUrl))
          socket.join()
          */
-        //Thread.sleep(3000)
-
+        printDebug("Finish push")
+        while (true) {
+            Thread.sleep(5000)
+        }
 
     }
 }

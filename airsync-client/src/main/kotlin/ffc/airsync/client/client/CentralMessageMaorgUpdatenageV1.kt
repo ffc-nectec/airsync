@@ -55,7 +55,15 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
                 tempUpload.add(houseList[tempStamp + j])
             }
             printDebug("fixrow $fixrow split $split splitmod $splitmod i $i")
-            restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = tempUpload).execute()
+
+            Thread(object : Runnable {
+                override fun run() {
+                    restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = tempUpload).execute()
+                }
+            }).start()
+
+            Thread.sleep(1000)
+
         }
         if (splitmod != 0) {
             val tempUpload = arrayListOf<Address>()
@@ -63,15 +71,17 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
             for (i in 0..(splitmod - 1)) {
                 tempUpload.add(houseList[tempStamp + i])
             }
+            restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = tempUpload).execute()
         }
 
-
+        printDebug("End update House")
+        Thread.sleep(10000)
         //restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!,houseList = houseList).execute()
 
 
     }
 
-    fun getUserFromDb2(){
+    fun getUserFromDb2() {
 
 
     }

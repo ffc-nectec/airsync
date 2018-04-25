@@ -65,24 +65,25 @@ class HouseResource {
     }
 
 
-    @Produces("application/vnd.geo+json")
-    @Consumes("application/vnd.geo+json")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
     @PUT
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun putHouse(@Context req: HttpServletRequest,
-                 @PathParam("orgId") orgId: String,
-                 houseList: List<Address>): Response {
-        printDebug("\nCall create house by ip = " + req.remoteAddr)
+                 @PathParam("orgId") orgId: String
+                 , house: Address
+    ): Response {
+        printDebug("\nCall create house by ip = " + req.remoteAddr + " OrgID $orgId")
 
-        houseList.forEach {
-            printDebug(it)
-        }
+        //printDebug(dd)
+        printDebug("hid ${house.hid} id ${house.id} latLng ${house.coordinates}")
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
 
-        HouseService.update(token, orgId, houseList)
+        if (house.coordinates == null) throw javax.ws.rs.NotSupportedException("coordinates null")
+        HouseService.update(token, orgId, house)
 
         return Response.status(200).build()
 
@@ -92,7 +93,7 @@ class HouseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/base")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun createPlace(@Context req: HttpServletRequest,
                     @PathParam("orgId") orgId: String,
                     houseList: List<Address>): Response {
