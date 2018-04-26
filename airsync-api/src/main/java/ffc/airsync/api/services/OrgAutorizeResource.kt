@@ -57,24 +57,24 @@ class OrgAutorizeResource {
     fun getMyOrg(@QueryParam("my") my: Boolean = false,
                  @Context req: HttpServletRequest): List<Organization> {
 
-        printDebug("Get Org by ip = $req.remoteAddr + my = $my")
+
         val httpHeader = req.buildHeaderMap()
 
-        httpHeader.forEach(BiConsumer { key, value ->
+        /*httpHeader.forEach(BiConsumer { key, value ->
             printDebug("Header Key = $key value = $value")
         }
-        )
+        )*/
 
-        var ipaddress: String
+        var ipAddress = req.getHeader("X-Forwarded-For")
 
-        ipaddress = req.getHeader("X-Forwarded-For")
-
-        if (ipaddress.length < 3) {
-            ipaddress = req.remoteAddr
+        if (ipAddress == null) {
+            ipAddress = req.remoteAddr
         }
 
+        printDebug("Get Org by ip = $ipAddress + my = $my")
+
         if (my) {
-            return orgServices.getMyOrg(ipaddress)
+            return orgServices.getMyOrg(ipAddress)
         } else {
             return orgServices.getOrg()
         }
