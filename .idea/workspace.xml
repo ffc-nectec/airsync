@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="Add iss bug house id is 6 digi">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ffc-model/src/test/kotlin/ffc/model/AddressTest.kt" />
+    <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/airsync-api/.gradle/" />
     <ignored path="$PROJECT_DIR$/airsync-client/.gradle/" />
@@ -112,7 +111,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="525">
-      <file leaf-file-name="MongoHouseDao.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MongoHouseDao.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="550">
@@ -135,8 +134,18 @@
       <file leaf-file-name="HouseResource.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="111" column="9" lean-forward="false" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+            <state relative-caret-position="394">
+              <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrgAutorizeResource.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="55" column="46" lean-forward="false" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -1477,7 +1486,6 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/ChronicResoruce.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/PersonResource.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryOrgDao.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseServices.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Services.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/TokenManage.kt" />
@@ -1518,6 +1526,7 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ActionHouse.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
       </list>
     </option>
   </component>
@@ -1554,6 +1563,63 @@
               <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
               <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="websocket" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
@@ -2035,13 +2101,6 @@
       <option name="presentableId" value="Default" />
       <updated>1521385021470</updated>
     </task>
-    <task id="LOCAL-00002" summary="org ไม่มี my ให้คืนค้า org ทั้งหมด">
-      <created>1522048922859</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1522048922859</updated>
-    </task>
     <task id="LOCAL-00003" summary="Add diagram">
       <created>1522147057622</created>
       <option name="number" value="00003" />
@@ -2378,7 +2437,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524731306803</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Add iss insert house dupplicate">
+      <created>1524731578656</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1524731578657</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2495,7 +2561,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="End point /place/house + Auth token" />
     <MESSAGE value="End point /place/house + Auth token&#10;มีพิกัด + Chronic" />
     <MESSAGE value="GeoJson OK" />
     <MESSAGE value="เพิ่ม /person&#10;-มี Chronic&#10;-มี House" />
@@ -2520,7 +2585,8 @@
     <MESSAGE value="Add enable house id is 6 digi" />
     <MESSAGE value="Add iss bug house id is 6 digi" />
     <MESSAGE value="Add put update org and mobile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add put update org and mobile" />
+    <MESSAGE value="Add iss insert house dupplicate" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add iss insert house dupplicate" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2531,14 +2597,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1196">
-          <caret line="72" column="28" lean-forward="false" selection-start-line="72" selection-start-column="28" selection-end-line="72" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/ApplicationConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -2836,14 +2894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="111" column="9" lean-forward="false" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-21">
@@ -2910,6 +2960,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="550">
           <caret line="90" column="26" lean-forward="true" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="55" column="46" lean-forward="false" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
           <folding />
         </state>
       </provider>

@@ -57,9 +57,18 @@ class OrgAutorizeResource {
                  @Context req: HttpServletRequest): List<Organization> {
 
         printDebug("Get Org by ip = $req.remoteAddr + my = $my")
+        val httpHeader = req.buildHeaderMap()
+
+        var ipaddress: String
+
+        ipaddress = req.getHeader("X-Forwarded-For")
+
+        if (ipaddress.length < 3) {
+            ipaddress = req.remoteAddr
+        }
 
         if (my) {
-            return orgServices.getMyOrg(req.remoteAddr)
+            return orgServices.getMyOrg(ipaddress)
         } else {
             return orgServices.getOrg()
         }
