@@ -36,6 +36,12 @@ object HouseService {
 
     fun create(token: String, orgId: String, houseList: List<Address>) {
         val org = getOrgByOrgToken(token, orgId)
+
+        //For org
+        houseList.forEach {
+            if (it.hid!! < 0) throw BadRequestException("")
+        }
+
         houseDao.insert(org.uuid, houseList)
     }
 
