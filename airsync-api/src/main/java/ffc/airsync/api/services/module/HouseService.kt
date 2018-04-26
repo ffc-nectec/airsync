@@ -24,6 +24,7 @@ import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
 import me.piruin.geok.geometry.Point
 import java.util.*
+import javax.ws.rs.BadRequestException
 import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
@@ -61,7 +62,7 @@ object HouseService {
             actionList.insert(actionHouse)
         } else {
             printDebug("House id not eq update houseIdParameter=$house_id houseIdInData=${house._id}")
-            throw NotAuthorizedException("House _id not eq update")
+            throw BadRequestException("House _id not eq update")
         }
     }
 

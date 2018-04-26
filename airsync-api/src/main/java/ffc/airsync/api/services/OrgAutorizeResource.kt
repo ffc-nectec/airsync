@@ -21,6 +21,7 @@ import ffc.airsync.api.services.module.OrgService
 import ffc.airsync.api.services.module.HttpRestOrgService
 import ffc.model.*
 import java.util.*
+import java.util.function.BiConsumer
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -58,6 +59,11 @@ class OrgAutorizeResource {
 
         printDebug("Get Org by ip = $req.remoteAddr + my = $my")
         val httpHeader = req.buildHeaderMap()
+
+        httpHeader.forEach(BiConsumer { key, value ->
+            printDebug("Header Key = $key value = $value")
+        }
+        )
 
         var ipaddress: String
 
