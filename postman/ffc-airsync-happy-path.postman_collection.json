@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "be325d95-b4f6-40ef-aeb4-009d5e88096f",
+					"id": "f8e5f5e6-bee4-4e13-98e5-3738484c35ac",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -158,7 +158,7 @@
 			},
 			"response": [
 				{
-					"id": "d6acad28-43fc-463f-9125-4a0dc9fa18ad",
+					"id": "453b5391-80e8-4211-810a-290046399e20",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -322,7 +322,7 @@
 			},
 			"response": [
 				{
-					"id": "cc53b0ba-31cf-4dd9-a803-01d1d7df2504",
+					"id": "773a3d62-a9a2-4dac-a8c2-27edebb5083f",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -473,7 +473,7 @@
 			},
 			"response": [
 				{
-					"id": "7dfbc973-e6a0-4759-a208-a0b6ff8446bb",
+					"id": "f204d7c6-4a7d-4300-b6f1-76f4b898b464",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -654,7 +654,7 @@
 			},
 			"response": [
 				{
-					"id": "1d5054fe-b6e1-487a-91c2-cfa39edf8e37",
+					"id": "2800a2e9-9271-4f15-a41b-e1fcde63df73",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -773,7 +773,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "5fd36ece-1936-4ed3-9e94-61126c5b24bb",
+					"id": "16d7c9c4-0a00-4ed6-92ee-9c52afc70e39",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -863,7 +863,7 @@
 			},
 			"response": [
 				{
-					"id": "d8dbb2be-6d51-4942-9fe4-2971476f8e96",
+					"id": "9a152690-e477-4ddf-b610-95ac909e2694",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -954,7 +954,7 @@
 			},
 			"response": [
 				{
-					"id": "74e48684-14fc-46bf-aa39-378a5600cd00",
+					"id": "294f7461-1115-4cb4-abb0-9992524480d6",
 					"name": "New House by mobile",
 					"originalRequest": {
 						"method": "POST",
@@ -997,7 +997,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ffcf9bfe-4365-4d0e-8491-51892186385b",
+						"id": "3159ad5d-dd2c-42a0-9a67-5062b0ba513f",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -1018,10 +1018,6 @@
 							"",
 							"pm.test(\"Response have hid\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"hid\");",
-							"});",
-							"",
-							"pm.test(\"Response have pid\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"pid\");",
 							"});"
 						]
 					}
@@ -1069,7 +1065,7 @@
 			},
 			"response": [
 				{
-					"id": "45b67132-2155-4db2-8a4f-5db519ddbeff",
+					"id": "17b3faa0-02d8-40b9-a5f0-15b96c24e77b",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1262,7 +1258,7 @@
 			},
 			"response": [
 				{
-					"id": "58afd2a2-c26e-4c0b-9d02-a22a63480a7d",
+					"id": "2c55d699-114b-48fb-8c65-ad35280ac55e",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1355,7 +1351,7 @@
 			},
 			"response": [
 				{
-					"id": "ec67b0cc-f7cb-4ebb-9904-c533814f33c9",
+					"id": "5a5962ef-a886-4e52-9caa-358bd4bbe3e2",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1446,7 +1442,7 @@
 			},
 			"response": [
 				{
-					"id": "91520f15-4163-4772-972b-c4124ead55ee",
+					"id": "7901465f-c7e7-4ac7-93c8-ceaeff6dfaf8",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -1608,7 +1604,7 @@
 			},
 			"response": [
 				{
-					"id": "6f73a2ea-a88d-468f-9092-d588f56fbf4b",
+					"id": "10391d25-4cce-4877-a1a8-1cf33c4667e0",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -1783,7 +1779,7 @@
 			},
 			"response": [
 				{
-					"id": "b60a0251-5e10-445e-916b-75252ade3bec",
+					"id": "f6e7952d-9395-45ec-b59f-c219a2a37171",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
