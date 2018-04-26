@@ -75,7 +75,7 @@ class OrgAutorizeResource {
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
 
-        printDebug("Call removeOrg Service id = $orgId token = $token")
+        printDebug("Call removeOrg Service _id = $orgId token = $token")
         orgServices.removeOrganize(token, orgId)
         return Response.status(200).build()
     }

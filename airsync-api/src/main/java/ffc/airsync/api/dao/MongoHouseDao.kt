@@ -24,6 +24,7 @@ import java.util.Arrays
 import ffc.model.*
 import me.piruin.geok.LatLng
 import org.bson.types.ObjectId
+import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
 
 
@@ -71,13 +72,12 @@ class MongoHouseDao : HouseDao {
     override fun insert(orgUuid: UUID, house: Address) {
 
         val objId = ObjectId()
-        val id6Digi = objId.get6DigiId()
-        house.id = id6Digi
+        val shotId = objId.get6DigiId()
+        house._id = objId.toHexString()
 
         val doc = BasicDBObject("_id", objId)
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
-          .append("id", id6Digi)
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
         house.coordinates = null
@@ -95,28 +95,33 @@ class MongoHouseDao : HouseDao {
 
     }
 
-    override fun update(orgUuid: UUID, house: Address) {
-        val query = BasicDBObject("orgUuid", orgUuid.toString())
-          .append("hid", house.hid)
-          .append("id", house.id)
-        val dbObj = coll.findOne(query)
+    override fun update(house: Address) {
+        printDebug("Call MongoHouseDao.upldate ${house.toJson()}")
+        val query = BasicDBObject("_id", ObjectId(house._id))
+        //.append("orgUuid", orgUuid.toString())
+        printDebug("\tquery old house ")
+        val oldDoc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ Object ให้ Update")
 
-        val doc = BasicDBObject()
-          .append("orgUuid", orgUuid.toString())
+        val orgUuid = oldDoc.get("orgUuid").toString()
+        printDebug("\tget orgUuid $orgUuid")
+
+        printDebug("\tcreate update doc")
+        val updateDoc = BasicDBObject("_id", ObjectId(house._id))
+          .append("orgUuid", orgUuid)
           .append("hid", house.hid)
-          .append("id", house.id)
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
 
         house.coordinates = null
-        doc.append("property", house.toJson())
+        updateDoc.append("property", house.toJson())
 
-        coll.update(dbObj, doc)
+        printDebug("\tcall collection.update (oldDoc, updateDoc)")
+        coll.update(oldDoc, updateDoc)
     }
 
-    override fun update(orgUuid: UUID, houseList: List<Address>) {
+    override fun update(houseList: List<Address>) {
         houseList.forEach {
-            update(orgUuid, it)
+            update(it)
         }
     }
 

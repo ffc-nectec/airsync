@@ -26,8 +26,8 @@ interface HouseDao {
     fun insert(orgUuid: UUID, house: Address)
     fun insert(orgUuid: UUID, houseList: List<Address>)
 
-    fun update(orgUuid: UUID, house: Address)
-    fun update(orgUuid: UUID, houseList: List<Address>)
+    fun update(house: Address)
+    fun update(houseList: List<Address>)
 
     fun find(latlng: Boolean = true): List<StorageOrg<Address>>
 

@@ -15,15 +15,24 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client
+package ffc.model
 
-class Config (){
-    companion object {
-        //var pcuUuid = "00000000-0000-0000-0000-000000000017"
-        //val baseUrlSocket = URI.create("ws://127.0.0.1:8080/airsync")
-        val baseUrlRest = "http://127.0.0.1:8080/v0/org/"
-        //val baseUrlRest = "https://ffc-nectec.herokuapp.com/v0/org/"
-        //val baseUrlRest = "http://188.166.249.72/v0/org/"
-        //val baseUrlSocket = URI.create("ws://188.166.249.72:80/airsync")
+import org.joda.time.DateTime
+import org.joda.time.LocalDate
+import java.util.*
+
+class ActionHouse(val orgUuid: UUID, val action: Address, val updateTo: UPDATETO) {
+
+    val dateCreate = DateTime()
+    val actionId = UUID.randomUUID()
+    var status: STATUS = STATUS.NOT_COMPLETE
+
+    enum class UPDATETO {
+        MOBILE, ORG
     }
+
+    enum class STATUS {
+        COMPLETE, NOT_COMPLETE
+    }
+
 }

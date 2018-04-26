@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 NECTEC
+ * Copyright (c) 2561 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package ffc.model
+package ffc.airsync.api.dao
 
+import ffc.model.ActionHouse
 import java.util.*
 
-data class QueryAction(val ownAction: UUID = UUID.randomUUID(), val uuidAction: UUID = UUID.randomUUID(), val sqlQuery: List<String> = java.util.ArrayList()){
 
-    override fun equals(other: Any?): Boolean {
-        val action : QueryAction = other as QueryAction
-        return (action.ownAction == ownAction)  && (action.uuidAction == uuidAction)
-    }
+interface ActionListDao {
+    fun insert(actionHouse: ActionHouse)
+    fun get(orgUUID: UUID, updateTo: ActionHouse.UPDATETO): List<ActionHouse>
+    fun updateStatusComplete(actionId: UUID)
 }

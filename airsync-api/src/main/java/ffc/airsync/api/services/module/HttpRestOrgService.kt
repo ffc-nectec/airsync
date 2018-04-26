@@ -157,14 +157,5 @@ class HttpRestOrgService : OrgService {
         chronicDao.insert(org.uuid, chronicList)
     }
 
-    override fun sendEventGetData(uuid: UUID) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
-        //
-    }
-
-    override fun getData(uuid: UUID): Message<QueryAction> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
 }

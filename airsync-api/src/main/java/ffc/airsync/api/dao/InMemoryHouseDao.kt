@@ -48,18 +48,18 @@ class InMemoryHouseDao : HouseDao {
 
     }
 
-    override fun update(orgUuid: UUID, house: Address) {
+    override fun update(house: Address) {
         printDebug("Update house = ${house.identity?.id} XY= ${house.coordinates}")
         val houseUpdate = houseList.find {
-            it.uuid == orgUuid && it.data.hid == house.hid
+            it.data._id == house._id && it.data.hid == house.hid
         } ?: throw NotFoundException("ไม่มีรายการบ้านให้ Update")
         houseUpdate.data = house
 
     }
 
-    override fun update(orgUuid: UUID, houseList: List<Address>) {
+    override fun update(houseList: List<Address>) {
         houseList.forEach {
-            update(orgUuid, it)
+            update(it)
         }
 
     }

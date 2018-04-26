@@ -81,7 +81,7 @@ class mongoTest {
   "type": "House",
   "no": "3",
   "hid": 2,
-  "id": 4234228966935819000
+  "_id": 4234228966935819000
 }
         """.trimIndent()
         printDebug(data)

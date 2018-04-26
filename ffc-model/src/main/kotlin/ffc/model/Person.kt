@@ -40,6 +40,7 @@ import me.piruin.geok.LatLng
 import org.joda.time.LocalDate
 import java.lang.reflect.Type
 import java.util.*
+import kotlin.collections.ArrayList
 
 data class Person(val id: Long = Random().nextLong() * -1) {
     val orgId: Int? = null
@@ -58,7 +59,7 @@ data class Person(val id: Long = Random().nextLong() * -1) {
 }
 
 
-data class Address(var id: String = "") {
+data class Address(var _id: String = "") {
     var identity: Identity? = null
     var type: Type = Type.House
     var no: String? = null
@@ -68,6 +69,9 @@ data class Address(var id: String = "") {
     var changwat: String? = null
     var coordinates: LatLng? = null
     var hid: Int? = null  // คือ hcode ในฐาน jhcis
+
+    var haveChronics: Boolean? = null
+    var people: List<People>? = null
 
     enum class Type {
         House, Condo

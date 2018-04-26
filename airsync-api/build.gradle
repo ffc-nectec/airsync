@@ -57,7 +57,7 @@ dependencies {
     compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
     compile "args4j:args4j:2.33"
     compile "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
-    compile 'me.piruin:geok-gson:1.0.0-alpha'
+    compile 'me.piruin:geok-gson:1.0.0-alpha-2'
 
     // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
     compile "org.elasticsearch.client:transport:6.2.1"

@@ -19,6 +19,8 @@ package ffc.airsync.client.client.module.daojdbi
 
 import ffc.model.Address
 import ffc.model.ThaiHouseholdId
+import ffc.model.printDebug
+import ffc.model.toJson
 import me.piruin.geok.LatLng
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -81,6 +83,7 @@ class HouseMapper : RowMapper<Address> {
         else
             house.coordinates = LatLng(xgis, ygis)
 
+        printDebug("Read house database" + house.toJson())
         return house
 
     }

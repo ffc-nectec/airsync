@@ -51,7 +51,8 @@ class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
     private val gson: Gson
         get() = Converters.registerAll(GsonBuilder())
           .adapterFor<LatLng>(LatLngSerializer())
-          .adapterFor<Identity>(IdentityDeserializer()).create()
+          .adapterFor<Identity>(IdentityDeserializer())
+          .create()
 
     override fun isReadable(type: Class<*>?, genericType: Type?, annotations: Array<out Annotation>?, mediaType: MediaType?): Boolean {
         return true

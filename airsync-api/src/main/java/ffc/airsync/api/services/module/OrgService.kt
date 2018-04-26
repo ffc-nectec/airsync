@@ -25,7 +25,6 @@ import kotlin.collections.ArrayList
 interface OrgService {
     fun register(organization :Organization, KnownIp :String) :Organization
 
-    fun getData(uuid :UUID) :Message<QueryAction>
 
 
     fun getOrg() : List <Organization>
@@ -41,7 +40,6 @@ interface OrgService {
 
 
 
-    fun sendEventGetData(uuid :UUID)
 
 
     fun getPerson(token: String, orgId: String): List<Person>

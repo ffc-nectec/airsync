@@ -30,7 +30,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/joda-time/joda-time
     implementation group: 'joda-time', name: 'joda-time', version: '2.9.9'
-    implementation 'me.piruin:geok-gson:1.0.0-alpha'
+    implementation 'me.piruin:geok-gson:1.0.0-alpha-2'
 
 
 // https://mvnrepository.com/artifact/com.fatboyindustrial.gson-jodatime-serialisers/gson-jodatime-serialisers

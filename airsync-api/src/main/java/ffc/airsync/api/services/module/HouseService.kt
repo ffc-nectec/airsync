@@ -17,10 +17,12 @@
 
 package ffc.airsync.api.services.module
 
+import ffc.airsync.api.dao.ActionListDao
 import ffc.airsync.api.dao.DaoFactory
 import ffc.model.*
 import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
+import me.piruin.geok.geometry.Point
 import java.util.*
 import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
@@ -29,24 +31,47 @@ import kotlin.collections.ArrayList
 object HouseService {
 
     val houseDao = DaoFactory().buildHouseDao()
+    val actionList = DaoFactory().buildActionDao()
 
     fun create(token: String, orgId: String, houseList: List<Address>) {
         val org = getOrgByOrgToken(token, orgId)
         houseDao.insert(org.uuid, houseList)
     }
 
-    fun update(token: String, orgId: String, house: Address, houseId: String) {
+    fun update(token: String, orgId: String, house: Address, house_id: String) {
         //val org = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-        if (houseId == house.id) {
-            val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-            houseDao.update(orgToken.uuid, house)
+        house.people = null
+        house.haveChronics = null
+        if (house_id == house._id) {
+
+            var orgUuid: UUID
+            var updateTo = ActionHouse.UPDATETO.ORG
+
+            try {
+                orgUuid = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId).uuid
+            } catch (ex: NotAuthorizedException) {
+                orgUuid = getOrgByOrgToken(token, orgId).uuid
+                updateTo = ActionHouse.UPDATETO.MOBILE
+            }
+
+
+            houseDao.update(house)
+            printDebug("Call add ActionHouse")
+            val actionHouse = ActionHouse(orgUuid = orgUuid, action = house, updateTo = updateTo)
+            actionList.insert(actionHouse)
         } else {
-            printDebug("House id not eq update houseIdParameter=$houseId houseIdInData=${house.id}")
-            throw NotAuthorizedException("House id not eq update")
+            printDebug("House id not eq update houseIdParameter=$house_id houseIdInData=${house._id}")
+            throw NotAuthorizedException("House _id not eq update")
         }
     }
 
-    fun get(token: String, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection {
+    fun getAction(token: String, orgId: String, updateTo: ActionHouse.UPDATETO = ActionHouse.UPDATETO.ORG): List<ActionHouse> {
+        //val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId) // ตรวจสอบ Token จาก Mobile
+        val org = getOrgByOrgToken(token, orgId)
+        return actionList.get(orgUUID = org.uuid, updateTo = updateTo)
+    }
+
+    fun get(token: String, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
 
 
         printDebug("Token = $token")
@@ -73,13 +98,13 @@ object HouseService {
 
         printDebug("count house = ${houseList.count()}")
 
-        val geoJson = FeatureCollection()
+        val geoJson = FeatureCollection<Address>()
 
 
         //val peopleInHouse=HashMap<String,ArrayList<People>>()
 
 
-        val fromItem = (page - 1) * per_page
+        val fromItem = ((page - 1) * per_page) + 1
         var toItem = (page) * per_page
         val count = houseList.count()
 
@@ -94,43 +119,34 @@ object HouseService {
 
 
         (fromItem..toItem).forEach {
-            //printDebug("Loop count $it")
-            val data = houseList[it]
+            printDebug("Loop count $it")
+            val data = houseList[it - 1]
 
-            val geometry = MyGeo("Point", data.data.coordinates!!)
+
+            val point = Point(data.data.coordinates!!)
             //printDebug(geometry)
-            val properits = ProperitsGeoJson(data.data.id)
             //printDebug(properits)
-            val houseId = data.data.hid
+            val houseId = data.data.hid ?: -1
             //printDebug(houseId)
             val house = data.data
             //printDebug(house)
 
-            properits.identity = data.data.identity
-            properits.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId!!)
-            properits.no = house.no
-            properits.road = house.road
-            properits.coordinates = house.coordinates
-            properits.hid = house.hid
+            house.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId)
+            house.people = personDao.getPeopleInHouse(tokenObj.uuid, houseId)
 
 
+            printDebug("Create feture")
+            val feture: Feature<Address> = Feature(geometry = point
+              , properties = house)
 
-            try {
-                properits.people = personDao.getPeopleInHouse(tokenObj.uuid, houseId)
-            } catch (ex: Exception) {
-                //printDebug("People null")
-            }
-
-
-            printDebug("Befor add feture")
-            val feture: Feature<ProperitsGeoJson> = Feature(geometry, properties = properits)
-
+            printDebug("Add feture")
             geoJson.features.add(feture)
+            printDebug("Add feture success")
 
         }
 
 
-        printDebug("Feture gson count ${geoJson.features.count()}")
+        //printDebug("Feture gson count ${geoJson.features.count()}")
 
         //printDebug("For each house")
         /* houseList.forEach {
