@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/airsync-api/.gradle/" />
     <ignored path="$PROJECT_DIR$/airsync-client/.gradle/" />
@@ -24,12 +24,24 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file leaf-file-name="HouseService.kt" pinned="false" current-in-tab="true">
+            <file leaf-file-name="HouseService.kt" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="825">
-                    <caret line="64" column="37" lean-forward="false" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="37" />
+                  <state relative-caret-position="400">
+                    <caret line="47" column="80" lean-forward="true" selection-start-line="47" selection-start-column="80" selection-end-line="47" selection-end-column="80" />
                     <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="Person.kt" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="335">
+                    <caret line="71" column="8" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="8" />
+                    <folding>
+                      <element signature="e#1342#1511#0" expanded="true" />
+                    </folding>
                   </state>
                 </provider>
               </entry>
@@ -44,12 +56,14 @@
                 </provider>
               </entry>
             </file>
-            <file leaf-file-name="Const.kt" pinned="false" current-in-tab="false">
+            <file leaf-file-name="Const.kt" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="700">
-                    <caret line="48" column="65" lean-forward="false" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="65" />
-                    <folding />
+                  <state relative-caret-position="446">
+                    <caret line="39" column="49" lean-forward="false" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
+                    <folding>
+                      <element signature="e#702#923#0" expanded="true" />
+                    </folding>
                   </state>
                 </provider>
               </entry>
@@ -131,36 +145,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QueryHouse.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-21">
-              <caret line="52" column="3" lean-forward="false" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OrgAutorizeResource.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HttpRestOrgService.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OrgDao.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/OrgDao.kt">
           <provider selected="true" editor-type-id="text-editor">
@@ -176,6 +160,36 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="429">
               <caret line="46" column="62" lean-forward="false" selection-start-line="46" selection-start-column="62" selection-end-line="46" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HouseResource.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="811">
+              <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HttpRestOrgService.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="525">
+              <caret line="40" column="22" lean-forward="true" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrgAutorizeResource.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-327">
+              <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -1475,7 +1489,6 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/TokenManage.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestHouseService.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/ObjHouseService.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/StorageOrg.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/Test2.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/mongoDaoTest.kt" />
@@ -1505,12 +1518,13 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ActionHouse.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt" />
       </list>
     </option>
   </component>
@@ -1835,7 +1849,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="Search house match&#9;null&#9;null&#10;NotAuthorizedException&#9;PSI&#9;JAVA://javax.ws.rs.NotAuthorizedException&#10;InMemoryHou&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="getOrgByOrgToken&#9;null&#9;null&#10;org ไม่ตรง&#9;null&#9;null&#10;org ไม่ตรงกัน&#9;null&#9;null&#10;Search house match&#9;null&#9;null&#10;NotAuthorizedException&#9;PSI&#9;JAVA://javax.ws.rs.NotAuthorizedException&#10;InMemoryHou&#9;null&#9;null" />
     <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -2105,27 +2119,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1521385021470</updated>
-    </task>
-    <task id="LOCAL-00006" summary="สร้าง Web Service place/house&#10;-สำหรับ Create บ้านบน Central">
-      <created>1522400561327</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1522400561327</updated>
-    </task>
-    <task id="LOCAL-00007" summary="สามารถ&#10;-POST person ไว้บน central&#10;-POST house ไว้บน central">
-      <created>1522660379207</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1522660379207</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Air-Sync Client&#10;-create person to central&#10;-create house to central&#10;-create chronic to central&#10;-เปลี่ยนมาใช้โครงสร้าง Object ของพี่บาส Person, Address, Chronic">
-      <created>1522730818567</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1522730818567</updated>
     </task>
     <task id="LOCAL-00009" summary="Re-code">
       <created>1522731377554</created>
@@ -2449,7 +2442,28 @@
       <option name="project" value="LOCAL" />
       <updated>1524735008952</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="แก้บัก ip address บน heroku">
+      <created>1524735542829</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1524735542829</updated>
+    </task>
+    <task id="LOCAL-00056" summary="ถ้า สร้างจาก Org hid &gt;= 0 เท่านั้น นอกนั้น Bad request">
+      <created>1524735931704</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1524735931704</updated>
+    </task>
+    <task id="LOCAL-00057" summary="ถ้าตอน PUT ไม่มี _id ให้ Return 400">
+      <created>1524736115386</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1524736115387</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2528,47 +2542,11 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22577855" sideWeight="0.5016116" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24979855" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24979855" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39965397" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969433" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958478" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44896194" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46539792" sideWeight="0.49758258" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22577855" sideWeight="0.4983884" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958478" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33279613" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7621107" sideWeight="0.4983884" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25463337" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Airsync-client สามารถสั่งทำงานแบบกำหนดพารามิเตอร์ได้&#10;-dbhost&#10;-dbpot&#10;-dbname&#10;-dbusername&#10;-dbpassword&#10;-orguuid&#10;-orgname&#10;-orgcode" />
-    <MESSAGE value="Reformat" />
-    <MESSAGE value="demo heroku print log to heroku" />
     <MESSAGE value="demo heroku" />
     <MESSAGE value="demo heroku&#10;add new parameter" />
     <MESSAGE value="demo heroku&#10;iss bug" />
@@ -2591,7 +2569,10 @@
     <MESSAGE value="iss bug get my=true in heroku" />
     <MESSAGE value="add debug http header heroku" />
     <MESSAGE value="เวลาใส่ org id ที่ไม่มีในเวลาลบจะ 404" />
-    <option name="LAST_COMMIT_MESSAGE" value="เวลาใส่ org id ที่ไม่มีในเวลาลบจะ 404" />
+    <MESSAGE value="แก้บัก ip address บน heroku" />
+    <MESSAGE value="ถ้า สร้างจาก Org hid &gt;= 0 เท่านั้น นอกนั้น Bad request" />
+    <MESSAGE value="ถ้าตอน PUT ไม่มี _id ให้ Return 400" />
+    <option name="LAST_COMMIT_MESSAGE" value="ถ้าตอน PUT ไม่มี _id ให้ Return 400" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2850,14 +2831,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="48" column="65" lean-forward="false" selection-start-line="48" selection-start-column="43" selection-end-line="48" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/processDiagram.svg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -2876,30 +2849,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="89" column="23" lean-forward="true" selection-start-line="89" selection-start-column="23" selection-end-line="89" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="58" column="1" lean-forward="true" selection-start-line="58" selection-start-column="1" selection-end-line="58" selection-end-column="1" />
-          <folding>
-            <element signature="e#1342#1511#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryPerson.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
           <caret line="81" column="58" lean-forward="false" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="58" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2908,14 +2863,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="32" column="47" lean-forward="false" selection-start-line="32" selection-start-column="47" selection-end-line="32" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="64" column="37" lean-forward="false" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -2979,10 +2926,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="41" column="17" lean-forward="false" selection-start-line="41" selection-start-column="17" selection-end-line="41" selection-end-column="17" />
+        <state relative-caret-position="-21">
+          <caret line="52" column="3" lean-forward="false" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -2995,18 +2942,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt">
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-21">
-          <caret line="52" column="3" lean-forward="false" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
+        <state relative-caret-position="335">
+          <caret line="71" column="8" lean-forward="false" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="8" />
+          <folding>
+            <element signature="e#1342#1511#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="811">
+          <caret line="104" column="0" lean-forward="true" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
+        <state relative-caret-position="-327">
           <caret line="65" column="11" lean-forward="false" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="47" column="80" lean-forward="true" selection-start-line="47" selection-start-column="80" selection-end-line="47" selection-end-column="80" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="39" column="49" lean-forward="false" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
+          <folding>
+            <element signature="e#702#923#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="40" column="22" lean-forward="true" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
           <folding />
         </state>
       </provider>

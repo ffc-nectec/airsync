@@ -23,6 +23,7 @@ import ffc.model.StorageOrg
 import ffc.model.printDebug
 import java.util.*
 import javax.ws.rs.NotAuthorizedException
+import javax.ws.rs.NotFoundException
 
 val orgDao = DaoFactory().buildPcuDao()
 val tokenMobile = DaoFactory().buildTokenMobileMapDao()
@@ -36,7 +37,7 @@ fun getOrgByOrgToken(token: String, orgId: String): Organization {
     val org = orgDao.findByToken(token)
     if (org.id != orgId) {
         printDebug("org ไม่ตรงกัน")
-        throw throw NotAuthorizedException("Not Auth")
+        throw throw NotFoundException("Org ไม่ตรง")
     }
 
     return org
