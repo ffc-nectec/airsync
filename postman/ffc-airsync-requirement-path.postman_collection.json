@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "6dd4ee83-ab3d-4de0-a85c-46d49163ce68",
+					"id": "6cae7061-f89d-48ed-8e64-f9d594f00bf9",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -169,7 +169,7 @@
 			},
 			"response": [
 				{
-					"id": "19bdfda9-4a63-4b1a-bb38-4c1a78c5c6a5",
+					"id": "098129f1-0797-425f-ba25-f11d78a12d23",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -288,7 +288,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "cb525fca-374f-446c-bd69-2196dd42b2d1",
+					"id": "852ed7cb-728d-4401-810f-77523ef0d170",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -381,7 +381,7 @@
 			},
 			"response": [
 				{
-					"id": "5ecfabc1-e6a6-419c-b03d-ad8c1e3af774",
+					"id": "65dc6041-c703-4c0e-8fb7-c11a7fab68a9",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -558,7 +558,7 @@
 			},
 			"response": [
 				{
-					"id": "8b8e2697-05b7-4312-bc6a-78dbcb08aec4",
+					"id": "4f5b340e-9d72-434a-a906-aac4101144f1",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -735,7 +735,7 @@
 			},
 			"response": [
 				{
-					"id": "a64731b2-3885-43bd-a861-a6b9812da1ee",
+					"id": "f4c79ad4-67fc-4777-8400-836c9f35ff33",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -912,7 +912,7 @@
 			},
 			"response": [
 				{
-					"id": "f30b281c-e800-4b5f-b600-f4425692363e",
+					"id": "a94e72c7-2210-49f9-9085-657540f20de2",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -1194,11 +1194,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3a2d0253-d30e-4c65-ba3d-eeb86f6bc80e",
+						"id": "d2dbba8c-54bc-4c46-8bd8-17ce8574b5c4",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
 							"});",
 							""
 						]
@@ -1243,16 +1243,124 @@
 			"response": []
 		},
 		{
+			"name": "Edit House by org id instead _id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38faf671-7f49-4573-b076-4f858a1af2a7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"4adbdk39edj3\",\n  \"_shortId\": \"39edj3\",\n  \"hid\": \"22\",\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"510/45\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    100.6027656,\n    14.0805834\n  ],\n  \"people\": [\n    {\n      \"pid\": 3000214,\n      \"name\": \"นายพิรุณ พานิชผล\"\n    },\n    {\n      \"pid\": 3000215,\n      \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n    },\n    {\n      \"pid\": 3000216,\n      \"name\": \"นายธนชัย ทองคำ\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/place/house{{house_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"place",
+						"house{{house_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit House by mobile id instead _id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "38faf671-7f49-4573-b076-4f858a1af2a7",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{mobile_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": \"4adbdk39edj3\",\n  \"_shortId\": \"39edj3\",\n  \"hid\": \"22\",\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"510/45\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    100.6027656,\n    14.0805834\n  ],\n  \"people\": [\n    {\n      \"pid\": 3000214,\n      \"name\": \"นายพิรุณ พานิชผล\"\n    },\n    {\n      \"pid\": 3000215,\n      \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n    },\n    {\n      \"pid\": 3000216,\n      \"name\": \"นายธนชัย ทองคำ\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/place/house{{house_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"place",
+						"house{{house_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Edit House by mobile house_id lose",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "3a2d0253-d30e-4c65-ba3d-eeb86f6bc80e",
+						"id": "d9a5bb9c-6439-4c08-8214-307538f38d4a",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 405\", function () {",
+							"    pm.response.to.have.status(405);",
 							"});",
 							""
 						]
@@ -1407,16 +1515,16 @@
 			"response": []
 		},
 		{
-			"name": "Edit House by org house_id greaterThan12",
+			"name": "Edit House by org house_id greaterThan24",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "56c68169-d2f0-4220-9c34-213eaefa1af3",
+						"id": "0ef4de2d-9013-4204-a7b1-a1f375ce05f6",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						]
@@ -1446,7 +1554,7 @@
 					"raw": "{\n  \"_id\": \"4adbdk39edj3\",\n  \"_shortId\": \"39edj3\",\n  \"hid\": \"22\",\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"510/45\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    100.6027656,\n    14.0805834\n  ],\n  \"people\": [\n    {\n      \"pid\": 3000214,\n      \"name\": \"นายพิรุณ พานิชผล\"\n    },\n    {\n      \"pid\": 3000215,\n      \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n    },\n    {\n      \"pid\": 3000216,\n      \"name\": \"นายธนชัย ทองคำ\"\n    }\n  ]\n}"
 				},
 				"url": {
-					"raw": "{{url}}/org/{{org_id}}/place/house/10000124adbdk39edj3",
+					"raw": "{{url}}/org/{{org_id}}/place/house/ded7a0087d3c4bad8da98e530f58d367",
 					"host": [
 						"{{url}}"
 					],
@@ -1455,7 +1563,7 @@
 						"{{org_id}}",
 						"place",
 						"house",
-						"10000124adbdk39edj3"
+						"ded7a0087d3c4bad8da98e530f58d367"
 					]
 				}
 			},
@@ -1467,11 +1575,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3e4b390d-97da-4f3e-ba46-e71fac3b12b5",
+						"id": "a395c84e-427f-4cd1-bbbf-7c13d85bba1d",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						]
@@ -1522,11 +1630,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3e4b390d-97da-4f3e-ba46-e71fac3b12b5",
+						"id": "638e5296-ef8a-4df1-a5b3-fde787ffce37",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						]
@@ -1571,7 +1679,7 @@
 			},
 			"response": [
 				{
-					"id": "92ff5c3f-33c8-4b19-9e11-79969626adf6",
+					"id": "5c35ce5b-6a9b-4107-a02d-f2d5102a5425",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1610,16 +1718,16 @@
 			]
 		},
 		{
-			"name": "Edit House by mobile house_id greaterThan12",
+			"name": "Edit House by mobile house_id greaterThan24",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "275599c2-8c88-4115-8766-3614f9e8d691",
+						"id": "b82e1254-2b9f-49d9-862b-748e6e9330b5",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						]
@@ -1649,7 +1757,7 @@
 					"raw": "{\n  \"_id\": \"4adbdk39edj3\",\n  \"_shortId\": \"39edj3\",\n  \"hid\": \"22\",\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"510/45\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    100.6027656,\n    14.0805834\n  ],\n  \"people\": [\n    {\n      \"pid\": 3000214,\n      \"name\": \"นายพิรุณ พานิชผล\"\n    },\n    {\n      \"pid\": 3000215,\n      \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n    },\n    {\n      \"pid\": 3000216,\n      \"name\": \"นายธนชัย ทองคำ\"\n    }\n  ]\n}"
 				},
 				"url": {
-					"raw": "{{url}}/org/{{org_id}}/place/house/10000124adbdk39edj3",
+					"raw": "{{url}}/org/{{org_id}}/place/house/ded7a0087d3c4bad8da98e530f58d367",
 					"host": [
 						"{{url}}"
 					],
@@ -1658,7 +1766,7 @@
 						"{{org_id}}",
 						"place",
 						"house",
-						"10000124adbdk39edj3"
+						"ded7a0087d3c4bad8da98e530f58d367"
 					]
 				}
 			},
@@ -1670,11 +1778,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "3e4b390d-97da-4f3e-ba46-e71fac3b12b5",
+						"id": "1bbf8536-f53b-423c-826d-614258fd1a52",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						]
@@ -1725,11 +1833,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "248fe3ef-6bf8-4a4c-b981-a2cbd1b7cc03",
+						"id": "5fe64985-bd08-453e-9fa0-098ae1e78b1e",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 400\", function () {",
-							"    pm.response.to.have.status(400);",
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
 							"});",
 							""
 						]
@@ -1774,7 +1882,7 @@
 			},
 			"response": [
 				{
-					"id": "038911d7-6898-4b0c-a50d-2236a00158e6",
+					"id": "ce46b74b-fe46-438e-a2f2-17e7399e6ffe",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
