@@ -47,6 +47,9 @@ object HouseService {
 
     fun update(token: String, orgId: String, house: Address, house_id: String) {
         //val org = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+
+        if (house._id == "") throw BadRequestException("ไม่มี _id")
+
         house.people = null
         house.haveChronics = null
         if (house_id == house._id) {
