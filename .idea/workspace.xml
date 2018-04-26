@@ -2,27 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="Add iss bug house id is 6 digi">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/ActionListDao.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryActionListDao.kt" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ffc-model/src/test/kotlin/ffc/model/AddressTest.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/build.gradle" afterPath="$PROJECT_DIR$/airsync-api/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/OrgService.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/OrgService.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api/dao/mongoTest.kt" afterPath="$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api/dao/mongoTest.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/Config.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/Config.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ffc-model/build.gradle" afterPath="$PROJECT_DIR$/ffc-model/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" afterPath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/QueryAction.kt" afterPath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ActionHouse.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/airsync-api/.gradle/" />
     <ignored path="$PROJECT_DIR$/airsync-client/.gradle/" />
@@ -133,8 +115,8 @@
       <file leaf-file-name="MongoHouseDao.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2750">
-              <caret line="133" column="0" lean-forward="true" selection-start-line="132" selection-start-column="8" selection-end-line="133" selection-end-column="0" />
+            <state relative-caret-position="550">
+              <caret line="90" column="26" lean-forward="true" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -144,7 +126,7 @@
         <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-21">
-              <caret line="52" column="3" lean-forward="true" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
+              <caret line="52" column="3" lean-forward="false" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -154,7 +136,7 @@
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1350">
-              <caret line="111" column="9" lean-forward="true" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+              <caret line="111" column="9" lean-forward="false" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -164,7 +146,7 @@
         <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="467">
-              <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
               <folding>
                 <element signature="e#1342#1511#0" expanded="true" />
               </folding>
@@ -176,7 +158,7 @@
         <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryPerson.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
-              <caret line="81" column="58" lean-forward="true" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="58" />
+              <caret line="81" column="58" lean-forward="false" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="58" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -198,7 +180,7 @@
         <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ActionHouse.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="350">
-              <caret line="29" column="25" lean-forward="true" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+              <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
               <folding>
                 <element signature="e#680#759#0" expanded="true" />
               </folding>
@@ -1531,11 +1513,11 @@
         <option value="$PROJECT_DIR$/airsync-api/build.gradle" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryActionListDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ActionHouse.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
       </list>
     </option>
   </component>
@@ -2053,13 +2035,6 @@
       <option name="presentableId" value="Default" />
       <updated>1521385021470</updated>
     </task>
-    <task id="LOCAL-00001" summary="แก้ Bug my=true ถ้าไม่เจอให้ 404">
-      <created>1522047693212</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1522047693212</updated>
-    </task>
     <task id="LOCAL-00002" summary="org ไม่มี my ให้คืนค้า org ทั้งหมด">
       <created>1522048922859</created>
       <option name="number" value="00002" />
@@ -2396,7 +2371,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524643718629</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Add put update org and mobile">
+      <created>1524731306801</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1524731306803</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2442,7 +2424,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-12" y="-12" width="2584" height="1394" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958478" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2858,7 +2839,7 @@
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1350">
-          <caret line="111" column="9" lean-forward="true" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
+          <caret line="111" column="9" lean-forward="false" selection-start-line="111" selection-start-column="9" selection-end-line="111" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -2866,7 +2847,7 @@
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryHouse.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-21">
-          <caret line="52" column="3" lean-forward="true" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
+          <caret line="52" column="3" lean-forward="false" selection-start-line="52" selection-start-column="3" selection-end-line="52" selection-end-column="3" />
           <folding />
         </state>
       </provider>
@@ -2890,7 +2871,7 @@
     <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="467">
-          <caret line="71" column="0" lean-forward="true" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding>
             <element signature="e#1342#1511#0" expanded="true" />
           </folding>
@@ -2900,7 +2881,7 @@
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/client/module/daojdbi/QueryPerson.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="450">
-          <caret line="81" column="58" lean-forward="true" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="58" />
+          <caret line="81" column="58" lean-forward="false" selection-start-line="81" selection-start-column="27" selection-end-line="81" selection-end-column="58" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -2918,7 +2899,7 @@
     <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ActionHouse.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
-          <caret line="29" column="25" lean-forward="true" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+          <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
           <folding>
             <element signature="e#680#759#0" expanded="true" />
           </folding>
@@ -2927,8 +2908,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2750">
-          <caret line="133" column="0" lean-forward="true" selection-start-line="132" selection-start-column="8" selection-end-line="133" selection-end-column="0" />
+        <state relative-caret-position="550">
+          <caret line="90" column="26" lean-forward="true" selection-start-line="90" selection-start-column="26" selection-end-line="90" selection-end-column="26" />
           <folding />
         </state>
       </provider>

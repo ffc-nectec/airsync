@@ -71,6 +71,10 @@ class MongoHouseDao : HouseDao {
 
     override fun insert(orgUuid: UUID, house: Address) {
 
+        var query = BasicDBObject("orgUuid", orgUuid.toString())
+          .append("hid", house.hid)
+
+
         val objId = ObjectId()
         val shotId = objId.get6DigiId()
         house._id = objId.toHexString()
@@ -83,6 +87,8 @@ class MongoHouseDao : HouseDao {
         house.coordinates = null
         doc.append("property", house.toJson())
         printDebug(doc)
+
+        coll.remove(query)
         coll.insert(doc)
 
     }
