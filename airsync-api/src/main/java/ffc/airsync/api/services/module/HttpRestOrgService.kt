@@ -35,8 +35,11 @@ class HttpRestOrgService : OrgService {
 
     override fun removeOrganize(token: String, orgId: String) {
         val org = getOrgByOrgToken(token, orgId)
+
+        orgDao.findById(orgId)
+
         printDebug("Remove org id = $orgId == ${org.id}")
-        if (org.id != orgId) throw NotAuthorizedException("Not Auth")
+        if (org.id != orgId) throw NotAuthorizedException("ไม่เจอ Org")
         val uuidForRemove = UUID.fromString(org.uuid.toString())
         orgDao.removeByOrgUuid(uuidForRemove)
         orgUser.removeByOrgUuid(uuidForRemove)

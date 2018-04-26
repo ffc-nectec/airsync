@@ -76,10 +76,12 @@ class MongoHouseDao : HouseDao {
 
 
         val objId = ObjectId()
-        val shotId = objId.get6DigiId()
+        val shortId = objId.get6DigiId()
         house._id = objId.toHexString()
+        house._shortId = shortId
 
         val doc = BasicDBObject("_id", objId)
+          .append("_shortId", shortId)
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
           .append("latitude", house.coordinates?.latitude)
@@ -133,6 +135,12 @@ class MongoHouseDao : HouseDao {
 
     override fun find(latlng: Boolean): List<StorageOrg<Address>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    override fun findBy_Id(orgUuid: UUID, _id: String, latlng: Boolean): List<StorageOrg<Address>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
