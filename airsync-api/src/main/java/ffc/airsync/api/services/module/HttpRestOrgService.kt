@@ -118,6 +118,12 @@ class HttpRestOrgService : OrgService {
         val pcuReturn = orgDao.findByIpAddress(ipAddress)
         if (pcuReturn.isEmpty())
             throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
+        pcuReturn.forEach {
+            it.token = null
+            it.lastKnownIp = null
+        }
+
+
         return pcuReturn
 
 
@@ -126,6 +132,10 @@ class HttpRestOrgService : OrgService {
     override fun getOrg(): List<Organization> {
         val pcuReturn = orgDao.find()
         if (pcuReturn.isEmpty()) throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
+        pcuReturn.forEach {
+            it.token = null
+            it.lastKnownIp = null
+        }
         return pcuReturn
     }
 
@@ -134,7 +144,6 @@ class HttpRestOrgService : OrgService {
 
         if (checkUser) {
             val org = orgDao.findById(id)
-            if (org == null) throw NotAuthorizedException("Not org")
 
             val token = UUID.randomUUID()
 

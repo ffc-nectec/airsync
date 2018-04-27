@@ -56,7 +56,7 @@ class PersonResource {
     }
 
     @POST
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person/base")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
     fun createPerson(@Context req: HttpServletRequest,
                      @PathParam("orgId") orgId: String,
                      personList: List<Person>): Response {

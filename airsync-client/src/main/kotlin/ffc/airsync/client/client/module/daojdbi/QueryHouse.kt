@@ -26,10 +26,13 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import java.sql.ResultSet
 
 
 interface QueryHouse {
+
+
     @SqlQuery("""
 SELECT house.pcucode,
 	house.hcode,
@@ -47,7 +50,6 @@ FROM house
 }
 
 
-
 class HouseMapper : RowMapper<Address> {
 
     companion object {
@@ -57,24 +59,26 @@ class HouseMapper : RowMapper<Address> {
     override fun map(rs: ResultSet, ctx: StatementContext?): Address {
 
 
-        val hcode = rs.getInt("hcode")
+        val hid = rs.getInt("hcode")
         var houseId = rs.getString("hid")
         val road = rs.getString("road")
         val xgis = rs.getDouble("xgis")
         val ygis = rs.getDouble("ygis")
-        val houseNo = rs.getString("hno")
+        val no = rs.getString("hno")
+        val pcuCode = rs.getString("pcucode")
 
         val house = Address()
 
-        house.no = houseNo
+        house.no = no
         house.road = road
+        house.pcuCode = pcuCode
 
         if (houseId == null) {
             houseId = "0"
         }
         house.identity = ThaiHouseholdId(houseId)
 
-        house.hid = hcode
+        house.hid = hid
 
 
         //if (xgis != 0.0 && ygis != 0.0)

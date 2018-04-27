@@ -113,6 +113,7 @@ class MongoHouseDao : HouseDao {
         val orgUuid = oldDoc.get("orgUuid").toString()
         printDebug("\tget orgUuid $orgUuid")
 
+
         printDebug("\tcreate update doc")
         val updateDoc = BasicDBObject("_id", ObjectId(house._id))
           .append("orgUuid", orgUuid)
@@ -120,7 +121,7 @@ class MongoHouseDao : HouseDao {
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
 
-        house.coordinates = null
+        house.pcuCode = oldDoc.get("property").toString().fromJson<Address>().pcuCode
         updateDoc.append("property", house.toJson())
 
         printDebug("\tcall collection.update (oldDoc, updateDoc)")

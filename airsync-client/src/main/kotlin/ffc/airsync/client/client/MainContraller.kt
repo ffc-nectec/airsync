@@ -18,14 +18,10 @@
 package ffc.airsync.client.client
 
 import ffc.airsync.client.client.module.ApiFactory
-import ffc.airsync.client.client.module.PcuSocket
-import ffc.airsync.client.client.module.PcuSocketAuthByToken
 import ffc.airsync.client.client.module.daojdbi.DatabaseDao
 import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.*
-import java.net.URI
 import java.util.*
-import javax.swing.Action
 
 class MainContraller {
 
@@ -92,14 +88,23 @@ class MainContraller {
         while (true) {
             var actionList: List<ActionHouse>? = null
             try {
-                printDebug("Have action")
-                actionList = messageCentral.getAction(org)
+                actionList = messageCentral.syncAction(org)
+
                 actionList.forEach {
-                    printDebug(it)
+
+                    try {
+                        databaseDao.upateHouse(it.action)
+                        messageCentral.syncActionUpdateStatus(org, it.actionId, ActionHouse.STATUS.COMPLETE)
+                    } catch (ex: Exception) {
+
+                    }
                 }
+
+
             } catch (ex: NullPointerException) {
-                printDebug("Not fornd action")
+
             }
+
 
 
             Thread.sleep(5000)

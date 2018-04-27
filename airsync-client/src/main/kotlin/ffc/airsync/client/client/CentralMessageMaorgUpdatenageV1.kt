@@ -19,7 +19,6 @@ package ffc.airsync.client.client
 
 import ffc.airsync.client.client.module.ApiFactory
 import ffc.model.*
-import retrofit2.Call
 import java.util.*
 
 
@@ -31,15 +30,31 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
 
 
-    override fun getAction(org: Organization): List<ActionHouse> {
-        val data = restService!!.getHouseAction(orgId = org.id, authkey = "Bearer " + org.token!!).execute()
+    override fun syncAction(org: Organization): List<ActionHouse> {
+        val data = restService!!.syncHouseAction(orgId = org.id, authkey = "Bearer " + org.token!!).execute()
 
         if (data.code() == 200) {
+            val syncData = data.body()!!
 
+            return syncData
+
+
+        } else if (data.code() == 404) {
+            printDebug("Empty sycn to org")
         }
 
+        throw NullPointerException()
+    }
 
-        return data.body() ?: throw NullPointerException()
+
+    override fun syncActionUpdateStatus(org: Organization, actionId: UUID, status: ActionHouse.STATUS) {
+
+        printDebug("syncActionUpdateStatus")
+        restService!!.putSyncUpdateStatus(orgId = org.id,
+          actionId = actionId,
+          status = status,
+          authkey = "Bearer " + org.token!!).execute()
+
     }
 
     override fun putUser(userInfoList: ArrayList<User>, org: Organization) {

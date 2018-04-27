@@ -73,6 +73,7 @@ data class Address(var _id: String = "") {
 
     var haveChronics: Boolean? = null
     var people: List<People>? = null
+    var pcuCode: String? = null
 
     enum class Type {
         House, Condo

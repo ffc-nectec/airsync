@@ -20,6 +20,7 @@ package ffc.airsync.client.client.module.retrofit
 import ffc.model.*
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
 
 interface CentralClient {
     @POST("/v0/org")
@@ -33,14 +34,27 @@ interface CentralClient {
     @POST("/v0/org/{orgId}/place/house")
     fun createHouse(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body houseList : List<Address>): Call<Void>
 
-    @POST("/v0/org/{orgId}/person/base")
-    fun createPerson(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body personList : List<Person>): Call<Void>
+    @POST("/v0/org/{orgId}/person")
+    fun createPerson(@Path("orgId") orgId: String,
+                     @Header("Authorization") authkey: String,
+                     @Body personList: List<Person>): Call<Void>
 
 
     @POST("/v0/org/{orgId}/chronic/base")
-    fun createChronic(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body chronicList : List<Chronic>): Call<Void>
+    fun createChronic(@Path("orgId") orgId: String,
+                      @Header("Authorization") authkey: String,
+                      @Body chronicList: List<Chronic>): Call<Void>
 
     @GET("/v0/org/{orgId}/place/house/action")
-    fun getHouseAction(@Path("orgId") orgId: String, @Header("Authorization") authkey: String): Call<List<ActionHouse>>
+    fun syncHouseAction(@Path("orgId") orgId: String,
+                        @Header("Authorization") authkey: String): Call<List<ActionHouse>>
+
+
+    @PUT("/v0/org/{orgId}/place/house/action")
+    fun putSyncUpdateStatus(@Path("orgId") orgId: String,
+                            @Query("actionId") actionId: UUID,
+                            @Query("status") status: ActionHouse.STATUS,
+                            @Header("Authorization") authkey: String): Call<Void>
+
 
 }

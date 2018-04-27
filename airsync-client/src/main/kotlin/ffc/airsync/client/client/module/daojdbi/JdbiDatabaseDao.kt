@@ -63,6 +63,39 @@ class JdbiDatabaseDao(val dbHost: String, val dbPort: String, val dbName: String
 
     }
 
+
+    override fun upateHouse(house: Address) {
+
+        val querySql = """
+UPDATE `house`
+  SET
+   `hid`=?,
+   `road`=?,
+   `xgis`=?,
+   `ygis`=?,
+   `hno`=?
+WHERE  `pcucode`=? AND `hcode`=?;
+    """
+
+
+        printDebug("upateHouse")
+        val jdbi = createJdbi()
+        jdbi.withHandle<Any, Exception> {
+            it.execute(querySql,
+              house.identity?.id,
+              house.road,
+              house.coordinates?.longitude,
+              house.coordinates?.latitude,
+              house.no,
+              house.pcuCode,
+              house.hid)
+        }
+
+
+        printDebug("\tFinish upateHouse")
+
+    }
+
     private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")
 
