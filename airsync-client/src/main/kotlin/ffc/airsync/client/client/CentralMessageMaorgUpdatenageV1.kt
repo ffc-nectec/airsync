@@ -33,6 +33,12 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     override fun getAction(org: Organization): List<ActionHouse> {
         val data = restService!!.getHouseAction(orgId = org.id, authkey = "Bearer " + org.token!!).execute()
+
+        if (data.code() == 200) {
+
+        }
+
+
         return data.body() ?: throw NullPointerException()
     }
 

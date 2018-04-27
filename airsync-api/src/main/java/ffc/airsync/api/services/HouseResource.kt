@@ -25,6 +25,7 @@ import ffc.model.Address
 import ffc.model.printDebug
 import ffc.model.toJson
 import me.piruin.geok.geometry.FeatureCollection
+import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -137,10 +138,37 @@ class HouseResource {
         printDebug("getHouse method getHouseAction paramete orgId $orgId page $page per_page $per_page")
 
 
-
-
-        return HouseService.getAction(token = token,
+        val actionList = HouseService.getAction(token = token,
           orgId = orgId)
+        if (actionList.isEmpty()) throw NotFoundException("ไม่มี Action List")
+
+        return actionList
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @PUT
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/action")
+    fun getUpdateCompleateAction(
+      @PathParam("orgId") orgId: String,
+      @QueryParam("id") actionId: UUID,
+      @QueryParam("status") status: ActionHouse.STATUS = ActionHouse.STATUS.COMPLETE,
+      @Context req: HttpServletRequest): Response {
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+
+
+
+        printDebug("put update action paramete orgId $orgId actionId $actionId status $status")
+
+
+        HouseService.updateActionComplete(token = token,
+          orgId = orgId,
+          actionId = actionId)
+
+        return Response.status(200).build()
+
     }
 
 }

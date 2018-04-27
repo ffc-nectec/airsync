@@ -81,6 +81,14 @@ object HouseService {
         return actionList.get(orgUUID = org.uuid, updateTo = updateTo)
     }
 
+    fun updateActionComplete(token: String, orgId: String, actionId: UUID) {
+        //val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId) // ตรวจสอบ Token จาก Mobile
+        val org = getOrgByOrgToken(token, orgId)
+
+        actionList.updateStatusComplete(actionId)
+
+    }
+
     fun get(token: String, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
 
 
