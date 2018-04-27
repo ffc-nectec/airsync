@@ -22,12 +22,10 @@ import ffc.airsync.client.client.module.PcuSocket
 import ffc.airsync.client.client.module.PcuSocketAuthByToken
 import ffc.airsync.client.client.module.daojdbi.DatabaseDao
 import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
-import ffc.model.Organization
-import ffc.model.Person
-import ffc.model.printDebug
-import ffc.model.toJson
+import ffc.model.*
 import java.net.URI
 import java.util.*
+import javax.swing.Action
 
 class MainContraller {
 
@@ -92,6 +90,18 @@ class MainContraller {
          */
         printDebug("Finish push")
         while (true) {
+            var actionList: List<ActionHouse>? = null
+            try {
+                printDebug("Have action")
+                actionList = messageCentral.getAction(org)
+                actionList.forEach {
+                    printDebug(it)
+                }
+            } catch (ex: NullPointerException) {
+                printDebug("Not fornd action")
+            }
+
+
             Thread.sleep(5000)
         }
 

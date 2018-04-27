@@ -19,10 +19,7 @@ package ffc.airsync.client.client.module.retrofit
 
 import ffc.model.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface CentralClient {
     @POST("/v0/org")
@@ -42,4 +39,8 @@ interface CentralClient {
 
     @POST("/v0/org/{orgId}/chronic/base")
     fun createChronic(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body chronicList : List<Chronic>): Call<Void>
+
+    @GET("/v0/org/{orgId}/place/house/action")
+    fun getHouseAction(@Path("orgId") orgId: String, @Header("Authorization") authkey: String): Call<List<ActionHouse>>
+
 }

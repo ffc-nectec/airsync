@@ -19,6 +19,7 @@ package ffc.airsync.client.client
 
 import ffc.airsync.client.client.module.ApiFactory
 import ffc.model.*
+import retrofit2.Call
 import java.util.*
 
 
@@ -28,6 +29,13 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     var organization: Organization? = null
     var urlBase: String? = null
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
+
+
+    override fun getAction(org: Organization): List<ActionHouse> {
+        val data = restService!!.getHouseAction(orgId = org.id, authkey = "Bearer " + org.token!!).execute()
+        return data.body() ?: throw NullPointerException()
+    }
+
     override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
 
         //val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
@@ -35,6 +43,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
 
     }
+
 
     override fun putHouse(houseList: List<Address>, org: Organization) {
 

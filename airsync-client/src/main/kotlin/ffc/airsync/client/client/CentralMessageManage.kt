@@ -18,6 +18,7 @@
 package ffc.airsync.client.client
 
 import ffc.model.*
+import retrofit2.Call
 
 interface CentralMessageManage {
     fun registerOrganization(organization: Organization, url: String): Organization
@@ -29,5 +30,7 @@ interface CentralMessageManage {
     fun putPerson(personList: List<Person>, org: Organization)
 
     fun putChronic(chronicList: List<Chronic>, org: Organization)
+
+    fun getAction(org: Organization): List<ActionHouse>
 
 }
