@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "48787da7-01d7-48f9-8ec2-345c0988a1a2",
+					"id": "45841407-2997-407d-85fc-06bd43bec153",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -169,7 +169,7 @@
 			},
 			"response": [
 				{
-					"id": "f4cdba16-390e-4752-aa05-3d8ab62c9b19",
+					"id": "c31a1eaf-7fa7-4111-b432-d668b2ba42df",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -288,7 +288,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "202b2dfb-ee6e-4907-afff-6c315f21bce3",
+					"id": "ce46754f-8c59-49ed-b376-5a209a7ef69d",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -381,7 +381,7 @@
 			},
 			"response": [
 				{
-					"id": "be2eaad2-3ab7-48db-88e0-53da57d8083c",
+					"id": "a872f1a1-5664-4066-becf-7311921c52c3",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -558,7 +558,7 @@
 			},
 			"response": [
 				{
-					"id": "04dfc3c8-6cc2-4df6-b6ed-f59d5dae7c67",
+					"id": "a1162fa1-e7a2-4601-821e-f2479c80eaeb",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -735,7 +735,7 @@
 			},
 			"response": [
 				{
-					"id": "846068f2-31e5-4ccd-866a-96aa079fbafa",
+					"id": "d8232255-4e88-4aed-a3df-1f9178dbe432",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -912,7 +912,7 @@
 			},
 			"response": [
 				{
-					"id": "99783b1f-37de-4c5d-bd34-054305f424cc",
+					"id": "df9fd0b7-de24-4ea9-85eb-7293bccd0a57",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -1124,6 +1124,114 @@
 				"body": {
 					"mode": "raw",
 					"raw": "[\n  {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"type\": \"House\",\n    \"no\": \"510/46\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120.0,\n      10.0\n    ],\n    \"hid\": 0,\n    \"id\": -5844940478183523289\n    }\n]"
+				},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/place/house",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"place",
+						"house"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New House by org  haven't id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7100c16f-5298-4678-ab13-d5193eb07c72",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200)",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{org_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"type\": \"House\",\n    \"no\": \"510/100\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120.0,\n      10.0\n    ],\n    \"hid\": 111\n    }\n]"
+				},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/place/house",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"place",
+						"house"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New House by mobile  haven't id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d3a5bff7-1792-42e1-acaf-91fff8c9f6a0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{mobile_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"type\": \"House\",\n    \"no\": \"510/101\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120.0,\n      10.0\n    ],\n    \"hid\": -23\n    }\n]"
 				},
 				"url": {
 					"raw": "{{url}}/org/{{org_id}}/place/house",
@@ -1679,7 +1787,7 @@
 			},
 			"response": [
 				{
-					"id": "ff94718f-529c-4307-9d92-033c4d8c197b",
+					"id": "b78fece9-86ac-4d2a-8787-c68043ee0a42",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1882,7 +1990,7 @@
 			},
 			"response": [
 				{
-					"id": "3f97e07c-f956-4e45-8f5b-c50eab8d5246",
+					"id": "24437b34-1704-4ac4-b33a-28ac0d081422",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
