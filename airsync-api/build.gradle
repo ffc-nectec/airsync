@@ -2,7 +2,6 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 
 
-
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 
@@ -55,6 +54,8 @@ dependencies {
     compile "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
     compile "org.glassfish.jersey.containers:jersey-container-jetty-servlet:$jerseyVersion"
     compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
+    compile 'com.google.firebase:firebase-admin:5.11.0'
+
     compile "args4j:args4j:2.33"
     compile "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
     compile 'me.piruin:geok-gson:1.0.0-alpha-2'
@@ -79,6 +80,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
     compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.6.3'
+
 
 
     compile fileTree(dir: 'libs', include: ['*.jar'])

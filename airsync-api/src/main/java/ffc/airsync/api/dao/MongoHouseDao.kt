@@ -121,11 +121,15 @@ class MongoHouseDao : HouseDao {
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
 
-        house.pcuCode = oldDoc.get("property").toString().fromJson<Address>().pcuCode
-        updateDoc.append("property", house.toJson())
+        printDebug("\t1")
+        house.coordinates = null
 
+        house.pcuCode = oldDoc.get("property").toString().fromJson<Address>().pcuCode
+        printDebug("\t2")
+        updateDoc.append("property", house.toJson())
         printDebug("\tcall collection.update (oldDoc, updateDoc)")
         coll.update(oldDoc, updateDoc)
+        printDebug("\t3")
     }
 
     override fun update(houseList: List<Address>) {

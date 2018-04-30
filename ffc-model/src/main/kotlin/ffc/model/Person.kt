@@ -78,6 +78,26 @@ data class Address(var _id: String = "") {
     enum class Type {
         House, Condo
     }
+
+    fun clone(): Address {
+        val cloneObj = Address(this._id)
+        cloneObj._shortId = this._shortId
+        cloneObj.identity = this.identity
+        cloneObj.type = this.type
+        cloneObj.no = this.no
+        cloneObj.road = this.road
+        cloneObj.tambon = this.tambon
+        cloneObj.ampur = this.ampur
+        cloneObj.changwat = this.changwat
+        cloneObj.coordinates = this.coordinates
+        cloneObj.hid = this.hid
+        cloneObj.haveChronics = this.haveChronics
+        cloneObj.people = this.people
+        cloneObj.pcuCode = this.pcuCode
+
+        return cloneObj
+    }
+
 }
 
 data class Chronic(val idc10: String, val diagDate: LocalDate) {

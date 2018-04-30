@@ -52,7 +52,7 @@ interface CentralClient {
 
     @PUT("/v0/org/{orgId}/place/house/action")
     fun putSyncUpdateStatus(@Path("orgId") orgId: String,
-                            @Query("actionId") actionId: UUID,
+                            @Query("id") actionId: UUID,
                             @Query("status") status: ActionHouse.STATUS,
                             @Header("Authorization") authkey: String): Call<Void>
 

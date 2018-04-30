@@ -17,13 +17,19 @@
 
 package ffc.airsync.api;
 
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 public class FFCApiServer {
@@ -50,12 +56,34 @@ public class FFCApiServer {
         }
     }
 
+    public static FirebaseApp firebaseApp = null;
+
     public static void main(String[] args) {
         instance = new FFCApiServer(args);
         instance.run();
     }
 
+
     private void run() {
+
+
+        try {
+            FileInputStream serviceAccount =
+              new FileInputStream("D:\\workspace\\airsync\\airsync-api\\src\\main\\java\\ffc\\airsync\\api\\ffc-nectec-firebase-adminsdk-4ogjg-88a2843d02.json");
+
+
+            FirebaseOptions options = new FirebaseOptions.Builder()
+              .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+              .setDatabaseUrl("https://ffc-nectec.firebaseio.com")
+              .build();
+
+            firebaseApp = FirebaseApp.initializeApp(options);
+        } catch (IOException e) {
+            e.printStackTrace();
+            firebaseApp = FirebaseApp.initializeApp();
+        }
+
+
         System.out.println("Start main process");
         ServletContextHandler context = ServletContextBuilder.build();
 

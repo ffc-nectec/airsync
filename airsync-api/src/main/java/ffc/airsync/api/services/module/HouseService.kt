@@ -65,9 +65,11 @@ object HouseService {
             }
 
 
-            houseDao.update(house)
+            houseDao.update(house.clone())
             printDebug("Call add ActionHouse")
-            val actionHouse = ActionHouse(orgUuid = orgUuid, action = house, updateTo = updateTo)
+
+
+            val actionHouse = ActionHouse(orgUuid = orgUuid, action = house.clone(), updateTo = updateTo)
             actionList.insert(actionHouse)
         } else {
             printDebug("House id not eq update houseIdParameter=$house_id houseIdInData=${house._id}")
