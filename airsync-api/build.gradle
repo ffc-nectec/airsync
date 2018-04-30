@@ -60,26 +60,20 @@ dependencies {
     compile "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
     compile 'me.piruin:geok-gson:1.0.0-alpha-2'
 
-    // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
     compile "org.elasticsearch.client:transport:6.2.1"
 
 
-    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
     compile "org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121"
 
-    // https://mvnrepository.com/artifact/io.searchbox/jest
     compile "io.searchbox:jest:2.4.0"
 
 
-    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-server
     compile "org.eclipse.jetty.websocket:websocket-server:9.4.8.v20171121"
 
-// https://mvnrepository.com/artifact/com.fatboyindustrial.gson-jodatime-serialisers/gson-jodatime-serialisers
-    compile group: 'com.fatboyindustrial.gson-jodatime-serialisers', name: 'gson-jodatime-serialisers', version: '1.6.0'
+    compile "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
 
 
-    // https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver
-    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.6.3'
+    compile "org.mongodb:mongo-java-driver:3.6.3"
 
 
 

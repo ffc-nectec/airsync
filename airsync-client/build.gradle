@@ -41,8 +41,8 @@ compileTestKotlin {
 }
 
 dependencies {
-    def jettyVersion="9.4.1.v20170120"
-    def jerseyVersion="2.25.1"
+    def jettyVersion = "9.4.1.v20170120"
+    def jerseyVersion = "2.25.1"
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':airsync-mysql-log-reader')
@@ -51,12 +51,10 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 
-    // https://mvnrepository.com/artifact/org.elasticsearch.client/transport
-    compile group: 'org.elasticsearch.client', name: 'transport', version: '6.2.1'
+    compile "org.elasticsearch.client:transport:6.2.1"
 
     compile "org.eclipse.jetty:jetty-http:$jettyVersion"
-    // https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
-    compile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.4.8.v20171121'
+    compile "org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121"
 
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
@@ -64,26 +62,18 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile "args4j:args4j:2.33"
+    compile "mysql:mysql-connector-java:5.1.38"
 
-    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.38'
+    compile "org.jdbi:jdbi3-core:3.1.0"
 
+    compile "org.jdbi:jdbi3-kotlin:3.1.0"
 
-    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-core
-    compile group: 'org.jdbi', name: 'jdbi3-core', version: '3.1.0'
-
-
-    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-kotlin
-    compile group: 'org.jdbi', name: 'jdbi3-kotlin', version: '3.1.0'
-
-    // https://mvnrepository.com/artifact/org.jdbi/jdbi3-kotlin-sqlobject
-    compile group: 'org.jdbi', name: 'jdbi3-kotlin-sqlobject', version: '3.1.0'
+    compile "org.jdbi:jdbi3-kotlin-sqlobject:3.1.0"
 
     implementation 'me.piruin:geok-gson:1.0.0-alpha'
+    compile "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
 
-    // https://mvnrepository.com/artifact/com.fatboyindustrial.gson-jodatime-serialisers/gson-jodatime-serialisers
-    compile group: 'com.fatboyindustrial.gson-jodatime-serialisers', name: 'gson-jodatime-serialisers', version: '1.6.0'
-
+    compile 'com.google.firebase:firebase-admin:5.11.0'
 
 
     testImplementation 'junit:junit:4.12'
