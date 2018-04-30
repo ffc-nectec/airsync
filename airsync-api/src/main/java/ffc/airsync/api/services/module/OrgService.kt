@@ -51,5 +51,7 @@ interface OrgService {
     fun createChronic(token: String, orgId: String, chronicList: List<Chronic>)
     fun removeOrganize(token: String, orgId: String)
 
+    fun updateFirebaseToken(token: String, orgId: String, firebaseToken: TokenMessage)
+
 
 }

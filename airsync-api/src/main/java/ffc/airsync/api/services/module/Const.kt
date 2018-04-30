@@ -18,6 +18,7 @@
 package ffc.airsync.api.services.module
 
 import ffc.airsync.api.dao.DaoFactory
+import ffc.model.MobileToken
 import ffc.model.Organization
 import ffc.model.StorageOrg
 import ffc.model.printDebug
@@ -43,7 +44,7 @@ fun getOrgByOrgToken(token: String, orgId: String): Organization {
     return org
 }
 
-fun getOrgByMobileToken(token: UUID, orgId: String): StorageOrg<UUID> {
+fun getOrgByMobileToken(token: UUID, orgId: String): StorageOrg<MobileToken> {
     printDebug("Befor check token")
     val orgUuid = tokenMobile.find(token)
     //if (orgUuid ) throw NotFoundException()

@@ -169,5 +169,9 @@ class HttpRestOrgService : OrgService {
         chronicDao.insert(org.uuid, chronicList)
     }
 
+    override fun updateFirebaseToken(token: String, orgId: String, firebaseToken: TokenMessage) {
+        val mobile = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+        mobile.data.firebaseToken = firebaseToken.token
 
+    }
 }

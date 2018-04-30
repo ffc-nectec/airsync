@@ -17,6 +17,7 @@
 
 package ffc.airsync.api.dao
 
+import ffc.model.MobileToken
 import ffc.model.StorageOrg
 import ffc.model.printDebug
 import java.util.*
@@ -31,7 +32,7 @@ class InMemoryMobileTokenDao : MobileTokenDao {
         val instant = InMemoryMobileTokenDao()
     }
 
-    val tokenList = arrayListOf<StorageOrg<UUID>>()
+    val tokenList = arrayListOf<StorageOrg<MobileToken>>()
 
     override fun removeByOrgUuid(orgUUID: UUID) {
         tokenList.removeIf { it.uuid == orgUUID }
@@ -43,7 +44,7 @@ class InMemoryMobileTokenDao : MobileTokenDao {
         tokenList.removeIf { it.uuid == uuid && it.user == user }
         tokenList.add(StorageOrg(
           uuid = uuid,
-          data = token,
+          data = MobileToken(token),
           user = user,
           id = id))
 
@@ -54,13 +55,22 @@ class InMemoryMobileTokenDao : MobileTokenDao {
 
     }
 
-    override fun find(token: UUID): StorageOrg<UUID> {
-        val tokenObj = tokenList.find { it.data == token }
+    override fun updateFirebaseToken(token: UUID, firebaseToken: String) {
+
+        val mobile = tokenList.find {
+            it.data.token == token
+        }
+        mobile!!.data.firebaseToken = firebaseToken
+    }
+
+
+    override fun find(token: UUID): StorageOrg<MobileToken> {
+        val tokenObj = tokenList.find { it.data.token == token }
         if (tokenObj == null) throw NotAuthorizedException("Not Auth")
         return tokenObj
     }
 
     override fun remove(token: UUID) {
-        tokenList.removeIf { it.data == token }
+        tokenList.removeIf { it.data.token == token }
     }
 }
