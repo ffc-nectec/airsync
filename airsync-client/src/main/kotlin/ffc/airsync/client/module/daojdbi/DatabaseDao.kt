@@ -15,24 +15,15 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module
+package ffc.airsync.client.module.daojdbi
 
-import java.net.URI
+import ffc.model.*
 
-interface PcuSocket {
-    interface OnEventCallbackMessageListener {
-        fun EventCallBackMessage(message: String)
-    }
+interface DatabaseDao {
+    fun getPerson(): List<Person>
+    fun getHouse(): List<Address>
+    fun getChronic(): List<Chronic>
 
-    fun sendText(message: String)
-    fun receiveMessage(message: String, count: Long)
-    fun join()
-
-
-    var eventCallBack: OnEventCallbackMessageListener
-
-
-    fun connect(uri: URI)
-    fun close()
+    fun upateHouse(house: Address)
 
 }

@@ -17,7 +17,7 @@
 
 package ffc.airsync.client;
 
-import ffc.airsync.client.client.MainContraller;
+import ffc.airsync.client.MainContraller;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;

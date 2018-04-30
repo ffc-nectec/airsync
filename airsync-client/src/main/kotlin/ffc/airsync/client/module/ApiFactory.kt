@@ -15,10 +15,16 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module
+package ffc.airsync.client.module
 
-import ffc.model.User
+import ffc.airsync.client.module.retrofit.APIClient
+import ffc.airsync.client.module.retrofit.CentralClient
 
-interface UserDao {
-    fun findAll () : ArrayList<User>
+class ApiFactory {
+    //fun buildUserAuthDao(): UserAuthDAO = DemoUserAuthDao.instance
+    fun buildApiClient(url :String) : CentralClient? {
+        val restService = APIClient().getCient(url)
+        return restService!!.create(CentralClient::class.java)
+    }
+    fun buildUserDao() : UserDao = MySqlUserDao()
 }

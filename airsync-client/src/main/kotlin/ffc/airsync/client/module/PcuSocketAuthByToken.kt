@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module
+package ffc.airsync.client.module
 
 import ffc.model.Organization
 import ffc.model.TokenMessage
@@ -28,7 +28,7 @@ import java.util.concurrent.Future
 
 class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallbackMessageListener, organization :Organization) : PcuSocket {
     val client = WebSocketClient()
-    var socket :BaseNetworkSocket?=null
+    var socket: BaseNetworkSocket? = null
     var sessionObj: Session? = null
     var stage = 0
     val organization :Organization
@@ -63,7 +63,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
         try {
             try {
                 socket = BaseNetworkSocket()
-                socket!!.onWebSocketText = object :BaseNetworkSocket.OnWebSocketText{
+                socket!!.onWebSocketText = object : BaseNetworkSocket.OnWebSocketText {
                     override fun onWebSocketText(message: String?, count: Long) {
                         if (message != null)
                             receiveMessage(message,count)

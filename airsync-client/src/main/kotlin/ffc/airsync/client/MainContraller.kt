@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client
+package ffc.airsync.client
 
-import ffc.airsync.client.client.module.ApiFactory
-import ffc.airsync.client.client.module.daojdbi.DatabaseDao
-import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
+import ffc.airsync.client.module.ApiFactory
+import ffc.airsync.client.module.daojdbi.DatabaseDao
+import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.*
 import java.util.*
 

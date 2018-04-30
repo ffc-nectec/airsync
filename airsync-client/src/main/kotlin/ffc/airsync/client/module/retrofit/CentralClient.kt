@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module.retrofit
+package ffc.airsync.client.module.retrofit
 
 import ffc.model.*
 import retrofit2.Call

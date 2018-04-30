@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module
+package ffc.airsync.client.module
 
 import ffc.model.User
 import ffc.model.printDebug

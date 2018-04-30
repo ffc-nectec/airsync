@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module.daojdbi
+package ffc.airsync.client.module.daojdbi
 
 import ffc.model.Address
 import ffc.model.ThaiHouseholdId

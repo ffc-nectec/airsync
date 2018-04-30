@@ -17,7 +17,7 @@
 
 package ffc.airsync.client
 
-import ffc.airsync.client.client.module.daojdbi.JdbiDatabaseDao
+import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.printDebug
 import org.junit.Test
 

@@ -18,7 +18,7 @@
 package ffc.airsync.client
 
 import com.google.gson.Gson
-import ffc.airsync.client.client.module.BaseNetworkSocket
+import ffc.airsync.client.module.BaseNetworkSocket
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.client.WebSocketClient
 import org.junit.Test

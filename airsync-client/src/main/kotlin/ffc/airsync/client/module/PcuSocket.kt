@@ -15,24 +15,24 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client
+package ffc.airsync.client.module
 
-import ffc.model.*
-import retrofit2.Call
-import java.util.*
+import java.net.URI
 
-interface CentralMessageManage {
-    fun registerOrganization(organization: Organization, url: String): Organization
+interface PcuSocket {
+    interface OnEventCallbackMessageListener {
+        fun EventCallBackMessage(message: String)
+    }
 
-    fun putUser(userInfoList: ArrayList<User>, org: Organization)
+    fun sendText(message: String)
+    fun receiveMessage(message: String, count: Long)
+    fun join()
 
-    fun putHouse(houseList: List<Address>, org: Organization)
 
-    fun putPerson(personList: List<Person>, org: Organization)
+    var eventCallBack: OnEventCallbackMessageListener
 
-    fun putChronic(chronicList: List<Chronic>, org: Organization)
 
-    fun syncAction(org: Organization): List<ActionHouse>
+    fun connect(uri: URI)
+    fun close()
 
-    fun syncActionUpdateStatus(org: Organization, actionId: UUID, status: ActionHouse.STATUS)
 }

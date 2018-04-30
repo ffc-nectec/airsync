@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module
+package ffc.airsync.client.module
 
 import ffc.model.printDebug
 import org.apache.commons.codec.digest.DigestUtils
@@ -28,7 +28,7 @@ class BaseNetworkSocket : WebSocketAdapter() {
         fun onWebSocketText(message: String?, count: Long)
     }
 
-    var onWebSocketText :OnWebSocketText? = null
+    var onWebSocketText: OnWebSocketText? = null
 
 
     var session: String = ""

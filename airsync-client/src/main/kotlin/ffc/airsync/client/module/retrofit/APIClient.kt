@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.client.client.module.retrofit
+package ffc.airsync.client.module.retrofit
 
 import com.fatboyindustrial.gsonjodatime.LocalDateConverter
 import com.google.gson.GsonBuilder
