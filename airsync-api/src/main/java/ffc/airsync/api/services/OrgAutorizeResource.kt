@@ -85,7 +85,7 @@ class OrgAutorizeResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/firebase")
     fun updateFirebaseToken(@Context req: HttpServletRequest,
                             @PathParam("orgId") orgId: String,
                             firebaseToken: TokenMessage
