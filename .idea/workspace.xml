@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d240c001-4b47-4377-95bb-826bad96f885" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Organization.kt" afterPath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Organization.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/airsync-api/.gradle/" />
     <ignored path="$PROJECT_DIR$/airsync-client/.gradle/" />
@@ -87,21 +88,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="525">
-      <file leaf-file-name="HttpRestOrgService.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HttpRestOrgService.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="776">
-              <caret line="171" column="97" lean-forward="false" selection-start-line="171" selection-start-column="97" selection-end-line="171" selection-end-column="97" />
+            <state relative-caret-position="1054">
+              <caret line="68" column="24" lean-forward="false" selection-start-line="68" selection-start-column="24" selection-end-line="68" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OrgAutorizeResource.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Gson.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Gson.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Organization.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Organization.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OrgAutorizeResource.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="87" column="50" lean-forward="false" selection-start-line="87" selection-start-column="50" selection-end-line="87" selection-end-column="50" />
+            <state relative-caret-position="-896">
+              <caret line="118" column="41" lean-forward="false" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -110,8 +131,8 @@
       <file leaf-file-name="HouseService.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="800">
-              <caret line="60" column="97" lean-forward="true" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="97" />
+            <state relative-caret-position="850">
+              <caret line="62" column="23" lean-forward="false" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -1409,7 +1430,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseServices.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Services.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/TokenManage.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestHouseService.kt" />
@@ -1458,8 +1478,9 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MobileTokenDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/OrgService.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt" />
+        <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Organization.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt" />
       </list>
     </option>
   </component>
@@ -1891,13 +1912,6 @@
       <option name="presentableId" value="Default" />
       <updated>1521385021470</updated>
     </task>
-    <task id="LOCAL-00015" summary="GeoJson OK">
-      <created>1522831221733</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1522831221733</updated>
-    </task>
     <task id="LOCAL-00016" summary="เพิ่ม /person&#10;-มี Chronic&#10;-มี House">
       <created>1522901667772</created>
       <option name="number" value="00016" />
@@ -2234,7 +2248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1525077907210</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="iss end point part /firebase">
+      <created>1525077970642</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1525077970642</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2289,14 +2310,14 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46799308" sideWeight="0.29613215" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3217993" sideWeight="0.48791298" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3217993" sideWeight="0.48791298" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22404844" sideWeight="0.4983884" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958478" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30419016" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30419016" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46799308" sideWeight="0.70386785" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25463337" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25463337" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24979855" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -2335,14 +2356,14 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3217993" sideWeight="0.48791298" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3217993" sideWeight="0.48791298" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22404844" sideWeight="0.4983884" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32958478" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30419016" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46799308" sideWeight="0.70386785" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25463337" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25463337" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
@@ -2351,7 +2372,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="iss skip test" />
     <MESSAGE value="iss bug MongoHouseDao" />
     <MESSAGE value="iss mongo bug" />
     <MESSAGE value="iss mongo heroku server" />
@@ -2376,7 +2396,8 @@
     <MESSAGE value="Mobile to Cloud to JHCIS(&gt;confirm call back cloud)" />
     <MESSAGE value="Add Firebase config" />
     <MESSAGE value="add Service update Firebase Token" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Service update Firebase Token" />
+    <MESSAGE value="iss end point part /firebase" />
+    <option name="LAST_COMMIT_MESSAGE" value="iss end point part /firebase" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2394,20 +2415,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="52" column="49" lean-forward="false" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Gson.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/me.piruin/geok/1.0.0-alpha/dc24e898e232b9d86e67f3a3b108ec264488bb6d/geok-1.0.0-alpha-sources.jar!/me/piruin/geok/LatLng.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -2697,7 +2704,7 @@
         <state relative-caret-position="300">
           <caret line="71" column="63" lean-forward="true" selection-start-line="71" selection-start-column="63" selection-end-line="71" selection-end-column="63" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2752,24 +2759,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="800">
-          <caret line="60" column="97" lean-forward="true" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="97" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="776">
-          <caret line="171" column="97" lean-forward="false" selection-start-line="171" selection-start-column="97" selection-end-line="171" selection-end-column="97" />
+        <state relative-caret-position="850">
+          <caret line="62" column="23" lean-forward="false" selection-start-line="62" selection-start-column="16" selection-end-line="62" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgAutorizeResource.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="87" column="50" lean-forward="false" selection-start-line="87" selection-start-column="50" selection-end-line="87" selection-end-column="50" />
+        <state relative-caret-position="-896">
+          <caret line="118" column="41" lean-forward="false" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Gson.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Organization.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HttpRestOrgService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="68" column="24" lean-forward="false" selection-start-line="68" selection-start-column="24" selection-end-line="68" selection-end-column="24" />
           <folding />
         </state>
       </provider>

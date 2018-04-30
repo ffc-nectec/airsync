@@ -17,6 +17,7 @@
 
 package ffc.airsync.api.services.module
 
+import com.sun.org.apache.xpath.internal.operations.Or
 import ffc.model.*
 import java.util.*
 import javax.ws.rs.NotAuthorizedException
@@ -118,10 +119,8 @@ class HttpRestOrgService : OrgService {
         val pcuReturn = orgDao.findByIpAddress(ipAddress)
         if (pcuReturn.isEmpty())
             throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
-        pcuReturn.forEach {
-            it.token = null
-            it.lastKnownIp = null
-        }
+
+        //hideOrgPrivate(pcuReturn)
 
 
         return pcuReturn
@@ -132,11 +131,16 @@ class HttpRestOrgService : OrgService {
     override fun getOrg(): List<Organization> {
         val pcuReturn = orgDao.find()
         if (pcuReturn.isEmpty()) throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
-        pcuReturn.forEach {
+        //hideOrgPrivate(pcuReturn)
+        return pcuReturn
+    }
+
+    private fun hideOrgPrivate(org: List<Organization>) {
+        org.forEach {
             it.token = null
             it.lastKnownIp = null
+            it.firebaseToken = null
         }
-        return pcuReturn
     }
 
     override fun orgUserAuth(id: String, user: String, pass: String): TokenMessage {
@@ -170,8 +174,14 @@ class HttpRestOrgService : OrgService {
     }
 
     override fun updateFirebaseToken(token: String, orgId: String, firebaseToken: TokenMessage) {
-        val mobile = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-        mobile.data.firebaseToken = firebaseToken.token
+
+        try {
+            val mobile = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+            mobile.data.firebaseToken = firebaseToken.token
+        } catch (ex: Exception) {
+            val org = getOrgByOrgToken(token, orgId)
+            org.firebaseToken = firebaseToken.token
+        }
 
     }
 }
