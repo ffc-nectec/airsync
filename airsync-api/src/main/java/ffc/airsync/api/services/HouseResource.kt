@@ -94,6 +94,28 @@ class HouseResource {
 
     }
 
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
+    fun getSingleHouse(@Context req: HttpServletRequest,
+                       @PathParam("orgId") orgId: String,
+                       @PathParam("houseId") houseId: String
+    ): Address {
+        printDebug("Call get single house by ip = " + req.remoteAddr + " OrgID $orgId House ID = $houseId")
+
+
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+
+
+        val house: Address = HouseService.getSingleHouse(token, orgId, houseId)
+
+        return house
+
+    }
+
 
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -172,3 +194,4 @@ class HouseResource {
     }
 
 }
+

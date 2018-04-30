@@ -181,4 +181,22 @@ object HouseService {
 
     }
 
+    fun getSingleHouse(token: String, orgId: String, houseId: String): Address {
+
+        var orgUuid: UUID
+
+        try {
+            orgUuid = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId).uuid
+        } catch (ex: NotAuthorizedException) {
+            orgUuid = getOrgByOrgToken(token, orgId).uuid
+        }
+
+
+        val house = houseDao.findByHouseId(orgUuid, houseId.toInt())?.data
+
+        return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
+
+
+    }
+
 }
