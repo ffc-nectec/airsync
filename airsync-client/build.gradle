@@ -6,7 +6,6 @@ apply plugin: 'kotlin'
 
 
 
-
 jar {
 
     from {
@@ -51,6 +50,15 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
 
+    compile "org.eclipse.jetty:jetty-server:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-http:$jettyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
+    compile "org.glassfish.jersey.containers:jersey-container-jetty-servlet:$jerseyVersion"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
+
+
+
     compile "org.elasticsearch.client:transport:6.2.1"
 
     compile "org.eclipse.jetty:jetty-http:$jettyVersion"
@@ -73,7 +81,13 @@ dependencies {
     implementation 'me.piruin:geok-gson:1.0.0-alpha'
     compile "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
 
+
+    compile "com.google.gdata:core:1.47.1"
+
+
     compile 'com.google.firebase:firebase-admin:5.11.0'
+    compile 'com.google.firebase:firebase-core:15.0.0'
+    implementation 'com.google.firebase:firebase-messaging:15.0.0'
 
 
     testImplementation 'junit:junit:4.12'

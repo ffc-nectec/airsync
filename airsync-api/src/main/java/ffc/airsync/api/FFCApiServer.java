@@ -20,6 +20,8 @@ package ffc.airsync.api;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.Message;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.kohsuke.args4j.CmdLineException;
@@ -30,6 +32,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 
 public class FFCApiServer {
@@ -83,13 +86,33 @@ public class FFCApiServer {
             firebaseApp = FirebaseApp.initializeApp();
         }
 
+        String registrationToken = "cPQvUP0IByE:APA91bEIbT3Xg0dbkyIVMZtjZQi__AHWTWVuYWSqfPzxz18QhaFUF4g2TkgsJ-V4itwtuWjbIwNZdJQY7So820729kHDBSDbFd24Tc-0g8CDLP-ZzZRn25zVpHMiYfgI0raA0Ge6RFwX";
+
+        Message message = Message.builder()
+          .putData("score", "850")
+          .putData("time", "2:45")
+
+          .setToken(registrationToken)
+          .build();
+
+        String response = null;
+        try {
+            response = FirebaseMessaging.getInstance().sendAsync(message).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+// Response is a message ID string.
+        System.out.println("Successfully sent message: " + response);
+
 
         System.out.println("Start main process");
         ServletContextHandler context = ServletContextBuilder.build();
 
         Server server = new Server(JettyServerTuning.getThreadPool());
 
-        server.setConnectors(JettyServerTuning.getConnectors(server,host, port));
+        server.setConnectors(JettyServerTuning.getConnectors(server, host, port));
         server.setHandler(context);
         server.addBean(JettyServerTuning.getMonitor(server));
         try {

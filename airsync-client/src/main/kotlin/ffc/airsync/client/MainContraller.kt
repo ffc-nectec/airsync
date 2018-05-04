@@ -22,11 +22,20 @@ import ffc.airsync.client.module.daojdbi.DatabaseDao
 import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.*
 import java.util.*
+import com.google.firebase.iid.FirebaseInstanceId
+import ffc.airsync.client.webservice.FFCApiClient
+
 
 class MainContraller {
 
 
     fun main(dbHost: String, dbPort: String, dbName: String, dbUsername: String, dbPassword: String, orgUuid: String, orgName: String, orgCode: String) {
+
+
+        val ffcApiClient = FFCApiClient("127.0.0.1", 8081)
+        ffcApiClient.start()
+        ffcApiClient.join()
+
         //get config
         //check my.ini
         //check log resume
@@ -104,6 +113,7 @@ class MainContraller {
             } catch (ex: NullPointerException) {
 
             }
+
 
 
 
