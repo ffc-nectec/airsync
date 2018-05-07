@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "e16e0f4d-6cae-474b-8641-85df13c1d89a",
+					"id": "01e17b82-e9be-4e55-95ef-7b76da62d156",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -98,6 +98,177 @@
 					"header": [],
 					"cookie": [],
 					"body": "{\n    \"code\": \"145\",\n    \"name\": \"เนคเทค\",\n    \"uuid\": \"15169\",\n    \"token\": \"2314abc\",\n    \"id\": \"1\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Register User Unauthorized",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7815a938-6c1a-4489-89ee-5e607bcfd49e",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n  \"username\":\"admin0\",\n  \"password\": \"1234admin0\"\n},{\n\t\"username\":\"admin1\",\n  \"password\": \"1234admin1\"\n},{\n\t\"username\":\"puy\",\n  \"password\": \"hipuy\"\n}\n]"
+				},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"user"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "fca6e4bc-cfa5-4de1-8df1-bce245200166",
+					"name": "Register User",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\n  \"username\":\"admin0\",\n  \"password\": \"1234admin0\"\n},{\n\t\"username\":\"admin1\",\n  \"password\": \"1234admin1\"\n}\n]"
+						},
+						"url": {
+							"raw": "{{url}}/org/1/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"org",
+								"1",
+								"user"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"name": "Access-Control-Allow-Credentials",
+							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"name": "Access-Control-Allow-Methods",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "",
+							"name": "Access-Control-Expose-Headers",
+							"description": "Lets a server whitelist headers that browsers are allowed to access."
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"name": "Content-Encoding",
+							"description": "The type of encoding used on the data."
+						},
+						{
+							"key": "Content-Length",
+							"value": "159",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 19 Mar 2018 10:01:07 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b1-t6MXwpDE+IBswaWGyMe2Qg\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Server",
+							"value": "nginx",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"name": "Vary",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						}
+					],
+					"cookie": [],
+					"body": ""
 				}
 			]
 		},
@@ -169,7 +340,7 @@
 			},
 			"response": [
 				{
-					"id": "a378e1d9-79a1-4ce0-b1a7-e7b34dbf8490",
+					"id": "0ad01c23-9a24-4fbc-b743-ac779e6d4c23",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -288,7 +459,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "fea6cc6a-fb65-4826-8c70-e48c52f1e62d",
+					"id": "2b029fbf-b348-4fe3-80e8-bf676384f51f",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -381,7 +552,7 @@
 			},
 			"response": [
 				{
-					"id": "766cb7ec-8f14-4031-968d-d3355efb3875",
+					"id": "07dbff0d-d008-491d-829c-851a93a81cb2",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -558,7 +729,7 @@
 			},
 			"response": [
 				{
-					"id": "23653b46-2248-40bd-99e6-5ca73f9029e1",
+					"id": "0fa09042-9977-46e6-a426-c308680594bf",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -735,7 +906,7 @@
 			},
 			"response": [
 				{
-					"id": "263e30d7-29ca-436f-945f-1e47be1ce94b",
+					"id": "c6f19972-13b5-4e9e-beef-033e98b059d5",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -912,7 +1083,7 @@
 			},
 			"response": [
 				{
-					"id": "95e153b4-9d0b-46fc-b35b-95781435a779",
+					"id": "e6e40878-16d8-4b21-9f0c-bd76300356db",
 					"name": "Login username adm",
 					"originalRequest": {
 						"method": "POST",
@@ -1895,7 +2066,7 @@
 			},
 			"response": [
 				{
-					"id": "b7fcf82f-6f17-4704-b03e-65ce706e4fe1",
+					"id": "f2324ff1-1c44-4c67-8915-823b1c220080",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2098,7 +2269,7 @@
 			},
 			"response": [
 				{
-					"id": "845ec802-6acb-4146-ad2a-6cb8d67e3ad0",
+					"id": "1161a777-c148-4f1b-8b38-599b42b06bdc",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
