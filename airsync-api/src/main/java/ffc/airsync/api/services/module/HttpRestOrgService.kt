@@ -17,7 +17,6 @@
 
 package ffc.airsync.api.services.module
 
-import com.sun.org.apache.xpath.internal.operations.Or
 import ffc.model.*
 import java.util.*
 import javax.ws.rs.NotAuthorizedException
@@ -173,14 +172,17 @@ class HttpRestOrgService : OrgService {
         chronicDao.insert(org.uuid, chronicList)
     }
 
-    override fun updateFirebaseToken(token: String, orgId: String, firebaseToken: TokenMessage) {
+    override fun updateFirebaseToken(token: String, orgId: String, firebaseToken: FirebaseToken) {
 
         try {
             val mobile = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-            mobile.data.firebaseToken = firebaseToken.token
+            printDebug("Update firebase token mobile $firebaseToken")
+            mobile.data.firebaseToken = firebaseToken.firebasetoken
         } catch (ex: Exception) {
             val org = getOrgByOrgToken(token, orgId)
-            org.firebaseToken = firebaseToken.token
+            printDebug("Update firebase token organization $firebaseToken")
+            org.firebaseToken = firebaseToken.firebasetoken
+
         }
 
     }

@@ -45,12 +45,12 @@ fun getOrgByOrgToken(token: String, orgId: String): Organization {
 }
 
 fun getOrgByMobileToken(token: UUID, orgId: String): StorageOrg<MobileToken> {
-    printDebug("Befor check token")
+    printDebug("Befor check mobile token")
     val orgUuid = tokenMobile.find(token)
     //if (orgUuid ) throw NotFoundException()
     if (orgUuid.id != orgId.toInt()) throw NotAuthorizedException("Not Auth")
 
-    printDebug("Token pass org ")
+    printDebug("Token pass ")
 
     return orgUuid
 }

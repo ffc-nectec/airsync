@@ -22,19 +22,20 @@ import ffc.airsync.client.module.daojdbi.DatabaseDao
 import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.*
 import java.util.*
-import com.google.firebase.iid.FirebaseInstanceId
 import ffc.airsync.client.webservice.FFCApiClient
+import ffc.airsync.client.webservice.module.FirebaseMessage
 
 
 class MainContraller {
 
+    companion object {
+        val messageCentral: CentralMessageManage=CentralMessageMaorgUpdatenageV1()
+    }
 
     fun main(dbHost: String, dbPort: String, dbName: String, dbUsername: String, dbPassword: String, orgUuid: String, orgName: String, orgCode: String) {
 
 
-        val ffcApiClient = FFCApiClient("127.0.0.1", 8081)
-        ffcApiClient.start()
-        ffcApiClient.join()
+
 
         //get config
         //check my.ini
@@ -43,7 +44,7 @@ class MainContraller {
 
 
         //register central
-        val messageCentral: CentralMessageManage = CentralMessageMaorgUpdatenageV1()
+        //messageCentral = CentralMessageMaorgUpdatenageV1()
 
         var org = Organization(uuid = UUID.fromString(orgUuid), id = "-1", pcuCode = orgCode, name = orgName)
         org = messageCentral.registerOrganization(org, Config.baseUrlRest)
@@ -94,31 +95,51 @@ class MainContraller {
          socket.join()
          */
         printDebug("Finish push")
-        while (true) {
-            var actionList: List<ActionHouse>? = null
-            try {
-                actionList = messageCentral.syncAction(org)
-
-                actionList.forEach {
-
-                    try {
-                        databaseDao.upateHouse(it.action)
-                        messageCentral.syncActionUpdateStatus(org, it.actionId, ActionHouse.STATUS.COMPLETE)
-                    } catch (ex: Exception) {
-
-                    }
-                }
 
 
-            } catch (ex: NullPointerException) {
+        FirebaseMessage.instant.onUpdateListener = object :FirebaseMessage.OnUpdateListener{
+            override fun onUpdate(token: FirebaseToken) {
+                printDebug("OnUpdateListener $token")
+                messageCentral.putFirebaseToken(token,org)
 
             }
 
-
-
-
-            Thread.sleep(5000)
         }
+        FirebaseMessage.instant.onUpdateHouseListener = object :FirebaseMessage.OnUpdateHouseListener{
+            override fun onUpdate(_id: String) {
+                printDebug("OnUpdateHouseListener _id $_id")
+                messageCentral.getHouseAndUpdate(org= org,_id = _id,databaseDao = databaseDao)
+
+            }
+        }
+
+        val ffcApiClient = FFCApiClient("127.0.0.1", 8081)
+        ffcApiClient.start()
+        ffcApiClient.join()
+
+
+        /* while (true) {
+             var actionList: List<ActionHouse>? = null
+             try {
+                 actionList = messageCentral.syncAction(org)
+
+                 actionList.forEach {
+
+                     try {
+                         databaseDao.upateHouse(it.action)
+                         messageCentral.syncActionUpdateStatus(org, it.actionId, ActionHouse.STATUS.COMPLETE)
+                     } catch (ex: Exception) {
+
+                     }
+                 }
+
+
+             } catch (ex: NullPointerException) {
+
+             }
+
+             //Thread.sleep(5000)
+         }*/
 
     }
 }

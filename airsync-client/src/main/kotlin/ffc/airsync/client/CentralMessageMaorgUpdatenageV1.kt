@@ -18,16 +18,22 @@
 package ffc.airsync.client
 
 import ffc.airsync.client.module.ApiFactory
+import ffc.airsync.client.module.daojdbi.DatabaseDao
+import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.*
 import java.util.*
+import javax.ws.rs.NotFoundException
 
 
 class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
 
-    var organization: Organization? = null
-    var urlBase: String? = null
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
+
+    companion object {
+        var organization: Organization? = null
+        var urlBase: String? = null
+    }
 
 
     override fun syncAction(org: Organization): List<ActionHouse> {
@@ -46,6 +52,23 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         throw NullPointerException()
     }
 
+    override fun getHouseAndUpdate(org: Organization, _id: String,databaseDao : DatabaseDao) {
+        printDebug("Get house house _id = $_id")
+        val data = restService!!.getHouse(orgId = org.id,authkey = "Bearer " + org.token!!,_id = _id).execute()
+        printDebug("\tRespond code ${data.code()}")
+        val house = data.body()?: throw NotFoundException("ไม่มี เลขบ้าน getHouse")
+        printDebug("\t From house cloud _id = ${house._id} house No. ${house.no}")
+        if (house._sync) return
+
+        databaseDao.upateHouse(house)
+        printDebug("\tUpdate house to database and sync = true")
+        house._sync=true
+
+
+        printDebug("\tPut new house to cloud")
+        restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id,house = house).execute()
+
+    }
 
     override fun syncActionUpdateStatus(org: Organization, actionId: UUID, status: ActionHouse.STATUS) {
 
@@ -65,6 +88,14 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     }
 
+    override fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization) {
+        printDebug("PutFirebase Token to Server")
+        printDebug("\torgId ${org.id} orgToken ${org.token}")
+        restService!!.createFirebaseToken(orgId = org.id,
+          authkey = "Bearer " + org.token!!,
+          firebaseToken = firebaseToken
+        ).execute()
+    }
 
     override fun putHouse(houseList: List<Address>, org: Organization) {
 
@@ -111,10 +142,6 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     }
 
-    fun getUserFromDb2() {
-
-
-    }
 
     override fun putPerson(personList: List<Person>, org: Organization) {
         restService!!.createPerson(orgId = org.id,
@@ -131,8 +158,8 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     }
 
     override fun registerOrganization(organization: Organization, url: String): Organization {
-        this.organization = organization
-        this.urlBase = url
+        CentralMessageMaorgUpdatenageV1.organization = organization
+        urlBase = url
 
         //val organization2: Organization = organization.toJson().httpPost(url).body()!!.string().fromJson()
         val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
@@ -141,8 +168,10 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         printDebug("Client registerOrg " + org)
         //Thread.sleep(3000)
 
-        if (org != null)
+        if (org != null) {
+            CentralMessageMaorgUpdatenageV1.organization = org
             return org
+        }
         throw ClassNotFoundException()
     }
 

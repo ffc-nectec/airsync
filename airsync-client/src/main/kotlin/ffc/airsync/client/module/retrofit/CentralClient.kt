@@ -28,11 +28,11 @@ interface CentralClient {
 
 
     @POST("/v0/org/{orgId}/user")
-    fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body user : List<User>): Call<Void>
+    fun regisUser(@Path("orgId") orgId: String, @Header("Authorization") authkey: String, @Body user: List<User>): Call<Void>
 
 
     @POST("/v0/org/{orgId}/place/house")
-    fun createHouse(@Path("orgId") orgId: String, @Header("Authorization") authkey :String, @Body houseList : List<Address>): Call<Void>
+    fun createHouse(@Path("orgId") orgId: String, @Header("Authorization") authkey: String, @Body houseList: List<Address>): Call<Void>
 
     @POST("/v0/org/{orgId}/person")
     fun createPerson(@Path("orgId") orgId: String,
@@ -50,11 +50,28 @@ interface CentralClient {
                         @Header("Authorization") authkey: String): Call<List<ActionHouse>>
 
 
+    @GET("/v0/org/{orgId}/place/house/{house_id}")
+    fun getHouse(@Path("orgId") orgId: String,
+                 @Header("Authorization") authkey: String,
+                 @Path("house_id") _id: String): Call<Address>
+
+
+    @PUT("/v0/org/{orgId}/place/house/{house_id}")
+    fun putHouse(@Path("orgId") orgId: String,
+                 @Header("Authorization") authkey: String,
+                 @Path("house_id") _id: String,
+                 @Body house: Address)
+      : Call<Void>
+
+
     @PUT("/v0/org/{orgId}/place/house/action")
     fun putSyncUpdateStatus(@Path("orgId") orgId: String,
                             @Query("id") actionId: UUID,
                             @Query("status") status: ActionHouse.STATUS,
                             @Header("Authorization") authkey: String): Call<Void>
+
+    @PUT("/v0/org/{orgId}/firebase")
+    fun createFirebaseToken(@Path("orgId") orgId: String, @Header("Authorization") authkey: String, @Body firebaseToken: FirebaseToken): Call<Void>
 
 
 }

@@ -175,12 +175,33 @@ class MongoHouseDao : HouseDao {
     }
 
     override fun findByHouseId(orgUuid: UUID, hid: Int): StorageOrg<Address>? {
+        printDebug("House mongo dao findByHouseId\n\torgUuid $orgUuid hid $hid")
         val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("hid", hid)
         val dbObj = coll.findOne(query)
+        printDebug("\tQuery property = ${dbObj.get("property")}")
         val house: Address = dbObj.get("property").toString().fromJson()
+
+        printDebug("\tset lat long")
         house.coordinates = LatLng(dbObj.get("latitude").toString().toDouble(), dbObj.get("longitude").toString().toDouble())
 
+        printDebug("\tReturn")
+        return StorageOrg(orgUuid, house)
+    }
+
+    override fun findByHouse_Id(orgUuid: UUID, _id: String): StorageOrg<Address>? {
+
+        printDebug("House mongo dao findByHouse_Id\n\torgUuid $orgUuid _id $_id")
+        val query = BasicDBObject("orgUuid", orgUuid.toString())
+          .append("_id", ObjectId(_id))
+        val dbObj = coll.findOne(query)
+        printDebug("\tQuery property = ${dbObj.get("property")}")
+        val house: Address = dbObj.get("property").toString().fromJson()
+
+        printDebug("\tset lat long")
+        house.coordinates = LatLng(dbObj.get("latitude").toString().toDouble(), dbObj.get("longitude").toString().toDouble())
+
+        printDebug("\tReturn")
         return StorageOrg(orgUuid, house)
     }
 

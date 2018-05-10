@@ -19,7 +19,7 @@ package ffc.airsync.client.webservice.webresources
 
 
 import ffc.model.FirebaseMessage
-import ffc.model.FirebaseToken22
+import ffc.model.FirebaseToken
 import ffc.model.fromJson
 import ffc.model.printDebug
 import javax.servlet.http.HttpServletRequest
@@ -27,6 +27,7 @@ import javax.ws.rs.*
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
+
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -39,8 +40,16 @@ class FirebaseResource {
                             token: String): Response {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("Firebase token $token")
-        val firebaseToken: FirebaseToken22 = token.fromJson()
-        printDebug("Firebase token $firebaseToken")
+        val firebaseToken: FirebaseToken = token.fromJson()
+        printDebug("Firebase token= $firebaseToken")
+
+
+        val fbm = ffc.airsync.client.webservice.module.FirebaseMessage.instant
+
+        printDebug("\tCall update Token")
+        fbm.updateToken(firebaseToken)
+
+        printDebug("\tBefore put Firebase token")
 
         return Response.status(Response.Status.CREATED).build()
 
@@ -50,13 +59,19 @@ class FirebaseResource {
     @POST
     @Path("/event")
     fun updateFirebaseEvent(@Context req: HttpServletRequest,
-                            event: String): Response {
+                            message: String): Response {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
-        printDebug("Firebase event $event")
+        printDebug("\tFirebase message data $message")
+        val event: FirebaseMessage = message.fromJson()
+        printDebug("\t\tID = ${event.message.data._id} Type = ${event.message.data.type} Url = ${event.message.data.url}")
+        val data = event.message.data
+        val fbm = ffc.airsync.client.webservice.module.FirebaseMessage.instant
 
-        val firebaseMessage: FirebaseMessage = event.fromJson()
 
-        printDebug("Firebase Message = $firebaseMessage")
+
+        if (data.type == FirebaseMessage.Type.House)
+            fbm.updateHouse(data)
+
 
         return Response.status(Response.Status.CREATED).build()
 

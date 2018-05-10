@@ -17,6 +17,7 @@
 
 package ffc.airsync.api.services.module
 
+import com.google.firebase.messaging.Message
 import ffc.airsync.api.dao.ActionListDao
 import ffc.airsync.api.dao.DaoFactory
 import ffc.model.*
@@ -45,37 +46,86 @@ object HouseService {
         houseDao.insert(org.uuid, houseList)
     }
 
+
     fun update(token: String, orgId: String, house: Address, house_id: String) {
         //val org = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
 
+        printDebug("Update house token $token orgid $orgId house_id $house_id house ${house.toJson()}")
         if (house._id == "") throw BadRequestException("ไม่มี _id")
 
         house.people = null
         house.haveChronics = null
         if (house_id == house._id) {
 
-            var orgUuid: UUID
-            var updateTo = ActionHouse.UPDATETO.ORG
+
+            //var updateTo = ActionHouse.UPDATETO.ORG
+            var _sync = false
+            val firebaseTokenGropOrg = arrayListOf<String>()
+
+            var mobileList: List<StorageOrg<MobileToken>>? = null
+            var org: Organization? = null
 
             try {
-                orgUuid = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId).uuid
+                printDebug("\tFind mobile token")
+                val mobile = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+                mobileList = tokenMobile.findByOrgUuid(mobile.uuid)
+                org = orgDao.findByUuid(mobile.uuid)
+                printDebug("\t\tFound mobile token")
+
+
             } catch (ex: NotAuthorizedException) {
-                orgUuid = getOrgByOrgToken(token, orgId).uuid
-                updateTo = ActionHouse.UPDATETO.MOBILE
+                printDebug("\tFind org token")
+                val organize = getOrgByOrgToken(token, orgId)
+                _sync = true
+                mobileList = tokenMobile.findByOrgUuid(organize.uuid)
+                org = organize
+                printDebug("\t\tFound org token")
+
+
+            } finally {
+
+                printDebug("\tGroup firebase token")
+
+                mobileList?.forEach {
+                    firebaseTokenGropOrg.add(it.data.firebaseToken ?: "")
+                    printDebug("\tmobile $it")
+                }
+                firebaseTokenGropOrg.add(org?.firebaseToken ?: "")
+                printDebug("\torg ${org?.firebaseToken}")
             }
 
 
+
+            house._sync = _sync
+
+
             houseDao.update(house.clone())
-            printDebug("Call add ActionHouse")
 
 
-            val actionHouse = ActionHouse(orgUuid = orgUuid, action = house.clone(), updateTo = updateTo)
-            actionList.insert(actionHouse)
+            printDebug("Call send notification size list token = ${firebaseTokenGropOrg.size} ")
+
+
+            //val actionHouse = ActionHouse(orgUuid = orgUuid, action = house.clone(), updateTo = updateTo)
+            firebaseTokenGropOrg.forEach {
+                printDebug("\ttoken=$it")
+                if (it.isNotEmpty())
+                    Message.builder().putHouseData(house,it,orgId)
+
+
+                      /*onHouseUpdate(orgId = orgId,
+                      house = house.clone(),
+                      house_id = house_id,
+                      firebaseToken = it)*/
+            }
+
+
         } else {
             printDebug("House id not eq update houseIdParameter=$house_id houseIdInData=${house._id}")
             throw BadRequestException("House _id not eq update")
         }
     }
+
+
 
     fun getAction(token: String, orgId: String, updateTo: ActionHouse.UPDATETO = ActionHouse.UPDATETO.ORG): List<ActionHouse> {
         //val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId) // ตรวจสอบ Token จาก Mobile
@@ -192,7 +242,7 @@ object HouseService {
         }
 
 
-        val house = houseDao.findByHouseId(orgUuid, houseId.toInt())?.data
+        val house = houseDao.findByHouse_Id(orgUuid, houseId)?.data
 
         return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
 
@@ -200,3 +250,5 @@ object HouseService {
     }
 
 }
+
+

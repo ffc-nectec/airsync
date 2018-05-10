@@ -17,8 +17,8 @@
 
 package ffc.airsync.client
 
+import ffc.airsync.client.module.daojdbi.DatabaseDao
 import ffc.model.*
-import retrofit2.Call
 import java.util.*
 
 interface CentralMessageManage {
@@ -31,6 +31,10 @@ interface CentralMessageManage {
     fun putPerson(personList: List<Person>, org: Organization)
 
     fun putChronic(chronicList: List<Chronic>, org: Organization)
+
+    fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization)
+
+    fun getHouseAndUpdate(org: Organization, _id: String,databaseDao : DatabaseDao)
 
     fun syncAction(org: Organization): List<ActionHouse>
 

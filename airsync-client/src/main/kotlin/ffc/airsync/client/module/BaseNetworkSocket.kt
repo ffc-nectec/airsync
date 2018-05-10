@@ -18,7 +18,7 @@
 package ffc.airsync.client.module
 
 import ffc.model.printDebug
-import org.apache.commons.codec.digest.DigestUtils
+//import org.apache.commons.codec.digest.DigestUtils
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
 
@@ -37,7 +37,7 @@ class BaseNetworkSocket : WebSocketAdapter() {
     override fun onWebSocketConnect(sess: Session?) {
         super.onWebSocketConnect(sess)
         printDebug("Socket Connected: " + sess)
-        this.session = DigestUtils.sha1Hex(sess.toString())
+        //this.session = DigestUtils.sha1Hex(sess.toString())
         printDebug("Session= " + this.session)
     }
 

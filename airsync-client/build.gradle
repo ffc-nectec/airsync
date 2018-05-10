@@ -84,6 +84,8 @@ dependencies {
 
     compile "com.google.gdata:core:1.47.1"
 
+    compile "commons-codec:commons-codec:1.9"
+
 
     compile 'com.google.firebase:firebase-admin:5.11.0'
     compile 'com.google.firebase:firebase-core:15.0.0'

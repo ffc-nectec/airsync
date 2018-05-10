@@ -17,4 +17,11 @@
 
 package ffc.model
 
-data class FirebaseMessage(val message: String)
+data class FirebaseMessage(val message: Message) {
+    data class Message(val data: Data)
+    data class Data(val _id :String,val type :Type,val url :String)
+
+    enum class Type{
+        House
+    }
+}

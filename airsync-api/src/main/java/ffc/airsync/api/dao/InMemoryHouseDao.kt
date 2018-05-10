@@ -51,6 +51,10 @@ class InMemoryHouseDao : HouseDao {
 
     }
 
+    override fun findByHouse_Id(orgUuid: UUID, _id: String): StorageOrg<Address>? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun update(house: Address) {
         printDebug("Update house = ${house.identity?.id} XY= ${house.coordinates}")
         val houseUpdate = houseList.find {

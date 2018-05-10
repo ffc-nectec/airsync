@@ -86,25 +86,6 @@ public class FFCApiServer {
             firebaseApp = FirebaseApp.initializeApp();
         }
 
-        String registrationToken = "cPQvUP0IByE:APA91bEIbT3Xg0dbkyIVMZtjZQi__AHWTWVuYWSqfPzxz18QhaFUF4g2TkgsJ-V4itwtuWjbIwNZdJQY7So820729kHDBSDbFd24Tc-0g8CDLP-ZzZRn25zVpHMiYfgI0raA0Ge6RFwX";
-
-        Message message = Message.builder()
-          .putData("score", "850")
-          .putData("time", "2:45")
-
-          .setToken(registrationToken)
-          .build();
-
-        String response = null;
-        try {
-            response = FirebaseMessaging.getInstance().sendAsync(message).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-// Response is a message ID string.
-        System.out.println("Successfully sent message: " + response);
 
 
         System.out.println("Start main process");

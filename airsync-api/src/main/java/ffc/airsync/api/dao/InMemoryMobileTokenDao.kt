@@ -39,7 +39,7 @@ class InMemoryMobileTokenDao : MobileTokenDao {
 
     }
 
-    override fun insert(token: UUID, uuid: UUID, user: String, id: Int) {
+    override fun insert(token: UUID, uuid: UUID, user: String, id: Int) { //uuid is orgUuid
         //1 User per 1 Token
         tokenList.removeIf { it.uuid == uuid && it.user == user }
         tokenList.add(StorageOrg(
@@ -68,6 +68,13 @@ class InMemoryMobileTokenDao : MobileTokenDao {
         val tokenObj = tokenList.find { it.data.token == token }
         if (tokenObj == null) throw NotAuthorizedException("Not Auth")
         return tokenObj
+    }
+
+    override fun findByOrgUuid(orgUUID: UUID): List<StorageOrg<MobileToken>> {//return org > mobile
+        val mobileListInOrg=tokenList.filter {
+            it.uuid==orgUUID
+        }
+        return mobileListInOrg
     }
 
     override fun remove(token: UUID) {

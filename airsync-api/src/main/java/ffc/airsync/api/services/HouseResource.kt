@@ -78,7 +78,7 @@ class HouseResource {
                  @PathParam("houseId") houseId: String
                  , house: Address
     ): Response {
-        printDebug("Call create house by ip = " + req.remoteAddr + " OrgID $orgId")
+        printDebug("Call put house by ip = " + req.remoteAddr + " OrgID $orgId")
 
         //printDebug(dd)
         printDebug("hid ${house.hid} _id ${house._id} latLng ${house.coordinates}")

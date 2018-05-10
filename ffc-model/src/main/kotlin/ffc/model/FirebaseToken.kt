@@ -17,4 +17,4 @@
 
 package ffc.model
 
-data class FirebaseToken22(val firebasetoken: String)
+data class FirebaseToken(val firebasetoken: String)

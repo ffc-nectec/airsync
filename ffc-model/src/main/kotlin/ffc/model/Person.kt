@@ -75,6 +75,8 @@ data class Address(var _id: String = "") {
     var people: List<People>? = null
     var pcuCode: String? = null
 
+    var _sync:Boolean = false
+
     enum class Type {
         House, Condo
     }
@@ -94,6 +96,7 @@ data class Address(var _id: String = "") {
         cloneObj.haveChronics = this.haveChronics
         cloneObj.people = this.people
         cloneObj.pcuCode = this.pcuCode
+        cloneObj._sync=this._sync
 
         return cloneObj
     }

@@ -60,7 +60,7 @@ public class Main {
     protected String orgCode = ORGCODE;
 
 
-    public Main(String[] args) {
+    private Main(String[] args) {
         try {
             CmdLineParser parser = new CmdLineParser(this);
             parser.parseArgument(args);
@@ -76,7 +76,7 @@ public class Main {
     }
 
 
-    public void run() {
+    private void run() {
         new MainContraller().main(dbhost, dbpot, dbname, dbusername, dbpassword, orgUuid, orgName, orgCode);
     }
 

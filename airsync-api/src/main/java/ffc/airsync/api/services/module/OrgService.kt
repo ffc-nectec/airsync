@@ -18,8 +18,6 @@
 package ffc.airsync.api.services.module
 
 import ffc.model.*
-import me.piruin.geok.geometry.FeatureCollection
-import java.util.*
 import kotlin.collections.ArrayList
 
 interface OrgService {
@@ -51,7 +49,7 @@ interface OrgService {
     fun createChronic(token: String, orgId: String, chronicList: List<Chronic>)
     fun removeOrganize(token: String, orgId: String)
 
-    fun updateFirebaseToken(token: String, orgId: String, firebaseToken: TokenMessage)
+    fun updateFirebaseToken(token: String, orgId: String, firebaseToken: FirebaseToken)
 
 
 }

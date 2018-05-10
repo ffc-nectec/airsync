@@ -17,12 +17,10 @@
 
 package ffc.airsync.api.services
 
-import ffc.airsync.api.services.module.HouseService
 import ffc.airsync.api.services.module.OrgService
 import ffc.airsync.api.services.module.HttpRestOrgService
 import ffc.model.*
 import java.util.*
-import java.util.function.BiConsumer
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -88,9 +86,9 @@ class OrgAutorizeResource {
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/firebase")
     fun updateFirebaseToken(@Context req: HttpServletRequest,
                             @PathParam("orgId") orgId: String,
-                            firebaseToken: TokenMessage
+                            firebaseToken: FirebaseToken
     ): Response {
-        printDebug("Call update Firebase Token by ip = " + req.remoteAddr + " OrgID $orgId Firebase Token = ${firebaseToken.token}")
+        printDebug("Call update Firebase Token by ip = " + req.remoteAddr + " OrgID $orgId Firebase Token = ${firebaseToken.firebasetoken}")
 
         //printDebug(dd
 

@@ -24,6 +24,7 @@ import java.util.*
 interface MobileTokenDao {
     fun insert(token: UUID, uuid: UUID, user: String, id: Int)
     fun find(token: UUID): StorageOrg<MobileToken>
+    fun findByOrgUuid(orgUUID: UUID) : List<StorageOrg<MobileToken>>
     fun remove(token: UUID)
     fun updateFirebaseToken(token: UUID, firebaseToken: String)
     fun removeByOrgUuid(orgUUID: UUID)
