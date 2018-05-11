@@ -76,24 +76,6 @@ class MainContraller {
         messageCentral.putChronic(chronicList, org)
 
 
-        /* val socket = PcuSocketAuthByToken(object : PcuSocket.OnEventCallbackMessageListener {
-             override fun EventCallBackMessage(message: String) {
-                 if (message == "X") {
-                    // messageCentral.getData()
-
-                 } else {// Cannot X
-
-                 }
-             }
-
-         },org)
-
-
-
-
-         socket.connect(URI.create(org.socketUrl))
-         socket.join()
-         */
         printDebug("Finish push")
 
 
@@ -117,29 +99,6 @@ class MainContraller {
         ffcApiClient.start()
         ffcApiClient.join()
 
-
-        /* while (true) {
-             var actionList: List<ActionHouse>? = null
-             try {
-                 actionList = messageCentral.syncAction(org)
-
-                 actionList.forEach {
-
-                     try {
-                         databaseDao.upateHouse(it.action)
-                         messageCentral.syncActionUpdateStatus(org, it.actionId, ActionHouse.STATUS.COMPLETE)
-                     } catch (ex: Exception) {
-
-                     }
-                 }
-
-
-             } catch (ex: NullPointerException) {
-
-             }
-
-             //Thread.sleep(5000)
-         }*/
 
     }
 }
