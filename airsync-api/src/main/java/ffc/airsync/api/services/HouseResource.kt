@@ -127,7 +127,6 @@ class HouseResource {
         printDebug("\nCall create house by ip = " + req.remoteAddr)
 
 
-
         houseList.forEach {
             it.people = null
             it.haveChronics = null
@@ -139,57 +138,6 @@ class HouseResource {
           ?: throw NotAuthorizedException("Not Authorization")
         HouseService.create(token, orgId, houseList)
         return Response.status(Response.Status.CREATED).build()
-
-    }
-
-
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @GET
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/action")
-    fun getHouseAction(@QueryParam("page") page: Int = 1,
-                       @QueryParam("per_page") per_page: Int = 200,
-                       @PathParam("orgId") orgId: String,
-                       @Context req: HttpServletRequest): List<ActionHouse> {
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
-
-
-
-        printDebug("getHouse method getHouseAction paramete orgId $orgId page $page per_page $per_page")
-
-
-        val actionList = HouseService.getAction(token = token,
-          orgId = orgId)
-        if (actionList.isEmpty()) throw NotFoundException("ไม่มี Action List")
-
-        return actionList
-    }
-
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @PUT
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/action")
-    fun getUpdateCompleateAction(
-      @PathParam("orgId") orgId: String,
-      @QueryParam("id") actionId: UUID,
-      @QueryParam("status") status: ActionHouse.STATUS = ActionHouse.STATUS.COMPLETE,
-      @Context req: HttpServletRequest): Response {
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
-
-
-
-        printDebug("put update action paramete orgId $orgId actionId $actionId status $status")
-
-
-        HouseService.updateActionComplete(token = token,
-          orgId = orgId,
-          actionId = actionId)
-
-        return Response.status(200).build()
 
     }
 

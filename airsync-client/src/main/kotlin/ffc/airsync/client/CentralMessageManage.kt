@@ -36,7 +36,5 @@ interface CentralMessageManage {
 
     fun getHouseAndUpdate(org: Organization, _id: String,databaseDao : DatabaseDao)
 
-    fun syncAction(org: Organization): List<ActionHouse>
 
-    fun syncActionUpdateStatus(org: Organization, actionId: UUID, status: ActionHouse.STATUS)
 }

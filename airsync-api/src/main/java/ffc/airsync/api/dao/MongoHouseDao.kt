@@ -30,15 +30,20 @@ import kotlin.collections.ArrayList
 
 class MongoHouseDao : HouseDao {
 
+    companion object {
+        private var mongoClient: MongoClient? = null
+        private var dbName: String? = null
+        var instant: MongoHouseDao? = null
+
+    }
     val coll: DBCollection
+
 
     constructor(host: String, port: Int, databaseName: String, collection: String) {
         val mongoUrl = System.getenv("MONGODB_URI")
-        if (mongoClient == null) {
 
-            //printDebug("Mongo URI " + mongoUrl.substring(5))
-            //Ref. https://mongodb.github.io/mongo-java-driver/2.13/getting-started/quick-tour/
-            //val credential = MongoCredential.createCredential(userName, database, password)
+
+        if (mongoClient == null) {
             if (mongoUrl == null) {
                 printDebug("Create mongo client localhost")
                 mongoClient = MongoClient(Arrays.asList(
@@ -52,21 +57,17 @@ class MongoHouseDao : HouseDao {
 
 
             mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
-
             instant = this
         }
+
+
         if (mongoUrl == null)
             this.coll = getCollection(collection = collection, dbName = dbName)
         else
             this.coll = getCollection(collection = collection, dbName = System.getenv("MONGODB_DBNAME"))
     }
 
-    companion object {
-        private var mongoClient: MongoClient? = null
-        private var dbName: String? = null
-        var instant: MongoHouseDao? = null
 
-    }
 
 
     override fun insert(orgUuid: UUID, house: Address) {
@@ -80,35 +81,41 @@ class MongoHouseDao : HouseDao {
         house._id = objId.toHexString()
         house._shortId = shortId
 
+
         val doc = BasicDBObject("_id", objId)
           .append("_shortId", shortId)
           .append("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
+
+
         house.coordinates = null
         doc.append("property", house.toJson())
         printDebug(doc)
 
+
         coll.remove(query)
         coll.insert(doc)
-
     }
+
 
     override fun insert(orgUuid: UUID, houseList: List<Address>) {
         printDebug("MongoHouseDao Insert")
         houseList.forEach {
             insert(orgUuid, it)
         }
-
     }
+
 
     override fun update(house: Address) {
         printDebug("Call MongoHouseDao.upldate ${house.toJson()}")
         val query = BasicDBObject("_id", ObjectId(house._id))
-        //.append("orgUuid", orgUuid.toString())
+
+
         printDebug("\tquery old house ")
         val oldDoc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ Object ให้ Update")
+
 
         val orgUuid = oldDoc.get("orgUuid").toString()
         printDebug("\tget orgUuid $orgUuid")
@@ -121,22 +128,26 @@ class MongoHouseDao : HouseDao {
           .append("latitude", house.coordinates?.latitude)
           .append("longitude", house.coordinates?.longitude)
 
+
         printDebug("\t1")
         house.coordinates = null
-
         house.pcuCode = oldDoc.get("property").toString().fromJson<Address>().pcuCode
         printDebug("\t2")
         updateDoc.append("property", house.toJson())
+
+
         printDebug("\tcall collection.update (oldDoc, updateDoc)")
         coll.update(oldDoc, updateDoc)
         printDebug("\t3")
     }
+
 
     override fun update(houseList: List<Address>) {
         houseList.forEach {
             update(it)
         }
     }
+
 
     override fun find(latlng: Boolean): List<StorageOrg<Address>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -148,70 +159,87 @@ class MongoHouseDao : HouseDao {
 
     }
 
+
     override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
         var query = BasicDBObject("orgUuid", orgUuid.toString())
-
         if (latlng) {
             query = query
               .append("longitude", BasicDBObject("\$ne", 0.0))
               .append("latitude", BasicDBObject("\$ne", 0.0))
         }
 
-        val cursor = coll.find(query)
 
+        val cursor = coll.find(query)
         printDebug("getHouseInMongo size = ${cursor.count()}")
+
+
         val listHouse: ArrayList<StorageOrg<Address>> = arrayListOf()
         while (cursor.hasNext()) {
             val it = cursor.next()
             val property = it.get("property")
             printDebug(property)
+
+
             val house: Address = property.toString().fromJson()
             house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
             printDebug(house)
-            listHouse.add(StorageOrg(orgUuid, house))
 
+
+            listHouse.add(StorageOrg(orgUuid, house))
         }
+
         return listHouse
     }
+
 
     override fun findByHouseId(orgUuid: UUID, hid: Int): StorageOrg<Address>? {
         printDebug("House mongo dao findByHouseId\n\torgUuid $orgUuid hid $hid")
         val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("hid", hid)
+
+
         val dbObj = coll.findOne(query)
         printDebug("\tQuery property = ${dbObj.get("property")}")
-        val house: Address = dbObj.get("property").toString().fromJson()
 
+
+        val house: Address = dbObj.get("property").toString().fromJson()
         printDebug("\tset lat long")
         house.coordinates = LatLng(dbObj.get("latitude").toString().toDouble(), dbObj.get("longitude").toString().toDouble())
+
 
         printDebug("\tReturn")
         return StorageOrg(orgUuid, house)
     }
 
-    override fun findByHouse_Id(orgUuid: UUID, _id: String): StorageOrg<Address>? {
 
+    override fun findByHouse_Id(orgUuid: UUID, _id: String): StorageOrg<Address>? {
         printDebug("House mongo dao findByHouse_Id\n\torgUuid $orgUuid _id $_id")
         val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("_id", ObjectId(_id))
+
+
         val dbObj = coll.findOne(query)
         printDebug("\tQuery property = ${dbObj.get("property")}")
-        val house: Address = dbObj.get("property").toString().fromJson()
 
+
+        val house: Address = dbObj.get("property").toString().fromJson()
         printDebug("\tset lat long")
         house.coordinates = LatLng(dbObj.get("latitude").toString().toDouble(), dbObj.get("longitude").toString().toDouble())
+
 
         printDebug("\tReturn")
         return StorageOrg(orgUuid, house)
     }
+
 
     override fun removeByOrgUuid(orgUuid: UUID) {
         val query = BasicDBObject("orgUuid", orgUuid.toString())
         val cursor = coll.find(query)
+
+
         while (cursor.hasNext()) {
             coll.remove(cursor.next())
         }
-
     }
 
     private fun getCollection(dbName: String?, collection: String): DBCollection {

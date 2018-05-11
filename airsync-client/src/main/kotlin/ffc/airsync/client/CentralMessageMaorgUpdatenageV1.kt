@@ -36,22 +36,6 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     }
 
 
-    override fun syncAction(org: Organization): List<ActionHouse> {
-        val data = restService!!.syncHouseAction(orgId = org.id, authkey = "Bearer " + org.token!!).execute()
-
-        if (data.code() == 200) {
-            val syncData = data.body()!!
-
-            return syncData
-
-
-        } else if (data.code() == 404) {
-            printDebug("Empty sycn to org")
-        }
-
-        throw NullPointerException()
-    }
-
     override fun getHouseAndUpdate(org: Organization, _id: String,databaseDao : DatabaseDao) {
         printDebug("Get house house _id = $_id")
         val data = restService!!.getHouse(orgId = org.id,authkey = "Bearer " + org.token!!,_id = _id).execute()
@@ -70,19 +54,8 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     }
 
-    override fun syncActionUpdateStatus(org: Organization, actionId: UUID, status: ActionHouse.STATUS) {
-
-        printDebug("syncActionUpdateStatus")
-        restService!!.putSyncUpdateStatus(orgId = org.id,
-          actionId = actionId,
-          status = status,
-          authkey = "Bearer " + org.token!!).execute()
-
-    }
 
     override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
-
-        //val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
         restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token!!).execute()
 
 

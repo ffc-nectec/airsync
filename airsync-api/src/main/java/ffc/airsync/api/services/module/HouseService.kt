@@ -18,7 +18,6 @@
 package ffc.airsync.api.services.module
 
 import com.google.firebase.messaging.Message
-import ffc.airsync.api.dao.ActionListDao
 import ffc.airsync.api.dao.DaoFactory
 import ffc.model.*
 import me.piruin.geok.geometry.Feature
@@ -33,12 +32,10 @@ import kotlin.collections.ArrayList
 object HouseService {
 
     val houseDao = DaoFactory().buildHouseDao()
-    val actionList = DaoFactory().buildActionDao()
 
     fun create(token: String, orgId: String, houseList: List<Address>) {
         val org = getOrgByOrgToken(token, orgId)
 
-        //For org
         houseList.forEach {
             if (it.hid!! < 0) throw BadRequestException("")
         }
@@ -48,22 +45,21 @@ object HouseService {
 
 
     fun update(token: String, orgId: String, house: Address, house_id: String) {
-        //val org = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
 
         printDebug("Update house token $token orgid $orgId house_id $house_id house ${house.toJson()}")
         if (house._id == "") throw BadRequestException("ไม่มี _id")
 
+
         house.people = null
         house.haveChronics = null
+
+
         if (house_id == house._id) {
-
-
-            //var updateTo = ActionHouse.UPDATETO.ORG
             var _sync = false
             val firebaseTokenGropOrg = arrayListOf<String>()
-
             var mobileList: List<StorageOrg<MobileToken>>? = null
             var org: Organization? = null
+
 
             try {
                 printDebug("\tFind mobile token")
@@ -83,13 +79,13 @@ object HouseService {
 
 
             } finally {
-
                 printDebug("\tGroup firebase token")
-
                 mobileList?.forEach {
                     firebaseTokenGropOrg.add(it.data.firebaseToken ?: "")
                     printDebug("\tmobile $it")
                 }
+
+
                 firebaseTokenGropOrg.add(org?.firebaseToken ?: "")
                 printDebug("\torg ${org?.firebaseToken}")
             }
@@ -97,64 +93,35 @@ object HouseService {
 
 
             house._sync = _sync
-
-
             houseDao.update(house.clone())
 
 
             printDebug("Call send notification size list token = ${firebaseTokenGropOrg.size} ")
-
-
-            //val actionHouse = ActionHouse(orgUuid = orgUuid, action = house.clone(), updateTo = updateTo)
             firebaseTokenGropOrg.forEach {
                 printDebug("\ttoken=$it")
                 if (it.isNotEmpty())
-                    Message.builder().putHouseData(house,it,orgId)
-
-
-                      /*onHouseUpdate(orgId = orgId,
-                      house = house.clone(),
-                      house_id = house_id,
-                      firebaseToken = it)*/
+                    Message.builder().putHouseData(house, it, orgId)
             }
 
 
-        } else {
+        } else {  //ทำงานเมื่อ _id ใน url ไม่ตรงกับ _id ที่อยู่ในข้อมูลที่ส่งเข้ามา update
             printDebug("House id not eq update houseIdParameter=$house_id houseIdInData=${house._id}")
             throw BadRequestException("House _id not eq update")
         }
     }
 
 
-
-    fun getAction(token: String, orgId: String, updateTo: ActionHouse.UPDATETO = ActionHouse.UPDATETO.ORG): List<ActionHouse> {
-        //val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId) // ตรวจสอบ Token จาก Mobile
-        val org = getOrgByOrgToken(token, orgId)
-        return actionList.get(orgUUID = org.uuid, updateTo = updateTo)
-    }
-
-    fun updateActionComplete(token: String, orgId: String, actionId: UUID) {
-        //val orgToken = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId) // ตรวจสอบ Token จาก Mobile
-        val org = getOrgByOrgToken(token, orgId)
-
-        actionList.updateStatusComplete(actionId)
-
-    }
-
     fun get(token: String, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
 
-
         printDebug("Token = $token")
-
         val tokenObj = getOrgByMobileToken(UUID.fromString(token.trim()), orgId)
-
         printDebug("Befor check token")
         printDebug(tokenObj)
 
 
         printDebug("Search house match")
-
         val houseList: List<StorageOrg<Address>>
+
 
         if (hid > 0) {
             val house = houseDao.findByHouseId(tokenObj.uuid, hid)
@@ -164,25 +131,22 @@ object HouseService {
         } else {
             houseList = houseDao.find(tokenObj.uuid)
         }
-
-
         printDebug("count house = ${houseList.count()}")
 
+
         val geoJson = FeatureCollection<Address>()
-
-
-        //val peopleInHouse=HashMap<String,ArrayList<People>>()
-
-
         val fromItem = ((page - 1) * per_page) + 1
         var toItem = (page) * per_page
         val count = houseList.count()
 
+
         if (fromItem > count)
             throw NotFoundException("Query เกินหน้าสุดท้ายของบ้านแล้ว")
 
+
         if (toItem > count)
             toItem = count
+
 
         printDebug("page $page per_page $per_page")
         printDebug("from $fromItem to $toItem")
@@ -191,49 +155,32 @@ object HouseService {
         (fromItem..toItem).forEach {
             printDebug("Loop count $it")
             val data = houseList[it - 1]
-
-
             val point = Point(data.data.coordinates!!)
-            //printDebug(geometry)
-            //printDebug(properits)
             val houseId = data.data.hid ?: -1
-            //printDebug(houseId)
             val house = data.data
-            //printDebug(house)
+
 
             house.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId)
             house.people = personDao.getPeopleInHouse(tokenObj.uuid, houseId)
 
 
             printDebug("Create feture")
-            val feture: Feature<Address> = Feature(geometry = point
-              , properties = house)
+            val feture: Feature<Address> = Feature(
+              geometry = point,
+              properties = house)
+
 
             printDebug("Add feture")
             geoJson.features.add(feture)
             printDebug("Add feture success")
-
         }
 
-
-        //printDebug("Feture gson count ${geoJson.features.count()}")
-
-        //printDebug("For each house")
-        /* houseList.forEach {
-
-
-
-
-         }*/
-
         return geoJson
-
-
     }
 
     fun getSingleHouse(token: String, orgId: String, houseId: String): Address {
-
         var orgUuid: UUID
+
 
         try {
             orgUuid = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId).uuid
@@ -243,10 +190,7 @@ object HouseService {
 
 
         val house = houseDao.findByHouse_Id(orgUuid, houseId)?.data
-
         return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
-
-
     }
 
 }

@@ -17,18 +17,13 @@
 
 package ffc.airsync.api.dao
 
-import java.util.*
 
 class DaoFactory(val dev: Boolean = true) {
 
 
     fun buildPcuDao(): OrgDao = if (dev) InMemoryOrgDao.instance else EsOrgDao()
-    //fun buildUserAuthDao(): UserAuthDao = InMemoryUserAuthDao.instance
+
     fun buildOrgUserDao(): OrgUserDao = InMemoryOrgUserDao.INSTANT
-
-    //fun buildHouseDao(): HouseDao = InMemoryHouseDao.instant
-
-    fun buildActionDao(): ActionListDao = InMemoryActionListDao.instant
 
     fun buildHouseDao(): HouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
 

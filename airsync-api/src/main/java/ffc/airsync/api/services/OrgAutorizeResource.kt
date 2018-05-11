@@ -56,16 +56,7 @@ class OrgAutorizeResource {
     fun getMyOrg(@QueryParam("my") my: Boolean = false,
                  @Context req: HttpServletRequest): List<Organization> {
 
-
-        val httpHeader = req.buildHeaderMap()
-
-        /*httpHeader.forEach(BiConsumer { key, value ->
-            printDebug("Header Key = $key value = $value")
-        }
-        )*/
-
         var ipAddress = req.getHeader("X-Forwarded-For")
-
         if (ipAddress == null) {
             ipAddress = req.remoteAddr
         }
@@ -86,33 +77,31 @@ class OrgAutorizeResource {
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/firebase")
     fun updateFirebaseToken(@Context req: HttpServletRequest,
                             @PathParam("orgId") orgId: String,
-                            firebaseToken: FirebaseToken
-    ): Response {
-        printDebug("Call update Firebase Token by ip = " + req.remoteAddr + " OrgID $orgId Firebase Token = ${firebaseToken.firebasetoken}")
+                            firebaseToken: FirebaseToken): Response {
 
-        //printDebug(dd
+        printDebug("Call update Firebase Token by ip = " + req.remoteAddr + " OrgID $orgId Firebase Token = ${firebaseToken.firebasetoken}")
 
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
 
 
-
         orgServices.updateFirebaseToken(token, orgId, firebaseToken)
 
         return Response.status(200).build()
-
     }
 
     @DELETE
     @Path("/{orgId:([\\dabcdefABCDEF]+)}")
     fun removeOrg(@PathParam("orgId") orgId: String,
                   @Context req: HttpServletRequest): Response {
+
         printDebug("Remove org $orgId")
         val httpHeader = req.buildHeaderMap()
         printDebug("getHeader $httpHeader")
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
+
 
         printDebug("Call removeOrg Service _id = $orgId token = $token")
         orgServices.removeOrganize(token, orgId)
@@ -153,18 +142,16 @@ class OrgAutorizeResource {
         val userpass = DatatypeConverter.parseBase64Binary(token).toString(charset("UTF-8")).split(":")
         val user = userpass.get(index = 0)
         val pass = userpass.get(index = 1)
+
+
         printDebug("Mobile Login Auid = " + orgId +
           " User = " + user +
           " Pass = " + pass)
         val tokenMessage = orgServices.orgUserAuth(orgId, user, pass)
 
+
         printDebug("Token is $tokenMessage")
-
-        //Thread.sleep(3000)
-
-
         return Response.status(Response.Status.CREATED).entity(tokenMessage).build()
-
     }
 
 

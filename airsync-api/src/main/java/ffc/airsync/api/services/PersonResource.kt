@@ -89,6 +89,5 @@ class PersonResource {
 
 
         return listReturn
-
     }
 }
