@@ -178,7 +178,7 @@ object HouseService {
         return geoJson
     }
 
-    fun getSingleHouse(token: String, orgId: String, houseId: String): Address {
+    fun getSingle(token: String, orgId: String, houseId: String): Address {
         var orgUuid: UUID
 
 

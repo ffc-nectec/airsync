@@ -18,13 +18,13 @@
 package ffc.airsync.client.module
 
 import ffc.airsync.client.module.retrofit.APIClient
-import ffc.airsync.client.module.retrofit.CentralClient
+import ffc.airsync.client.module.retrofit.RetofitFunctionCallUrl
 
 class ApiFactory {
-    //fun buildUserAuthDao(): UserAuthDAO = DemoUserAuthDao.instance
-    fun buildApiClient(url :String) : CentralClient? {
+
+    fun buildApiClient(url: String): RetofitFunctionCallUrl? {
         val restService = APIClient().getCient(url)
-        return restService!!.create(CentralClient::class.java)
+        return restService!!.create(RetofitFunctionCallUrl::class.java)
     }
     fun buildUserDao() : UserDao = MySqlUserDao()
 }

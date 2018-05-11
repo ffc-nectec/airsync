@@ -41,6 +41,23 @@ data class Organization(val uuid: UUID = UUID.randomUUID(), var id: String = "-1
     var socketUrl: String? = null
     var firebaseToken: String? = null
 
+    fun clone(): Organization {
+        val orgClone = Organization(
+          uuid = UUID.fromString(this.uuid.toString()),
+          id = this.id)
+
+        orgClone.pcuCode = this.pcuCode
+        orgClone.name = this.name
+        orgClone.session = this.session
+        orgClone.lastKnownIp = this.lastKnownIp
+        orgClone.token = this.token
+        orgClone.socketUrl = this.socketUrl
+        orgClone.firebaseToken = this.firebaseToken
+
+
+        return orgClone
+    }
+
 
     override fun toString(): String {
         return "Organization(uuid=$uuid)"

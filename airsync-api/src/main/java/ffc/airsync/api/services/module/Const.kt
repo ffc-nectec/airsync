@@ -17,12 +17,12 @@
 
 package ffc.airsync.api.services.module
 
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.Message
 import ffc.airsync.api.dao.DaoFactory
-import ffc.model.MobileToken
-import ffc.model.Organization
-import ffc.model.StorageOrg
-import ffc.model.printDebug
+import ffc.model.*
 import java.util.*
+import java.util.concurrent.ExecutionException
 import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 
@@ -51,4 +51,26 @@ fun getOrgByMobileToken(token: UUID, orgId: String): StorageOrg<MobileToken> {
     printDebug("Token pass ")
 
     return orgUuid
+}
+
+fun Message.Builder.putHouseData(address: Address, registrationToken: String, orgId: String) {
+    val message = Message.builder()
+      .putData("type", "House")
+      .putData("_id", address._id)
+      .putData("url", "$orgId/place/house/${address._id}")
+      .setToken(registrationToken)
+      .build()
+
+
+    var response: String? = null
+
+
+    try {
+        response = FirebaseMessaging.getInstance().sendAsync(message).get()
+    } catch (e: InterruptedException) {
+        e.printStackTrace()
+    } catch (e: ExecutionException) {
+        e.printStackTrace()
+    }
+    printDebug("Successfully sent message: " + response!!)
 }

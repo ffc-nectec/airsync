@@ -17,8 +17,7 @@
 
 package ffc.airsync.api.services
 
-import ffc.airsync.api.services.module.HttpRestOrgService
-import ffc.airsync.api.services.module.OrgService
+import ffc.airsync.api.services.module.ChronicService
 import ffc.model.Chronic
 import ffc.model.printDebug
 import javax.servlet.http.HttpServletRequest
@@ -31,12 +30,12 @@ import javax.ws.rs.core.Response
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/org")
 class ChronicResoruce {
-    val orgServices: OrgService = HttpRestOrgService.instant
+
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/chronic/base")
-    fun createChronic(@Context req: HttpServletRequest,
-                      @PathParam("orgId") orgId: String,
-                      chronicList: List<Chronic>): Response {
+    fun create(@Context req: HttpServletRequest,
+               @PathParam("orgId") orgId: String,
+               chronicList: List<Chronic>): Response {
         printDebug("\nCall create chronic by ip = " + req.remoteAddr)
 
         chronicList.forEach {
@@ -47,7 +46,7 @@ class ChronicResoruce {
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
 
-        orgServices.createChronic(token, orgId, chronicList)
+        ChronicService.create(token, orgId, chronicList)
         return Response.status(Response.Status.CREATED).build()
 
     }

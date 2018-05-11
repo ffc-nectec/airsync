@@ -1,55 +1,80 @@
-/*
- * Copyright (c) 2561 NECTEC
- *   National Electronics and Computer Technology Center, Thailand
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package ffc.airsync.api.services.module
 
-import ffc.model.*
-import kotlin.collections.ArrayList
+import ffc.model.Organization
+import ffc.model.printDebug
+import java.util.*
+import javax.ws.rs.NotAuthorizedException
+import javax.ws.rs.NotFoundException
 
-interface OrgService {
-    fun register(organization :Organization, KnownIp :String) :Organization
+object OrgService {
 
+    fun register(organization: Organization, lastKnownIp: String): Organization {
 
+        organization.token = UUID.randomUUID().toString()
+        organization.lastKnownIp = lastKnownIp
+        organization.socketUrl = "ws://127.0.0.1:8080/airsync"
+        //organization.socketUrl="ws://188.166.249.72/airsync"
 
-    fun getOrg() : List <Organization>
-    fun getMyOrg(ipAddress :String)   : List <Organization>
-
-
-    fun createUser(token: String,
-                   orgId :String,
-                   userList : ArrayList<User>)
-
-
-    fun orgUserAuth(id :String,user:String,pass:String) :TokenMessage
-
-
+        orgDao.insert(organization)
+        return organization
+    }
 
 
+    fun remove(token: String, orgId: String) {
+        val org = getOrgByOrgToken(token, orgId)
 
-    fun getPerson(token: String, orgId: String): List<Person>
-    fun createPerson(token: String,
-                     orgId: String,
-                     personList: List<Person>)
+        orgDao.findById(orgId)
+
+        printDebug("Remove org id = $orgId == ${org.id}")
+        if (org.id != orgId) throw NotAuthorizedException("ไม่เจอ Org")
+        val uuidForRemove = UUID.fromString(org.uuid.toString())
+        orgDao.removeByOrgUuid(uuidForRemove)
+        orgUser.removeByOrgUuid(uuidForRemove)
+        houseDao.removeByOrgUuid(uuidForRemove)
+        tokenMobile.removeByOrgUuid(uuidForRemove)
+        personDao.removeByOrgUuid(uuidForRemove)
+        chronicDao.removeByOrgUuid(uuidForRemove)
+    }
 
 
-    fun createChronic(token: String, orgId: String, chronicList: List<Chronic>)
-    fun removeOrganize(token: String, orgId: String)
+    fun getMy(ipAddress: String): List<Organization> {
 
-    fun updateFirebaseToken(token: String, orgId: String, firebaseToken: FirebaseToken)
+        printDebug("Get my org $ipAddress")
+        val pcuReturn = orgDao.findByIpAddress(ipAddress)
+        pcuReturn.forEach {
+            printDebug("\tOrg list Name ${it.name} ${it.lastKnownIp}")
+        }
+
+        if (pcuReturn.isEmpty())
+            throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
 
 
+
+        return hideOrgPrivate(pcuReturn)
+    }
+
+    fun get(): List<Organization> {
+        printDebug("Get all org")
+        val pcuReturn = orgDao.find()
+        pcuReturn.forEach {
+            printDebug("\tOrg list Name ${it.name} ${it.lastKnownIp}")
+        }
+        if (pcuReturn.isEmpty()) throw NotFoundException("ไม่มีข้อมูลลงทะเบียน")
+
+        return hideOrgPrivate(pcuReturn)
+    }
+
+
+    private fun hideOrgPrivate(org: List<Organization>): List<Organization> {
+
+        val orgCloneList = arrayListOf<Organization>()
+        org.forEach {
+            val orgClone = it.clone()
+            orgClone.token = null
+            orgClone.lastKnownIp = null
+            orgClone.firebaseToken = null
+            orgCloneList.add(orgClone)
+        }
+        return orgCloneList
+    }
 }

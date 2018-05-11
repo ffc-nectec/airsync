@@ -18,8 +18,7 @@
 package ffc.airsync.api.services
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.services.module.HttpRestOrgService
-import ffc.airsync.api.services.module.OrgService
+import ffc.airsync.api.services.module.PersonService
 import ffc.model.Person
 import ffc.model.printDebug
 import java.util.*
@@ -35,31 +34,31 @@ import kotlin.collections.ArrayList
 @Path("/org")
 class PersonResource {
 
-    val orgServices: OrgService = HttpRestOrgService.instant
 
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
-    fun getPerson(@QueryParam("page") page: Int = 1,
-                  @QueryParam("per_page") per_page: Int = 1,
-                  @PathParam("orgId") orgId: String,
-                  @Context req: HttpServletRequest): Response {
+    fun get(@QueryParam("page") page: Int = 1,
+            @QueryParam("per_page") per_page: Int = 1,
+            @PathParam("orgId") orgId: String,
+            @Context req: HttpServletRequest): Response {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
 
         try {
-            val personList = orgServices.getPerson(token, orgId)
+            val personList = PersonService.get(token, orgId)
             return Response.status(Response.Status.OK).entity(personList).build()
         } catch (ex: NotAuthorizedException) {
             return Response.status(401).build()
         }
     }
 
+
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
-    fun createPerson(@Context req: HttpServletRequest,
-                     @PathParam("orgId") orgId: String,
-                     personList: List<Person>): Response {
+    fun create(@Context req: HttpServletRequest,
+               @PathParam("orgId") orgId: String,
+               personList: List<Person>): Response {
         printDebug("\nCall create person by ip = " + req.remoteAddr)
 
         personList.forEach {
@@ -71,14 +70,15 @@ class PersonResource {
           ?: throw NotAuthorizedException("Not Authorization")
 
 
-        orgServices.createPerson(token, orgId, personList)
+        PersonService.create(token, orgId, personList)
         return Response.status(Response.Status.CREATED).build()
 
     }
 
+
     @GET
     @Path("/person/t")
-    fun getPersonTemplate(): List<Person> {
+    fun getTemplate(): List<Person> {
         val personDao = DaoFactory().buildPersonDao()
         val personLit = personDao.find(UUID.fromString("00000000-0000-0000-0000-000000000010"))
         val listReturn: ArrayList<Person> = arrayListOf()

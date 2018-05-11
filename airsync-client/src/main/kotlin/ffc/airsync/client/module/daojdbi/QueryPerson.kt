@@ -59,9 +59,7 @@ class PersonMapper : RowMapper<Person> {
         val citizenId = rs.getString("idcard")
         val firstname = rs.getString("fname")
         val lastname = rs.getString("lname")
-
         val hospCode = rs.getString("pcucodeperson")
-
         val pid=rs.getInt("pid")
         val prename=rs.getString("titlename")
         val houseId = rs.getInt("hcode")
