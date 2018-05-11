@@ -17,7 +17,11 @@
 
 package ffc.airsync.api;
 
+import com.google.api.gax.paging.Page;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -28,10 +32,7 @@ import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.concurrent.ExecutionException;
 
 
@@ -83,7 +84,22 @@ public class FFCApiServer {
             firebaseApp = FirebaseApp.initializeApp(options);
         } catch (IOException e) {
             e.printStackTrace();
-            firebaseApp = FirebaseApp.initializeApp();
+
+            String firebaseConfigString = System.getenv("FIREBASE_CONFIG");
+            byte byteFirebaseConfig[] = firebaseConfigString.getBytes();
+            ByteArrayInputStream streamFirebaseConfig = new ByteArrayInputStream(byteFirebaseConfig);
+
+            FirebaseOptions options = null;
+            try {
+                options = new FirebaseOptions.Builder()
+                  .setCredentials(GoogleCredentials.fromStream(streamFirebaseConfig))
+                  .setDatabaseUrl("https://ffc-nectec.firebaseio.com")
+                  .build();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            firebaseApp = FirebaseApp.initializeApp(options);
         }
 
 
