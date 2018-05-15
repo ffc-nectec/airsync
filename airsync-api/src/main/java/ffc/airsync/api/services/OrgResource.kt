@@ -51,13 +51,15 @@ class OrgResource {
     @GET
     fun getMy(@QueryParam("my") my: Boolean = false,
               @Context req: HttpServletRequest): List<Organization> {
-
+        printDebug("Get org my")
         var ipAddress = req.getHeader("X-Forwarded-For")
+        printDebug("\tGet ip address from header X-Forwarded-For = $ipAddress")
+        printDebug("\tGet from req.remoteAddr = ${req.remoteAddr}")
         if (ipAddress == null) {
             ipAddress = req.remoteAddr
         }
 
-        printDebug("Get Org by ip = $ipAddress + my = $my")
+        printDebug("\tResult Org by ip = $ipAddress + my = $my")
 
         if (my) {
             return OrgService.getMy(ipAddress)
@@ -65,7 +67,6 @@ class OrgResource {
             return OrgService.get()
         }
     }
-
 
 
     @DELETE
@@ -86,7 +87,6 @@ class OrgResource {
     }
 
     //Post username to central.
-
 
 
     @GET
