@@ -155,22 +155,7 @@ object HouseService {
         (fromItem..toItem).forEach {
             printDebug("Loop count $it")
             val data = houseList[it - 1]
-            val point = Point(data.data.coordinates!!)
-            val houseId = data.data.hid ?: -1
-            val house = data.data
-
-
-            house.haveChronics = chronicDao.houseIsChronic(tokenObj.uuid, houseId)
-            house.people = personDao.getPeopleInHouse(tokenObj.uuid, houseId)
-
-
-            printDebug("Create feture")
-            val feture: Feature<Address> = Feature(
-              geometry = point,
-              properties = house)
-
-
-            printDebug("Add feture")
+            val feture = createGeo(data.data, tokenObj.uuid)
             geoJson.features.add(feture)
             printDebug("Add feture success")
         }
@@ -191,6 +176,45 @@ object HouseService {
 
         val house = houseDao.findByHouse_Id(orgUuid, houseId)?.data
         return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
+    }
+
+    fun getSingleGeo(token: String, orgId: String, houseId: String): FeatureCollection<Address> {
+
+        val tokenObj = getOrgByMobileToken(UUID.fromString(token.trim()), orgId)
+        val geoJson = FeatureCollection<Address>()
+        val house: StorageOrg<Address>
+
+
+        printDebug("\thouse findBy_ID OrgUuid = ${tokenObj.uuid} houseId = $houseId")
+        house = houseDao.findByHouse_Id(tokenObj.uuid, houseId) ?: throw NotFoundException("ไม่พบข้อมูลบ้านที่ระบุ")
+
+
+        printDebug("\t\t$house")
+        val feture = createGeo(house.data, tokenObj.uuid)
+        geoJson.features.add(feture)
+
+
+        return geoJson
+    }
+
+
+    private fun createGeo(data: Address, orgUuid: UUID): Feature<Address> {
+        val point = Point(data.coordinates!!)
+        val houseId = data.hid ?: -1
+        val house = data
+
+
+        house.haveChronics = chronicDao.houseIsChronic(orgUuid, houseId)
+        house.people = personDao.getPeopleInHouse(orgUuid, houseId)
+
+
+        printDebug("Create feture")
+        val feture: Feature<Address> = Feature(
+          geometry = point,
+          properties = house)
+
+
+        return feture
     }
 
 }

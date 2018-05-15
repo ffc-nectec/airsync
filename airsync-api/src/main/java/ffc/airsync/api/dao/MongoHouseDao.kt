@@ -154,12 +154,6 @@ class MongoHouseDao : HouseDao {
     }
 
 
-    override fun findBy_Id(orgUuid: UUID, _id: String, latlng: Boolean): List<StorageOrg<Address>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
-    }
-
-
     override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
         var query = BasicDBObject("orgUuid", orgUuid.toString())
         if (latlng) {

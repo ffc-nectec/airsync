@@ -87,6 +87,28 @@ class HouseResource {
 
     }
 
+    @Produces("application/vnd.geo+json")
+    @Consumes("application/vnd.geo+json")
+    @GET
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
+    fun getSingleGeo(@Context req: HttpServletRequest,
+                     @PathParam("orgId") orgId: String,
+                     @PathParam("houseId") houseId: String
+    ): FeatureCollection<Address> {
+        printDebug("Call get single geo json house by ip = " + req.remoteAddr + " OrgID $orgId House ID = $houseId")
+
+
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+
+
+        val house: FeatureCollection<Address> = HouseService.getSingleGeo(token, orgId, houseId)
+
+        return house
+
+    }
+
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @GET

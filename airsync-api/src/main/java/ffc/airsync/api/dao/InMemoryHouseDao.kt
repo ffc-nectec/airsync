@@ -34,9 +34,6 @@ class InMemoryHouseDao : HouseDao {
 
     val houseList = arrayListOf<StorageOrg<Address>>()
 
-    override fun findBy_Id(orgUuid: UUID, _id: String, latlng: Boolean): List<StorageOrg<Address>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun insert(orgUuid: UUID, house: Address) {
         //houseList.removeIf { it.uuid == orgUuid && it.data.identity?.id == house.identity?.id }
