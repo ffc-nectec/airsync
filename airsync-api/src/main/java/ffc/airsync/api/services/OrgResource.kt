@@ -41,8 +41,17 @@ class OrgResource {
           + " UUID = " + organization.uuid)
 
 
-        val orgUpdate = OrgService.register(organization, req.remoteAddr)
-        printDebug("Gen ip = " + orgUpdate.lastKnownIp
+        printDebug("Create my org")
+        var ipAddress = req.getHeader("X-Forwarded-For")
+        printDebug("\tGet ip address from header X-Forwarded-For = $ipAddress")
+        printDebug("\tGet from req.remoteAddr = ${req.remoteAddr}")
+        if (ipAddress == null) {
+            ipAddress = req.remoteAddr
+        }
+
+
+        val orgUpdate = OrgService.register(organization, ipAddress)
+        printDebug("\tGen ip = " + orgUpdate.lastKnownIp
           + " Org token = " + orgUpdate.token)
 
         return Response.status(Response.Status.CREATED).entity(orgUpdate).build()

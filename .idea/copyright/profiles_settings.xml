@@ -1,8 +1,0 @@
-<component name="CopyrightManager">
-  <settings default="nectec-apache-2.0">
-    <module2copyright>
-      <element module="Production" copyright="nectec-apache-2.0" />
-      <element module="Tests" copyright="nectec-apache-2.0" />
-    </module2copyright>
-  </settings>
-</component>
