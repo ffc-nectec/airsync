@@ -47,7 +47,6 @@ class HouseResource {
           ?: throw NotAuthorizedException("")
 
 
-
         printDebug("get house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
 
 
@@ -135,7 +134,7 @@ class HouseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/houses")
     fun create(@Context req: HttpServletRequest,
                @PathParam("orgId") orgId: String,
                houseList: List<Address>): Response {
@@ -152,6 +151,28 @@ class HouseResource {
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
         HouseService.create(token, orgId, houseList)
+        return Response.status(Response.Status.CREATED).build()
+
+    }
+
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @POST
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
+    fun createSingle(@Context req: HttpServletRequest,
+                     @PathParam("orgId") orgId: String,
+                     house: Address): Response {
+        printDebug("\nCall create house by ip = " + req.remoteAddr)
+
+        house.people = null
+        house.haveChronics = null
+        printDebug("house json = " + house.toJson())
+
+
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("Not Authorization")
+        HouseService.create(token, orgId, house)
         return Response.status(Response.Status.CREATED).build()
 
     }
