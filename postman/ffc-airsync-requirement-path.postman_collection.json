@@ -72,7 +72,7 @@
 					},
 					"response": [
 						{
-							"id": "6e77423e-0b80-4fe0-a3f6-c961c1b9796c",
+							"id": "290773ff-adf8-4300-a20d-25572863ceb9",
 							"name": "Register Org",
 							"originalRequest": {
 								"method": "POST",
@@ -162,7 +162,7 @@
 					},
 					"response": [
 						{
-							"id": "3ce6f38d-6ffc-4853-8fd0-570bd78b8ad0",
+							"id": "550b321f-e077-4518-b4bc-9fabdd4101d0",
 							"name": "Register User",
 							"originalRequest": {
 								"method": "POST",
@@ -344,7 +344,7 @@
 					},
 					"response": [
 						{
-							"id": "09c6071d-9340-47a1-a9de-056d9d4039bf",
+							"id": "c8eff27f-c2d8-49a4-bf8b-36f342f338fe",
 							"name": "Login success",
 							"originalRequest": {
 								"method": "POST",
@@ -463,7 +463,7 @@
 							"body": "{\n\t\"token\": \"123abcdef\"\n}"
 						},
 						{
-							"id": "deaacb36-24aa-4a92-b781-65fc9813c60e",
+							"id": "1c99d498-f900-4c04-be9e-9a2c727a239c",
 							"name": "Login not success",
 							"originalRequest": {
 								"method": "POST",
@@ -562,7 +562,7 @@
 					},
 					"response": [
 						{
-							"id": "3a287ac5-f95f-4091-90c8-f846f5b36c17",
+							"id": "e139d4d5-270a-450a-b944-03c0f7469c59",
 							"name": "Register User",
 							"originalRequest": {
 								"method": "POST",
@@ -730,7 +730,7 @@
 					},
 					"response": [
 						{
-							"id": "b8671424-ed0c-40e8-b87e-8e49e877d38c",
+							"id": "3382b88b-8855-420c-aa15-afa99562d275",
 							"name": "New Place",
 							"originalRequest": {
 								"method": "POST",
@@ -1193,7 +1193,7 @@
 							"raw": "{\n  \"id\": \"4adbdk39edj3\",\n  \"_shortId\": \"39edj3\",\n  \"hid\": \"22\",\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"510/45\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    100.6027656,\n    14.0805834\n  ],\n  \"people\": [\n    {\n      \"pid\": 3000214,\n      \"name\": \"นายพิรุณ พานิชผล\"\n    },\n    {\n      \"pid\": 3000215,\n      \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n    },\n    {\n      \"pid\": 3000216,\n      \"name\": \"นายธนชัย ทองคำ\"\n    }\n  ]\n}"
 						},
 						"url": {
-							"raw": "{{url}}/org/{{org_id}}/place/house{{house_id}}",
+							"raw": "{{url}}/org/{{org_id}}/place/house/{{house_id}}",
 							"host": [
 								"{{url}}"
 							],
@@ -1201,7 +1201,8 @@
 								"org",
 								"{{org_id}}",
 								"place",
-								"house{{house_id}}"
+								"house",
+								"{{house_id}}"
 							]
 						}
 					},
@@ -1247,7 +1248,7 @@
 							"raw": "{\n  \"id\": \"4adbdk39edj3\",\n  \"_shortId\": \"39edj3\",\n  \"hid\": \"22\",\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"510/45\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    100.6027656,\n    14.0805834\n  ],\n  \"people\": [\n    {\n      \"pid\": 3000214,\n      \"name\": \"นายพิรุณ พานิชผล\"\n    },\n    {\n      \"pid\": 3000215,\n      \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n    },\n    {\n      \"pid\": 3000216,\n      \"name\": \"นายธนชัย ทองคำ\"\n    }\n  ]\n}"
 						},
 						"url": {
-							"raw": "{{url}}/org/{{org_id}}/place/house{{house_id}}",
+							"raw": "{{url}}/org/{{org_id}}/place/house/{{house_id}}",
 							"host": [
 								"{{url}}"
 							],
@@ -1255,7 +1256,8 @@
 								"org",
 								"{{org_id}}",
 								"place",
-								"house{{house_id}}"
+								"house",
+								"{{house_id}}"
 							]
 						}
 					},
@@ -1485,7 +1487,7 @@
 					},
 					"response": [
 						{
-							"id": "c148579c-ced1-45e9-a532-bb79d22a3e8e",
+							"id": "f4132887-d29a-4a1b-90f9-cc1aa1878d6c",
 							"name": "New Place",
 							"originalRequest": {
 								"method": "PUT",
@@ -1633,7 +1635,7 @@
 					},
 					"response": [
 						{
-							"id": "ebdb26bf-bd10-4399-96b1-b1de73d5d376",
+							"id": "503e97bb-d753-43b8-9562-2d08653a71bf",
 							"name": "New Place",
 							"originalRequest": {
 								"method": "PUT",
@@ -1976,7 +1978,7 @@
 					},
 					"response": [
 						{
-							"id": "13f4a41c-7e45-4a0e-bf19-d0db051e1471",
+							"id": "458e162a-1de8-4b02-99cf-fc5c0c9a3c3f",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
@@ -2153,7 +2155,7 @@
 					},
 					"response": [
 						{
-							"id": "dc2cf615-8a5b-42dd-aab2-58f0594e6ec5",
+							"id": "ed3c30f3-0c68-43b1-a347-8d3193f0080c",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
@@ -2330,7 +2332,7 @@
 					},
 					"response": [
 						{
-							"id": "dfddd51e-ebf3-4498-8417-6fe58dd49532",
+							"id": "8df4b3f8-4bd3-4d2e-bfa7-56f5a3369eab",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
@@ -2507,7 +2509,7 @@
 					},
 					"response": [
 						{
-							"id": "c5a2a629-0955-4f61-936a-47747d81f15b",
+							"id": "51ee8f66-1ef7-4928-bc2c-71d387b9a3bf",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
