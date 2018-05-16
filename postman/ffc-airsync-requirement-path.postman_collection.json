@@ -72,7 +72,7 @@
 					},
 					"response": [
 						{
-							"id": "290773ff-adf8-4300-a20d-25572863ceb9",
+							"id": "491a1854-8028-47fa-a6ad-68687d9af813",
 							"name": "Register Org",
 							"originalRequest": {
 								"method": "POST",
@@ -162,7 +162,7 @@
 					},
 					"response": [
 						{
-							"id": "550b321f-e077-4518-b4bc-9fabdd4101d0",
+							"id": "b1e45cc5-b589-4340-ac0c-8efa4cf76c06",
 							"name": "Register User",
 							"originalRequest": {
 								"method": "POST",
@@ -344,7 +344,7 @@
 					},
 					"response": [
 						{
-							"id": "c8eff27f-c2d8-49a4-bf8b-36f342f338fe",
+							"id": "f20fdbf3-c9d4-406c-abc6-e77402715f9c",
 							"name": "Login success",
 							"originalRequest": {
 								"method": "POST",
@@ -463,7 +463,7 @@
 							"body": "{\n\t\"token\": \"123abcdef\"\n}"
 						},
 						{
-							"id": "1c99d498-f900-4c04-be9e-9a2c727a239c",
+							"id": "73adc4d3-edeb-498b-87d0-07b2d96c03c3",
 							"name": "Login not success",
 							"originalRequest": {
 								"method": "POST",
@@ -562,7 +562,7 @@
 					},
 					"response": [
 						{
-							"id": "e139d4d5-270a-450a-b944-03c0f7469c59",
+							"id": "4b992100-9d1a-400d-8111-2c16dee6f870",
 							"name": "Register User",
 							"originalRequest": {
 								"method": "POST",
@@ -730,7 +730,7 @@
 					},
 					"response": [
 						{
-							"id": "3382b88b-8855-420c-aa15-afa99562d275",
+							"id": "8b9b8fe0-1c66-4e80-b52e-d68769fbfb06",
 							"name": "New Place",
 							"originalRequest": {
 								"method": "POST",
@@ -1046,16 +1046,16 @@
 			"description": "",
 			"item": [
 				{
-					"name": "New House by mobile  haven't id",
+					"name": "New House by mobile  haven't   _id",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "d3a5bff7-1792-42e1-acaf-91fff8c9f6a0",
+								"id": "a688268a-7067-44f4-a2f0-b446f57c92e3",
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});",
 									""
 								]
@@ -1100,16 +1100,16 @@
 					"response": []
 				},
 				{
-					"name": "New House by org  haven't id",
+					"name": "New House by org  haven't  _id",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "7100c16f-5298-4678-ab13-d5193eb07c72",
+								"id": "dbc40fc1-174d-4c16-b1f8-ba7c83428ce7",
 								"type": "text/javascript",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200)",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201)",
 									"});",
 									""
 								]
@@ -1487,7 +1487,7 @@
 					},
 					"response": [
 						{
-							"id": "f4132887-d29a-4a1b-90f9-cc1aa1878d6c",
+							"id": "7c493b02-a3d4-47f3-804b-aef9f1651ed6",
 							"name": "New Place",
 							"originalRequest": {
 								"method": "PUT",
@@ -1635,7 +1635,7 @@
 					},
 					"response": [
 						{
-							"id": "503e97bb-d753-43b8-9562-2d08653a71bf",
+							"id": "6bddd0fe-7875-4fb5-82cd-70348afbe510",
 							"name": "New Place",
 							"originalRequest": {
 								"method": "PUT",
@@ -1978,7 +1978,7 @@
 					},
 					"response": [
 						{
-							"id": "458e162a-1de8-4b02-99cf-fc5c0c9a3c3f",
+							"id": "9fdcd4fb-7194-47b9-8537-a204765ed9ab",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
@@ -2155,7 +2155,7 @@
 					},
 					"response": [
 						{
-							"id": "ed3c30f3-0c68-43b1-a347-8d3193f0080c",
+							"id": "bdb33990-985b-466f-b4b6-512bd2bb88d0",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
@@ -2332,7 +2332,7 @@
 					},
 					"response": [
 						{
-							"id": "8df4b3f8-4bd3-4d2e-bfa7-56f5a3369eab",
+							"id": "50f3eb93-4653-46eb-92ee-e576ce2ef812",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
@@ -2509,7 +2509,7 @@
 					},
 					"response": [
 						{
-							"id": "51ee8f66-1ef7-4928-bc2c-71d387b9a3bf",
+							"id": "a5c35dae-cf9c-452b-863e-ad02374fa68c",
 							"name": "Login username adm",
 							"originalRequest": {
 								"method": "POST",
