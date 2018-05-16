@@ -4,6 +4,7 @@ import ffc.model.TokenMessage
 import ffc.model.User
 import ffc.model.printDebug
 import java.util.*
+import javax.ws.rs.ForbiddenException
 import javax.ws.rs.NotAuthorizedException
 
 object UserService {
@@ -22,7 +23,6 @@ object UserService {
         val checkUser = orgUser.isAllowById(User(user, pass), id)
         if (checkUser) {
             val org = orgDao.findById(id)
-
             val token = UUID.randomUUID()
 
             tokenMobile.insert(token = token,
@@ -31,6 +31,6 @@ object UserService {
               id = id.toInt())
             return TokenMessage(token.toString())
         }
-        throw NotAuthorizedException("Not Auth")
+        throw ForbiddenException("Not Auth")
     }
 }

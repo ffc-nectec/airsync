@@ -86,6 +86,7 @@ dependencies {
 
     compile "commons-codec:commons-codec:1.9"
 
+    implementation "com.github.piruin:retrofit-dsl:1.0"
 
     compile 'com.google.firebase:firebase-admin:5.11.0'
     compile 'com.google.firebase:firebase-core:15.0.0'

@@ -44,7 +44,7 @@ class HouseResource {
             @Context req: HttpServletRequest): FeatureCollection<Address> {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
+          ?: throw NotAuthorizedException("")
 
 
 
