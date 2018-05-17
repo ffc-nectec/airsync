@@ -20,6 +20,8 @@ object UserService {
 
 
     fun checkAuth(id: String, user: String, pass: String): TokenMessage {
+
+
         val checkUser = orgUser.isAllowById(User(user, pass), id)
         if (checkUser) {
             val org = orgDao.findById(id)
@@ -31,6 +33,6 @@ object UserService {
               id = id.toInt())
             return TokenMessage(token.toString())
         }
-        throw ForbiddenException("Not Auth")
+        throw NotAuthorizedException("Not Auth")
     }
 }
