@@ -37,7 +37,7 @@ interface RetofitFunctionCallUrl {
       : Call<Void>
 
 
-    @POST("/v0/org/{orgId}/place/house")
+    @POST("/v0/org/{orgId}/place/houses")
     fun createHouse(@Path("orgId") orgId: String,
                     @Header("Authorization") authkey: String,
                     @Body houseList: List<Address>)

@@ -137,9 +137,9 @@ class HouseResource {
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/houses")
     fun create(@Context req: HttpServletRequest,
                @PathParam("orgId") orgId: String,
-               houseList: List<Address>): Response {
+               houseList: List<Address>?): Response {
         printDebug("\nCall create house by ip = " + req.remoteAddr)
-
+        if (houseList == null) throw BadRequestException()
 
         houseList.forEach {
             it.people = null
@@ -161,9 +161,9 @@ class HouseResource {
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun createSingle(@Context req: HttpServletRequest,
                      @PathParam("orgId") orgId: String,
-                     house: Address): Response {
+                     house: Address?): Response {
         printDebug("\nCall create house by ip = " + req.remoteAddr)
-
+        if (house == null) throw BadRequestException()
         house.people = null
         house.haveChronics = null
         printDebug("house json = " + house.toJson())
