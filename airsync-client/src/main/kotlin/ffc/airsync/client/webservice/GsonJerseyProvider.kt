@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api
+package ffc.airsync.client.webservice
 
 
 import com.fatboyindustrial.gsonjodatime.Converters
