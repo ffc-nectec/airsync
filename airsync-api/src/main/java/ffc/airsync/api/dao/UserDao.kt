@@ -32,14 +32,16 @@ interface UserDao {
           "ADM",
           "adm",
           "newuser",
-          "usr_db")
+          "usr_db",
+          "Drug_Store_Admin")
 
 
         fun checkBlockUser(user: User) {
             printDebug("Check block user.")
             val user = userBlock.find {
-                it == user.username
+                it == user.username.trim()
             }
+            printDebug("\tResult block check $user")
             if (user != null) throw ForbiddenException("User ไม่มีสิทธ์")
         }
     }
