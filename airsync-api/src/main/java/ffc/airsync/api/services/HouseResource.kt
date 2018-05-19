@@ -50,7 +50,12 @@ class HouseResource {
         printDebug("get house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
 
 
-        val geoJso = HouseService.get(token, orgId, if (page == 0) 1 else page, if (per_page == 0) 200 else per_page, if (hid == 0) -1 else hid)
+        val geoJso = HouseService.get(
+          token,
+          orgId,
+          if (page == 0) 1 else page,
+          if (per_page == 0) 200 else per_page,
+          if (hid == 0) -1 else hid)
 
         printDebug("Print feture before return to rest")
         geoJso.features.forEach {

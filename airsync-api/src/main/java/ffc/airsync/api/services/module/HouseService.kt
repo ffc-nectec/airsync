@@ -144,12 +144,12 @@ object HouseService {
         val count = houseList.count()
 
         itemRenderPerPage(page, per_page, count, object : AddItmeAction {
-            override fun onAddItemAction(it: Int) {
-                printDebug("Loop count $it")
-                val data = houseList[it]
+            override fun onAddItemAction(itemIndex: Int) {
+                //printDebug("Loop count $it")
+                val data = houseList[itemIndex]
                 val feture = createGeo(data.data, tokenObj.uuid)
                 geoJson.features.add(feture)
-                printDebug("Add feture success")
+                //printDebug("Add feture success")
             }
         })
 

@@ -7,20 +7,20 @@ import java.util.*
 
 object PersonService {
 
-    fun get(token: String, orgId: String): List<Person> {
+    fun get(token: String, orgId: String, page: Int, per_page: Int): List<Person> {
         val tokenObj = getOrgByMobileToken(UUID.fromString(token.trim()), orgId)
         val personList = personDao.find(orgUuid = tokenObj.uuid)
         val personReturn = arrayListOf<Person>()
 
 
-        var lmitLoop = 0
-        personList.forEach {
-            if (lmitLoop < 100) {
-                lmitLoop++
+        val count = personList.count()
 
+        itemRenderPerPage(page, per_page, count, object : AddItmeAction {
+            override fun onAddItemAction(it: Int) {
 
-                val person = it.data
-                val chronicPerson = chronicDao.filterByPersonPid(tokenObj.uuid, it.data.pid!!.toInt())
+                val person = personList[it].data
+
+                val chronicPerson = chronicDao.filterByPersonPid(tokenObj.uuid, person.pid!!.toInt())
                 val chronicList = arrayListOf<Chronic>()
 
 
@@ -37,11 +37,10 @@ object PersonService {
                     person.house = housePerson?.data
                 }
 
-
                 personReturn.add(person)
-            }
-        }
 
+            }
+        })
 
         return personReturn
     }
