@@ -33,44 +33,4 @@ val personDao = DaoFactory().buildPersonDao()
 val orgUser = DaoFactory().buildOrgUserDao()
 val houseDao = DaoFactory().buildHouseDao()
 
-fun getOrgByOrgToken(token: String, orgId: String): Organization {
-    printDebug("getOrgByOrgToken $token")
-    val org = orgDao.findByToken(token)
-    if (org.id != orgId) {
-        printDebug("org ไม่ตรงกัน")
-        throw throw NotFoundException("Org ไม่ตรง")
-    }
 
-    return org
-}
-
-fun getOrgByMobileToken(token: UUID, orgId: String): StorageOrg<MobileToken> {
-    printDebug("Befor check mobile token")
-    val orgUuid = tokenMobile.find(token)
-    if (orgUuid.id != orgId.toInt()) throw NotAuthorizedException("Not Auth")
-    printDebug("Token pass ")
-
-    return orgUuid
-}
-
-fun Message.Builder.putHouseData(address: Address, registrationToken: String, orgId: String) {
-    val message = Message.builder()
-      .putData("type", "House")
-      .putData("_id", address._id)
-      .putData("url", "$orgId/place/house/${address._id}")
-      .setToken(registrationToken)
-      .build()
-
-
-    var response: String? = null
-
-
-    try {
-        response = FirebaseMessaging.getInstance().sendAsync(message).get()
-    } catch (e: InterruptedException) {
-        e.printStackTrace()
-    } catch (e: ExecutionException) {
-        e.printStackTrace()
-    }
-    printDebug("Successfully sent message: " + response!!)
-}

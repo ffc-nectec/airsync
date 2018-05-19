@@ -148,8 +148,6 @@ object HouseService {
 
         if (fromItem > count)
             throw NotFoundException("Query เกินหน้าสุดท้ายของบ้านแล้ว")
-
-
         if (toItem > count)
             toItem = count
 
