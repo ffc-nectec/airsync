@@ -141,28 +141,17 @@ object HouseService {
 
 
         val geoJson = FeatureCollection<Address>()
-        val fromItem = ((page - 1) * per_page) + 1
-        var toItem = (page) * per_page
         val count = houseList.count()
 
-
-        if (fromItem > count)
-            throw NotFoundException("Query เกินหน้าสุดท้ายของบ้านแล้ว")
-        if (toItem > count)
-            toItem = count
-
-
-        printDebug("page $page per_page $per_page")
-        printDebug("from $fromItem to $toItem")
-
-
-        (fromItem..toItem).forEach {
-            printDebug("Loop count $it")
-            val data = houseList[it - 1]
-            val feture = createGeo(data.data, tokenObj.uuid)
-            geoJson.features.add(feture)
-            printDebug("Add feture success")
-        }
+        itemRenderPerPage(page, per_page, count, object : AddItmeAction {
+            override fun onAddItemAction(it: Int) {
+                printDebug("Loop count $it")
+                val data = houseList[it]
+                val feture = createGeo(data.data, tokenObj.uuid)
+                geoJson.features.add(feture)
+                printDebug("Add feture success")
+            }
+        })
 
         return geoJson
     }
