@@ -16,8 +16,10 @@ fun itemRenderPerPage(page: Int, per_page: Int, count: Int, onAddItemAction: Add
 
     if (fromItem > count)
         throw NotFoundException("Query เกินหน้าสุดท้ายของบ้านแล้ว")
-    if (toItem > count)
+    if (toItem > count) {
         toItem = count
+    }
+
 
 
     printDebug("page $page per_page $per_page")

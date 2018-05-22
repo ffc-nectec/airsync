@@ -9,7 +9,7 @@ import javax.ws.rs.ext.Provider
 class ErrorFilter : ExceptionMapper<WebApplicationException> {
 
     override fun toResponse(exception: WebApplicationException?): Response {
-        exception!!.printStackTrace()
+        exception!!//.printStackTrace()
         val err = ErrorRes(exception.response.status, exception.message, exception)
         return Response.status(err.code).entity(err).build()
 

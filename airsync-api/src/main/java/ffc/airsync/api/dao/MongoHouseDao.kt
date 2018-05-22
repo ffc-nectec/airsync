@@ -39,8 +39,9 @@ class MongoHouseDao : HouseDao {
     val coll: DBCollection
 
 
-    constructor(host: String, port: Int, databaseName: String, collection: String) {
+    constructor(host: String, port: Int, databaseName: String) {
         val mongoUrl = System.getenv("MONGODB_URI")
+        val collection = "house"
 
 
         if (mongoClient == null) {
@@ -62,9 +63,10 @@ class MongoHouseDao : HouseDao {
 
 
         if (mongoUrl == null)
-            this.coll = getCollection(collection = collection, dbName = dbName)
+            this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
+
         else
-            this.coll = getCollection(collection = collection, dbName = System.getenv("MONGODB_DBNAME"))
+            this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
     }
 
 
@@ -72,7 +74,7 @@ class MongoHouseDao : HouseDao {
 
     override fun insert(orgUuid: UUID, house: Address) {
 
-        var query = BasicDBObject("orgUuid", orgUuid.toString())
+        val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
 
 
@@ -235,10 +237,5 @@ class MongoHouseDao : HouseDao {
             coll.remove(cursor.next())
         }
     }
-
-    private fun getCollection(dbName: String?, collection: String): DBCollection {
-        return mongoClient!!.getDB(dbName).getCollection(collection)
-    }
-
 
 }
