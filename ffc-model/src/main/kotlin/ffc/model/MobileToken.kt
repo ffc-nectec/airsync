@@ -17,6 +17,7 @@
 
 package ffc.model
 
+import org.joda.time.DateTime
 import java.util.*
 
-data class MobileToken(val token: UUID, var firebaseToken: String? = null)
+data class MobileToken(val token: UUID, var firebaseToken: String? = null, val timestamp: DateTime = DateTime.now())
