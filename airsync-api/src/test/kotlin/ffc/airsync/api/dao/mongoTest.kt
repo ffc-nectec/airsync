@@ -35,7 +35,7 @@ class mongoTest {
 
 
     fun insertData() {
-        val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
+        val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc")
         val house = Address("ffffff")
         house.tambon = "เขาจันทร์ วาส"
         house.hid = 1
@@ -51,7 +51,7 @@ class mongoTest {
 
 
     fun queryData() {
-        val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
+        val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc")
 
         val houseStore = mongoHouseDao.findByHouseId(UUID.fromString("f247ead5-6383-5e74-2d9e-8ee1f50542be"), 2)
         println(houseStore)
@@ -61,7 +61,7 @@ class mongoTest {
 
 
     fun queryOrgUuid() {
-        val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc", "house")
+        val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc")
         val listHouse = mongoHouseDao.find(UUID.fromString("f247ead5-6383-5e74-2d9e-8ee1f50542be"))
         listHouse.forEach {
             println(it.data.tambon)
