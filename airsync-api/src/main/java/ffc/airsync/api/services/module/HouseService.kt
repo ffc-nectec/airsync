@@ -133,27 +133,27 @@ object HouseService {
 
 
         printDebug("Search house match")
-        val houseList: List<StorageOrg<Address>>
+        val listHouse: List<StorageOrg<Address>>
 
 
         if (hid > 0) {
             val house = houseDao.findByHouseId(tokenObj.uuid, hid)
               ?: throw NotFoundException("ไม่พบ hid บ้าน")
-            houseList = ArrayList()
-            houseList.add(house)
+            listHouse = ArrayList()
+            listHouse.add(house)
         } else {
-            houseList = houseDao.find(tokenObj.uuid)
+            listHouse = houseDao.find(tokenObj.uuid)
         }
-        printDebug("count house = ${houseList.count()}")
+        printDebug("count house = ${listHouse.count()}")
 
 
         val geoJson = FeatureCollection<Address>()
-        val count = houseList.count()
+        val count = listHouse.count()
 
         itemRenderPerPage(page, per_page, count, object : AddItmeAction {
             override fun onAddItemAction(itemIndex: Int) {
                 //printDebug("Loop count $it")
-                val data = houseList[itemIndex]
+                val data = listHouse[itemIndex]
                 val feture = createGeo(data.data, tokenObj.uuid)
                 geoJson.features.add(feture)
                 //printDebug("Add feture success")
@@ -161,6 +161,24 @@ object HouseService {
         })
 
         return geoJson
+    }
+
+    fun getJsonHouse(token: UUID, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): List<Address> {
+
+        val geoJsonHouse = getGeoJsonHouse(token, orgId, page, per_page, hid)
+
+
+        val houseList = arrayListOf<Address>()
+
+
+        geoJsonHouse.features.forEach {
+            val house = it.properties
+            if (house != null)
+                houseList.add(house)
+        }
+
+        return houseList
+
     }
 
     fun getSingle(token: UUID, orgId: String, houseId: String): Address {
@@ -175,6 +193,11 @@ object HouseService {
 
 
         val house = houseDao.findByHouse_Id(orgUuid, houseId)?.data
+
+        house?.people = personDao.getPeopleInHouse(orgUuid, houseId.toInt())
+        house?.haveChronics = houseIsChronic(house?.people)
+
+
         return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
     }
 

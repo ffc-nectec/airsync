@@ -66,6 +66,35 @@ class HouseResource {
     }
 
 
+    @GET
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
+    fun getJsonHouse(@QueryParam("page") page: Int = 1,
+                     @QueryParam("per_page") per_page: Int = 200,
+                     @QueryParam("hid") hid: Int = -1,
+                     @PathParam("orgId") orgId: String,
+                     @Context req: HttpServletRequest): List<Address> {
+        val httpHeader = req.buildHeaderMap()
+        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
+          ?: throw NotAuthorizedException("")
+
+
+        printDebug("getGeoJsonHouse house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
+
+
+        val jsonHouse = HouseService.getJsonHouse(
+          UUID.fromString(token),
+          orgId,
+          if (page == 0) 1 else page,
+          if (per_page == 0) 200 else per_page,
+          if (hid == 0) -1 else hid)
+
+        printDebug("Print feture before return to rest")
+
+
+        return jsonHouse
+    }
+
+
 
     @PUT
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
