@@ -31,6 +31,7 @@ import javax.ws.rs.core.Response
 @Path("/org")
 class ChronicResoruce {
 
+    /*
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/chronic/base")
     fun create(@Context req: HttpServletRequest,
@@ -50,6 +51,7 @@ class ChronicResoruce {
         return Response.status(Response.Status.CREATED).build()
 
     }
+    */
 
 
 }
