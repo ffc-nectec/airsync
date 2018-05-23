@@ -33,7 +33,6 @@ object OrgService {
         houseDao.removeByOrgUuid(uuidForRemove)
         tokenMobile.removeByOrgUuid(uuidForRemove)
         personDao.removeByOrgUuid(uuidForRemove)
-        chronicDao.removeByOrgUuid(uuidForRemove)
     }
 
 

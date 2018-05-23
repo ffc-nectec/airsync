@@ -196,9 +196,9 @@ object HouseService {
         val houseId = data.hid ?: -1
         val house = data
 
-
-        house.haveChronics = chronicDao.houseIsChronic(orgUuid, houseId)
         house.people = personDao.getPeopleInHouse(orgUuid, houseId)
+
+        house.haveChronics = houseIsChronic(house.people)
 
 
         printDebug("Create feture")
@@ -209,6 +209,18 @@ object HouseService {
 
         return feture
     }
+
+    private fun houseIsChronic(peopleList: List<People>?): Boolean {
+
+        if (peopleList == null) return false
+        val personChronic = peopleList.find {
+            it.chronics != null
+        }
+        return personChronic != null
+
+
+    }
+
 
 }
 

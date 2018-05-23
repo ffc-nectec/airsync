@@ -20,17 +20,6 @@ object PersonService {
 
                 val person = personList[it].data
 
-                val chronicPerson = chronicDao.filterByPersonPid(tokenObj.uuid, person.pid!!.toInt())
-                val chronicList = arrayListOf<Chronic>()
-
-
-                if (chronicPerson.isNotEmpty())
-                    chronicPerson.forEach {
-                        printDebug("It pid = ${it.data.pid} Person pid = ${person.pid}")
-                        chronicList.add(it.data)
-                    }
-                person.chronics = chronicList
-
 
                 if (person.houseId != null) {
                     val housePerson = houseDao.findByHouseId(tokenObj.uuid, person.houseId!!)

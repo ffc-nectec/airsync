@@ -17,7 +17,6 @@
 
 package ffc.airsync.api.services
 
-import ffc.airsync.api.services.module.ChronicService
 import ffc.model.Chronic
 import ffc.model.printDebug
 import javax.servlet.http.HttpServletRequest

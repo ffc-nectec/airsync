@@ -21,23 +21,6 @@ import me.piruin.geok.LatLng
 import me.piruin.geok.geometry.Geometry
 
 
-data class ProperitsGeoJson(val id: String? = null) {
-
-
-    var haveChronics: Boolean = false
-    var type: String = "House"
-    var no: String? = null
-    var road: String? = null
-    var tambon: String? = null
-    var ampur: String? = null
-    var changwat: String? = null
-    var coordinates: LatLng? = null
-    var people: ArrayList<People>? = arrayListOf()
-    var hid: Int? = null
-    var identity: Identity? = null
-}
-
-data class People(val id: String, val name: String)
-data class MyGeo(override val type: String, val coordinates: LatLng) : Geometry
+data class People(val id: String, val name: String, val chronics: MutableList<Chronic>?)
 
 

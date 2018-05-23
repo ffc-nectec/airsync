@@ -99,7 +99,8 @@ class InMemoryPersonDao : PersonDao {
 
         val name = person.prename + " " + person.firstname + " " + person.lastname
         val cardId = person.identities[0].id
-        val people = People(cardId, name)
+        val chronic = person.chronics
+        val people = People(cardId, name, chronic)
 
 
         peopleInHouse.removeIf { it.id == cardId }

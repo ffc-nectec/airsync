@@ -106,16 +106,17 @@ class MainContraller {
 
 
     private fun insertChronic(listPerson: List<Person>, listChronic: List<Chronic>): List<Person> {
-        val listPersonChronic = arrayListOf<Person>()
+
         listPerson.forEach {
             val person = it
             val chronicList = listChronic.filter { it.pid == person.pid }
-            person.chronics = arrayListOf()
+
             chronicList.forEach {
-                person.chronics.add(it)
+                if (person.chronics == null) person.chronics = arrayListOf()
+                person.chronics?.add(it)
             }
         }
 
-        return listPersonChronic
+        return listPerson
     }
 }

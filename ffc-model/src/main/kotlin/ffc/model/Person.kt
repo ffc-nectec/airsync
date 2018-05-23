@@ -54,7 +54,7 @@ data class Person(val id: Long = Random().nextLong() * -1) {
     var birthData: LocalDate? = null
     var identities: MutableList<Identity> = mutableListOf()
     var house: Address? = null
-    var chronics: MutableList<Chronic> = mutableListOf()
+    var chronics: MutableList<Chronic>? = null
     var houseId: Int? = null
 }
 

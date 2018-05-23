@@ -32,6 +32,5 @@ class DaoFactory(val dev: Boolean = true) {
 
     fun buildTokenMobileMapDao(): MobileTokenDao = InMemoryMobileTokenDao.instant
 
-    fun buildChronicDao(): ChronicDao = InMemoryChronicDao.instant
 
 }

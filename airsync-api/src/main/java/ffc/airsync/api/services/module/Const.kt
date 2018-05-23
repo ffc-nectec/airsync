@@ -28,7 +28,7 @@ import javax.ws.rs.NotFoundException
 
 val orgDao = DaoFactory().buildPcuDao()
 val tokenMobile = DaoFactory().buildTokenMobileMapDao()
-val chronicDao = DaoFactory().buildChronicDao()
+//val chronicDao = DaoFactory().buildChronicDao()
 val personDao = DaoFactory().buildPersonDao()
 val orgUser = DaoFactory().buildOrgUserDao()
 val houseDao = DaoFactory().buildHouseDao()
