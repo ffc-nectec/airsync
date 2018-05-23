@@ -55,7 +55,7 @@ class ChronicMapper : RowMapper<Chronic> {
         chronic.diagHospCode = hospCode
         chronic.careHospCode = hospCode
         chronic.houseId = hcode
-        chronic.pid = pid
+        chronic.pid = pid.toLong()
 
         return chronic
 

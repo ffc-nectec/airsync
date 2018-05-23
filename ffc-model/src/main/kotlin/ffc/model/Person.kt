@@ -109,7 +109,7 @@ data class Chronic(val idc10: String, val diagDate: LocalDate) {
     var status: String = "active"
     var dischardDate: LocalDate? = null
     var houseId: Int? = null
-    var pid: Int? = null
+    var pid: Long? = null
 }
 
 interface Identity {

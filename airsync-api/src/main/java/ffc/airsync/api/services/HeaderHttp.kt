@@ -31,3 +31,5 @@ fun HttpServletRequest.buildHeaderMap() :Map<String, String>{
     }
     return map
 }
+
+const val GEOJSONHeader = "application/vnd.geo+json"

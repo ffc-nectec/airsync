@@ -33,8 +33,7 @@ import javax.ws.rs.core.Response
 @Path("/org")
 class HouseResource {
 
-    @Produces("application/vnd.geo+json")
-    @Consumes("application/vnd.geo+json")
+    @Produces(GEOJSONHeader)
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun get(@QueryParam("page") page: Int = 1,
@@ -66,8 +65,6 @@ class HouseResource {
     }
 
 
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @PUT
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
     fun update(@Context req: HttpServletRequest,
@@ -91,8 +88,8 @@ class HouseResource {
 
     }
 
-    @Produces("application/vnd.geo+json")
-    @Consumes("application/vnd.geo+json")
+    @Produces(GEOJSONHeader)
+    @Consumes(GEOJSONHeader)
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
     fun getSingleGeo(@Context req: HttpServletRequest,
@@ -113,8 +110,7 @@ class HouseResource {
 
     }
 
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
     fun getSingle(@Context req: HttpServletRequest,
@@ -136,8 +132,6 @@ class HouseResource {
     }
 
 
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/houses")
     fun create(@Context req: HttpServletRequest,
@@ -160,8 +154,7 @@ class HouseResource {
 
     }
 
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
+
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun createSingle(@Context req: HttpServletRequest,
@@ -183,4 +176,3 @@ class HouseResource {
     }
 
 }
-

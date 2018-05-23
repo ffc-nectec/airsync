@@ -24,17 +24,16 @@ import ffc.model.*
 import java.util.*
 import ffc.airsync.client.webservice.FFCApiClient
 import ffc.airsync.client.webservice.module.FirebaseMessage
+import kotlin.collections.ArrayList
 
 
 class MainContraller {
 
     companion object {
-        val messageCentral: CentralMessageManage=CentralMessageMaorgUpdatenageV1()
+        val messageCentral: CentralMessageManage = CentralMessageMaorgUpdatenageV1()
     }
 
     fun main(dbHost: String, dbPort: String, dbName: String, dbUsername: String, dbPassword: String, orgUuid: String, orgName: String, orgCode: String) {
-
-
 
 
         //get config
@@ -69,28 +68,31 @@ class MainContraller {
 
         //put person
         val personOrgList = databaseDao.getPerson()
-        messageCentral.putPerson(personOrgList, org)
+        //messageCentral.putPerson(personOrgList, org)
 
         //put chronic
         val chronicList = databaseDao.getChronic()
-        messageCentral.putChronic(chronicList, org)
+        //messageCentral.putChronic(chronicList, org)
 
+        val personHaveChronic = insertChronic(personOrgList, chronicList)
+
+        messageCentral.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
 
 
-        FirebaseMessage.instant.onUpdateListener = object :FirebaseMessage.OnUpdateListener{
+        FirebaseMessage.instant.onUpdateListener = object : FirebaseMessage.OnUpdateListener {
             override fun onUpdate(token: FirebaseToken) {
                 printDebug("OnUpdateListener $token")
-                messageCentral.putFirebaseToken(token,org)
+                messageCentral.putFirebaseToken(token, org)
 
             }
 
         }
-        FirebaseMessage.instant.onUpdateHouseListener = object :FirebaseMessage.OnUpdateHouseListener{
+        FirebaseMessage.instant.onUpdateHouseListener = object : FirebaseMessage.OnUpdateHouseListener {
             override fun onUpdate(_id: String) {
                 printDebug("OnUpdateHouseListener _id $_id")
-                messageCentral.getHouseAndUpdate(org= org,_id = _id,databaseDao = databaseDao)
+                messageCentral.getHouseAndUpdate(org = org, _id = _id, databaseDao = databaseDao)
 
             }
         }
@@ -100,5 +102,20 @@ class MainContraller {
         ffcApiClient.join()
 
 
+    }
+
+
+    private fun insertChronic(listPerson: List<Person>, listChronic: List<Chronic>): List<Person> {
+        val listPersonChronic = arrayListOf<Person>()
+        listPerson.forEach {
+            val person = it
+            val chronicList = listChronic.filter { it.pid == person.pid }
+            person.chronics = arrayListOf()
+            chronicList.forEach {
+                person.chronics.add(it)
+            }
+        }
+
+        return listPersonChronic
     }
 }
