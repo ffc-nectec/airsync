@@ -17,14 +17,14 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.MobileToken
+import ffc.model.TokenMessage
 import ffc.model.StorageOrg
 import java.util.*
 
 interface MobileTokenDao {
     fun insert(token: UUID, uuid: UUID, user: String, id: Int)
-    fun find(token: UUID): StorageOrg<MobileToken>
-    fun findByOrgUuid(orgUUID: UUID) : List<StorageOrg<MobileToken>>
+    fun find(token: UUID): StorageOrg<TokenMessage>
+    fun findByOrgUuid(orgUUID: UUID): List<StorageOrg<TokenMessage>>
     fun remove(token: UUID)
     fun updateFirebaseToken(token: UUID, firebaseToken: String)
     fun removeByOrgUuid(orgUUID: UUID)

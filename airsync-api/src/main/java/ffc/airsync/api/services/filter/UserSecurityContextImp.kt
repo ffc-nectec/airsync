@@ -22,8 +22,7 @@ import java.security.Principal
 import javax.ws.rs.core.SecurityContext
 
 
-
-class SecurityContextImp : SecurityContext {
+class UserSecurityContextImp : SecurityContext {
 
     private var HTTPS = "https://"
     private var userPrincipal: Principal? = null

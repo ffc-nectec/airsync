@@ -22,7 +22,7 @@ import java.util.*
 data class Organization(val uuid: UUID = UUID.randomUUID(), var id: String = "-1") {
 
 
-    constructor(uuid: UUID, id: String, pcuCode: String, name: String, pcuToken: String? = null, session: String? = null, lastKnownIp: String? = null, socketUrl: String? = null) : this(uuid, id) {
+    constructor(uuid: UUID, id: String, pcuCode: String, name: String, pcuToken: UUID? = null, session: String? = null, lastKnownIp: String? = null, socketUrl: String? = null) : this(uuid, id) {
 
         this.pcuCode = pcuCode
         this.name = name
@@ -37,7 +37,7 @@ data class Organization(val uuid: UUID = UUID.randomUUID(), var id: String = "-1
     var name: String = "NECTEC"
     var session: String? = null
     var lastKnownIp: String? = null
-    var token: String? = null
+    var token: UUID? = null
     var socketUrl: String? = null
     var firebaseToken: String? = null
 

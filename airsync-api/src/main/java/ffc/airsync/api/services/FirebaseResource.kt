@@ -3,6 +3,7 @@ package ffc.airsync.api.services
 import ffc.airsync.api.services.module.FirebaseService
 import ffc.model.FirebaseToken
 import ffc.model.printDebug
+import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -29,7 +30,7 @@ class FirebaseResource {
           ?: throw NotAuthorizedException("Not Authorization")
 
 
-        FirebaseService.updateToken(token, orgId, firebaseToken)
+        FirebaseService.updateToken(UUID.fromString(token), orgId, firebaseToken)
 
         return Response.status(200).build()
     }

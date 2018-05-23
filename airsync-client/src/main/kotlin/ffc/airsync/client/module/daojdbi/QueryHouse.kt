@@ -72,6 +72,7 @@ class HouseMapper : RowMapper<Address> {
         house.no = no
         house.road = road
         house.pcuCode = pcuCode
+        house._sync = true
 
         if (houseId == null) {
             houseId = "0"

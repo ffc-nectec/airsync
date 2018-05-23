@@ -25,10 +25,14 @@ import me.piruin.geok.LatLng
 import me.piruin.geok.gson.LatLngSerializer
 import me.piruin.geok.gson.adapterFor
 
-fun Any.toJson() = Gson().toJson(this)
+val goon = Converters.registerAll(GsonBuilder())
+  .adapterFor<LatLng>(LatLngSerializer())
+  .adapterFor<Identity>(IdentityDeserializer()).create()
+
+fun Any.toJson(): String {
+    return goon.toJson(this)
+}
+
 inline fun <reified T> String.fromJson(): T {
-    val goon = Converters.registerAll(GsonBuilder())
-      .adapterFor<LatLng>(LatLngSerializer())
-      .adapterFor<Identity>(IdentityDeserializer()).create()
     return goon.fromJson(this, T::class.java)
 }

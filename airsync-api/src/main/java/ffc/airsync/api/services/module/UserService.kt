@@ -10,7 +10,7 @@ import javax.ws.rs.NotAuthorizedException
 object UserService {
 
 
-    fun create(token: String, orgId: String, userList: ArrayList<User>) {
+    fun create(token: UUID, orgId: String, userList: ArrayList<User>) {
         val org = getOrgByOrgToken(token, orgId)
         userList.forEach {
             printDebug("insert username " + org.name + " User = " + it.username)
@@ -31,7 +31,7 @@ object UserService {
               uuid = org.uuid,
               user = user,
               id = id.toInt())
-            return TokenMessage(token.toString())
+            return TokenMessage(token)
         }
         throw NotAuthorizedException("Not Auth")
     }

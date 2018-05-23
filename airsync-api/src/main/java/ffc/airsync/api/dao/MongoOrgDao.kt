@@ -78,7 +78,7 @@ class MongoOrgDao : OrgDao {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun findByToken(token: String): Organization {
+    override fun findByToken(token: UUID): Organization {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

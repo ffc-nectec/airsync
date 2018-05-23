@@ -3,6 +3,7 @@ package ffc.airsync.api.services
 import ffc.airsync.api.services.module.UserService
 import ffc.model.User
 import ffc.model.printDebug
+import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -31,7 +32,7 @@ class UserResource {
             printDebug("User = " + it.username + " Pass = " + it.password)
         }
 
-        UserService.create(token, orgId, userList)
+        UserService.create(UUID.fromString(token), orgId, userList)
         return Response.status(Response.Status.CREATED).build()
 
 

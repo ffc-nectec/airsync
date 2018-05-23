@@ -37,6 +37,7 @@ package ffc.model
 
 import com.google.gson.*
 import me.piruin.geok.LatLng
+import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.lang.reflect.Type
 import java.util.*
@@ -77,6 +78,8 @@ data class Address(var _id: String = "") {
 
     var _sync:Boolean = false
 
+    var dateUpdate: DateTime = DateTime.now()
+
     enum class Type {
         House, Condo
     }
@@ -97,6 +100,7 @@ data class Address(var _id: String = "") {
         cloneObj.people = this.people
         cloneObj.pcuCode = this.pcuCode
         cloneObj._sync=this._sync
+        cloneObj.dateUpdate = this.dateUpdate
 
         return cloneObj
     }

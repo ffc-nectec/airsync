@@ -91,7 +91,7 @@ class OrgResource {
 
 
         printDebug("Call removeOrg Service _id = $orgId token = $token")
-        OrgService.remove(token, orgId)
+        OrgService.remove(UUID.fromString(token), orgId)
         return Response.status(200).build()
     }
 
@@ -105,7 +105,7 @@ class OrgResource {
           UUID.randomUUID(), "2",
           "Temp00xx33",
           "Template",
-          "lldsiie883289oid",
+          UUID.randomUUID(),
           "ksaljhdfkjhskjhfu",
           "182.123.21.21",
           "lkjsafjlkjsaf")

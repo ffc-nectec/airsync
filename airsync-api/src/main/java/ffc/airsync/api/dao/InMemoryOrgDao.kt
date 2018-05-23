@@ -47,9 +47,9 @@ class InMemoryOrgDao : OrgDao {
         return pcuList.find { it.id == id } ?: throw NotFoundException()
     }
 
-    override fun findByToken(token: String): Organization {
+    override fun findByToken(token: UUID): Organization {
 
-        return pcuList.find { it.token.equals(token) } ?: throw NotFoundException()
+        return pcuList.find { it.token == token } ?: throw NotFoundException()
     }
 
 
@@ -104,7 +104,7 @@ class InMemoryOrgDao : OrgDao {
 
     override fun updateToken(organization: Organization): Organization {
         val pcuFind = findByUuid(organization.uuid)
-        pcuFind.token = UUID.randomUUID().toString()
+        pcuFind.token = UUID.randomUUID()
         insert(pcuFind)
         return pcuFind
     }

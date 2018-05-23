@@ -10,7 +10,7 @@ object OrgService {
 
     fun register(organization: Organization, lastKnownIp: String): Organization {
 
-        organization.token = UUID.randomUUID().toString()
+        organization.token = UUID.randomUUID()
         organization.lastKnownIp = lastKnownIp
         organization.socketUrl = "ws://127.0.0.1:8080/airsync"
         //organization.socketUrl="ws://188.166.249.72/airsync"
@@ -20,7 +20,7 @@ object OrgService {
     }
 
 
-    fun remove(token: String, orgId: String) {
+    fun remove(token: UUID, orgId: String) {
         val org = getOrgByOrgToken(token, orgId)
 
         orgDao.findById(orgId)

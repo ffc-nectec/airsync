@@ -75,7 +75,7 @@ class PersonResource {
           ?: throw NotAuthorizedException("Not Authorization")
 
 
-        PersonService.create(token, orgId, personList)
+        PersonService.create(UUID.fromString(token), orgId, personList)
         return Response.status(Response.Status.CREATED).build()
 
     }

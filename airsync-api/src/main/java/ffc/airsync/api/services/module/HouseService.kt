@@ -33,7 +33,7 @@ object HouseService {
 
     val houseDao = DaoFactory().buildHouseDao()
 
-    fun create(token: String, orgId: String, houseList: List<Address>) {
+    fun create(token: UUID, orgId: String, houseList: List<Address>) {
         val org = getOrgByOrgToken(token, orgId)
 
         houseList.forEach {
@@ -43,14 +43,14 @@ object HouseService {
         houseDao.insert(org.uuid, houseList)
     }
 
-    fun create(token: String, orgId: String, house: Address) {
+    fun create(token: UUID, orgId: String, house: Address) {
         val org = getOrgByOrgToken(token, orgId)
         if (house.hid!! < 0) throw BadRequestException("")
         houseDao.insert(org.uuid, house)
     }
 
 
-    fun update(token: String, orgId: String, house: Address, house_id: String) {
+    fun update(token: UUID, orgId: String, house: Address, house_id: String) {
 
         printDebug("Update house token $token orgid $orgId house_id $house_id house ${house.toJson()}")
         if (house._id == "") throw BadRequestException("ไม่มี _id")
@@ -63,14 +63,14 @@ object HouseService {
         if (house_id == house._id) {
             var _sync = false
             val firebaseTokenGropOrg = arrayListOf<String>()
-            var mobileList: List<StorageOrg<MobileToken>>? = null
+            var listMessage: List<StorageOrg<TokenMessage>>? = null
             var org: Organization? = null
 
 
             try {
                 printDebug("\tFind mobile token")
-                val mobile = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
-                mobileList = tokenMobile.findByOrgUuid(mobile.uuid)
+                val mobile = getOrgByMobileToken(token = token, orgId = orgId)
+                listMessage = tokenMobile.findByOrgUuid(mobile.uuid)
                 org = orgDao.findByUuid(mobile.uuid)
                 printDebug("\t\tFound mobile token")
 
@@ -79,14 +79,14 @@ object HouseService {
                 printDebug("\tFind org token")
                 val organize = getOrgByOrgToken(token, orgId)
                 _sync = true
-                mobileList = tokenMobile.findByOrgUuid(organize.uuid)
+                listMessage = tokenMobile.findByOrgUuid(organize.uuid)
                 org = organize
                 printDebug("\t\tFound org token")
 
 
             } finally {
                 printDebug("\tGroup firebase token")
-                mobileList?.forEach {
+                listMessage?.forEach {
                     firebaseTokenGropOrg.add(it.data.firebaseToken ?: "")
                     printDebug("\tmobile $it")
                 }
@@ -117,10 +117,10 @@ object HouseService {
     }
 
 
-    fun get(token: String, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
+    fun getGeoJsonHouse(token: UUID, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
 
         printDebug("Token = $token")
-        val tokenObj = getOrgByMobileToken(UUID.fromString(token.trim()), orgId)
+        val tokenObj = getOrgByMobileToken(token, orgId)
         printDebug("Befor check token")
         printDebug(tokenObj)
 
@@ -156,12 +156,12 @@ object HouseService {
         return geoJson
     }
 
-    fun getSingle(token: String, orgId: String, houseId: String): Address {
+    fun getSingle(token: UUID, orgId: String, houseId: String): Address {
         var orgUuid: UUID
 
 
         try {
-            orgUuid = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId).uuid
+            orgUuid = getOrgByMobileToken(token = token, orgId = orgId).uuid
         } catch (ex: NotAuthorizedException) {
             orgUuid = getOrgByOrgToken(token, orgId).uuid
         }
@@ -171,9 +171,9 @@ object HouseService {
         return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
     }
 
-    fun getSingleGeo(token: String, orgId: String, houseId: String): FeatureCollection<Address> {
+    fun getSingleGeo(token: UUID, orgId: String, houseId: String): FeatureCollection<Address> {
 
-        val tokenObj = getOrgByMobileToken(UUID.fromString(token.trim()), orgId)
+        val tokenObj = getOrgByMobileToken(token, orgId)
         val geoJson = FeatureCollection<Address>()
         val house: StorageOrg<Address>
 

@@ -5,10 +5,10 @@ import ffc.model.printDebug
 import java.util.*
 
 object FirebaseService {
-    fun updateToken(token: String, orgId: String, firebaseToken: FirebaseToken) {
+    fun updateToken(token: UUID, orgId: String, firebaseToken: FirebaseToken) {
 
         try {
-            val mobile = getOrgByMobileToken(token = UUID.fromString(token), orgId = orgId)
+            val mobile = getOrgByMobileToken(token = token, orgId = orgId)
             printDebug("Update firebase token mobile $firebaseToken")
             mobile.data.firebaseToken = firebaseToken.firebasetoken
         } catch (ex: Exception) {

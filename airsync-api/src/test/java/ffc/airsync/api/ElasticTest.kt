@@ -26,7 +26,7 @@ class ElasticTest {
     "}"
         var response = client.prepareIndex("twitter", "tweet","32")
           .setSource(json, XContentType.JSON)
-          .get()
+          .getGeoJsonHouse()
 
        printDebug(response.result)
         toString()*/
@@ -38,7 +38,7 @@ class ElasticTest {
         /*var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
 
-        var response = client.prepareGet("twitter", "tweet", "32").get()
+        var response = client.prepareGet("twitter", "tweet", "32").getGeoJsonHouse()
        printDebug(response.source.getValue("data"))*/
     }
 
@@ -47,7 +47,7 @@ class ElasticTest {
 
         /*var client :TransportClient= PreBuiltTransportClient(Settings.EMPTY)
           .addTransportAddress(TransportAddress(InetAddress.getByName("127.0.0.1"),9300))
-        var response = client.prepareDelete("twitter", "tweet", "32").get()
+        var response = client.prepareDelete("twitter", "tweet", "32").getGeoJsonHouse()
        printDebug(response)*/
     }
 }

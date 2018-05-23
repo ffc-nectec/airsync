@@ -22,6 +22,7 @@ import ffc.model.Address
 import ffc.model.printDebug
 import ffc.model.toJson
 import me.piruin.geok.geometry.FeatureCollection
+import java.util.*
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -36,21 +37,21 @@ class HouseResource {
     @Produces(GEOJSONHeader)
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
-    fun get(@QueryParam("page") page: Int = 1,
-            @QueryParam("per_page") per_page: Int = 200,
-            @QueryParam("hid") hid: Int = -1,
-            @PathParam("orgId") orgId: String,
-            @Context req: HttpServletRequest): FeatureCollection<Address> {
+    fun getGeoJsonHouse(@QueryParam("page") page: Int = 1,
+                        @QueryParam("per_page") per_page: Int = 200,
+                        @QueryParam("hid") hid: Int = -1,
+                        @PathParam("orgId") orgId: String,
+                        @Context req: HttpServletRequest): FeatureCollection<Address> {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("")
 
 
-        printDebug("get house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
+        printDebug("getGeoJsonHouse house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
 
 
-        val geoJso = HouseService.get(
-          token,
+        val geoJso = HouseService.getGeoJsonHouse(
+          UUID.fromString(token),
           orgId,
           if (page == 0) 1 else page,
           if (per_page == 0) 200 else per_page,
@@ -63,6 +64,7 @@ class HouseResource {
 
         return geoJso
     }
+
 
 
     @PUT
@@ -82,7 +84,7 @@ class HouseResource {
           ?: throw NotAuthorizedException("Not Authorization")
 
         if (house.coordinates == null) throw javax.ws.rs.NotSupportedException("coordinates null")
-        HouseService.update(token, orgId, house, houseId)
+        HouseService.update(UUID.fromString(token), orgId, house, houseId)
 
         return Response.status(200).build()
 
@@ -96,7 +98,7 @@ class HouseResource {
                      @PathParam("orgId") orgId: String,
                      @PathParam("houseId") houseId: String
     ): FeatureCollection<Address> {
-        printDebug("Call get single geo json house by ip = " + req.remoteAddr + " OrgID $orgId House ID = $houseId")
+        printDebug("Call getGeoJsonHouse single geo json house by ip = " + req.remoteAddr + " OrgID $orgId House ID = $houseId")
 
 
         val httpHeader = req.buildHeaderMap()
@@ -104,7 +106,7 @@ class HouseResource {
           ?: throw NotAuthorizedException("Not Authorization")
 
 
-        val house: FeatureCollection<Address> = HouseService.getSingleGeo(token, orgId, houseId)
+        val house: FeatureCollection<Address> = HouseService.getSingleGeo(UUID.fromString(token), orgId, houseId)
 
         return house
 
@@ -117,7 +119,7 @@ class HouseResource {
                   @PathParam("orgId") orgId: String,
                   @PathParam("houseId") houseId: String
     ): Address {
-        printDebug("Call get single house by ip = " + req.remoteAddr + " OrgID $orgId House ID = $houseId")
+        printDebug("Call getGeoJsonHouse single house by ip = " + req.remoteAddr + " OrgID $orgId House ID = $houseId")
 
 
         val httpHeader = req.buildHeaderMap()
@@ -125,7 +127,7 @@ class HouseResource {
           ?: throw NotAuthorizedException("Not Authorization")
 
 
-        val house: Address = HouseService.getSingle(token, orgId, houseId)
+        val house: Address = HouseService.getSingle(UUID.fromString(token), orgId, houseId)
 
         return house
 
@@ -149,7 +151,7 @@ class HouseResource {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
-        HouseService.create(token, orgId, houseList)
+        HouseService.create(UUID.fromString(token), orgId, houseList)
         return Response.status(Response.Status.CREATED).build()
 
     }
@@ -170,7 +172,7 @@ class HouseResource {
         val httpHeader = req.buildHeaderMap()
         val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
           ?: throw NotAuthorizedException("Not Authorization")
-        HouseService.create(token, orgId, house)
+        HouseService.create(UUID.fromString(token), orgId, house)
         return Response.status(Response.Status.CREATED).build()
 
     }

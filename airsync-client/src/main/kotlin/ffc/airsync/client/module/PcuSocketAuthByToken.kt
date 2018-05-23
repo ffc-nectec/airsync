@@ -24,6 +24,7 @@ import ffc.model.toJson
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.client.WebSocketClient
 import java.net.URI
+import java.util.*
 import java.util.concurrent.Future
 
 class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallbackMessageListener, organization :Organization) : PcuSocket {
@@ -47,7 +48,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 if (healthConnectionWorking) {
                     if (state == 0) {
 
-                        sendText(TokenMessage(organization.token!!).toJson())
+                        sendText(TokenMessage(UUID.fromString(organization.token!!.toString())).toJson())
                         state = 1
                     }
                     sendText("H")

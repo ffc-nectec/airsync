@@ -35,7 +35,7 @@ object PersonService {
     }
 
 
-    fun create(token: String, orgId: String, personList: List<Person>) {
+    fun create(token: UUID, orgId: String, personList: List<Person>) {
         val org = getOrgByOrgToken(token, orgId)
         personDao.insert(org.uuid, personList)
     }

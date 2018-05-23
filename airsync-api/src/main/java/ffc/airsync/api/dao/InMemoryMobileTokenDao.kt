@@ -17,12 +17,11 @@
 
 package ffc.airsync.api.dao
 
-import ffc.model.MobileToken
+import ffc.model.TokenMessage
 import ffc.model.StorageOrg
 import ffc.model.printDebug
 import java.util.*
 import javax.ws.rs.NotAuthorizedException
-import javax.ws.rs.NotFoundException
 
 class InMemoryMobileTokenDao : MobileTokenDao {
 
@@ -32,7 +31,7 @@ class InMemoryMobileTokenDao : MobileTokenDao {
         val instant = InMemoryMobileTokenDao()
     }
 
-    val tokenList = arrayListOf<StorageOrg<MobileToken>>()
+    val tokenList = arrayListOf<StorageOrg<TokenMessage>>()
 
     override fun removeByOrgUuid(orgUUID: UUID) {
         tokenList.removeIf { it.uuid == orgUUID }
@@ -44,7 +43,7 @@ class InMemoryMobileTokenDao : MobileTokenDao {
         tokenList.removeIf { it.uuid == uuid && it.user == user }
         tokenList.add(StorageOrg(
           uuid = uuid,
-          data = MobileToken(token),
+          data = TokenMessage(token),
           user = user,
           id = id))
 
@@ -64,13 +63,13 @@ class InMemoryMobileTokenDao : MobileTokenDao {
     }
 
 
-    override fun find(token: UUID): StorageOrg<MobileToken> {
+    override fun find(token: UUID): StorageOrg<TokenMessage> {
         val tokenObj = tokenList.find { it.data.token == token }
         if (tokenObj == null) throw NotAuthorizedException("Not Auth")
         return tokenObj
     }
 
-    override fun findByOrgUuid(orgUUID: UUID): List<StorageOrg<MobileToken>> {//return org > mobile
+    override fun findByOrgUuid(orgUUID: UUID): List<StorageOrg<TokenMessage>> {//return org > mobile
         val mobileListInOrg=tokenList.filter {
             it.uuid==orgUUID
         }
