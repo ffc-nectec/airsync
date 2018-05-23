@@ -29,6 +29,7 @@ import com.google.gson.JsonObject
 import ffc.model.Identity
 import me.piruin.geok.LatLng
 import org.bson.types.ObjectId
+import org.joda.time.DateTime
 
 
 class mongoTest {
@@ -36,11 +37,11 @@ class mongoTest {
 
     fun insertData() {
         val mongoHouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc")
-        val house = Address("ffffff")
+        val house = Address("ffffff", DateTime.now())
         house.tambon = "เขาจันทร์ วาส"
         house.hid = 1
 
-        val house2 = Address("aaaaaa")
+        val house2 = Address("aaaaaa", DateTime.now())
         house2.tambon = "เขาขาด"
         house2.hid = 2
 

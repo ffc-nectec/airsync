@@ -27,10 +27,6 @@ class AddressTest {
 
     @Test
     fun json() {
-        val address = Address().apply {
-            coordinates = LatLng(10.0, 120.0)
-        }
 
-        println(GsonBuilder().adapterFor<LatLng>(LatLngSerializer()).create().toJson(address))
     }
 }

@@ -19,7 +19,9 @@ package ffc.airsync.client
 
 import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.printDebug
+import org.joda.time.DateTime
 import org.junit.Test
+import java.sql.Timestamp
 
 class JdbiDatabaseDaoTest {
     @Test
@@ -42,5 +44,17 @@ class JdbiDatabaseDaoTest {
         houses.forEach {
            printDebug(it)
         }*/
+    }
+
+    @Test
+    fun testDateTime() {
+        val dateTest = DateTime.now()
+        printDebug("R = $dateTest")
+        printDebug("T = ${dateTest.millis}")
+
+        val timeStamp = Timestamp(dateTest.millis)
+
+        printDebug("S = $timeStamp")
+
     }
 }

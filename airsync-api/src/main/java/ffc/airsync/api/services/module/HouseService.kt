@@ -23,6 +23,7 @@ import ffc.model.*
 import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
 import me.piruin.geok.geometry.Point
+import org.joda.time.DateTime
 import java.util.*
 import javax.ws.rs.BadRequestException
 import javax.ws.rs.NotAuthorizedException
@@ -66,12 +67,14 @@ object HouseService {
             var listMessage: List<StorageOrg<TokenMessage>>? = null
             var org: Organization? = null
 
+            var isMobile = false
 
             try {
                 printDebug("\tFind mobile token")
                 val mobile = getOrgByMobileToken(token = token, orgId = orgId)
                 listMessage = tokenMobile.findByOrgUuid(mobile.uuid)
                 org = orgDao.findByUuid(mobile.uuid)
+                isMobile = true
                 printDebug("\t\tFound mobile token")
 
 
@@ -97,6 +100,10 @@ object HouseService {
             }
 
 
+
+            if (isMobile) {
+                house.dateUpdate = DateTime.now()
+            }
 
             house._sync = _sync
             houseDao.update(house.clone())

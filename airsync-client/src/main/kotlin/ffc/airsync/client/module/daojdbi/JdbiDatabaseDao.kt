@@ -23,6 +23,8 @@ import org.jdbi.v3.core.extension.ExtensionCallback
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
+import java.sql.Timestamp
+import java.time.LocalDate
 
 
 class JdbiDatabaseDao(val dbHost: String, val dbPort: String, val dbName: String, val dbUsername: String, val dbPassword: String) : DatabaseDao {
@@ -73,12 +75,14 @@ UPDATE `house`
    `road`=?,
    `xgis`=?,
    `ygis`=?,
-   `hno`=?
+   `hno`=?,
+   `dateupdate`=?
 WHERE  `pcucode`=? AND `hcode`=?;
     """
 
 
         printDebug("upateHouse")
+        printDebug("\tGet value ${house.dateUpdate.toDateTime().toString()}")
         val jdbi = createJdbi()
         jdbi.withHandle<Any, Exception> {
             it.execute(querySql,
@@ -87,8 +91,10 @@ WHERE  `pcucode`=? AND `hcode`=?;
               house.coordinates?.longitude,
               house.coordinates?.latitude,
               house.no,
+              Timestamp(house.dateUpdate.millis),
               house.pcuCode,
-              house.hid)
+              house.hid
+            )
         }
 
 

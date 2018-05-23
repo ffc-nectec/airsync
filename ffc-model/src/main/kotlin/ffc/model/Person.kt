@@ -41,7 +41,6 @@ import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.lang.reflect.Type
 import java.util.*
-import kotlin.collections.ArrayList
 
 data class Person(val id: Long = Random().nextLong() * -1) {
     val orgId: Int? = null
@@ -60,7 +59,7 @@ data class Person(val id: Long = Random().nextLong() * -1) {
 }
 
 
-data class Address(var _id: String = "") {
+data class Address(var _id: String = "", var dateUpdate: DateTime = DateTime.now()) {
     var _shortId: String = ""
     var identity: Identity? = null
     var type: Type = Type.House
@@ -78,14 +77,13 @@ data class Address(var _id: String = "") {
 
     var _sync:Boolean = false
 
-    var dateUpdate: DateTime = DateTime.now()
 
     enum class Type {
         House, Condo
     }
 
     fun clone(): Address {
-        val cloneObj = Address(this._id)
+        val cloneObj = Address(this._id, this.dateUpdate)
         cloneObj._shortId = this._shortId
         cloneObj.identity = this.identity
         cloneObj.type = this.type
@@ -100,7 +98,6 @@ data class Address(var _id: String = "") {
         cloneObj.people = this.people
         cloneObj.pcuCode = this.pcuCode
         cloneObj._sync=this._sync
-        cloneObj.dateUpdate = this.dateUpdate
 
         return cloneObj
     }

@@ -26,7 +26,7 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
-import org.jdbi.v3.sqlobject.statement.SqlUpdate
+import org.joda.time.DateTime
 import java.sql.ResultSet
 
 
@@ -40,7 +40,8 @@ SELECT house.pcucode,
 	house.road,
 	house.xgis,
     house.hid,
-	house.ygis
+	house.ygis,
+	house.dateupdate
 FROM house
 """)
     @RegisterRowMapper(HouseMapper::class)
@@ -66,8 +67,9 @@ class HouseMapper : RowMapper<Address> {
         val ygis = rs.getDouble("ygis")
         val no = rs.getString("hno")
         val pcuCode = rs.getString("pcucode")
+        val dateupdate = rs.getTimestamp("dateupdate")
 
-        val house = Address()
+        val house = Address(dateUpdate = DateTime(dateupdate))
 
         house.no = no
         house.road = road
