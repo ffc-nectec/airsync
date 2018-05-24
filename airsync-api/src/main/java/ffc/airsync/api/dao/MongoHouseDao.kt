@@ -213,8 +213,9 @@ class MongoHouseDao : HouseDao {
         val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("_id", ObjectId(_id))
 
+        printDebug("\tcreate query object finish $query")
 
-        val dbObj = coll.findOne(query)
+        val dbObj = coll.findOne(query) ?: throw NotFoundException("findByHouse_Id  ไม่พบ")
         printDebug("\tQuery property = ${dbObj.get("property")}")
 
 

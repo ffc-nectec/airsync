@@ -184,36 +184,36 @@ object HouseService {
     fun getSingle(token: UUID, orgId: String, houseId: String): Address {
         var orgUuid: UUID
 
-
-        try {
-            orgUuid = getOrgByMobileToken(token = token, orgId = orgId).uuid
-        } catch (ex: NotAuthorizedException) {
-            orgUuid = getOrgByOrgToken(token, orgId).uuid
-        }
-
-
-        val house = houseDao.findByHouse_Id(orgUuid, houseId)?.data
-
-        house?.people = personDao.getPeopleInHouse(orgUuid, houseId.toInt())
-        house?.haveChronics = houseIsChronic(house?.people)
-
+        val singleHouseGeo = getSingleGeo(token, orgId, houseId)
+        val house = singleHouseGeo.features.get(0).properties
 
         return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
     }
 
     fun getSingleGeo(token: UUID, orgId: String, houseId: String): FeatureCollection<Address> {
 
-        val tokenObj = getOrgByMobileToken(token, orgId)
+        var tokenObjUuid: UUID
+
+        try {
+            tokenObjUuid = getOrgByMobileToken(token, orgId).uuid
+        } catch (ex: javax.ws.rs.NotAuthorizedException) {
+            tokenObjUuid = getOrgByOrgToken(token, orgId).uuid ?: throw NotAuthorizedException("ไม่มี token นี้ในระบบ")
+        }
+
+
+
+
+
         val geoJson = FeatureCollection<Address>()
         val house: StorageOrg<Address>
 
 
-        printDebug("\thouse findBy_ID OrgUuid = ${tokenObj.uuid} houseId = $houseId")
-        house = houseDao.findByHouse_Id(tokenObj.uuid, houseId) ?: throw NotFoundException("ไม่พบข้อมูลบ้านที่ระบุ")
+        printDebug("\thouse findBy_ID OrgUuid = ${tokenObjUuid} houseId = $houseId")
+        house = houseDao.findByHouse_Id(tokenObjUuid, houseId) ?: throw NotFoundException("ไม่พบข้อมูลบ้านที่ระบุ")
 
 
         printDebug("\t\t$house")
-        val feture = createGeo(house.data, tokenObj.uuid)
+        val feture = createGeo(house.data, tokenObjUuid)
         geoJson.features.add(feture)
 
 

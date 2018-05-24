@@ -110,12 +110,15 @@ class InMemoryPersonDao : PersonDao {
     }
 
     override fun getPeopleInHouse(orgUUID: UUID, houseId: Int): ArrayList<People>? {
+
+        printDebug("GetPeopleInHouse InMemoryPersonDao orgUUID=$orgUUID houseId=$houseId")
         val peopleInOrg = getPeopleInOrg(orgUUID = orgUUID)
 
 
 
+
         if (peopleInOrg == null) {
-            printDebug("People in org Null")
+            printDebug("\tPeople in org Null")
             return null
         }
 
@@ -124,11 +127,13 @@ class InMemoryPersonDao : PersonDao {
 
 
         if (peopleInHouse == null) {
-            printDebug("House find null $houseId")
+            printDebug("\tHouse find null $houseId")
         }
 
-        printDebug("Print all people in house $houseId")
-        peopleInHouse?.forEach { printDebug(it) }
+        printDebug("\tPeople in house Id $houseId")
+        printDebug("\t\tcount ${peopleInHouse?.size}")
+
+        //peopleInHouse?.forEach { printDebug(it) }
 
         return peopleInHouse
     }
