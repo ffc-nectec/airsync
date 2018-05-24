@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "73aeb5c8-564f-4a58-aeb6-083bd22e632d",
+					"id": "0b0b5a35-8aa4-409e-9104-8b6236c61b85",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -159,7 +159,7 @@
 			},
 			"response": [
 				{
-					"id": "cbcdfea7-5a14-43c5-b0c7-da6e70d88e56",
+					"id": "68f25197-4f54-4c8f-863b-e3a24c09f3df",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -324,7 +324,7 @@
 			},
 			"response": [
 				{
-					"id": "c3318e4d-c092-44bb-a23f-f6a2aadb39e6",
+					"id": "05d64ea0-9bcc-44bd-8c5f-78d2ee2f1344",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -475,7 +475,7 @@
 			},
 			"response": [
 				{
-					"id": "b3803cdd-b335-4375-a40a-706f8e412cfc",
+					"id": "16281662-3125-4c0a-bf7d-4eed915b5ff5",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -656,7 +656,7 @@
 			},
 			"response": [
 				{
-					"id": "d888dcf9-67ce-4c7d-845d-402a4ef83e86",
+					"id": "ba97c9fe-7997-4bea-882e-08dd3fd9799f",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -775,7 +775,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "59b7f51b-0758-4774-84a0-038b676f200e",
+					"id": "8c6a9e93-933b-4c35-864c-77a539fdfdec",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -866,7 +866,7 @@
 			},
 			"response": [
 				{
-					"id": "879498dc-6549-4877-b8c4-f7c99f5874e4",
+					"id": "0c6837d0-b497-4060-b2ad-9bf85fa58f53",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -958,7 +958,7 @@
 			},
 			"response": [
 				{
-					"id": "d59e3f91-e7fd-44e1-9b23-6f44cf661782",
+					"id": "d4d0dac8-3432-4c4c-9baf-3c51582cbf73",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -972,188 +972,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"type\": \"Feature\",\n  \"properties\": {\n    \"id\": -5844940478183523000,\n    \"hid\": \"22\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"coordinates\": [\n      102,\n      13\n    ],\n    \"people\": [\n      {\n        \"pid\": 3000214,\n        \"name\": \"นายพิรุณ พานิชผล\"\n      },\n      {\n        \"pid\": 3000215,\n        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n      },\n      {\n        \"pid\": 3000216,\n        \"name\": \"นายธนชัย ทองคุ้ม\"\n      }\n    ]\n  }\n}"
-						},
-						"url": {
-							"raw": "{{url}}/org/1/place/house",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"1",
-								"place",
-								"house"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "New House by mobile",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2fa32845-13a5-459c-befe-ff7c09e7b394",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{mobile_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"_id\": \"5ae19d63f6db5e0033puypuy\",\n    \"hid\": \"-4433\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/33\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"people\": [\n      {\n        \"id\": 2000117,\n        \"name\": \"นายวัชรากร หนูทอง\"\n      }\n    ],\n    \"_sync\" : true\n}"
-				},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}/place/house",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}",
-						"place",
-						"house"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "42ff0478-bc2d-4d10-b0dc-cb0f4b878118",
-					"name": "New House by mobile",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.geo+json",
-								"warning": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": -10000124,\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"112 \",\n  \"road\": \"รังสิต-นครนายก\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    102,\n    13.1\n  ],\n  \"people\": [\n    {\n      \"id\": -2000117,\n      \"name\": \"นายวัชรากร หนูทอง\"\n    }\n  ]\n}"
-						},
-						"url": {
-							"raw": "{{url}}/org/1/place/house",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"1",
-								"place",
-								"house"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "New Houses by mobile (Array)",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "2fa32845-13a5-459c-befe-ff7c09e7b394",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{mobile_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n  {\n    \"_id\": \"5ae19d63f6db5e0004puypuy\",\n    \"hid\": \"-4422\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/46\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"people\": [\n      {\n        \"id\": 2000117,\n        \"name\": \"นายวัชรากร หนูทอง\"\n      }\n    ],\n    \"_sync\" : true\n  }\n]"
-				},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}/place/houses",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}",
-						"place",
-						"houses"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "b0269cf4-e759-4062-953f-7361c5bcd7af",
-					"name": "New House by mobile",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/vnd.geo+json",
-								"warning": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"id\": -10000124,\n  \"identity\": {\n    \"type\": \"thailand-household-id\",\n    \"id\": \"54520015001\"\n  },\n  \"haveChronics\": true,\n  \"type\": \"House\",\n  \"no\": \"112 \",\n  \"road\": \"รังสิต-นครนายก\",\n  \"tambon\": \"คลองหนึ่ง\",\n  \"ampur\": \"คลองหลวง\",\n  \"changwat\": \"ปุทมธานี\",\n  \"coordinates\": [\n    102,\n    13.1\n  ],\n  \"people\": [\n    {\n      \"id\": -2000117,\n      \"name\": \"นายวัชรากร หนูทอง\"\n    }\n  ]\n}"
 						},
 						"url": {
 							"raw": "{{url}}/org/1/place/house",
@@ -1263,7 +1081,7 @@
 			},
 			"response": [
 				{
-					"id": "009bdcf0-0d00-47be-9450-fddbddeb8b9b",
+					"id": "64c700ef-a718-4c96-aab2-df1bcaebef8a",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1472,7 +1290,7 @@
 			},
 			"response": [
 				{
-					"id": "bb19b188-218f-4bef-a201-e03933ac7a6b",
+					"id": "71b4cdde-9d66-4dd5-a167-32e9bf850bd0",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1687,7 +1505,7 @@
 			},
 			"response": [
 				{
-					"id": "d59782f7-2f25-46f5-a396-08c34cf1cf0c",
+					"id": "b143c942-80f6-4342-9bc5-d419a54c6a05",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1878,7 +1696,7 @@
 			},
 			"response": [
 				{
-					"id": "3c338dc1-6eaa-4425-a50b-04d2af50d14c",
+					"id": "02b00ea7-83b5-40c6-9b99-d1297c8a33bf",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1983,7 +1801,7 @@
 			},
 			"response": [
 				{
-					"id": "453bb9a3-0c0e-4134-a8f0-cd31605c358d",
+					"id": "96960b6b-a2a1-426d-8bb6-224a6e225769",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2176,7 +1994,7 @@
 			},
 			"response": [
 				{
-					"id": "01791222-9949-4427-9b2f-b73e984d67ab",
+					"id": "af0651ce-b30f-4649-a438-251e4749febb",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2281,7 +2099,7 @@
 			},
 			"response": [
 				{
-					"id": "7b87d342-a3f2-45a6-89d1-8903dca8c194",
+					"id": "83558236-097b-4276-8297-1efa099b6c1a",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2477,7 +2295,7 @@
 			},
 			"response": [
 				{
-					"id": "16cb0951-acb5-4dfa-8d9d-1543022b1916",
+					"id": "26e3c71b-5aad-4002-b05f-df71f5b901b4",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2568,169 +2386,7 @@
 			},
 			"response": [
 				{
-					"id": "58eea0ad-b558-424b-a457-09b23c422d82",
-					"name": "Register Person",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"disabled": false
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": -5844940478120182000\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": -582440454820180500\n}"
-						},
-						"url": {
-							"raw": "{{url}}/org/1/person",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"1",
-								"person"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Access-Control-Allow-Credentials",
-							"value": "",
-							"name": "Access-Control-Allow-Credentials",
-							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "",
-							"name": "Access-Control-Allow-Headers",
-							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "",
-							"name": "Access-Control-Allow-Methods",
-							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*",
-							"name": "Access-Control-Allow-Origin",
-							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
-						},
-						{
-							"key": "Access-Control-Expose-Headers",
-							"value": "",
-							"name": "Access-Control-Expose-Headers",
-							"description": "Lets a server whitelist headers that browsers are allowed to access."
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive",
-							"name": "Connection",
-							"description": "Options that are desired for the connection"
-						},
-						{
-							"key": "Content-Length",
-							"value": "915",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 30 Mar 2018 04:50:51 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"b3-Mst5NKQqfkFw0FPMPBRonw\"",
-							"name": "ETag",
-							"description": "An identifier for a specific version of a resource, often a message digest"
-						},
-						{
-							"key": "Server",
-							"value": "nginx",
-							"name": "Server",
-							"description": "A name for the server"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept-Encoding",
-							"name": "Vary",
-							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "New Person by mobile",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "5bd4d530-3571-450c-8885-1a9b8b75a1d6",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{mobile_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n  {\n    \"hospCode\": \"15032\",\n    \"pid\": 1,\n    \"prename\": \"นาย\",\n    \"firstname\": \"สมหญิง\",\n    \"lastname\": \"ทีชานนท์\",\n    \"birthData\": \"1950-09-21\",\n    \"identities\": [\n      {\n        \"type\": \"thailand-citizen-id\",\n        \"id\": \"2018032920177\"\n      }\n    ],\n    \"house\": {\n      \"identity\": {\n        \"type\": \"thailand-household-id\",\n        \"id\": \"20180329101\"\n      },\n      \"type\": \"House\",\n      \"no\": \"99/1\",\n      \"road\": \"รังสิต-นครนายก\",\n      \"tambon\": \"คลองหนึ่ง\",\n      \"ampur\": \"คลองหลวง\",\n      \"changwat\": \"ปุทมธานี\",\n      \"latlng\": [\n        120,\n        10\n      ],\n      \"id\": -5844940478120182000\n    },\n    \"chronics\": [\n      {\n        \"status\": \"active\",\n        \"idc10\": \"N18.3\",\n        \"diagDate\": \"2015-05-21\"\n      },\n      {\n        \"status\": \"active\",\n        \"idc10\": \"I10\",\n        \"diagDate\": \"2016-05-21\"\n      }\n    ],\n    \"houseId\": 21,\n    \"id\": -582440454820180500\n  }\n]"
-				},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}/person",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}",
-						"person"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "8263f8c3-ffd2-4c81-abc8-9e5cf125031e",
+					"id": "7b24a600-a72b-4483-8ed3-1a967865f9ce",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -2905,7 +2561,7 @@
 			},
 			"response": [
 				{
-					"id": "2539541c-185b-4937-aabe-ccc70a988608",
+					"id": "b86acf82-2b65-49a7-9f1c-c9a9a82f27bd",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
@@ -3017,7 +2673,7 @@
 			]
 		},
 		{
-			"name": "Delete ข้อมูลของ org status 200 Copy",
+			"name": "Delete ข้อมูลของ org status 200",
 			"event": [
 				{
 					"listen": "test",
