@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "0b0b5a35-8aa4-409e-9104-8b6236c61b85",
+					"id": "95db867a-67ba-4356-9f03-a3c2f4031364",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -159,7 +159,7 @@
 			},
 			"response": [
 				{
-					"id": "68f25197-4f54-4c8f-863b-e3a24c09f3df",
+					"id": "c3b37573-0267-4b59-89b0-5c97b7a6ac07",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -324,7 +324,7 @@
 			},
 			"response": [
 				{
-					"id": "05d64ea0-9bcc-44bd-8c5f-78d2ee2f1344",
+					"id": "bbe17e0a-7045-40b0-b599-d89baf3842d5",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -475,7 +475,7 @@
 			},
 			"response": [
 				{
-					"id": "16281662-3125-4c0a-bf7d-4eed915b5ff5",
+					"id": "5e28c08b-4deb-47dc-845e-9f330444cb3f",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -594,7 +594,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "733a5ede-9d90-482b-9d57-a28108889913",
+						"id": "6278f5f5-0f80-4671-9ed4-7958c8311682",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
@@ -610,6 +610,16 @@
 							"    pm.globals.set(\"mobile_token\", orgRes.token);",
 							"    ",
 							"});",
+							"",
+							"pm.test(\"Response have timestamp\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"timestamp\");",
+							"});",
+							"",
+							"pm.test(\"Response have expireDate\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"expireDate\");",
+							"});",
+							"",
+							"",
 							""
 						]
 					}
@@ -656,7 +666,7 @@
 			},
 			"response": [
 				{
-					"id": "ba97c9fe-7997-4bea-882e-08dd3fd9799f",
+					"id": "fddf41f2-3772-4742-b142-cfb368be0ba3",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -775,7 +785,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "8c6a9e93-933b-4c35-864c-77a539fdfdec",
+					"id": "d00647e5-a69d-41c7-bebe-ad1d4a0500dd",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -866,7 +876,7 @@
 			},
 			"response": [
 				{
-					"id": "0c6837d0-b497-4060-b2ad-9bf85fa58f53",
+					"id": "833c4ec3-8bdc-409e-8ae4-4893fdb84a5d",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -958,7 +968,7 @@
 			},
 			"response": [
 				{
-					"id": "d4d0dac8-3432-4c4c-9baf-3c51582cbf73",
+					"id": "5a06b476-bf6f-4524-a828-54fea9bc1b67",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1081,7 +1091,7 @@
 			},
 			"response": [
 				{
-					"id": "64c700ef-a718-4c96-aab2-df1bcaebef8a",
+					"id": "6dfe8498-9255-4ff0-a6b3-3c3677ab5bc4",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1290,7 +1300,7 @@
 			},
 			"response": [
 				{
-					"id": "71b4cdde-9d66-4dd5-a167-32e9bf850bd0",
+					"id": "10fea027-bb75-40bd-bcd9-1a47ad187fc2",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1505,7 +1515,7 @@
 			},
 			"response": [
 				{
-					"id": "b143c942-80f6-4342-9bc5-d419a54c6a05",
+					"id": "55e4db52-f86e-434d-ba86-cf76da3d7c12",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1696,7 +1706,7 @@
 			},
 			"response": [
 				{
-					"id": "02b00ea7-83b5-40c6-9b99-d1297c8a33bf",
+					"id": "6a0ec58b-fd97-4120-8b7e-e718f62c4f6e",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1801,7 +1811,7 @@
 			},
 			"response": [
 				{
-					"id": "96960b6b-a2a1-426d-8bb6-224a6e225769",
+					"id": "7fef6c6f-bc2d-4cc3-857d-8cf39546144a",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1994,7 +2004,7 @@
 			},
 			"response": [
 				{
-					"id": "af0651ce-b30f-4649-a438-251e4749febb",
+					"id": "9fc60531-fae9-46db-97c6-e367f65c8f96",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2099,7 +2109,7 @@
 			},
 			"response": [
 				{
-					"id": "83558236-097b-4276-8297-1efa099b6c1a",
+					"id": "89dbdc49-a330-4b63-8fa9-ca4931bf0abe",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2295,7 +2305,7 @@
 			},
 			"response": [
 				{
-					"id": "26e3c71b-5aad-4002-b05f-df71f5b901b4",
+					"id": "ec33c07f-3353-4e75-8097-636e0c3e8052",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2386,7 +2396,7 @@
 			},
 			"response": [
 				{
-					"id": "7b24a600-a72b-4483-8ed3-1a967865f9ce",
+					"id": "21c8881b-495d-4497-89c0-63dfea8e64b2",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -2496,6 +2506,182 @@
 			]
 		},
 		{
+			"name": "Find All Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "07482c7f-aa4b-49e2-845c-7b5281940a19",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response have hospCode\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"hospCode\");",
+							"});",
+							"",
+							"pm.test(\"Reponse is person in global variable\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var personId = pm.globals.get(\"person_id\");",
+							"    pm.expect(jsonData.id).to.eql(personId);",
+							"    ",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "accessToken",
+							"value": "{{mobile_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/org/{{org_id}}/person",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"org",
+						"{{org_id}}",
+						"person"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "4ff64f28-6667-4227-8f99-07da42e859c2",
+					"name": "Find Person",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{url}}/org/1/person",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"org",
+								"1",
+								"person"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "",
+							"name": "Access-Control-Allow-Credentials",
+							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
+						},
+						{
+							"key": "Access-Control-Allow-Headers",
+							"value": "",
+							"name": "Access-Control-Allow-Headers",
+							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "",
+							"name": "Access-Control-Allow-Methods",
+							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "",
+							"name": "Access-Control-Expose-Headers",
+							"description": "Lets a server whitelist headers that browsers are allowed to access."
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"name": "Connection",
+							"description": "Options that are desired for the connection"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"name": "Content-Encoding",
+							"description": "The type of encoding used on the data."
+						},
+						{
+							"key": "Content-Length",
+							"value": "158",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 29 Mar 2018 09:00:22 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b1-goXgQV2Fy68uZfdNHMNYcQ\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Server",
+							"value": "nginx",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding",
+							"name": "Vary",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": 6790\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": 12346\n}"
+				}
+			]
+		},
+		{
 			"name": "Find Person",
 			"event": [
 				{
@@ -2561,7 +2747,7 @@
 			},
 			"response": [
 				{
-					"id": "b86acf82-2b65-49a7-9f1c-c9a9a82f27bd",
+					"id": "b941f7c7-4c15-4f10-82ff-469a0bdbd809",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
