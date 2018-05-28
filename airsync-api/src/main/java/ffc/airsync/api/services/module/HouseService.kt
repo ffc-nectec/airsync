@@ -109,7 +109,7 @@ object HouseService {
             try {
                 houseDao.update(house.clone())
             } catch (ex: Exception) {
-                ex.printStackTrace()
+                //ex.printStackTrace()
                 throw ex
             }
 
