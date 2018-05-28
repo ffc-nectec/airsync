@@ -106,7 +106,13 @@ object HouseService {
             }
 
             house._sync = _sync
-            houseDao.update(house.clone())
+            try {
+                houseDao.update(house.clone())
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+                throw ex
+            }
+
 
 
             printDebug("Call send notification size list token = ${firebaseTokenGropOrg.size} ")
@@ -121,6 +127,7 @@ object HouseService {
             printDebug("House id not eq update houseIdParameter=$house_id houseIdInData=${house._id}")
             throw BadRequestException("House _id not eq update")
         }
+        Thread.sleep(200)
     }
 
 
@@ -199,9 +206,6 @@ object HouseService {
         } catch (ex: javax.ws.rs.NotAuthorizedException) {
             tokenObjUuid = getOrgByOrgToken(token, orgId).uuid ?: throw NotAuthorizedException("ไม่มี token นี้ในระบบ")
         }
-
-
-
 
 
         val geoJson = FeatureCollection<Address>()

@@ -17,7 +17,7 @@
 
 package ffc.airsync.api.services.filter
 
-import ffc.model.UserInfo
+import ffc.model.TokenMessage
 import java.security.Principal
 import javax.ws.rs.core.SecurityContext
 
@@ -29,26 +29,27 @@ class UserSecurityContextImp : SecurityContext {
     private var scheme: String? = null
 
 
-    constructor(userInfo: UserInfo, scheme: String){
+    constructor(token: TokenMessage, scheme: String) {
+
+        this.scheme = scheme
+
         this.userPrincipal =  object  :Principal{
             override fun getName(): String {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                return token.name ?: ""
             }
 
         }
-        this.scheme = scheme
+
     }
 
 
 
     override fun isUserInRole(role: String?): Boolean {
-        return "username".equals(role)
+        return TokenMessage.TYPERULE.USER.toString().equals(role)
     }
 
     override fun getAuthenticationScheme(): String {
-
-
-        return SecurityContext.BASIC_AUTH
+        return "Bearer"
     }
 
     override fun getUserPrincipal(): Principal {
