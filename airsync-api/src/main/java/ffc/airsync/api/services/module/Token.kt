@@ -21,9 +21,13 @@ fun getOrgByOrgToken(token: UUID, orgId: String): Organization {
 
 fun getOrgByMobileToken(token: UUID, orgId: String): StorageOrg<TokenMessage> {
     printDebug("Befor check mobile token")
-    val orgUuid = tokenMobile.find(token)
-    if (orgUuid.id != orgId.toInt()) throw NotAuthorizedException("Not Auth")
+    val tokenMessage = tokenMobile.find(token)
+    if (tokenMessage.id != orgId.toInt()) throw NotAuthorizedException("Not Auth")
     printDebug("Token pass ")
 
-    return orgUuid
+    if (tokenMessage.data.checkExpireTokem()) throw NotAuthorizedException("Token expire ${tokenMessage.data.getExpireDate()}")
+
+
+
+    return tokenMessage
 }

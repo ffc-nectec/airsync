@@ -20,13 +20,13 @@ dependencies {
     testImplementation "junit:junit:4.12"
 
     compile "org.eclipse.jetty.websocket:websocket-client:9.4.8.v20171121"
-    implementation "com.google.code.gson:gson:2.8.1"
+    compile "com.google.code.gson:gson:2.8.1"
     compile "org.eclipse.jetty.websocket:websocket-server:9.4.8.v20171121"
 
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
 
-    implementation "joda-time:joda-time:2.9.9"
-    implementation 'me.piruin:geok-gson:1.0.0-alpha-2'
+    compile "joda-time:joda-time:2.9.9"
+    compile 'me.piruin:geok-gson:1.0.0-alpha-2'
 
     compile "com.fatboyindustrial.gson-jodatime-serialisers:gson-jodatime-serialisers:1.6.0"
 

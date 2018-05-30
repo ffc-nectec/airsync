@@ -70,7 +70,7 @@ dependencies {
     compile "org.eclipse.jetty.websocket:websocket-server:9.4.8.v20171121"
 
 
-    implementation "joda-time:joda-time:2.9.9"
+    compile "joda-time:joda-time:2.9.9"
 
     compile "org.mongodb:mongo-java-driver:3.6.3"
 
