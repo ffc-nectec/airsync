@@ -6,6 +6,7 @@ import ffc.model.Organization
 import ffc.model.printDebug
 import org.bson.types.ObjectId
 import java.util.*
+import javax.ws.rs.NotFoundException
 
 class MongoOrgDao : OrgDao {
 
@@ -54,47 +55,126 @@ class MongoOrgDao : OrgDao {
 
         coll.remove(queryRemove)
 
-        val objId = ObjectId()
-        val shortId = objId.get6DigiId()
 
         //uuid id token ipaddress
-        val doc = BasicDBObject("_id", objId)
-          .append("_shortId", shortId)
-          .append("orgUuid", organization.uuid.toString())
-          .append("token", organization.token)
+        val doc = createDoc(organization, ObjectId())
+        coll.insert(doc)
 
 
     }
 
     override fun find(): List<Organization> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val orgCursorList = coll.find()
+        val orgList = loadDocList(orgCursorList)
+        if (orgList.size < 1) throw NotFoundException("ไม่พบรายการ org ลงทะเบียน ในระบบ")
+        return orgList
+
     }
 
     override fun findByUuid(uuid: UUID): Organization {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val query = BasicDBObject("orgUuid", uuid.toString())
+        val doc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ uuid ${uuid.toString()} ที่ค้นหา")
+        val organization = loadDoc(doc)
+
+        return organization
     }
 
     override fun findByIpAddress(ipAddress: String): List<Organization> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val query = BasicDBObject("lastKnownIp", ipAddress)
+        val docList = coll.find(query)
+        val orgList = loadDocList(docList)
+
+        if (orgList.size < 1) throw NotFoundException("ไม่พบรายการลงทะเบียนในกลุ่มของ Org ip $ipAddress")
+
+        return orgList
     }
 
     override fun findByToken(token: UUID): Organization {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val query = BasicDBObject("token", token.toString())
+        val doc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ token ${token.toString()} ที่ค้นหา")
+        val organization = loadDoc(doc)
+
+        return organization
+
     }
 
     override fun findById(id: String): Organization {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val query = BasicDBObject("idOrg", id)
+        val doc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ id org $id ที่ค้นหา")
+        val organization = loadDoc(doc)
+
+        return organization
     }
 
     override fun remove(organization: Organization) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val query = BasicDBObject("orgUuid", organization.uuid.toString())
+        coll.remove(query)
     }
 
     override fun updateToken(organization: Organization): Organization {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val query = BasicDBObject("orgUuid", organization.uuid.toString())
+        val oldDoc = coll.findOne(query)
+          ?: throw NotFoundException("ไม่พบ Object organization ${organization.uuid} ให้ Update")
+
+
+        organization.token = UUID.randomUUID()
+        val updateDoc = createDoc(organization, ObjectId(oldDoc.get("_id").toString()))
+
+
+        return organization
     }
 
     override fun removeByOrgUuid(orgUUID: UUID) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val query = BasicDBObject("orgUuid", orgUUID.toString())
+
+        val doc = coll.findAndRemove(query) ?: throw NotFoundException()
+
+    }
+
+    private fun createDoc(organization: Organization, objId: ObjectId): BasicDBObject {
+
+        val shortId = objId.get6DigiId()
+
+        val doc = BasicDBObject("_id", objId)
+          .append("_shortId", shortId)
+          .append("orgUuid", organization.uuid.toString())
+          .append("pcuCode", organization.pcuCode)
+          .append("name", organization.name)
+          .append("token", organization.token.toString())
+          .append("idOrg", organization.id)
+
+          .append("lastKnownIp", organization.lastKnownIp)
+          .append("firebaseToken", organization.firebaseToken)
+
+        return doc
+    }
+
+    private fun loadDoc(doc: DBObject): Organization {
+
+        val organization = Organization(
+          UUID.fromString(doc.get("orgUuid").toString()),
+          doc.get("idOrg").toString())
+        organization.pcuCode = doc.get("pcuCode").toString()
+        organization.name = doc.get("name").toString()
+        organization.token = UUID.fromString(doc.get("token").toString())
+        organization.id = doc.get("idOrg").toString()
+
+        organization.lastKnownIp = doc.get("lastKnownIp").toString()
+        organization.firebaseToken = doc.get("firebaseToken").toString()
+
+        return organization
+    }
+
+    private fun loadDocList(cursor: DBCursor): List<Organization> {
+
+        val orgList = arrayListOf<Organization>()
+        while (cursor.hasNext()) {
+            val it = cursor.next()
+
+            val organization = loadDoc(it)
+            orgList.add(organization)
+        }
+        return orgList
+
     }
 }

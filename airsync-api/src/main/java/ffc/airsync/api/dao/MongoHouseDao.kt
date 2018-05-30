@@ -173,7 +173,7 @@ class MongoHouseDao : HouseDao {
         while (cursor.hasNext()) {
             val it = cursor.next()
             val property = it.get("property")
-            printDebug(property)
+            //printDebug(property)
 
 
             val house: Address = property.toString().fromJson()
