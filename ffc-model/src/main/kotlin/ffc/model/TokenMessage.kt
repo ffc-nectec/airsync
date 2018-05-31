@@ -20,13 +20,14 @@ package ffc.model
 import org.joda.time.DateTime
 import java.util.*
 
+val DATEEXPIRE = 1
+
 data class TokenMessage(val token: UUID, var firebaseToken: String? = null, val timestamp: DateTime = DateTime.now(), val typeRule: TYPERULE = TYPERULE.USER, var name: String? = null) {
 
-    val DATEEXPIRE = 1
+    // fun getExpireDate(temp :String? = null): DateTime = timestamp.plusDays(DATEEXPIRE)
+    val expireDate = timestamp.plusDays(DATEEXPIRE)
 
-    fun getExpireDate(): DateTime = timestamp.plusDays(DATEEXPIRE)
-
-    fun checkExpireTokem(): Boolean = getExpireDate().isBeforeNow
+    fun checkExpireTokem(): Boolean = expireDate.isBeforeNow
 
 
     enum class TYPERULE {

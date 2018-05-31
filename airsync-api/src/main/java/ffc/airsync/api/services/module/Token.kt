@@ -25,7 +25,7 @@ fun getOrgByMobileToken(token: UUID, orgId: String): StorageOrg<TokenMessage> {
     if (tokenMessage.id != orgId.toInt()) throw NotAuthorizedException("Not Auth")
     printDebug("Token pass ")
 
-    if (tokenMessage.data.checkExpireTokem()) throw NotAuthorizedException("Token expire ${tokenMessage.data.getExpireDate()}")
+    if (tokenMessage.data.checkExpireTokem()) throw NotAuthorizedException("Token expire ${tokenMessage.data.expireDate}")
 
 
 

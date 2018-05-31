@@ -13,10 +13,7 @@ class ErrorFilter : ExceptionMapper<WebApplicationException> {
         exception!!.printStackTrace()
         val err = ErrorRes(exception.response.status, exception.message, exception)
         return Response.status(exception.response.statusInfo).entity(err).type(MediaType.APPLICATION_JSON_TYPE).build()
-
     }
 
     data class ErrorRes(val code: Int, val message: String?, val t: Throwable)
 }
-
-
