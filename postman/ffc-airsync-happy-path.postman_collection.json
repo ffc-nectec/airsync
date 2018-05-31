@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "dcf8545d-0ae2-4e10-9142-61105ce67841",
+					"id": "d087c01e-bd3a-43a1-83be-8f42e7a6961b",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -159,7 +159,7 @@
 			},
 			"response": [
 				{
-					"id": "15ff75e0-8732-49d7-8821-9751cb22a666",
+					"id": "4ee40069-8265-45df-a7dd-8a428dffe4ad",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -324,7 +324,7 @@
 			},
 			"response": [
 				{
-					"id": "f9b4ffec-dc32-4a6e-a832-b8c4ba5a5388",
+					"id": "0994fcb9-6f3e-4321-8253-8ca78f3f1ea4",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -475,7 +475,7 @@
 			},
 			"response": [
 				{
-					"id": "6ebedad1-2052-49f4-8293-184962aba90e",
+					"id": "0cb55209-d391-4ff7-9b3a-458b53e79d2d",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -594,7 +594,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "956dab23-1b3a-4158-aadb-42d577c4013b",
+						"id": "761536a2-8a0a-4f1f-a4ae-1f1a88fef8e8",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {",
@@ -619,8 +619,8 @@
 							"    pm.expect(pm.response.text()).to.include(\"expireDate\");",
 							"});",
 							"",
-							"pm.test(\"Response have rule\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"rule\");",
+							"pm.test(\"Response have role\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"role\");",
 							"});",
 							"",
 							"",
@@ -670,7 +670,7 @@
 			},
 			"response": [
 				{
-					"id": "e21db615-0690-4c16-a630-c030cb382055",
+					"id": "ff60c7f8-bdc8-4189-ba80-7d70b4f12df8",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -789,7 +789,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "ff9d5ed9-997d-41af-9e22-7aa82f00b4fb",
+					"id": "157071a1-a7fc-4efb-9764-3db4a9e604f6",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -880,7 +880,7 @@
 			},
 			"response": [
 				{
-					"id": "5f2625d1-c2de-4dc8-b85e-2c0d2eb814d7",
+					"id": "8250ca36-e3ec-47d8-ad2e-1a62d2058a7d",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -972,7 +972,7 @@
 			},
 			"response": [
 				{
-					"id": "07fc6af5-e5ac-4df0-85e1-15a7cf7f8cac",
+					"id": "0dd52e3f-41cf-4e6d-887a-369f11dec7ab",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1095,7 +1095,7 @@
 			},
 			"response": [
 				{
-					"id": "09b16886-918e-41b1-9579-1741413fafa3",
+					"id": "3045b00c-d6c2-4675-8690-91ea9b136bca",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1304,7 +1304,7 @@
 			},
 			"response": [
 				{
-					"id": "2a7777b9-a741-431a-87eb-32ff16430b27",
+					"id": "65815afb-a8cd-452e-8bae-a349a0119111",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1519,7 +1519,7 @@
 			},
 			"response": [
 				{
-					"id": "92083904-d9cd-4261-9845-6b42b12a0b90",
+					"id": "24cb6cfe-27c6-44e0-945f-c83c6eaa8370",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1710,7 +1710,7 @@
 			},
 			"response": [
 				{
-					"id": "dbbffc83-a6a2-4c9f-b93e-3bd981ccece4",
+					"id": "702e8d0f-e175-4556-b3c6-bc47b996595d",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -1815,7 +1815,7 @@
 			},
 			"response": [
 				{
-					"id": "8b8dfff1-67bd-405c-876f-9dc11665e441",
+					"id": "d7015d21-45ce-46e3-805f-f0f84ec6a9c1",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2008,7 +2008,7 @@
 			},
 			"response": [
 				{
-					"id": "5e6ef861-4558-487e-99ac-c93e55f67409",
+					"id": "ac9b2096-3b11-430d-817e-bd78de885994",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2113,7 +2113,7 @@
 			},
 			"response": [
 				{
-					"id": "11f842f2-ef89-4014-80a7-447d08d3b9ec",
+					"id": "8c00b55b-0c42-4fb1-a80d-7917276f52a3",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2309,7 +2309,7 @@
 			},
 			"response": [
 				{
-					"id": "c2c24d12-03ec-4a99-b196-5a80874e88f8",
+					"id": "828aec55-d92d-4735-a528-9e3e135dc088",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2400,7 +2400,7 @@
 			},
 			"response": [
 				{
-					"id": "d96634c9-d48c-40b4-94ff-6693241d930c",
+					"id": "2ff26492-f9cc-4a82-ac6c-c6c3d451bb70",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -2574,7 +2574,7 @@
 			},
 			"response": [
 				{
-					"id": "7be68540-f585-4a0c-a0c5-f1eb1ad7706c",
+					"id": "30aa83f6-74a7-4e43-bf0b-38d72d90e303",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
@@ -2751,7 +2751,7 @@
 			},
 			"response": [
 				{
-					"id": "e228c3ef-06d8-46b7-82e8-d58c674b11a5",
+					"id": "899ac23a-721b-47db-9257-722b148baf14",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
