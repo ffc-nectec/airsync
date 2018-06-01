@@ -19,6 +19,7 @@ package ffc.airsync.api.services
 
 
 import ffc.airsync.api.services.module.OrgService
+import ffc.airsync.api.services.module.tokenMobile
 import ffc.model.*
 import java.util.*
 import javax.servlet.http.HttpServletRequest
@@ -53,6 +54,10 @@ class OrgResource {
         val orgUpdate = OrgService.register(organization, ipAddress)
         printDebug("\tGen ip = " + orgUpdate.lastKnownIp
           + " Org token = " + orgUpdate.token)
+
+        printDebug("Create token")
+        tokenMobile.insert(id = orgUpdate.id, token = orgUpdate.token!!, type = TokenMessage.TYPERULE.ORG, user = "Organization", uuid = UUID.randomUUID())
+
 
         return Response.status(Response.Status.CREATED).entity(orgUpdate).build()
     }

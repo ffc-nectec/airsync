@@ -54,8 +54,6 @@ class BasicAuthFilter : ContainerRequestFilter {
 
         if (authenInfo.token.data.typeRule == TokenMessage.TYPERULE.USER) {
             //if(authenInfo.token.id==orgId)
-
-
             securityContext = UserSecurityContextImp(authenInfo.token.data, urlScheme, orgId)
         } else if (authenInfo.token.data.typeRule == TokenMessage.TYPERULE.ORG) {
             securityContext = OrgSecurityContextImp(authenInfo.token.data, urlScheme, orgId)

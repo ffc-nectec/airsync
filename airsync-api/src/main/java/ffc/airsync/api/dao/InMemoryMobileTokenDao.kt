@@ -38,19 +38,27 @@ class InMemoryMobileTokenDao : MobileTokenDao {
 
     }
 
-    override fun insert(token: UUID, uuid: UUID, user: String, id: String) { //uuid is orgUuid
+    override fun insert(token: UUID, uuid: UUID, user: String, id: String, type: TokenMessage.TYPERULE): TokenMessage { //uuid is orgUuid
         //1 User per 1 Token
         tokenList.removeIf { it.uuid == uuid && it.user == user }
+        val tokenObj = TokenMessage(token = token, name = user, typeRule = type)
+
+        printDebug("InMemoryTokenDao")
+
+        printDebug("\tToken = $token")
+
         tokenList.add(StorageOrg(
           uuid = uuid,
-          data = TokenMessage(token),
+          data = tokenObj,
           user = user,
           id = id))
 
-        printDebug("Token insert. Before add token")
+        printDebug("\tToken insert. Before add token")
         tokenList.forEach {
             printDebug(it)
         }
+
+        return tokenObj
 
     }
 
@@ -70,8 +78,8 @@ class InMemoryMobileTokenDao : MobileTokenDao {
     }
 
     override fun findByOrgUuid(orgUUID: UUID): List<StorageOrg<TokenMessage>> {//return org > mobile
-        val mobileListInOrg=tokenList.filter {
-            it.uuid==orgUUID
+        val mobileListInOrg = tokenList.filter {
+            it.uuid == orgUUID
         }
         return mobileListInOrg
     }

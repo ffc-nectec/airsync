@@ -1,5 +1,6 @@
 package ffc.airsync.api.services.module
 
+import ffc.airsync.api.dao.OrgDao
 import ffc.model.Chronic
 import ffc.model.Person
 import ffc.model.TokenMessage
@@ -38,8 +39,8 @@ object PersonService {
     }
 
 
-    fun create(token: UUID, orgId: String, personList: List<Person>) {
-        val org = getOrgByOrgToken(token, orgId)
+    fun create(orgId: String, personList: List<Person>) {
+        val org = orgDao.findById(orgId)
         personDao.insert(org.uuid, personList)
     }
 }

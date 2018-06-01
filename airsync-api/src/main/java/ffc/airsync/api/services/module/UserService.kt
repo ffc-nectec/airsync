@@ -19,7 +19,7 @@ object UserService {
     }
 
 
-    fun checkAuth(id: String, user: String, pass: String): TokenMessage {
+    fun login(id: String, user: String, pass: String): TokenMessage {
 
 
         val checkUser = orgUser.isAllowById(User(user, pass), id)
@@ -27,11 +27,12 @@ object UserService {
             val org = orgDao.findById(id)
             val token = UUID.randomUUID()
 
-            tokenMobile.insert(token = token,
+            val tokenObj = tokenMobile.insert(token = token,
               uuid = org.uuid,
               user = user,
-              id = id)
-            return TokenMessage(token)
+              id = id,
+              type = TokenMessage.TYPERULE.USER)
+            return tokenObj
         }
         throw NotAuthorizedException("Not Auth")
     }

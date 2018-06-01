@@ -45,6 +45,7 @@ class PersonResource {
     private var context: FfcSecurityContext? = null
 
 
+    @RolesAllowed("ORG")
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
     fun create(@Context req: HttpServletRequest,
@@ -56,12 +57,10 @@ class PersonResource {
             printDebug(it)
         }
 
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
+        //val httpHeader = req.buildHeaderMap()
 
 
-        PersonService.create(UUID.fromString(token), orgId, personList)
+        PersonService.create(orgId, personList)
         return Response.status(Response.Status.CREATED).build()
 
     }

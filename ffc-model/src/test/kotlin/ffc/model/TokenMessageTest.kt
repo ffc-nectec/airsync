@@ -35,4 +35,21 @@ class TokenMessageTest {
         printDebug("\t Org id = $orgId")
         printDebug("\t ${matcher.find()}")
     }
+
+    @Test
+    fun testIf() {
+        if (print1() && print2()) {
+            println("Finish")
+        }
+    }
+
+    fun print1(): Boolean {
+        println('1')
+        return true
+    }
+
+    fun print2(): Boolean {
+        println("2")
+        return true
+    }
 }

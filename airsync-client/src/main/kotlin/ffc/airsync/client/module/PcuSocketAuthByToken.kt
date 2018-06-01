@@ -48,7 +48,7 @@ class PcuSocketAuthByToken(override var eventCallBack: PcuSocket.OnEventCallback
                 if (healthConnectionWorking) {
                     if (state == 0) {
 
-                        sendText(TokenMessage(UUID.fromString(organization.token!!.toString())).toJson())
+                        sendText(TokenMessage(UUID.fromString(organization.token!!.toString()), name = "Organization").toJson())
                         state = 1
                     }
                     sendText("H")

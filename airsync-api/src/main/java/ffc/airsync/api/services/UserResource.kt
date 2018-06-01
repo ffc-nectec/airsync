@@ -55,7 +55,7 @@ class UserResource {
         printDebug("Mobile Login Auid = " + orgId +
           " User = " + user +
           " Pass = " + pass)
-        val tokenMessage = UserService.checkAuth(orgId, user, pass)
+        val tokenMessage = UserService.login(orgId, user, pass)
 
 
         printDebug("Token is $tokenMessage")

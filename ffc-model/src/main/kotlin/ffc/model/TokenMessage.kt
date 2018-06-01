@@ -20,18 +20,27 @@ package ffc.model
 import org.joda.time.DateTime
 import java.util.*
 
-val DATEEXPIRE = 1
+val USERDATEEXPIRE = 1
+val ORGDATEEXPIRE = 9000
 
-data class TokenMessage(val token: UUID, var firebaseToken: String? = null, val timestamp: DateTime = DateTime.now(), val typeRule: TYPERULE = TYPERULE.USER, var name: String? = null) {
+data class TokenMessage(val token: UUID, var firebaseToken: String? = null, val timestamp: DateTime = DateTime.now(), val typeRule: TYPERULE = TYPERULE.NOAUTH, val name: String) {
 
-    // fun getExpireDate(temp :String? = null): DateTime = timestamp.plusDays(DATEEXPIRE)
-    val expireDate = timestamp.plusDays(DATEEXPIRE)
+    // fun getExpireDate(temp :String? = null): DateTime = timestamp.plusDays(USERDATEEXPIRE)
+    val expireDate: DateTime
+
+    init {
+        when (typeRule) {
+            TYPERULE.USER -> expireDate = timestamp.plusDays(USERDATEEXPIRE)
+            TYPERULE.ORG -> expireDate = timestamp.plusDays(ORGDATEEXPIRE)
+            else -> expireDate = timestamp
+        }
+    }
 
     fun checkExpireTokem(): Boolean = expireDate.isBeforeNow
 
 
-    enum class TYPERULE(val str: String) {
-        ORG("ORG"), USER("USER"), NOA("NOA"), NOAUTH("NOAUTH")
+    enum class TYPERULE {
+        ORG, USER, NOAUTH
     }
 }
 
