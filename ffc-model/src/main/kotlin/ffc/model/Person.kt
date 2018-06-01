@@ -43,6 +43,9 @@ import java.lang.reflect.Type
 import java.util.*
 
 data class Person(val id: Long = Random().nextLong() * -1) {
+
+
+    //เพิ่ม พ่อ แม่ ภรรยา id และ ชื่อ
     val orgId: Int? = null
     var hospCode: String? = null
     var pid: Long? = null

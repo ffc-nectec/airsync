@@ -22,14 +22,14 @@ import java.security.Principal
 import javax.ws.rs.core.SecurityContext
 
 
-class UserSecurityContextImp : SecurityContext {
+class UserSecurityContextImp(override val token: TokenMessage, override val orgId: String? = null, scheme: String) : FfcSecurityContext {
 
-    private var HTTPS = "https://"
+
     private var userPrincipal: Principal? = null
     private var scheme: String? = null
 
 
-    constructor(token: TokenMessage, scheme: String) {
+    init {
 
         this.scheme = scheme
 

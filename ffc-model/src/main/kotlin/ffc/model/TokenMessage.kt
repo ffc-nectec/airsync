@@ -30,7 +30,8 @@ data class TokenMessage(val token: UUID, var firebaseToken: String? = null, val 
     fun checkExpireTokem(): Boolean = expireDate.isBeforeNow
 
 
-    enum class TYPERULE {
-        ORG, USER, NOA
+    enum class TYPERULE(val str: String) {
+        ORG("ORG"), USER("USER"), NOA("NOA"), NOAUTH("NOAUTH")
     }
 }
+

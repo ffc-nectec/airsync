@@ -22,7 +22,7 @@ import ffc.model.StorageOrg
 import java.util.*
 
 interface MobileTokenDao {
-    fun insert(token: UUID, uuid: UUID, user: String, id: Int)
+    fun insert(token: UUID, uuid: UUID, user: String, id: String)
     fun find(token: UUID): StorageOrg<TokenMessage>
     fun findByOrgUuid(orgUUID: UUID): List<StorageOrg<TokenMessage>>
     fun remove(token: UUID)

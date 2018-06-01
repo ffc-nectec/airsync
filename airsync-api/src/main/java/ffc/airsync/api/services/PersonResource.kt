@@ -18,16 +18,22 @@
 package ffc.airsync.api.services
 
 import ffc.airsync.api.dao.DaoFactory
+import ffc.airsync.api.services.filter.FfcSecurityContext
 import ffc.airsync.api.services.module.PersonService
 import ffc.model.Person
+import ffc.model.TokenMessage
 import ffc.model.printDebug
 import java.util.*
+import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
 import kotlin.collections.ArrayList
+import javax.ws.rs.core.SecurityContext
+
+
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -35,28 +41,8 @@ import kotlin.collections.ArrayList
 class PersonResource {
 
 
-    @GET
-    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
-    fun get(@QueryParam("page") page: Int = 1,
-            @QueryParam("per_page") per_page: Int = 200,
-            @PathParam("orgId") orgId: String,
-            @Context req: HttpServletRequest): Response {
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
-
-        try {
-            val personList = PersonService.get(
-              token,
-              orgId,
-              if (page == 0) 1 else page,
-              if (per_page == 0) 200 else per_page)
-
-            return Response.status(Response.Status.OK).entity(personList).build()
-        } catch (ex: NotAuthorizedException) {
-            return Response.status(401).build()
-        }
-    }
+    @Context
+    private var context: FfcSecurityContext? = null
 
 
     @POST
@@ -94,5 +80,29 @@ class PersonResource {
 
 
         return listReturn
+    }
+
+
+    @RolesAllowed("USER")
+    @GET
+    @Path("/{orgId:([\\dabcdefABCDEF].*)}/person")
+    fun get(@QueryParam("page") page: Int = 1,
+            @QueryParam("per_page") per_page: Int = 200,
+            @PathParam("orgId") orgId: String,
+            @Context req: HttpServletRequest): Response {
+        val httpHeader = req.buildHeaderMap()
+
+        try {
+            val personList = PersonService.get(
+              orgId,
+              if (page == 0) 1 else page,
+              if (per_page == 0) 200 else per_page)
+
+            return Response.status(Response.Status.OK).entity(personList).build()
+        } catch (ex: NotAuthorizedException) {
+            return Response.status(401).build()
+        }
+
+
     }
 }

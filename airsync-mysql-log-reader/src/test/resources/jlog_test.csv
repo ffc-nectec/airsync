@@ -1,0 +1,152 @@
+linenumber,hash,query
+18,4aaed8fe1794ca2b8093b604146473f21f28e9dc,update office set dateverupdate ='2016-10-11'
+43,5a03db6637d058ae08e1993726e42abeabfed658,"update cdisease set diseasecode =UCase(diseasecode) WHERE ASCII(LEFT(diseasecode,1)) <> ASCII(UCase(LEFT(diseasecode,1)))"
+70,87f4cc2f09325996927f62d45f9e81a651e458ba,update visitdrug set unit = 1 where unit is null OR unit <= 0
+72,cac58cd9af5b4707ca72e719e9fd7ac6464e8bc4,"update cdisease  set mapdisease = Concat(left(mapdisease,locate('.',mapdisease)-1),trim(mid(mapdisease,locate('.',mapdisease)+1,4)))  where locate('.',mapdisease) > 0"
+86,2012b6d32be8b490c3b6ba3825b92adc810726b4,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+90,fc73ce86c81e2f2fe94bdcbdb21541d4d1ec72f6,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+115,67cceb726a96efd2351803d9f0d1477aeb31a206,UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`=''
+135,4c2b24a125a06c731722093f982061fc2815a53f,"INSERT INTO `visit` (`pcucode`,`visitno`,`visitdate`,`pcucodeperson`,`pid`,`flagservice`,`username`,`rightcode`,`rightno`,`hosmain`,`hossub`,`dateupdate`)  VALUES ('07934','188301','2018-02-15','07934','177','02','à¸?à¸•à¸¸à¸£à¸?à¸?à¹?','89','R89700026887797','10729','07934','2018-02-15 10:30:24')"
+152,ff3afea8d017a085f9f585c3f08d6bb7281b09e5,UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`='188301'
+175,af40116de764b7747252e1f418225494b14f117a,UPDATE `visit` SET `flagservice`='02'  WHERE `pcucode`='07934' AND `visitno`='188301'
+184,503d31c1791233c3621b7d59af6c9a99e3bb6369,update visit set bmilevel ='3' where pcucode ='07934' AND visitno ='188301'
+200,ad922117432a806412dcaac6d5b7ddb809a6a2be,"update visit set money1 = '',money3 = '',money2 = '0.0' ,dateupdate='2018-02-15 10:30:25'  where pcucode ='07934' and visitno = '188301'"
+211,0643528d6598a778f09184c03869facd3b62df82,update visit set timeservice ='1' where pcucode ='07934' AND visitno='188301'
+216,5971df59f91fa070fc31453270c32c0cb613c066,update visit set bmilevel ='3' where pcucode ='07934' AND visitno ='188301'
+220,4d3c6ca25b96c126740fc10ffecfbcf1dd52319a,update visit set pressurelevel ='1' Where pcucode ='07934' AND visitno ='188301'
+224,bfb4783eb2c39ae845fa317c455ce7c550c84c53,update visit set bmilevel ='3' where pcucode ='07934' AND visitno ='188301'
+228,06c32ad7e04b26f33f88bcdf75a963c2290c0b29,update visit set diagnote = '' Where pcucode ='07934' AND visitno ='188301'
+242,2b83ecbf42252dae08a41ba0c29444a874a40a36,update visit set servicetype = '1' Where pcucode ='07934' And visitno ='188301'
+252,6c31f0ed042e669ac328ffc2117f2794677780b8,"UPDATE `visit` SET `pcucodeperson`='07934',`pid`='177',`visitdate`='2018-02-15',`timeservice`='1',`rightcode`='89',`rightno`='R89700026887797',`hosmain`='10729',`incup`='1',`symptoms`='à¸?à¹?à¸§à¸?à¸¡à¸²à¸?à¸?à¸´à¸”à¸?à¸?à¸•à¸´',`vitalcheck`=NULL,`pressure`='110/50',`pulse`=NULL,`respri`=NULL,`temperature`=NULL,`weight`='59.0',`height`='172.0',`waist`='83.0',`ass`=NULL,`screenotherdisease`=NULL,`healthsuggest1`=NULL,`healthsuggest2`=NULL,`healthsuggesttype`=NULL,`receivepatient`='00',`refer`='00',`receivefromhos`=NULL,`refertohos`=NULL,`flagservice`='02',`usernamecancel`=NULL, `flag18fileexpo`='2',`symptomsco`=NULL,dateupdate = '2018-02-15 10:30:49'  WHERE `pcucode`='07934' AND `visitno`='188301'"
+291,87f792f17ee384cb3a0665d3b4f070e69cea6275,update visit set servicetype = '1' Where pcucode ='07934' And visitno ='188301'
+301,ae563f935d17ddcca37b6b9096173e20ff09c640,"UPDATE `visit` SET `pcucodeperson`='07934',`pid`='177',`visitdate`='2018-02-15',`timeservice`='1',`rightcode`='89',`rightno`='R89700026887797',`hosmain`='10729',`incup`='1',`symptoms`='à¸?à¹?à¸§à¸?à¸¡à¸²à¸?à¸?à¸´à¸”à¸?à¸?à¸•à¸´',`vitalcheck`=NULL,`pressure`='110/50',`pulse`=NULL,`respri`=NULL,`temperature`=NULL,`weight`='59.0',`height`='172.0',`waist`='83.0',`ass`=NULL,`screenotherdisease`=NULL,`healthsuggest1`=NULL,`healthsuggest2`=NULL,`healthsuggesttype`=NULL,`receivepatient`='00',`refer`='00',`receivefromhos`=NULL,`refertohos`=NULL,`flagservice`='02',`usernamecancel`=NULL, `flag18fileexpo`='2',`symptomsco`=NULL,dateupdate = '2018-02-15 10:30:59'  WHERE `pcucode`='07934' AND `visitno`='188301'"
+304,7c3a5c45957a8456fc8c399b94dee5bf777b6c0c,update visit set flagservice = '03' where pcucode ='07934' and visitno ='188301'
+308,cd68b7a8187f18c93473fd8b823746afd47a46d5,"update visit7referhisreferres set referresult = null ,referreceidate = null ,referreceitime=null ,pidin=null ,anin=null ,reason=null ,dateupdateresult=null,referidsource=null  WHERE pcucode ='07934' AND visitno =''"
+312,ce5d263ed15833d3ea947aee8d5e3e91c888d085,"update visit7referhisreferres set referresult = null ,referreceidate = null ,referreceitime=null ,pidin=null ,anin=null ,reason=null ,dateupdateresult=null,referidsource=null  WHERE pcucode ='07934' AND visitno =''"
+318,c724cbef5cfae30c1de647df9381169c7f361e19,"update visit set money1 = '',money3 = '',money2 = '0.0' ,dateupdate='2018-02-15 10:30:59'  where pcucode ='07934' and visitno = '188301'"
+322,9dba5bca2d3b709a2e784f0b7a19c8054d9a9ef0,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+326,960ac6ad6fa85d4f49a23a5f366675f6bac9b570,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+334,5dddc2141a69e57d4d2cfb939f3cce3ed268673f,delete from replicate_log
+336,7fbd2abfbb8eb69957a19b11dee39a3fac3c71ed,delete from realtime_send
+338,e07b5a20c86f7915aea88844d3402e63ebffe99b,delete from _tmp_dmbp
+340,eb3176cc6992ab9dfdcc67fd194ec420a52d3924,delete from _tmp_dmlap
+342,ed7b01704b4d1c6e8ccd75ebf36710175e45723a,delete from _tmp_dmsurvey
+344,4072f4641e3cfc8ab458e6d867ff73acf047bfc4,delete from _tmp_fdm
+346,3ef990e8226c899b12635f197ed1eb5300a7863a,delete from _tmp_fdm
+348,d0dac05b1b049e02be3bbd1768b5d82068ea0f77,delete from _tmp_fht
+350,8213612da25d4894d2b7abb3871cce80b1e0fb02,DELETE FROM _tmp_htsurvey
+352,6017425a70c204f4f2327fe2c8b33fb749674ae0,delete from _tmp_htlap
+354,f3d6370839a01d799589896be3ddab9be882578b,delete from _tmp_htbp
+357,76dab3f12460559613caabab0e623dbcd6be7288,delete from _tmp_nutri
+360,221f104d1878a0ec60c198345db01d3b0c9726be,DELETE FROM _tmp_prechronic
+363,e3948eb969568afc809fddcf1adbf2494c133c26,DELETE FROM _tmp_preht
+366,87acb6df1c26d213f3c397e392a2f507ee05923e,delete from _tmp_predm
+369,eb656f72e1a6dbcd2bb427bf5520a1a6814bce1a,delete from _tmp_pressure
+388,174cc4c4dd6bb09a386feb4608ce801c1affda0e,update office set dateverupdate ='2016-10-11'
+413,72c1350f4ae22460019a440ee2b78ea3e9a581ca,"update cdisease set diseasecode =UCase(diseasecode) WHERE ASCII(LEFT(diseasecode,1)) <> ASCII(UCase(LEFT(diseasecode,1)))"
+440,90f89442547b93b6313cd7e87baae7a3a00f99c8,update visitdrug set unit = 1 where unit is null OR unit <= 0
+442,cab084d2d6da0cd3d272c50fe477884c446bbf8d,"update cdisease  set mapdisease = Concat(left(mapdisease,locate('.',mapdisease)-1),trim(mid(mapdisease,locate('.',mapdisease)+1,4)))  where locate('.',mapdisease) > 0"
+456,03b67befb2233f0e5fc0c2d8c8ddd2962002e497,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+460,f2095863a3f79e23b51c07664cc09ad4a11b6312,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+480,126b00e7b20edb34b0cec7e524761360e66ef7af,UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`=''
+500,3ab7f0102d3161ad006d047de00d23784522c4df,"INSERT INTO `visit` (`pcucode`,`visitno`,`visitdate`,`pcucodeperson`,`pid`,`flagservice`,`username`,`rightcode`,`rightno`,`hosmain`,`hossub`,`dateupdate`)  VALUES ('07934','188302','2018-02-15','07934','5312','02','à¸?à¸•à¸¸à¸£à¸?à¸?à¹?','89','19382051','10729','07934','2018-02-15 13:32:44')"
+517,b18e3d0e5f0b20e477cde08d517b2b97cb908e48,UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`='188302'
+540,ef9d35108ad1826bdd3328c9bad4ac6d5d90810e,UPDATE `visit` SET `flagservice`='02'  WHERE `pcucode`='07934' AND `visitno`='188302'
+549,a55107bf67c0935b25955bb1227c075cb7f63b99,update visit set bmilevel ='3' where pcucode ='07934' AND visitno ='188302'
+565,4f18dea7912c390185916319df85670dc6076be8,"update visit set money1 = '',money3 = '',money2 = '0.0' ,dateupdate='2018-02-15 13:32:45'  where pcucode ='07934' and visitno = '188302'"
+576,60fd5547c71007ab162112ee2931953c89cd733f,update visit set timeservice ='1' where pcucode ='07934' AND visitno='188302'
+581,6e2c57dceed095ad62923a699b8216a39e86b572,update visit set diagnote = '' Where pcucode ='07934' AND visitno ='188302'
+595,8914ce1b18b7a67dbc5c5483aef1c4a13052470d,update visit set servicetype = '1' Where pcucode ='07934' And visitno ='188302'
+605,160569c29ae04610c87bc89b7e405c99b5d2fd5d,"UPDATE `visit` SET `pcucodeperson`='07934',`pid`='5312',`visitdate`='2018-02-15',`timeservice`='1',`rightcode`='89',`rightno`='19382051',`hosmain`='10729',`incup`='1',`symptoms`='à¸?à¸§à¸”à¸—à¹?à¸­',`vitalcheck`=NULL,`pressure`=NULL,`pulse`=NULL,`respri`=NULL,`temperature`=NULL,`weight`='53.2',`height`='160.0',`waist`='80.0',`ass`=NULL,`screenotherdisease`=NULL,`healthsuggest1`=NULL,`healthsuggest2`=NULL,`healthsuggesttype`=NULL,`receivepatient`='00',`refer`='00',`receivefromhos`=NULL,`refertohos`=NULL,`flagservice`='02',`usernamecancel`=NULL, `flag18fileexpo`='2',`symptomsco`=NULL,dateupdate = '2018-02-15 13:32:54'  WHERE `pcucode`='07934' AND `visitno`='188302'"
+637,2ca404b18af7b854009e8a977357c6f52b2333a7,update visit set servicetype = '1' Where pcucode ='07934' And visitno ='188302'
+647,73bd16cad0ada750864d6e994183e2c541ad1442,"UPDATE `visit` SET `pcucodeperson`='07934',`pid`='5312',`visitdate`='2018-02-15',`timeservice`='1',`rightcode`='89',`rightno`='19382051',`hosmain`='10729',`incup`='1',`symptoms`='à¸?à¸§à¸”à¸—à¹?à¸­',`vitalcheck`=NULL,`pressure`=NULL,`pulse`=NULL,`respri`=NULL,`temperature`=NULL,`weight`='53.2',`height`='160.0',`waist`='80.0',`ass`=NULL,`screenotherdisease`=NULL,`healthsuggest1`=NULL,`healthsuggest2`=NULL,`healthsuggesttype`=NULL,`receivepatient`='00',`refer`='00',`receivefromhos`=NULL,`refertohos`=NULL,`flagservice`='02',`usernamecancel`=NULL, `flag18fileexpo`='2',`symptomsco`=NULL,dateupdate = '2018-02-15 13:33:02'  WHERE `pcucode`='07934' AND `visitno`='188302'"
+650,179179efee2e42e07f6a21c8db9d9e18b724dd19,update visit set flagservice = '03' where pcucode ='07934' and visitno ='188302'
+654,cde4fa03a2dd97c27ac8955ea3539b37513dbf90,"update visit7referhisreferres set referresult = null ,referreceidate = null ,referreceitime=null ,pidin=null ,anin=null ,reason=null ,dateupdateresult=null,referidsource=null  WHERE pcucode ='07934' AND visitno =''"
+658,06bc9d57fb8f9dd1677fa595eaab9e45d788280c,"update visit7referhisreferres set referresult = null ,referreceidate = null ,referreceitime=null ,pidin=null ,anin=null ,reason=null ,dateupdateresult=null,referidsource=null  WHERE pcucode ='07934' AND visitno =''"
+664,c325c1facc8114523662f4dd2876877255c7b71c,"update visit set money1 = '',money3 = '',money2 = '0.0' ,dateupdate='2018-02-15 13:33:02'  where pcucode ='07934' and visitno = '188302'"
+668,39aac6175b84e4a9105ae4a948aa36cf7103e45b,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+672,c29f538b99bf7848a3d7a3f88a8e6fd5854d4861,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+679,1eb2c6327e56c1fe6681af98e1f9b439f1ff728e,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+683,0c32d003c223d9d1e8b5a10f026772b875c7bfee,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+691,9e5b18d3a46a1ce11264fcf4d530c46ec6599ea7,delete from replicate_log
+693,f87bda5eeadd021426c5c4fb97062246625b269b,delete from realtime_send
+695,612318d1a081b04687e58ec61b2dc714cf4f4abb,delete from _tmp_dmbp
+697,8e681b1854429997455ba623708a6cc3cc623312,delete from _tmp_dmlap
+699,2a9f67d4c9fd6263e3d9ab1e51863c58b0f60ab3,delete from _tmp_dmsurvey
+701,a23a46eb1dfac7d1ee28506002651d0656df86ca,delete from _tmp_fdm
+703,92cb228a974f78ca8e67b618b99e27fe3a071ac8,delete from _tmp_fdm
+705,6d03680c0ce3bcd5501612fcd30eeccd49338d3a,delete from _tmp_fht
+707,594ed7b1c6ca95a65469ab121e74141ec902c24f,DELETE FROM _tmp_htsurvey
+709,e2a6b53bb0da19cd30a47a713f6fd4172714786e,delete from _tmp_htlap
+711,509af4afc3687f8e790c34ee41af1153b7750795,delete from _tmp_htbp
+714,0569c89fb40fa26df5c61b781ed1ee156b06d85a,delete from _tmp_nutri
+717,d87ab2828165cd20a523b1f66018c19be9caef85,DELETE FROM _tmp_prechronic
+720,3f4dce1cc83910a8083d2913fa5cd5be4447c37b,DELETE FROM _tmp_preht
+723,2076a0fb1311c66f294e2388526c5e61f70d8d93,delete from _tmp_predm
+726,b65eccb86f484ef08c761bdd292c11202fffa345,delete from _tmp_pressure
+745,9216dbd0dba6836e47709ba1f740a0517e1fb544,update office set dateverupdate ='2016-10-11'
+770,8dc6ea2343e4d95594c5045078156c455d95c851,"update cdisease set diseasecode =UCase(diseasecode) WHERE ASCII(LEFT(diseasecode,1)) <> ASCII(UCase(LEFT(diseasecode,1)))"
+797,23d390b92395a296a04da88ed81bddb67daa8971,update visitdrug set unit = 1 where unit is null OR unit <= 0
+799,2e01479bc4188d631b77095e7b384df84a5c5ac3,"update cdisease  set mapdisease = Concat(left(mapdisease,locate('.',mapdisease)-1),trim(mid(mapdisease,locate('.',mapdisease)+1,4)))  where locate('.',mapdisease) > 0"
+813,f555653349de275e6d868334783d737f99bc5f23,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+817,117570304e7d68758c4f46b78f718282e1862f1d,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+843,3823fce9536c50810e8475845e5ac017117698f3,UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`=''
+861,4d988297ef67bd8d3c66c78c8963ee286947d3e4,"INSERT INTO `visit` (`pcucode`,`visitno`,`visitdate`,`pcucodeperson`,`pid`,`flagservice`,`username`,`rightcode`,`rightno`,`hosmain`,`hossub`,`dateupdate`)  VALUES ('07934','188303','2018-02-15','07934','10535','02','à¸?à¸•à¸¸à¸£à¸?à¸?à¹?','71','à¸—21816694','10729',null,'2018-02-15 16:11:08')"
+878,4c6f665f5763e384078aa3ba7c909a8966143bac,UPDATE `visit` SET `flagservice`='03'  WHERE `pcucode`='07934' AND `visitno`='188303'
+901,28054087b3d827c1e8228de8d7ab0b14341ac9c2,UPDATE `visit` SET `flagservice`='02'  WHERE `pcucode`='07934' AND `visitno`='188303'
+922,ca32fd2229d5bfd2e2b0ed103b3a4c524339e796,"update visit set money1 = '',money3 = '',money2 = '0.0' ,dateupdate='2018-02-15 16:11:09'  where pcucode ='07934' and visitno = '188303'"
+933,7feb916ba7f5556069899a43ede5c3977c473d5d,update visit set timeservice ='1' where pcucode ='07934' AND visitno='188303'
+938,b7807dc619a487afb7bb64675cd2d41d6c663c11,update visit set diagnote = '' Where pcucode ='07934' AND visitno ='188303'
+952,d5c18d15ed3f7cef0373bef8c3f89a5ac4fc36a9,update visit set servicetype = '1' Where pcucode ='07934' And visitno ='188303'
+962,abf2d2111374b36f64389d5b8e22dc74e9c05dfe,"UPDATE `visit` SET `pcucodeperson`='07934',`pid`='10535',`visitdate`='2018-02-15',`timeservice`='1',`rightcode`='71',`rightno`='à¸—21816694',`hosmain`='10729',`incup`='1',`symptoms`='à¸?à¸§à¸”à¸—à¹?à¸­à¸?',`vitalcheck`=NULL,`pressure`=NULL,`pulse`=NULL,`respri`=NULL,`temperature`=NULL,`weight`=NULL,`height`=NULL,`waist`=NULL,`ass`=NULL,`screenotherdisease`=NULL,`healthsuggest1`=NULL,`healthsuggest2`=NULL,`healthsuggesttype`=NULL,`receivepatient`='00',`refer`='00',`receivefromhos`=NULL,`refertohos`=NULL,`flagservice`='02',`usernamecancel`=NULL, `flag18fileexpo`='2',`symptomsco`=NULL,dateupdate = '2018-02-15 16:11:22'  WHERE `pcucode`='07934' AND `visitno`='188303'"
+987,67d12d473f7088dbbae622aa50a4d945723d4133,update visit set servicetype = '1' Where pcucode ='07934' And visitno ='188303'
+997,ba153fc42f55d687cdd33f67dca96cc872bf4103,"UPDATE `visit` SET `pcucodeperson`='07934',`pid`='10535',`visitdate`='2018-02-15',`timeservice`='1',`rightcode`='71',`rightno`='à¸—21816694',`hosmain`='10729',`incup`='1',`symptoms`='à¸?à¸§à¸”à¸—à¹?à¸­à¸?',`vitalcheck`=NULL,`pressure`=NULL,`pulse`=NULL,`respri`=NULL,`temperature`=NULL,`weight`=NULL,`height`=NULL,`waist`=NULL,`ass`=NULL,`screenotherdisease`=NULL,`healthsuggest1`=NULL,`healthsuggest2`=NULL,`healthsuggesttype`=NULL,`receivepatient`='00',`refer`='00',`receivefromhos`=NULL,`refertohos`=NULL,`flagservice`='02',`usernamecancel`=NULL, `flag18fileexpo`='2',`symptomsco`=NULL,dateupdate = '2018-02-15 16:11:32'  WHERE `pcucode`='07934' AND `visitno`='188303'"
+1000,7dcf05b1c6020c6a371f0781270a957f1de4b3ca,update visit set flagservice = '03' where pcucode ='07934' and visitno ='188303'
+1004,b218a29089a1dae07258b6715d30e20134ab02e1,"update visit7referhisreferres set referresult = null ,referreceidate = null ,referreceitime=null ,pidin=null ,anin=null ,reason=null ,dateupdateresult=null,referidsource=null  WHERE pcucode ='07934' AND visitno =''"
+1008,f24637e3a70bb9e9173198fe1386b284a7cb8f33,"update visit7referhisreferres set referresult = null ,referreceidate = null ,referreceitime=null ,pidin=null ,anin=null ,reason=null ,dateupdateresult=null,referidsource=null  WHERE pcucode ='07934' AND visitno =''"
+1014,6227656d076f6e26472dda3e1dace04d8d581166,"update visit set money1 = '',money3 = '',money2 = '0.0' ,dateupdate='2018-02-15 16:11:32'  where pcucode ='07934' and visitno = '188303'"
+1023,712a142c53b30007d2dd4d04d286f3b2546dc83f,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+1027,3634f43cae1dc546844dd63d100a2041ce1c1055,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+1033,9a8816c862e100d81ac7d1afc3b51ed8541bef03,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+1037,d87bf77f6478344e62e2c897829f6b0818140c20,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+1066,fe5424b8bda1732e7c1c01da8893fd9c8c59bcc1,UPDATE visit SET visitdate=DATE(dateupdate) WHERE (MONTH(visitdate)=0 OR visitdate IS NULL) AND dateupdate IS NOT NULL
+1070,26ab86e06c34688a79711a294177f868f38cbe33,update visitdiag set diagcode=UCase(diagcode) where ASCII(diagcode)<>ASCII(UCASE(diagcode))
+1119,d8be785e742625d2d48feb0553d75906a7967abb,UPDATE house SET pid=NULL WHERE hcode= '307' AND pcucode= '07934'
+1165,cb06179eb6d0969873aae09fe16640296744bf18,UPDATE house SET pcucodepersonvola = pcucode WHERE pcucode ='07934' AND (pcucodepersonvola IS NULL OR pcucodepersonvola ='')
+1194,b4e0649a3c7455121efb6af6397580ae44647d06,delete from replicate_log
+1196,c0e046489978c042836695398ca8bcc3a3488290,delete from realtime_send
+1198,6a2cfb6ee5b944e01c6b77bad7be1e160c859e4e,delete from _tmp_dmbp
+1200,06676be5e31074dec9d2db601aea3c512c68a0dd,delete from _tmp_dmlap
+1202,139d81d25e1837fc5f0be16b025a8c4eb1791a17,delete from _tmp_dmsurvey
+1204,5601f0cb4921470e1cee04521560cd0ac7a73d9b,delete from _tmp_fdm
+1206,32df40980f01d0056512c63a996c01d930bd70c8,delete from _tmp_fdm
+1208,d117f2231fba7db39314f91fad79385e9e96ce6c,delete from _tmp_fht
+1210,ee1d067a6ddacc96de7f84375cf23436803082bb,DELETE FROM _tmp_htsurvey
+1212,a1ed2a39dd8883a3ce4eba45d4551ff9a4de2ce3,delete from _tmp_htlap
+1214,28794e07f22f724c4e3339c3b63834087b1d8a23,delete from _tmp_htbp
+1217,d1787a2d6316f460b04b49aa8081447f698ae94d,delete from _tmp_nutri
+1220,90d6506074e470b4db2f0f3e888dae68e56b31ba,DELETE FROM _tmp_prechronic
+1223,8590c9d0c022c358b8246736631b1a93feae47e5,DELETE FROM _tmp_preht
+1226,80515a3f7152f074f3ffd4c16e1d2b012ed4f239,delete from _tmp_predm
+1229,45ff6873259313dbbdd5da9994d38cf2ae6d40b9,delete from _tmp_pressure
+1248,8ef90cf348924a5864a9353efa4c5142b956b59c,update office set dateverupdate ='2016-10-11'
+1273,f65a28f7034c54c64db67a4b3a989420724ef515,"update cdisease set diseasecode =UCase(diseasecode) WHERE ASCII(LEFT(diseasecode,1)) <> ASCII(UCase(LEFT(diseasecode,1)))"
+1300,8413e588010fb35276d26db64ac8922e387eadcd,update visitdrug set unit = 1 where unit is null OR unit <= 0
+1302,2221c943758b3cd2d299065ead0a8a5a132c0574,"update cdisease  set mapdisease = Concat(left(mapdisease,locate('.',mapdisease)-1),trim(mid(mapdisease,locate('.',mapdisease)+1,4)))  where locate('.',mapdisease) > 0"
+1308,33337549e7f00dab75c40e1a8720b06e92902d83,delete from replicate_log
+1310,3f1579bee7576c3e2c4d8001dfaa81a282abc5e7,delete from realtime_send
+1312,0e1c5e043ac7768c8652f424e71f6272281ce82d,delete from _tmp_dmbp
+1314,6440244ca9e613a98e6b5928f8e3d39a087ad15c,delete from _tmp_dmlap
+1316,a2c22498aa97acf22e6fa658152762cd622394b6,delete from _tmp_dmsurvey
+1318,b23b53f01df1ca8077e0598f2e3e9392be8aaf9b,delete from _tmp_fdm
+1320,b22bdd656d1e8046cdab40174ccdc01aa6ace415,delete from _tmp_fdm
+1322,faf3f8aeef877716025905a28ee2bdb6c1a4b499,delete from _tmp_fht
+1324,6e1d7e52cfe6b0db330328c9b1624a12684399f3,DELETE FROM _tmp_htsurvey
+1326,8e3709269f9fcdb1683bcdcc8bd2fe1be15b74f6,delete from _tmp_htlap
+1328,c8ce14b4681e36c0a7a952372a7cec52d3351741,delete from _tmp_htbp
+1331,bff648237a44256c064f3e40431c21439eca0f89,delete from _tmp_nutri
+1334,858e49de87074c46ba5c19e3a3c76e5f9a34dd4d,DELETE FROM _tmp_prechronic
+1337,17600563e54e9e556977457e60480eb991fc0ef1,DELETE FROM _tmp_preht
+1340,3a43c1ff4a16fd393bd0326daf94aafeee2169e9,delete from _tmp_predm
+1343,bdd1136b7bf761127938882da97510b25849a2e1,delete from _tmp_pressure
+1365,857742520745bcd8bba77cf15dbd4fc07b3bf9d7,update office set dateverupdate ='2016-10-11'

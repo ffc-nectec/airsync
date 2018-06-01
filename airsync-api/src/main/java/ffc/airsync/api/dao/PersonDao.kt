@@ -28,7 +28,6 @@ interface PersonDao {
 
     fun find(orgUuid: UUID): List<StorageOrg<Person>>
 
-
     fun remove(orgUuid: UUID)
 
 

@@ -30,7 +30,7 @@ object UserService {
             tokenMobile.insert(token = token,
               uuid = org.uuid,
               user = user,
-              id = id.toInt())
+              id = id)
             return TokenMessage(token)
         }
         throw NotAuthorizedException("Not Auth")

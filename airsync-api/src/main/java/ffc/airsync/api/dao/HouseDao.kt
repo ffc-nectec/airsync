@@ -34,6 +34,8 @@ interface HouseDao {
     fun find(orgUuid: UUID, latlng: Boolean = true): List<StorageOrg<Address>>
 
     fun findByHouseId(orgUuid: UUID, hid: Int): StorageOrg<Address>?
+
+
     fun findByHouse_Id(orgUuid: UUID, _id: String): StorageOrg<Address>?
 
     fun removeByOrgUuid(orgUuid: UUID)
