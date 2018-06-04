@@ -1,9 +1,6 @@
 package ffc.airsync.api.services.filter
 
 import ffc.airsync.api.dao.DaoFactory
-import ffc.airsync.api.dao.UserDao
-import ffc.airsync.api.services.module.orgUser
-import ffc.airsync.api.services.module.tokenMobile
 import ffc.model.StorageOrg
 import ffc.model.TokenMessage
 import ffc.model.printDebug
@@ -52,13 +49,13 @@ class BasicAuthFilter : ContainerRequestFilter {
         val securityContext: SecurityContext
 
 
-        if (authenInfo.token.data.typeRule == TokenMessage.TYPERULE.USER) {
+        if (authenInfo.token.data.rule == TokenMessage.TYPEROLE.USER) {
             //if(authenInfo.token.id==orgId)
             securityContext = UserSecurityContextImp(authenInfo.token.data, urlScheme, orgId)
-        } else if (authenInfo.token.data.typeRule == TokenMessage.TYPERULE.ORG) {
+        } else if (authenInfo.token.data.rule == TokenMessage.TYPEROLE.ORG) {
             securityContext = OrgSecurityContextImp(authenInfo.token.data, urlScheme, orgId)
         } else {
-            throw ForbiddenException("ไม่มีสิทธิ์ ในการใช้งาน บริการนี้")
+            securityContext = NoAuthSecurityContextImp()
         }
 
         requestContext.setSecurityContext(securityContext)
@@ -72,14 +69,22 @@ class BasicAuthFilter : ContainerRequestFilter {
 
         init {
             val authorization = requestContext.headers[AUTHORIZATION_PROPERTY]
-              ?: throw NotAuthorizedException("Not Authorization")
 
-            if (authorization[0].startsWith("Basic ")) {
-                throw NotAuthorizedException("is basic auth")
+            if (authorization != null) {
+
+                if (authorization[0].startsWith("Basic ")) {
+                    throw NotAuthorizedException("is basic auth")
+                }
+                val tokenMobile = DaoFactory().buildTokenMobileMapDao()
+                val tokenStr = authorization[0].replaceFirst(AUTHENTICATION_SCHEME, "").trim()
+                token = tokenMobile.find(token = UUID.fromString(tokenStr))
+
+                if (token.data.checkExpireTokem()) throw NotAuthorizedException("Token expire ${token.data.expireDate}")
+
+            } else {
+                token = StorageOrg(UUID.randomUUID(), TokenMessage(UUID.randomUUID(), name = "NOAUTH"))
             }
-            val tokenMobile = DaoFactory().buildTokenMobileMapDao()
-            val tokenStr = authorization[0].replaceFirst(AUTHENTICATION_SCHEME, "").trim()
-            token = tokenMobile.find(token = UUID.fromString(tokenStr))
+
         }
     }
 

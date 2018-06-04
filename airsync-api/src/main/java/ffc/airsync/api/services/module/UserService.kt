@@ -4,14 +4,13 @@ import ffc.model.TokenMessage
 import ffc.model.User
 import ffc.model.printDebug
 import java.util.*
-import javax.ws.rs.ForbiddenException
 import javax.ws.rs.NotAuthorizedException
 
 object UserService {
 
 
-    fun create(token: UUID, orgId: String, userList: ArrayList<User>) {
-        val org = getOrgByOrgToken(token, orgId)
+    fun create(orgId: String, userList: ArrayList<User>) {
+        val org = orgDao.findById(orgId)
         userList.forEach {
             printDebug("insert username " + org.name + " User = " + it.username)
             orgUser.insert(it, org)
@@ -20,7 +19,6 @@ object UserService {
 
 
     fun login(id: String, user: String, pass: String): TokenMessage {
-
 
         val checkUser = orgUser.isAllowById(User(user, pass), id)
         if (checkUser) {
@@ -31,7 +29,7 @@ object UserService {
               uuid = org.uuid,
               user = user,
               id = id,
-              type = TokenMessage.TYPERULE.USER)
+              type = TokenMessage.TYPEROLE.USER)
             return tokenObj
         }
         throw NotAuthorizedException("Not Auth")

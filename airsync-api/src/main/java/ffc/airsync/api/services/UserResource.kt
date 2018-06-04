@@ -1,9 +1,11 @@
 package ffc.airsync.api.services
 
+import ffc.airsync.api.services.filter.FfcSecurityContext
 import ffc.airsync.api.services.module.UserService
 import ffc.model.User
 import ffc.model.printDebug
 import java.util.*
+import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -17,22 +19,21 @@ import javax.xml.bind.DatatypeConverter
 @Path("/org")
 class UserResource {
 
+
+    @RolesAllowed("ORG")
     @POST
     @Path("/{orgUuid:([\\dabcdefABCDEF].*)}/user")
     fun create(@Context req: HttpServletRequest,
                @PathParam("orgUuid") orgId: String,
                userList: ArrayList<User>): Response {
         val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
-
 
         printDebug("Raw user list.")
         userList.forEach {
             printDebug("User = " + it.username + " Pass = " + it.password)
         }
 
-        UserService.create(UUID.fromString(token), orgId, userList)
+        UserService.create(orgId, userList)
         return Response.status(Response.Status.CREATED).build()
 
 

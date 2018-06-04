@@ -5,6 +5,6 @@ import java.util.*
 import javax.ws.rs.core.SecurityContext
 
 interface FfcSecurityContext : SecurityContext {
-    val token: TokenMessage
+    val token: TokenMessage?
     val orgId: String?
 }

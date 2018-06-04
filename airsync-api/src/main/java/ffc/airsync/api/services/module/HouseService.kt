@@ -26,16 +26,16 @@ import me.piruin.geok.geometry.Point
 import org.joda.time.DateTime
 import java.util.*
 import javax.ws.rs.BadRequestException
-import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
 
+//val org = orgDao.findById(orgId)
 object HouseService {
 
     val houseDao = DaoFactory().buildHouseDao()
 
-    fun create(token: UUID, orgId: String, houseList: List<Address>) {
-        val org = getOrgByOrgToken(token, orgId)
+    fun create(orgId: String, houseList: List<Address>) {
+        val org = orgDao.findById(orgId)
 
         houseList.forEach {
             if (it.hid!! < 0) throw BadRequestException("")
@@ -44,16 +44,16 @@ object HouseService {
         houseDao.insert(org.uuid, houseList)
     }
 
-    fun create(token: UUID, orgId: String, house: Address) {
-        val org = getOrgByOrgToken(token, orgId)
+    fun create(orgId: String, house: Address) {
+        val org = orgDao.findById(orgId)
         if (house.hid!! < 0) throw BadRequestException("")
         houseDao.insert(org.uuid, house)
     }
 
 
-    fun update(token: UUID, orgId: String, house: Address, house_id: String) {
+    fun update(role: TokenMessage.TYPEROLE, orgId: String, house: Address, house_id: String) {
 
-        printDebug("Update house token $token orgid $orgId house_id $house_id house ${house.toJson()}")
+        printDebug("Update house role $role orgid $orgId house_id $house_id house ${house.toJson()}")
         if (house._id == "") throw BadRequestException("ไม่มี _id")
 
 
@@ -61,58 +61,41 @@ object HouseService {
         house.haveChronics = null
 
 
+
+
+
         if (house_id == house._id) {
-            var _sync = false
             val firebaseTokenGropOrg = arrayListOf<String>()
             var listMessage: List<StorageOrg<TokenMessage>>? = null
-            var org: Organization? = null
-
-            var isMobile = false
-
-            try {
-                printDebug("\tFind mobile token")
-                val mobile = getOrgByMobileToken(token = token, orgId = orgId)
-                listMessage = tokenMobile.findByOrgUuid(mobile.uuid)
-                org = orgDao.findByUuid(mobile.uuid)
-                isMobile = true
-                printDebug("\t\tFound mobile token")
+            val org = orgDao.findById(orgId)
+            val orgUuid = org.uuid
 
 
-            } catch (ex: NotAuthorizedException) {
-                printDebug("\tFind org token")
-                val organize = getOrgByOrgToken(token, orgId)
-                _sync = true
-                listMessage = tokenMobile.findByOrgUuid(organize.uuid)
-                org = organize
-                printDebug("\t\tFound org token")
-
-
-            } finally {
-                printDebug("\tGroup firebase token")
-                listMessage?.forEach {
-                    firebaseTokenGropOrg.add(it.data.firebaseToken ?: "")
-                    printDebug("\tmobile $it")
-                }
-
-
-                firebaseTokenGropOrg.add(org?.firebaseToken ?: "")
-                printDebug("\torg ${org?.firebaseToken}")
-            }
-
-
-
-            if (isMobile) {
+            if (role == TokenMessage.TYPEROLE.USER) {
+                listMessage = tokenMobile.findByOrgUuid(orgUuid)
+                house._sync = false
                 house.dateUpdate = DateTime.now()
+                printDebug("\t\tFound mobile token")
+            } else if (role == TokenMessage.TYPEROLE.ORG) {
+
+                printDebug("\tFind org token")
+                house._sync = true
+                listMessage = tokenMobile.findByOrgUuid(orgUuid)
+                printDebug("\t\tFound org token")
             }
 
-            house._sync = _sync
-            try {
-                houseDao.update(house.clone())
-            } catch (ex: Exception) {
-                //ex.printStackTrace()
-                throw ex
+            printDebug("\tGroup firebase token")
+            listMessage?.forEach {
+                firebaseTokenGropOrg.add(it.data.firebaseToken ?: "")
+                printDebug("\tmobile $it")
             }
 
+
+            firebaseTokenGropOrg.add(org?.firebaseToken ?: "")
+            printDebug("\torg ${org?.firebaseToken}")
+
+
+            houseDao.update(house.clone())
 
 
             printDebug("Call send notification size list token = ${firebaseTokenGropOrg.size} ")
@@ -131,12 +114,11 @@ object HouseService {
     }
 
 
-    fun getGeoJsonHouse(token: UUID, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
+    fun getGeoJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
 
-        printDebug("Token = $token")
-        val tokenObj = getOrgByMobileToken(token, orgId)
-        printDebug("Befor check token")
-        printDebug(tokenObj)
+        val org = orgDao.findById(orgId)
+        val orgUuid = org.uuid
+
 
 
         printDebug("Search house match")
@@ -144,12 +126,12 @@ object HouseService {
 
 
         if (hid > 0) {
-            val house = houseDao.findByHouseId(tokenObj.uuid, hid)
+            val house = houseDao.findByHouseId(orgUuid, hid)
               ?: throw NotFoundException("ไม่พบ hid บ้าน")
             listHouse = ArrayList()
             listHouse.add(house)
         } else {
-            listHouse = houseDao.find(tokenObj.uuid)
+            listHouse = houseDao.find(orgUuid)
         }
         printDebug("count house = ${listHouse.count()}")
 
@@ -161,7 +143,7 @@ object HouseService {
             override fun onAddItemAction(itemIndex: Int) {
                 //printDebug("Loop count $it")
                 val data = listHouse[itemIndex]
-                val feture = createGeo(data.data, tokenObj.uuid)
+                val feture = createGeo(data.data, orgUuid)
                 geoJson.features.add(feture)
                 //printDebug("Add feture success")
             }
@@ -170,9 +152,9 @@ object HouseService {
         return geoJson
     }
 
-    fun getJsonHouse(token: UUID, orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): List<Address> {
+    fun getJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): List<Address> {
 
-        val geoJsonHouse = getGeoJsonHouse(token, orgId, page, per_page, hid)
+        val geoJsonHouse = getGeoJsonHouse(orgId, page, per_page, hid)
 
 
         val houseList = arrayListOf<Address>()
@@ -188,36 +170,29 @@ object HouseService {
 
     }
 
-    fun getSingle(token: UUID, orgId: String, houseId: String): Address {
-        var orgUuid: UUID
+    fun getSingle(orgId: String, houseId: String): Address {
 
-        val singleHouseGeo = getSingleGeo(token, orgId, houseId)
+        val singleHouseGeo = getSingleGeo(orgId, houseId)
         val house = singleHouseGeo.features.get(0).properties
 
         return house ?: throw NotFoundException("ไม่มีรายการบ้าน ที่ระบุ")
     }
 
-    fun getSingleGeo(token: UUID, orgId: String, houseId: String): FeatureCollection<Address> {
+    fun getSingleGeo(orgId: String, houseId: String): FeatureCollection<Address> {
 
-        var tokenObjUuid: UUID
-
-        try {
-            tokenObjUuid = getOrgByMobileToken(token, orgId).uuid
-        } catch (ex: javax.ws.rs.NotAuthorizedException) {
-            tokenObjUuid = getOrgByOrgToken(token, orgId).uuid ?: throw NotAuthorizedException("ไม่มี token นี้ในระบบ")
-        }
-
+        val org = orgDao.findById(orgId)
+        val orgUuid = org.uuid
 
         val geoJson = FeatureCollection<Address>()
         val house: StorageOrg<Address>
 
 
-        printDebug("\thouse findBy_ID OrgUuid = ${tokenObjUuid} houseId = $houseId")
-        house = houseDao.findByHouse_Id(tokenObjUuid, houseId) ?: throw NotFoundException("ไม่พบข้อมูลบ้านที่ระบุ")
+        printDebug("\thouse findBy_ID OrgUuid = ${orgUuid} houseId = $houseId")
+        house = houseDao.findByHouse_Id(orgUuid, houseId) ?: throw NotFoundException("ไม่พบข้อมูลบ้านที่ระบุ")
 
 
         printDebug("\t\t$house")
-        val feture = createGeo(house.data, tokenObjUuid)
+        val feture = createGeo(house.data, orgUuid)
         geoJson.features.add(feture)
 
 

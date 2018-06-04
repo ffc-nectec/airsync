@@ -1,21 +1,18 @@
 package ffc.airsync.api.services.filter
 
 import ffc.model.TokenMessage
+import java.nio.file.attribute.UserPrincipal
 import java.security.Principal
 
-class OrgSecurityContextImp(override val token: TokenMessage, override val orgId: String? = null, scheme: String) : FfcSecurityContext {
+class NoAuthSecurityContextImp : FfcSecurityContext {
 
-    private var HTTPS = "https://"
     private var userPrincipal: Principal? = null
-    private var scheme: String? = null
-
 
     init {
-        this.scheme = scheme
 
         this.userPrincipal = object : Principal {
             override fun getName(): String {
-                return token.name ?: ""
+                return "NOAUTH"
             }
 
         }
@@ -24,11 +21,11 @@ class OrgSecurityContextImp(override val token: TokenMessage, override val orgId
 
 
     override fun isUserInRole(role: String?): Boolean {
-        return TokenMessage.TYPEROLE.ORG.toString().equals(role)
+        return TokenMessage.TYPEROLE.NOAUTH.toString().equals(role)
     }
 
     override fun getAuthenticationScheme(): String {
-        return "Bearer"
+        return ""
     }
 
     override fun getUserPrincipal(): Principal {
@@ -38,4 +35,11 @@ class OrgSecurityContextImp(override val token: TokenMessage, override val orgId
     override fun isSecure(): Boolean {
         return true
     }
+
+    override val token: TokenMessage?
+        get() = null
+
+
+    override val orgId: String?
+        get() = null
 }

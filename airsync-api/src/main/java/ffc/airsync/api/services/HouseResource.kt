@@ -17,17 +17,21 @@
 
 package ffc.airsync.api.services
 
+import ffc.airsync.api.services.filter.FfcSecurityContext
 import ffc.airsync.api.services.module.HouseService
 import ffc.model.Address
+import ffc.model.TokenMessage
 import ffc.model.printDebug
 import ffc.model.toJson
 import me.piruin.geok.geometry.FeatureCollection
 import java.util.*
+import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
+import javax.ws.rs.core.SecurityContext
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -35,6 +39,10 @@ import javax.ws.rs.core.Response
 @Path("/org")
 class HouseResource {
 
+    @Context
+    private var context: SecurityContext? = null
+
+    @RolesAllowed("USER", "ORG")
     @Produces(GEOJSONHeader)
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
@@ -44,15 +52,11 @@ class HouseResource {
                         @PathParam("orgId") orgId: String,
                         @Context req: HttpServletRequest): FeatureCollection<Address> {
         val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("")
-
 
         printDebug("getGeoJsonHouse house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
 
 
         val geoJso = HouseService.getGeoJsonHouse(
-          UUID.fromString(token),
           orgId,
           if (page == 0) 1 else page,
           if (per_page == 0) 200 else per_page,
@@ -67,6 +71,7 @@ class HouseResource {
     }
 
 
+    @RolesAllowed("USER", "ORG")
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun getJsonHouse(@QueryParam("page") page: Int = 1,
@@ -75,15 +80,11 @@ class HouseResource {
                      @PathParam("orgId") orgId: String,
                      @Context req: HttpServletRequest): List<Address> {
         val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("")
-
 
         printDebug("getGeoJsonHouse house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
 
 
         val jsonHouse = HouseService.getJsonHouse(
-          UUID.fromString(token),
           orgId,
           if (page == 0) 1 else page,
           if (per_page == 0) 200 else per_page,
@@ -96,7 +97,7 @@ class HouseResource {
     }
 
 
-
+    @RolesAllowed("USER", "ORG")
     @PUT
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
     fun update(@Context req: HttpServletRequest,
@@ -106,20 +107,27 @@ class HouseResource {
     ): Response {
         printDebug("Call put house by ip = " + req.remoteAddr + " OrgID $orgId")
 
-        //printDebug(dd)
-        printDebug("hid ${house.hid} _id ${house._id} latLng ${house.coordinates}")
+        printDebug("\thid ${house.hid} _id ${house._id} latLng ${house.coordinates}")
 
-        val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
+        if (context == null) {
+            printDebug("\tContext is null")
+        }
+        val role = getTokenRole(context!!)
+        printDebug("\tRole $role")
+
+        printDebug("\t${context!!.userPrincipal}")
 
         if (house.coordinates == null) throw javax.ws.rs.NotSupportedException("coordinates null")
-        HouseService.update(UUID.fromString(token), orgId, house, houseId)
+
+
+        HouseService.update(role, orgId, house, houseId)
 
         return Response.status(200).build()
 
     }
 
+
+    @RolesAllowed("USER", "ORG")
     @Produces(GEOJSONHeader)
     @Consumes(GEOJSONHeader)
     @GET
@@ -132,17 +140,15 @@ class HouseResource {
 
 
         val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
 
-
-        val house: FeatureCollection<Address> = HouseService.getSingleGeo(UUID.fromString(token), orgId, houseId)
+        val house: FeatureCollection<Address> = HouseService.getSingleGeo(orgId, houseId)
 
         return house
 
     }
 
 
+    @RolesAllowed("USER", "ORG")
     @GET
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house/{houseId:([\\dabcdefABCDEF]{24})}")
     fun getSingle(@Context req: HttpServletRequest,
@@ -153,17 +159,16 @@ class HouseResource {
 
 
         val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
 
 
-        val house: Address = HouseService.getSingle(UUID.fromString(token), orgId, houseId)
+        val house: Address = HouseService.getSingle(orgId, houseId)
 
         return house
 
     }
 
 
+    @RolesAllowed("ORG")
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/houses")
     fun create(@Context req: HttpServletRequest,
@@ -179,14 +184,12 @@ class HouseResource {
         }
 
         val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
-        HouseService.create(UUID.fromString(token), orgId, houseList)
+        HouseService.create(orgId, houseList)
         return Response.status(Response.Status.CREATED).build()
 
     }
 
-
+    @RolesAllowed("ORG")
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun createSingle(@Context req: HttpServletRequest,
@@ -200,11 +203,8 @@ class HouseResource {
 
 
         val httpHeader = req.buildHeaderMap()
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
-        HouseService.create(UUID.fromString(token), orgId, house)
+        HouseService.create(orgId, house)
         return Response.status(Response.Status.CREATED).build()
-
     }
 
 }

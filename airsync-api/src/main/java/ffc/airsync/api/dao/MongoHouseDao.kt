@@ -125,6 +125,7 @@ class MongoHouseDao : HouseDao {
 
         printDebug("\tcreate update doc")
         val updateDoc = BasicDBObject("_id", ObjectId(house._id))
+          .append("_shortId", house._shortId)
           .append("orgUuid", orgUuid)
           .append("hid", house.hid)
           .append("latitude", house.coordinates?.latitude)
@@ -139,6 +140,9 @@ class MongoHouseDao : HouseDao {
 
 
         printDebug("\tcall collection.update (oldDoc, updateDoc)")
+        printDebug("\t\tOld doc = $oldDoc")
+        printDebug("\t\tUpdate doc = $updateDoc")
+
         coll.update(oldDoc, updateDoc)
         printDebug("\t3")
     }
