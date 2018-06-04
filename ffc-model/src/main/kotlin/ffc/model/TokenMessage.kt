@@ -23,13 +23,13 @@ import java.util.*
 val USERDATEEXPIRE = 1
 val ORGDATEEXPIRE = 9000
 
-data class TokenMessage(val token: UUID, var firebaseToken: String? = null, val timestamp: DateTime = DateTime.now(), val rule: TYPEROLE = TYPEROLE.NOAUTH, val name: String) {
+data class TokenMessage(val token: UUID, var firebaseToken: String? = null, val timestamp: DateTime = DateTime.now(), val role: TYPEROLE = TYPEROLE.NOAUTH, val name: String) {
 
     // fun getExpireDate(temp :String? = null): DateTime = timestamp.plusDays(USERDATEEXPIRE)
     val expireDate: DateTime
 
     init {
-        when (rule) {
+        when (role) {
             TYPEROLE.USER -> expireDate = timestamp.plusDays(USERDATEEXPIRE)
             TYPEROLE.ORG -> expireDate = timestamp.plusDays(ORGDATEEXPIRE)
             else -> expireDate = timestamp

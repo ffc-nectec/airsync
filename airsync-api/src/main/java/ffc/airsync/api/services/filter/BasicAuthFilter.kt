@@ -7,7 +7,6 @@ import ffc.model.printDebug
 import java.util.*
 import java.util.regex.Pattern
 import javax.annotation.Priority
-import javax.ws.rs.ForbiddenException
 import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.Priorities
 import javax.ws.rs.container.ContainerRequestContext
@@ -49,10 +48,10 @@ class BasicAuthFilter : ContainerRequestFilter {
         val securityContext: SecurityContext
 
 
-        if (authenInfo.token.data.rule == TokenMessage.TYPEROLE.USER) {
+        if (authenInfo.token.data.role == TokenMessage.TYPEROLE.USER) {
             //if(authenInfo.token.id==orgId)
             securityContext = UserSecurityContextImp(authenInfo.token.data, urlScheme, orgId)
-        } else if (authenInfo.token.data.rule == TokenMessage.TYPEROLE.ORG) {
+        } else if (authenInfo.token.data.role == TokenMessage.TYPEROLE.ORG) {
             securityContext = OrgSecurityContextImp(authenInfo.token.data, urlScheme, orgId)
         } else {
             securityContext = NoAuthSecurityContextImp()

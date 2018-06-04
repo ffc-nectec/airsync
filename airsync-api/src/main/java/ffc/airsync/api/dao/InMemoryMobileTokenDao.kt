@@ -41,7 +41,7 @@ class InMemoryMobileTokenDao : MobileTokenDao {
     override fun insert(token: UUID, uuid: UUID, user: String, id: String, type: TokenMessage.TYPEROLE): TokenMessage { //uuid is orgUuid
         //1 User per 1 Token
         tokenList.removeIf { it.uuid == uuid && it.user == user }
-        val tokenObj = TokenMessage(token = token, name = user, rule = type)
+        val tokenObj = TokenMessage(token = token, name = user, role = type)
 
         printDebug("InMemoryTokenDao")
 

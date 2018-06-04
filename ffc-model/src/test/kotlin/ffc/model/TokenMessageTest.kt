@@ -7,7 +7,7 @@ class TokenMessageTest {
 
     @Test
     fun enumPrint() {
-        println(TokenMessage.TYPERULE.USER)
+        println(TokenMessage.TYPEROLE.USER)
         val regex = "\\b(\\d{3})(\\d{3})(\\d{4})\\b"
 
         val pattern = Pattern.compile(regex)
