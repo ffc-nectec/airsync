@@ -20,8 +20,8 @@ object OrgService {
     }
 
 
-    fun remove(token: UUID, orgId: String) {
-        val org = getOrgByOrgToken(token, orgId)
+    fun remove(orgId: String) {
+        val org = orgDao.findById(orgId)
 
         orgDao.findById(orgId)
 

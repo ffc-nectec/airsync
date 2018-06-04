@@ -22,6 +22,7 @@ import ffc.airsync.api.services.module.OrgService
 import ffc.airsync.api.services.module.tokenMobile
 import ffc.model.*
 import java.util.*
+import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -83,6 +84,7 @@ class OrgResource {
     }
 
 
+    @RolesAllowed("ORG")
     @DELETE
     @Path("/{orgId:([\\dabcdefABCDEF]+)}")
     fun remove(@PathParam("orgId") orgId: String,
@@ -91,12 +93,10 @@ class OrgResource {
         printDebug("Remove org $orgId")
         val httpHeader = req.buildHeaderMap()
         printDebug("getHeader $httpHeader")
-        val token = httpHeader["Authorization"]?.replaceFirst("Bearer ", "")
-          ?: throw NotAuthorizedException("Not Authorization")
 
 
-        printDebug("Call removeOrg Service _id = $orgId token = $token")
-        OrgService.remove(UUID.fromString(token), orgId)
+        printDebug("Call removeOrg Service _id = $orgId")
+        OrgService.remove(orgId)
         return Response.status(200).build()
     }
 
