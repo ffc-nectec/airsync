@@ -70,9 +70,7 @@ class MongoHouseDao : HouseDao {
     }
 
 
-
-
-    override fun insert(orgUuid: UUID, house: Address) {
+    override fun insert(orgUuid: UUID, house: Address): Address {
 
         val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("hid", house.hid)
@@ -92,6 +90,7 @@ class MongoHouseDao : HouseDao {
           .append("longitude", house.coordinates?.longitude)
 
 
+        val houseReturn = house.clone()
         house.coordinates = null
         doc.append("property", house.toJson())
         printDebug(doc)
@@ -99,14 +98,18 @@ class MongoHouseDao : HouseDao {
 
         coll.remove(query)
         coll.insert(doc)
+        return houseReturn
     }
 
 
-    override fun insert(orgUuid: UUID, houseList: List<Address>) {
+    override fun insert(orgUuid: UUID, houseList: List<Address>): List<Address> {
         printDebug("MongoHouseDao Insert")
+        val houseReturn = arrayListOf<Address>()
         houseList.forEach {
             insert(orgUuid, it)
+            houseReturn.add(it)
         }
+        return houseReturn
     }
 
 

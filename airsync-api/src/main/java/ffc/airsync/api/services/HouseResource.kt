@@ -184,8 +184,8 @@ class HouseResource {
         }
 
         val httpHeader = req.buildHeaderMap()
-        HouseService.create(orgId, houseList)
-        return Response.status(Response.Status.CREATED).build()
+        val houseReturn = HouseService.create(orgId, houseList)
+        return Response.status(Response.Status.CREATED).entity(houseReturn).build()
 
     }
 
@@ -203,8 +203,8 @@ class HouseResource {
 
 
         val httpHeader = req.buildHeaderMap()
-        HouseService.create(orgId, house)
-        return Response.status(Response.Status.CREATED).build()
+        val houseReturn = HouseService.create(orgId, house)
+        return Response.status(Response.Status.CREATED).entity(house).build()
     }
 
 }

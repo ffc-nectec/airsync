@@ -35,16 +35,20 @@ class InMemoryHouseDao : HouseDao {
     val houseList = arrayListOf<StorageOrg<Address>>()
 
 
-    override fun insert(orgUuid: UUID, house: Address) {
+    override fun insert(orgUuid: UUID, house: Address): Address {
         //houseList.removeIf { it.uuid == orgUuid && it.data.identity?.id == house.identity?.id }
+        //have bug _id
         printDebug("Insert house = ${house.identity?.id} XY= ${house.coordinates}")
         houseList.add(StorageOrg(orgUuid, house))
+        return house
     }
 
-    override fun insert(orgUuid: UUID, houseList: List<Address>) {
+    override fun insert(orgUuid: UUID, houseList: List<Address>): List<Address> {
+        //have bug _id
         houseList.forEach {
             insert(orgUuid, it)
         }
+        return houseList
 
     }
 

@@ -34,20 +34,20 @@ object HouseService {
 
     val houseDao = DaoFactory().buildHouseDao()
 
-    fun create(orgId: String, houseList: List<Address>) {
+    fun create(orgId: String, houseList: List<Address>): List<Address> {
         val org = orgDao.findById(orgId)
 
         houseList.forEach {
             if (it.hid!! < 0) throw BadRequestException("")
         }
 
-        houseDao.insert(org.uuid, houseList)
+        return houseDao.insert(org.uuid, houseList)
     }
 
-    fun create(orgId: String, house: Address) {
+    fun create(orgId: String, house: Address): Address {
         val org = orgDao.findById(orgId)
         if (house.hid!! < 0) throw BadRequestException("")
-        houseDao.insert(org.uuid, house)
+        return houseDao.insert(org.uuid, house)
     }
 
 
