@@ -114,7 +114,7 @@ object HouseService {
     }
 
 
-    fun getGeoJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): FeatureCollection<Address> {
+    fun getGeoJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1, haveLocation: Boolean?): FeatureCollection<Address> {
 
         val org = orgDao.findById(orgId)
         val orgUuid = org.uuid
@@ -131,7 +131,7 @@ object HouseService {
             listHouse = ArrayList()
             listHouse.add(house)
         } else {
-            listHouse = houseDao.find(orgUuid)
+            listHouse = houseDao.find(orgUuid, haveLocation)
         }
         printDebug("count house = ${listHouse.count()}")
 
@@ -152,9 +152,9 @@ object HouseService {
         return geoJson
     }
 
-    fun getJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1): List<Address> {
+    fun getJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1, haveLocation: Boolean?): List<Address> {
 
-        val geoJsonHouse = getGeoJsonHouse(orgId, page, per_page, hid)
+        val geoJsonHouse = getGeoJsonHouse(orgId, page, per_page, hid, haveLocation)
 
 
         val houseList = arrayListOf<Address>()

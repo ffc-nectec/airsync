@@ -17,14 +17,11 @@
 
 package ffc.airsync.api.services
 
-import ffc.airsync.api.services.filter.FfcSecurityContext
 import ffc.airsync.api.services.module.HouseService
 import ffc.model.Address
-import ffc.model.TokenMessage
 import ffc.model.printDebug
 import ffc.model.toJson
 import me.piruin.geok.geometry.FeatureCollection
-import java.util.*
 import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
@@ -49,18 +46,24 @@ class HouseResource {
     fun getGeoJsonHouse(@QueryParam("page") page: Int = 1,
                         @QueryParam("per_page") per_page: Int = 200,
                         @QueryParam("hid") hid: Int = -1,
+                        @QueryParam("haveLocation") haveLocation: Boolean? = null,
                         @PathParam("orgId") orgId: String,
                         @Context req: HttpServletRequest): FeatureCollection<Address> {
         val httpHeader = req.buildHeaderMap()
 
-        printDebug("getGeoJsonHouse house method geoJson List paramete orgId $orgId page $page per_page $per_page hid $hid")
+        printDebug("getGeoJsonHouse house method geoJson List")
 
+        printDebug("\tParamete orgId $orgId page $page per_page $per_page hid $hid haveLocation $haveLocation")
 
         val geoJso = HouseService.getGeoJsonHouse(
           orgId,
           if (page == 0) 1 else page,
           if (per_page == 0) 200 else per_page,
-          if (hid == 0) -1 else hid)
+          if (hid == 0) -1 else hid,
+          haveLocation)
+
+
+
 
         printDebug("Print feture before return to rest")
         geoJso.features.forEach {
@@ -77,6 +80,7 @@ class HouseResource {
     fun getJsonHouse(@QueryParam("page") page: Int = 1,
                      @QueryParam("per_page") per_page: Int = 200,
                      @QueryParam("hid") hid: Int = -1,
+                     @QueryParam("haveLocation") haveLocation: Boolean? = null,
                      @PathParam("orgId") orgId: String,
                      @Context req: HttpServletRequest): List<Address> {
         val httpHeader = req.buildHeaderMap()
@@ -88,7 +92,8 @@ class HouseResource {
           orgId,
           if (page == 0) 1 else page,
           if (per_page == 0) 200 else per_page,
-          if (hid == 0) -1 else hid)
+          if (hid == 0) -1 else hid,
+          haveLocation)
 
         printDebug("Print feture before return to rest")
 

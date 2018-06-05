@@ -31,7 +31,7 @@ interface HouseDao {
 
     fun find(latlng: Boolean = true): List<StorageOrg<Address>>
 
-    fun find(orgUuid: UUID, latlng: Boolean = true): List<StorageOrg<Address>>
+    fun find(orgUuid: UUID, haveLocation: Boolean? = true): List<StorageOrg<Address>>
 
     fun findByHouseId(orgUuid: UUID, hid: Int): StorageOrg<Address>?
 

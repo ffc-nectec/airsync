@@ -36,6 +36,7 @@ class MongoHouseDao : HouseDao {
         var instant: MongoHouseDao? = null
 
     }
+
     val coll: DBCollection
 
 
@@ -64,7 +65,6 @@ class MongoHouseDao : HouseDao {
 
         if (mongoUrl == null)
             this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
-
         else
             this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
     }
@@ -163,12 +163,17 @@ class MongoHouseDao : HouseDao {
     }
 
 
-    override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
+    override fun find(orgUuid: UUID, haveLocation: Boolean?): List<StorageOrg<Address>> {
         var query = BasicDBObject("orgUuid", orgUuid.toString())
-        if (latlng) {
+        if (haveLocation == null) {
+        } else if (haveLocation) {
             query = query
               .append("longitude", BasicDBObject("\$ne", 0.0))
               .append("latitude", BasicDBObject("\$ne", 0.0))
+        } else {
+            query = query
+              .append("longitude", BasicDBObject("\$eq", 0.0))
+              .append("latitude", BasicDBObject("\$eq", 0.0))
         }
 
 

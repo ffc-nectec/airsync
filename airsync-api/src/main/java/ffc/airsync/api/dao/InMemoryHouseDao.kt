@@ -84,15 +84,21 @@ class InMemoryHouseDao : HouseDao {
         return houseList.find { it.data.hid == houseId && it.uuid == orgUuid }
     }
 
-    override fun find(orgUuid: UUID, latlng: Boolean): List<StorageOrg<Address>> {
-        if (latlng)
-            return houseList.filter {
-                (it.data.coordinates!!.latitude != 0.0 || it.data.coordinates!!.longitude != 0.0) && it.uuid == orgUuid
-            }
-        else
+    override fun find(orgUuid: UUID, haveLocation: Boolean?): List<StorageOrg<Address>> {
+        if (haveLocation == null) {
             return houseList.filter {
                 it.uuid == orgUuid
             }
+        } else if (haveLocation) {
+            return houseList.filter {
+                (it.data.coordinates!!.latitude != 0.0 || it.data.coordinates!!.longitude != 0.0) && it.uuid == orgUuid
+            }
+        } else
+            return houseList.filter {
+                (it.data.coordinates!!.latitude == 0.0 || it.data.coordinates!!.longitude == 0.0) && it.uuid == orgUuid
+            }
+
+
     }
 
 
