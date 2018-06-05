@@ -41,6 +41,7 @@ import java.io.InputStreamReader
 import java.io.OutputStream
 import java.io.OutputStreamWriter
 import java.lang.reflect.Type
+import javax.ws.rs.BadRequestException
 
 @Provider
 @Produces(MediaType.APPLICATION_JSON, "application/vnd.geo+json")
@@ -63,8 +64,19 @@ class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
                           annotations: Array<Annotation>, mediaType: MediaType,
                           httpHeaders: MultivaluedMap<String, String>, entityStream: InputStream): Any? {
         try {
-            InputStreamReader(entityStream, UTF_8).use { streamReader -> return gson.fromJson<Any>(streamReader, genericType) }
+            InputStreamReader(entityStream, UTF_8)
+              .use {
+                  try {
+                      return gson.fromJson<Any>(it, genericType)
+                  } catch (ex: java.lang.NumberFormatException) {
+                      ex.printStackTrace()
+                      val errormess = BadRequestException("JSON error ${ex.message}")
+                      errormess.stackTrace = ex.stackTrace
+                      throw errormess
+                  }
+              }
         } catch (e: com.google.gson.JsonSyntaxException) {
+
             // Log exception
         }
 
