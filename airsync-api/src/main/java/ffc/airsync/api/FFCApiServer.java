@@ -34,7 +34,6 @@ import java.io.IOException;
 
 public class FFCApiServer {
 
-    final static Logger logger = LogManager.getLogger(FFCApiServer.class);
 
     protected static final int DEFAULT_PORT = 8080;
     protected static final String DEFAULT_HOST = "0.0.0.0";
@@ -60,9 +59,6 @@ public class FFCApiServer {
     public static FirebaseApp firebaseApp = null;
 
     public static void main(String[] args) {
-
-        logger.info("Starting FFC Cloud...");
-        logger.debug("Debug test");
         instance = new FFCApiServer(args);
         instance.run();
     }

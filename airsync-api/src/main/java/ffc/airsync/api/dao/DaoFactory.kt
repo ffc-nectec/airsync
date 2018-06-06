@@ -21,7 +21,7 @@ package ffc.airsync.api.dao
 class DaoFactory(val dev: Boolean = true) {
 
 
-    fun buildPcuDao(): OrgDao = if (dev) InMemoryOrgDao.instance else EsOrgDao()
+    fun buildPcuDao(): OrgDao = MongoOrgDao("127.0.0.1", 27017, "ffc")
 
     fun buildOrgUserDao(): UserDao = InMemoryUserDao.INSTANT
 
