@@ -17,27 +17,24 @@
 
 package ffc.airsync.api;
 
-import com.google.api.gax.paging.Page;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.storage.Bucket;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.Message;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
-import java.io.*;
-import java.util.concurrent.ExecutionException;
-
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class FFCApiServer {
 
+    final static Logger logger = LogManager.getLogger(FFCApiServer.class);
 
     protected static final int DEFAULT_PORT = 8080;
     protected static final String DEFAULT_HOST = "0.0.0.0";
@@ -63,6 +60,9 @@ public class FFCApiServer {
     public static FirebaseApp firebaseApp = null;
 
     public static void main(String[] args) {
+
+        logger.info("Starting FFC Cloud...");
+        logger.debug("Debug test");
         instance = new FFCApiServer(args);
         instance.run();
     }
@@ -80,9 +80,10 @@ public class FFCApiServer {
               .setCredentials(GoogleCredentials.fromStream(serviceAccount))
               .setDatabaseUrl("https://ffc-nectec.firebaseio.com")
               .build();
-
             firebaseApp = FirebaseApp.initializeApp(options);
+            //logger.log(Level.FINE, "Load config firebase from file.");
         } catch (IOException e) {
+
             e.printStackTrace();
 
             String firebaseConfigString = System.getenv("FIREBASE_CONFIG");
@@ -100,6 +101,7 @@ public class FFCApiServer {
             }
 
             firebaseApp = FirebaseApp.initializeApp(options);
+            //logger.log(Level.FINE, "Load config firebase from system env.");
         }
 
 

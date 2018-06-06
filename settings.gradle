@@ -4,5 +4,4 @@ include 'airsync-api'
 include 'airsync-client'
 include 'airsync-mysql-log-reader'
 include 'ffc-model'
-include 'ffc-app'
 
