@@ -21,7 +21,7 @@ import ffc.model.TokenMessage
 import ffc.model.StorageOrg
 import java.util.*
 
-interface MobileTokenDao {
+interface TokenDao {
     fun insert(token: UUID, uuid: UUID, user: String, id: String, type: TokenMessage.TYPEROLE = TokenMessage.TYPEROLE.NOAUTH): TokenMessage
     fun find(token: UUID): StorageOrg<TokenMessage>
     fun findByOrgUuid(orgUUID: UUID): List<StorageOrg<TokenMessage>>

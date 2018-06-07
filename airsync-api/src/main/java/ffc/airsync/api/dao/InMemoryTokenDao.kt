@@ -23,12 +23,12 @@ import ffc.model.printDebug
 import java.util.*
 import javax.ws.rs.NotAuthorizedException
 
-class InMemoryMobileTokenDao : MobileTokenDao {
+class InMemoryTokenDao : TokenDao {
 
     private constructor()
 
     companion object {
-        val instant = InMemoryMobileTokenDao()
+        val instant = InMemoryTokenDao()
     }
 
     val tokenList = arrayListOf<StorageOrg<TokenMessage>>()
