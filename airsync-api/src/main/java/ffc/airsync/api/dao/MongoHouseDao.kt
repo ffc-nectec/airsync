@@ -37,7 +37,7 @@ class MongoHouseDao : HouseDao {
 
     }
 
-    val coll: DBCollection
+    private val coll: DBCollection
 
 
     constructor(host: String, port: Int, databaseName: String) {
@@ -207,7 +207,11 @@ class MongoHouseDao : HouseDao {
 
 
         val dbObj = coll.findOne(query)
-        printDebug("\tQuery property = ${dbObj.get("property")}")
+        printDebug("\tQuery found=$dbObj")
+        if (dbObj == null) return null
+
+
+        printDebug("\t\tproperty = ${dbObj.get("property")}")
 
 
         val house: Address = dbObj.get("property").toString().fromJson()

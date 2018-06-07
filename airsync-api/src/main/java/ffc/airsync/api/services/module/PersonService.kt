@@ -13,11 +13,11 @@ object PersonService {
         //val tokenObj = getOrgByMobileToken(UUID.fromString(token.trim()), orgId)
         val org = orgDao.findById(orgId)
         val personList = personDao.find(org.uuid)
+        printDebug("Person Service get list ${personList.size}")
         val personReturn = arrayListOf<Person>()
 
 
-
-        val count = personList.count()
+        val count = personList.size
 
         itemRenderPerPage(page, per_page, count, object : AddItmeAction {
             override fun onAddItemAction(it: Int) {
@@ -27,6 +27,7 @@ object PersonService {
 
                 if (person.houseId != null) {
                     val housePerson = houseDao.findByHouseId(org.uuid, person.houseId!!)
+                    printDebug("\thouse person $housePerson")
                     person.house = housePerson?.data
                 }
 

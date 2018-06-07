@@ -96,7 +96,7 @@ class MongoOrgDao : OrgDao {
     override fun find(): List<Organization> {
         printDebug("Mongo find() org")
         val orgCursorList = coll.find()
-        val orgList = loadDocList(orgCursorList)
+        val orgList = docListToObj(orgCursorList)
         if (orgList.size < 1) throw NotFoundException("ไม่พบรายการ org ลงทะเบียน ในระบบ")
         return orgList
 
@@ -106,7 +106,7 @@ class MongoOrgDao : OrgDao {
         printDebug("Mongo find org uuid $uuid")
         val query = BasicDBObject("orgUuid", uuid.toString())
         val doc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ uuid ${uuid.toString()} ที่ค้นหา")
-        val organization = loadDoc(doc)
+        val organization = docToObj(doc)
 
         return organization
     }
@@ -117,7 +117,7 @@ class MongoOrgDao : OrgDao {
         printDebug("\tCreate query object $query")
         val orgDoc = coll.find(query)
         printDebug("\tQuery org from mongo $orgDoc")
-        val orgList = loadDocList(orgDoc)
+        val orgList = docListToObj(orgDoc)
 
         if (orgList.size < 1) throw NotFoundException("ไม่พบรายการลงทะเบียนในกลุ่มของ Org ip $ipAddress")
 
@@ -128,7 +128,7 @@ class MongoOrgDao : OrgDao {
         printDebug("Mongo find org token $token")
         val query = BasicDBObject("token", token.toString())
         val doc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ token ${token.toString()} ที่ค้นหา")
-        val organization = loadDoc(doc)
+        val organization = docToObj(doc)
 
         return organization
 
@@ -138,7 +138,7 @@ class MongoOrgDao : OrgDao {
         printDebug("Mongo find org id $id")
         val query = BasicDBObject("idOrg", id)
         val doc = coll.findOne(query) ?: throw NotFoundException("ไม่พบ id org $id ที่ค้นหา")
-        val organization = loadDoc(doc)
+        val organization = docToObj(doc)
 
         return organization
     }
@@ -189,7 +189,7 @@ class MongoOrgDao : OrgDao {
         return doc
     }
 
-    private fun loadDoc(doc: DBObject): Organization {
+    private fun docToObj(doc: DBObject): Organization {
 
 
         printDebug("\t\t\t1")
@@ -214,17 +214,17 @@ class MongoOrgDao : OrgDao {
         return organization
     }
 
-    private fun loadDocList(cursor: DBCursor): List<Organization> {
+    private fun docListToObj(cursor: DBCursor): List<Organization> {
 
         val orgList = arrayListOf<Organization>()
         printDebug("\t\tLoad doc list.")
         while (cursor.hasNext()) {
             val it = cursor.next()
             printDebug("\t\t$it")
-            val organization = loadDoc(it)
+            val organization = docToObj(it)
             orgList.add(organization)
         }
-        printDebug("\tReturn loadDocList")
+        printDebug("\tReturn docListToObj")
         return orgList
 
     }
