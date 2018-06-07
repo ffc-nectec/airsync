@@ -1,10 +1,7 @@
 package ffc.airsync.api.dao
 
 import com.mongodb.*
-import ffc.model.People
-import ffc.model.Person
-import ffc.model.StorageOrg
-import ffc.model.printDebug
+import ffc.model.*
 import org.joda.time.LocalDate
 import java.util.*
 
@@ -139,11 +136,18 @@ class MongoPersonDao : PersonDao {
         personDoc.append("lastname", person.lastname)
         //printDebug("\t\t\t${i++}${personDoc.toJson()}")
         personDoc.append("birthData", person.birthData.toString())
-        //printDebug("\t\t\t${i++}${personDoc.toJson()}")
-        //personDoc.append("identities", person.identities)
-        //printDebug("\t\t\t${i++}${personDoc.toJson()}")
-        //personDoc.append("chronics", person.chronics)
-        //printDebug("\t\t\t${i++}${personDoc.toJson()}")
+
+
+        printDebug("\t\t\t${i++}${personDoc.toJson()}")
+        personDoc.append("identities", person.identities.toJson())
+        printDebug("\t\t\t${i++}${personDoc.toJson()}")
+        if (person.chronics != null) {
+            personDoc.append("chronics", person.chronics!!.toJson())
+        }
+        printDebug("\t\t\t${i++}${personDoc.toJson()}")
+
+
+
         personDoc.append("houseId", person.houseId)
         //printDebug("\t\tReturn doc ${personDoc.toJson()}")
 
@@ -192,16 +196,20 @@ class MongoPersonDao : PersonDao {
             //printDebug("		birthData=$1Obj")
             person.birthData = LocalDate.parse(birthDataObj.toString())
         }
+
+
         val identitiesObj = obj.get("identities")
         if (identitiesObj != null) {
-            //printDebug("		identities=$1Obj")
-            //person.identities = identitiesObj.toString()
+            printDebug("		identities=$1Obj")
+            person.identities = identitiesObj.toString().fromJson()
         }
         val chronicsObj = obj.get("chronics")
         if (chronicsObj != null) {
-            //printDebug("		chronics=$1Obj")
-            //person.chronics = chronicsObj.toString()
+            printDebug("		chronics=$1Obj")
+            person.chronics = chronicsObj.toString().fromJson()
         }
+
+
         val houseIdObj = obj.get("houseId")
         if (houseIdObj != null) {
             //printDebug("		houseId=$1Obj")
