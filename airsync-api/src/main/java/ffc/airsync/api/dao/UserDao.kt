@@ -49,7 +49,6 @@ interface UserDao {
     fun insert(user: User, org: Organization)
     fun find(orgUuid: UUID): List<UserStor>
     fun findById(id: String): List<UserStor>
-    fun removeAll(orgUuid: UUID)
     fun isAllow(user: User, orgUuid: UUID): Boolean
     fun isAllowById(user: User, id: String): Boolean
     fun removeByOrgUuid(orgUUID: UUID)

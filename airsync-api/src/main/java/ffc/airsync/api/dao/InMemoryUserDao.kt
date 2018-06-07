@@ -57,10 +57,6 @@ class InMemoryUserDao : UserDao {
 
     }
 
-    override fun removeAll(orgUuid: UUID) {
-        userList.removeIf { it.orgUuid == orgUuid }
-
-    }
 
     override fun isAllow(user: User, orgUuid: UUID): Boolean {
         checkBlockUser(user)

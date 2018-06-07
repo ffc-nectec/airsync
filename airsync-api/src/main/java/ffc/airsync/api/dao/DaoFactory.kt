@@ -23,7 +23,7 @@ class DaoFactory(val dev: Boolean = true) {
 
     fun buildPcuDao(): OrgDao = MongoOrgDao("127.0.0.1", 27017, "ffc")
 
-    fun buildOrgUserDao(): UserDao = InMemoryUserDao.INSTANT
+    fun buildOrgUserDao(): UserDao = MongoUserDao("127.0.0.1", 27017, "ffc")
 
     fun buildHouseDao(): HouseDao = MongoHouseDao("127.0.0.1", 27017, "ffc")
 
