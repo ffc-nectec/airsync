@@ -8,51 +8,17 @@ import org.bson.types.ObjectId
 import java.util.*
 import javax.ws.rs.NotFoundException
 
-class MongoOrgDao : OrgDao {
+class MongoOrgDao(host: String, port: Int, databaseName: String, collection: String) : OrgDao, MongoAbsConnect(host, port, databaseName, collection) {
 
     companion object {
         private val COUNTERNAME = "idorg"
-        private var mongoClient: MongoClient? = null
-        private var dbName: String? = null
-        var instant: MongoOrgDao? = null
 
     }
 
-    private val coll: DBCollection
+
     private val couterColl: DBCollection
 
-
-    constructor(host: String, port: Int, databaseName: String) {
-        val mongoUrl = System.getenv("MONGODB_URI")
-        val collection = "organize"
-
-
-
-
-        if (mongoClient == null) {
-            if (mongoUrl == null) {
-                printDebug("Create mongo client localhost")
-                mongoClient = MongoClient(Arrays.asList(
-                  ServerAddress(host, port)
-                )/*,Arrays.asList(credential)*/)
-                dbName = databaseName
-            } else {
-                printDebug("Create mongo clinet by uri")
-                mongoClient = MongoClient(MongoClientURI(mongoUrl))
-            }
-
-
-            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
-            instant = this
-        }
-
-
-        if (mongoUrl == null)
-            this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
-        else
-            this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
-
-
+    init {
         couterColl = mongoClient!!.getDB(dbName).getCollection("counter")
         printDebug("\tCall create counter.")
         try {
@@ -64,8 +30,6 @@ class MongoOrgDao : OrgDao {
         } catch (ex: com.mongodb.DuplicateKeyException) {
 
         }
-
-
     }
 
 
@@ -228,4 +192,6 @@ class MongoOrgDao : OrgDao {
         return orgList
 
     }
+
+
 }

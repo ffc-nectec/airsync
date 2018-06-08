@@ -8,17 +8,8 @@ import java.util.*
 import java.security.MessageDigest
 
 
-class MongoUserDao : UserDao {
+class MongoUserDao(host: String, port: Int, databaseName: String, collection: String) : UserDao, MongoAbsConnect(host, port, databaseName, collection) {
 
-
-    companion object {
-        private var mongoClient: MongoClient? = null
-        private var dbName: String? = null
-        var instant: MongoUserDao? = null
-
-    }
-
-    private val coll: DBCollection
     private val SALTPASS = """
 uxF3Ocv5eg4BoQBK9MmR
 rwPARiCL9ovpr3zmlJlj
@@ -43,34 +34,6 @@ ytF2v69RwtGYf7C6ygwD
 """
 
 
-    constructor(host: String, port: Int, databaseName: String) {
-        val mongoUrl = System.getenv("MONGODB_URI")
-        val collection = "user"
-
-
-        if (mongoClient == null) {
-            if (mongoUrl == null) {
-                printDebug("Create mongo client localhost")
-                mongoClient = MongoClient(Arrays.asList(
-                  ServerAddress(host, port)
-                )/*,Arrays.asList(credential)*/)
-                dbName = databaseName
-            } else {
-                printDebug("Create mongo clinet by uri")
-                mongoClient = MongoClient(MongoClientURI(mongoUrl))
-            }
-
-
-            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
-            instant = this
-        }
-
-
-        if (mongoUrl == null)
-            this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
-        else
-            this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
-    }
 
 
     override fun insert(user: User, org: Organization) {

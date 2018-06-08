@@ -28,46 +28,8 @@ import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
 
 
-class MongoHouseDao : HouseDao {
+class MongoHouseDao(host: String, port: Int, databaseName: String, collection: String) : HouseDao, MongoAbsConnect(host, port, databaseName, collection) {
 
-    companion object {
-        private var mongoClient: MongoClient? = null
-        private var dbName: String? = null
-        var instant: MongoHouseDao? = null
-
-    }
-
-    private val coll: DBCollection
-
-
-    constructor(host: String, port: Int, databaseName: String) {
-        val mongoUrl = System.getenv("MONGODB_URI")
-        val collection = "house"
-
-
-        if (mongoClient == null) {
-            if (mongoUrl == null) {
-                printDebug("Create mongo client localhost")
-                mongoClient = MongoClient(Arrays.asList(
-                  ServerAddress(host, port)
-                )/*,Arrays.asList(credential)*/)
-                dbName = databaseName
-            } else {
-                printDebug("Create mongo clinet by uri")
-                mongoClient = MongoClient(MongoClientURI(mongoUrl))
-            }
-
-
-            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
-            instant = this
-        }
-
-
-        if (mongoUrl == null)
-            this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
-        else
-            this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
-    }
 
 
     override fun insert(orgUuid: UUID, house: Address): Address {

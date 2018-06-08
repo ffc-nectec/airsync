@@ -9,51 +9,11 @@ import java.util.*
 import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 
-class MongoTokenDao : TokenDao {
-
-
-    companion object {
-
-        private var mongoClient: MongoClient? = null
-        private var dbName: String? = null
-        var instant: MongoTokenDao? = null
-
-    }
-
-    private val coll: DBCollection
-
-    constructor(host: String, port: Int, databaseName: String) {
-        val mongoUrl = System.getenv("MONGODB_URI")
-        val collection = "token"
-
-
-        if (mongoClient == null) {
-            if (mongoUrl == null) {
-                printDebug("Create mongo client localhost")
-                mongoClient = MongoClient(Arrays.asList(
-                  ServerAddress(host, port)
-                )/*,Arrays.asList(credential)*/)
-                dbName = databaseName
-            } else {
-                printDebug("Create mongo clinet by uri")
-                mongoClient = MongoClient(MongoClientURI(mongoUrl))
-            }
-
-
-            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
-            instant = this
-        }
-
-
-        if (mongoUrl == null)
-            this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
-        else
-            this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
-    }
+class MongoTokenDao(host: String, port: Int, databaseName: String, collection: String) : TokenDao, MongoAbsConnect(host, port, databaseName, collection) {
 
     private fun objToDoc(tokenObj: StorageOrg<TokenMessage>): BasicDBObject {
 
-        val tokenDoc = BasicDBObject("orgUuid", tokenObj.uuid)
+        val tokenDoc = BasicDBObject("orgUuid", tokenObj.uuid.toString())
           .append("token", tokenObj.data.token.toString())
           .append("user", tokenObj.user)
           .append("role", tokenObj.data.role.toString())
