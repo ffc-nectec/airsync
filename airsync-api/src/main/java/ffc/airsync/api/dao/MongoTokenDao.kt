@@ -132,6 +132,7 @@ class MongoTokenDao : TokenDao {
 
     override fun removeByOrgUuid(orgUUID: UUID) {
         val query = BasicDBObject("orgUuid", orgUUID.toString())
+        coll.remove(query)
     }
 
 
