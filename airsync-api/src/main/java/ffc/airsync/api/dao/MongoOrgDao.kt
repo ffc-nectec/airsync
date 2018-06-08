@@ -19,8 +19,9 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
     private val couterColl: DBCollection
 
     init {
-        couterColl = mongoClient!!.getDB(dbName).getCollection("counter")
         printDebug("\tCall create counter.")
+        couterColl = mongoClient!!.getDB(dbName).getCollection("counter")
+        printDebug("\t\tFinish call create counter.")
         try {
             val counterDoc = BasicDBObject("_id", COUNTERNAME)
               .append("sec", 1)
@@ -34,7 +35,7 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
 
 
     override fun insert(organization: Organization) {
-        var queryRemove = BasicDBObject("orgUuid", organization.uuid.toString())
+        val queryRemove = BasicDBObject("orgUuid", organization.uuid.toString())
         coll.remove(queryRemove)
 
 

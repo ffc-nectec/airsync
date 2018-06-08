@@ -25,6 +25,7 @@ abstract class MongoAbsConnect {
             } else {
                 printDebug("Create mongo clinet by uri")
                 mongoClient = MongoClient(MongoClientURI(mongoUrl))
+                printDebug("\tFinish create mongo clinet by uri.")
             }
 
 
@@ -33,10 +34,13 @@ abstract class MongoAbsConnect {
         }
 
 
-        if (mongoUrl == null)
+        if (mongoUrl == null) {
+            printDebug("\t mongoUrl=nul")
             this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
-        else
+        } else {
+            printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
             this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
+        }
     }
 
 }
