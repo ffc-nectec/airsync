@@ -18,17 +18,17 @@ object UserService {
     }
 
 
-    fun login(id: String, user: String, pass: String): TokenMessage {
+    fun login(orgId: String, user: String, pass: String): TokenMessage {
 
-        val checkUser = orgUser.isAllowById(User(user, pass), id)
+        val checkUser = orgUser.isAllowById(User(user, pass), orgId)
         if (checkUser) {
-            val org = orgDao.findById(id)
+            val org = orgDao.findById(orgId)
             val token = UUID.randomUUID()
 
             val tokenObj = tokenMobile.insert(token = token,
               uuid = org.uuid,
               user = user,
-              id = id,
+              orgId = orgId,
               type = TokenMessage.TYPEROLE.USER)
             return tokenObj
         }

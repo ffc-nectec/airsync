@@ -128,9 +128,9 @@ ytF2v69RwtGYf7C6ygwD
         return user != null
     }
 
-    override fun isAllowById(user: User, id: String): Boolean {
+    override fun isAllowById(user: User, orgId: String): Boolean {
         checkBlockUser(user)
-        val query = BasicDBObject("orgId", id)
+        val query = BasicDBObject("orgId", orgId)
           .append("user", user.username)
           .append("pass", getPass(user.password))
         val user = coll.findOne(query)

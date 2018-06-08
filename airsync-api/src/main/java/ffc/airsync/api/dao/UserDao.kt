@@ -50,7 +50,7 @@ interface UserDao {
     fun find(orgUuid: UUID): List<UserStor>
     fun findById(id: String): List<UserStor>
     fun isAllow(user: User, orgUuid: UUID): Boolean
-    fun isAllowById(user: User, id: String): Boolean
+    fun isAllowById(user: User, orgId: String): Boolean
     fun removeByOrgUuid(orgUUID: UUID)
 
 }

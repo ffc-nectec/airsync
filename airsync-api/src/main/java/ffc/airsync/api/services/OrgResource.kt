@@ -57,7 +57,7 @@ class OrgResource {
           + " Org token = " + orgUpdate.token)
 
         printDebug("Create token")
-        tokenMobile.insert(id = orgUpdate.id, token = orgUpdate.token!!, type = TokenMessage.TYPEROLE.ORG, user = "Organization", uuid = UUID.randomUUID())
+        tokenMobile.insert(orgId = orgUpdate.id, token = orgUpdate.token!!, type = TokenMessage.TYPEROLE.ORG, user = "Organization", uuid = UUID.randomUUID())
 
 
         return Response.status(Response.Status.CREATED).entity(orgUpdate).build()

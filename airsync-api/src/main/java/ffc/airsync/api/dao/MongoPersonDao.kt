@@ -151,6 +151,7 @@ class MongoPersonDao : PersonDao {
         personDoc.append("houseId", person.houseId)
         //printDebug("\t\tReturn doc ${personDoc.toJson()}")
 
+
         return personDoc
     }
 

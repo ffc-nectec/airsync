@@ -19,4 +19,4 @@ package ffc.model
 
 import java.util.*
 
-data class StorageOrg<T>(val uuid: UUID, var data: T, var user: String? = null, var id: String? = null)
+data class StorageOrg<T>(val uuid: UUID, var data: T, var user: String? = null, var orgId: String? = null)

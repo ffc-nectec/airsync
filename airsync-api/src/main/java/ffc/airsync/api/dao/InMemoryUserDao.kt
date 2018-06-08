@@ -68,10 +68,10 @@ class InMemoryUserDao : UserDao {
         return user != null
     }
 
-    override fun isAllowById(user: User, id: String): Boolean {
+    override fun isAllowById(user: User, orgId: String): Boolean {
         checkBlockUser(user)
         val user = userList.find {
-            it.orgId == id &&
+            it.orgId == orgId &&
               it.user.username == user.username &&
               it.user.password == user.password
         }

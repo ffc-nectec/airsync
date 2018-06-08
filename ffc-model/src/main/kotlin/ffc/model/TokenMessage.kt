@@ -26,7 +26,7 @@ val ORGDATEEXPIRE = 9000
 data class TokenMessage(val token: UUID, var firebaseToken: String? = null, val timestamp: DateTime = DateTime.now(), val role: TYPEROLE = TYPEROLE.NOAUTH, val name: String) {
 
     // fun getExpireDate(temp :String? = null): DateTime = timestamp.plusDays(USERDATEEXPIRE)
-    val expireDate: DateTime
+    var expireDate: DateTime
 
     init {
         when (role) {
