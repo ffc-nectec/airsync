@@ -19,7 +19,6 @@ package ffc.airsync.client
 
 import ffc.airsync.client.module.ApiFactory
 import ffc.airsync.client.module.daojdbi.DatabaseDao
-import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
 import ffc.model.*
 import java.util.*
 import javax.ws.rs.NotFoundException
@@ -76,23 +75,23 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         val fixrow = 100
 
         val count = houseList.size
-        val split = count / fixrow
-        val splitmod = count % fixrow
+        val split = count / fixrow  //แบ่งได้กี่ชุด
+        val splitmod = count % fixrow  //เคษเหลือ
 
 
         printDebug("House upload size $count")
 
-        for (i in 0..(split - 1)) {
-            val tempUpload = arrayListOf<Address>()
-            val tempStamp = i * fixrow
-            for (j in 0..fixrow) {
-                tempUpload.add(houseList[tempStamp + j])
+        for (pageCount in 0..(split - 1)) {
+            val slotUpload = arrayListOf<Address>()
+            val startRow = pageCount * fixrow
+            for (itemCount in 0..fixrow) {
+                slotUpload.add(houseList[startRow + itemCount])
             }
-            printDebug("fixrow $fixrow split $split splitmod $splitmod i $i")
+            printDebug("fixrow $fixrow split $split splitmod $splitmod i $pageCount")
 
             Thread(object : Runnable {
                 override fun run() {
-                    restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = tempUpload).execute()
+                    restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = slotUpload).execute()
                 }
             }).start()
 
