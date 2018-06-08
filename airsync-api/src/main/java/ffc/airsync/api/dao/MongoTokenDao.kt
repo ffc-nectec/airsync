@@ -24,7 +24,7 @@ class MongoTokenDao : TokenDao {
 
     constructor(host: String, port: Int, databaseName: String) {
         val mongoUrl = System.getenv("MONGODB_URI")
-        val collection = "persons"
+        val collection = "token"
 
 
         if (mongoClient == null) {
