@@ -56,12 +56,12 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
 
     protected fun mongoSafe(codeWorking: MongoSafeRun) {
         try {
-            disconnetMongo()
-            connectToMongo()
+            //disconnetMongo()
+            //connectToMongo()
             codeWorking.run()
-            disconnetMongo()
+            //disconnetMongo()
         } catch (ex: Exception) {
-            //ex.printStackTrace()
+            ex.printStackTrace()
             throw ex
         }
 
