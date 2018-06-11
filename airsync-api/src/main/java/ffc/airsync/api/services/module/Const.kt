@@ -26,11 +26,10 @@ import java.util.concurrent.ExecutionException
 import javax.ws.rs.NotAuthorizedException
 import javax.ws.rs.NotFoundException
 
-val orgDao = DaoFactory().buildPcuDao()
-val tokenMobile = DaoFactory().buildTokenMobileMapDao()
-//val chronicDao = DaoFactory().buildChronicDao()
-val personDao = DaoFactory().buildPersonDao()
-val orgUser = DaoFactory().buildOrgUserDao()
-val houseDao = DaoFactory().buildHouseDao()
+var orgDao = DaoFactory().buildPcuDao()
+var tokenMobile = DaoFactory().buildTokenMobileMapDao()
 
+var personDao = DaoFactory().buildPersonDao()
+var orgUser = DaoFactory().buildOrgUserDao()
+var houseDao = DaoFactory().buildHouseDao()
 

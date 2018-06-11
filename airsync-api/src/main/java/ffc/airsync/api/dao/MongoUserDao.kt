@@ -34,15 +34,24 @@ ytF2v69RwtGYf7C6ygwD
 """
 
 
-
-
     override fun insert(user: User, org: Organization) {
         //printDebug("Insert username mongo. ${user.toJson()}")
-        val query = BasicDBObject("user", user.username)
-        coll.remove(query)
 
-        val userDoc = objToDoc(user, org)
-        coll.insert(userDoc)
+
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+                val query = BasicDBObject("user", user.username)
+                coll.remove(query)
+            }
+        })
+
+
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+                val userDoc = objToDoc(user, org)
+                coll.insert(userDoc)
+            }
+        })
 
 
     }
@@ -52,13 +61,20 @@ ytF2v69RwtGYf7C6ygwD
 
         val query = BasicDBObject("orgUuid", orgUuid.toString())
 
-        val userListDoc = coll.find(query)
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+                val userListDoc = coll.find(query)
 
-        if (userListDoc.hasNext()) {
-            val userDoc = userListDoc.next()
-            val userStor = docToUserObj(userDoc)
-            listUser.add(userStor)
-        }
+                if (userListDoc.hasNext()) {
+                    val userDoc = userListDoc.next()
+                    val userStor = docToUserObj(userDoc)
+                    listUser.add(userStor)
+                }
+            }
+        })
+
+
+
 
         return listUser
     }
@@ -68,13 +84,22 @@ ytF2v69RwtGYf7C6ygwD
         val listUser = arrayListOf<UserStor>()
 
         val query = BasicDBObject("orgId", id)
-        val userListDoc = coll.find(query)
 
-        if (userListDoc.hasNext()) {
-            val userDoc = userListDoc.next()
-            val userStor = docToUserObj(userDoc)
-            listUser.add(userStor)
-        }
+
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+                val userListDoc = coll.find(query)
+
+                if (userListDoc.hasNext()) {
+                    val userDoc = userListDoc.next()
+                    val userStor = docToUserObj(userDoc)
+                    listUser.add(userStor)
+                }
+            }
+        })
+
+
+
 
         return listUser
 
@@ -84,11 +109,21 @@ ytF2v69RwtGYf7C6ygwD
 
     override fun isAllow(user: User, orgUuid: UUID): Boolean {
         checkBlockUser(user)
+
+        var userDoc: DBObject? = null
+
         val query = BasicDBObject("orgUuid", orgUuid.toString())
           .append("user", user.username)
           .append("pass", getPass(user.password))
-        val user = coll.findOne(query)
-        return user != null
+
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+                userDoc = coll.findOne(query)
+            }
+        })
+
+
+        return userDoc != null
     }
 
     override fun isAllowById(user: User, orgId: String): Boolean {
@@ -96,13 +131,31 @@ ytF2v69RwtGYf7C6ygwD
         val query = BasicDBObject("orgId", orgId)
           .append("user", user.username)
           .append("pass", getPass(user.password))
-        val user = coll.findOne(query)
-        return user != null
+
+
+        var userDoc: DBObject? = null
+
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+                userDoc = coll.findOne(query)
+            }
+        })
+
+        return userDoc != null
     }
 
     override fun removeByOrgUuid(orgUUID: UUID) {
+
         val query = BasicDBObject("orgUuid", orgUUID.toString())
-        coll.remove(query)
+
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+                coll.remove(query)
+            }
+        })
+
+
+
     }
 
     private fun docToUserObj(userDoc: DBObject): UserStor {

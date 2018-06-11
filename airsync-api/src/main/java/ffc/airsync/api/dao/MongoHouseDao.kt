@@ -138,25 +138,36 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
               .append("latitude", BasicDBObject("\$eq", 0.0))
         }
 
-
-        val cursor = coll.find(query)
-        printDebug("getHouseInMongo size = ${cursor.count()}")
-
-
         val listHouse: ArrayList<StorageOrg<Address>> = arrayListOf()
-        while (cursor.hasNext()) {
-            val it = cursor.next()
-            val property = it.get("property")
-            //printDebug(property)
+
+        mongoSafe(object : MongoSafeRun {
+            override fun run() {
+
+                val cursor = coll.find(query)
+                printDebug("getHouseInMongo size = ${cursor.count()}")
 
 
-            val house: Address = property.toString().fromJson()
-            house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
-            printDebug(house)
+                while (cursor.hasNext()) {
+                    val it = cursor.next()
+                    val property = it.get("property")
+                    //printDebug(property)
 
 
-            listHouse.add(StorageOrg(orgUuid, house))
-        }
+                    val house: Address = property.toString().fromJson()
+                    house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
+                    printDebug(house)
+
+
+                    listHouse.add(StorageOrg(orgUuid, house))
+                }
+
+            }
+
+        })
+
+
+
+
 
         return listHouse
     }

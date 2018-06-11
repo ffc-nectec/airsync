@@ -4,15 +4,18 @@ import com.mongodb.*
 import ffc.model.printDebug
 import java.util.*
 
-abstract class MongoAbsConnect {
+abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: String, val collection: String) {
 
-    protected val coll: DBCollection
+    protected lateinit var coll: DBCollection
     protected var mongoClient: MongoClient? = null
-    protected var dbName: String? = null
     protected var instant: MongoAbsConnect? = null
 
 
-    constructor(host: String, port: Int, databaseName: String, collection: String) {
+    init {
+        connectToMongo()
+    }
+
+    protected fun connectToMongo() {
 
         val mongoUrl = System.getenv("MONGODB_URI")
         if (mongoClient == null) {
@@ -21,11 +24,16 @@ abstract class MongoAbsConnect {
                 mongoClient = MongoClient(Arrays.asList(
                   ServerAddress(host, port)
                 )/*,Arrays.asList(credential)*/)
-                dbName = databaseName
+
+                printDebug("\t mongoUrl=nul")
+                this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
+
             } else {
                 printDebug("Create mongo clinet by uri")
                 mongoClient = MongoClient(MongoClientURI(mongoUrl))
                 printDebug("\tFinish create mongo clinet by uri.")
+                printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
+                this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
             }
 
 
@@ -34,13 +42,20 @@ abstract class MongoAbsConnect {
         }
 
 
-        if (mongoUrl == null) {
-            printDebug("\t mongoUrl=nul")
-            this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
-        } else {
-            printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
-            this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
-        }
     }
+
+    interface MongoSafeRun {
+        fun run()
+    }
+
+    protected fun mongoSafe(codeWorking: MongoSafeRun) {
+        try {
+            codeWorking.run()
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+
+    }
+
 
 }
