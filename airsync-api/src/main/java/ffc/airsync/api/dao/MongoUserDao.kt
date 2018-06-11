@@ -41,6 +41,7 @@ ytF2v69RwtGYf7C6ygwD
         mongoSafe(object : MongoSafeRun {
             override fun run() {
                 val query = BasicDBObject("user", user.username)
+
                 coll.remove(query)
             }
         })

@@ -17,7 +17,8 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
 
     protected fun connectToMongo() {
 
-        val mongoUrl = System.getenv("MONGODB_URI") + "?maxPoolSize=20&maxIdleTimeMS=60000"
+        val mongoUrl = System.getenv("MONGODB_URI") + "?maxPoolSize=3&maxIdleTimeMS=60000"
+        printDebug("Mongo Uri $mongoUrl")
         if (mongoClient == null) {
             if (mongoUrl == null) {
                 printDebug("Create mongo client localhost")
@@ -60,7 +61,8 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
             codeWorking.run()
             disconnetMongo()
         } catch (ex: Exception) {
-            ex.printStackTrace()
+            //ex.printStackTrace()
+            throw ex
         }
 
     }
