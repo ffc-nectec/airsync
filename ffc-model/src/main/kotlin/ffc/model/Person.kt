@@ -37,6 +37,7 @@ package ffc.model
 
 import com.google.gson.*
 import me.piruin.geok.LatLng
+import me.piruin.geok.geometry.Point
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.lang.reflect.Type
@@ -71,7 +72,9 @@ data class Address(var _id: String = "", var dateUpdate: DateTime = DateTime.now
     var tambon: String? = null
     var ampur: String? = null
     var changwat: String? = null
+    @Deprecated("Use location", ReplaceWith("location"))
     var coordinates: LatLng? = null
+    var location: Point? = null
     var hid: Int? = null  // คือ hcode ในฐาน jhcis
 
     var haveChronics: Boolean? = null
