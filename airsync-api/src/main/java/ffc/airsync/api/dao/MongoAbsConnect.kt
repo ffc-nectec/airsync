@@ -17,7 +17,7 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
 
     protected fun connectToMongo() {
 
-        val mongoUrl = System.getenv("MONGODB_URI")
+        val mongoUrl = System.getenv("MONGODB_URI") + "?maxPoolSize=20&maxIdleTimeMS=60000"
         if (mongoClient == null) {
             if (mongoUrl == null) {
                 printDebug("Create mongo client localhost")
@@ -36,12 +36,17 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
                 this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
             }
 
-
             mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
             instant = this
         }
+    }
 
+    protected fun disconnetMongo() {
+        try {
+            mongoClient!!.close()
+        } catch (ex: Exception) {
 
+        }
     }
 
     interface MongoSafeRun {
@@ -50,7 +55,10 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
 
     protected fun mongoSafe(codeWorking: MongoSafeRun) {
         try {
+            disconnetMongo()
+            connectToMongo()
             codeWorking.run()
+            disconnetMongo()
         } catch (ex: Exception) {
             ex.printStackTrace()
         }
