@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "0a2dfb16-a29d-46d1-a26d-457b52b56abe",
+					"id": "85eaa0fe-1d6a-4693-b994-d822a11bcfa2",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -159,7 +159,7 @@
 			},
 			"response": [
 				{
-					"id": "df9c009e-c5ce-496b-9a10-64538bb93991",
+					"id": "0e0e6905-e9b5-4948-a967-91820f227fa1",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -324,7 +324,7 @@
 			},
 			"response": [
 				{
-					"id": "e9ed36bc-86b5-429e-aeaa-f540866f1a7c",
+					"id": "2618c0fe-e8dd-4c64-afab-1da334dd10d9",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -475,7 +475,7 @@
 			},
 			"response": [
 				{
-					"id": "8be8e5cc-7025-42d7-a8ad-bfab4f2bc75e",
+					"id": "3ca3bee7-ce57-4ee3-80dc-f7676998e622",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -670,7 +670,7 @@
 			},
 			"response": [
 				{
-					"id": "bd83e0d2-d171-40b6-8e4f-e2d178c6e902",
+					"id": "a2bc5be9-cea3-4a8d-b91d-f1615146a4a9",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -789,7 +789,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "0078ab0b-48a7-4054-b660-5717698e4290",
+					"id": "09d38eaa-2222-4d19-9f45-6487918f8838",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -831,7 +831,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ee5a2a69-5f25-4667-81fd-347a26a25d09",
+						"id": "41853c14-b7ac-4d43-a5ef-28aa552ff15e",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 404\", function () {",
@@ -841,7 +841,10 @@
 							"pm.test(\"application/json is present\", function () {",
 							"        pm.response.to.have.header(\"Content-Type\") === \"application/json\";",
 							"});",
-							""
+							"",
+							"pm.test(\"Reponse is message ไม่พบ\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"ไม่พบ\");",
+							"});"
 						]
 					}
 				}
@@ -894,7 +897,7 @@
 			},
 			"response": [
 				{
-					"id": "8aee699c-9c72-402d-b75a-53c4f1afb235",
+					"id": "fcac694e-ded8-4d05-84f4-ad7507dd9f49",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1036,7 +1039,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "15b5388a-174e-4dec-a0d3-b2acc65bf178",
+						"id": "7d27febf-d26a-4593-95a8-d5b41a22b3bb",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 404\", function () {",
@@ -1045,6 +1048,10 @@
 							"",
 							"pm.test(\"application/json is present\", function () {",
 							"        pm.response.to.have.header(\"Content-Type\") === \"application/json\";",
+							"});",
+							"",
+							"pm.test(\"Reponse is message ไม่พบ\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"ไม่พบ\");",
 							"});",
 							""
 						]
@@ -1099,7 +1106,7 @@
 			},
 			"response": [
 				{
-					"id": "28b8da4e-5f96-4152-bb4b-6ceac939912b",
+					"id": "d6bdc8c1-7a7f-402b-83fb-712966b14153",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1298,7 +1305,7 @@
 			},
 			"response": [
 				{
-					"id": "66dd2e18-5d9c-478d-bd81-f8c18498ebc2",
+					"id": "21a1e190-3d2b-4a4d-892b-9cfb0a815708",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1398,7 +1405,7 @@
 			},
 			"response": [
 				{
-					"id": "a70d9fd9-72fd-45c8-8aec-ee59e11436e7",
+					"id": "1d25d9d3-6206-4f5e-8f40-25fef5fb6489",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1513,7 +1520,7 @@
 			},
 			"response": [
 				{
-					"id": "a216ce2e-ba56-483a-a468-3892cc16d3bc",
+					"id": "106b7051-e2f6-4f12-9350-71e22e72c6d1",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1722,7 +1729,7 @@
 			},
 			"response": [
 				{
-					"id": "b0e8d799-5fb3-4c58-9ec4-e13169a0c412",
+					"id": "a79b6b22-e29d-4090-a560-f38353f75c0d",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1864,7 +1871,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c359f7c2-f230-41b6-9394-78154445d549",
+						"id": "3295ce6f-e67e-43f0-973b-9a3d6b5c05ac",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -1878,11 +1885,6 @@
 							"pm.test(\"Reponse is coordinates 1st Array\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData[0].coordinates[0]).to.eql(102);",
-							"});",
-							"",
-							"pm.test(\"Reponse is coordinates 2nd Array\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData[1].coordinates[1]).to.eql(13);",
 							"});",
 							""
 						]
@@ -1937,7 +1939,7 @@
 			},
 			"response": [
 				{
-					"id": "cf9e6c2c-e974-4c25-8a7d-ee850ab2589a",
+					"id": "75b3dae2-9b46-4fc0-8fb6-411239b81255",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2147,7 +2149,7 @@
 			},
 			"response": [
 				{
-					"id": "d97c7340-d847-4b5e-95fd-6dc8b8d6e519",
+					"id": "9264441e-38db-4004-949a-368100c5bc13",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2351,7 +2353,7 @@
 			},
 			"response": [
 				{
-					"id": "a80a27a7-2d2e-42ef-9942-b4e5dc6388c8",
+					"id": "2d794030-d959-428a-9cde-f6d36236ef0f",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2557,7 +2559,7 @@
 			},
 			"response": [
 				{
-					"id": "fe0366bb-7e5d-46f3-a196-230c06d3e36b",
+					"id": "6ea11d58-27ab-423d-a545-498aca572223",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2772,7 +2774,7 @@
 			},
 			"response": [
 				{
-					"id": "bb2debf0-592c-4b85-a831-d32f4de11923",
+					"id": "7a3b61d0-c5e8-4bec-a3c5-5ca47673272f",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2963,7 +2965,7 @@
 			},
 			"response": [
 				{
-					"id": "6dd8f838-af5a-41d8-8434-29700fe82e64",
+					"id": "028c7cee-b8bc-4ab1-a14c-44bd48acd325",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -2979,16 +2981,16 @@
 							"raw": "{\n    \"_id\": \"aaaaaavvvvffffffgga2f5c1\",\n    \"_shortId\": \"a2f5c1\",\n    \"hid\": \"22\",\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"54520015001\"\n    },\n    \"haveChronics\": true,\n    \"type\": \"House\",\n    \"no\": \"510/45\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"coordinates\": [\n      100.6027656,\n      14.0805834\n    ],\n    \"people\": [\n      {\n        \"pid\": 3000214,\n        \"name\": \"นายพิรุณ พานิชผล\"\n      },\n      {\n        \"pid\": 3000215,\n        \"name\": \"นางสาวพรทิพา โชคสูงเนิน\"\n      },\n      {\n        \"pid\": 3000216,\n        \"name\": \"นายธนชัย ทองคำ\"\n      }\n    ]\n}\n"
 						},
 						"url": {
-							"raw": "{{url}}/org/1/place/house/aaaaaavvvvffffffgga2f5c1",
+							"raw": "{{url}}/6/1/place/house/5b1df741fb93550004c4468e",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
-								"org",
+								"6",
 								"1",
 								"place",
 								"house",
-								"aaaaaavvvvffffffgga2f5c1"
+								"5b1df741fb93550004c4468e"
 							]
 						}
 					},
@@ -3068,7 +3070,7 @@
 			},
 			"response": [
 				{
-					"id": "985dcd8e-ab19-4d84-8394-40c9a89cab41",
+					"id": "b9286987-cd1d-4c1e-91cb-da9856f46222",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -3261,7 +3263,7 @@
 			},
 			"response": [
 				{
-					"id": "b0165936-270f-42f3-b456-425de363c92d",
+					"id": "1a30453c-be28-4ce3-aa79-177af91b2c26",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -3366,7 +3368,7 @@
 			},
 			"response": [
 				{
-					"id": "55c88e2b-faba-4eb8-a819-5a068acd2161",
+					"id": "808eabf9-800f-4098-bc6d-fecc62f358b2",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -3562,7 +3564,7 @@
 			},
 			"response": [
 				{
-					"id": "f1d5dd85-7574-4d43-8e14-b009a07fc56f",
+					"id": "10d99a09-d20c-4202-8237-afb1ef4d3da3",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -3653,7 +3655,7 @@
 			},
 			"response": [
 				{
-					"id": "533dbc0c-ea49-4ed4-a0c4-aa29cfdcd8aa",
+					"id": "b3ab7153-b65e-4092-b79e-56f3bc764b5a",
 					"name": "Register Person",
 					"originalRequest": {
 						"method": "POST",
@@ -3827,7 +3829,7 @@
 			},
 			"response": [
 				{
-					"id": "67a2af6e-0e30-4116-a97d-ee5d3d4c5233",
+					"id": "48f797e5-f504-40df-bcc9-15a9117da426",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
@@ -4004,7 +4006,7 @@
 			},
 			"response": [
 				{
-					"id": "4ca6d568-810a-4a43-8c45-24b7454bc057",
+					"id": "c608e88a-faaa-48f4-b961-13453cfe4fb9",
 					"name": "Find Person",
 					"originalRequest": {
 						"method": "GET",
