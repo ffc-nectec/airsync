@@ -22,7 +22,7 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
     init {
 
         printDebug("\tCall create counter.")
-        couterColl = getClient()!!.getDB(dbName).getCollection("counter")
+        couterColl = getClient()!!.getDB(dbName).getCollection("counterColl")
         printDebug("\t\tFinish call create counter.")
         try {
             val counterDoc = BasicDBObject("_id", COUNTERNAME)
