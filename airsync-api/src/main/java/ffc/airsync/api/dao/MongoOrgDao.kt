@@ -21,17 +21,21 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
 
     init {
 
-        printDebug("\tCall create counter.")
-        couterColl = getClient()!!.getDB(dbName).getCollection("counterColl")
-        printDebug("\t\tFinish call create counter.")
+
         try {
+            printDebug("\tCall create counter.")
+            couterColl = getClient()!!.getDB(dbName).getCollection("counterColl")
+            printDebug("\t\tFinish call create counter.")
             val counterDoc = BasicDBObject("_id", COUNTERNAME)
               .append("sec", 1)
 
             couterColl.insert(counterDoc)
             printDebug("\t\tInsert counter object.")
-        } catch (ex: com.mongodb.DuplicateKeyException) {
-
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            val exout = javax.ws.rs.InternalServerErrorException("Get collection org counter.")
+            exout.stackTrace = ex.stackTrace
+            throw exout
         }
 
     }
