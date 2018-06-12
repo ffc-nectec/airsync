@@ -23,9 +23,17 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
 
 
         try {
-            printDebug("\tCall create counter.")
-            couterColl = getClient()!!.getDB(dbName).getCollection("counterColl")
-            printDebug("\t\tFinish call create counter.")
+            if (mongoUrl.isEmpty()) {
+                printDebug("\tCall create counter by object.")
+                couterColl = getClient()!!.getDB(dbName).getCollection("counter")
+                printDebug("\t\tFinish call create counter.")
+            } else {
+                printDebug("\tCall create counter by url string parameter.")
+                couterColl = getClient()!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection("counter")
+                printDebug("\t\tFinish call create counter.")
+            }
+
+
             val counterDoc = BasicDBObject("_id", COUNTERNAME)
               .append("sec", 1)
 
