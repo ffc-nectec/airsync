@@ -35,8 +35,16 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
 
     protected fun connectToMongo(initRun: MongoInitRun) {
 
-        getMongoClient()
-        getDbCollection()
+        try {
+            getMongoClient()
+            getDbCollection()
+        } catch (ex: MongoException) {
+            ex.printStackTrace()
+            val exOut = javax.ws.rs.InternalServerErrorException("Mongo Error")
+            exOut.stackTrace = ex.stackTrace
+            throw exOut
+        }
+
 
         initRun.run()
 
