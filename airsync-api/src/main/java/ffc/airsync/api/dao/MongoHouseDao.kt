@@ -131,12 +131,13 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
         if (haveLocation == null) {
         } else if (haveLocation) {
             query = query
-              .append("longitude", BasicDBObject("\$ne", 0.0))
-              .append("latitude", BasicDBObject("\$ne", 0.0))
+              .append("longitude", BasicDBObject("\$or", BasicDBObject("\$ne", null).append("\$ne", 0.0)))
+              .append("latitude", BasicDBObject("\$or", BasicDBObject("\$ne", null).append("\$ne", 0.0)))
+
         } else {
             query = query
-              .append("longitude", BasicDBObject("\$eq", null))
-              .append("latitude", BasicDBObject("\$eq", null))
+              .append("longitude", BasicDBObject("\$or", BasicDBObject("\$eq", null).append("\$eq", 0.0)))
+              .append("latitude", BasicDBObject("\$or", BasicDBObject("\$eq", null).append("\$eq", 0.0)))
         }
 
         val listHouse: ArrayList<StorageOrg<Address>> = arrayListOf()
