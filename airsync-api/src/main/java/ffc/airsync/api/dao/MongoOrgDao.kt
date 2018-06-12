@@ -22,7 +22,7 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
 
 
         try {
-            if (mongoUrl.isEmpty()) {
+            if (mongoUrl.isEmpty() || mongoUrl.startsWith("null")) {
                 printDebug("\tCall create counter by object.")
                 couterColl = getClient()!!.getDB(dbName).getCollection("counter")
                 printDebug("\t\tFinish call create counter.")

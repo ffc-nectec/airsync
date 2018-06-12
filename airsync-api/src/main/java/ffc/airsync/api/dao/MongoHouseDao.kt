@@ -130,7 +130,6 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
 
 
         if (haveLocation == null) {
-
         } else if (haveLocation) {
 
             val or1 = BasicDBList()

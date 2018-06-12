@@ -114,7 +114,16 @@ object HouseService {
     }
 
 
-    fun getGeoJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1, haveLocation: Boolean?): FeatureCollection<Address> {
+    fun getGeoJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1, haveLocation: Boolean?, urlString: String): FeatureCollection<Address> {
+
+
+        printDebug("haveLocation = $haveLocation Url query = $urlString")
+        if (haveLocation == false) {
+            if (urlString.trimEnd().endsWith("haveLocation=") || urlString.trimEnd().endsWith("haveLocation")) {
+                throw javax.ws.rs.InternalServerErrorException("Parameter query $urlString")
+            }
+
+        }
 
         val org = orgDao.findById(orgId)
         val orgUuid = org.uuid
@@ -152,9 +161,9 @@ object HouseService {
         return geoJson
     }
 
-    fun getJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1, haveLocation: Boolean?): List<Address> {
+    fun getJsonHouse(orgId: String, page: Int = 1, per_page: Int = 200, hid: Int = -1, haveLocation: Boolean?, urlString: String): List<Address> {
 
-        val geoJsonHouse = getGeoJsonHouse(orgId, page, per_page, hid, haveLocation)
+        val geoJsonHouse = getGeoJsonHouse(orgId, page, per_page, hid, haveLocation, urlString)
 
 
         val houseList = arrayListOf<Address>()

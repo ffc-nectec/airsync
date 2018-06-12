@@ -51,7 +51,7 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
 
     private fun getDbCollection() {
         printDebug("Debug mongoClient = $mongoClient")
-        if (mongoUrl.isEmpty()) {
+        if (mongoUrl.isEmpty() || mongoUrl.startsWith("null")) {
             this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
 
         } else {
@@ -67,7 +67,7 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
 
         printDebug("Mongo Uri $mongoUrl")
         if (mongoClient == null) {
-            if (mongoUrl.isEmpty()) {
+            if (mongoUrl.isEmpty() || mongoUrl.startsWith("null")) {
                 printDebug("Create mongo client localhost")
                 mongoClient = MongoClient(Arrays.asList(
                   ServerAddress(host, port)

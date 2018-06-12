@@ -60,7 +60,7 @@ class HouseResource {
           if (page == 0) 1 else page,
           if (per_page == 0) 200 else per_page,
           if (hid == 0) -1 else hid,
-          haveLocation)
+          haveLocation, req.queryString ?: "")
 
 
 
@@ -93,7 +93,7 @@ class HouseResource {
           if (page == 0) 1 else page,
           if (per_page == 0) 200 else per_page,
           if (hid == 0) -1 else hid,
-          haveLocation)
+          haveLocation, req.queryString ?: "")
 
         printDebug("Print feture before return to rest")
 
