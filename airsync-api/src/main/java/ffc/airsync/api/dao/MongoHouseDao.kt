@@ -157,7 +157,7 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
                     try {
                         house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
                     } catch (ex: java.lang.NullPointerException) {
-                        
+
                     }
                     printDebug(house)
 
