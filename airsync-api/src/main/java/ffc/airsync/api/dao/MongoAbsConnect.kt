@@ -22,22 +22,25 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
         if (mongoClient == null) {
             if (mongoUrl == null) {
                 printDebug("Create mongo client localhost")
-                mongoClient = MongoClient(Arrays.asList(
-                  ServerAddress(host, port)
-                )/*,Arrays.asList(credential)*/)
+                if (mongoClient != null)
+                    mongoClient = MongoClient(Arrays.asList(
+                      ServerAddress(host, port)
+                    )/*,Arrays.asList(credential)*/)
 
                 printDebug("\t mongoUrl=nul")
                 this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
 
             } else {
                 printDebug("Create mongo clinet by uri")
-                mongoClient = MongoClient(MongoClientURI(mongoUrl))
+                if (mongoClient != null)
+                    mongoClient = MongoClient(MongoClientURI(mongoUrl))
                 printDebug("\tFinish create mongo clinet by uri.")
                 printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
                 this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
             }
 
-            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
+            if (mongoClient != null)
+                mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
             instant = this
         }
     }
