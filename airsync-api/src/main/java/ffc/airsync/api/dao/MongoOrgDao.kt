@@ -15,7 +15,6 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
 
     }
 
-
     private val couterColl: DBCollection
 
 
@@ -37,7 +36,12 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
             val counterDoc = BasicDBObject("_id", COUNTERNAME)
               .append("sec", 1)
 
-            couterColl.insert(counterDoc)
+            try {
+                couterColl.insert(counterDoc)
+            } catch (exk: com.mongodb.DuplicateKeyException) {
+                printDebug("Org Counter Duplicate.")
+            }
+
             printDebug("\t\tInsert counter object.")
         } catch (ex: Exception) {
             ex.printStackTrace()
