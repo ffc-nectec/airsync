@@ -4,46 +4,84 @@ import com.mongodb.*
 import ffc.model.printDebug
 import java.util.*
 
-abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: String, val collection: String) {
+abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: String, val collection: String, val mongoInitRun: MongoInitRun = object : MongoInitRun {
+    override fun run() {
+    }
+}) {
 
     protected lateinit var coll: DBCollection
-    protected var mongoClient: MongoClient? = null
-    protected var instant: MongoAbsConnect? = null
+
+    //protected var instant: MongoAbsConnect? = null
+    val mongoUrl = System.getenv("MONGODB_URI") + "?maxPoolSize=2&maxIdleTimeMS=20000&connectTimeoutMS=30000&socketTimeoutMS=30000"
+
+
+    companion object {
+        protected var mongoClient: MongoClient? = null
+    }
 
 
     init {
-        connectToMongo()
+        connectToMongo(mongoInitRun)
     }
 
-    protected fun connectToMongo() {
 
-        val mongoUrl = System.getenv("MONGODB_URI") + "?maxPoolSize=2&maxIdleTimeMS=20000&connectTimeoutMS=30000&socketTimeoutMS=30000"
+    interface MongoInitRun {
+        fun run()
+    }
+
+    protected fun getClient(): MongoClient? {
+        return mongoClient
+    }
+
+    protected fun connectToMongo(initRun: MongoInitRun) {
+
+        getMongoClient()
+        getDbCollection()
+
+        initRun.run()
+
+    }
+
+    private fun getDbCollection() {
+
+        if (mongoUrl.isEmpty()) {
+            this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
+
+        } else {
+            printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
+            this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
+        }
+
+    }
+
+    private fun getMongoClient() {
+
+        //val mongoUrl = System.getenv("MONGODB_URI") + "?maxPoolSize=2&maxIdleTimeMS=20000&connectTimeoutMS=30000&socketTimeoutMS=30000"
         printDebug("Mongo Uri $mongoUrl")
         if (mongoClient == null) {
-            if (mongoUrl == null) {
+            if (mongoUrl.isEmpty()) {
                 printDebug("Create mongo client localhost")
                 if (mongoClient != null)
                     mongoClient = MongoClient(Arrays.asList(
                       ServerAddress(host, port)
                     )/*,Arrays.asList(credential)*/)
 
-                printDebug("\t mongoUrl=nul")
-                this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
+                //printDebug("\t mongoUrl=nul")
+
 
             } else {
                 printDebug("Create mongo clinet by uri")
                 if (mongoClient != null)
                     mongoClient = MongoClient(MongoClientURI(mongoUrl))
                 printDebug("\tFinish create mongo clinet by uri.")
-                printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
-                this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
             }
 
             if (mongoClient != null)
                 mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
-            instant = this
+            //instant = this
         }
     }
+
 
     protected fun disconnetMongo() {
         try {
