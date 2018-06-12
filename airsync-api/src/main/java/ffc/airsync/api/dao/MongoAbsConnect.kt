@@ -51,12 +51,13 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
     }
 
     private fun getDbCollection() {
-
+        printDebug("Debug mongoClient = $mongoClient")
         if (mongoUrl.isEmpty()) {
             this.coll = mongoClient!!.getDB(dbName).getCollection(collection)
 
         } else {
             printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
+
             this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
             printDebug("\tSuccess create and connect db collection.")
         }
@@ -70,23 +71,21 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
         if (mongoClient == null) {
             if (mongoUrl.isEmpty()) {
                 printDebug("Create mongo client localhost")
-                if (mongoClient != null)
-                    mongoClient = MongoClient(Arrays.asList(
-                      ServerAddress(host, port)
-                    )/*,Arrays.asList(credential)*/)
+                mongoClient = MongoClient(Arrays.asList(
+                  ServerAddress(host, port)
+                )/*,Arrays.asList(credential)*/)
 
                 //printDebug("\t mongoUrl=nul")
 
 
             } else {
                 printDebug("Create mongo clinet by uri")
-                if (mongoClient != null)
-                    mongoClient = MongoClient(MongoClientURI(mongoUrl))
+                mongoClient = MongoClient(MongoClientURI(mongoUrl))
                 printDebug("\tFinish create mongo clinet by uri.")
             }
 
-            if (mongoClient != null)
-                mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
+
+            mongoClient!!.setWriteConcern(WriteConcern.JOURNALED)
             //instant = this
         }
     }
