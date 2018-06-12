@@ -154,7 +154,11 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
 
 
                     val house: Address = property.toString().fromJson()
-                    house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
+                    try {
+                        house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
+                    } catch (ex: java.lang.NullPointerException) {
+                        
+                    }
                     printDebug(house)
 
 
