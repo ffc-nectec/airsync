@@ -134,11 +134,11 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
         } else if (haveLocation) {
 
             val or1 = BasicDBList()
-            or1.add(BasicDBObject("longitude", BasicDBObject("\$not", null)))
-            or1.add(BasicDBObject("longitude", BasicDBObject("\$not", 0.0)))
-            or1.add(BasicDBObject("latitude", BasicDBObject("\$not", null)))
-            or1.add(BasicDBObject("latitude", BasicDBObject("\$not", 0.0)))
-            query = query.append("\$or", or1)
+            or1.add(BasicDBObject("longitude", BasicDBObject("\$ne", null)))
+            or1.add(BasicDBObject("longitude", BasicDBObject("\$ne", 0.0)))
+            or1.add(BasicDBObject("latitude", BasicDBObject("\$ne", null)))
+            or1.add(BasicDBObject("latitude", BasicDBObject("\$ne", 0.0)))
+            query = query.append("\$and", or1)
 
 
         } else {
