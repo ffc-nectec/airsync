@@ -38,7 +38,7 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
         try {
             getMongoClient()
             getDbCollection()
-        } catch (ex: MongoException) {
+        } catch (ex: Exception) {
             ex.printStackTrace()
             val exOut = javax.ws.rs.InternalServerErrorException("Mongo Error")
             exOut.stackTrace = ex.stackTrace
@@ -58,6 +58,7 @@ abstract class MongoAbsConnect(val host: String, val port: Int, val dbName: Stri
         } else {
             printDebug("\t mongoUrl != null get systemenv ${System.getenv("MONGODB_DBNAME")}")
             this.coll = mongoClient!!.getDB(System.getenv("MONGODB_DBNAME")).getCollection(collection)
+            printDebug("\tSuccess create and connect db collection.")
         }
 
     }
