@@ -127,6 +127,7 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
 
     override fun find(orgUuid: UUID, haveLocation: Boolean?): List<StorageOrg<Address>> {
         var query = BasicDBObject("orgUuid", orgUuid.toString())
+
         if (haveLocation == null) {
         } else if (haveLocation) {
             query = query
@@ -134,8 +135,8 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
               .append("latitude", BasicDBObject("\$ne", 0.0))
         } else {
             query = query
-              .append("longitude", BasicDBObject("\$eq", 0.0))
-              .append("latitude", BasicDBObject("\$eq", 0.0))
+              .append("longitude", BasicDBObject("\$eq", null))
+              .append("latitude", BasicDBObject("\$eq", null))
         }
 
         val listHouse: ArrayList<StorageOrg<Address>> = arrayListOf()
