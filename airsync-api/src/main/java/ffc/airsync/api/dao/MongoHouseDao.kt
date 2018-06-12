@@ -31,7 +31,6 @@ import kotlin.collections.ArrayList
 class MongoHouseDao(host: String, port: Int, databaseName: String, collection: String) : HouseDao, MongoAbsConnect(host, port, databaseName, collection) {
 
 
-
     override fun insert(orgUuid: UUID, house: Address): Address {
 
         val query = BasicDBObject("orgUuid", orgUuid.toString())
@@ -130,14 +129,25 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
 
         if (haveLocation == null) {
         } else if (haveLocation) {
-            query = query
-              .append("longitude", BasicDBObject("\$or", BasicDBObject("\$ne", null).append("\$ne", 0.0)))
-              .append("latitude", BasicDBObject("\$or", BasicDBObject("\$ne", null).append("\$ne", 0.0)))
+
+            val or1 = BasicDBList()
+            or1.add(BasicDBObject("longitude", BasicDBObject("\$ne", null)))
+            or1.add(BasicDBObject("longitude", BasicDBObject("\$ne", 0.0)))
+            or1.add(BasicDBObject("latitude", BasicDBObject("\$ne", null)))
+            or1.add(BasicDBObject("latitude", BasicDBObject("\$ne", 0.0)))
+            query = query.append("\$or", or1)
+
 
         } else {
-            query = query
-              .append("longitude", BasicDBObject("\$or", BasicDBObject("\$eq", null).append("\$eq", 0.0)))
-              .append("latitude", BasicDBObject("\$or", BasicDBObject("\$eq", null).append("\$eq", 0.0)))
+
+
+            val or1 = BasicDBList()
+            or1.add(BasicDBObject("longitude", BasicDBObject("\$eq", null)))
+            or1.add(BasicDBObject("longitude", BasicDBObject("\$eq", 0.0)))
+            or1.add(BasicDBObject("latitude", BasicDBObject("\$eq", null)))
+            or1.add(BasicDBObject("latitude", BasicDBObject("\$eq", 0.0)))
+            query = query.append("\$or", or1)
+
         }
 
         val listHouse: ArrayList<StorageOrg<Address>> = arrayListOf()
