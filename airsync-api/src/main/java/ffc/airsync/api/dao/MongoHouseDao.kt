@@ -127,25 +127,21 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
     override fun find(orgUuid: UUID, haveLocation: Boolean?): List<StorageOrg<Address>> {
         var query = BasicDBObject("orgUuid", orgUuid.toString())
 
+
+        val or1 = BasicDBList()
+        or1.add(BasicDBObject("longitude", BasicDBObject("\$eq", null)))
+        or1.add(BasicDBObject("longitude", BasicDBObject("\$eq", 0.0)))
+        or1.add(BasicDBObject("latitude", BasicDBObject("\$eq", null)))
+        or1.add(BasicDBObject("latitude", BasicDBObject("\$eq", 0.0)))
         if (haveLocation == null) {
+
         } else if (haveLocation) {
 
-            val or1 = BasicDBList()
-            or1.add(BasicDBObject("longitude", BasicDBObject("\$ne", null)))
-            or1.add(BasicDBObject("longitude", BasicDBObject("\$ne", 0.0)))
-            or1.add(BasicDBObject("latitude", BasicDBObject("\$ne", null)))
-            or1.add(BasicDBObject("latitude", BasicDBObject("\$ne", 0.0)))
-            query = query.append("\$or", or1)
+            query = query.append("\$not", BasicDBObject("\$or", or1))
 
 
         } else {
 
-
-            val or1 = BasicDBList()
-            or1.add(BasicDBObject("longitude", BasicDBObject("\$eq", null)))
-            or1.add(BasicDBObject("longitude", BasicDBObject("\$eq", 0.0)))
-            or1.add(BasicDBObject("latitude", BasicDBObject("\$eq", null)))
-            or1.add(BasicDBObject("latitude", BasicDBObject("\$eq", 0.0)))
             query = query.append("\$or", or1)
 
         }
