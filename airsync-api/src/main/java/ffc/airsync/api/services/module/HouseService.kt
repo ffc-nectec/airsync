@@ -150,11 +150,14 @@ object HouseService {
 
         itemRenderPerPage(page, per_page, count, object : AddItmeAction {
             override fun onAddItemAction(itemIndex: Int) {
-                //printDebug("Loop count $it")
-                val data = listHouse[itemIndex]
-                val feture = createGeo(data.data, orgUuid)
-                geoJson.features.add(feture)
-                //printDebug("Add feture success")
+                try {
+                    //printDebug("Loop count $it")
+                    val data = listHouse[itemIndex]
+                    val feture = createGeo(data.data, orgUuid)
+                    geoJson.features.add(feture)
+                    //printDebug("Add feture success")
+                } catch (ex: kotlin.KotlinNullPointerException) {
+                }
             }
         })
 
