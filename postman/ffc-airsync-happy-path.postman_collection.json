@@ -68,7 +68,7 @@
 			},
 			"response": [
 				{
-					"id": "1f0a34a2-4ca0-468a-a15a-8141911ca885",
+					"id": "d568e6ce-485e-4a3f-b9fe-34169bda9917",
 					"name": "Register Org",
 					"originalRequest": {
 						"method": "POST",
@@ -159,7 +159,7 @@
 			},
 			"response": [
 				{
-					"id": "16b0cf69-953c-46c6-b543-3e0d526c1d06",
+					"id": "2c972805-9718-4957-897b-5209da7aef4e",
 					"name": "Register User",
 					"originalRequest": {
 						"method": "POST",
@@ -324,7 +324,7 @@
 			},
 			"response": [
 				{
-					"id": "addf7188-318c-4edf-a276-08341490d655",
+					"id": "4b28fad7-9b4b-4abc-9375-7ee1aadf8aea",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -475,7 +475,7 @@
 			},
 			"response": [
 				{
-					"id": "60545374-8463-4467-b27c-b347b371ec0b",
+					"id": "f43a7660-705a-4e32-8d67-69d6a90ba955",
 					"name": "Find my Org",
 					"originalRequest": {
 						"method": "GET",
@@ -670,7 +670,7 @@
 			},
 			"response": [
 				{
-					"id": "059babb4-a2ce-4d11-907d-e57183c6b9d9",
+					"id": "e23bc365-c3fc-4b3e-b896-fd93769d33ee",
 					"name": "Login success",
 					"originalRequest": {
 						"method": "POST",
@@ -789,7 +789,7 @@
 					"body": "{\n\t\"token\": \"123abcdef\"\n}"
 				},
 				{
-					"id": "b0142add-baf0-4d39-9a8e-32e61655502d",
+					"id": "010d6893-6ceb-440a-bf77-1c20612fdc2b",
 					"name": "Login not success",
 					"originalRequest": {
 						"method": "POST",
@@ -897,7 +897,7 @@
 			},
 			"response": [
 				{
-					"id": "b8409b3b-6dd4-41da-a4f2-bf01aa51f5eb",
+					"id": "6a5ed876-728f-41d6-913d-56ef93f6acf7",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1106,7 +1106,7 @@
 			},
 			"response": [
 				{
-					"id": "f91ce000-07f1-46f7-8b68-2f3dea1ab818",
+					"id": "4e4078b7-25cc-484c-9b81-a22ccfe5c1f0",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1305,7 +1305,7 @@
 			},
 			"response": [
 				{
-					"id": "9adf2901-84f6-483e-b23a-868f1ce032b3",
+					"id": "e39fcdc4-58c3-4938-9d09-eba076dcb811",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1405,7 +1405,7 @@
 			},
 			"response": [
 				{
-					"id": "5751a14f-44f4-4778-8512-daa0bdb10762",
+					"id": "88a14abb-eb41-4695-9276-41209039787c",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "POST",
@@ -1520,7 +1520,7 @@
 			},
 			"response": [
 				{
-					"id": "e5172cc1-5068-45b3-91c1-89fe11f0b460",
+					"id": "81b30c80-2f9a-4d04-a5b6-399c5570022a",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1662,7 +1662,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7202db5b-c409-4024-b8f6-6edb86eef13e",
+						"id": "3f054385-2dbf-4380-8cdf-0ed7ad91416a",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -1682,6 +1682,18 @@
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData[1].hid).to.eql(32);",
 							"});",
+							"",
+							"pm.test(\"Response have _id 1st\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value).to.eql(\"house_id\");",
+							"});",
+							"",
+							"pm.test(\"Response have _id 2nd\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value).to.eql(\"house_id_2\");",
+							"});",
+							"",
+							"",
 							""
 						]
 					}
@@ -1729,7 +1741,7 @@
 			},
 			"response": [
 				{
-					"id": "3b0e09e6-ef70-4413-aef3-c4c5f90afa45",
+					"id": "aa101768-ddf5-40eb-9c8a-d33d9d5754cf",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -1939,7 +1951,7 @@
 			},
 			"response": [
 				{
-					"id": "20c9b28f-3901-4ce1-a696-e203c9cf0bad",
+					"id": "b24b90f1-4f52-4b18-8b42-94737ac8df50",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2081,7 +2093,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "22f29ae5-1e53-4b37-b36c-fda36c60f2c9",
+						"id": "8ddd3d94-e640-4ddf-9312-fb0d4958be7e",
 						"type": "text/javascript",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
@@ -2094,7 +2106,7 @@
 							"",
 							"pm.test(\"Reponse is house no 510/32\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData[0]).to.eql(\"510/32\");",
+							"    pm.expect(jsonData[0].no).to.eql(\"510/32\");",
 							"});",
 							""
 						]
@@ -2149,7 +2161,7 @@
 			},
 			"response": [
 				{
-					"id": "a872e772-c3e7-4705-8f06-23236609972a",
+					"id": "fb89cb66-2e78-4fad-8c28-22120edda8de",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2358,7 +2370,7 @@
 			},
 			"response": [
 				{
-					"id": "a480fbc4-e122-44bd-b288-b1f060ac36e8",
+					"id": "922465a3-379e-44d8-8dca-2538f0ee5915",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2571,7 +2583,7 @@
 			},
 			"response": [
 				{
-					"id": "46454fb2-14ad-47af-939e-47305f424d3b",
+					"id": "c7b8f2a8-873e-4323-bdb1-6d6d3104f597",
 					"name": "Find Place GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2786,7 +2798,7 @@
 			},
 			"response": [
 				{
-					"id": "3eeb5e88-dcc3-4ee3-884c-ef8f06a7d0e7",
+					"id": "c9251694-8cb4-41de-862f-9141afcef1e9",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -2977,7 +2989,7 @@
 			},
 			"response": [
 				{
-					"id": "48d865de-6aef-4a01-a2be-3d82fbdc6e66",
+					"id": "7aee57e3-0573-486c-b786-89b1abc5af3f",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -3082,7 +3094,7 @@
 			},
 			"response": [
 				{
-					"id": "7ca97629-6d84-47e4-b5d4-ee7cbcf863e4",
+					"id": "5d67652d-61ba-4388-811a-6e5e0ceaafd0",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -3275,7 +3287,7 @@
 			},
 			"response": [
 				{
-					"id": "b440b9c2-15a1-45e5-ae76-e945dba1712c",
+					"id": "d0da7805-fb44-4d75-9146-c9f4ff99ffad",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -3380,7 +3392,7 @@
 			},
 			"response": [
 				{
-					"id": "0388f674-1bde-4c8c-bef8-dfd62e92dd98",
+					"id": "9205e0c0-02f8-4ef3-aba7-4711f6296912",
 					"name": "Find my house GeoJSON",
 					"originalRequest": {
 						"method": "GET",
@@ -3576,7 +3588,7 @@
 			},
 			"response": [
 				{
-					"id": "fa4d98a8-1e0a-4e58-9d82-8c9720001c8b",
+					"id": "e422837d-0281-4af6-8222-3e551e02bbca",
 					"name": "New Place",
 					"originalRequest": {
 						"method": "PUT",
@@ -3611,521 +3623,6 @@
 					"header": [],
 					"cookie": [],
 					"body": ""
-				}
-			]
-		},
-		{
-			"name": "New Person by org",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "5bd4d530-3571-450c-8885-1a9b8b75a1d6",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{org_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n  {\n    \"hospCode\": \"15032\",\n    \"pid\": 1,\n    \"prename\": \"นาย\",\n    \"firstname\": \"สมหญิง\",\n    \"lastname\": \"ทีชานนท์\",\n    \"birthData\": \"1950-09-21\",\n    \"identities\": [\n      {\n        \"type\": \"thailand-citizen-id\",\n        \"id\": \"2018032920177\"\n      }\n    ],\n    \"house\": {\n      \"identity\": {\n        \"type\": \"thailand-household-id\",\n        \"id\": \"20180329101\"\n      },\n      \"type\": \"House\",\n      \"no\": \"99/1\",\n      \"road\": \"รังสิต-นครนายก\",\n      \"tambon\": \"คลองหนึ่ง\",\n      \"ampur\": \"คลองหลวง\",\n      \"changwat\": \"ปุทมธานี\",\n      \"latlng\": [\n        120,\n        10\n      ],\n      \"id\": -5844940478120182000\n    },\n    \"chronics\": [\n      {\n        \"status\": \"active\",\n        \"idc10\": \"N18.3\",\n        \"diagDate\": \"2015-05-21\"\n      },\n      {\n        \"status\": \"active\",\n        \"idc10\": \"I10\",\n        \"diagDate\": \"2016-05-21\"\n      }\n    ],\n    \"id\": -582440454820180500\n  }\n]"
-				},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}/person",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}",
-						"person"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "208b4bff-13dc-4426-bea7-a98a457faa90",
-					"name": "Register Person",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"disabled": false
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": -5844940478120182000\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": -582440454820180500\n}"
-						},
-						"url": {
-							"raw": "{{url}}/org/1/person",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"1",
-								"person"
-							]
-						}
-					},
-					"status": "Created",
-					"code": 201,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Access-Control-Allow-Credentials",
-							"value": "",
-							"name": "Access-Control-Allow-Credentials",
-							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "",
-							"name": "Access-Control-Allow-Headers",
-							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "",
-							"name": "Access-Control-Allow-Methods",
-							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*",
-							"name": "Access-Control-Allow-Origin",
-							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
-						},
-						{
-							"key": "Access-Control-Expose-Headers",
-							"value": "",
-							"name": "Access-Control-Expose-Headers",
-							"description": "Lets a server whitelist headers that browsers are allowed to access."
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive",
-							"name": "Connection",
-							"description": "Options that are desired for the connection"
-						},
-						{
-							"key": "Content-Length",
-							"value": "915",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Fri, 30 Mar 2018 04:50:51 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"b3-Mst5NKQqfkFw0FPMPBRonw\"",
-							"name": "ETag",
-							"description": "An identifier for a specific version of a resource, often a message digest"
-						},
-						{
-							"key": "Server",
-							"value": "nginx",
-							"name": "Server",
-							"description": "A name for the server"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept-Encoding",
-							"name": "Vary",
-							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Find All Person",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "07482c7f-aa4b-49e2-845c-7b5281940a19",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Response have hospCode\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"hospCode\");",
-							"});",
-							"",
-							"pm.test(\"Reponse is person in global variable\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    var personId = pm.globals.get(\"person_id\");",
-							"    pm.expect(jsonData.id).to.eql(personId);",
-							"    ",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "oauth2",
-					"oauth2": [
-						{
-							"key": "addTokenTo",
-							"value": "header",
-							"type": "string"
-						},
-						{
-							"key": "accessToken",
-							"value": "{{mobile_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}/person",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}",
-						"person"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "f75559e2-c6b5-4beb-869c-44d5a7fda644",
-					"name": "Find Person",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {},
-						"url": {
-							"raw": "{{url}}/org/1/person",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"1",
-								"person"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Access-Control-Allow-Credentials",
-							"value": "",
-							"name": "Access-Control-Allow-Credentials",
-							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "",
-							"name": "Access-Control-Allow-Headers",
-							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "",
-							"name": "Access-Control-Allow-Methods",
-							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*",
-							"name": "Access-Control-Allow-Origin",
-							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
-						},
-						{
-							"key": "Access-Control-Expose-Headers",
-							"value": "",
-							"name": "Access-Control-Expose-Headers",
-							"description": "Lets a server whitelist headers that browsers are allowed to access."
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive",
-							"name": "Connection",
-							"description": "Options that are desired for the connection"
-						},
-						{
-							"key": "Content-Encoding",
-							"value": "gzip",
-							"name": "Content-Encoding",
-							"description": "The type of encoding used on the data."
-						},
-						{
-							"key": "Content-Length",
-							"value": "158",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 29 Mar 2018 09:00:22 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"b1-goXgQV2Fy68uZfdNHMNYcQ\"",
-							"name": "ETag",
-							"description": "An identifier for a specific version of a resource, often a message digest"
-						},
-						{
-							"key": "Server",
-							"value": "nginx",
-							"name": "Server",
-							"description": "A name for the server"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept-Encoding",
-							"name": "Vary",
-							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": 6790\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": 12346\n}"
-				}
-			]
-		},
-		{
-			"name": "Find Person",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "07482c7f-aa4b-49e2-845c-7b5281940a19",
-						"type": "text/javascript",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Response have hospCode\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"hospCode\");",
-							"});",
-							"",
-							"pm.test(\"Reponse is person in global variable\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    var personId = pm.globals.get(\"person_id\");",
-							"    pm.expect(jsonData.id).to.eql(personId);",
-							"    ",
-							"});"
-						]
-					}
-				}
-			],
-			"request": {
-				"auth": {
-					"type": "oauth2",
-					"oauth2": [
-						{
-							"key": "addTokenTo",
-							"value": "header",
-							"type": "string"
-						},
-						{
-							"key": "accessToken",
-							"value": "{{mobile_token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json"
-					}
-				],
-				"body": {},
-				"url": {
-					"raw": "{{url}}/org/{{org_id}}/person/{{person_id}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"org",
-						"{{org_id}}",
-						"person",
-						"{{person_id}}"
-					]
-				}
-			},
-			"response": [
-				{
-					"id": "53d8b7ca-d558-4dac-8d43-ed95f05d2dbe",
-					"name": "Find Person",
-					"originalRequest": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json"
-							}
-						],
-						"body": {},
-						"url": {
-							"raw": "{{url}}/org/1/person",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"org",
-								"1",
-								"person"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Access-Control-Allow-Credentials",
-							"value": "",
-							"name": "Access-Control-Allow-Credentials",
-							"description": "Indicates whether or not the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, this indicates whether or not the actual request can be made using credentials."
-						},
-						{
-							"key": "Access-Control-Allow-Headers",
-							"value": "",
-							"name": "Access-Control-Allow-Headers",
-							"description": "Used in response to a preflight request to indicate which HTTP headers can be used when making the actual request."
-						},
-						{
-							"key": "Access-Control-Allow-Methods",
-							"value": "",
-							"name": "Access-Control-Allow-Methods",
-							"description": "Specifies the method or methods allowed when accessing the resource. This is used in response to a preflight request."
-						},
-						{
-							"key": "Access-Control-Allow-Origin",
-							"value": "*",
-							"name": "Access-Control-Allow-Origin",
-							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
-						},
-						{
-							"key": "Access-Control-Expose-Headers",
-							"value": "",
-							"name": "Access-Control-Expose-Headers",
-							"description": "Lets a server whitelist headers that browsers are allowed to access."
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive",
-							"name": "Connection",
-							"description": "Options that are desired for the connection"
-						},
-						{
-							"key": "Content-Encoding",
-							"value": "gzip",
-							"name": "Content-Encoding",
-							"description": "The type of encoding used on the data."
-						},
-						{
-							"key": "Content-Length",
-							"value": "158",
-							"name": "Content-Length",
-							"description": "The length of the response body in octets (8-bit bytes)"
-						},
-						{
-							"key": "Content-Type",
-							"value": "application/json; charset=utf-8",
-							"name": "Content-Type",
-							"description": "The mime type of this content"
-						},
-						{
-							"key": "Date",
-							"value": "Thu, 29 Mar 2018 09:00:22 GMT",
-							"name": "Date",
-							"description": "The date and time that the message was sent"
-						},
-						{
-							"key": "ETag",
-							"value": "W/\"b1-goXgQV2Fy68uZfdNHMNYcQ\"",
-							"name": "ETag",
-							"description": "An identifier for a specific version of a resource, often a message digest"
-						},
-						{
-							"key": "Server",
-							"value": "nginx",
-							"name": "Server",
-							"description": "A name for the server"
-						},
-						{
-							"key": "Vary",
-							"value": "Accept-Encoding",
-							"name": "Vary",
-							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
-						}
-					],
-					"cookie": [],
-					"body": "{\n  \"hospCode\": \"15032\",\n  \"pid\": 1,\n  \"prename\": \"นาย\",\n  \"firstname\": \"สมหญิง\",\n  \"lastname\": \"ทีชานนท์\",\n  \"birthData\": \"1950-09-21\",\n  \"identities\": [\n    {\n      \"type\": \"thailand-citizen-id\",\n      \"id\": \"2018032920177\"\n    }\n  ],\n  \"house\": {\n    \"identity\": {\n      \"type\": \"thailand-household-id\",\n      \"id\": \"20180329101\"\n    },\n    \"type\": \"House\",\n    \"no\": \"99/1\",\n    \"road\": \"รังสิต-นครนายก\",\n    \"tambon\": \"คลองหนึ่ง\",\n    \"ampur\": \"คลองหลวง\",\n    \"changwat\": \"ปุทมธานี\",\n    \"latlng\": [\n      120,\n      10\n    ],\n    \"id\": 6790\n  },\n  \"chronics\": [\n    {\n      \"status\": \"active\",\n      \"idc10\": \"N18.3\",\n      \"diagDate\": \"2015-05-21\"\n    },\n    {\n      \"status\": \"active\",\n      \"idc10\": \"I10\",\n      \"diagDate\": \"2016-05-21\"\n    }\n  ],\n  \"id\": 12346\n}"
 				}
 			]
 		},
