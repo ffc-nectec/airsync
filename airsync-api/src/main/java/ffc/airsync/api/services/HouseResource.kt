@@ -63,6 +63,11 @@ class HouseResource {
           haveLocation, req.queryString ?: "")
 
 
+        geoJso.features.removeIf {
+            it.properties?.coordinates?.latitude == 0.0 ||
+              it.properties?.coordinates?.longitude == 0.0
+        }
+
 
 
         printDebug("Print feture before return to rest")

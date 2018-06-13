@@ -20,8 +20,10 @@ package ffc.airsync.api.services.module
 import com.google.firebase.messaging.Message
 import ffc.airsync.api.dao.DaoFactory
 import ffc.model.*
+import me.piruin.geok.LatLng
 import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
+import me.piruin.geok.geometry.Geometry
 import me.piruin.geok.geometry.Point
 import org.joda.time.DateTime
 import java.util.*
@@ -213,9 +215,15 @@ object HouseService {
 
 
     private fun createGeo(data: Address, orgUuid: UUID): Feature<Address> {
-        val point = Point(data.coordinates!!)
+        var point: Geometry
         val houseId = data.hid ?: -1
         val house = data
+
+        if (data.coordinates != null) {
+            point = Point(data.coordinates!!)
+        } else {
+            point = Point(LatLng(0.0, 0.0))
+        }
 
         house.people = personDao.getPeopleInHouse(orgUuid, houseId)
 
