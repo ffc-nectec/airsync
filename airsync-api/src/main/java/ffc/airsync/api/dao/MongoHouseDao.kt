@@ -23,6 +23,7 @@ import java.util.*
 import java.util.Arrays
 import ffc.model.*
 import me.piruin.geok.LatLng
+import me.piruin.geok.geometry.Point
 import org.bson.types.ObjectId
 import javax.ws.rs.NotFoundException
 import kotlin.collections.ArrayList
@@ -169,8 +170,10 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
                     val house: Address = property.toString().fromJson()
                     try {
                         house.coordinates = LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble())
+                        house.location = Point(LatLng(it.get("latitude").toString().toDouble(), it.get("longitude").toString().toDouble()))
                     } catch (ex: java.lang.NullPointerException) {
-                        house.coordinates = LatLng(0.0, 0.0)
+                        house.coordinates = null
+                        house.location = null
                     }
                     printDebug(house)
 
