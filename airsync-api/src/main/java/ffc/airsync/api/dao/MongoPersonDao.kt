@@ -52,6 +52,15 @@ class MongoPersonDao(host: String, port: Int, databaseName: String, collection: 
           .append("houseId", houseId)
 
 
+        val personInHouseDoc = coll.find(query)
+
+        while (personInHouseDoc.hasNext()) {
+            val personDoc = personInHouseDoc.next()
+            val person = docToObj(personDoc)
+            val people = People(person.pid.toString(), "${person.prename} ${person.firstname} ${person.lastname}")
+            personInHouse.add(people)
+        }
+
 
         return personInHouse
     }
@@ -99,13 +108,13 @@ class MongoPersonDao(host: String, port: Int, databaseName: String, collection: 
         personDoc.append("birthData", person.birthData.toString())
 
 
-        printDebug("\t\t\t${i++}${personDoc.toJson()}")
-        personDoc.append("identities", person.identities.toJson())
-        printDebug("\t\t\t${i++}${personDoc.toJson()}")
+        //printDebug("\t\t\t${i++}${personDoc.toJson()}")
+        //personDoc.append("identities", person.identities.toJson())
+        //printDebug("\t\t\t${i++}${personDoc.toJson()}")
         if (person.chronics != null) {
             personDoc.append("chronics", person.chronics!!.toJson())
         }
-        printDebug("\t\t\t${i++}${personDoc.toJson()}")
+        //printDebug("\t\t\t${i++}${personDoc.toJson()}")
 
 
 
@@ -117,7 +126,7 @@ class MongoPersonDao(host: String, port: Int, databaseName: String, collection: 
     }
 
     private fun docToObj(obj: DBObject): Person {
-        printDebug("\tMongo to person obj $obj.")
+        //printDebug("\tMongo to person obj $obj.")
 
         //printDebug("\t\tid=${(obj.get("id") ?: null).toString()}")
         val person = Person(id = (obj.get("id") ?: null).toString().toLong())

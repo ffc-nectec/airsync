@@ -22,6 +22,7 @@ import ffc.airsync.client.module.daojdbi.DatabaseDao
 import ffc.model.*
 import java.util.*
 import javax.ws.rs.NotFoundException
+import kotlin.collections.ArrayList
 
 
 class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
@@ -35,21 +36,21 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     }
 
 
-    override fun getHouseAndUpdate(org: Organization, _id: String,databaseDao : DatabaseDao) {
+    override fun getHouseAndUpdate(org: Organization, _id: String, databaseDao: DatabaseDao) {
         printDebug("Get house house _id = $_id")
-        val data = restService!!.getHouse(orgId = org.id,authkey = "Bearer " + org.token!!,_id = _id).execute()
+        val data = restService!!.getHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
-        val house = data.body()?: throw NotFoundException("ไม่มี เลขบ้าน getHouse")
+        val house = data.body() ?: throw NotFoundException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house._id} house No. ${house.no}")
         if (house._sync) return
 
         databaseDao.upateHouse(house)
         printDebug("\tUpdate house to database and sync = true")
-        house._sync=true
+        house._sync = true
 
 
         printDebug("\tPut new house to cloud")
-        restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id,house = house).execute()
+        restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id, house = house).execute()
 
     }
 
@@ -72,53 +73,31 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     override fun putHouse(houseList: List<Address>, org: Organization) {
 
         //houseList.forEach { printDebug(it) }
-        val fixrow = 100
 
-        val count = houseList.size
-        val split = count / fixrow  //แบ่งได้กี่ชุด
-        val splitmod = count % fixrow  //เคษเหลือ
-
-
-        printDebug("House upload size $count")
-
-        for (pageCount in 0..(split - 1)) {
-            val slotUpload = arrayListOf<Address>()
-            val startRow = pageCount * fixrow
-            for (itemCount in 0..fixrow) {
-                slotUpload.add(houseList[startRow + itemCount])
-            }
-            printDebug("fixrow $fixrow split $split splitmod $splitmod i $pageCount")
-
-            Thread(object : Runnable {
-                override fun run() {
-                    restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = slotUpload).execute()
-                }
-            }).start()
-
-            Thread.sleep(1000)
-
-        }
-        if (splitmod != 0) {
-            val tempUpload = arrayListOf<Address>()
-            val tempStamp = split * fixrow
-            for (i in 0..(splitmod - 1)) {
-                tempUpload.add(houseList[tempStamp + i])
-            }
-            restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!, houseList = tempUpload).execute()
-        }
-
-        printDebug("End update House")
-        Thread.sleep(10000)
         //restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!,houseList = houseList).execute()
 
+        SplitUpload.upload(300, houseList, object : SplitUpload.HowToSendCake<Address> {
+            override fun send(cakePlate: ArrayList<Address>) {
+                restService!!.createHouse(orgId = org.id,
+                  authkey = "Bearer " + org.token!!,
+                  houseList = cakePlate).execute()
+            }
+        })
 
     }
 
 
     override fun putPerson(personList: List<Person>, org: Organization) {
-        restService!!.createPerson(orgId = org.id,
-          authkey = "Bearer " + org.token!!,
-          personList = personList).execute()
+
+        SplitUpload.upload(300, personList, object : SplitUpload.HowToSendCake<Person> {
+            override fun send(cakePlate: ArrayList<Person>) {
+                restService!!.createPerson(orgId = org.id,
+                  authkey = "Bearer " + org.token!!,
+                  personList = cakePlate).execute()
+
+            }
+        })
+
 
     }
 

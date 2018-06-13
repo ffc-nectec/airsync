@@ -21,6 +21,6 @@ import me.piruin.geok.LatLng
 import me.piruin.geok.geometry.Geometry
 
 
-data class People(val id: String, val name: String, val chronics: MutableList<Chronic>?)
+data class People(val id: String, val name: String, val chronics: MutableList<Chronic>? = null)
 
 
