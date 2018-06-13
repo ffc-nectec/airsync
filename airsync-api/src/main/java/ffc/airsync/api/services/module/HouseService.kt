@@ -159,6 +159,7 @@ object HouseService {
                     geoJson.features.add(feture)
                     //printDebug("Add feture success")
                 } catch (ex: kotlin.KotlinNullPointerException) {
+                    ex.printStackTrace()
                 }
             }
         })

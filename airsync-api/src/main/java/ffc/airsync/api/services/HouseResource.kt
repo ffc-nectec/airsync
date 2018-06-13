@@ -21,6 +21,7 @@ import ffc.airsync.api.services.module.HouseService
 import ffc.model.Address
 import ffc.model.printDebug
 import ffc.model.toJson
+import me.piruin.geok.geometry.Feature
 import me.piruin.geok.geometry.FeatureCollection
 import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
@@ -62,20 +63,38 @@ class HouseResource {
           if (hid == 0) -1 else hid,
           haveLocation, req.queryString ?: "")
 
+        val geoReturn = FeatureCollection<Address>()
 
-        geoJso.features.removeIf {
-            it.properties?.coordinates?.latitude == 0.0 ||
-              it.properties?.coordinates?.longitude == 0.0
+        try {
+
+            geoJso.features.forEach {
+
+                try {
+                    val house = it.properties
+                    if (house!!.coordinates!!.latitude != 0.0 && house.coordinates!!.longitude != 0.0) {
+
+                        geoReturn.features.add(Feature(it.geometry, it.properties))
+                    }
+
+
+                } catch (ex: Exception) {
+                    //ex.printStackTrace()
+                }
+
+
+            }
+
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
-
 
 
         printDebug("Print feture before return to rest")
-        geoJso.features.forEach {
-            printDebug(it.geometry)
-        }
+        //geoJso.features.forEach {
+        //    printDebug(it.geometry)
+        //}
 
-        return geoJso
+        return geoReturn
     }
 
 
@@ -100,7 +119,6 @@ class HouseResource {
           if (hid == 0) -1 else hid,
           haveLocation, req.queryString ?: "")
 
-        printDebug("Print feture before return to rest")
 
 
         return jsonHouse
