@@ -8,13 +8,17 @@ object FirebaseService {
     fun updateToken(token: UUID, orgId: String, firebaseToken: FirebaseToken) {
 
         try {
-            val mobile = getOrgByMobileToken(token = token, orgId = orgId)
-            printDebug("Update firebase token mobile $firebaseToken")
-            mobile.data.firebaseToken = firebaseToken.firebasetoken
+            //val mobile = getOrgByMobileToken(token = token, orgId = orgId)
+            //printDebug("Update firebase token mobile $firebaseToken")
+            //mobile.data.firebaseToken = firebaseToken.firebasetoken
+            tokenMobile.updateFirebaseToken(token, firebaseToken.firebasetoken)
+
+
         } catch (ex: Exception) {
-            val org = getOrgByOrgToken(token, orgId)
-            printDebug("Update firebase token organization $firebaseToken")
-            org.firebaseToken = firebaseToken.firebasetoken
+            //val org = getOrgByOrgToken(token, orgId)
+            //printDebug("Update firebase token organization $firebaseToken")
+            //org.firebaseToken = firebaseToken.firebasetoken
+            ex.printStackTrace()
 
         }
 

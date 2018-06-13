@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bc253c43-79dc-45b0-9e63-8fa298cfb180" name="Default" comment="Add MongoPersonDao">
-      <change afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoAbsConnect.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt" afterDir="false" />
+    <list default="true" id="bc253c43-79dc-45b0-9e63-8fa298cfb180" name="Default" comment="Debug print connect mongo string">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoPersonDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoPersonDao.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoUserDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoUserDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/FirebaseResource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/FirebaseResource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/FirebaseService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/FirebaseService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/Config.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/Config.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt" beforeDir="false" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -66,44 +63,14 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4934334">
+    <splitter split-orientation="horizontal" split-proportion="0.41230488">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="MongoOrgDao.kt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt">
+          <file leaf-file-name="MongoHouseDao.kt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="16" selection-start-line="16" selection-end-line="16" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="DaoFactory.kt" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="238">
-                  <caret line="29" column="76" lean-forward="true" selection-start-line="29" selection-start-column="76" selection-end-line="29" selection-end-column="76" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MongoUserDao.kt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoUserDao.kt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="85">
-                  <caret line="10" column="112" selection-start-line="10" selection-start-column="112" selection-end-line="10" selection-end-column="112" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MongoAbsConnect.kt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoAbsConnect.kt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="714">
-                  <caret line="42" selection-start-line="42" selection-end-line="42" />
-                  <folding>
-                    <element signature="e#29#96#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="52">
+                  <caret line="226" column="14" selection-start-line="226" selection-start-column="14" selection-end-line="226" selection-end-column="14" />
                 </state>
               </provider>
             </entry>
@@ -111,23 +78,29 @@
           <file leaf-file-name="SplitUpload.kt" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="374">
-                  <caret line="22" column="58" lean-forward="true" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
+                <state relative-caret-position="204">
+                  <caret line="87" column="33" lean-forward="true" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
                   <folding>
-                    <element signature="e#28#80#0" expanded="true" />
+                    <element signature="e#28#99#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="MongoTokenDao.kt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt">
+          <file leaf-file-name="Config.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/Config.kt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="132">
-                  <caret line="11" column="154" selection-start-line="11" selection-start-column="154" selection-end-line="11" selection-end-column="154" />
-                  <folding>
-                    <element signature="e#29#263#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="153">
+                  <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MongoPersonDao.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoPersonDao.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="288">
+                  <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
                 </state>
               </provider>
             </entry>
@@ -136,20 +109,96 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="MongoHouseDao.kt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt">
+          <file leaf-file-name="HouseService.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+                <state relative-caret-position="224">
+                  <caret line="148" lean-forward="true" selection-start-line="148" selection-end-line="148" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="MongoPersonDao.kt" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoPersonDao.kt">
+          <file leaf-file-name="FirebaseResource.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/FirebaseResource.kt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="7" column="153" selection-start-line="7" selection-start-column="117" selection-end-line="7" selection-end-column="153" />
+                <state relative-caret-position="73">
+                  <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="FirebaseToken.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/FirebaseToken.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="108">
+                  <caret line="19" column="42" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="42" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="FirebaseService.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/FirebaseService.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="143">
+                  <caret line="13" column="32" lean-forward="true" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MongoTokenDao.kt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="265">
+                  <caret line="89" column="50" selection-start-line="89" selection-start-column="50" selection-end-line="89" selection-end-column="50" />
+                  <folding>
+                    <element signature="e#29#263#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="OrgResource.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgResource.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="136">
+                  <caret line="86" column="4" lean-forward="true" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="24" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Token.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Token.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-102" />
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Const.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="290">
+                  <caret line="34" selection-start-line="34" selection-end-line="34" />
+                  <folding>
+                    <element signature="n#!!doc" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="TokenDao.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/TokenDao.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="187">
+                  <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="People.kt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/People.kt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="51">
+                  <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
                 </state>
               </provider>
             </entry>
@@ -180,7 +229,6 @@
       <find>geojson</find>
       <find>getHouseInMongo</find>
       <find>DateTime</find>
-      <find>person</find>
       <find>for</find>
       <find>printDebug</find>
       <find>set lat long</find>
@@ -199,7 +247,8 @@
       <find>MongoHouseDao.</find>
       <find>get</find>
       <find>findByHouseId</find>
-      <find>printDebug</find>
+      <find>url</find>
+      <find>person</find>
     </findStrings>
     <replaceStrings>
       <replace>$1 = this.$1,</replace>
@@ -207,7 +256,6 @@
       <replace>token: UUID</replace>
       <replace>UUID.fromString(token)</replace>
       <replace>get</replace>
-      <replace>//printDebug</replace>
       <replace>//printDebug</replace>
     </replaceStrings>
   </component>
@@ -1859,22 +1907,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt" />
-        <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Organization.kt" />
-        <option value="$PROJECT_DIR$/ffc-model/src/test/kotlin/ffc/model/TokenMessageTest.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/PersonResource.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryMobileTokenDao.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/UserResource.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/HeaderFilter.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/OrgSecurityContextImp.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/FfcSecurityContext.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/NoAuthSecurityContextImp.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/OrgService.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgResource.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/ErrorFilter.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/PrintLogs.kt" />
@@ -1889,8 +1925,6 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryPersonDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/PersonDao.kt" />
-        <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/ItemRenderPerPage.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/PersonService.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryUserDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoMobileTokenDao.kt" />
@@ -1901,23 +1935,37 @@
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryTokenDao.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Token.kt" />
         <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/TokenMessage.kt" />
-        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt" />
-        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoPersonDao.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api/dao/mongoTest.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgResource.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoUserDao.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoAbsConnect.kt" />
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt" />
+        <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/ErrorFilter.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/test/java/ffc/airsync/api/Test1.java" />
+        <option value="$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api/EtcTest.kt" />
         <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/ItemRenderPerPage.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoAbsConnect.kt" />
+        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
+        <option value="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/People.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoPersonDao.kt" />
+        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/Config.kt" />
+        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/FirebaseService.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/FirebaseResource.kt" />
+        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="290" />
-    <option name="y" value="-1022" />
-    <option name="width" value="1474" />
-    <option name="height" value="788" />
+    <option name="x" value="-13" />
+    <option name="y" value="-13" />
+    <option name="width" value="2585" />
+    <option name="height" value="1395" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -1925,87 +1973,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
-              <item name="dao" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
-              <item name="services" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
-              <item name="services" type="1f31426a:PackageElementNode" />
-              <item name="module" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
-              <item name="module" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
-              <item name="mysqlconfig" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
-              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
-              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
-              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
-              <item name="webservice" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -2111,6 +2078,53 @@
             <path>
               <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
               <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="filter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-api" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
@@ -2151,6 +2165,188 @@
               <item name="kotlin" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+              <item name="retrofit" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="mysqlconfig" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="webservice" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="webservice" type="462c0819:PsiDirectoryNode" />
+              <item name="module" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="webservice" type="462c0819:PsiDirectoryNode" />
+              <item name="webresources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="airsync" type="b2602c69:ProjectViewProjectNode" />
+              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="ffc-model" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
+              <item name="dao" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
+              <item name="services" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
+              <item name="services" type="1f31426a:PackageElementNode" />
+              <item name="module" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
+              <item name="websocket" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_test" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-api" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-api_test" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.api" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
+              <item name="module" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
+              <item name="mysqlconfig" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="airsync-client" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="airsync-client_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.airsync.client" type="1f31426a:PackageElementNode" />
+              <item name="webservice" type="1f31426a:PackageElementNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ffc-model" type="eaaa3913:PackageViewModuleGroupNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ffc-model" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ffc-model_main" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="airsync" type="58d84e3e:PackageViewProjectNode" />
+              <item name="ffc-model" type="eaaa3913:PackageViewModuleGroupNode" />
+              <item name="ffc-model_main" type="616d4139:PackageViewModuleNode" />
+              <item name="ffc.model" type="1f31426a:PackageElementNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -2159,6 +2355,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="ฎพพน&#9;null&#9;null&#10;HouseResource&#9;FILE&#9;file://D:/workspace/airsync/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt&#10;HouseSer&#9;FILE&#9;file://D:/workspace/airsync/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/airsync-client/build.gradle" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -2230,14 +2427,6 @@
       <module name="airsync-client_main" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     </configuration>
-    <configuration name="build (1)" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
-      <module name="airsync-api" />
-      <setting name="path" value="file://$PROJECT_DIR$/airsync-api/build.gradle" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="file://$PROJECT_DIR$/airsync-api" />
-      <setting name="debug" value="false" />
-    </configuration>
     <configuration name="build (2)" type="GroovyScriptRunConfiguration" factoryName="Groovy" temporary="true">
       <module name="airsync-mysql-log-reader" />
       <setting name="path" value="file://$PROJECT_DIR$/airsync-mysql-log-reader/build.gradle" />
@@ -2261,6 +2450,30 @@
       <setting name="params" value="" />
       <setting name="workDir" value="file://$PROJECT_DIR$" />
       <setting name="debug" value="false" />
+    </configuration>
+    <configuration name="EtcTest.Test001" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="airsync-api_test" />
+      <shortenClasspath name="CLASSPATH_FILE" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ffc.airsync.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="ffc.airsync.api" />
+      <option name="MAIN_CLASS_NAME" value="ffc.airsync.api.EtcTest" />
+      <option name="METHOD_NAME" value="Test001" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <shortenClasspath name="CLASSPATH_FILE" />
@@ -2305,17 +2518,17 @@
       <item itemvalue="Groovy.build" />
       <item itemvalue="Application.FFCApiServer" />
       <item itemvalue="Application.Main" />
-      <item itemvalue="Groovy.build (1)" />
       <item itemvalue="Groovy.build (2)" />
       <item itemvalue="Groovy.build (3)" />
+      <item itemvalue="JUnit.EtcTest.Test001" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.FFCApiServer" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.EtcTest.Test001" />
         <item itemvalue="Groovy.build (3)" />
         <item itemvalue="Groovy.build (2)" />
-        <item itemvalue="Groovy.build (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -2332,251 +2545,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1525841937270</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Reflector api">
-      <created>1526026386637</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1526026386637</updated>
-    </task>
-    <task id="LOCAL-00007" summary="iss test">
-      <created>1526026704215</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1526026704215</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Add print debug for method get org my=true">
-      <created>1526354579292</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1526354579292</updated>
-    </task>
-    <task id="LOCAL-00009" summary="iss bug create org&#10;-get ip address 2 way from header and local ip">
-      <created>1526354857059</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1526354857059</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Add get single house geo+json">
-      <created>1526363230345</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1526363230345</updated>
-    </task>
-    <task id="LOCAL-00011" summary="iss change return login fail to 403">
-      <created>1526455163603</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1526455163603</updated>
-    </task>
-    <task id="LOCAL-00012" summary="New house enpoint&#10;-Post house for single&#10;-Post houses for array">
-      <created>1526461589556</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1526461589556</updated>
-    </task>
-    <task id="LOCAL-00013" summary="มีการตรวจสอบ User default&#10;- adm ADM newuser usr_db ให้ Return 403&#10;- ภ้า username หรือ password ผิด ให้ Return 401">
-      <created>1526529322859</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1526529322860</updated>
-    </task>
-    <task id="LOCAL-00014" summary="iss มีการตรวจสอบ User default&#10;- adm ADM newuser usr_db ให้ Return 403&#10;- ภ้า username หรือ password ผิด ให้ Return 401">
-      <created>1526530416915</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1526530416917</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Gson on webservice client">
-      <created>1526530734601</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1526530734601</updated>
-    </task>
-    <task id="LOCAL-00016" summary="แก้ return error ของ house&#10;ในกรณีที่รูปแบบข้อมูลเข้ามาไม่ถูกต้องจะ return 400">
-      <created>1526542661720</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1526542661720</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Add block user Drug_Store_Admin">
-      <created>1526545406534</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1526545406534</updated>
-    </task>
-    <task id="LOCAL-00018" summary="แยกไฟล์คงที่ ออกเป็นส่วน ๆ">
-      <created>1526736879717</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1526736879717</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Change per page manage to generic">
-      <created>1526739729173</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1526739729173</updated>
-    </task>
-    <task id="LOCAL-00020" summary="House and person return limit per page">
-      <created>1526740813801</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1526740813801</updated>
-    </task>
-    <task id="LOCAL-00021" summary="iss fix http house return code">
-      <created>1526960283894</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1526960283897</updated>
-    </task>
-    <task id="LOCAL-00022" summary="iss test class">
-      <created>1526960619569</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1526960619569</updated>
-    </task>
-    <task id="LOCAL-00023" summary="add print debug when error">
-      <created>1526963302459</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1526963302459</updated>
-    </task>
-    <task id="LOCAL-00024" summary="iss fix http house return code">
-      <created>1527047106471</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1527047106471</updated>
-    </task>
-    <task id="LOCAL-00025" summary="remove chronic">
-      <created>1527047166523</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1527047166523</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Remove service chronic&#10;-ใส่รวมไว้กับ Person">
-      <created>1527050009158</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1527050009158</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Change log add dateUpdate in house&#10;-change token type">
-      <created>1527058515888</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1527058515888</updated>
-    </task>
-    <task id="LOCAL-00028" summary="เพิ่ม dateUpdate ของ House ไปยัง jhcisdb">
-      <created>1527063318341</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1527063318341</updated>
-    </task>
-    <task id="LOCAL-00029" summary="เพิ่ม dateUpdate ของ House ไปยัง jhcisdb">
-      <created>1527067124111</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1527067124111</updated>
-    </task>
-    <task id="LOCAL-00030" summary="แก้ bug ดึงข้อมูลบ้าน json 1 หลัง">
-      <created>1527156946998</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1527156946998</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Add print error update house time">
-      <created>1527468763393</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1527468763393</updated>
-    </task>
-    <task id="LOCAL-00032" summary="dev local ok return 405">
-      <created>1527469607216</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1527469607216</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Mobile token expire date">
-      <created>1527663766759</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1527663766759</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Add org mogo dao">
-      <created>1527672569271</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1527672569271</updated>
-    </task>
-    <task id="LOCAL-00035" summary="iss error mediatype = null">
-      <created>1527737798831</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1527737798831</updated>
-    </task>
-    <task id="LOCAL-00036" summary="แสดง expiredate ใน token">
-      <created>1527752723378</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1527752723379</updated>
-    </task>
-    <task id="LOCAL-00037" summary="Basic auth filter user">
-      <created>1527826933285</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1527826933285</updated>
-    </task>
-    <task id="LOCAL-00038" summary="BasicAuthFilter support org">
-      <created>1527837563554</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1527837563554</updated>
-    </task>
-    <task id="LOCAL-00039" summary="End point house change @role">
-      <created>1528103887866</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1528103887866</updated>
-    </task>
-    <task id="LOCAL-00040" summary="@role in end point org">
-      <created>1528104438531</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1528104438531</updated>
     </task>
     <task id="LOCAL-00041" summary="Token change name rule to role">
       <created>1528104650928</created>
@@ -2676,13 +2644,255 @@
       <option name="project" value="LOCAL" />
       <updated>1528439435201</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Add Mongo Abstract">
+      <created>1528441890841</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1528441890841</updated>
+    </task>
+    <task id="LOCAL-00056" summary="แก้ bug uuid ของ org เวลา register">
+      <created>1528442381673</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1528442381673</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Add Print debug mongo org">
+      <created>1528450900635</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1528450900636</updated>
+    </task>
+    <task id="LOCAL-00058" summary="change to Inmemory org">
+      <created>1528451181369</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1528451181369</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Catch Mongo runtime Exception print">
+      <created>1528696237449</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1528696237449</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Add point in Address">
+      <created>1528704877452</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1528704877452</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Set pool timeout">
+      <created>1528707993700</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1528707993700</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Debug print connect mongo string">
+      <created>1528710540495</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1528710540495</updated>
+    </task>
+    <task id="LOCAL-00063" summary="set limit mongo connection">
+      <created>1528710857378</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1528710857378</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Add config mongo string&#10;socketTimeoutMS=20000&#10;connectTimeoutMS=20000">
+      <created>1528774105610</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1528774105612</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Catch mongo expression">
+      <created>1528775746676</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1528775746676</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Issuse bug mongo">
+      <created>1528776880376</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1528776880376</updated>
+    </task>
+    <task id="LOCAL-00067" summary="iss bug mongo connect">
+      <created>1528778250689</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1528778250689</updated>
+    </task>
+    <task id="LOCAL-00068" summary="add print debug exception mongo error">
+      <created>1528778839210</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1528778839210</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Debug print connect to mongo collection.">
+      <created>1528780989183</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1528780989183</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Test 1 socket to many collection.">
+      <created>1528781442013</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1528781442013</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Add mongo org auto increment.">
+      <created>1528782767286</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1528782767286</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Debug org id mongo auto increatment">
+      <created>1528783121013</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1528783121013</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Iss bug auto increatment house id heroku.">
+      <created>1528784246736</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1528784246736</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Fix bug org mongo auto increatment&#10;Duplicate mongo doc.">
+      <created>1528786731198</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1528786731198</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Fix house dao LatLng">
+      <created>1528790182819</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1528790182820</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Print debug item per page">
+      <created>1528790881711</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1528790881711</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Fix bug house">
+      <created>1528791155324</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1528791155324</updated>
+    </task>
+    <task id="LOCAL-00078" summary="issuae house haveLocation use heroku mLab">
+      <created>1528792272595</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1528792272595</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Iss house condition mongo and mLab&#10;ระหว่าง mongo ในเครื่อง กับ mLab ค่าไม่เหมือนกัน แก้ไขเงื่อนไขในการตรวจสอบให้สอดคล้อง">
+      <created>1528792947978</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1528792947978</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Issuae mongo house condition haveLocation">
+      <created>1528793867114</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1528793867114</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Issuse condition mongo house haveLocation">
+      <created>1528795251758</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1528795251758</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Iss mongo house condtion $ne to $not haveLocation">
+      <created>1528795567448</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1528795567448</updated>
+    </task>
+    <task id="LOCAL-00083" summary="House mongo condtion change or to and haveLocation">
+      <created>1528796023338</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1528796023338</updated>
+    </task>
+    <task id="LOCAL-00084" summary="check haveLocation">
+      <created>1528799312059</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1528799312061</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Issuse bug get house add person in house">
+      <created>1528875416868</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1528875416870</updated>
+    </task>
+    <task id="LOCAL-00086" summary="iss bug geojson cordinet = 0 is null">
+      <created>1528878960892</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1528878960892</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Iss bug location = 0&#10;ถ้า =0 จะไม่ส่งค่าออกเป็น GeoJson">
+      <created>1528879966643</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1528879966643</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Iss bug get house json return all">
+      <created>1528881325284</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1528881325284</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Issuse bug geoJson print coordinate and Json print all">
+      <created>1528882893962</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1528882893962</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TokenMessageTest_testMach - 2561.05.31 at 16h 26m 21s.xml">
-      <configuration name="TokenMessageTest.testMach" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="TokenMessageTest_testMach - 2561.05.31 at 16h 26m 45s.xml">
       <configuration name="TokenMessageTest.testMach" configurationId="JUnit" />
     </history-entry>
@@ -2710,8 +2920,11 @@
     <history-entry file="TokenMessageTest_testIf - 2561.06.01 at 13h 43m 59s.xml">
       <configuration name="TokenMessageTest.testIf" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="EtcTest_Test001 - 2561.06.12 at 11h 10m 58s.xml">
+      <configuration name="EtcTest.Test001" configurationId="JUnit" />
+    </history-entry>
   </component>
-  <component name="TodoView" selected-index="4">
+  <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -2721,23 +2934,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-1208" width="1936" height="1176" extended-state="6" />
+    <frame x="-7" y="-7" width="1477" height="797" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.32851636" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.65831554" weight="0.27649325" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.32829046" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.6558304" weight="0.5945537" />
       <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.28837952" side_tool="true" visible="true" weight="0.20520231" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.29157782" side_tool="true" weight="0.17533718" />
       <window_info anchor="right" id="Maven Projects" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49048626" weight="0.25529864" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.71162045" visible="true" weight="0.20520231" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49048626" weight="0.25416037" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7084222" visible="true" weight="0.27836612" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32980332" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7660606" visible="true" weight="0.14765458" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7660606" visible="true" weight="0.23255815" />
       <window_info anchor="bottom" id="Problems" order="12" weight="0.32980332" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49540636" weight="0.55876684" />
       <window_info anchor="right" id="Gradle" order="5" weight="0.11513859" />
       <window_info id="Structure" order="1" sideWeight="0.2339394" side_tool="true" weight="0.1945629" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -2751,9 +2966,40 @@
       <window_info anchor="bottom" id="Build" order="9" sideWeight="0.4989429" weight="0.73524964" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49626866" weight="0.55973023" />
       <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.3296875" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="bottom" id="Build" order="9" sideWeight="0.4989429" weight="0.73524964" />
+      <window_info id="Designer" order="3" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info id="Image Layers" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7084222" visible="true" weight="0.17533718" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Favorites" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.29157782" side_tool="true" visible="true" weight="0.17533718" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Problems" order="12" weight="0.32980332" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49048626" weight="0.25529864" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+      <window_info anchor="right" id="Gradle" order="5" weight="0.11513859" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7660606" visible="true" weight="0.1881663" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.6558304" weight="0.27411944" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.4989339" weight="0.32851636" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
+      <window_info anchor="right" id="Theme Preview" order="6" />
+      <window_info id="Structure" order="1" sideWeight="0.2339394" side_tool="true" weight="0.1945629" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Coverage" order="8" side_tool="true" weight="0.3296875" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49540636" weight="0.55895865" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.History.Properties">
     <option name="COLUMN_ORDER">
@@ -2769,32 +3015,32 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="dev local ok return 405" />
-    <MESSAGE value="Mobile token expire date" />
-    <MESSAGE value="Add org mogo dao" />
-    <MESSAGE value="iss error mediatype = null" />
-    <MESSAGE value="แสดง expiredate ใน token" />
-    <MESSAGE value="Basic auth filter user" />
-    <MESSAGE value="BasicAuthFilter support org" />
-    <MESSAGE value="End point user change @role" />
-    <MESSAGE value="End point house change @role" />
-    <MESSAGE value="@role in end point org" />
-    <MESSAGE value="Token change name rule to role" />
-    <MESSAGE value="create house return _id" />
-    <MESSAGE value="Json type error convert 500 to 400" />
-    <MESSAGE value="add haveLocation&#10;true = บ้านมีพิกัด&#10;false = บ้านไม่มีพิกัด&#10;ไม่ใส่ค่า = เอาบ้านทั้งมีพิกัดและไม่มีพิกัด" />
-    <MESSAGE value="Update gradle" />
-    <MESSAGE value="Add MongoOrgDao" />
-    <MESSAGE value="Add Person Mongo Dao" />
-    <MESSAGE value="Add MongoPersonDao" />
-    <MESSAGE value="iss Chronic list MongoPersonDao" />
-    <MESSAGE value="Add MongoUserDao" />
-    <MESSAGE value="Rename TokenDao" />
-    <MESSAGE value="Add MongoTokenDao" />
-    <MESSAGE value="issuse mongo" />
-    <MESSAGE value="iss mongo token coll" />
-    <MESSAGE value="iss bug token remove" />
-    <option name="LAST_COMMIT_MESSAGE" value="iss bug token remove" />
+    <MESSAGE value="Issuse bug mongo" />
+    <MESSAGE value="iss bug mongo connect" />
+    <MESSAGE value="add print debug exception mongo error" />
+    <MESSAGE value="Debug print connect to mongo collection." />
+    <MESSAGE value="Test 1 socket to many collection." />
+    <MESSAGE value="Add mongo org auto increment." />
+    <MESSAGE value="Debug org id mongo auto increatment" />
+    <MESSAGE value="Iss bug auto increatment house id heroku." />
+    <MESSAGE value="Fix bug org mongo auto increatment&#10;Duplicate mongo doc." />
+    <MESSAGE value="Fix house dao LatLng" />
+    <MESSAGE value="Print debug item per page" />
+    <MESSAGE value="Fix bug house" />
+    <MESSAGE value="issuae house haveLocation use heroku mLab" />
+    <MESSAGE value="Iss house condition mongo and mLab&#10;ระหว่าง mongo ในเครื่อง กับ mLab ค่าไม่เหมือนกัน แก้ไขเงื่อนไขในการตรวจสอบให้สอดคล้อง" />
+    <MESSAGE value="Issuae mongo house condition haveLocation" />
+    <MESSAGE value="Issuse condition mongo house haveLocation" />
+    <MESSAGE value="Iss mongo house condtion $ne to $not haveLocation" />
+    <MESSAGE value="House mongo condtion change or to and haveLocation" />
+    <MESSAGE value="check haveLocation" />
+    <MESSAGE value="Issuse bug get house add person in house" />
+    <MESSAGE value="iss bug geojson cordinet = 0 is null" />
+    <MESSAGE value="Iss bug location = 0&#10;ถ้า =0 จะไม่ส่งค่าออกเป็น GeoJson" />
+    <MESSAGE value="Debug print connect mongo string" />
+    <MESSAGE value="Iss bug get house json return all" />
+    <MESSAGE value="Issuse bug geoJson print coordinate and Json print all" />
+    <option name="LAST_COMMIT_MESSAGE" value="Issuse bug geoJson print coordinate and Json print all" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2811,249 +3057,10 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/Logs.kt" />
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/RandomGetId.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/Log.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="48" selection-start-line="4" selection-start-column="48" selection-end-line="4" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/log4j2.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="58" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/PrintLogs.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-          <folding>
-            <element signature="e#19#98#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradlew">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/hs_err_pid9780.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/GsonJerseyProvider.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="73" column="32" selection-start-line="73" selection-start-column="32" selection-end-line="73" selection-end-column="32" />
-          <folding>
-            <element signature="e#687#1481#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/FFCApiServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="57" lean-forward="true" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-mysql-log-reader/build.gradle">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryOrgDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="62" column="42" selection-start-line="62" selection-start-column="42" selection-end-line="62" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/People.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.6.3/de08a16276a9445999584a6b85757c9a2877a79c/mongo-java-driver-3.6.3-sources.jar!/com/mongodb/BasicDBObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="643">
-          <caret line="119" column="25" selection-start-line="119" selection-start-column="25" selection-end-line="119" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/PersonDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/ItemRenderPerPage.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="25" lean-forward="true" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/HouseDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="35" column="8" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/PersonResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="94" selection-start-line="94" selection-end-line="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/PersonService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/User.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryPersonDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="71" column="19" selection-start-line="71" selection-start-column="15" selection-end-line="71" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryUserDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/UserService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/UserDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="52" column="36" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/BasicAuthFilter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api/dao/mongoTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="79" column="5" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1887">
-          <caret line="131" column="52" selection-start-line="131" selection-start-column="52" selection-end-line="131" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Token.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.41/dc11619be6c45157a142d3753017544896da8e69/kotlin-stdlib-1.2.41-sources.jar!/kotlin/Any.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="47" column="20" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mongodb/mongo-java-driver/3.6.3/de08a16276a9445999584a6b85757c9a2877a79c/mongo-java-driver-3.6.3-sources.jar!/com/mongodb/DBObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryTokenDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="80" column="27" selection-start-line="80" selection-start-column="27" selection-end-line="80" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/TokenMessage.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3078,99 +3085,340 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api/dao/mongoTest.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="87" column="36" lean-forward="true" selection-start-line="87" selection-start-column="36" selection-end-line="87" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="98" column="23" selection-start-line="98" selection-start-column="23" selection-end-line="98" selection-end-column="23" />
+        <state relative-caret-position="714">
+          <caret line="69" column="5" selection-start-line="69" selection-start-column="5" selection-end-line="69" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/OrgService.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="33" column="31" lean-forward="true" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
+        <state relative-caret-position="221">
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/TokenDao.kt">
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/OrgDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryUserDao.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
-          <caret line="29" column="17" lean-forward="true" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Firebase.kt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoUserDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="51" column="19" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/test/java/ffc/airsync/api/Test1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/test/kotlin/ffc/airsync/api/EtcTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/test/java/ffc/airsync/api/EsOrganizationDaoTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="23" column="4" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/InMemoryHouseDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="30" column="38" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/ItemRenderPerPage.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/ErrorFilter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/filter/BasicAuthFilter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="23" column="49" selection-start-line="23" selection-start-column="39" selection-end-line="23" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="28" column="20" selection-start-line="28" selection-start-column="20" selection-end-line="28" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoAbsConnect.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="69" column="65" selection-start-line="69" selection-start-column="65" selection-end-line="69" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.ws.rs/javax.ws.rs-api/2.0.1/a20db7429fd8dfff74335ec867472b71c345049b/javax.ws.rs-api-2.0.1-sources.jar!/javax/ws/rs/InternalServerErrorException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="65" column="57" selection-start-line="65" selection-start-column="57" selection-end-line="65" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.servlet/javax.servlet-api/3.1.0/ab3976d4574c48d22dc1abf6a9e8bd0fdf928223/javax.servlet-api-3.1.0-sources.jar!/javax/servlet/http/HttpServletRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3536">
+          <caret line="267" column="14" selection-start-line="267" selection-start-column="11" selection-end-line="267" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/ActionHouse.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/FirebaseMessage.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Gson.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt">
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Message.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="27" column="35" lean-forward="true" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+        <state relative-caret-position="102">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt">
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/MobileRoutePcu.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="11" column="154" selection-start-line="11" selection-start-column="154" selection-end-line="11" selection-end-column="154" />
-          <folding>
-            <element signature="e#29#263#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="102">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoAbsConnect.kt">
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Organization.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-          <folding>
-            <element signature="e#29#96#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="102">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="58" lean-forward="true" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
-          <folding>
-            <element signature="e#28#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoUserDao.kt">
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/User.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="10" column="112" selection-start-line="10" selection-start-column="112" selection-end-line="10" selection-end-column="112" />
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/ApiFactory.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="26" column="52" lean-forward="true" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/retrofit/RetofitFunctionCallUrl.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="24" column="10" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="75" column="27" selection-start-line="75" selection-start-column="27" selection-end-line="75" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/java/ffc/airsync/client/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/FirebaseEventItem.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/PersonResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="83" column="13" lean-forward="true" selection-start-line="83" selection-start-column="13" selection-end-line="83" selection-end-column="13" />
+          <folding>
+            <element signature="e#689#896#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoPersonDao.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="153" selection-start-line="7" selection-start-column="117" selection-end-line="7" selection-end-column="153" />
+        <state relative-caret-position="288">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt">
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/Config.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="153">
+          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/DaoFactory.kt">
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/SplitUpload.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="29" column="76" lean-forward="true" selection-start-line="29" selection-start-column="76" selection-end-line="29" selection-end-column="76" />
+        <state relative-caret-position="204">
+          <caret line="87" column="33" lean-forward="true" selection-start-line="87" selection-start-column="33" selection-end-line="87" selection-end-column="33" />
+          <folding>
+            <element signature="e#28#99#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/People.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="226" column="14" selection-start-line="226" selection-start-column="14" selection-end-line="226" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Token.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/Const.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="86" column="4" lean-forward="true" selection-start-line="86" selection-start-column="4" selection-end-line="86" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/HouseResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="100" column="23" selection-start-line="100" selection-start-column="19" selection-end-line="100" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/HouseService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="148" lean-forward="true" selection-start-line="148" selection-end-line="148" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/FirebaseToken.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/FirebaseResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/module/FirebaseService.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="13" column="32" lean-forward="true" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/TokenDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoTokenDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="89" column="50" selection-start-line="89" selection-start-column="50" selection-end-line="89" selection-end-column="50" />
+          <folding>
+            <element signature="e#29#263#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3226,7 +3474,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>airsync-client_test|airsync-client</last-edited>
+          <last-edited>ffc-model_main|ffc-model</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

@@ -4,6 +4,7 @@ import ffc.airsync.api.services.module.FirebaseService
 import ffc.model.FirebaseToken
 import ffc.model.printDebug
 import java.util.*
+import javax.annotation.security.RolesAllowed
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.*
 import javax.ws.rs.core.Context
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Response
 @Path("/org")
 class FirebaseResource {
 
+    @RolesAllowed("ORG", "USER")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT

@@ -85,7 +85,11 @@ class MongoTokenDao(host: String, port: Int, databaseName: String, collection: S
     override fun updateFirebaseToken(token: UUID, firebaseToken: String) {
 
         val query = BasicDBObject("token", token.toString())
-        val update = BasicDBObject("firebaseToken", firebaseToken)
+
+        val update = coll.findOne(query)
+        update.put("firebaseToken", firebaseToken)
+
+        //val update = BasicDBObject("firebaseToken", firebaseToken)
         coll.update(query, update)
 
     }
