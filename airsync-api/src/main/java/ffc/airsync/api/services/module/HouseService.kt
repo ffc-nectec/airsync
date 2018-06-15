@@ -36,19 +36,37 @@ object HouseService {
 
     val houseDao = DaoFactory().buildHouseDao()
 
-    fun create(orgId: String, houseList: List<Address>): List<Address> {
-        val org = orgDao.findById(orgId)
+    fun createByOrg(orgId: String, houseList: List<Address>): List<Address> {
 
+        val houseReturn = arrayListOf<Address>()
         houseList.forEach {
-            if (it.hid!! < 0) throw BadRequestException("")
+            val houseUpdate = createByOrg(orgId, it)
+            houseReturn.add(houseUpdate)
         }
 
-        return houseDao.insert(org.uuid, houseList)
+        return houseReturn
     }
 
-    fun create(orgId: String, house: Address): Address {
+    fun createByOrg(orgId: String, house: Address): Address {
         val org = orgDao.findById(orgId)
+        house._sync = true
         if (house.hid!! < 0) throw BadRequestException("")
+        return houseDao.insert(org.uuid, house)
+    }
+
+    fun createByUser(orgId: String, houseList: List<Address>): List<Address> {
+        val houseReturn = arrayListOf<Address>()
+        houseList.forEach {
+            val houseUpdate = createByUser(orgId, it)
+            houseReturn.add(houseUpdate)
+        }
+
+        return houseReturn
+    }
+
+    fun createByUser(orgId: String, house: Address): Address {
+        val org = orgDao.findById(orgId)
+        house._sync = false
         return houseDao.insert(org.uuid, house)
     }
 
@@ -241,7 +259,6 @@ object HouseService {
     }
 
     private fun houseIsChronic(peopleList: List<People>?): Boolean {
-
         if (peopleList == null) return false
         val personChronic = peopleList.find {
             it.chronics != null

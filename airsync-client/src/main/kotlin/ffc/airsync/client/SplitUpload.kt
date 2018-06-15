@@ -69,7 +69,7 @@ object SplitUpload {
 
 
     fun <T> upload(fixSizeCake: Int, list: List<T>, howToSend: HowToSendCake<T>) {
-        val cakePound = cutCake(300, list)
+        val cakePound = cutCake(100, list)
         putCakeOld(cakePound, howToSend)
 
     }
@@ -81,7 +81,7 @@ object SplitUpload {
 
         var i = 1
         table.forEach {
-            Thread(Runnable {
+            val thread = Thread(Runnable {
                 var runNo: Int = 0
 
 
@@ -91,8 +91,10 @@ object SplitUpload {
                 printDebug("\t\t Start upload $runNo")
                 howToSend.send(it)
                 printDebug("\t\t Finish upload $runNo")
-            }).start()
-            Thread.sleep(2000)
+            })
+            thread.start()
+            thread.join()
+            Thread.sleep(1000)
         }
 
     }

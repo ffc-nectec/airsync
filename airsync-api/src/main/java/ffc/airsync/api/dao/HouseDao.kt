@@ -24,7 +24,6 @@ import java.util.*
 
 interface HouseDao {
     fun insert(orgUuid: UUID, house: Address): Address
-    fun insert(orgUuid: UUID, houseList: List<Address>): List<Address>
 
     fun update(house: Address)
     fun update(houseList: List<Address>)

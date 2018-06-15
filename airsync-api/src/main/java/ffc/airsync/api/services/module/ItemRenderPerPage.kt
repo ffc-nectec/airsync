@@ -8,12 +8,10 @@ interface AddItmeAction {
 }
 
 fun itemRenderPerPage(page: Int, per_page: Int, count: Int, onAddItemAction: AddItmeAction) {
-
     printDebug("Item per page page=$page per_page=$per_page count=$count")
 
     val fromItem = ((page - 1) * per_page) + 1
     var toItem = (page) * per_page
-
 
     if (fromItem > count)
         throw NotFoundException("ไม่พบ")
@@ -21,11 +19,8 @@ fun itemRenderPerPage(page: Int, per_page: Int, count: Int, onAddItemAction: Add
         toItem = count
     }
 
-
-
     printDebug("page $page per_page $per_page")
     printDebug("from $fromItem to $toItem")
-
 
     try {
         (fromItem..toItem).forEach {
@@ -35,7 +30,4 @@ fun itemRenderPerPage(page: Int, per_page: Int, count: Int, onAddItemAction: Add
         ex.printStackTrace()
         throw ex
     }
-
-
-
 }

@@ -19,6 +19,7 @@ package ffc.airsync.api.services
 
 import ffc.airsync.api.services.module.HouseService
 import ffc.model.Address
+import ffc.model.TokenMessage
 import ffc.model.printDebug
 import ffc.model.toJson
 import me.piruin.geok.geometry.Feature
@@ -196,7 +197,7 @@ class HouseResource {
     }
 
 
-    @RolesAllowed("ORG")
+    @RolesAllowed("ORG", "USER")
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/houses")
     fun create(@Context req: HttpServletRequest,
@@ -205,6 +206,14 @@ class HouseResource {
         printDebug("\nCall create house by ip = " + req.remoteAddr)
         if (houseList == null) throw BadRequestException()
 
+        if (context == null) {
+            printDebug("\tContext is null")
+        }
+        val role = getTokenRole(context!!)
+        printDebug("\tRole $role")
+
+        printDebug("\t${context!!.userPrincipal}")
+
         houseList.forEach {
             it.people = null
             it.haveChronics = null
@@ -212,12 +221,25 @@ class HouseResource {
         }
 
         val httpHeader = req.buildHeaderMap()
-        val houseReturn = HouseService.create(orgId, houseList)
-        return Response.status(Response.Status.CREATED).entity(houseReturn).build()
+
+
+
+        if (role == TokenMessage.TYPEROLE.ORG) {
+            val houseReturn = HouseService.createByOrg(orgId, houseList)
+            return Response.status(Response.Status.CREATED).entity(houseReturn).build()
+        } else if (role == TokenMessage.TYPEROLE.USER) {
+
+            val houseReturn = HouseService.createByUser(orgId, houseList)
+            return Response.status(Response.Status.CREATED).entity(houseReturn).build()
+
+        }
+        throw ForbiddenException("ไม่มีสิทธ์ ในการสร้างบ้าน")
+
 
     }
 
-    @RolesAllowed("ORG")
+
+    @RolesAllowed("ORG", "USER")
     @POST
     @Path("/{orgId:([\\dabcdefABCDEF].*)}/place/house")
     fun createSingle(@Context req: HttpServletRequest,
@@ -225,14 +247,35 @@ class HouseResource {
                      house: Address?): Response {
         printDebug("\nCall create house by ip = " + req.remoteAddr)
         if (house == null) throw BadRequestException()
+
+
+        if (context == null) {
+            printDebug("\tContext is null")
+        }
+        val role = getTokenRole(context!!)
+        printDebug("\tRole $role")
+
+        printDebug("\t${context!!.userPrincipal}")
+
+
         house.people = null
         house.haveChronics = null
         printDebug("house json = " + house.toJson())
 
+        //val houseReturn = HouseService.createByOrg(orgId, house)
+        //return Response.status(Response.Status.CREATED).entity(house).build()
+
 
         val httpHeader = req.buildHeaderMap()
-        val houseReturn = HouseService.create(orgId, house)
-        return Response.status(Response.Status.CREATED).entity(house).build()
+        if (role == TokenMessage.TYPEROLE.ORG) {
+            val houseReturn = HouseService.createByOrg(orgId, house)
+            return Response.status(Response.Status.CREATED).entity(house).build()
+        } else if (role == TokenMessage.TYPEROLE.USER) {
+            val houseReturn = HouseService.createByUser(orgId, house)
+            return Response.status(Response.Status.CREATED).entity(houseReturn).build()
+        }
+        throw ForbiddenException("ไม่มีสิทธ์ ในการสร้างบ้าน")
+
     }
 
 }

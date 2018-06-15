@@ -43,14 +43,6 @@ class InMemoryHouseDao : HouseDao {
         return house
     }
 
-    override fun insert(orgUuid: UUID, houseList: List<Address>): List<Address> {
-        //have bug _id
-        houseList.forEach {
-            insert(orgUuid, it)
-        }
-        return houseList
-
-    }
 
     override fun findByHouse_Id(orgUuid: UUID, _id: String): StorageOrg<Address>? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

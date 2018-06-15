@@ -64,16 +64,6 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
     }
 
 
-    override fun insert(orgUuid: UUID, houseList: List<Address>): List<Address> {
-        printDebug("MongoHouseDao Insert")
-        val houseReturn = arrayListOf<Address>()
-        houseList.forEach {
-            insert(orgUuid, it)
-            houseReturn.add(it)
-        }
-        return houseReturn
-    }
-
 
     override fun update(house: Address) {
         printDebug("Call MongoHouseDao.upldate ${house.toJson()}")
