@@ -12,7 +12,15 @@ buildscript {
     }
 }
 
+
+
+
 allprojects {
+    task wrapper(type: Wrapper) {
+        gradleVersion = '4.8'
+        distributionUrl = distributionUrl.replace("bin", "all")
+    }
+
     repositories {
         mavenCentral()
         jcenter()
@@ -24,9 +32,6 @@ allprojects {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.8'
-    distributionUrl = distributionUrl.replace("bin", "all")
-}
+
 
 
