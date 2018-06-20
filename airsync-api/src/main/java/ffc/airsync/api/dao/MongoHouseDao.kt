@@ -41,7 +41,7 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
         val objId = ObjectId()
         val shortId = objId.get6DigiId()
         house._id = objId.toHexString()
-        house._shortId = shortId
+        //house._shortId = shortId
 
 
         val doc = BasicDBObject("_id", objId)
@@ -80,7 +80,7 @@ class MongoHouseDao(host: String, port: Int, databaseName: String, collection: S
 
         printDebug("\tcreate update doc")
         val updateDoc = BasicDBObject("_id", ObjectId(house._id))
-          .append("_shortId", house._shortId)
+          //.append("_shortId", house._shortId)
           .append("orgUuid", orgUuid)
           .append("hid", house.hid)
           .append("latitude", house.coordinates?.latitude)

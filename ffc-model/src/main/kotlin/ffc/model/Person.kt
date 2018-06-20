@@ -64,7 +64,7 @@ data class Person(val id: Long = Random().nextLong() * -1) {
 
 
 data class Address(var _id: String = "", var dateUpdate: DateTime = DateTime.now()) {
-    var _shortId: String = ""
+    //var _shortId: String = ""
     var identity: Identity? = null
     var type: Type = Type.House
     var no: String? = null
@@ -90,7 +90,7 @@ data class Address(var _id: String = "", var dateUpdate: DateTime = DateTime.now
 
     fun clone(): Address {
         val cloneObj = Address(this._id, this.dateUpdate)
-        cloneObj._shortId = this._shortId
+        //cloneObj._shortId = this._shortId
         cloneObj.identity = this.identity
         cloneObj.type = this.type
         cloneObj.no = this.no
