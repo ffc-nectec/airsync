@@ -41,6 +41,14 @@ class EsOrgDao : OrgDao {
         organization.token?.let { client.insert("token", "token", it.toString(), organization.toJson()) }
     }
 
+    override fun createFirebase(orgId: String, firebaseToken: String, isOrg: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun removeFirebase(orgId: String, firebaseToken: String, isOrg: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun findById(id: String): Organization {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

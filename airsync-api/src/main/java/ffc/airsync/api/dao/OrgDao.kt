@@ -30,4 +30,10 @@ interface OrgDao {
     fun remove(organization: Organization)
     fun updateToken(organization: Organization): Organization
     fun removeByOrgUuid(orgUUID: UUID)
+
+    fun createFirebase(orgId: String, firebaseToken: String, isOrg: Boolean = true)
+    fun removeFirebase(orgId: String, firebaseToken: String, isOrg: Boolean = true)
+
+
+
 }

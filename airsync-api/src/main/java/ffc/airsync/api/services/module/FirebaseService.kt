@@ -11,7 +11,8 @@ object FirebaseService {
             //val mobile = getOrgByMobileToken(token = token, orgId = orgId)
             //printDebug("Update firebase token mobile $firebaseToken")
             //mobile.data.firebaseToken = firebaseToken.firebasetoken
-            tokenMobile.updateFirebaseToken(token, firebaseToken.firebasetoken)
+            //tokenMobile.updateFirebaseToken(token, firebaseToken.firebasetoken)
+            orgDao.createFirebase(orgId, firebaseToken.firebasetoken, false)
 
 
         } catch (ex: Exception) {

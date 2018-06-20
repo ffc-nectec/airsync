@@ -24,7 +24,13 @@ import java.util.*
 import javax.ws.rs.NotFoundException
 
 class InMemoryOrgDao : OrgDao {
+    override fun createFirebase(orgId: String, firebaseToken: String, isOrg: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override fun removeFirebase(orgId: String, firebaseToken: String, isOrg: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private constructor()
 
