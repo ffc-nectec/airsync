@@ -143,7 +143,6 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
         organization.token = UUID.randomUUID()
         val updateDoc = createDoc(organization, ObjectId(oldDoc.get("_id").toString()))
 
-        coll.update(oldDoc, updateDoc)
 
         return organization
     }
@@ -215,20 +214,4 @@ class MongoOrgDao(host: String, port: Int, databaseName: String, collection: Str
     }
 
 
-    override fun createFirebase(orgId: String, firebaseToken: String, isOrg: Boolean) {
-        val query = BasicDBObject("idOrg", orgId)
-        if (isOrg) {
-            val firebaseToken = BasicDBObject("firebaseToken", firebaseToken)
-            coll.update(query, BasicDBObject("\$set", firebaseToken))
-
-        } else {
-            coll.update(query, BasicDBObject("\$push", BasicDBObject("mobileFirebaseToken", firebaseToken)))
-        }
-
-
-    }
-
-    override fun removeFirebase(orgId: String, firebaseToken: String, isOrg: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }
