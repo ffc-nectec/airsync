@@ -17,45 +17,20 @@
 
 package ffc.airsync.client.module.retrofit
 
-import com.fatboyindustrial.gsonjodatime.LocalDateConverter
-import com.google.gson.GsonBuilder
-import me.piruin.geok.LatLng
-import me.piruin.geok.gson.LatLngSerializer
-import me.piruin.geok.gson.adapterFor
+import ffc.entity.gson.ffcGson
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.time.LocalDate
-import com.fatboyindustrial.gsonjodatime.Converters
-import com.google.gson.Gson
-import ffc.model.Identity
-import ffc.model.IdentityDeserializer
-
 
 class APIClient {
 
-
-
-
-    fun getCient(baseUrl :String): Retrofit? {
-
+    fun getCient(baseUrl: String): Retrofit? {
         val client = OkHttpClient.Builder()
-
-        val jodaGson = Converters.registerAll(GsonBuilder())
-          .adapterFor<LatLng>(LatLngSerializer())
-          .adapterFor<Identity>(IdentityDeserializer())
-
         val retrofit = Retrofit.Builder()
           .baseUrl(baseUrl)
-          .addConverterFactory(GsonConverterFactory.create(jodaGson
-            .create())
-          )
+          .addConverterFactory(GsonConverterFactory.create(ffcGson))
           .client(client.build())
           .build()
-
-
-
-
         return retrofit
     }
 

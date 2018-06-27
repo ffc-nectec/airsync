@@ -17,7 +17,7 @@
 
 package ffc.airsync.client.module
 
-import ffc.model.User
+import ffc.entity.User
 
 interface UserDao {
     fun findAll () : ArrayList<User>

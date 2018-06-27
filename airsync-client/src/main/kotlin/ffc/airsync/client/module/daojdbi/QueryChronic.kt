@@ -17,22 +17,24 @@
 
 package ffc.airsync.client.module.daojdbi
 
-
-import ffc.model.Chronic
+import ffc.entity.Chronic
+import ffc.entity.Link
+import ffc.entity.System
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
-import org.joda.time.LocalDate
+import org.joda.time.DateTime
 import java.sql.ResultSet
 
 interface QueryChronic {
     @SqlQuery("""
-        SELECT personchronic.pcucodeperson,person.hcode,personchronic.chroniccode,personchronic.datedxfirst,personchronic.pid FROM person
+        SELECT personchronic.pcucodeperson,person.hcode,personchronic.chroniccode,personchronic.datedxfirst,personchronic.pid
+        FROM person
             JOIN personchronic
                 ON person.pcucodeperson=personchronic.pcucodeperson
                 AND person.pid=personchronic.pid
-            ORDER BY person.hcode
+        ORDER BY person.hcode
             """)
     @RegisterRowMapper(ChronicMapper::class)
     fun getChronic(): List<Chronic>
@@ -46,16 +48,16 @@ class ChronicMapper : RowMapper<Chronic> {
         if (rs == null) throw ClassNotFoundException()
 
         val hcode = rs.getInt("hcode")
-        val idc10 = rs.getString("chroniccode")
-        val diagDate = rs.getDate("datedxfirst")
         val hospCode = rs.getString("pcucodeperson")
         val pid = rs.getInt("pid")
 
-        val chronic = Chronic(idc10 = idc10, diagDate = LocalDate.fromDateFields(diagDate))
-        chronic.diagHospCode = hospCode
-        chronic.careHospCode = hospCode
-        chronic.houseId = hcode
-        chronic.pid = pid.toLong()
+        val chronic = Chronic(idc10 = rs.getString("chroniccode")).apply {
+            diagDate = DateTime(rs.getDate("datedxfirst"))
+            link = Link(System.JHICS,
+              "hcode" to "$hcode",
+              "pcucodeperson" to hospCode,
+              "pid" to "$pid")
+        }
 
         return chronic
 

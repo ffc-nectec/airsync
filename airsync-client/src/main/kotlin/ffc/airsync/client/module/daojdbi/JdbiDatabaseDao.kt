@@ -17,18 +17,24 @@
 
 package ffc.airsync.client.module.daojdbi
 
-import ffc.model.*
+import ffc.airsync.client.log.printDebug
+import ffc.entity.Chronic
+import ffc.entity.House
+import ffc.entity.Person
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.extension.ExtensionCallback
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import java.sql.Timestamp
-import java.time.LocalDate
 
-
-class JdbiDatabaseDao(val dbHost: String, val dbPort: String, val dbName: String, val dbUsername: String, val dbPassword: String) : DatabaseDao {
-
+class JdbiDatabaseDao(
+    val dbHost: String,
+    val dbPort: String,
+    val dbName: String,
+    val dbUsername: String,
+    val dbPassword: String
+) : DatabaseDao {
 
     override fun getPerson(): List<Person> {
 
@@ -39,17 +45,16 @@ class JdbiDatabaseDao(val dbHost: String, val dbPort: String, val dbName: String
         })
     }
 
-    override fun getHouse(): List<Address> {
+    override fun getHouse(): List<House> {
         val jdbi = createJdbi()
 
-        val resultHouse = jdbi.withExtension<List<Address>, QueryHouse, Exception>(QueryHouse::class.java, ExtensionCallback {
+        val resultHouse = jdbi.withExtension<List<House>, QueryHouse, Exception>(QueryHouse::class.java, ExtensionCallback {
             it.getHouse()
         })
 
-
         var i = 0
         resultHouse.forEach {
-            printDebug("House= " + it.changwat + " XY = " + it.coordinates + ", " + i++)
+            printDebug("HouseXY = " + it.coordinates + ", " + i++)
         }
         return resultHouse
 
@@ -65,8 +70,7 @@ class JdbiDatabaseDao(val dbHost: String, val dbPort: String, val dbName: String
 
     }
 
-
-    override fun upateHouse(house: Address) {
+    override fun upateHouse(house: House) {
 
         val querySql = """
 UPDATE `house`
@@ -88,12 +92,12 @@ WHERE  `pcucode`=? AND `hcode`=?;
             it.execute(querySql,
               house.identity?.id,
               house.road,
-              house.coordinates?.longitude,
-              house.coordinates?.latitude,
+              house.location?.coordinates?.longitude,
+              house.location?.coordinates?.latitude,
               house.no,
               Timestamp(house.dateUpdate.millis),
-              house.pcuCode,
-              house.hid
+              house.link!!.keys["pcuCode"],
+              house.link!!.keys["hid"]
             )
         }
 
@@ -105,14 +109,12 @@ WHERE  `pcucode`=? AND `hcode`=?;
     private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")
 
-
         val ds = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
         ds.setURL("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?autoReconnect=true&useSSL=false")
         ds.databaseName = dbName
         ds.user = dbUsername
         ds.setPassword(dbPassword)
         ds.port = dbPort.toInt()
-
 
         val jdbi = Jdbi.create(ds)
         jdbi.installPlugin(KotlinPlugin())

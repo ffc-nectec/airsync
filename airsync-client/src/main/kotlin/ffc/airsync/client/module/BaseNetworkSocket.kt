@@ -17,8 +17,8 @@
 
 package ffc.airsync.client.module
 
-import ffc.model.printDebug
 //import org.apache.commons.codec.digest.DigestUtils
+import ffc.airsync.client.log.printDebug
 import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.WebSocketAdapter
 

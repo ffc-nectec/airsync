@@ -17,11 +17,13 @@
 
 package ffc.airsync.client.module
 
-import ffc.model.User
-import ffc.model.printDebug
+import ffc.airsync.client.log.printDebug
+import ffc.entity.User
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
+
+const val MYSQL_DRIVER = "com.mysql.jdbc.Driver"
 
 class MySqlUserDao : UserDao {
     override fun findAll(): ArrayList<User> {
@@ -30,48 +32,38 @@ class MySqlUserDao : UserDao {
         val userList = arrayListOf<User>()
 
         try {
-            Class.forName("com.mysql.jdbc.Driver")
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3333/jhcisdb" + "?autoReconnect=true&useSSL=false","root","123456")
+            Class.forName(MYSQL_DRIVER)
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3333/jhcisdb"
+              + "?autoReconnect=true&useSSL=false", "root", "123456")
 
             if (conn != null) {
                 printDebug("Database Connected.")
 
                 var query = "SELECT * FROM `jhcisdb`.`user` LIMIT 1000"
-
                 val st = conn.createStatement()
-
                 val rs = st.executeQuery(query)
 
-                while (rs.next())
-                {
+                while (rs.next()) {
                     val username = rs.getString("username")
                     val password = rs.getString("password")
-                    userList.add(User(username,password))
+                    userList.add(User(username).apply {
+                        this.password = password
+                    })
                     printDebug("User = " + username + " Pass= " + password)
                 }
-
-
-
             } else {
                 printDebug("Database Connect Failed.")
             }
 
         } catch (e: Exception) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace()
         }
-
-
-        // Close
         try {
-            if (conn != null) {
-                conn!!.close()
-            }
+            conn?.close()
         } catch (e: SQLException) {
-            // TODO Auto-generated catch block
             e.printStackTrace()
         }
-        conn?.close()
         return userList
     }
 }

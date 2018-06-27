@@ -17,16 +17,13 @@
 
 package ffc.airsync.client.webservice
 
-
-import com.fatboyindustrial.gsonjodatime.Converters
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import ffc.model.Identity
-import ffc.model.IdentityDeserializer
-import me.piruin.geok.LatLng
-import me.piruin.geok.gson.LatLngSerializer
-import me.piruin.geok.gson.adapterFor
-
+import ffc.entity.gson.ffcGson
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.io.OutputStream
+import java.io.OutputStreamWriter
+import java.lang.reflect.Type
 import javax.ws.rs.Consumes
 import javax.ws.rs.Produces
 import javax.ws.rs.WebApplicationException
@@ -35,24 +32,11 @@ import javax.ws.rs.core.MultivaluedMap
 import javax.ws.rs.ext.MessageBodyReader
 import javax.ws.rs.ext.MessageBodyWriter
 import javax.ws.rs.ext.Provider
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
-import java.io.OutputStream
-import java.io.OutputStreamWriter
-import java.lang.reflect.Type
 
 @Provider
 @Produces(MediaType.APPLICATION_JSON, "application/vnd.geo+json")
 @Consumes(MediaType.APPLICATION_JSON, "application/vnd.geo+json")
 class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
-
-
-    private val gson: Gson
-        get() = Converters.registerAll(GsonBuilder())
-          .adapterFor<LatLng>(LatLngSerializer())
-          .adapterFor<Identity>(IdentityDeserializer())
-          .create()
 
     override fun isReadable(type: Class<*>?, genericType: Type?, annotations: Array<out Annotation>?, mediaType: MediaType?): Boolean {
         return true
@@ -63,7 +47,7 @@ class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
                           annotations: Array<Annotation>, mediaType: MediaType,
                           httpHeaders: MultivaluedMap<String, String>, entityStream: InputStream): Any? {
         try {
-            InputStreamReader(entityStream, UTF_8).use { streamReader -> return gson.fromJson<Any>(streamReader, genericType) }
+            InputStreamReader(entityStream, UTF_8).use { streamReader -> return ffcGson.fromJson<Any>(streamReader, genericType) }
         } catch (e: com.google.gson.JsonSyntaxException) {
             // Log exception
         }
@@ -86,7 +70,7 @@ class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
                          annotations: Array<Annotation>, mediaType: MediaType,
                          httpHeaders: MultivaluedMap<String, Any>,
                          entityStream: OutputStream) {
-        OutputStreamWriter(entityStream, UTF_8).use { writer -> gson.toJson(`object`, genericType, writer) }
+        OutputStreamWriter(entityStream, UTF_8).use { writer -> ffcGson.toJson(`object`, genericType, writer) }
     }
 
     companion object {

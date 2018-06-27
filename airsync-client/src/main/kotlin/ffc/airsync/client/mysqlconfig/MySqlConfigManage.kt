@@ -10,7 +10,6 @@ class MySqlConfigManage {
         val bufferedReader : BufferedReader = BufferedReader(FileReader(File(logfilepath)))
 
         var line :String?
-        var i :Int = 0
 
         line=bufferedReader.readLine()
         while (line != null){

@@ -17,15 +17,18 @@
 
 package ffc.airsync.client
 
+import com.google.firebase.auth.FirebaseToken
+import ffc.airsync.client.log.printDebug
 import ffc.airsync.client.module.ApiFactory
 import ffc.airsync.client.module.daojdbi.DatabaseDao
 import ffc.airsync.client.module.daojdbi.JdbiDatabaseDao
-import ffc.model.*
-import java.util.*
 import ffc.airsync.client.webservice.FFCApiClient
 import ffc.airsync.client.webservice.module.FirebaseMessage
-import kotlin.collections.ArrayList
-
+import ffc.entity.Chronic
+import ffc.entity.Link
+import ffc.entity.Organization
+import ffc.entity.Person
+import ffc.entity.System
 
 class MainContraller {
 
@@ -33,7 +36,16 @@ class MainContraller {
         val messageCentral: CentralMessageManage = CentralMessageMaorgUpdatenageV1()
     }
 
-    fun main(dbHost: String, dbPort: String, dbName: String, dbUsername: String, dbPassword: String, orgUuid: String, orgName: String, orgCode: String) {
+    fun main(
+        dbHost: String,
+        dbPort: String,
+        dbName: String,
+        dbUsername: String,
+        dbPassword: String,
+        orgId: String,
+        orgName: String,
+        orgCode: String
+    ) {
 
 
         //get config
@@ -45,12 +57,15 @@ class MainContraller {
         //register central
         //messageCentral = CentralMessageMaorgUpdatenageV1()
 
-        var org = Organization(uuid = UUID.fromString(orgUuid), id = "-1", pcuCode = orgCode, name = orgName)
+        var org = Organization(orgId).apply {
+            link = Link(System.JHICS, "pcucode" to orgCode)
+            name = orgName
+        }
         org = messageCentral.registerOrganization(org, Config.baseUrlRest)
 
         //put user
         val userList = ApiFactory().buildUserDao().findAll()
-        printDebug("Add put username org = " + org.token)
+        printDebug("Add put username org = " + org.link!!.keys["pcucode"])
         messageCentral.putUser(userList, org)
 
 
@@ -107,14 +122,10 @@ class MainContraller {
 
     private fun insertChronic(listPerson: List<Person>, listChronic: List<Chronic>): List<Person> {
 
-        listPerson.forEach {
-            val person = it
-            val chronicList = listChronic.filter { it.pid == person.pid }
+        listPerson.forEach { person ->
+            val chronicList = listChronic.filter { it.link!!.keys["pid"] == person.link!!.keys["pid"] }
 
-            chronicList.forEach {
-                if (person.chronics == null) person.chronics = arrayListOf()
-                person.chronics?.add(it)
-            }
+            chronicList.forEach { person.chronics.add(it) }
         }
 
         return listPerson

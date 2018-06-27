@@ -1,10 +1,8 @@
 package ffc.airsync.client
 
-import ffc.airsync.client.module.ApiFactory
-import ffc.model.printDebug
+import ffc.airsync.client.log.printDebug
 
 object SplitUpload {
-
 
     interface HowToSendCake<T> {
         fun send(cakePlate: ArrayList<T>)
@@ -17,19 +15,15 @@ object SplitUpload {
 
     fun <T> sendCake(volumeOfSend: Int, table: ArrayList<ArrayList<T>>, howToSend: HowToSendCake<T>, statusCallbackSendCake: StatusSendCake = object : StatusSendCake {}) {
 
-
         var slotSend = 0
         var stackSlot = 0
         val size = table.size
 
         for (createSlot in 0..size) {
 
-
             synchronized(slotSend) {
-
                 if (slotSend < volumeOfSend) {
                     slotSend++
-
 
                     Thread(Runnable {
 
