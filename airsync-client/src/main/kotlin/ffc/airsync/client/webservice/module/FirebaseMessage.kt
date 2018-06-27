@@ -1,6 +1,7 @@
 package ffc.airsync.client.webservice.module
 
-import ffc.model.FirebaseToken
+import ffc.entity.Messaging
+import ffc.entity.firebase.FirebaseToken
 
 class FirebaseMessage {
 
@@ -20,15 +21,13 @@ class FirebaseMessage {
 
     companion object {
         val instant = FirebaseMessage()
-
-
     }
 
     fun updateToken(firebaseToken: FirebaseToken) {
         onUpdateListener?.onUpdate(firebaseToken)
     }
 
-    fun updateHouse(data: ffc.model.FirebaseMessage.Data) {
+    fun updateHouse(data: Messaging) {
         onUpdateHouseListener?.onUpdate(data._id)
     }
 }

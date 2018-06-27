@@ -17,66 +17,73 @@
 
 package ffc.airsync.client.module.retrofit
 
-import ffc.model.*
+import ffc.entity.Chronic
+import ffc.entity.House
+import ffc.entity.Organization
+import ffc.entity.Person
+import ffc.entity.User
+import ffc.entity.firebase.FirebaseToken
 import retrofit2.Call
-import retrofit2.http.*
-import java.util.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface RetofitFunctionCallUrl {
 
-
     @POST("/v0/org")
-    fun regisOrg(@Body body: Organization)
-      : Call<Organization>
-
+    fun regisOrg(@Body body: Organization): Call<Organization>
 
     @POST("/v0/org/{orgId}/user")
-    fun regisUser(@Path("orgId") orgId: String,
-                  @Header("Authorization") authkey: String,
-                  @Body user: List<User>)
-      : Call<Void>
-
+    fun regisUser(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body user: List<User>
+    ): Call<Void>
 
     @POST("/v0/org/{orgId}/place/houses")
-    fun createHouse(@Path("orgId") orgId: String,
-                    @Header("Authorization") authkey: String,
-                    @Body houseList: List<Address>)
-      : Call<Void>
-
+    fun createHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body houseList: List<House>
+    ): Call<Void>
 
     @POST("/v0/org/{orgId}/person")
-    fun createPerson(@Path("orgId") orgId: String,
-                     @Header("Authorization") authkey: String,
-                     @Body personList: List<Person>)
-      : Call<Void>
-
+    fun createPerson(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body personList: List<Person>
+    ): Call<Void>
 
     @POST("/v0/org/{orgId}/chronic/base")
-    fun createChronic(@Path("orgId") orgId: String,
-                      @Header("Authorization") authkey: String,
-                      @Body chronicList: List<Chronic>): Call<Void>
-
+    fun createChronic(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body chronicList: List<Chronic>
+    ): Call<Void>
 
     @GET("/v0/org/{orgId}/place/house/{house_id}")
-    fun getHouse(@Path("orgId") orgId: String,
-                 @Header("Authorization") authkey: String,
-                 @Path("house_id") _id: String)
-      : Call<Address>
-
+    fun getHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("house_id") _id: String
+    ): Call<House>
 
     @PUT("/v0/org/{orgId}/place/house/{house_id}")
-    fun putHouse(@Path("orgId") orgId: String,
-                 @Header("Authorization") authkey: String,
-                 @Path("house_id") _id: String,
-                 @Body house: Address)
-      : Call<Void>
+    fun putHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("house_id") _id: String,
+        @Body house: House
+    ): Call<Void>
 
-
-    @POST("/v0/org/{orgId}/firebasetoken")
-    fun createFirebaseToken(@Path("orgId") orgId: String,
-                            @Header("Authorization") authkey: String,
-                            @Body firebaseToken: FirebaseToken)
-      : Call<Void>
-
+    @PUT("/v0/org/{orgId}/firebase")
+    fun createFirebaseToken(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body firebaseToken: FirebaseToken
+    ): Call<Void>
 
 }

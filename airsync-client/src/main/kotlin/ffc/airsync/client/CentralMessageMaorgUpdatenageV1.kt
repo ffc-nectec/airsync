@@ -17,16 +17,26 @@
 
 package ffc.airsync.client
 
+import ffc.airsync.client.log.printDebug
 import ffc.airsync.client.module.ApiFactory
 import ffc.airsync.client.module.daojdbi.DatabaseDao
-import ffc.model.*
-import java.util.*
+import ffc.entity.Chronic
+import ffc.entity.House
+import ffc.entity.Organization
+import ffc.entity.Person
+import ffc.entity.User
+import ffc.entity.firebase.FirebaseToken
 import javax.ws.rs.NotFoundException
-import kotlin.collections.ArrayList
 
-
+//TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
 class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
+    override fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization) {
+        restService!!.createFirebaseToken(orgId = org.id,
+          authkey = "Bearer " + org.token!!,
+          firebaseToken = firebaseToken
+        ).execute()
+    }
 
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
 
@@ -42,42 +52,25 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw NotFoundException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house._id} house No. ${house.no}")
-        if (house._sync) return
+        if (house.link) return
 
         databaseDao.upateHouse(house)
         printDebug("\tUpdate house to database and sync = true")
-        house._sync = true
+        house.link?.isSynced = true
 
 
         printDebug("\tPut new house to cloud")
         restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id, house = house).execute()
-
     }
 
 
     override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
         restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token!!).execute()
-
-
     }
 
-    override fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization) {
-        printDebug("PutFirebase Token to Server")
-        printDebug("\torgId ${org.id} orgToken ${org.token}")
-        restService!!.createFirebaseToken(orgId = org.id,
-          authkey = "Bearer " + org.token!!,
-          firebaseToken = firebaseToken
-        ).execute()
-    }
-
-    override fun putHouse(houseList: List<Address>, org: Organization) {
-
-        //houseList.forEach { printDebug(it) }
-
-        //restService!!.createHouse(orgId = org.id, authkey = "Bearer " + org.token!!,houseList = houseList).execute()
-
-        SplitUpload.upload(300, houseList, object : SplitUpload.HowToSendCake<Address> {
-            override fun send(cakePlate: ArrayList<Address>) {
+    override fun putHouse(houseList: List<House>, org: Organization) {
+        SplitUpload.upload(300, houseList, object : SplitUpload.HowToSendCake<House> {
+            override fun send(cakePlate: ArrayList<House>) {
                 restService!!.createHouse(orgId = org.id,
                   authkey = "Bearer " + org.token!!,
                   houseList = cakePlate).execute()

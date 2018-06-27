@@ -17,17 +17,18 @@
 
 package ffc.airsync.client.webservice.webresources
 
-
-import ffc.model.FirebaseMessage
-import ffc.model.FirebaseToken
-import ffc.model.fromJson
-import ffc.model.printDebug
+import ffc.airsync.client.log.printDebug
+import ffc.entity.firebase.FirebaseToken
+import ffc.entity.firebase.Payload
+import ffc.entity.gson.parseTo
 import javax.servlet.http.HttpServletRequest
-import javax.ws.rs.*
+import javax.ws.rs.Consumes
+import javax.ws.rs.POST
+import javax.ws.rs.Path
+import javax.ws.rs.Produces
 import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
-
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -40,9 +41,8 @@ class FirebaseResource {
                             token: String): Response {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("Firebase token $token")
-        val firebaseToken: FirebaseToken = token.fromJson()
-        printDebug("Firebase token= $firebaseToken")
-
+        val firebaseToken = token.parseTo<FirebaseToken>()
+        printDebug("Firebase token = $firebaseToken")
 
         val fbm = ffc.airsync.client.webservice.module.FirebaseMessage.instant
 
@@ -62,18 +62,14 @@ class FirebaseResource {
                             message: String): Response {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("\tFirebase message data $message")
-        val event: FirebaseMessage = message.fromJson()
+        val event = message.parseTo<Payload>()
         printDebug("\t\tID = ${event.message.data._id} Type = ${event.message.data.type} Url = ${event.message.data.url}")
         val data = event.message.data
         val fbm = ffc.airsync.client.webservice.module.FirebaseMessage.instant
 
-
-
-        if (data.type == FirebaseMessage.Type.House)
+        if (data.type == "House")
             fbm.updateHouse(data)
 
-
         return Response.status(Response.Status.CREATED).build()
-
     }
 }

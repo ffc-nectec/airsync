@@ -17,16 +17,10 @@
 
 package ffc.airsync.client.module.daojdbi
 
-import com.fatboyindustrial.gsonjodatime.Converters
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import ffc.model.Identity
-import ffc.model.IdentityDeserializer
-import ffc.model.Person
-import ffc.model.ThaiCitizenId
-import me.piruin.geok.LatLng
-import me.piruin.geok.gson.LatLngSerializer
-import me.piruin.geok.gson.adapterFor
+import ffc.entity.Link
+import ffc.entity.Person
+import ffc.entity.System
+import ffc.entity.ThaiCitizenId
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -53,35 +47,20 @@ interface QueryPerson {
 
 class PersonMapper : RowMapper<Person> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
-
         if (rs == null) throw ClassNotFoundException()
-
-        val citizenId = rs.getString("idcard")
-        val firstname = rs.getString("fname")
-        val lastname = rs.getString("lname")
-        val hospCode = rs.getString("pcucodeperson")
-        val pid=rs.getInt("pid")
-        val prename=rs.getString("titlename")
-        val houseId = rs.getInt("hcode")
-        val birth=rs.getDate("birth")
         val statusLive=rs.getString("dischargetype")
-
-
-        val person = Person()
-        person.firstname=firstname
-        person.lastname=lastname
-        person.hospCode=hospCode
-        person.prename=prename
-
-        person.houseId = houseId
-
-        person.identities.add(ThaiCitizenId(citizenId))
-
-        person.birthData = LocalDate.fromDateFields(birth)
-        person.pid=pid.toLong()
-
-
-
+        val person = Person().update<Person> {
+            identities.add(ThaiCitizenId(rs.getString("idcard")))
+            firstname = rs.getString("fname")
+            lastname = rs.getString("lname")
+            prename = rs.getString("titlename")
+            birthDate = LocalDate.fromDateFields(rs.getDate("birth"))
+            link = Link(System.JHICS,
+              "pcucodeperson" to rs.getString("pcucodeperson"),
+              "pid" to rs.getString("pid"),
+              "hcode" to rs.getString("hcode")
+            )
+        }
         return person
 
     }

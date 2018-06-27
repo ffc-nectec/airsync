@@ -17,13 +17,17 @@
 
 package ffc.airsync.client.module.daojdbi
 
-import ffc.model.*
+import ffc.entity.Chronic
+import ffc.entity.House
+import ffc.entity.Person
 
 interface DatabaseDao {
+
     fun getPerson(): List<Person>
-    fun getHouse(): List<Address>
+
+    fun getHouse(): List<House>
+
     fun getChronic(): List<Chronic>
 
-    fun upateHouse(house: Address)
-
+    fun upateHouse(house: House)
 }

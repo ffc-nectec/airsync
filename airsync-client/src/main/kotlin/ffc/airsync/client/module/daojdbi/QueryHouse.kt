@@ -17,11 +17,13 @@
 
 package ffc.airsync.client.module.daojdbi
 
-import ffc.model.Address
-import ffc.model.ThaiHouseholdId
-import ffc.model.printDebug
-import ffc.model.toJson
-import me.piruin.geok.LatLng
+import ffc.airsync.client.log.printDebug
+import ffc.entity.House
+import ffc.entity.Link
+import ffc.entity.System
+import ffc.entity.ThaiHouseholdId
+import ffc.entity.gson.toJson
+import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -29,9 +31,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.joda.time.DateTime
 import java.sql.ResultSet
 
-
 interface QueryHouse {
-
 
     @SqlQuery("""
 SELECT house.pcucode,
@@ -45,51 +45,32 @@ SELECT house.pcucode,
 FROM house
 """)
     @RegisterRowMapper(HouseMapper::class)
-    fun getHouse(): List<Address>
+    fun getHouse(): List<House>
 
 
 }
 
-
-class HouseMapper : RowMapper<Address> {
+class HouseMapper : RowMapper<House> {
 
     companion object {
         var countId = 0
     }
 
-    override fun map(rs: ResultSet, ctx: StatementContext?): Address {
-
-
-        val hid = rs.getInt("hcode")
-        var houseId = rs.getString("hid")
-        val road = rs.getString("road")
-        val xgis = rs.getDouble("xgis")
-        val ygis = rs.getDouble("ygis")
-        val no = rs.getString("hno")
-        val pcuCode = rs.getString("pcucode")
-        val dateupdate = rs.getTimestamp("dateupdate")
-
-        val house = Address(dateUpdate = DateTime(dateupdate))
-
-        house.no = no
-        house.road = road
-        house.pcuCode = pcuCode
-        house._sync = true
-
-        if (houseId == null) {
-            houseId = "0"
+    override fun map(rs: ResultSet, ctx: StatementContext?): House {
+        val timestamp = DateTime(rs.getTimestamp("dateupdate"))
+        val house = House().update<House>(timestamp) {
+            rs.getString("hid")?.let { identity = ThaiHouseholdId(it) }
+            no = rs.getString("hno")
+            road = rs.getString("road")
+            location = Point(
+              rs.getDouble("ygis"),
+              rs.getDouble("xgis")
+            )
+            link = Link(System.JHICS,
+              "hcode" to rs.getString("hcode"),
+              "pcuCode" to rs.getString("pcucode")
+            )
         }
-        house.identity = ThaiHouseholdId(houseId)
-
-        house.hid = hid
-
-
-        //if (xgis != 0.0 && ygis != 0.0)
-        if (ygis < xgis)
-            house.coordinates = LatLng(ygis, xgis)
-        else
-            house.coordinates = LatLng(xgis, ygis)
-
         printDebug("Read house database" + house.toJson())
         return house
 

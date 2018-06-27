@@ -17,13 +17,11 @@
 
 package ffc.airsync.client;
 
-import ffc.airsync.client.MainContraller;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
 public class Main {
-
 
     protected static final String HOSTNAMEDB = "127.0.0.1";
     protected static final String HOSTPORTDB = "3333";

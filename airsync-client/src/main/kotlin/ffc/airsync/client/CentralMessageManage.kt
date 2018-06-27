@@ -18,15 +18,19 @@
 package ffc.airsync.client
 
 import ffc.airsync.client.module.daojdbi.DatabaseDao
-import ffc.model.*
-import java.util.*
+import ffc.entity.Chronic
+import ffc.entity.House
+import ffc.entity.Organization
+import ffc.entity.Person
+import ffc.entity.User
+import ffc.entity.firebase.FirebaseToken
 
 interface CentralMessageManage {
     fun registerOrganization(organization: Organization, url: String): Organization
 
     fun putUser(userInfoList: ArrayList<User>, org: Organization)
 
-    fun putHouse(houseList: List<Address>, org: Organization)
+    fun putHouse(houseList: List<House>, org: Organization)
 
     fun putPerson(personList: List<Person>, org: Organization)
 
