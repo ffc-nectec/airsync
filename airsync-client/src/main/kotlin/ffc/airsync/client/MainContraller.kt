@@ -17,7 +17,6 @@
 
 package ffc.airsync.client
 
-import com.google.firebase.auth.FirebaseToken
 import ffc.airsync.client.log.printDebug
 import ffc.airsync.client.module.ApiFactory
 import ffc.airsync.client.module.daojdbi.DatabaseDao
@@ -27,6 +26,7 @@ import ffc.entity.Chronic
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.firebase.FirebaseToken
 
 class MainContraller(val org: Organization, val databaseDao: DatabaseDao) {
 

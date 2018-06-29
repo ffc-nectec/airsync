@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4fa6fbd-4f53-4048-b0b2-85f21e64b585" name="Default" comment="Refactor Jdbi query by">
+    <list default="true" id="f4fa6fbd-4f53-4048-b0b2-85f21e64b585" name="Default" comment="Just fix comi">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
       <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt" />
-      <change beforePath="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/JdbiDatabaseDaoTest.kt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/MySqlConfigManageTest.kt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/MySqlTest.kt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/RegisterPcuToCentralTest.kt" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -76,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CentralMessageMaorgUpdatenageV1.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CentralMessageMaorgUpdatenageV1.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2404">
-              <caret line="37" column="43" lean-forward="false" selection-start-line="37" selection-start-column="43" selection-end-line="37" selection-end-column="43" />
+            <state relative-caret-position="-270">
+              <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -128,11 +124,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySqlUserDao.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MySqlUserDao.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/MySqlUserDao.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+            <state relative-caret-position="330">
+              <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
               <folding>
                 <marker date="1530091117086" expanded="true" signature="1378:1419" ph="SELECT * FRO... user" />
               </folding>
@@ -1598,9 +1594,9 @@
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryChronic.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/JdbiDatabaseDao.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/MySqlTest.kt" />
-        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/JdbiDatabaseDaoTest.kt" />
+        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
       </list>
     </option>
   </component>
@@ -2026,7 +2022,7 @@
       <workItem from="1529912107556" duration="1877000" />
       <workItem from="1529916501824" duration="7655000" />
       <workItem from="1530067174836" duration="5997000" />
-      <workItem from="1530243762655" duration="9642000" />
+      <workItem from="1530243762655" duration="9701000" />
     </task>
     <task id="LOCAL-00001" summary="remove ffc-model">
       <created>1529913754513</created>
@@ -2084,11 +2080,18 @@
       <option name="project" value="LOCAL" />
       <updated>1530263662053</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="No need test">
+      <created>1530264018081</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1530264018081</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26974000" />
+    <option name="totallyTimeSpent" value="27033000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2177,7 +2180,8 @@
     <MESSAGE value="Refactor Main Class" />
     <MESSAGE value="Refactor Jdbi query by extension" />
     <MESSAGE value="Remove BaseNetworkSocket" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove BaseNetworkSocket" />
+    <MESSAGE value="No need test" />
+    <option name="LAST_COMMIT_MESSAGE" value="No need test" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2538,14 +2542,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2404">
-          <caret line="37" column="43" lean-forward="false" selection-start-line="37" selection-start-column="43" selection-end-line="37" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-admin/5.11.0/54cdcdb6b5a27652ca9035582eb5a32df240b301/firebase-admin-5.11.0-sources.jar!/com/google/firebase/auth/FirebaseToken.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -2582,11 +2578,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/MySqlUserDao.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="33" column="13" lean-forward="true" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
+        <state relative-caret-position="330">
+          <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
           <folding>
             <marker date="1530091117086" expanded="true" signature="1378:1419" ph="SELECT * FRO... user" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-270">
+          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
