@@ -31,6 +31,10 @@ import javax.ws.rs.NotFoundException
 //TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
 class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
+    //TODO remove
+    val Organization.token
+        get() = "9293hdjw9kxhs"
+
     override fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization) {
         restService!!.createFirebaseToken(orgId = org.id,
           authkey = "Bearer " + org.token!!,
@@ -51,8 +55,8 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         val data = restService!!.getHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw NotFoundException("ไม่มี เลขบ้าน getHouse")
-        printDebug("\t From house cloud _id = ${house._id} house No. ${house.no}")
-        if (house.link) return
+        printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")
+        if (house.link?.isSynced == true) return
 
         databaseDao.upateHouse(house)
         printDebug("\tUpdate house to database and sync = true")
