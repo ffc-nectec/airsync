@@ -63,7 +63,7 @@ dependencies {
     implementation "mysql:mysql-connector-java:5.1.38"
     implementation "me.piruin:geok-gson:1.0.0-alpha"
     implementation "commons-codec:commons-codec:1.9"
-    implementation "com.github.ffc-nectec:entities:patch-SNAPSHOT"
+    implementation "com.github.ffc-nectec:entities:1.0.0-alpha2"
 
     testImplementation "junit:junit:4.12"
 }
