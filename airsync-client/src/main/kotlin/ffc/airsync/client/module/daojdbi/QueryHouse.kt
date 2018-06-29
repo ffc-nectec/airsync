@@ -46,15 +46,9 @@ FROM house
 """)
     @RegisterRowMapper(HouseMapper::class)
     fun getHouse(): List<House>
-
-
 }
 
 class HouseMapper : RowMapper<House> {
-
-    companion object {
-        var countId = 0
-    }
 
     override fun map(rs: ResultSet, ctx: StatementContext?): House {
         val timestamp = DateTime(rs.getTimestamp("dateupdate"))
@@ -73,7 +67,6 @@ class HouseMapper : RowMapper<House> {
         }
         printDebug("Read house database" + house.toJson())
         return house
-
     }
 }
 

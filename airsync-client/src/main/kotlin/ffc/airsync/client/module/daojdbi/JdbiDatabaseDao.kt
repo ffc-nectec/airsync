@@ -22,7 +22,6 @@ import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Person
 import org.jdbi.v3.core.Jdbi
-import org.jdbi.v3.core.extension.ExtensionCallback
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
@@ -37,38 +36,18 @@ class JdbiDatabaseDao(
 ) : DatabaseDao {
 
     override fun getPerson(): List<Person> {
-
-        val jdbi = createJdbi()
-
-        return jdbi.withExtension<List<Person>, QueryPerson, Exception>(QueryPerson::class.java, ExtensionCallback {
-            it.getPerson()
-        })
+        return createJdbi().extension<QueryPerson, List<Person>> { getPerson() }
     }
 
     override fun getHouse(): List<House> {
-        val jdbi = createJdbi()
-
-        val resultHouse = jdbi.withExtension<List<House>, QueryHouse, Exception>(QueryHouse::class.java, ExtensionCallback {
-            it.getHouse()
-        })
-
-        var i = 0
-        resultHouse.forEach {
-            printDebug("HouseXY = " + it.coordinates + ", " + i++)
+        val houses = createJdbi().extension<QueryHouse, List<House>> { getHouse() }
+        houses.forEachIndexed { index, house ->
+            printDebug("HouseXY = " + house.location + ", " + index)
         }
-        return resultHouse
-
+        return houses
     }
 
-    override fun getChronic(): List<Chronic> {
-        val jdbi = createJdbi()
-        val resultChronic = jdbi.withExtension<List<Chronic>, QueryChronic, Exception>(QueryChronic::class.java, ExtensionCallback {
-            it.getChronic()
-        })
-
-        return resultChronic
-
-    }
+    override fun getChronic(): List<Chronic> = createJdbi().extension<QueryChronic, List<Chronic>> { getChronic() }
 
     override fun upateHouse(house: House) {
 
@@ -84,26 +63,22 @@ UPDATE `house`
 WHERE  `pcucode`=? AND `hcode`=?;
     """
 
-
         printDebug("upateHouse")
-        printDebug("\tGet value ${house.dateUpdate.toDateTime().toString()}")
+        printDebug("\tGet value ${house.timestamp}")
         val jdbi = createJdbi()
         jdbi.withHandle<Any, Exception> {
             it.execute(querySql,
-              house.identity?.id,
-              house.road,
-              house.location?.coordinates?.longitude,
-              house.location?.coordinates?.latitude,
-              house.no,
-              Timestamp(house.dateUpdate.millis),
-              house.link!!.keys["pcuCode"],
-              house.link!!.keys["hid"]
+                    house.identity?.id,
+                    house.no,
+                    house.road,
+                    house.location?.coordinates?.longitude,
+                    house.location?.coordinates?.latitude,
+                    Timestamp(house.timestamp.millis),
+                    house.link!!.keys["pcucode"],
+                    house.link!!.keys["hid"]
             )
         }
-
-
         printDebug("\tFinish upateHouse")
-
     }
 
     private fun createJdbi(): Jdbi {
@@ -120,9 +95,7 @@ WHERE  `pcucode`=? AND `hcode`=?;
         jdbi.installPlugin(KotlinPlugin())
         jdbi.installPlugin(SqlObjectPlugin())
         jdbi.installPlugin(KotlinSqlObjectPlugin())
-
         return jdbi
-
     }
 }
 

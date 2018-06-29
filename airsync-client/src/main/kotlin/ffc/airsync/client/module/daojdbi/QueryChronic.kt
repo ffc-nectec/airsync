@@ -24,7 +24,7 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
-import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import java.sql.ResultSet
 
 interface QueryChronic {
@@ -52,7 +52,7 @@ class ChronicMapper : RowMapper<Chronic> {
         val pid = rs.getInt("pid")
 
         val chronic = Chronic(idc10 = rs.getString("chroniccode")).apply {
-            diagDate = DateTime(rs.getDate("datedxfirst"))
+            diagDate = LocalDate.fromDateFields(rs.getDate("datedxfirst"))
             link = Link(System.JHICS,
               "hcode" to "$hcode",
               "pcucodeperson" to hospCode,

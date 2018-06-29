@@ -44,7 +44,6 @@ interface QueryPerson {
     fun getPerson() :List<Person>
 }
 
-
 class PersonMapper : RowMapper<Person> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
         if (rs == null) throw ClassNotFoundException()
