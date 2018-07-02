@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4fa6fbd-4f53-4048-b0b2-85f21e64b585" name="Default" comment="Just fix comi">
+    <list default="true" id="f4fa6fbd-4f53-4048-b0b2-85f21e64b585" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
-      <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoHouseDao.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/dao/MongoOrgDao.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/mysqlconfig/MySqlConfigManage.kt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/ServletContextBuilder.java" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/ServletContextBuilder.java" />
+      <change beforePath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/webresources/FirebaseResource.kt" afterPath="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/webresources/FirebaseResource.kt" />
+      <change beforePath="$PROJECT_DIR$/ffc-model/src/main/kotlin/ffc/model/Person.kt" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -62,85 +66,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="RetofitFunctionCallUrl.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/retrofit/RetofitFunctionCallUrl.kt">
+      <file leaf-file-name="QueryHouse.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryHouse.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-995">
-              <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
+            <state relative-caret-position="1227">
+              <caret line="68" column="20" lean-forward="false" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CentralMessageMaorgUpdatenageV1.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
+      <file leaf-file-name="QueryChronic.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryChronic.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-270">
-              <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+            <state relative-caret-position="1110">
+              <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainContraller.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt">
+      <file leaf-file-name="JdbiDatabaseDao.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/JdbiDatabaseDao.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="986">
-              <caret line="65" column="49" lean-forward="false" selection-start-line="65" selection-start-column="49" selection-end-line="65" selection-end-column="49" />
-              <folding>
-                <element signature="e#689#1082#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FirebaseToken.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-admin/5.11.0/54cdcdb6b5a27652ca9035582eb5a32df240b301/firebase-admin-5.11.0-sources.jar!/com/google/firebase/auth/FirebaseToken.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="30" column="19" lean-forward="false" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+            <state relative-caret-position="780">
+              <caret line="61" column="17" lean-forward="true" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ApiFactory.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/ApiFactory.kt">
+      <file leaf-file-name="Jdbi.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/Jdbi.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="22" column="6" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+            <state relative-caret-position="210">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserDao.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/UserDao.kt">
+      <file leaf-file-name="DatabaseDao.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/DatabaseDao.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+            <state relative-caret-position="360">
+              <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySqlUserDao.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/MySqlUserDao.kt">
+      <file leaf-file-name="debug.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/log/debug.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
-              <folding>
-                <marker date="1530091117086" expanded="true" signature="1378:1419" ph="SELECT * FRO... user" />
-              </folding>
+            <state relative-caret-position="240">
+              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MySqlConfigManage.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/mysqlconfig/MySqlConfigManage.kt">
+      <file leaf-file-name="FirebaseResource.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/webresources/FirebaseResource.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+            <state relative-caret-position="357">
+              <caret line="42" column="27" lean-forward="false" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FirebaseMessage.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/module/FirebaseMessage.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="750">
+              <caret line="26" column="49" lean-forward="true" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServletContextBuilder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/ServletContextBuilder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gradle-wrapper.properties" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="150">
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1546,8 +1566,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/airsync-api/src/main/java/ffc/airsync/api/services/OrgResource.kt" />
-        <option value="$PROJECT_DIR$/ffc-model/build.gradle" />
         <option value="$PROJECT_DIR$/airsync-client/build.gradle" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/settings.gradle" />
@@ -1597,6 +1615,8 @@
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/JdbiDatabaseDaoTest.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
+        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/ServletContextBuilder.java" />
+        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/webresources/FirebaseResource.kt" />
       </list>
     </option>
   </component>
@@ -1644,85 +1664,19 @@
               <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
               <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="airsync-mysql-log-reader" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
               <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="airsync-mysql-log-reader" type="462c0819:PsiDirectoryNode" />
+              <item name="out" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
               <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
-              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
-              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
-              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="log" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
-              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
-              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="kotlin" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="module" type="462c0819:PsiDirectoryNode" />
-              <item name="retrofit" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
-              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
-              <item name="airsync" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="airsync-client" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="airsync-mysql-log-reader" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
               <item name="FFC-AirSync" type="b2602c69:ProjectViewProjectNode" />
@@ -1817,8 +1771,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
@@ -2022,7 +1976,7 @@
       <workItem from="1529912107556" duration="1877000" />
       <workItem from="1529916501824" duration="7655000" />
       <workItem from="1530067174836" duration="5997000" />
-      <workItem from="1530243762655" duration="9701000" />
+      <workItem from="1530243762655" duration="12626000" />
     </task>
     <task id="LOCAL-00001" summary="remove ffc-model">
       <created>1529913754513</created>
@@ -2087,11 +2041,18 @@
       <option name="project" value="LOCAL" />
       <updated>1530264018081</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Just fix compile error">
+      <created>1530264073721</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1530264073721</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27033000" />
+    <option name="totallyTimeSpent" value="29958000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2103,8 +2064,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
-    <editor active="true" />
+    <frame x="-11" y="-11" width="2902" height="1762" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992327" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2116,7 +2076,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32938388" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29621622" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1950178" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984293" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2181,7 +2141,8 @@
     <MESSAGE value="Refactor Jdbi query by extension" />
     <MESSAGE value="Remove BaseNetworkSocket" />
     <MESSAGE value="No need test" />
-    <option name="LAST_COMMIT_MESSAGE" value="No need test" />
+    <MESSAGE value="Just fix compile error" />
+    <option name="LAST_COMMIT_MESSAGE" value="Just fix compile error" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2192,13 +2153,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ffc-nectec/entities/patch-SNAPSHOT/4a2332077cfb8a99723b48568f5b784b2dbb76/entities-patch-SNAPSHOT.jar!/ffc/entity/Entity.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="22" column="45" lean-forward="false" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ffc-nectec/entities/patch-SNAPSHOT/4a2332077cfb8a99723b48568f5b784b2dbb76/entities-patch-SNAPSHOT.jar!/ffc/entity/Person.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -2233,20 +2187,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="64">
           <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/JettyServerTuning.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/ServletContextBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -2340,22 +2280,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/module/FirebaseMessage.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="22" column="12" lean-forward="false" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/webresources/FirebaseResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="46" column="75" lean-forward="false" selection-start-line="46" selection-start-column="75" selection-end-line="46" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ffc-nectec/entities/patch-SNAPSHOT/4a2332077cfb8a99723b48568f5b784b2dbb76/entities-patch-SNAPSHOT.jar!/ffc/entity/House.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -2414,78 +2338,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryChronic.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryHouse.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="835">
-          <caret line="68" column="20" lean-forward="false" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryPerson.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="36" column="31" lean-forward="true" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/JdbiDatabaseDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="21" lean-forward="false" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/DatabaseDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/Jdbi.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/log/debug.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="1" lean-forward="false" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/retrofit/APIClient.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="26" column="16" lean-forward="false" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/retrofit/RetofitFunctionCallUrl.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-995">
-          <caret line="36" column="13" lean-forward="false" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-client/src/test/java/ffc/airsync/client/Test2.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1796">
@@ -2498,22 +2350,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/ApiFactory.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="22" column="6" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/UserDao.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
           <folding />
         </state>
       </provider>
@@ -2534,14 +2370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/mysqlconfig/MySqlConfigManage.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="13" column="38" lean-forward="false" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-admin/5.11.0/54cdcdb6b5a27652ca9035582eb5a32df240b301/firebase-admin-5.11.0-sources.jar!/com/google/firebase/auth/FirebaseToken.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -2553,9 +2381,9 @@
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/MainContraller.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="986">
-          <caret line="65" column="49" lean-forward="false" selection-start-line="65" selection-start-column="49" selection-end-line="65" selection-end-column="49" />
+          <caret line="64" column="49" lean-forward="false" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
           <folding>
-            <element signature="e#689#1082#0" expanded="true" />
+            <element signature="e#689#1082#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2576,20 +2404,156 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/JettyServerTuning.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-536">
+          <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/retrofit/APIClient.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="31" column="33" lean-forward="true" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/retrofit/RetofitFunctionCallUrl.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1050">
+          <caret line="62" column="30" lean-forward="false" selection-start-line="62" selection-start-column="30" selection-end-line="62" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/MySqlUserDao.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="30" column="22" lean-forward="false" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
+        <state relative-caret-position="1110">
+          <caret line="56" column="0" lean-forward="true" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding>
             <marker date="1530091117086" expanded="true" signature="1378:1419" ph="SELECT * FRO... user" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt">
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/UserDao.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-270">
-          <caret line="33" column="17" lean-forward="false" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+        <state relative-caret-position="180">
+          <caret line="21" column="16" lean-forward="false" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/ApiFactory.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryPerson.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="36" column="31" lean-forward="true" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryHouse.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1227">
+          <caret line="68" column="20" lean-forward="false" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryChronic.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="60" column="0" lean-forward="true" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/JdbiDatabaseDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="61" column="17" lean-forward="true" selection-start-line="61" selection-start-column="17" selection-end-line="61" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/Jdbi.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/DatabaseDao.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/log/debug.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/mysqlconfig/MySqlConfigManage.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/webresources/FirebaseResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="42" column="27" lean-forward="false" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/module/FirebaseMessage.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="26" column="49" lean-forward="true" selection-start-line="26" selection-start-column="49" selection-end-line="26" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/webservice/ServletContextBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2646,7 +2610,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>airsync-client_test|airsync-client</last-edited>
+          <last-edited>airsync-mysql-log-reader|airsync-mysql-log-reader</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
