@@ -1,9 +1,8 @@
 rootProject.name = 'FFC-AirSync'
 
-include 'airsync-client'
-include ':provider'
-include ':interface:airsync-ui'
-include ':interface:airsync-notification'
-include ':implement:airsync-mysql-log-reader'
-include ':implement:airsync-local-web'
-
+include 'airsync'
+include 'provider'
+include 'interface:airsync-ui'
+include 'interface:airsync-notification'
+include 'implement:airsync-mysql-log-reader'
+include 'implement:airsync-local-web'
