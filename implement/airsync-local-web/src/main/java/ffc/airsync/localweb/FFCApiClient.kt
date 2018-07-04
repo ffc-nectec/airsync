@@ -22,7 +22,7 @@ import org.eclipse.jetty.server.Server
 import java.awt.Desktop
 import java.net.URI
 
-class FFCApiClient(host: String, port: Int) : AirSyncUi {
+class FFCApiClient(val host: String, val port: Int = 80) : AirSyncUi {
 
     private val context = ServletContextBuilder.build()
     private val server = Server(JettyServerTuning.getThreadPool())
@@ -39,7 +39,7 @@ class FFCApiClient(host: String, port: Int) : AirSyncUi {
         server.join()
 
         if (Desktop.isDesktopSupported()) {
-            Desktop.getDesktop().browse(URI("http://www.example.com"));
+            Desktop.getDesktop().browse(URI("http://$host${if (port != 80) port else ""}"));
         }
     }
 }
