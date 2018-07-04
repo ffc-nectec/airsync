@@ -26,7 +26,6 @@ import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
-import javax.ws.rs.NotFoundException
 
 //TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
 class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
@@ -54,7 +53,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
         printDebug("Get house house _id = $_id")
         val data = restService!!.getHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
-        val house = data.body() ?: throw NotFoundException("ไม่มี เลขบ้าน getHouse")
+        val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")
         if (house.link?.isSynced == true) return
 
@@ -91,11 +90,8 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
                 restService!!.createPerson(orgId = org.id,
                   authkey = "Bearer " + org.token!!,
                   personList = cakePlate).execute()
-
             }
         })
-
-
     }
 
     override fun putChronic(chronicList: List<Chronic>, org: Organization) {

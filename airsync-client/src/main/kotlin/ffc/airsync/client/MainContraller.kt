@@ -20,8 +20,8 @@ package ffc.airsync.client
 import ffc.airsync.client.log.printDebug
 import ffc.airsync.client.module.ApiFactory
 import ffc.airsync.client.module.daojdbi.DatabaseDao
-import ffc.airsync.client.webservice.FFCApiClient
-import ffc.airsync.client.webservice.module.FirebaseMessage
+import ffc.airsync.provider.airSyncUiModule
+import ffc.airsync.provider.notifactionModule
 import ffc.entity.Chronic
 import ffc.entity.Organization
 import ffc.entity.Person
@@ -61,26 +61,20 @@ class MainContraller(val org: Organization, val databaseDao: DatabaseDao) {
     }
 
     private fun setupNotificationHandlerFor(org: Organization) {
-        FirebaseMessage.instant.onUpdateListener = object : FirebaseMessage.OnUpdateListener {
-            override fun onUpdate(token: FirebaseToken) {
-                printDebug("OnUpdateListener $token")
-                messageCentral.putFirebaseToken(token, org)
-
+        notifactionModule().apply {
+            onTokenChange { id ->
+                messageCentral.putFirebaseToken(FirebaseToken(id), org)
             }
-        }
-        FirebaseMessage.instant.onUpdateHouseListener = object : FirebaseMessage.OnUpdateHouseListener {
-            override fun onUpdate(_id: String) {
-                printDebug("OnUpdateHouseListener _id $_id")
-                messageCentral.getHouseAndUpdate(org = org, _id = _id, databaseDao = databaseDao)
-
+            onReceiveDataUpdate { type, id ->
+                when (type) {
+                    "House" -> messageCentral.getHouseAndUpdate(org, id, databaseDao)
+                }
             }
         }
     }
 
     private fun startLocalAirSyncServer() {
-        val ffcApiClient = FFCApiClient("127.0.0.1", 8081)
-        ffcApiClient.start()
-        ffcApiClient.join()
+        airSyncUiModule().start()
     }
 
     private fun insertChronic(listPerson: List<Person>, listChronic: List<Chronic>): List<Person> {

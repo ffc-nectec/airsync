@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':interface:airsync-ui')
+    compile project(':interface:airsync-notification')
+
+    implementation project(":implement:airsync-local-web")
+}

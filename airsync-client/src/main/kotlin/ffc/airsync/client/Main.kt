@@ -25,7 +25,7 @@ import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 
-class Main private constructor(args: Array<String>) {
+internal class Main constructor(args: Array<String>) {
 
     @Option(name = "-dbhost", usage = "Database hostserver Ex. 127.0.0.1 ")
     protected var dbhost = HOSTNAMEDB
@@ -42,9 +42,6 @@ class Main private constructor(args: Array<String>) {
     @Option(name = "-dbpassword", usage = "Database name Ex. 111111 ")
     protected var dbpassword = HOSTPASSWORD
 
-    @Option(name = "-orguuid", usage = "Org uuid Ex. 00000000-0000-0000-0000-000000000001 ")
-    protected var orgUuid = ORGUUID
-
     @Option(name = "-orgname", usage = "Database name Ex. NECTEC ")
     protected var orgName = ORGNAME
 
@@ -58,12 +55,11 @@ class Main private constructor(args: Array<String>) {
         } catch (cmd: CmdLineException) {
             cmd.printStackTrace()
         }
-
     }
 
-    private fun run() {
+    fun run() {
         val dao = JdbiDatabaseDao(dbhost, dbport, dbname, dbusername, dbpassword)
-        var org = Organization().apply {
+        val org = Organization().apply {
             link = Link(System.JHICS, "pcucode" to orgCode)
             name = orgName
         }
@@ -71,21 +67,16 @@ class Main private constructor(args: Array<String>) {
     }
 
     companion object {
-
         protected val HOSTNAMEDB = "127.0.0.1"
         protected val HOSTPORTDB = "3333"
         protected val HOSTDBNAME = "jhcisdb"
         protected val HOSTUSERNAME = "root"
         protected val HOSTPASSWORD = "123456"
-        protected val ORGUUID = "00000000-0000-0000-0000-000000000001"
         protected val ORGNAME = "NECTEC"
         protected val ORGCODE = "589"
-        private var instance: Main? = null
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Main(args).run()
-        }
     }
+}
 
+fun main(args: Array<String>) {
+    Main(args).run()
 }
