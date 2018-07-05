@@ -1,3 +1,20 @@
+/*
+ * Copyright (c) 2018 NECTEC
+ *   National Electronics and Computer Technology Center, Thailand
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package ffc.airsync.api
 
 import ffc.airsync.utils.printDebug
@@ -40,7 +57,6 @@ object UploadSpliter {
                             }
                         }
 
-
                         if (cakePlate != null) {
                             howToSend.send(cakePlate!!)
 
@@ -51,7 +67,6 @@ object UploadSpliter {
                         }
                     })
                 }
-
             }
 
             // putCake(it, howToSend)
@@ -67,23 +82,18 @@ object UploadSpliter {
 
         val thread = Thread {
             Runnable {
-
             }
         }
-
 
         printDebug("Run size ${table.size}")
         val slotRunning = 3
 
         var stackRun = 0
         for (noSlot: Int in 1..slotRunning) {
-
         }
-
     }
 
     private fun <T> startRun(list: T, howToSend: HowToSendCake<T>) {
-
     }
 
     private fun <T> putCakeOld(table: ArrayList<ArrayList<T>>, howToSend: HowToSendCake<T>) {
@@ -93,7 +103,6 @@ object UploadSpliter {
         table.forEach {
             val thread = Thread(Runnable {
                 var runNo: Int = 0
-
 
                 synchronized(i) {
                     runNo = i++
@@ -106,7 +115,6 @@ object UploadSpliter {
             thread.join()
             Thread.sleep(1000)
         }
-
     }
 
     private fun <T> cutCake(fixSizeCake: Int, list: List<T>): ArrayList<ArrayList<T>> {
@@ -114,10 +122,9 @@ object UploadSpliter {
         val cake = list.size
         printDebug("UploadSpliter cutCake size $cake Row per req $fixSizeCake")
 
-        val noOfCake = cake / fixSizeCake  //แบ่งได้กี่ชุด
-        val cakeScraps = cake % fixSizeCake  //เคษเหลือ
+        val noOfCake = cake / fixSizeCake // แบ่งได้กี่ชุด
+        val cakeScraps = cake % fixSizeCake // เคษเหลือ
         val table = arrayListOf<ArrayList<T>>()
-
 
         for (cakeNo in 0..(noOfCake - 1)) {
             val cakePlate = arrayListOf<T>()
@@ -131,7 +138,6 @@ object UploadSpliter {
             table.add(cakePlate)
         }
 
-
         if (cakeScraps != 0) {
             val cakePlate = arrayListOf<T>()
             val startPositionCutCake = (noOfCake - 1) * fixSizeCake
@@ -142,7 +148,6 @@ object UploadSpliter {
             }
             table.add(cakePlate)
         }
-
 
         return table
     }

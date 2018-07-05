@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,13 +49,13 @@ class MainContraller(val org: Organization, val dao: DatabaseDao) {
 
         api.putHouse(dao.getHouse(), org)
 
-        //put person
+        // put person
         val personOrgList = dao.getPerson()
-        //api.putPerson(personOrgList, org)
+        // api.putPerson(personOrgList, org)
 
-        //put chronic
+        // put chronic
         val chronicList = dao.getChronic()
-        //api.putChronic(chronicList, org)
+        // api.putChronic(chronicList, org)
 
         val personHaveChronic = personOrgList.mapChronics(chronicList)
         api.putPerson(personHaveChronic, org)

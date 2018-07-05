@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,8 +38,7 @@ class FirebaseResource {
 
     @POST
     @Path("/token")
-    fun updateFirebaseToken(@Context req: HttpServletRequest,
-                            token: String): Response {
+    fun updateFirebaseToken(@Context req: HttpServletRequest, token: String): Response {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("Firebase token $token")
         val firebaseToken = token.parseTo<FirebaseToken>()
@@ -53,17 +52,17 @@ class FirebaseResource {
         printDebug("\tBefore put Firebase token")
 
         return Response.status(Response.Status.CREATED).build()
-
     }
 
     @POST
     @Path("/event")
-    fun updateFirebaseEvent(@Context req: HttpServletRequest,
-                            message: String): Response {
+    fun updateFirebaseEvent(@Context req: HttpServletRequest, message: String): Response {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("\tFirebase message data $message")
         val event = message.parseTo<Payload>()
-        printDebug("\t\tID = ${event.message.data._id} Type = ${event.message.data.type} Url = ${event.message.data.url}")
+        printDebug("\t\tID = ${event.message.data._id} " +
+                "Type = ${event.message.data.type} " +
+                "Url = ${event.message.data.url}")
         val data = event.message.data
         val fbm = FirebaseMessage.getInstance()
 

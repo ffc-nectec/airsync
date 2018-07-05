@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,7 +39,7 @@ class FFCApiClient(val host: String, val port: Int = 80) : AirSyncUi {
         server.join()
 
         if (Desktop.isDesktopSupported()) {
-            Desktop.getDesktop().browse(URI("http://$host${if (port != 80) port else ""}"));
+            Desktop.getDesktop().browse(URI("http://$host${if (port != 80) port else ""}"))
         }
     }
 }
