@@ -7,4 +7,4 @@ import ffc.airsync.ui.AirSyncUi
 
 fun airSyncUiModule(): AirSyncUi = FFCApiClient("127.0.0.1", 8081)
 
-fun notifactionModule(): Notification = FirebaseMessage.getInstance()
+fun notificationModule(): Notification = FirebaseMessage.getInstance()
