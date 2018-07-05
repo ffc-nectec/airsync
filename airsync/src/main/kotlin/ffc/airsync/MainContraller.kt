@@ -22,7 +22,7 @@ import ffc.airsync.api.ApiFactory
 import ffc.airsync.api.ApiV1
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
-import ffc.airsync.provider.notifactionModule
+import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.printDebug
 import ffc.entity.Chronic
 import ffc.entity.Organization
@@ -64,7 +64,7 @@ class MainContraller(val org: Organization, val dao: DatabaseDao) {
     }
 
     private fun setupNotificationHandlerFor(org: Organization) {
-        notifactionModule().apply {
+        notificationModule().apply {
             onTokenChange { id ->
                 api.putFirebaseToken(FirebaseToken(id), org)
             }
