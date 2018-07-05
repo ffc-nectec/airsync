@@ -18,7 +18,6 @@
 package ffc.airsync.api
 
 import ffc.airsync.Config
-import ffc.airsync.SplitUpload
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.printDebug
 import ffc.entity.Chronic
@@ -29,7 +28,7 @@ import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
 
 //TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
-class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
+class ApiV1 : Api {
 
     //TODO remove
     val Organization.token
@@ -71,7 +70,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
     }
 
     override fun putHouse(houseList: List<House>, org: Organization) {
-        SplitUpload.upload(300, houseList, object : SplitUpload.HowToSendCake<House> {
+        UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
                 restService!!.createHouse(orgId = org.id,
                         authkey = "Bearer " + org.token!!,
@@ -83,7 +82,7 @@ class CentralMessageMaorgUpdatenageV1 : CentralMessageManage {
 
     override fun putPerson(personList: List<Person>, org: Organization) {
 
-        SplitUpload.upload(300, personList, object : SplitUpload.HowToSendCake<Person> {
+        UploadSpliter.upload(300, personList, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
                 restService!!.createPerson(orgId = org.id,
                         authkey = "Bearer " + org.token!!,

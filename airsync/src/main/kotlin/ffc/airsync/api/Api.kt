@@ -25,7 +25,7 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
 
-interface CentralMessageManage {
+interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization
 
     fun putUser(userInfoList: ArrayList<User>, org: Organization)

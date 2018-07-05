@@ -1,8 +1,8 @@
-package ffc.airsync
+package ffc.airsync.api
 
 import ffc.airsync.utils.printDebug
 
-object SplitUpload {
+object UploadSpliter {
 
     interface HowToSendCake<T> {
         fun send(cakePlate: ArrayList<T>)
@@ -112,7 +112,7 @@ object SplitUpload {
     private fun <T> cutCake(fixSizeCake: Int, list: List<T>): ArrayList<ArrayList<T>> {
 
         val cake = list.size
-        printDebug("SplitUpload cutCake size $cake Row per req $fixSizeCake")
+        printDebug("UploadSpliter cutCake size $cake Row per req $fixSizeCake")
 
         val noOfCake = cake / fixSizeCake  //แบ่งได้กี่ชุด
         val cakeScraps = cake % fixSizeCake  //เคษเหลือ

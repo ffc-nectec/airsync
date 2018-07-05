@@ -17,9 +17,9 @@
 
 package ffc.airsync
 
+import ffc.airsync.api.Api
 import ffc.airsync.api.ApiFactory
-import ffc.airsync.api.CentralMessageManage
-import ffc.airsync.api.CentralMessageMaorgUpdatenageV1
+import ffc.airsync.api.ApiV1
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.provider.notifactionModule
@@ -30,10 +30,12 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
 
-class MainContraller(val org: Organization, val databaseDao: DatabaseDao) {
+class MainContraller(val org: Organization, val dao: DatabaseDao) {
+
+    val api: Api by lazy { ApiV1() }
 
     fun run() {
-        val org = messageCentral.registerOrganization(org, Config.baseUrlRest)
+        val org = api.registerOrganization(org, Config.baseUrlRest)
         pushData(org)
         setupNotificationHandlerFor(org)
         startLocalAirSyncServer()
@@ -41,23 +43,22 @@ class MainContraller(val org: Organization, val databaseDao: DatabaseDao) {
 
     private fun pushData(org: Organization) {
         val userList = ApiFactory().buildUserDao().findAll()
-        printDebug("Add put username org = " + org.link!!.keys["pcucode"])
-        messageCentral.putUser(userList, org)
+        userList.add(createAirSyncUser())
 
-        //put house
-        val houseList = databaseDao.getHouse()
-        messageCentral.putHouse(houseList, org)
+        api.putUser(userList, org)
+
+        api.putHouse(dao.getHouse(), org)
 
         //put person
-        val personOrgList = databaseDao.getPerson()
-        //messageCentral.putPerson(personOrgList, org)
+        val personOrgList = dao.getPerson()
+        //api.putPerson(personOrgList, org)
 
         //put chronic
-        val chronicList = databaseDao.getChronic()
-        //messageCentral.putChronic(chronicList, org)
+        val chronicList = dao.getChronic()
+        //api.putChronic(chronicList, org)
 
-        val personHaveChronic = insertChronic(personOrgList, chronicList)
-        messageCentral.putPerson(personHaveChronic, org)
+        val personHaveChronic = personOrgList.mapChronics(chronicList)
+        api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
     }
@@ -65,11 +66,11 @@ class MainContraller(val org: Organization, val databaseDao: DatabaseDao) {
     private fun setupNotificationHandlerFor(org: Organization) {
         notifactionModule().apply {
             onTokenChange { id ->
-                messageCentral.putFirebaseToken(FirebaseToken(id), org)
+                api.putFirebaseToken(FirebaseToken(id), org)
             }
             onReceiveDataUpdate { type, id ->
                 when (type) {
-                    "House" -> messageCentral.getHouseAndUpdate(org, id, databaseDao)
+                    "House" -> api.getHouseAndUpdate(org, id, dao)
                 }
             }
         }
@@ -79,16 +80,13 @@ class MainContraller(val org: Organization, val databaseDao: DatabaseDao) {
         airSyncUiModule().start()
     }
 
-    private fun insertChronic(listPerson: List<Person>, listChronic: List<Chronic>): List<Person> {
-        listPerson.forEach { person ->
-            val chronicList = listChronic.filter { it.link!!.keys["pid"] == person.link!!.keys["pid"] }
-            chronicList.forEach { person.chronics.add(it) }
+    fun List<Person>.mapChronics(chronics: List<Chronic>): List<Person> {
+        forEach { person ->
+            person.chronics.addAll(chronics.filter {
+                it.link!!.keys["pid"] == person.link!!.keys["pid"]
+            })
         }
-        return listPerson
-    }
-
-    companion object {
-        val messageCentral: CentralMessageManage = CentralMessageMaorgUpdatenageV1()
+        return this
     }
 
     fun createAirSyncUser(): User = User().update {
