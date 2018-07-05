@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,16 +27,16 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
 
-//TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
+// TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
 class ApiV1 : Api {
 
-    //TODO remove
+    // TODO remove
     val Organization.token
         get() = "9293hdjw9kxhs"
 
     override fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization) {
         restService!!.createFirebaseToken(orgId = org.id,
-                authkey = "Bearer " + org.token!!,
+                authkey = "Bearer " + org.token,
                 firebaseToken = firebaseToken
         ).execute()
     }
@@ -50,7 +50,7 @@ class ApiV1 : Api {
 
     override fun getHouseAndUpdate(org: Organization, _id: String, databaseDao: DatabaseDao) {
         printDebug("Get house house _id = $_id")
-        val data = restService!!.getHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id).execute()
+        val data = restService!!.getHouse(orgId = org.id, authkey = "Bearer " + org.token, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")
@@ -60,24 +60,22 @@ class ApiV1 : Api {
         printDebug("\tUpdate house to database and sync = true")
         house.link?.isSynced = true
 
-
         printDebug("\tPut new house to cloud")
-        restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token!!, _id = _id, house = house).execute()
+        restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token, _id = _id, house = house).execute()
     }
 
     override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
-        restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token!!).execute()
+        restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token).execute()
     }
 
     override fun putHouse(houseList: List<House>, org: Organization) {
         UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
                 restService!!.createHouse(orgId = org.id,
-                        authkey = "Bearer " + org.token!!,
+                        authkey = "Bearer " + org.token,
                         houseList = cakePlate).execute()
             }
         })
-
     }
 
     override fun putPerson(personList: List<Person>, org: Organization) {
@@ -85,7 +83,7 @@ class ApiV1 : Api {
         UploadSpliter.upload(300, personList, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
                 restService!!.createPerson(orgId = org.id,
-                        authkey = "Bearer " + org.token!!,
+                        authkey = "Bearer " + org.token,
                         personList = cakePlate).execute()
             }
         })
@@ -93,21 +91,20 @@ class ApiV1 : Api {
 
     override fun putChronic(chronicList: List<Chronic>, org: Organization) {
         restService!!.createChronic(orgId = org.id,
-                authkey = "Bearer " + org.token!!,
+                authkey = "Bearer " + org.token,
                 chronicList = chronicList).execute()
-
     }
 
     override fun registerOrganization(organization: Organization, url: String): Organization {
         Companion.organization = organization
         urlBase = url
 
-        //val organization2: Organization = organization.toJson().httpPost(url).body()!!.string().fromJson()
+        // val organization2: Organization = organization.toJson().httpPost(url).body()!!.string().fromJson()
         val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
         val org = restService!!.regisOrg(organization).execute().body()
 
         printDebug("Client registerOrg " + org)
-        //Thread.sleep(3000)
+        // Thread.sleep(3000)
 
         if (org != null) {
             Companion.organization = org
@@ -115,7 +112,4 @@ class ApiV1 : Api {
         }
         throw ClassNotFoundException()
     }
-
 }
-
-

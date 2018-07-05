@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f4fa6fbd-4f53-4048-b0b2-85f21e64b585" name="Default" comment="open corrent url of local web">
-      <change beforePath="" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/UploadSpliter.kt" />
+    <list default="true" id="f4fa6fbd-4f53-4048-b0b2-85f21e64b585" name="Default" comment="Apply ktlint">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/Config.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/Config.kt" />
       <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/MainContraller.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/MainContraller.kt" />
-      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/SplitUpload.kt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/CentralMessageManage.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/Api.kt" />
-      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/CentralMessageMaorgUpdatenageV1.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/Api.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/Api.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/UploadSpliter.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/UploadSpliter.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/retrofit/APIClient.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/retrofit/APIClient.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/retrofit/RetofitFunctionCallUrl.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/retrofit/RetofitFunctionCallUrl.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/JdbiDatabaseDao.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/JdbiDatabaseDao.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/MySqlUserDao.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/MySqlUserDao.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryChronic.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryChronic.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryHouse.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryHouse.kt" />
+      <change beforePath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryPerson.kt" afterPath="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryPerson.kt" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt" afterPath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt" />
+      <change beforePath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/GsonJerseyProvider.kt" afterPath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/GsonJerseyProvider.kt" />
+      <change beforePath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/FirebaseResource.kt" afterPath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/FirebaseResource.kt" />
+      <change beforePath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/IndexResource.kt" afterPath="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/IndexResource.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -120,24 +132,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="FFC-AirSync" type="f1a62948:ProjectNode" />
-                <item name=":provider" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="FFC-AirSync" type="f1a62948:ProjectNode" />
-                <item name=":provider" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="FFC-AirSync" type="f1a62948:ProjectNode" />
-                <item name=":provider" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="FFC-AirSync" type="f1a62948:ProjectNode" />
                 <item name="FFC-AirSync" type="2d1252cf:ModuleNode" />
               </path>
               <path>
@@ -152,6 +146,13 @@
                 <item name="FFC-AirSync" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="FFC-AirSync" type="f1a62948:ProjectNode" />
+                <item name="FFC-AirSync" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="formatting" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -183,71 +184,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implement/airsync-mysql-log-reader/src/main/java/th/in/ffc/airsync/logreader/Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1459">
-              <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="24" selection-end-line="100" selection-end-column="38" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Filters.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implement/airsync-mysql-log-reader/src/main/java/th/in/ffc/airsync/logreader/filter/Filters.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="21" column="17" lean-forward="false" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ApiFactory.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiFactory.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="APIClient.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/retrofit/APIClient.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="24" column="6" lean-forward="false" selection-start-line="24" selection-start-column="6" selection-end-line="24" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RetofitFunctionCallUrl.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/retrofit/RetofitFunctionCallUrl.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MainContraller.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/MainContraller.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-67">
-              <caret line="48" column="8" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Api.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/Api.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+            <state relative-caret-position="380">
+              <caret line="40" column="83" lean-forward="false" selection-start-line="40" selection-start-column="83" selection-end-line="40" selection-end-column="83" />
               <folding />
             </state>
           </provider>
@@ -256,8 +197,80 @@
       <file leaf-file-name="ApiV1.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="516">
+              <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QueryChronic.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryChronic.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="40" column="48" lean-forward="false" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GsonJerseyProvider.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/GsonJerseyProvider.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="436">
+              <caret line="97" column="22" lean-forward="false" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FirebaseResource.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/FirebaseResource.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="316">
+              <caret line="62" column="15" lean-forward="false" selection-start-line="62" selection-start-column="15" selection-end-line="62" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IndexResource.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/IndexResource.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="75" column="31" lean-forward="true" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
+              <folding>
+                <element signature="e#713#940#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="debug.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/debug.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="4" column="11" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FFCApiClient.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="41" column="91" lean-forward="false" selection-start-line="41" selection-start-column="91" selection-end-line="41" selection-end-column="91" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LICENSE.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/LICENSE.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1680">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -266,18 +279,8 @@
       <file leaf-file-name="UploadSpliter.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/UploadSpliter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-720">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReadTextFile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/implement/airsync-mysql-log-reader/src/main/java/th/in/ffc/airsync/logreader/ReadTextFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="55" column="12" lean-forward="true" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
+            <state relative-caret-position="-264">
+              <caret line="78" column="38" lean-forward="false" selection-start-line="78" selection-start-column="38" selection-end-line="78" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -1679,11 +1682,1415 @@
             </list>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by root project 'FFC-AirSync'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of root project 'FFC-AirSync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in root project 'FFC-AirSync'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in root project 'FFC-AirSync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="wrapper" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of root project 'FFC-AirSync'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from root project 'FFC-AirSync' (some of the displayed tasks may belong to subprojects)." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Initializes a new Gradle build." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="init" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in root project 'FFC-AirSync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in root project 'FFC-AirSync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of root project 'FFC-AirSync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/airsync">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':airsync'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':airsync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':airsync'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':airsync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':airsync'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':airsync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':airsync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':airsync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':airsync'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/airsync" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/implement">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':implement'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':implement'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':implement'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':implement'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':implement'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':implement' (some of the displayed tasks may belong to subprojects)." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':implement'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':implement'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':implement'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/implement/airsync-local-web">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':implement:airsync-local-web'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':implement:airsync-local-web'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':implement:airsync-local-web'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':implement:airsync-local-web'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':implement:airsync-local-web'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':implement:airsync-local-web'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':implement:airsync-local-web'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':implement:airsync-local-web'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':implement:airsync-local-web'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/implement/airsync-mysql-log-reader">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':implement:airsync-mysql-log-reader'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':implement:airsync-mysql-log-reader'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':implement:airsync-mysql-log-reader'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':implement:airsync-mysql-log-reader'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':implement:airsync-mysql-log-reader'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':implement:airsync-mysql-log-reader'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':implement:airsync-mysql-log-reader'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':implement:airsync-mysql-log-reader'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':implement:airsync-mysql-log-reader'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/interface">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':interface'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':interface'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':interface'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':interface'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':interface'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':interface' (some of the displayed tasks may belong to subprojects)." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':interface'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':interface'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':interface'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/interface/airsync-notification">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':interface:airsync-notification'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':interface:airsync-notification'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':interface:airsync-notification'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':interface:airsync-notification'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':interface:airsync-notification'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':interface:airsync-notification'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':interface:airsync-notification'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':interface:airsync-notification'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':interface:airsync-notification'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-notification" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/interface/airsync-ui">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':interface:airsync-ui'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':interface:airsync-ui'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':interface:airsync-ui'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':interface:airsync-ui'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':interface:airsync-ui'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':interface:airsync-ui'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':interface:airsync-ui'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':interface:airsync-ui'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':interface:airsync-ui'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/interface/airsync-ui" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/provider">
+          <value>
+            <list>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the components produced by project ':provider'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="components" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects that depend on it." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="buildDependents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="inspectClassesForKotlinIC" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the sub-projects of project ':provider'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="projects" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Fix Kotlin code style deviations." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="ktlintFormat" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="classes" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the dependent components of components in project ':provider'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="dependentComponents" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Check Kotlin code style." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="ktlint" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all buildscript dependencies declared in project ':provider'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="buildEnvironment" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles test classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="testClasses" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Generates Javadoc API documentation for the main source code." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="javadoc" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles a jar archive containing the main classes." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="jar" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the configuration model of project ':provider'. [incubating]" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="model" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes main resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="processResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the tasks runnable from project ':provider'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="tasks" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs the unit tests." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="test" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles main Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="compileJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'test'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="compileTestKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the insight into a specific dependency in project ':provider'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="dependencyInsight" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Runs all checks." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="check" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles the outputs of this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="assemble" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Deletes the build directory." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="clean" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles test Java source." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="compileTestJava" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays all dependencies declared in project ':provider'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="dependencies" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Processes test resources." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="processTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays a help message." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="help" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Compiles the source set 'main'.kotlin." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="compileKotlin" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="build" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Assembles and tests this project and all projects it depends on." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="buildNeeded" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Displays the properties of project ':provider'." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/provider" />
+                <option name="name" value="properties" />
+              </ExternalTaskPojo>
+            </list>
+          </value>
+        </entry>
       </map>
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="13774398776114" />
+        <entry key="$PROJECT_DIR$" value="13774471667726" />
         <entry key="$PROJECT_DIR$/.gradle" value="0" />
         <entry key="$PROJECT_DIR$/airsync-api/build.gradle" value="2809372840" />
         <entry key="$PROJECT_DIR$/airsync-client/build.gradle" value="1079935124" />
@@ -1699,6 +3106,14 @@
         <entry key="$PROJECT_DIR$/interface/airsync-notification/build.gradle" value="0" />
         <entry key="$PROJECT_DIR$/interface/airsync-ui/build.gradle" value="0" />
         <entry key="$PROJECT_DIR$/interface/settings.gradle" value="0" />
+        <entry key="$PROJECT_DIR$/provider/build.gradle" value="4185627025" />
+        <entry key="$PROJECT_DIR$/settings.gradle" value="443620041" />
+        <entry key="$PROJECT_DIR$/airsync/build.gradle" value="1079935124" />
+        <entry key="$PROJECT_DIR$/build.gradle" value="2600014858" />
+        <entry key="$PROJECT_DIR$/implement/airsync-local-web/build.gradle" value="1228412194" />
+        <entry key="$PROJECT_DIR$/implement/airsync-mysql-log-reader/build.gradle" value="3715536390" />
+        <entry key="$PROJECT_DIR$/interface/airsync-notification/build.gradle" value="0" />
+        <entry key="$PROJECT_DIR$/interface/airsync-ui/build.gradle" value="0" />
         <entry key="$PROJECT_DIR$/provider/build.gradle" value="4185627025" />
         <entry key="$PROJECT_DIR$/settings.gradle" value="443620041" />
       </map>
@@ -2190,6 +3605,276 @@
                       </ExternalModuleBuildClasspathPojo>
                     </value>
                   </entry>
+                  <entry key="$PROJECT_DIR$">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/airsync">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/airsync" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/implement">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/implement" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/implement/airsync-local-web">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/implement/airsync-local-web" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/implement/airsync-mysql-log-reader">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/implement/airsync-mysql-log-reader" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/interface">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/interface" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/interface/airsync-notification">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/interface/airsync-notification" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/interface/airsync-ui">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/interface/airsync-ui" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
+                  <entry key="$PROJECT_DIR$/provider">
+                    <value>
+                      <ExternalModuleBuildClasspathPojo>
+                        <option name="entries">
+                          <list>
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin/1.2.50/394a460c1b9aef772b97ffdb16cf8fdcc31e2d82/kotlin-gradle-plugin-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-gradle-plugin-api/1.2.50/29eeaaf8cbfeabf00db1864584878643f0afc879/kotlin-gradle-plugin-api-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.50/66d47b004c5b8a1d2d1df9e463187390ed741316/kotlin-stdlib-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-embeddable/1.2.50/6bf096d7a201b8734583b25d90dc3a70fa768628/kotlin-compiler-embeddable-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-annotation-processing-gradle/1.2.50/807f7d867857a69a010455c9f67767055f54351/kotlin-annotation-processing-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-android-extensions/1.2.50/a5309d96fd097320a75947d2e9673a86c948f605/kotlin-android-extensions-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-compiler-runner/1.2.50/369976f847653cb5c2c4008e872939f633e8fee7/kotlin-compiler-runner-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.2.50/9fab8887f91c8e17cce1a7522f45dc25976e57b9/kotlin-reflect-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-common/1.2.50/21153667cc03f6d39ce8355b7d96aca8e07a5c7b/kotlin-scripting-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-compiler/1.2.50/ae501a0d0650e702c7612e3f3cf1793c6e33a646/kotlin-scripting-compiler-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-gradle/1.2.50/a8297d5daa12f8950959ce209d70f14dddfc5491/kotlin-scripting-gradle-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-script-runtime/1.2.50/f7f5f9ae0344c2d14ca41ca740d17143ba2ed3bc/kotlin-script-runtime-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-build-common/1.2.50/21469f24e2f9ed51790536e0e7aed02d74ed9401/kotlin-build-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-daemon-client/1.2.50/3945d8aae64c257a0c8b5027c65f846728e9a093/kotlin-daemon-client-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core/0.20/5f3fa9b5b2dc9cfc0d9358d5b2cab154d590a564/kotlinx-coroutines-core-0.20.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-jvm/1.2.50/c67d7f91d20e22e8dda8101cad1e673d37f86bf9/kotlin-scripting-jvm-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-scripting-misc/1.2.50/665845d3490908f847d8991a495849784fc83d4/kotlin-scripting-misc-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.50/6b19a2fcc29d34878b3aab33fd5fcf70458a73df/kotlin-stdlib-common-1.2.50.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+                          </list>
+                        </option>
+                        <option name="path" value="$PROJECT_DIR$/provider" />
+                      </ExternalModuleBuildClasspathPojo>
+                    </value>
+                  </entry>
                 </map>
               </option>
               <option name="name" value="FFC-AirSync" />
@@ -2362,13 +4047,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/interface/airsync-notification/src/main/java/ffc/airsync/notifaction/Notification.kt" />
-        <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt" />
-        <option value="$PROJECT_DIR$/settings.gradle" />
-        <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/FirebaseResource.kt" />
-        <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/module/FirebaseMessage.kt" />
-        <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/module/daojdbi/QueryPerson.kt" />
-        <option value="$PROJECT_DIR$/interface/airsync-notification/src/main/java/ffc/airsync/notification/Notification.kt" />
         <option value="$PROJECT_DIR$/airsync-client/src/main/kotlin/ffc/airsync/client/CentralMessageMaorgUpdatenageV1.kt" />
         <option value="$PROJECT_DIR$/airsync-client/build.gradle" />
         <option value="$PROJECT_DIR$/interface/airsync-ui/src/main/java/ffc/airsync/ui/AirSyncUi.kt" />
@@ -2409,10 +4087,17 @@
         <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt" />
         <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/CentralMessageMaorgUpdatenageV1.kt" />
         <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/CentralMessageMaorgUpdatenageV1.kt" />
-        <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt" />
         <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/SplitUpload.kt" />
         <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/UploadSpliter.kt" />
         <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/MainContraller.kt" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/Api.kt" />
+        <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt" />
+        <option value="$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryChronic.kt" />
+        <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt" />
+        <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/FirebaseResource.kt" />
+        <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/GsonJerseyProvider.kt" />
+        <option value="$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/IndexResource.kt" />
       </list>
     </option>
   </component>
@@ -2664,7 +4349,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="copyright" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -2701,7 +4386,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.AirSync [assemble]">
+  <component name="RunManager" selected="Gradle.AirSync [build]">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <option name="WIDTH" value="0" />
@@ -2722,7 +4407,7 @@
       <module name="" />
       <envs />
     </configuration>
-    <configuration name="AirSync [assemble]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AirSync [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -2733,7 +4418,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="assemble" />
+            <option value="build" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -2776,6 +4461,42 @@
       </ExternalSystemSettings>
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     </configuration>
+    <configuration name="AirSync [ktlintFormat]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="ktlintFormat" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+    </configuration>
+    <configuration name="AirSync [ktlint]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="ktlint" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -2795,16 +4516,6 @@
       </option>
       <envs />
       <patterns />
-    </configuration>
-    <configuration name="airsync-client.jar (1)" type="JarApplication" factoryName="JAR Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="JAR_PATH" value="$PROJECT_DIR$/build/bin/airsync-client.jar" />
-      <envs />
-    </configuration>
-    <configuration name="airsync-client.jar" type="JarApplication" factoryName="JAR Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="JAR_PATH" value="$PROJECT_DIR$/build/client/bin/airsync-client.jar" />
-      <envs />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -2857,19 +4568,19 @@
       </method>
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="JAR Application.airsync-client.jar (1)" />
-      <item index="1" class="java.lang.String" itemvalue="JAR Application.airsync-client.jar" />
-      <item index="2" class="java.lang.String" itemvalue="Gradle.AirSync [assemble]" />
-      <item index="3" class="java.lang.String" itemvalue="Gradle.AirSync [ktlintCheck]" />
-      <item index="4" class="java.lang.String" itemvalue="Gradle.AirSync [check]" />
+      <item index="0" class="java.lang.String" itemvalue="Gradle.AirSync [ktlintCheck]" />
+      <item index="1" class="java.lang.String" itemvalue="Gradle.AirSync [check]" />
+      <item index="2" class="java.lang.String" itemvalue="Gradle.AirSync [ktlint]" />
+      <item index="3" class="java.lang.String" itemvalue="Gradle.AirSync [build]" />
+      <item index="4" class="java.lang.String" itemvalue="Gradle.AirSync [ktlintFormat]" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Gradle.AirSync [check]" />
-        <item index="1" class="java.lang.String" itemvalue="Gradle.AirSync [ktlintCheck]" />
-        <item index="2" class="java.lang.String" itemvalue="Gradle.AirSync [assemble]" />
-        <item index="3" class="java.lang.String" itemvalue="JAR Application.airsync-client.jar" />
-        <item index="4" class="java.lang.String" itemvalue="JAR Application.airsync-client.jar (1)" />
+        <item index="0" class="java.lang.String" itemvalue="Gradle.AirSync [ktlintFormat]" />
+        <item index="1" class="java.lang.String" itemvalue="Gradle.AirSync [build]" />
+        <item index="2" class="java.lang.String" itemvalue="Gradle.AirSync [ktlint]" />
+        <item index="3" class="java.lang.String" itemvalue="Gradle.AirSync [check]" />
+        <item index="4" class="java.lang.String" itemvalue="Gradle.AirSync [ktlintCheck]" />
       </list>
     </recent_temporary>
   </component>
@@ -2898,7 +4609,7 @@
       <workItem from="1530608187775" duration="6809000" />
       <workItem from="1530670194824" duration="1558000" />
       <workItem from="1530687320596" duration="7176000" />
-      <workItem from="1530761548148" duration="1020000" />
+      <workItem from="1530761548148" duration="2722000" />
     </task>
     <task id="LOCAL-00001" summary="remove ffc-model">
       <created>1529913754513</created>
@@ -3005,7 +4716,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530692497214</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Refactor">
+      <created>1530762585465</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1530762585465</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -3014,7 +4732,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60266000" />
+    <option name="totallyTimeSpent" value="61968000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -3034,13 +4752,14 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854405" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32854405" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32662836" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854405" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17590618" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854405" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1913646" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3054,7 +4773,6 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854405" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854405" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -3110,7 +4828,9 @@
     <MESSAGE value="Dependency Injection by Provider" />
     <MESSAGE value="rename project and repackage" />
     <MESSAGE value="open corrent url of local web" />
-    <option name="LAST_COMMIT_MESSAGE" value="open corrent url of local web" />
+    <MESSAGE value="Refactor" />
+    <MESSAGE value="Apply ktlint" />
+    <option name="LAST_COMMIT_MESSAGE" value="Apply ktlint" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -3125,13 +4845,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/interface/airsync-ui/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/interface/airsync-notification/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -3165,13 +4878,6 @@
         <state relative-caret-position="140">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="42" column="1" lean-forward="false" selection-start-line="42" selection-start-column="1" selection-end-line="42" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -3225,38 +4931,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/GsonJerseyProvider.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="34" column="6" lean-forward="false" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/debug.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/module/FirebaseMessage.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="6" column="6" lean-forward="false" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/IndexResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-90">
-          <caret line="31" column="6" lean-forward="false" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/FirebaseResource.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264">
-          <caret line="36" column="6" lean-forward="false" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3264,22 +4943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="32" column="1" lean-forward="false" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="24" column="20" lean-forward="false" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3300,20 +4963,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryChronic.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="33" column="29" lean-forward="true" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/MySqlUserDao.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="28" column="21" lean-forward="true" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
           <folding>
-            <marker date="1530691893083" expanded="true" signature="1368:1409" ph="SELECT * FRO... user" />
+            <marker date="1530763752967" expanded="true" signature="1368:1409" ph="SELECT * FRO... user" />
           </folding>
         </state>
       </provider>
@@ -3441,7 +5096,7 @@
     <entry file="file://$PROJECT_DIR$/implement/airsync-mysql-log-reader/src/main/java/th/in/ffc/airsync/logreader/ReadTextFile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
-          <caret line="55" column="12" lean-forward="true" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
+          <caret line="55" column="12" lean-forward="false" selection-start-line="55" selection-start-column="12" selection-end-line="55" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -3450,14 +5105,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1459">
           <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="24" selection-end-line="100" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/Api.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="43" column="0" lean-forward="true" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3473,7 +5120,7 @@
     <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiFactory.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3481,31 +5128,113 @@
     <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/retrofit/RetofitFunctionCallUrl.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="620">
-          <caret line="58" column="0" lean-forward="true" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/UploadSpliter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-720">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/MainContraller.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-67">
-          <caret line="48" column="8" lean-forward="true" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+        <state relative-caret-position="720">
+          <caret line="62" column="19" lean-forward="false" selection-start-line="62" selection-start-column="19" selection-end-line="62" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="64" column="14" lean-forward="false" selection-start-line="64" selection-start-column="14" selection-end-line="64" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/UploadSpliter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-264">
+          <caret line="78" column="38" lean-forward="false" selection-start-line="78" selection-start-column="38" selection-end-line="78" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/Api.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="40" column="83" lean-forward="false" selection-start-line="40" selection-start-column="83" selection-end-line="40" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/api/ApiV1.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="516">
+          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/airsync/src/main/kotlin/ffc/airsync/db/QueryChronic.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="40" column="48" lean-forward="false" selection-start-line="40" selection-start-column="48" selection-end-line="40" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/FFCApiClient.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="41" column="91" lean-forward="false" selection-start-line="41" selection-start-column="91" selection-end-line="41" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/debug.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="11" lean-forward="false" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/FirebaseResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="62" column="15" lean-forward="false" selection-start-line="62" selection-start-column="15" selection-end-line="62" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/GsonJerseyProvider.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="97" column="22" lean-forward="false" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/implement/airsync-local-web/src/main/java/ffc/airsync/localweb/webresources/IndexResource.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="75" column="31" lean-forward="true" selection-start-line="75" selection-start-column="31" selection-end-line="75" selection-end-column="31" />
+          <folding>
+            <element signature="e#713#940#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1680">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -3519,6 +5248,18 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="Copyright.UI">
+        <settings>
+          <last-edited>nectec-apache</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -3565,7 +5306,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>airsync-mysql-utils-reader|airsync-mysql-utils-reader|implement</last-edited>
+          <last-edited>provider_test|provider</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

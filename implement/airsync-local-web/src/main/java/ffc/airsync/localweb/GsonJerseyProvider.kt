@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,16 +34,28 @@ import javax.ws.rs.ext.Provider
 @Provider
 class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
 
-    override fun isReadable(type: Class<*>?, genericType: Type?, annotations: Array<out Annotation>?, mediaType: MediaType?): Boolean {
+    override fun isReadable(
+        type: Class<*>?,
+        genericType: Type?,
+        annotations: Array<out Annotation>?,
+        mediaType: MediaType?
+    ): Boolean {
         return true
     }
 
     @Throws(IOException::class)
-    override fun readFrom(type: Class<Any>, genericType: Type,
-                          annotations: Array<Annotation>, mediaType: MediaType,
-                          httpHeaders: MultivaluedMap<String, String>, entityStream: InputStream): Any? {
+    override fun readFrom(
+        type: Class<Any>,
+        genericType: Type,
+        annotations: Array<Annotation>,
+        mediaType: MediaType,
+        httpHeaders: MultivaluedMap<String, String>,
+        entityStream: InputStream
+    ): Any? {
         try {
-            InputStreamReader(entityStream, UTF_8).use { streamReader -> return ffcGson.fromJson<Any>(streamReader, genericType) }
+            InputStreamReader(entityStream, UTF_8).use { streamReader ->
+                return ffcGson.fromJson<Any>(streamReader, genericType)
+            }
         } catch (e: com.google.gson.JsonSyntaxException) {
             // Log exception
         }
@@ -51,26 +63,39 @@ class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
         return null
     }
 
-    override fun isWriteable(type: Class<*>, genericType: Type,
-                             annotations: Array<Annotation>, mediaType: MediaType): Boolean {
+    override fun isWriteable(
+        type: Class<*>,
+        genericType: Type,
+        annotations: Array<Annotation>,
+        mediaType: MediaType
+    ): Boolean {
         return true
     }
 
-    override fun getSize(`object`: Any, type: Class<*>, genericType: Type,
-                         annotations: Array<Annotation>, mediaType: MediaType): Long {
+    override fun getSize(
+        `object`: Any,
+        type: Class<*>,
+        genericType: Type,
+        annotations: Array<Annotation>,
+        mediaType: MediaType
+    ): Long {
         return -1
     }
 
     @Throws(IOException::class, WebApplicationException::class)
-    override fun writeTo(`object`: Any, type: Class<*>, genericType: Type,
-                         annotations: Array<Annotation>, mediaType: MediaType,
-                         httpHeaders: MultivaluedMap<String, Any>,
-                         entityStream: OutputStream) {
+    override fun writeTo(
+        `object`: Any,
+        type: Class<*>,
+        genericType: Type,
+        annotations: Array<Annotation>,
+        mediaType: MediaType,
+        httpHeaders: MultivaluedMap<String, Any>,
+        entityStream: OutputStream
+    ) {
         OutputStreamWriter(entityStream, UTF_8).use { writer -> ffcGson.toJson(`object`, genericType, writer) }
     }
 
     companion object {
-
         private val UTF_8 = "UTF-8"
     }
 }

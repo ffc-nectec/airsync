@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,8 +33,8 @@ class MySqlUserDao : UserDao {
 
         try {
             Class.forName(MYSQL_DRIVER)
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3333/jhcisdb"
-                    + "?autoReconnect=true&useSSL=false", "root", "123456")
+            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3333/jhcisdb" +
+                    "?autoReconnect=true&useSSL=false", "root", "123456")
 
             if (conn != null) {
                 printDebug("Database Connected.")
@@ -54,7 +54,6 @@ class MySqlUserDao : UserDao {
             } else {
                 printDebug("Database Connect Failed.")
             }
-
         } catch (e: Exception) {
 
             e.printStackTrace()

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,12 +20,10 @@ package ffc.airsync.client.webservice.webresources
 import ffc.airsync.localweb.printDebug
 import java.io.File
 import java.io.FileInputStream
-import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
 import javax.ws.rs.Produces
-import javax.ws.rs.core.Context
 import javax.ws.rs.core.MediaType
 
 @Path("/")
@@ -34,18 +32,15 @@ class IndexResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Path("/{webpart:(.*.html)}")
-    fun getHtml(@PathParam("webpart") webPart: String,
-                @Context req: HttpServletRequest): String {
+    fun getHtml(@PathParam("webpart") webPart: String): String {
         printDebug("Get client html web $webPart")
         return loadFile(webPart)
     }
 
-
     @GET
     @Produces("text/css")
     @Path("/{webpart:(.*.css)}")
-    fun getCss(@PathParam("webpart") webPart: String,
-               @Context req: HttpServletRequest): String {
+    fun getCss(@PathParam("webpart") webPart: String): String {
         printDebug("Get client css web $webPart")
         return loadFile(webPart)
     }
@@ -53,29 +48,24 @@ class IndexResource {
     @GET
     @Produces("application/json")
     @Path("/{webpart:(.*.json)}")
-    fun getJson(@PathParam("webpart") webPart: String,
-                @Context req: HttpServletRequest): String {
+    fun getJson(@PathParam("webpart") webPart: String): String {
         printDebug("Get client css web $webPart")
         return loadFile(webPart)
     }
 
-
     @GET
     @Produces("application/javascript")
     @Path("/{webpart:(.*.js)}")
-    fun getJs(@PathParam("webpart") webPart: String,
-              @Context req: HttpServletRequest): String {
+    fun getJs(@PathParam("webpart") webPart: String): String {
         printDebug("Get client js web $webPart")
         return loadFile(webPart)
     }
-
 
     private fun loadFile(webPart: String): String {
         var fileName = webPart.replace("\\.\\.", "")
         fileName = fileName.replace("^[\\/]+", "")
 
         printDebug("After filter = $fileName")
-
 
         val classLoader = javaClass.classLoader
         val file = File(classLoader.getResource(fileName).file)
@@ -87,6 +77,4 @@ class IndexResource {
         val str = String(data, charset("UTF-8"))
         return str
     }
-
-
 }

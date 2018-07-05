@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,12 @@ import java.sql.ResultSet
 
 interface QueryChronic {
     @SqlQuery("""
-        SELECT personchronic.pcucodeperson,person.hcode,personchronic.chroniccode,personchronic.datedxfirst,personchronic.pid
+        SELECT
+            personchronic.pcucodeperson,
+            person.hcode,
+            personchronic.chroniccode,
+            personchronic.datedxfirst,
+            personchronic.pid
         FROM person
             JOIN personchronic
                 ON person.pcucodeperson=personchronic.pcucodeperson
@@ -59,6 +64,5 @@ class ChronicMapper : RowMapper<Chronic> {
         }
 
         return chronic
-
     }
 }
