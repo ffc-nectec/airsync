@@ -2,8 +2,8 @@ dependencies {
     def jettyVersion = "9.4.1.v20170120"
     def jerseyVersion = "2.25.1"
 
-    implementation project(":interface:airsync-ui")
-    implementation project(":interface:airsync-notification")
+    implementation project(":interface:ui")
+    implementation project(":interface:notification")
     implementation "com.github.ffc-nectec:entities:$entitiesVersion"
 
     implementation "org.eclipse.jetty:jetty-server:$jettyVersion"
