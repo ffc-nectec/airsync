@@ -16,8 +16,6 @@
  */
 
 dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
-
-    implementation project(":impl:airsync-local-web")
+    implementation 'net.sourceforge.javacsv:javacsv:2.0'
+    implementation 'commons-codec:commons-codec:1.11'
 }

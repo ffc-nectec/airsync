@@ -15,9 +15,3 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
-
-    implementation project(":impl:airsync-local-web")
-}

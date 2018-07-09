@@ -15,9 +15,29 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
+package th.in.ffc.airsync.logreader.filter;
 
-    implementation project(":impl:airsync-local-web")
+import th.in.ffc.airsync.logreader.QueryRecord;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class QueryFilter implements Filters {
+
+    private Pattern logpattern;
+
+    public QueryFilter(Pattern logpattern) {
+        this.logpattern = logpattern;
+    }
+
+    @Override
+    public QueryRecord process(QueryRecord record) {
+        Matcher matcher = logpattern.matcher(record.getLog());
+        if (matcher.find()) {
+            record.setLog(record.getLog().replaceFirst("^.*Query( {7}|\\t)", ""));
+        } else {
+            record.setLog("");
+        }
+        return record;
+    }
 }

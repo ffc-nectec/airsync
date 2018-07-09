@@ -15,9 +15,14 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
+package ffc.airsync.localweb;
 
-    implementation project(":impl:airsync-local-web")
+import org.glassfish.jersey.server.ResourceConfig;
+
+public class ApplicationConfig extends ResourceConfig {
+
+    public ApplicationConfig() {
+        packages("ffc.airsync.client.webservice");
+    }
 }
+
