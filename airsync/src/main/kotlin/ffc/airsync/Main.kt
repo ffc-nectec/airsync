@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,7 @@
 
 package ffc.airsync
 
-import ffc.airsync.db.JdbiDatabaseDao
+import ffc.airsync.provider.databaseDaoModule
 import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.System
@@ -58,7 +58,7 @@ internal class Main constructor(args: Array<String>) {
     }
 
     fun run() {
-        val dao = JdbiDatabaseDao(dbhost, dbport, dbname, dbusername, dbpassword)
+        val dao = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
         val org = Organization().apply {
             link = Link(System.JHICS, "pcucode" to orgCode)
             name = orgName

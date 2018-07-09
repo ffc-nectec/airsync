@@ -64,7 +64,7 @@ class ApiV1 : Api {
         restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token, _id = _id, house = house).execute()
     }
 
-    override fun putUser(userInfoList: ArrayList<User>, org: Organization) {
+    override fun putUser(userInfoList: List<User>, org: Organization) {
         restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token).execute()
     }
 

@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
-    compile project(':interface:db')
+package ffc.airsync.utils
 
-    implementation project(":impl:airsync-local-web")
-    implementation project(":impl:airsync-jhcis-db")
+val debug = System.getenv("FFC_DEBUG")
+
+inline fun printDebug(infoDebug: String) {
+    if (debug == null)
+        println(infoDebug)
 }

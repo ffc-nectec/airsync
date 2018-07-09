@@ -15,11 +15,13 @@
  * limitations under the License.
  */
 
-rootProject.name = 'FFC-AirSync'
+rootProject.name = 'ffc-airsync'
 
 include 'airsync'
 include 'provider'
 include 'interface:ui'
 include 'interface:notification'
+include 'interface:db'
 include 'impl:airsync-mysql-log-reader'
 include 'impl:airsync-local-web'
+include 'impl:airsync-jhcis-db'

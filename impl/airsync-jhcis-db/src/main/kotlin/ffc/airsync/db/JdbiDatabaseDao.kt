@@ -21,6 +21,7 @@ import ffc.airsync.utils.printDebug
 import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Person
+import ffc.entity.User
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -34,6 +35,12 @@ class JdbiDatabaseDao(
     val dbUsername: String,
     val dbPassword: String
 ) : DatabaseDao {
+
+    val userDao by lazy { MySqlUserDao() }
+
+    override fun getUsers(): List<User> {
+        return userDao.findAll()
+    }
 
     override fun getPerson(): List<Person> {
         return createJdbi().extension<QueryPerson, List<Person>> { getPerson() }
@@ -85,7 +92,7 @@ WHERE  `pcucode`=? AND `hcode`=?;
         Class.forName("com.mysql.jdbc.Driver")
 
         val ds = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
-        ds.setURL("jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName + "?autoReconnect=true&useSSL=false")
+        ds.setURL("jdbc:mysql://$dbHost:$dbPort/$dbName?autoReconnect=true&useSSL=false")
         ds.databaseName = dbName
         ds.user = dbUsername
         ds.setPassword(dbPassword)
