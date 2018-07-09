@@ -15,12 +15,26 @@
  * limitations under the License.
  */
 
+plugins {
+    id "org.flywaydb.flyway" version "5.1.4"
+}
+
+
+flyway {
+    driver = 'org.h2.Driver'
+    url = "jdbc:h2:file:~/.h2/jhcis;MODE=MYSQL"
+    user = 'sa'
+}
+
 dependencies {
     def jdbiVersion = "3.1.0"
+
     implementation project(":interface:db")
     implementation "org.jdbi:jdbi3-core:$jdbiVersion"
     implementation "org.jdbi:jdbi3-kotlin:$jdbiVersion"
     implementation "org.jdbi:jdbi3-kotlin-sqlobject:$jdbiVersion"
     implementation "mysql:mysql-connector-java:5.1.38"
     implementation "com.github.ffc-nectec:entities:$entitiesVersion"
+
+    runtime "com.h2database:h2:1.4.193"
 }
