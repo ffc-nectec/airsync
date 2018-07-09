@@ -16,10 +16,11 @@
  */
 
 dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
-    compile project(':interface:db')
-
-    implementation project(":impl:airsync-local-web")
-    implementation project(":impl:airsync-jhcis-db")
+    def jdbiVersion = "3.1.0"
+    implementation project(":interface:db")
+    implementation "org.jdbi:jdbi3-core:$jdbiVersion"
+    implementation "org.jdbi:jdbi3-kotlin:$jdbiVersion"
+    implementation "org.jdbi:jdbi3-kotlin-sqlobject:$jdbiVersion"
+    implementation "mysql:mysql-connector-java:5.1.38"
+    implementation "com.github.ffc-nectec:entities:$entitiesVersion"
 }

@@ -28,7 +28,7 @@ import ffc.entity.firebase.FirebaseToken
 interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization
 
-    fun putUser(userInfoList: ArrayList<User>, org: Organization)
+    fun putUser(userInfoList: List<User>, org: Organization)
 
     fun putHouse(houseList: List<House>, org: Organization)
 

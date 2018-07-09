@@ -16,10 +16,5 @@
  */
 
 dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
-    compile project(':interface:db')
-
-    implementation project(":impl:airsync-local-web")
-    implementation project(":impl:airsync-jhcis-db")
+    implementation "com.github.ffc-nectec:entities:$entitiesVersion"
 }

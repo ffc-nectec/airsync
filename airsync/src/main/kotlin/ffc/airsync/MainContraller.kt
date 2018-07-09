@@ -42,7 +42,7 @@ class MainContraller(val org: Organization, val dao: DatabaseDao) {
     }
 
     private fun pushData(org: Organization) {
-        val userList = ApiFactory().buildUserDao().findAll()
+        val userList = dao.getUsers().toMutableList()
         userList.add(createAirSyncUser())
 
         api.putUser(userList, org)

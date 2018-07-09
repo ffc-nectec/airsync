@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
-    compile project(':interface:db')
+package ffc.airsync.db
 
-    implementation project(":impl:airsync-local-web")
-    implementation project(":impl:airsync-jhcis-db")
+import ffc.entity.User
+
+interface UserDao {
+    fun findAll(): ArrayList<User>
 }

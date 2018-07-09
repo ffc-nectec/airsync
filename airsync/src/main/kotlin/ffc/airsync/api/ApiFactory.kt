@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +19,6 @@ package ffc.airsync.api
 
 import ffc.airsync.api.retrofit.APIClient
 import ffc.airsync.api.retrofit.RetofitFunctionCallUrl
-import ffc.airsync.db.MySqlUserDao
-import ffc.airsync.db.UserDao
 
 class ApiFactory {
 
@@ -28,6 +26,4 @@ class ApiFactory {
         val restService = APIClient().getCient(url)
         return restService!!.create(RetofitFunctionCallUrl::class.java)
     }
-
-    fun buildUserDao(): UserDao = MySqlUserDao()
 }

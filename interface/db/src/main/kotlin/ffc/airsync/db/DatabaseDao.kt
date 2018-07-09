@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,8 +17,20 @@
 
 package ffc.airsync.db
 
+import ffc.entity.Chronic
+import ffc.entity.House
+import ffc.entity.Person
 import ffc.entity.User
 
-interface UserDao {
-    fun findAll(): ArrayList<User>
+interface DatabaseDao {
+
+    fun getUsers(): List<User>
+
+    fun getPerson(): List<Person>
+
+    fun getHouse(): List<House>
+
+    fun getChronic(): List<Chronic>
+
+    fun upateHouse(house: House)
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2561 NECTEC
+ * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,17 +17,9 @@
 
 package ffc.airsync.db
 
-import ffc.entity.Chronic
-import ffc.entity.House
-import ffc.entity.Person
+import org.jdbi.v3.core.Jdbi
+import java.lang.RuntimeException
 
-interface DatabaseDao {
-
-    fun getPerson(): List<Person>
-
-    fun getHouse(): List<House>
-
-    fun getChronic(): List<Chronic>
-
-    fun upateHouse(house: House)
+inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R {
+    return withExtension<R, E, RuntimeException>(E::class.java, { call(it) })
 }
