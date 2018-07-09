@@ -15,9 +15,23 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
+package th.in.ffc.airsync.logreader;
 
-    implementation project(":impl:airsync-local-web")
+public class ControllerTest {
+
+    public void process() {
+        Controller controller = new Controller("src/test/resources/jlog_test.log", "src/test/resources/jlog_test.csv", false);
+        controller.process();
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void processSingle() {
+        //Controller controller = new Controller("src/test/resources/jlog_test.log","src/test/resources/jlog_test.csv",false);
+        //controller.processSingle();
+
+    }
 }

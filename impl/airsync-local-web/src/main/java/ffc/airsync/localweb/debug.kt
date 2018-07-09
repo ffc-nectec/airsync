@@ -15,9 +15,11 @@
  * limitations under the License.
  */
 
-dependencies {
-    compile project(':interface:ui')
-    compile project(':interface:notification')
+package ffc.airsync.localweb
 
-    implementation project(":impl:airsync-local-web")
+val debug = System.getenv("FFC_DEBUG")
+
+inline fun printDebug(infoDebug: String) {
+    if (debug == null)
+        println(infoDebug)
 }
