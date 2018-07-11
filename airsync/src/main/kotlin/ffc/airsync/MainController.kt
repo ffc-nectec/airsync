@@ -27,7 +27,6 @@ import ffc.entity.Chronic
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
-import ffc.entity.firebase.FirebaseToken
 import ffc.entity.update
 import java.util.UUID
 
@@ -71,8 +70,8 @@ class MainController(val org: Organization, val dao: DatabaseDao) {
 
     private fun setupNotificationHandlerFor(org: Organization) {
         notificationModule().apply {
-            onTokenChange { id ->
-                api.putFirebaseToken(FirebaseToken(id), org)
+            onTokenChange { firebaseToken ->
+                api.putFirebaseToken(firebaseToken, org)
             }
             onReceiveDataUpdate { type, id ->
                 when (type) {

@@ -19,14 +19,13 @@ package ffc.airsync.client.webservice.module
 
 import ffc.airsync.notification.Notification
 import ffc.entity.Messaging
-import ffc.entity.firebase.FirebaseToken
 
 class FirebaseMessage : Notification {
 
-    private var identifierChange: ((String) -> Unit)? = null
+    private var identifierChange: ((HashMap<String, String>) -> Unit)? = null
     private var onDataChange: ((type: String, id: String) -> Unit)? = null
 
-    override fun onTokenChange(callback: (String) -> Unit) {
+    override fun onTokenChange(callback: (HashMap<String, String>) -> Unit) {
         identifierChange = callback
     }
 
@@ -40,8 +39,8 @@ class FirebaseMessage : Notification {
         fun getInstance() = instant
     }
 
-    fun updateToken(firebaseToken: FirebaseToken) {
-        identifierChange?.invoke(firebaseToken.firebasetoken)
+    fun updateToken(firebaseToken: HashMap<String, String>) {
+        identifierChange?.invoke(firebaseToken)
     }
 
     fun updateHouse(data: Messaging) {

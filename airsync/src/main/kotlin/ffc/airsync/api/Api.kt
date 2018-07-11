@@ -23,7 +23,6 @@ import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
-import ffc.entity.firebase.FirebaseToken
 
 interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization
@@ -36,7 +35,7 @@ interface Api {
 
     fun putChronic(chronicList: List<Chronic>, org: Organization)
 
-    fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization)
+    fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization)
 
     fun getHouseAndUpdate(org: Organization, _id: String, databaseDao: DatabaseDao)
 }

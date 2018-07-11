@@ -19,7 +19,6 @@ package ffc.airsync.client.webservice.webresources
 
 import ffc.airsync.client.webservice.module.FirebaseMessage
 import ffc.airsync.localweb.printDebug
-import ffc.entity.firebase.FirebaseToken
 import ffc.entity.firebase.Payload
 import ffc.entity.gson.parseTo
 import javax.servlet.http.HttpServletRequest
@@ -41,7 +40,7 @@ class FirebaseResource {
     fun updateFirebaseToken(@Context req: HttpServletRequest, token: String): Response {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("Firebase token $token")
-        val firebaseToken = token.parseTo<FirebaseToken>()
+        val firebaseToken = token.parseTo<HashMap<String, String>>()
         printDebug("Firebase token = $firebaseToken")
 
         val fbm = FirebaseMessage.getInstance()
@@ -60,7 +59,7 @@ class FirebaseResource {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("\tFirebase message data $message")
         val event = message.parseTo<Payload>()
-        printDebug("\t\tID = ${event.message.data._id} " +
+        printDebug("\t\t" +
                 "Type = ${event.message.data.type} " +
                 "Url = ${event.message.data.url}")
         val data = event.message.data
