@@ -41,7 +41,7 @@ interface QueryPerson {
             "ctitle.titlename " +
             "FROM person LEFT JOIN ctitle ON person.prename=ctitle.titlecode")
     @RegisterRowMapper(PersonMapper::class)
-    fun getPerson(): List<Person>
+    fun get(): List<Person>
 }
 
 class PersonMapper : RowMapper<Person> {
