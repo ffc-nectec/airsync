@@ -29,7 +29,7 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
 
-class MainContraller(val org: Organization, val dao: DatabaseDao) {
+class MainController(val org: Organization, val dao: DatabaseDao) {
 
     val api: Api by lazy { ApiV1() }
 
