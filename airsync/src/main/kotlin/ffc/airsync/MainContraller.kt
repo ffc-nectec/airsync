@@ -18,7 +18,6 @@
 package ffc.airsync
 
 import ffc.airsync.api.Api
-import ffc.airsync.api.ApiFactory
 import ffc.airsync.api.ApiV1
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
