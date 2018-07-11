@@ -16,7 +16,6 @@
  */
 
 package ffc.airsync.db
-
 import ffc.airsync.utils.printDebug
 import ffc.entity.House
 import ffc.entity.Link
@@ -27,11 +26,27 @@ import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
+import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
 import java.sql.ResultSet
+import java.sql.Timestamp
 
 interface QueryHouse {
+
+    @SqlUpdate("""
+UPDATE `house`
+  SET
+   `hid`= :hid,
+   `road`= :road,
+   `xgis`= :xgis,
+   `ygis`= :ygis,
+   `hno`= :hno,
+   `dateupdate`= :dateUpdate
+WHERE  `pcucode`= :pcuCode AND `hcode`= :hosCode
+    """)
+    fun update(@BindBean house: HouseJhcisDb)
 
     @SqlQuery("""
 SELECT house.pcucode,
@@ -45,7 +60,7 @@ SELECT house.pcucode,
 FROM house
 """)
     @RegisterRowMapper(HouseMapper::class)
-    fun getHouse(): List<House>
+    fun get(): List<House>
 }
 
 class HouseMapper : RowMapper<House> {
@@ -69,3 +84,15 @@ class HouseMapper : RowMapper<House> {
         return house
     }
 }
+
+data class HouseJhcisDb(
+    val hid: String,
+    val road: String,
+    val xgis: String,
+    val ygis: String,
+    val hno: String,
+    val dateUpdate: Timestamp,
+
+    val pcuCode: String,
+    val hcode: Int
+)
