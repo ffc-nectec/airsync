@@ -24,8 +24,10 @@ import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
+import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
+import javax.xml.bind.DatatypeConverter
 
 // TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
 class ApiV1 : Api {
@@ -36,7 +38,7 @@ class ApiV1 : Api {
 
     override fun putFirebaseToken(firebaseToken: FirebaseToken, org: Organization) {
         restService!!.createFirebaseToken(orgId = org.id,
-                authkey = "Bearer " + org.token,
+                authkey = oAuth2Token,
                 firebaseToken = firebaseToken
         ).execute()
     }
@@ -44,13 +46,17 @@ class ApiV1 : Api {
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
 
     companion object {
-        var organization: Organization? = null
-        var urlBase: String? = null
+        lateinit var organization: Organization
+        lateinit var urlBase: String
+        lateinit var token: Token
     }
+
+    private val oAuth2Token: String
+        get() = "Bearer " + token.token
 
     override fun getHouseAndUpdate(org: Organization, _id: String, databaseDao: DatabaseDao) {
         printDebug("Get house house _id = $_id")
-        val data = restService!!.getHouse(orgId = org.id, authkey = "Bearer " + org.token, _id = _id).execute()
+        val data = restService!!.getHouse(orgId = org.id, authkey = oAuth2Token, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")
@@ -61,18 +67,18 @@ class ApiV1 : Api {
         house.link?.isSynced = true
 
         printDebug("\tPut new house to cloud")
-        restService.putHouse(orgId = org.id, authkey = "Bearer " + org.token, _id = _id, house = house).execute()
+        restService.putHouse(orgId = org.id, authkey = oAuth2Token, _id = _id, house = house).execute()
     }
 
     override fun putUser(userInfoList: List<User>, org: Organization) {
-        restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = "Bearer " + org.token).execute()
+        restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
     }
 
     override fun putHouse(houseList: List<House>, org: Organization) {
         UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
                 restService!!.createHouse(orgId = org.id,
-                        authkey = "Bearer " + org.token,
+                        authkey = oAuth2Token,
                         houseList = cakePlate).execute()
             }
         })
@@ -83,7 +89,7 @@ class ApiV1 : Api {
         UploadSpliter.upload(300, personList, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
                 restService!!.createPerson(orgId = org.id,
-                        authkey = "Bearer " + org.token,
+                        authkey = oAuth2Token,
                         personList = cakePlate).execute()
             }
         })
@@ -91,7 +97,7 @@ class ApiV1 : Api {
 
     override fun putChronic(chronicList: List<Chronic>, org: Organization) {
         restService!!.createChronic(orgId = org.id,
-                authkey = "Bearer " + org.token,
+                authkey = oAuth2Token,
                 chronicList = chronicList).execute()
     }
 
@@ -104,12 +110,19 @@ class ApiV1 : Api {
         val org = restService!!.regisOrg(organization).execute().body()
 
         printDebug("Client registerOrg " + org)
-        // Thread.sleep(3000)
 
-        if (org != null) {
-            Companion.organization = org
-            return org
-        }
-        throw ClassNotFoundException()
+        if (org == null) throw IllegalStateException("ไม่มีข้อมูลการลงทะเบียน Org")
+        Companion.organization = org
+
+        val user = organization.users[0]
+        val authStr = user.name + ":" + user.password
+        val authEncoded = DatatypeConverter.printBase64Binary(authStr.toByteArray())
+        val authorization = "Basic $authEncoded"
+        val tokenFromServer = restService.loginOrg(org.id, authorization).execute().body()
+                ?: throw Exception("ไม่สามารถ Login org ได้")
+        token = tokenFromServer
+        org.bundle["token"] = tokenFromServer
+
+        return org
     }
 }

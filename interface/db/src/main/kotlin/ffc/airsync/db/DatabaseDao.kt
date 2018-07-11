@@ -24,6 +24,8 @@ import ffc.entity.User
 
 interface DatabaseDao {
 
+    fun getDetail(): HashMap<String, String>
+
     fun getUsers(): List<User>
 
     fun getPerson(): List<Person>

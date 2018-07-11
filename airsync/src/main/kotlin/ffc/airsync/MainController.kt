@@ -28,35 +28,41 @@ import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
+import java.util.UUID
 
 class MainController(val org: Organization, val dao: DatabaseDao) {
 
     val api: Api by lazy { ApiV1() }
 
     fun run() {
+        org.bundle.putAll(dao.getDetail())
+        org.users.add(createOrgUser(org))
+
         val org = api.registerOrganization(org, Config.baseUrlRest)
+
         pushData(org)
         setupNotificationHandlerFor(org)
         startLocalAirSyncServer()
+    }
+
+    private fun createOrgUser(org: Organization): User {
+        return User().apply {
+            name = "airsync${org.bundle["hosId"]}"
+            password = UUID.randomUUID().toString()
+            role = User.Role.ORG
+        }
     }
 
     private fun pushData(org: Organization) {
         val userList = dao.getUsers().toMutableList()
         userList.add(createAirSyncUser())
 
-        api.putUser(userList, org)
-
-        api.putHouse(dao.getHouse(), org)
-
-        // put person
         val personOrgList = dao.getPerson()
-        // api.putPerson(personOrgList, org)
-
-        // put chronic
         val chronicList = dao.getChronic()
-        // api.putChronic(chronicList, org)
 
         val personHaveChronic = personOrgList.mapChronics(chronicList)
+        api.putUser(userList, org)
+        api.putHouse(dao.getHouse(), org)
         api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
