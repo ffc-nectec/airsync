@@ -22,6 +22,7 @@ import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.gson.toJson
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -59,8 +60,21 @@ class JdbiDatabaseDao(
     override fun getChronic(): List<Chronic> = createJdbi().extension<QueryChronic, List<Chronic>> { getChronic() }
 
     override fun upateHouse(house: House) {
+        val houseUpdate = HouseJhcisDb(
+                hid = house.identity?.id ?: "",
+                road = house.road ?: "",
+                xgis = house.location?.coordinates?.longitude.toString(),
+                ygis = house.location?.coordinates?.latitude.toString(),
+                hno = house.no ?: "",
+                dateUpdate = Timestamp(house.timestamp.millis),
 
-        val querySql = """
+                pcuCode = house.link!!.keys["pcucode"].toString(),
+                hcode = house.link!!.keys["hcode"].toString().toInt()
+        )
+        printDebug("House update from could = ${houseUpdate.toJson()}")
+        createJdbi().extension<QueryHouse, Any> { update(houseUpdate) }
+
+        /*val querySql = """
 UPDATE `house`
   SET
    `hid`=?,
@@ -86,7 +100,7 @@ WHERE  `pcucode`=? AND `hcode`=?;
                     house.link!!.keys["pcucode"],
                     house.link!!.keys["hid"]
             )
-        }
+        }*/
         printDebug("\tFinish upateHouse")
     }
 
