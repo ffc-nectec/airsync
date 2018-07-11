@@ -22,6 +22,7 @@ import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.ThaiHouseholdId
 import ffc.entity.gson.toJson
+import ffc.entity.update
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext

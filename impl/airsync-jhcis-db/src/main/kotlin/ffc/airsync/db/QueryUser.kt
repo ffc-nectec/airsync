@@ -3,6 +3,7 @@ package ffc.airsync.db
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.User
+import ffc.entity.update
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
