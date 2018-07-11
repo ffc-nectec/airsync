@@ -28,6 +28,7 @@ import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
+import ffc.entity.update
 import java.util.UUID
 
 class MainController(val org: Organization, val dao: DatabaseDao) {
