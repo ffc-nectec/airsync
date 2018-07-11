@@ -42,7 +42,7 @@ interface QueryChronic {
         ORDER BY person.hcode
             """)
     @RegisterRowMapper(ChronicMapper::class)
-    fun getChronic(): List<Chronic>
+    fun get(): List<Chronic>
 }
 
 class ChronicMapper : RowMapper<Chronic> {

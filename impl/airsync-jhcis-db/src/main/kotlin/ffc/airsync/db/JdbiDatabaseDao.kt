@@ -46,7 +46,7 @@ class JdbiDatabaseDao(
     }
 
     override fun getPerson(): List<Person> {
-        return createJdbi().extension<QueryPerson, List<Person>> { getPerson() }
+        return createJdbi().extension<QueryPerson, List<Person>> { get() }
     }
 
     override fun getHouse(): List<House> {
@@ -57,7 +57,7 @@ class JdbiDatabaseDao(
         return houses
     }
 
-    override fun getChronic(): List<Chronic> = createJdbi().extension<QueryChronic, List<Chronic>> { getChronic() }
+    override fun getChronic(): List<Chronic> = createJdbi().extension<QueryChronic, List<Chronic>> { get() }
 
     override fun upateHouse(house: House) {
         val houseUpdate = HouseJhcisDb(
