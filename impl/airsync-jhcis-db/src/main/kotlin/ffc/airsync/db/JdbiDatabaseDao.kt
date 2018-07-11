@@ -38,6 +38,10 @@ class JdbiDatabaseDao(
 
     val userDao by lazy { MySqlUserDao() }
 
+    override fun getDetail(): HashMap<String, String> {
+        return createJdbi().extension<QueryHosDetail, List<HashMap<String, String>>> { get() }[0]
+    }
+
     override fun getUsers(): List<User> {
         return userDao.findAll()
     }

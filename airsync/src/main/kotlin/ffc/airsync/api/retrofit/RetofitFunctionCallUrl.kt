@@ -21,6 +21,7 @@ import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
+import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.firebase.FirebaseToken
 import retrofit2.Call
@@ -35,6 +36,12 @@ interface RetofitFunctionCallUrl {
 
     @POST("/v0/org")
     fun regisOrg(@Body body: Organization): Call<Organization>
+
+    @POST("/v0/org/{orgId}/authorize")
+    fun loginOrg(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<Token>
 
     @POST("/v0/org/{orgId}/user")
     fun regisUser(
