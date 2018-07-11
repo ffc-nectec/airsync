@@ -29,7 +29,7 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import java.sql.Timestamp
 
-class JdbiDatabaseDao(
+class JdbiDao(
     val dbHost: String,
     val dbPort: String,
     val dbName: String,
