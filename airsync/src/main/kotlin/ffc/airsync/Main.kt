@@ -63,7 +63,7 @@ internal class Main constructor(args: Array<String>) {
             link = Link(System.JHICS, "pcucode" to orgCode)
             name = orgName
         }
-        MainContraller(org, dao).run()
+        MainController(org, dao).run()
     }
 
     companion object {
