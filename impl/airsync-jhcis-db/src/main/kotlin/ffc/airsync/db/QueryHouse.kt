@@ -46,7 +46,7 @@ UPDATE `house`
    `ygis`= :ygis,
    `hno`= :hno,
    `dateupdate`= :dateUpdate
-WHERE  `pcucode`= :pcuCode AND `hcode`= :hosCode
+WHERE  `pcucode`= :pcuCode AND `hcode`= :hcode
     """)
     fun update(@BindBean house: HouseJhcisDb)
 
@@ -89,11 +89,11 @@ class HouseMapper : RowMapper<House> {
 }
 
 data class HouseJhcisDb(
-    val hid: String,
-    val road: String,
-    val xgis: String,
-    val ygis: String,
-    val hno: String,
+    val hid: String?,
+    val road: String?,
+    val xgis: String?,
+    val ygis: String?,
+    val hno: String?,
     val dateUpdate: Timestamp,
 
     val pcuCode: String,
