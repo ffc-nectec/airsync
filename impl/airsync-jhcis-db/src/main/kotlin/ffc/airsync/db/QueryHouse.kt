@@ -16,6 +16,7 @@
  */
 
 package ffc.airsync.db
+
 import ffc.airsync.utils.printDebug
 import ffc.entity.House
 import ffc.entity.Link
@@ -72,10 +73,11 @@ class HouseMapper : RowMapper<House> {
             rs.getString("hid")?.let { identity = ThaiHouseholdId(it) }
             no = rs.getString("hno")
             road = rs.getString("road")
-            location = Point(
-                    rs.getDouble("ygis"),
-                    rs.getDouble("xgis")
-            )
+
+            val xgis = rs.getDouble("xgis")
+            val ygis = rs.getDouble("ygis")
+            if ((xgis != 0.0) && (ygis != 0.0))
+                location = Point(ygis, xgis)
             link = Link(System.JHICS,
                     "hcode" to rs.getString("hcode"),
                     "pcuCode" to rs.getString("pcucode")

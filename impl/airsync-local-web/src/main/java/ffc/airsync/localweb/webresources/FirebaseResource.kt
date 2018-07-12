@@ -43,13 +43,10 @@ class FirebaseResource {
         val firebaseToken = token.parseTo<HashMap<String, String>>()
         printDebug("Firebase token = $firebaseToken")
 
-        val fbm = FirebaseMessage.getInstance()
+        val fbm = FirebaseMessage.instant
 
         printDebug("\tCall update Token")
         fbm.updateToken(firebaseToken)
-
-        printDebug("\tBefore put Firebase token")
-
         return Response.status(Response.Status.CREATED).build()
     }
 
@@ -63,11 +60,26 @@ class FirebaseResource {
                 "Type = ${event.message.data.type} " +
                 "Url = ${event.message.data.url}")
         val data = event.message.data
-        val fbm = FirebaseMessage.getInstance()
 
-        if (data.type == "House")
-            fbm.updateHouse(data)
+        printDebug("\tGet data message")
+        val fbm = FirebaseMessage.instant
 
+        printDebug("\t Check house type.")
+        try {
+            if (data.type == "House") {
+                printDebug("\t\tType house")
+                fbm.updateHouse(data)
+            } else {
+                printDebug("\t\tNot type house.")
+            }
+
+
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            throw ex
+        }
+
+        printDebug("End")
         return Response.status(Response.Status.CREATED).build()
     }
 }

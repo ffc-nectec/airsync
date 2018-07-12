@@ -86,7 +86,7 @@ interface RetofitFunctionCallUrl {
         @Body house: House
     ): Call<Void>
 
-    @PUT("/v0/org/{orgId}/firebase")
+    @POST("/v0/org/{orgId}/firebasetoken")
     fun createFirebaseToken(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
