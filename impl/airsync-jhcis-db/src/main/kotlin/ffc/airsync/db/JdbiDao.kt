@@ -61,46 +61,18 @@ class JdbiDao(
 
     override fun upateHouse(house: House) {
         val houseUpdate = HouseJhcisDb(
-                hid = house.identity?.id ?: "",
-                road = house.road ?: "",
-                xgis = house.location?.coordinates?.longitude.toString(),
-                ygis = house.location?.coordinates?.latitude.toString(),
-                hno = house.no ?: "",
+                hid = house.identity?.id,
+                road = house.road,
+                xgis = house.location?.coordinates?.longitude?.toString(),
+                ygis = house.location?.coordinates?.latitude?.toString(),
+                hno = house.no,
                 dateUpdate = Timestamp(house.timestamp.millis),
 
-                pcuCode = house.link!!.keys["pcucode"].toString(),
+                pcuCode = house.link!!.keys["pcuCode"].toString(),
                 hcode = house.link!!.keys["hcode"].toString().toInt()
         )
         printDebug("House update from could = ${houseUpdate.toJson()}")
         createJdbi().extension<QueryHouse, Any> { update(houseUpdate) }
-
-        /*val querySql = """
-UPDATE `house`
-  SET
-   `hid`=?,
-   `road`=?,
-   `xgis`=?,
-   `ygis`=?,
-   `hno`=?,
-   `dateupdate`=?
-WHERE  `pcucode`=? AND `hcode`=?;
-    """
-
-        printDebug("upateHouse")
-        printDebug("\tGet value ${house.timestamp}")
-        val jdbi = createJdbi()
-        jdbi.withHandle<Any, Exception> {
-            it.execute(querySql,
-                    house.identity?.id,
-                    house.no,
-                    house.road,
-                    house.location?.coordinates?.longitude,
-                    house.location?.coordinates?.latitude,
-                    Timestamp(house.timestamp.millis),
-                    house.link!!.keys["pcucode"],
-                    house.link!!.keys["hid"]
-            )
-        }*/
         printDebug("\tFinish upateHouse")
     }
 

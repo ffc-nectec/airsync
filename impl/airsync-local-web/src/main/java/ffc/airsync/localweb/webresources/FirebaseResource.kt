@@ -72,13 +72,10 @@ class FirebaseResource {
             } else {
                 printDebug("\t\tNot type house.")
             }
-
-
         } catch (ex: Exception) {
             ex.printStackTrace()
             throw ex
         }
-
         printDebug("End")
         return Response.status(Response.Status.CREATED).build()
     }
