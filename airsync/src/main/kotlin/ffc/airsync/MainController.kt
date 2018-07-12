@@ -32,9 +32,10 @@ import ffc.entity.User
 import ffc.entity.update
 import java.util.UUID
 
-class MainController(val org: Organization, val dao: DatabaseDao) {
+class MainController(val dao: DatabaseDao) {
 
     val api: Api by lazy { ApiV1() }
+    lateinit var org: Organization
 
     fun run() {
 
@@ -47,6 +48,7 @@ class MainController(val org: Organization, val dao: DatabaseDao) {
     }
 
     private fun initOrganization() {
+        org = Organization()
         with(org) {
             val detail = dao.getDetail()
             val hosId = detail["offid"] ?: ""
@@ -65,11 +67,13 @@ class MainController(val org: Organization, val dao: DatabaseDao) {
 
         val personOrgList = dao.getPerson()
         val chronicList = dao.getChronic()
+        val houseList = dao.getHouse()
 
         val personHaveChronic = personOrgList.mapChronics(chronicList)
+
         api.putUser(userList, org)
-        api.putHouse(dao.getHouse(), org)
-        api.putPerson(personHaveChronic, org)
+        api.putHouse(houseList, org)
+        //api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
     }
@@ -82,6 +86,7 @@ class MainController(val org: Organization, val dao: DatabaseDao) {
             onReceiveDataUpdate { type, id ->
                 when (type) {
                     "House" -> api.getHouseAndUpdate(org, id, dao)
+                    else -> println("Not type house.")
                 }
             }
         }

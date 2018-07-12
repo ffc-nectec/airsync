@@ -18,9 +18,6 @@
 package ffc.airsync
 
 import ffc.airsync.provider.databaseDaoModule
-import ffc.entity.Link
-import ffc.entity.Organization
-import ffc.entity.System
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
@@ -59,11 +56,7 @@ internal class Main constructor(args: Array<String>) {
 
     fun run() {
         val dao = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
-        val org = Organization().apply {
-            link = Link(System.JHICS, "pcucode" to orgCode)
-            name = orgName
-        }
-        MainController(org, dao).run()
+        MainController(dao).run()
     }
 
     companion object {
