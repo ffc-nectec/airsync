@@ -24,8 +24,10 @@ import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.printDebug
 import ffc.entity.Chronic
+import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.Person
+import ffc.entity.System
 import ffc.entity.User
 import ffc.entity.update
 import java.util.UUID
@@ -35,9 +37,8 @@ class MainController(val org: Organization, val dao: DatabaseDao) {
     val api: Api by lazy { ApiV1() }
 
     fun run() {
-        org.bundle.putAll(dao.getDetail())
-        org.users.add(createOrgUser(org))
 
+        initOrganization()
         val org = api.registerOrganization(org, Config.baseUrlRest)
 
         pushData(org)
@@ -45,17 +46,22 @@ class MainController(val org: Organization, val dao: DatabaseDao) {
         startLocalAirSyncServer()
     }
 
-    private fun createOrgUser(org: Organization): User {
-        return User().apply {
-            name = "airsync${org.bundle["hosId"]}"
-            password = UUID.randomUUID().toString()
-            role = User.Role.ORG
+    private fun initOrganization() {
+        with(org) {
+            val detail = dao.getDetail()
+            val hosId = detail["offid"] ?: ""
+
+            name = detail["name"] ?: ""
+            link = Link(System.JHICS).apply {
+                keys["offid"] = hosId
+            }
+            users.add(createAirSyncUser(hosId))
+            update { }
         }
     }
 
     private fun pushData(org: Organization) {
         val userList = dao.getUsers().toMutableList()
-        userList.add(createAirSyncUser())
 
         val personOrgList = dao.getPerson()
         val chronicList = dao.getChronic()
@@ -94,7 +100,9 @@ class MainController(val org: Organization, val dao: DatabaseDao) {
         return this
     }
 
-    fun createAirSyncUser(): User = User().update {
-        name = "airsync.jhcis.pcu${org.id}"
+    fun createAirSyncUser(hosId: String): User = User().update {
+        name = "airsync$hosId"
+        password = UUID.randomUUID().toString().replace("-", "")
+        role = User.Role.ORG
     }
 }

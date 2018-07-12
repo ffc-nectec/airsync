@@ -26,6 +26,7 @@ import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
+import ffc.entity.gson.toJson
 import javax.xml.bind.DatatypeConverter
 
 // TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
@@ -108,7 +109,7 @@ class ApiV1 : Api {
         val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
         val org = restService!!.regisOrg(organization).execute().body()
 
-        printDebug("Client registerOrg " + org)
+        printDebug("Client registerOrg from cloud ${org?.toJson()}")
 
         if (org == null) throw IllegalStateException("ไม่มีข้อมูลการลงทะเบียน Org")
         Companion.organization = org
@@ -119,8 +120,11 @@ class ApiV1 : Api {
         val authorization = "Basic $authEncoded"
         val tokenFromServer = restService.loginOrg(org.id, authorization).execute().body()
                 ?: throw Exception("ไม่สามารถ Login org ได้")
+        printDebug("\tToken = ${tokenFromServer.toJson()}")
         token = tokenFromServer
         org.bundle["token"] = tokenFromServer
+
+        printDebug("Client update registerOrg from cloud ${org.toJson()}")
 
         return org
     }
