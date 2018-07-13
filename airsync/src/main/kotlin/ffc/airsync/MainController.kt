@@ -54,6 +54,8 @@ class MainController(val dao: DatabaseDao) {
             val hosId = detail["offid"] ?: ""
 
             name = detail["name"] ?: ""
+            tel = detail["tel"]
+            address = detail["province"]
             link = Link(System.JHICS).apply {
                 keys["offid"] = hosId
             }
