@@ -29,12 +29,7 @@ import ffc.entity.User
 import ffc.entity.gson.toJson
 import javax.xml.bind.DatatypeConverter
 
-// TODO ปรับให้ set token แค่ครั้งเดียวพอ ไม่ต้องใส่เองในทุก Request
 class ApiV1 : Api {
-
-    // TODO remove
-    val Organization.token
-        get() = "9293hdjw9kxhs"
 
     override fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization) {
         restService!!.createFirebaseToken(orgId = org.id,
