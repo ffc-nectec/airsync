@@ -26,20 +26,20 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ReadTextFileTest {
 
     public void read() throws Exception {
-        ReadTextFile readTextFile;
+        ReadLogFile readLogFile;
         String logfilepart = "src/test/resources/ReadTextFileRT.txt";
         AtomicReference<QueryRecord> recordTest = new AtomicReference<>();
         PrintWriter writer = null;
         writer = new PrintWriter(logfilepart, "UTF-8");
-        readTextFile = new ReadTextFile(logfilepart, true, 100);
-        readTextFile.setListener(record -> {
+        readLogFile = new ReadLogFile(logfilepart, true, 100);
+        readLogFile.setListener(record -> {
             //System.out.println(record.getLog());
             recordTest.set(record);
         });
         new Thread(() -> {
 
             try {
-                readTextFile.process();
+                readLogFile.process();
             } catch (IOException e) {
                 e.printStackTrace();
             }

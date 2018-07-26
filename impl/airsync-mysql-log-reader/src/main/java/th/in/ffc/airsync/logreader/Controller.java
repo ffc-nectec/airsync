@@ -17,11 +17,7 @@
 
 package th.in.ffc.airsync.logreader;
 
-import th.in.ffc.airsync.logreader.filter.CreateHash;
-import th.in.ffc.airsync.logreader.filter.Filters;
-import th.in.ffc.airsync.logreader.filter.GetTimeFilter;
-import th.in.ffc.airsync.logreader.filter.NowFilter;
-import th.in.ffc.airsync.logreader.filter.QueryFilter;
+import th.in.ffc.airsync.logreader.filter.*;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -78,8 +74,8 @@ public class Controller {
         }
 
         try {
-            ReadTextFile readTextFile = new ReadTextFile(Config.logfilepath);
-            readTextFile.setListener(record -> {
+            ReadLogFile readLogFile = new ReadLogFile(Config.logfilepath);
+            readLogFile.setListener(record -> {
                 for (Filters filter : filters) {
                     filter.process(record);
                     if (record.getLog().equals("")) break;
@@ -91,7 +87,7 @@ public class Controller {
                     e.printStackTrace();
                 }
             });
-            readTextFile.process();
+            readLogFile.process();
         } catch (IOException e) {
             e.printStackTrace();
             onLogFileExceptionListener.ioException(e);
