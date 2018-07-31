@@ -19,22 +19,22 @@ package th.in.ffc.airsync.logreader;
 
 import java.io.*;
 
-public class ReadLogFile {
+public class LogReaderV1 {
     private long linenumber = 0;
     private BufferedReader bufferReader;
     private LogEvent listener;
     private boolean realtime;
     private long delay;
 
-    ReadLogFile(String fileparth) throws FileNotFoundException {
+    LogReaderV1(String fileparth) throws FileNotFoundException {
         this(fileparth, true, 2000);
     }
 
-    public ReadLogFile(String logfile, boolean realtime) throws FileNotFoundException {
+    public LogReaderV1(String logfile, boolean realtime) throws FileNotFoundException {
         this(logfile, realtime, 2000);
     }
 
-    ReadLogFile(String fileparth, boolean realtime, long delay) throws FileNotFoundException {
+    LogReaderV1(String fileparth, boolean realtime, long delay) throws FileNotFoundException {
         {
             this.realtime = realtime;
             this.delay = delay;

@@ -8,7 +8,7 @@ import th.`in`.ffc.airsync.logreader.filter.QueryFilter
 import java.util.Arrays
 import java.util.regex.Pattern
 
-class LogReader(val logfilepath: String, val onLogInput: (line: QueryRecord, tableName: String) -> Unit, val delay: Long = 100) {
+class LogReaderV2(val logfilepath: String, val onLogInput: (line: QueryRecord, tableName: String) -> Unit, val delay: Long = 100) {
 
     val startWithBeforeTable = arrayListOf<String>().apply {
         add("INSERT INTO")
@@ -28,7 +28,7 @@ class LogReader(val logfilepath: String, val onLogInput: (line: QueryRecord, tab
     )
 
     private fun readSingleLogFileRealTime() {
-        val readLogFile = ReadLogFile(logfilepath, true, delay)
+        val readLogFile = LogReaderV1(logfilepath, true, delay)
         readLogFile.setListener { record ->
 
             loadFilters.forEach {
