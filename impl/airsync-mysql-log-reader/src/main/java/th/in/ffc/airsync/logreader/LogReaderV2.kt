@@ -11,9 +11,6 @@ import java.util.regex.Pattern
 class LogReaderV2(val logfilepath: String, val onLogInput: (line: QueryRecord, tableName: String) -> Unit, val delay: Long = 100) {
 
     val startWithBeforeTable = arrayListOf<String>().apply {
-        add("INSERT INTO")
-        add("UPDATE")
-        add("DELETE FROM")
         add("insert into")
         add("update")
         add("delete from")
@@ -45,7 +42,7 @@ class LogReaderV2(val logfilepath: String, val onLogInput: (line: QueryRecord, t
     private fun getTableInLogLine(logLine: String): String {
         for (it in startWithBeforeTable) {
             if (logLine.startsWith(it)) {
-                val pattern = Pattern.compile("""^$it `?([\w\d]+)`?.+""")
+                val pattern = Pattern.compile("""^$it `?([\w\d]+)`?.+""", Pattern.CASE_INSENSITIVE)
                 val table = pattern.matcher(logLine)
                 table.find()
                 return table.group(1)
