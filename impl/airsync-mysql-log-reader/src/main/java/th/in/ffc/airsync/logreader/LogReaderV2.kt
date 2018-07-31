@@ -5,10 +5,12 @@ import th.`in`.ffc.airsync.logreader.filter.Filters
 import th.`in`.ffc.airsync.logreader.filter.GetTimeFilter
 import th.`in`.ffc.airsync.logreader.filter.NowFilter
 import th.`in`.ffc.airsync.logreader.filter.QueryFilter
+import th.`in`.ffc.airsync.logreader.getkey.GetWhere
+import th.`in`.ffc.airsync.logreader.getkey.Update
 import java.util.Arrays
 import java.util.regex.Pattern
 
-class LogReaderV2(val logfilepath: String, val onLogInput: (line: QueryRecord, tableName: String) -> Unit, val delay: Long = 100) {
+class LogReaderV2(val logfilepath: String, val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit, val delay: Long = 100) {
 
     val startWithBeforeTable = arrayListOf<String>().apply {
         add("insert into")
@@ -24,6 +26,10 @@ class LogReaderV2(val logfilepath: String, val onLogInput: (line: QueryRecord, t
             CreateHash()
     )
 
+    val keyFilters = arrayListOf<GetWhere>().apply {
+        add(Update())
+    }
+
     private fun readSingleLogFileRealTime() {
         val readLogFile = LogReaderV1(logfilepath, true, delay)
         readLogFile.setListener { record ->
@@ -31,8 +37,18 @@ class LogReaderV2(val logfilepath: String, val onLogInput: (line: QueryRecord, t
             loadFilters.forEach {
                 it.process(record)
             }
+
+            var key = ""
+            for (keyFilter in keyFilters) {
+                key = keyFilter.get(record.log)
+                if (key != "") {
+                    break
+                }
+            }
+
+
             if (record.log != "") {
-                onLogInput(record, getTableInLogLine(record.log))
+                onLogInput(record, getTableInLogLine(record.log), key)
             }
         }
         readLogFile.process()
