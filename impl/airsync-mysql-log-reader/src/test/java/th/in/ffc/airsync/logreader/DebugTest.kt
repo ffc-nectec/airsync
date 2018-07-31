@@ -1,10 +1,7 @@
 package th.`in`.ffc.airsync.logreader
 
-import org.junit.Test
-
 class DebugTest {
-    @Test
-    fun readLogRealtime() {
+    fun LogReaderV1() {
         val readTextFile = LogReaderV1(Config.logfilepath, true, 100)
 
         readTextFile.setListener {
@@ -17,10 +14,11 @@ class DebugTest {
             Thread.sleep(3000)
     }
 
-    @Test
-    fun readLogKot() {
+    fun LogReaderV2() {
 
-        val logReader = LogReaderV2(Config.logfilepath, onLogInput = { it: QueryRecord, tableName: String, keyWhere: String ->
+        val logReader = LogReaderV2(Config.logfilepath, onLogInput = { it: QueryRecord,
+                                                                       tableName:
+                                                                       String, keyWhere: String ->
             println("L:${it.linenumber},T:${it.time},Table:$tableName,Where:$keyWhere,SQL:${it.log}")
         })
 
@@ -28,5 +26,4 @@ class DebugTest {
         while (true)
             Thread.sleep(3000)
     }
-
 }
