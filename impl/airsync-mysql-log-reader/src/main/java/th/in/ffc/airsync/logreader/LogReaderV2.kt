@@ -22,10 +22,9 @@ class LogReaderV2(
         thread.start()
     }
 
-    val tableQuery = arrayListOf<String>().apply {
+    private val tableQuery = arrayListOf<String>().apply {
+        add("`jhcisdb`.`house`")
         add("house")
-        add("person")
-        add("personchronic")
     }
 
     val startWithBeforeTable = arrayListOf<String>().apply {
@@ -66,9 +65,9 @@ class LogReaderV2(
 
             if (record.log != "") {
                 val tableInLog = getTableInLogLine(record.log)
-                onLogInput(record, tableInLog, key)
                 for (it in tableQuery) {
                     if (tableInLog.contains(it)) {
+                        onLogInput(record, tableInLog, key)
                         break
                     }
                 }

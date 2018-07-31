@@ -21,6 +21,7 @@ import ffc.airsync.api.Api
 import ffc.airsync.api.ApiV1
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
+import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.printDebug
 import ffc.entity.Chronic
@@ -43,6 +44,14 @@ class MainController(val dao: DatabaseDao) {
         val org = api.registerOrganization(org, Config.baseUrlRest)
 
         pushData(org)
+
+        databaseWatcher(
+                Config.logfilepath,
+                onLogInput = { line, tableName, keyWhere ->
+                    if (keyWhere != "") {
+                    }
+                })
+
         setupNotificationHandlerFor(org)
         startLocalAirSyncServer()
     }

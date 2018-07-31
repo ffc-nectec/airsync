@@ -39,7 +39,22 @@ public class LogReaderV1 {
             this.realtime = realtime;
             this.delay = delay;
             File textfilepath = new File(fileparth);
-            bufferReader = new BufferedReader(new FileReader(textfilepath));
+            boolean openLog = false;
+            // Wait Open Log
+            while (!openLog) {
+                try {
+                    bufferReader = new BufferedReader(new FileReader(textfilepath));
+                    openLog = true;
+                } catch (java.io.FileNotFoundException ex) {
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
         }
     }
 

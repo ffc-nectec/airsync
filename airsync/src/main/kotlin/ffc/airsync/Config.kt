@@ -21,6 +21,7 @@ class Config private constructor() {
 
     companion object {
         var baseUrlRest = "https://127.0.0.1/v0/org/"
+        val logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
     }
 
     init {
