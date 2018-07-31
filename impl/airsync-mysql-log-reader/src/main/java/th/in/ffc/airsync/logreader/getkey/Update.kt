@@ -4,7 +4,7 @@ import java.util.regex.Pattern
 
 class Update : GetWhere {
 
-    val pattern = Pattern.compile("^update .+ set .+ where (.*)", Pattern.CASE_INSENSITIVE)
+    val pattern = Pattern.compile("^update .+ set .+ where +(.*)", Pattern.CASE_INSENSITIVE)
 
     override fun get(log: String): String {
         val key = arrayListOf<String>()
