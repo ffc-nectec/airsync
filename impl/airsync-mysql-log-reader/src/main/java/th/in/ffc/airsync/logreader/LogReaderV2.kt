@@ -1,5 +1,6 @@
 package th.`in`.ffc.airsync.logreader
 
+import ffc.airsync.db.DatabaseWatcherDao
 import th.`in`.ffc.airsync.logreader.filter.CreateHash
 import th.`in`.ffc.airsync.logreader.filter.Filters
 import th.`in`.ffc.airsync.logreader.filter.GetTimeFilter
@@ -13,8 +14,13 @@ import java.util.regex.Pattern
 class LogReaderV2(
     val filepath: String,
     val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit,
-    val delay: Long = 100
-) {
+    val delay: Long = 300
+) : DatabaseWatcherDao {
+
+    override fun start() {
+        val thread = Thread { readSingleLogFileRealTime() }
+        thread.start()
+    }
 
     val tableQuery = arrayListOf<String>().apply {
         add("house")
@@ -38,7 +44,7 @@ class LogReaderV2(
             CreateHash()
     )
 
-    val keyFilters = arrayListOf<GetWhere>().apply {
+    private val keyFilters = arrayListOf<GetWhere>().apply {
         add(Update())
     }
 
@@ -87,10 +93,5 @@ class LogReaderV2(
             }
         }
         return ""
-    }
-
-    fun run() {
-        val thread = Thread { readSingleLogFileRealTime() }
-        thread.start()
     }
 }

@@ -22,7 +22,7 @@ class DebugTest {
             println("L:${it.linenumber},T:${it.time},Table:$tableName,Where:$keyWhere,SQL:${it.log}")
         })
 
-        logReader.run()
+        logReader.start()
         while (true)
             Thread.sleep(3000)
     }

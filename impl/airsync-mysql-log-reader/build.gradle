@@ -16,6 +16,7 @@
  */
 
 dependencies {
+    implementation project(":interface:db")
     implementation 'net.sourceforge.javacsv:javacsv:2.0'
     implementation 'commons-codec:commons-codec:1.11'
 }
