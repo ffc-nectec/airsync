@@ -23,11 +23,11 @@ class LogReaderV2(
     }
 
     private val tableQuery = arrayListOf<String>().apply {
-        add("`jhcisdb`.`house`")
+        add("`house`")
         add("house")
     }
 
-    val startWithBeforeTable = arrayListOf<String>().apply {
+    private val startWithBeforeTable = arrayListOf<String>().apply {
         add("insert into")
         add("update")
         add("delete from")
