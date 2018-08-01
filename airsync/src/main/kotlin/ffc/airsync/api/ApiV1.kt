@@ -49,8 +49,13 @@ class ApiV1 : Api {
     private val oAuth2Token: String
         get() = "Bearer " + token.token
 
-    override fun getHouseAndUpdate(org: Organization, _id: String, databaseDao: DatabaseDao) {
-        printDebug("Get house house _id = $_id")
+    override fun syncHouseToCloud(house: House, org: Organization) {
+        restService!!.putHouse(orgId = org.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
+
+    }
+
+    override fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao) {
+        printDebug("Sync From Cloud get house house _id = $_id")
         val data = restService!!.getHouse(orgId = org.id, authkey = oAuth2Token, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
@@ -69,14 +74,18 @@ class ApiV1 : Api {
         restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
     }
 
-    override fun putHouse(houseList: List<House>, org: Organization) {
+    override fun putHouse(houseList: List<House>, org: Organization): List<House> {
+        val houseUpdate = arrayListOf<House>()
         UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
-                restService!!.createHouse(orgId = org.id,
+                val respond = restService!!.createHouse(orgId = org.id,
                         authkey = oAuth2Token,
                         houseList = cakePlate).execute()
+                val houseList = respond.body() ?: arrayListOf()
+                houseUpdate.addAll(houseList)
             }
         })
+        return houseUpdate
     }
 
     override fun putPerson(personList: List<Person>, org: Organization) {

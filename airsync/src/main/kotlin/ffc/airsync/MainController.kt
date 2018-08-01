@@ -25,6 +25,7 @@ import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.printDebug
 import ffc.entity.Chronic
+import ffc.entity.House
 import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.Person
@@ -37,6 +38,7 @@ class MainController(val dao: DatabaseDao) {
 
     val api: Api by lazy { ApiV1() }
     lateinit var org: Organization
+    lateinit var houseUpdate: List<House>
 
     fun run() {
 
@@ -44,15 +46,30 @@ class MainController(val dao: DatabaseDao) {
         val org = api.registerOrganization(org, Config.baseUrlRest)
 
         pushData(org)
+        setupNotificationHandlerFor(org)
 
         databaseWatcher(
                 Config.logfilepath,
                 onLogInput = { line, tableName, keyWhere ->
                     if (keyWhere != "") {
-                    }
-                })
+                        val house = dao.getHouse(keyWhere)
+                        house.forEach {
+                            try {
+                                val houseSync = findHouseWithKey(it)
+                                houseSync.update {
+                                    road = it.road
+                                    no = it.no
+                                    location = it.location
+                                    link!!.isSynced = true
+                                }
 
-        setupNotificationHandlerFor(org)
+                                api.syncHouseToCloud(houseSync, org)
+                            } catch (ignore: NullPointerException) {
+                            }
+                        }
+                    }
+                }).start()
+
         startLocalAirSyncServer()
     }
 
@@ -83,10 +100,30 @@ class MainController(val dao: DatabaseDao) {
         val personHaveChronic = personOrgList.mapChronics(chronicList)
 
         api.putUser(userList, org)
-        api.putHouse(houseList, org)
-        api.putPerson(personHaveChronic, org)
+        houseUpdate = api.putHouse(houseList, org)
+        // api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
+    }
+
+    private fun findHouseWithKey(house: House): House {
+        val house = houseUpdate.find {
+            var checkEq = true
+
+            for (item in it.link!!.keys) {
+                val key = item.key
+                val obj = item.value
+
+                if (house.link!!.keys[key] != obj) {
+                    checkEq = false
+                    break
+                }
+            }
+
+            checkEq
+        }
+
+        return house ?: throw NullPointerException("ค้นหาไม่พบบ้าน")
     }
 
     private fun setupNotificationHandlerFor(org: Organization) {
@@ -96,7 +133,7 @@ class MainController(val dao: DatabaseDao) {
             }
             onReceiveDataUpdate { type, id ->
                 when (type) {
-                    "House" -> api.getHouseAndUpdate(org, id, dao)
+                    "House" -> api.syncHouseFromCloud(org, id, dao)
                     else -> println("Not type house.")
                 }
             }

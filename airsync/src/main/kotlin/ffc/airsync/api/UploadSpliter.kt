@@ -113,7 +113,7 @@ object UploadSpliter {
             })
             thread.start()
             thread.join()
-            Thread.sleep(1000)
+            //Thread.sleep(1000)
         }
     }
 

@@ -32,6 +32,8 @@ interface DatabaseDao {
 
     fun getHouse(): List<House>
 
+    fun getHouse(whereString: String): List<House>
+
     fun getChronic(): List<Chronic>
 
     fun upateHouse(house: House)

@@ -57,6 +57,10 @@ class JdbiDao(
         return houses
     }
 
+    override fun getHouse(whereString: String): List<House> {
+        return createJdbi().extension<QueryHouse, List<House>> { get(whereString) }
+    }
+
     override fun getChronic(): List<Chronic> = createJdbi().extension<QueryChronic, List<Chronic>> { get() }
 
     override fun upateHouse(house: House) {
