@@ -50,7 +50,6 @@ class LogReaderV2Test {
         writer.close()
 
         table.get() `should be equal to` "`house`"
-        key.get() `should be equal to` "`pcucode`='07934' AND `hcode`=305"
         record.get().log `should be equal to` """UPDATE `house` SET `hno`='78/5' WHERE  `pcucode`='07934' AND `hcode`=305"""
         record.get().linenumber `should be equal to` 3
     }

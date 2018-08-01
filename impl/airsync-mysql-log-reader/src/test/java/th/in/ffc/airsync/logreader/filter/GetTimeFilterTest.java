@@ -18,11 +18,13 @@
 package th.in.ffc.airsync.logreader.filter;
 
 import org.junit.Assert;
+import org.junit.Test;
 import th.in.ffc.airsync.logreader.Config;
 import th.in.ffc.airsync.logreader.QueryRecord;
 
 public class GetTimeFilterTest {
 
+    @Test
     public void testGetTime() {
         GetTimeFilter gt = new GetTimeFilter(Config.timePattern);
         Assert.assertEquals("", "");
