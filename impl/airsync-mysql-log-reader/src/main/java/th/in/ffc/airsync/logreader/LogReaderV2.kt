@@ -3,7 +3,7 @@ package th.`in`.ffc.airsync.logreader
 import ffc.airsync.db.DatabaseWatcherDao
 import th.`in`.ffc.airsync.logreader.filter.*
 import th.`in`.ffc.airsync.logreader.getkey.GetWhere
-import th.`in`.ffc.airsync.logreader.getkey.Update
+import th.`in`.ffc.airsync.logreader.getkey.UpdateHouse
 import java.util.*
 import java.util.regex.Pattern
 
@@ -49,7 +49,7 @@ class LogReaderV2(
     )
 
     private val keyFilters = arrayListOf<GetWhere>().apply {
-        add(Update())
+        add(UpdateHouse())
     }
 
     private fun readSingleLogFileRealTime() {

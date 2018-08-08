@@ -57,7 +57,7 @@ class ApiV1 : Api {
         if (house.link?.isSynced == true) return
 
         databaseDao.upateHouse(house)
-        printDebug("\tUpdate house to database and sync = true")
+        printDebug("\tUpdateHouse house to database and sync = true")
         house.link?.isSynced = true
 
         printDebug("\tPut new house to cloud")
