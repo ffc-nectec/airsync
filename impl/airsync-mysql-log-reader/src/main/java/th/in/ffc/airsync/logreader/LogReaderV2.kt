@@ -1,20 +1,16 @@
 package th.`in`.ffc.airsync.logreader
 
 import ffc.airsync.db.DatabaseWatcherDao
-import th.`in`.ffc.airsync.logreader.filter.CreateHash
-import th.`in`.ffc.airsync.logreader.filter.Filters
-import th.`in`.ffc.airsync.logreader.filter.GetTimeFilter
-import th.`in`.ffc.airsync.logreader.filter.NowFilter
-import th.`in`.ffc.airsync.logreader.filter.QueryFilter
+import th.`in`.ffc.airsync.logreader.filter.*
 import th.`in`.ffc.airsync.logreader.getkey.GetWhere
 import th.`in`.ffc.airsync.logreader.getkey.Update
-import java.util.Arrays
+import java.util.*
 import java.util.regex.Pattern
 
 class LogReaderV2(
-    val filepath: String,
-    val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit,
-    val delay: Long = 300
+        val filepath: String,
+        val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit,
+        val delay: Long = 300
 ) : DatabaseWatcherDao {
 
     override fun start() {
@@ -22,9 +18,18 @@ class LogReaderV2(
         thread.start()
     }
 
-    private val tableQuery = arrayListOf<String>().apply {
+    /*private val tableQuery = arrayListOf<String>().apply {
         add("`house`")
         add("house")
+    }*/
+
+    private val tableMaps = arrayListOf<TableMaps>().apply {
+        val houseMaps = arrayListOf<String>().apply {
+            add("`house`")
+            add("house")
+        }
+
+        add(TableMaps("house", houseMaps))
     }
 
     private val startWithBeforeTable = arrayListOf<String>().apply {
@@ -65,11 +70,14 @@ class LogReaderV2(
 
             if (record.log != "") {
                 val tableInLog = getTableInLogLine(record.log)
-                for (it in tableQuery) {
-                    if (tableInLog.contains(it)) {
-                        onLogInput(record, tableInLog, key)
-                        break
+                for (map in tableMaps) {
+                    for (value in map.tableNameList) {
+                        if (tableInLog.contains(value)) {
+                            onLogInput(record, value, key)
+                            break
+                        }
                     }
+
                 }
             }
         }
@@ -88,6 +96,10 @@ class LogReaderV2(
                 } catch (ignore: java.lang.IllegalStateException) {
                     println("\n\nIg $it + $logLine")
                 }
+
+
+
+
                 return table
             }
         }

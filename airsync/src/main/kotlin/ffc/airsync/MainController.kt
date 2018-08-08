@@ -24,15 +24,8 @@ import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.printDebug
-import ffc.entity.Chronic
-import ffc.entity.House
-import ffc.entity.Link
-import ffc.entity.Organization
-import ffc.entity.Person
-import ffc.entity.System
-import ffc.entity.User
-import ffc.entity.update
-import java.util.UUID
+import ffc.entity.*
+import java.util.*
 
 class MainController(val dao: DatabaseDao) {
 
@@ -51,7 +44,7 @@ class MainController(val dao: DatabaseDao) {
         databaseWatcher(
                 Config.logfilepath,
                 onLogInput = { line, tableName, keyWhere ->
-                    if (keyWhere != "") {
+                    if (tableName == "house") {
                         val house = dao.getHouse(keyWhere)
                         house.forEach {
                             try {
