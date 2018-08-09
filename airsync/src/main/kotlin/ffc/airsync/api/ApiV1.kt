@@ -20,7 +20,12 @@ package ffc.airsync.api
 import ffc.airsync.Config
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.printDebug
-import ffc.entity.*
+import ffc.entity.Chronic
+import ffc.entity.House
+import ffc.entity.Organization
+import ffc.entity.Person
+import ffc.entity.Token
+import ffc.entity.User
 import ffc.entity.gson.toJson
 import javax.xml.bind.DatatypeConverter
 
@@ -57,7 +62,7 @@ class ApiV1 : Api {
         if (house.link?.isSynced == true) return
 
         databaseDao.upateHouse(house)
-        printDebug("\tUpdateHouse house to database and sync = true")
+        printDebug("\tUpdate house to database and sync = true")
         house.link?.isSynced = true
 
         printDebug("\tPut new house to cloud")

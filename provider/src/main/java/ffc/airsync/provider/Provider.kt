@@ -42,4 +42,4 @@ fun databaseDaoModule(
 fun databaseWatcher(
     filepath: String,
     onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit
-): DatabaseWatcherDao = LogReaderV2(filepath, onLogInput)
+): DatabaseWatcherDao = LogReaderV2(filepath, onLogInput = onLogInput)

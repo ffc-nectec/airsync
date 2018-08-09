@@ -19,15 +19,16 @@ class LogReaderV2Test {
         writer = PrintWriter(logfile, "UTF-8")
 
         readLogFile = LogReaderV2(
-                logfile,
-                onLogInput = { line,
-                               tableName,
-                               keyWhere ->
+            logfile,
+            onLogInput = { line,
+                tableName,
+                keyWhere ->
 
-                    record.set(line)
-                    table.set(tableName)
-                    key.set(keyWhere)
-                }, delay = 100)
+                record.set(line)
+                table.set(tableName)
+                key.set(keyWhere)
+            }, delay = 100
+        )
 
         Thread {
 
@@ -38,6 +39,7 @@ class LogReaderV2Test {
             }
         }.start()
 
+        /* ktlint-disable */
         writer.println("180215 10:29:20\t      1 Connect     root@localhost on jhcisdb")
         writer.flush()
         writer.println("\t\t      1 Query       update office set dateverupdate ='2016-10-11'")
@@ -48,9 +50,12 @@ class LogReaderV2Test {
         writer.flush()
         Thread.sleep(200)
         writer.close()
+        /* ktlint-enable */
 
         table.get() `should be equal to` "`house`"
+        /* ktlint-disable */
         record.get().log `should be equal to` """UPDATE `house` SET `hno`='78/5' WHERE  `pcucode`='07934' AND `hcode`=305"""
+        /* ktlint-enable */
         record.get().linenumber `should be equal to` 3
     }
 }

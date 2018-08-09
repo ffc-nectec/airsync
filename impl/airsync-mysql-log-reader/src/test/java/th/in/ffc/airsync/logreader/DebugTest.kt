@@ -16,11 +16,11 @@ class DebugTest {
 
     fun LogReaderV2() {
 
-        val logReader = LogReaderV2(Config.logfilepath, onLogInput = { it: QueryRecord,
+        val logReader = LogReaderV2(Config.logfilepath) { it: QueryRecord,
                                                                        tableName:
                                                                        String, keyWhere: String ->
             println("L:${it.linenumber},T:${it.time},Table:$tableName,Where:$keyWhere,SQL:${it.log}")
-        })
+        }
 
         logReader.start()
         while (true)

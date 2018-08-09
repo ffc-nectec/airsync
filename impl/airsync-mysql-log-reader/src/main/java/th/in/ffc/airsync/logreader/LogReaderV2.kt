@@ -1,18 +1,21 @@
 package th.`in`.ffc.airsync.logreader
 
 import ffc.airsync.db.DatabaseWatcherDao
-import th.`in`.ffc.airsync.logreader.filter.*
+import th.`in`.ffc.airsync.logreader.filter.CreateHash
+import th.`in`.ffc.airsync.logreader.filter.Filters
+import th.`in`.ffc.airsync.logreader.filter.GetTimeFilter
+import th.`in`.ffc.airsync.logreader.filter.NowFilter
+import th.`in`.ffc.airsync.logreader.filter.QueryFilter
 import th.`in`.ffc.airsync.logreader.getkey.GetWhere
-import th.`in`.ffc.airsync.logreader.getkey.UpdateHouse
-import java.util.*
+import th.`in`.ffc.airsync.logreader.getkey.Update
+import java.util.Arrays
 import java.util.regex.Pattern
 
 class LogReaderV2(
-        val filepath: String,
-        val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit,
-        val delay: Long = 300
+    val filepath: String,
+    val delay: Long = 300,
+    val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
-
     override fun start() {
         val thread = Thread { readSingleLogFileRealTime() }
         thread.start()
@@ -22,16 +25,14 @@ class LogReaderV2(
         add("`house`")
         add("house")
     }*/
-
-    private val tableMaps = arrayListOf<TableMaps>().apply {
+    private val tableMaps = HashMap<String, ArrayList<String>>().apply {
         val houseMaps = arrayListOf<String>().apply {
             add("`house`")
             add("house")
         }
 
-        add(TableMaps("house", houseMaps))
+        put("house", houseMaps)
     }
-
     private val startWithBeforeTable = arrayListOf<String>().apply {
         add("insert into")
         add("update")
@@ -40,26 +41,22 @@ class LogReaderV2(
         add("update".toUpperCase())
         add("delete from".toUpperCase())
     }
-
     private var loadFilters = Arrays.asList<Filters>(
-            GetTimeFilter(Config.timePattern),
-            QueryFilter(Config.logpattern),
-            NowFilter(),
-            CreateHash()
+        GetTimeFilter(Config.timePattern),
+        QueryFilter(Config.logpattern),
+        NowFilter(),
+        CreateHash()
     )
-
     private val keyFilters = arrayListOf<GetWhere>().apply {
-        add(UpdateHouse())
+        add(Update(tableMaps["house"]!!.toList()))
     }
 
     private fun readSingleLogFileRealTime() {
         val readLogFile = LogReaderV1(filepath, true, delay)
         readLogFile.setListener { record ->
-
             loadFilters.forEach {
                 it.process(record)
             }
-
             var key = ""
             for (keyFilter in keyFilters) {
                 key = keyFilter.get(record.log)
@@ -69,22 +66,24 @@ class LogReaderV2(
             }
 
             if (record.log != "") {
-                val tableInLog = getTableInLogLine(record.log)
-                for (map in tableMaps) {
-                    for (value in map.tableNameList) {
-                        if (tableInLog.contains(value)) {
-                            onLogInput(record, value, key)
-                            break
-                        }
+                val tableInLog = getTable(record.log)
+                for ((k, v) in tableMaps) {
+                    when (k) {
+                        "house" ->
+                            for (value in v) {
+                                if (tableInLog.contains(value)) {
+                                    onLogInput(record, value, key)
+                                    break
+                                }
+                            }
                     }
-
                 }
             }
         }
         readLogFile.process()
     }
 
-    private fun getTableInLogLine(logLine: String): String {
+    private fun getTable(logLine: String): String {
         for (it in startWithBeforeTable) {
             if (logLine.startsWith(it)) {
                 val pattern = Pattern.compile("""^$it +(`?[\w\d]+`?(\.?`?[\w\d]+`?)?) ?""", Pattern.CASE_INSENSITIVE)
@@ -96,10 +95,6 @@ class LogReaderV2(
                 } catch (ignore: java.lang.IllegalStateException) {
                     println("\n\nIg $it + $logLine")
                 }
-
-
-
-
                 return table
             }
         }
