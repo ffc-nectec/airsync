@@ -21,10 +21,6 @@ class LogReaderV2(
         thread.start()
     }
 
-    /*private val tableQuery = arrayListOf<String>().apply {
-        add("`house`")
-        add("house")
-    }*/
     private val tableMaps = HashMap<String, ArrayList<String>>().apply {
         val houseMaps = arrayListOf<String>().apply {
             add("`house`")

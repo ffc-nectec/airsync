@@ -49,26 +49,26 @@ class MainController(val dao: DatabaseDao) {
         setupNotificationHandlerFor(org)
 
         databaseWatcher(
-                Config.logfilepath,
-                onLogInput = { line, tableName, keyWhere ->
-                    if (tableName == "house") {
-                        val house = dao.getHouse(keyWhere)
-                        house.forEach {
-                            try {
-                                val houseSync = findHouseWithKey(it)
-                                houseSync.update {
-                                    road = it.road
-                                    no = it.no
-                                    location = it.location
-                                    link!!.isSynced = true
-                                }
-
-                                api.syncHouseToCloud(houseSync, org)
-                            } catch (ignore: NullPointerException) {
-                            }
+            Config.logfilepath
+        ) { line, tableName, keyWhere ->
+            if (tableName == "house") {
+                val house = dao.getHouse(keyWhere)
+                house.forEach {
+                    try {
+                        val houseSync = findHouseWithKey(it)
+                        houseSync.update {
+                            road = it.road
+                            no = it.no
+                            location = it.location
+                            link!!.isSynced = true
                         }
+
+                        api.syncHouseToCloud(houseSync, org)
+                    } catch (ignore: NullPointerException) {
                     }
-                }).start()
+                }
+            }
+        }.start()
 
         startLocalAirSyncServer()
     }

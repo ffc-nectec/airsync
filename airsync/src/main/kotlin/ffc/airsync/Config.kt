@@ -21,11 +21,15 @@ class Config private constructor() {
 
     companion object {
         var baseUrlRest = "https://ffc-nectec.herokuapp.com/v0/org/"
-        val logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
+        var logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
     }
 
     init {
         val url = System.getenv("FFC_CLOUD")
+        val logfilepath = System.getenv("FFC_LOG_PART")
+
+        if (logfilepath != null)
+            Config.logfilepath = logfilepath
         if (url != null)
             baseUrlRest = url
     }
