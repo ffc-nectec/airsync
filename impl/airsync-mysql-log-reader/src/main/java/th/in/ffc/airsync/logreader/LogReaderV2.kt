@@ -14,7 +14,7 @@ import java.util.regex.Pattern
 class LogReaderV2(
     val filepath: String,
     val delay: Long = 300,
-    val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit
+    val onLogInput: (tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
 
     private val lineManage = LineManage()
@@ -72,7 +72,7 @@ class LogReaderV2(
                             "house" ->
                                 for (value in v) {
                                     if (tableInLog.contains(value)) {
-                                        onLogInput(record, value, key)
+                                        onLogInput(k, key)
                                         break
                                     }
                                 }

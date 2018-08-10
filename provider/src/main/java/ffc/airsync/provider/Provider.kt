@@ -25,7 +25,6 @@ import ffc.airsync.localweb.FFCApiClient
 import ffc.airsync.notification.Notification
 import ffc.airsync.ui.AirSyncUi
 import th.`in`.ffc.airsync.logreader.LogReaderV2
-import th.`in`.ffc.airsync.logreader.QueryRecord
 
 fun airSyncUiModule(): AirSyncUi = FFCApiClient("127.0.0.1", 8081)
 
@@ -41,5 +40,5 @@ fun databaseDaoModule(
 
 fun databaseWatcher(
     filepath: String,
-    onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit
+    onLogInput: (tableName: String, keyWhere: String) -> Unit
 ): DatabaseWatcherDao = LogReaderV2(filepath, onLogInput = onLogInput)

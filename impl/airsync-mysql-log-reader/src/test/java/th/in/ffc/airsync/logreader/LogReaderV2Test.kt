@@ -12,22 +12,19 @@ class LogReaderV2Test {
     @Test
     fun fullTest() {
         val readLogFile: LogReaderV2
-        val record = AtomicReference<QueryRecord>()
         val table = AtomicReference<String>()
         val key = AtomicReference<String>()
         var writer: PrintWriter? = null
         writer = PrintWriter(logfile, "UTF-8")
 
         readLogFile = LogReaderV2(
-            logfile,
-            onLogInput = { line,
-                tableName,
-                keyWhere ->
+                logfile,
+                onLogInput = { tableName,
+                               keyWhere ->
 
-                record.set(line)
-                table.set(tableName)
-                key.set(keyWhere)
-            }, delay = 100
+                    table.set(tableName)
+                    key.set(keyWhere)
+                }, delay = 100
         )
 
         Thread {
@@ -50,9 +47,8 @@ class LogReaderV2Test {
         writer.flush()
         Thread.sleep(200)
 
-        table.get() `should be equal to` "`house`"
-        record.get().log `should be equal to` """UPDATE `house` SET `hno`='78/5' WHERE  `pcucode`='07934' AND `hcode`=305"""
-        record.get().linenumber `should be equal to` 3
+        table.get() `should be equal to` "house"
+        key.get() `should be equal to` """`pcucode`='07934' AND `hcode`=305"""
 
         writer.println("""2018-08-09T08:49:32.213221Z	   19 Query	/* ApplicationName=IntelliJ IDEA 2018.2 */ UPDATE `jhcisdb`.`house` t SET t.`hno` = '3/88855' WHERE t.`pcucode` LIKE '07934' ESCAPE '#' AND t.`hcode` = 2""")
         Thread.sleep(200)

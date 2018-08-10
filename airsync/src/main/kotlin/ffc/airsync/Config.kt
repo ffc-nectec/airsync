@@ -45,7 +45,7 @@ class Config private constructor() {
         private fun loadProperty() {
             val conf = Properties()
             try {
-                // conf.load(this.javaClass.classLoader.getResourceAsStream(propertyFile))
+                conf.load(this.javaClass.classLoader.getResourceAsStream(propertyFile))
             } catch (ignore: java.lang.NullPointerException) {
             }
             properties = conf

@@ -49,8 +49,9 @@ class MainController(val dao: DatabaseDao) {
         setupNotificationHandlerFor(org)
 
         databaseWatcher(
-            Config.logfilepath
-        ) { line, tableName, keyWhere ->
+                Config.logfilepath
+        ) { tableName, keyWhere ->
+            printDebug("Database watcher $tableName $keyWhere")
             if (tableName == "house") {
                 val house = dao.getHouse(keyWhere)
                 house.forEach {
@@ -100,8 +101,8 @@ class MainController(val dao: DatabaseDao) {
         val personHaveChronic = personOrgList.mapChronics(chronicList)
 
         api.putUser(userList, org)
-        // houseUpdate = api.putHouse(houseList, org)
-        // api.putPerson(personHaveChronic, org)
+        houseUpdate = api.putHouse(houseList, org)
+        api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
     }

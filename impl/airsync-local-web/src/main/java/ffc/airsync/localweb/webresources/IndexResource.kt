@@ -18,8 +18,6 @@
 package ffc.airsync.client.webservice.webresources
 
 import ffc.airsync.localweb.printDebug
-import java.io.File
-import java.io.FileInputStream
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
@@ -67,19 +65,8 @@ class IndexResource {
             fileName = fileName.replace("^[\\/]+", "")
 
             printDebug("After filter = $fileName")
-
-            // val classLoader = Thread.currentThread().contextClassLoader
-
             val classLoader = javaClass.classLoader
-            val resourceURL = classLoader.getResource(fileName)
-            val file = File(resourceURL.file)
-
-            val fileInputStream = FileInputStream(file)
-            val data = ByteArray(file.length().toInt())
-            fileInputStream.read(data)
-            fileInputStream.close()
-            val str = String(data, charset("UTF-8"))
-            return str
+            return classLoader.getResource(fileName).readText()
         } catch (ex: Exception) {
             ex.printStackTrace()
             throw ex

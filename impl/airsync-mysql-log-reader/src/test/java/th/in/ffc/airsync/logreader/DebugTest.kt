@@ -19,10 +19,9 @@ class DebugTest {
 
     fun LogReaderV2() {
 
-        val logReader = LogReaderV2(Config.logfilepath) { it: QueryRecord,
-                                                                       tableName:
-                                                                       String, keyWhere: String ->
-            println("L:${it.linenumber},T:${it.time},Table:$tableName,Where:$keyWhere,SQL:${it.log}")
+        val logReader = LogReaderV2(Config.logfilepath) { tableName:
+                                                          String, keyWhere: String ->
+            println("Table:$tableName,Where:$keyWhere")
         }
 
         logReader.start()

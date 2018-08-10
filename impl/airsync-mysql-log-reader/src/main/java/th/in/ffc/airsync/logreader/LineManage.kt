@@ -43,9 +43,8 @@ class LineManage() {
     private fun loadProperty() {
         val conf = Properties()
         try {
-            //
-            // val getResoruce = this.javaClass.classLoader
-            // conf.load(getResoruce.getResourceAsStream(logConfig))
+            val getResoruce = this.javaClass.classLoader
+            conf.load(getResoruce.getResourceAsStream(logConfig))
         } catch (ignore: java.lang.NullPointerException) {
         }
         properties = conf
