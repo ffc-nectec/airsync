@@ -1,5 +1,8 @@
 package th.`in`.ffc.airsync.logreader
 
+import org.amshove.kluent.`should be equal to`
+import org.junit.Test
+
 class DebugTest {
     fun LogReaderV1() {
         val readTextFile = LogReaderV1(Config.logfilepath, true, 100)
@@ -25,5 +28,10 @@ class DebugTest {
         logReader.start()
         while (true)
             Thread.sleep(3000)
+    }
+
+    @Test
+    fun EmptyToInt() {
+        "0".toInt() `should be equal to` 0
     }
 }

@@ -17,14 +17,45 @@
 
 package ffc.airsync
 
+import java.io.FileOutputStream
+import java.util.Properties
+
 class Config private constructor() {
 
     companion object {
         var baseUrlRest = "https://ffc-nectec.herokuapp.com/v0/org/"
         var logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
+        var propertyFile = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffc.cnf"
+        private lateinit var properties: Properties
+
+        fun getProperty(key: String): String {
+            loadProperty()
+            return properties.getProperty(key, "")
+        }
+
+        fun setProperty(key: String, value: String) {
+            properties.setProperty(key, value)
+            saveProperty()
+        }
+
+        private fun saveProperty() {
+            properties.store(FileOutputStream(propertyFile), null)
+        }
+
+        private fun loadProperty() {
+            val conf = Properties()
+            try {
+                // conf.load(this.javaClass.classLoader.getResourceAsStream(propertyFile))
+            } catch (ignore: java.lang.NullPointerException) {
+            }
+            properties = conf
+        }
     }
 
     init {
+
+        loadProperty()
+
         val url = System.getenv("FFC_CLOUD")
         val logfilepath = System.getenv("FFC_LOG_PART")
 

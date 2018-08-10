@@ -7,7 +7,7 @@ import java.io.PrintWriter
 import java.util.concurrent.atomic.AtomicReference
 
 class LogReaderV2Test {
-    private val logfile = "src/test/resources/ReadTextFileRT.txt"
+    private val logfile = "ReadTextFileRT.txt"
 
     @Test
     fun fullTest() {
@@ -49,13 +49,18 @@ class LogReaderV2Test {
         writer.print("""		      3 Query       UPDATE `house` SET `hno`='78/5' WHERE  `pcucode`='07934' AND `hcode`=305""")
         writer.flush()
         Thread.sleep(200)
-        writer.close()
-        /* ktlint-enable */
 
         table.get() `should be equal to` "`house`"
-        /* ktlint-disable */
         record.get().log `should be equal to` """UPDATE `house` SET `hno`='78/5' WHERE  `pcucode`='07934' AND `hcode`=305"""
-        /* ktlint-enable */
         record.get().linenumber `should be equal to` 3
+
+        writer.println("""2018-08-09T08:49:32.213221Z	   19 Query	/* ApplicationName=IntelliJ IDEA 2018.2 */ UPDATE `jhcisdb`.`house` t SET t.`hno` = '3/88855' WHERE t.`pcucode` LIKE '07934' ESCAPE '#' AND t.`hcode` = 2""")
+        Thread.sleep(200)
+        writer.close()
+
+        // table.get() `should be equal to` "`house`"
+        // record.get().log `should be equal to` """UPDATE `jhcisdb`.`house` t SET t.`hno` = '3/88855' WHERE t.`pcucode` LIKE '07934' ESCAPE '#' AND t.`hcode` = 2"""
+        // record.get().linenumber `should be equal to` 4
+        /* ktlint-enable */
     }
 }

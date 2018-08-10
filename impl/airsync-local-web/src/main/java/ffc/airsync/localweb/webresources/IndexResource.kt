@@ -62,19 +62,27 @@ class IndexResource {
     }
 
     private fun loadFile(webPart: String): String {
-        var fileName = webPart.replace("\\.\\.", "")
-        fileName = fileName.replace("^[\\/]+", "")
+        try {
+            var fileName = webPart.replace("\\.\\.", "")
+            fileName = fileName.replace("^[\\/]+", "")
 
-        printDebug("After filter = $fileName")
+            printDebug("After filter = $fileName")
 
-        val classLoader = javaClass.classLoader
-        val file = File(classLoader.getResource(fileName).file)
+            // val classLoader = Thread.currentThread().contextClassLoader
 
-        val fileInputStream = FileInputStream(file)
-        val data = ByteArray(file.length().toInt())
-        fileInputStream.read(data)
-        fileInputStream.close()
-        val str = String(data, charset("UTF-8"))
-        return str
+            val classLoader = javaClass.classLoader
+            val resourceURL = classLoader.getResource(fileName)
+            val file = File(resourceURL.file)
+
+            val fileInputStream = FileInputStream(file)
+            val data = ByteArray(file.length().toInt())
+            fileInputStream.read(data)
+            fileInputStream.close()
+            val str = String(data, charset("UTF-8"))
+            return str
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            throw ex
+        }
     }
 }

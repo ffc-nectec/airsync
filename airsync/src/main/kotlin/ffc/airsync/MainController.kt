@@ -100,7 +100,7 @@ class MainController(val dao: DatabaseDao) {
         val personHaveChronic = personOrgList.mapChronics(chronicList)
 
         api.putUser(userList, org)
-        houseUpdate = api.putHouse(houseList, org)
+        // houseUpdate = api.putHouse(houseList, org)
         // api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")

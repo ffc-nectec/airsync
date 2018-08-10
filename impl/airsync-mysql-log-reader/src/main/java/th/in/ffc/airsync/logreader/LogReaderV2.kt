@@ -16,6 +16,9 @@ class LogReaderV2(
     val delay: Long = 300,
     val onLogInput: (line: QueryRecord, tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
+
+    private val lineManage = LineManage()
+
     override fun start() {
         val thread = Thread { readSingleLogFileRealTime() }
         thread.start()
@@ -50,29 +53,32 @@ class LogReaderV2(
     private fun readSingleLogFileRealTime() {
         val readLogFile = LogReaderV1(filepath, true, delay)
         readLogFile.setListener { record ->
-            loadFilters.forEach {
-                it.process(record)
-            }
-            var key = ""
-            for (keyFilter in keyFilters) {
-                key = keyFilter.get(record.log)
-                if (key != "") {
-                    break
+            if (record.linenumber > lineManage.getLastLineNumber()) {
+                loadFilters.forEach {
+                    it.process(record)
                 }
-            }
-
-            if (record.log != "") {
-                val tableInLog = getTable(record.log)
-                for ((k, v) in tableMaps) {
-                    when (k) {
-                        "house" ->
-                            for (value in v) {
-                                if (tableInLog.contains(value)) {
-                                    onLogInput(record, value, key)
-                                    break
-                                }
-                            }
+                var key = ""
+                for (keyFilter in keyFilters) {
+                    key = keyFilter.get(record.log)
+                    if (key != "") {
+                        break
                     }
+                }
+
+                if (record.log != "") {
+                    val tableInLog = getTable(record.log)
+                    for ((k, v) in tableMaps) {
+                        when (k) {
+                            "house" ->
+                                for (value in v) {
+                                    if (tableInLog.contains(value)) {
+                                        onLogInput(record, value, key)
+                                        break
+                                    }
+                                }
+                        }
+                    }
+                    lineManage.setLastLineNumber(record.linenumber)
                 }
             }
         }
