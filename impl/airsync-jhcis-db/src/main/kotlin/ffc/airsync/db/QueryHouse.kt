@@ -63,7 +63,7 @@ SELECT house.pcucode,
 FROM house
 """)
     @RegisterRowMapper(HouseMapper::class)
-    fun get(): List<House>
+    fun findThat(): List<House>
 
     @SqlQuery("""
 SELECT house.pcucode,
@@ -77,7 +77,7 @@ SELECT house.pcucode,
 FROM house WHERE <where>
 """)
     @RegisterRowMapper(HouseMapper::class)
-    fun get(@Define("where") whereString: String): List<House>
+    fun findThat(@Define("where") whereString: String): List<House>
 }
 
 class HouseMapper : RowMapper<House> {

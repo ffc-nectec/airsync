@@ -50,7 +50,7 @@ class JdbiDao(
     }
 
     override fun getHouse(): List<House> {
-        val houses = createJdbi().extension<QueryHouse, List<House>> { get() }
+        val houses = createJdbi().extension<QueryHouse, List<House>> { findThat() }
         houses.forEachIndexed { index, house ->
             printDebug("HouseXY = " + house.location + ", " + index)
         }
@@ -58,7 +58,7 @@ class JdbiDao(
     }
 
     override fun getHouse(whereString: String): List<House> {
-        return createJdbi().extension<QueryHouse, List<House>> { get(whereString) }
+        return createJdbi().extension<QueryHouse, List<House>> { findThat(whereString) }
     }
 
     override fun getChronic(): List<Chronic> = createJdbi().extension<QueryChronic, List<Chronic>> { get() }
