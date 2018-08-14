@@ -71,7 +71,7 @@ SELECT house.pcucode,
     house.hno,
 	house.road,
 	house.xgis,
-    house.hid,
+	house.hid,
 	house.ygis,
 	house.dateupdate
 FROM house WHERE <where>
