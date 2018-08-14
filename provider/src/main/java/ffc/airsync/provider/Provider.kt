@@ -24,6 +24,7 @@ import ffc.airsync.db.JdbiDao
 import ffc.airsync.localweb.FFCApiClient
 import ffc.airsync.notification.Notification
 import ffc.airsync.ui.AirSyncUi
+import th.`in`.ffc.airsync.logreader.LogReader
 
 fun airSyncUiModule(): AirSyncUi = FFCApiClient("127.0.0.1", 8081)
 
