@@ -60,16 +60,12 @@ class IndexResource {
     }
 
     private fun loadFile(webPart: String): String {
-        try {
             var fileName = webPart.replace("\\.\\.", "")
             fileName = fileName.replace("^[\\/]+", "")
 
             printDebug("After filter = $fileName")
             val classLoader = javaClass.classLoader
-            return classLoader.getResource(fileName).readText()
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-            throw ex
-        }
+
+        return classLoader.getResource(fileName).readText()
     }
 }
