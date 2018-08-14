@@ -24,17 +24,17 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class LogReaderV1Test {
+public class ReadTextFileTest {
 
     private String logfile = "src/test/resources/ReadTextFileRT.txt";
 
     @Test
     public void read() throws Exception {
-        LogReaderV1 readLogFile;
+        ReadTextFile readLogFile;
         AtomicReference<QueryRecord> recordTest = new AtomicReference<>();
         PrintWriter writer = null;
         writer = new PrintWriter(logfile, "UTF-8");
-        readLogFile = new LogReaderV1(logfile, true, 100);
+        readLogFile = new ReadTextFile(logfile, true, 100);
         readLogFile.setListener(record -> {
             //System.out.println(record.getLog());
             recordTest.set(record);

@@ -74,7 +74,7 @@ public class Controller {
         }
 
         try {
-            LogReaderV1 readLogFile = new LogReaderV1(Config.logfilepath);
+            ReadTextFile readLogFile = new ReadTextFile(Config.logfilepath);
             readLogFile.setListener(record -> {
                 for (Filters filter : filters) {
                     filter.process(record);

@@ -6,18 +6,18 @@ import java.io.IOException
 import java.io.PrintWriter
 import java.util.concurrent.atomic.AtomicReference
 
-class LogReaderV2Test {
+class LogReaderTest {
     private val logfile = "ReadTextFileRT.txt"
 
     @Test
     fun fullTest() {
-        val readLogFile: LogReaderV2
+        val readLogFile: LogReader
         val table = AtomicReference<String>()
         val key = AtomicReference<String>()
         var writer: PrintWriter? = null
         writer = PrintWriter(logfile, "UTF-8")
 
-        readLogFile = LogReaderV2(
+        readLogFile = LogReader(
                 logfile,
                 onLogInput = { tableName,
                                keyWhere ->

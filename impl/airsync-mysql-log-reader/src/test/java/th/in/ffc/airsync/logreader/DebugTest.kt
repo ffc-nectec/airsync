@@ -5,7 +5,7 @@ import org.junit.Test
 
 class DebugTest {
     fun LogReaderV1() {
-        val readTextFile = LogReaderV1(Config.logfilepath, true, 100)
+        val readTextFile = ReadTextFile(Config.logfilepath, true, 100)
 
         readTextFile.setListener {
             println(it.log)
@@ -19,7 +19,7 @@ class DebugTest {
 
     fun LogReaderV2() {
 
-        val logReader = LogReaderV2(Config.logfilepath) { tableName:
+        val logReader = LogReader(Config.logfilepath) { tableName:
                                                           String, keyWhere: String ->
             println("Table:$tableName,Where:$keyWhere")
         }

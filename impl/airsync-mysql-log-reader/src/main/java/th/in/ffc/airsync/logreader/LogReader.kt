@@ -11,7 +11,7 @@ import th.`in`.ffc.airsync.logreader.getkey.Update
 import java.util.Arrays
 import java.util.regex.Pattern
 
-class LogReaderV2(
+class LogReader(
     val filepath: String,
     val delay: Long = 300,
     val onLogInput: (tableName: String, keyWhere: String) -> Unit
@@ -51,7 +51,7 @@ class LogReaderV2(
     }
 
     private fun readSingleLogFileRealTime() {
-        val readLogFile = LogReaderV1(filepath, true, delay)
+        val readLogFile = ReadTextFile(filepath, true, delay)
         readLogFile.setListener { record ->
             if (record.linenumber > lineManage.getLastLineNumber()) {
                 loadFilters.forEach {
