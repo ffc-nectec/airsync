@@ -5,7 +5,7 @@ import org.junit.Test
 
 class DebugTest {
     fun readTextFile() {
-        val readTextFile = ReadTextFile(Config.logfilepath, true, 100)
+        val readTextFile = TextFileReader(Config.logfilepath, true, 100)
 
         readTextFile.setListener {
             println(it.log)

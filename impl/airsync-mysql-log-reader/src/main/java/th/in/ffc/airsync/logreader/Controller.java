@@ -17,11 +17,14 @@
 
 package th.in.ffc.airsync.logreader;
 
-import th.in.ffc.airsync.logreader.filter.*;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import th.in.ffc.airsync.logreader.filter.CreateHash;
+import th.in.ffc.airsync.logreader.filter.Filters;
+import th.in.ffc.airsync.logreader.filter.GetTimeFilter;
+import th.in.ffc.airsync.logreader.filter.NowFilter;
+import th.in.ffc.airsync.logreader.filter.QueryFilter;
 
 public class Controller {
     List<Filters> filters = Arrays.asList(
@@ -74,7 +77,7 @@ public class Controller {
         }
 
         try {
-            ReadTextFile readLogFile = new ReadTextFile(Config.logfilepath);
+            TextFileReader readLogFile = new TextFileReader(Config.logfilepath);
             readLogFile.setListener(record -> {
                 for (Filters filter : filters) {
                     filter.process(record);

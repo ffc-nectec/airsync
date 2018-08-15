@@ -17,24 +17,23 @@
 
 package th.in.ffc.airsync.logreader;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.concurrent.atomic.AtomicReference;
+import org.junit.Assert;
+import org.junit.Test;
 
-public class ReadTextFileTest {
+public class TextFileReaderTest {
 
     private String logfile = "src/test/resources/ReadTextFileRT.txt";
 
     @Test
     public void read() throws Exception {
-        ReadTextFile readLogFile;
+        TextFileReader readLogFile;
         AtomicReference<QueryRecord> recordTest = new AtomicReference<>();
         PrintWriter writer = null;
         writer = new PrintWriter(logfile, "UTF-8");
-        readLogFile = new ReadTextFile(logfile, true, 100);
+        readLogFile = new TextFileReader(logfile, true, 100);
         readLogFile.setListener(record -> {
             //System.out.println(record.getLog());
             recordTest.set(record);
