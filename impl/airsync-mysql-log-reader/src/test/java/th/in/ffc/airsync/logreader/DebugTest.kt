@@ -4,7 +4,7 @@ import org.amshove.kluent.`should be equal to`
 import org.junit.Test
 
 class DebugTest {
-    fun LogReaderV1() {
+    fun readTextFile() {
         val readTextFile = ReadTextFile(Config.logfilepath, true, 100)
 
         readTextFile.setListener {
@@ -17,10 +17,9 @@ class DebugTest {
             Thread.sleep(3000)
     }
 
-    fun LogReaderV2() {
+    fun LogReader() {
 
-        val logReader = LogReader(Config.logfilepath) { tableName:
-                                                          String, keyWhere: String ->
+        val logReader = LogReader(Config.logfilepath) { tableName, keyWhere ->
             println("Table:$tableName,Where:$keyWhere")
         }
 
