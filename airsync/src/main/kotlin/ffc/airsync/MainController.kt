@@ -23,6 +23,7 @@ import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
+import ffc.airsync.utils.PropertyStore
 import ffc.airsync.utils.printDebug
 import ffc.entity.Chronic
 import ffc.entity.House
@@ -30,6 +31,7 @@ import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.System
+import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.update
 import java.util.UUID
@@ -39,17 +41,36 @@ class MainController(val dao: DatabaseDao) {
     val api: Api by lazy { ApiV1() }
     lateinit var org: Organization
     lateinit var houseUpdate: List<House>
+    private var property = PropertyStore("ffcProperty.cnf")
+    var everLogin: Boolean = false
 
     fun run() {
 
-        initOrganization()
+        initOrganization(property.orgId)
+
+        val token = property.token
+        if (token.isNotEmpty()) {
+            everLogin = true
+            val user = property.userOrg
+            org.users.add(user)
+            org.bundle["token"] = Token(user, property.token)
+        }
+
         val org = api.registerOrganization(org, Config.baseUrlRest)
+        property.token = (org.bundle.get("token") as Token).token
+        property.orgId = org.id
+        property.userOrg = org.users[0]
 
-        pushData(org)
+        if (!everLogin)
+            pushData(org)
         setupNotificationHandlerFor(org)
+        databaseWatcher(org)
+        startLocalAirSyncServer()
+    }
 
+    fun databaseWatcher(org: Organization) {
         databaseWatcher(
-                Config.logfilepath
+            Config.logfilepath
         ) { tableName, keyWhere ->
             printDebug("Database watcher $tableName $keyWhere")
             if (tableName == "house") {
@@ -70,12 +91,14 @@ class MainController(val dao: DatabaseDao) {
                 }
             }
         }.start()
-
-        startLocalAirSyncServer()
     }
 
-    private fun initOrganization() {
-        org = Organization()
+    private fun initOrganization(orgId: String) {
+        if (orgId.isNotEmpty()) {
+            org = Organization(orgId)
+        } else {
+            org = Organization()
+        }
         with(org) {
             val detail = dao.getDetail()
             val hosId = detail["offid"] ?: ""

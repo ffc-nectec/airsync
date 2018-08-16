@@ -2,6 +2,7 @@ package th.`in`.ffc.airsync.logreader
 
 import org.amshove.kluent.`should be equal to`
 import org.junit.Test
+import java.io.File
 import java.io.IOException
 import java.io.PrintWriter
 import java.util.concurrent.atomic.AtomicReference
@@ -17,6 +18,7 @@ class LogReaderTest {
         var writer: PrintWriter? = null
         writer = PrintWriter(logfile, "UTF-8")
 
+        File("logTest.cfg").delete()
         readLogFile = LogReader(
             logfile,
             isTest = true,
