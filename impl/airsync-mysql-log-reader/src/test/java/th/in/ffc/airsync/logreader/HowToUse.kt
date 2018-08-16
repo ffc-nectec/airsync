@@ -1,10 +1,11 @@
 package th.`in`.ffc.airsync.logreader
 
-import org.amshove.kluent.`should be equal to`
-import org.junit.Test
+import org.junit.Ignore
 
-class DebugTest {
-    fun readTextFile() {
+class HowToUse {
+
+    @Ignore("How to use TextFileReader")
+    fun exampleTextFileReader() {
         val readTextFile = TextFileReader(Config.logfilepath, true, 100)
 
         readTextFile.setListener {
@@ -17,7 +18,8 @@ class DebugTest {
             Thread.sleep(3000)
     }
 
-    fun LogReader() {
+    @Ignore("How to use LogReader")
+    fun exampleLogReader() {
 
         val logReader = LogReader(Config.logfilepath) { tableName, keyWhere ->
             println("Table:$tableName,Where:$keyWhere")
@@ -26,10 +28,5 @@ class DebugTest {
         logReader.start()
         while (true)
             Thread.sleep(3000)
-    }
-
-    @Test
-    fun EmptyToInt() {
-        "0".toInt() `should be equal to` 0
     }
 }
