@@ -1,5 +1,6 @@
 package th.`in`.ffc.airsync.logreader
 
+import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.Properties
 
@@ -42,8 +43,7 @@ class LineManage(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\
     private fun loadProperty() {
         val conf = Properties()
         try {
-            val getResoruce = this.javaClass.classLoader
-            conf.load(getResoruce.getResourceAsStream(logConfig))
+            conf.load(FileInputStream(logConfig))
         } catch (ignore: java.lang.NullPointerException) {
         }
         properties = conf
