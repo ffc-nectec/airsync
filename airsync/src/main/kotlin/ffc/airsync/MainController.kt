@@ -57,7 +57,7 @@ class MainController(val dao: DatabaseDao) {
                 house.forEach {
                     try {
                         val houseSync = findHouseWithKey(it)
-                        houseSync.update {
+                        houseSync.update(it.timestamp) {
                             road = it.road
                             no = it.no
                             location = it.location
@@ -102,7 +102,7 @@ class MainController(val dao: DatabaseDao) {
 
         api.putUser(userList, org)
         houseUpdate = api.putHouse(houseList, org)
-        api.putPerson(personHaveChronic, org)
+        // api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
     }
