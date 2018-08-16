@@ -14,10 +14,19 @@ import java.util.regex.Pattern
 class LogReader(
     val filepath: String,
     val delay: Long = 300,
+    val isTest: Boolean = false,
     val onLogInput: (tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
 
-    private val lineManage = LineManage()
+    private lateinit var lineManage: LineManage
+
+    init {
+        if (isTest) {
+            lineManage = LineManage("logTest.cfg")
+        } else {
+            lineManage = LineManage()
+        }
+    }
 
     override fun start() {
         val thread = Thread { readSingleLogFileRealTime() }

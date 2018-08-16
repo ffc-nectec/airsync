@@ -18,13 +18,15 @@ class LogReaderTest {
         writer = PrintWriter(logfile, "UTF-8")
 
         readLogFile = LogReader(
-                logfile,
-                onLogInput = { tableName,
-                               keyWhere ->
+            logfile,
+            isTest = true,
+            delay = 100,
+            onLogInput = { tableName,
+                keyWhere ->
 
-                    table.set(tableName)
-                    key.set(keyWhere)
-                }, delay = 100
+                table.set(tableName)
+                key.set(keyWhere)
+            }
         )
 
         Thread {

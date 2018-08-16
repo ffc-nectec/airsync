@@ -3,8 +3,7 @@ package th.`in`.ffc.airsync.logreader
 import java.io.FileOutputStream
 import java.util.Properties
 
-class LineManage() {
-    private var logConfig = "C:\\Program Files\\JHCIS\\MySQL\\data\\log.cnf"
+class LineManage(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\log.cnf") {
     private lateinit var properties: Properties
     private var lastLineNumber: Long = 0
 
