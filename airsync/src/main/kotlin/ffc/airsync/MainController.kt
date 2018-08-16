@@ -102,7 +102,7 @@ class MainController(val dao: DatabaseDao) {
 
         api.putUser(userList, org)
         houseUpdate = api.putHouse(houseList, org)
-        // api.putPerson(personHaveChronic, org)
+        api.putPerson(personHaveChronic, org)
 
         printDebug("Finish push")
     }
