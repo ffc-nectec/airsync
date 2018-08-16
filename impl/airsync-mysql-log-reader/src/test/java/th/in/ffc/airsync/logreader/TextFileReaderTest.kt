@@ -32,8 +32,7 @@ class TextFileReaderTest {
     fun read() {
         val readLogFile: TextFileReader
         val recordTest = AtomicReference<QueryRecord>()
-        var writer: PrintWriter? = null
-        writer = PrintWriter(logfile, "UTF-8")
+        var writer = PrintWriter(logfile, "UTF-8")
         readLogFile = TextFileReader(logfile, true, 100)
         readLogFile.setListener { record ->
             recordTest.set(record)

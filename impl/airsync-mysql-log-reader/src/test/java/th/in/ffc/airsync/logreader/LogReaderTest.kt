@@ -15,8 +15,7 @@ class LogReaderTest {
         val readLogFile: LogReader
         val table = AtomicReference<String>()
         val key = AtomicReference<String>()
-        var writer: PrintWriter? = null
-        writer = PrintWriter(logfile, "UTF-8")
+        val writer = PrintWriter(logfile, "UTF-8")
 
         File("logTest.cfg").delete()
         readLogFile = LogReader(

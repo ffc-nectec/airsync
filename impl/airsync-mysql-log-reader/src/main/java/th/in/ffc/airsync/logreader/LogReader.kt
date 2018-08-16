@@ -18,7 +18,7 @@ class LogReader(
     val onLogInput: (tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
 
-    private lateinit var lineManage: LineManage
+    private var lineManage: LineManage
 
     init {
         if (isTest) {
