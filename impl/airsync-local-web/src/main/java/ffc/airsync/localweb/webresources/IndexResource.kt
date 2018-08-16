@@ -18,8 +18,6 @@
 package ffc.airsync.client.webservice.webresources
 
 import ffc.airsync.localweb.printDebug
-import java.io.File
-import java.io.FileInputStream
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
@@ -62,19 +60,12 @@ class IndexResource {
     }
 
     private fun loadFile(webPart: String): String {
-        var fileName = webPart.replace("\\.\\.", "")
-        fileName = fileName.replace("^[\\/]+", "")
+            var fileName = webPart.replace("\\.\\.", "")
+            fileName = fileName.replace("^[\\/]+", "")
 
-        printDebug("After filter = $fileName")
+            printDebug("After filter = $fileName")
+            val classLoader = javaClass.classLoader
 
-        val classLoader = javaClass.classLoader
-        val file = File(classLoader.getResource(fileName).file)
-
-        val fileInputStream = FileInputStream(file)
-        val data = ByteArray(file.length().toInt())
-        fileInputStream.read(data)
-        fileInputStream.close()
-        val str = String(data, charset("UTF-8"))
-        return str
+        return classLoader.getResource(fileName).readText()
     }
 }

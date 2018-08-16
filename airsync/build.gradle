@@ -23,7 +23,7 @@ jar {
     }
     destinationDir = file("$buildDir/bin")
 
-    manifest { attributes "Main-Class": "ffc.airsync.client.MainKt" }
+    manifest { attributes "Main-Class": "ffc.airsync.MainKt" }
 
     exclude 'META-INF/*.RSA'
     exclude 'META-INF/*.SF'

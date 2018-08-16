@@ -29,6 +29,7 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.BindBean
+import org.jdbi.v3.sqlobject.customizer.Define
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
@@ -62,7 +63,21 @@ SELECT house.pcucode,
 FROM house
 """)
     @RegisterRowMapper(HouseMapper::class)
-    fun get(): List<House>
+    fun findThat(): List<House>
+
+    @SqlQuery("""
+SELECT house.pcucode,
+	house.hcode,
+    house.hno,
+	house.road,
+	house.xgis,
+	house.hid,
+	house.ygis,
+	house.dateupdate
+FROM house WHERE <where>
+""")
+    @RegisterRowMapper(HouseMapper::class)
+    fun findThat(@Define("where") whereString: String): List<House>
 }
 
 class HouseMapper : RowMapper<House> {

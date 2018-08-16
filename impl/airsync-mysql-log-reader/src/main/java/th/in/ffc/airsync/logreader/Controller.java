@@ -17,15 +17,15 @@
 
 package th.in.ffc.airsync.logreader;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import kotlin.Unit;
 import th.in.ffc.airsync.logreader.filter.CreateHash;
 import th.in.ffc.airsync.logreader.filter.Filters;
 import th.in.ffc.airsync.logreader.filter.GetTimeFilter;
 import th.in.ffc.airsync.logreader.filter.NowFilter;
 import th.in.ffc.airsync.logreader.filter.QueryFilter;
-
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 public class Controller {
     List<Filters> filters = Arrays.asList(
@@ -78,8 +78,8 @@ public class Controller {
         }
 
         try {
-            ReadTextFile readTextFile = new ReadTextFile(Config.logfilepath);
-            readTextFile.setListener(record -> {
+            TextFileReader readLogFile = new TextFileReader(Config.logfilepath);
+            readLogFile.setListener(record -> {
                 for (Filters filter : filters) {
                     filter.process(record);
                     if (record.getLog().equals("")) break;
@@ -90,8 +90,9 @@ public class Controller {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                return Unit.INSTANCE;
             });
-            readTextFile.process();
+            readLogFile.process();
         } catch (IOException e) {
             e.printStackTrace();
             onLogFileExceptionListener.ioException(e);

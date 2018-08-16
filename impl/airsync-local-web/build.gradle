@@ -30,3 +30,4 @@ dependencies {
     implementation "org.glassfish.jersey.containers:jersey-container-jetty-servlet:$jerseyVersion"
     implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
 }
+

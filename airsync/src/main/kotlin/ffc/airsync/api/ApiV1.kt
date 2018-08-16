@@ -32,10 +32,13 @@ import javax.xml.bind.DatatypeConverter
 class ApiV1 : Api {
 
     override fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization) {
-        restService!!.createFirebaseToken(orgId = org.id,
-                authkey = oAuth2Token,
-                firebaseToken = firebaseToken
+        val status = restService!!.createFirebaseToken(
+            orgId = org.id,
+            authkey = oAuth2Token,
+            firebaseToken = firebaseToken
         ).execute()
+        if (status.code() != 201) printDebug("FireBase is not set $status")
+        printDebug("\tRespond filebase put $status")
     }
 
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
@@ -49,8 +52,12 @@ class ApiV1 : Api {
     private val oAuth2Token: String
         get() = "Bearer " + token.token
 
-    override fun getHouseAndUpdate(org: Organization, _id: String, databaseDao: DatabaseDao) {
-        printDebug("Get house house _id = $_id")
+    override fun syncHouseToCloud(house: House, org: Organization) {
+        restService!!.putHouse(orgId = org.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
+    }
+
+    override fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao) {
+        printDebug("Sync From Cloud get house house _id = $_id")
         val data = restService!!.getHouse(orgId = org.id, authkey = oAuth2Token, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
@@ -69,36 +76,51 @@ class ApiV1 : Api {
         restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
     }
 
-    override fun putHouse(houseList: List<House>, org: Organization) {
+    override fun putHouse(houseList: List<House>, org: Organization): List<House> {
+        val houseUpdate = arrayListOf<House>()
         UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
-                restService!!.createHouse(orgId = org.id,
-                        authkey = oAuth2Token,
-                        houseList = cakePlate).execute()
+                val respond = restService!!.createHouse(
+                    orgId = org.id,
+                    authkey = oAuth2Token,
+                    houseList = cakePlate
+                ).execute()
+                val houseList = respond.body() ?: arrayListOf()
+                houseUpdate.addAll(houseList)
             }
         })
+        return houseUpdate
     }
 
     override fun putPerson(personList: List<Person>, org: Organization) {
 
         UploadSpliter.upload(300, personList, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
-                restService!!.createPerson(orgId = org.id,
-                        authkey = oAuth2Token,
-                        personList = cakePlate).execute()
+                restService!!.createPerson(
+                    orgId = org.id,
+                    authkey = oAuth2Token,
+                    personList = cakePlate
+                ).execute()
             }
         })
     }
 
     override fun putChronic(chronicList: List<Chronic>, org: Organization) {
-        restService!!.createChronic(orgId = org.id,
-                authkey = oAuth2Token,
-                chronicList = chronicList).execute()
+        restService!!.createChronic(
+            orgId = org.id,
+            authkey = oAuth2Token,
+            chronicList = chronicList
+        ).execute()
     }
 
     override fun registerOrganization(organization: Organization, url: String): Organization {
         Companion.organization = organization
         urlBase = url
+
+        if (organization.bundle["token"] != null) {
+            token = organization.bundle["token"] as Token
+            return organization
+        }
 
         // val organization2: Organization = organization.toJson().httpPost(url).body()!!.string().fromJson()
         val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
@@ -114,7 +136,7 @@ class ApiV1 : Api {
         val authEncoded = DatatypeConverter.printBase64Binary(authStr.toByteArray())
         val authorization = "Basic $authEncoded"
         val tokenFromServer = restService.loginOrg(org.id, authorization).execute().body()
-                ?: throw Exception("ไม่สามารถ Login org ได้")
+            ?: throw Exception("ไม่สามารถ Login org ได้")
         printDebug("\tToken = ${tokenFromServer.toJson()}")
         token = tokenFromServer
         org.bundle["token"] = tokenFromServer

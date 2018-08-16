@@ -29,7 +29,7 @@ interface Api {
 
     fun putUser(userInfoList: List<User>, org: Organization)
 
-    fun putHouse(houseList: List<House>, org: Organization)
+    fun putHouse(houseList: List<House>, org: Organization): List<House>
 
     fun putPerson(personList: List<Person>, org: Organization)
 
@@ -37,5 +37,7 @@ interface Api {
 
     fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization)
 
-    fun getHouseAndUpdate(org: Organization, _id: String, databaseDao: DatabaseDao)
+    fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao)
+
+    fun syncHouseToCloud(house: House, org: Organization)
 }

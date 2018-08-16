@@ -19,10 +19,12 @@ package ffc.airsync.provider
 
 import ffc.airsync.client.webservice.module.FirebaseMessage
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.db.DatabaseWatcherDao
 import ffc.airsync.db.JdbiDao
 import ffc.airsync.localweb.FFCApiClient
 import ffc.airsync.notification.Notification
 import ffc.airsync.ui.AirSyncUi
+import th.`in`.ffc.airsync.logreader.LogReader
 
 fun airSyncUiModule(): AirSyncUi = FFCApiClient("127.0.0.1", 8081)
 
@@ -35,3 +37,8 @@ fun databaseDaoModule(
     dbUsername: String,
     dbPassword: String
 ): DatabaseDao = JdbiDao(dbHost, dbPort, dbName, dbUsername, dbPassword)
+
+fun databaseWatcher(
+    filepath: String,
+    onLogInput: (tableName: String, keyWhere: String) -> Unit
+): DatabaseWatcherDao = LogReader(filepath, onLogInput = onLogInput)
