@@ -20,6 +20,7 @@ package th.in.ffc.airsync.logreader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import kotlin.Unit;
 import th.in.ffc.airsync.logreader.filter.CreateHash;
 import th.in.ffc.airsync.logreader.filter.Filters;
 import th.in.ffc.airsync.logreader.filter.GetTimeFilter;
@@ -89,6 +90,7 @@ public class Controller {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                return Unit.INSTANCE;
             });
             readLogFile.process();
         } catch (IOException e) {
