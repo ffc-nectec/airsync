@@ -44,7 +44,7 @@ class LineManage(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\
         val conf = Properties()
         try {
             conf.load(FileInputStream(logConfig))
-        } catch (ignore: java.lang.NullPointerException) {
+        } catch (ignore: java.io.FileNotFoundException) {
         }
         properties = conf
     }
