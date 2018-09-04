@@ -18,11 +18,11 @@
 package ffc.airsync.api
 
 import ffc.airsync.db.DatabaseDao
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.healthcare.Chronic
 
 interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization

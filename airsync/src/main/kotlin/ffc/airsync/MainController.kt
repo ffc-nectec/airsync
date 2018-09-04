@@ -25,7 +25,6 @@ import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.PropertyStore
 import ffc.airsync.utils.printDebug
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Link
 import ffc.entity.Organization
@@ -33,6 +32,7 @@ import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.Token
 import ffc.entity.User
+import ffc.entity.healthcare.Chronic
 import ffc.entity.update
 import java.util.UUID
 

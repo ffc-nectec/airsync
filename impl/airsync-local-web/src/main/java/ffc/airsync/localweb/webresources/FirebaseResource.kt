@@ -19,7 +19,7 @@ package ffc.airsync.client.webservice.webresources
 
 import ffc.airsync.client.webservice.module.FirebaseMessage
 import ffc.airsync.localweb.printDebug
-import ffc.entity.firebase.Payload
+import ffc.entity.Messaging
 import ffc.entity.gson.parseTo
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.Consumes
@@ -79,4 +79,8 @@ class FirebaseResource {
         printDebug("End")
         return Response.status(Response.Status.CREATED).build()
     }
+}
+
+data class Payload(val message: Message) {
+    data class Message(val data: Messaging)
 }

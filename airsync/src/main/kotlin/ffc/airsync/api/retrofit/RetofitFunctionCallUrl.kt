@@ -17,12 +17,12 @@
 
 package ffc.airsync.api.retrofit
 
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
+import ffc.entity.healthcare.Chronic
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET

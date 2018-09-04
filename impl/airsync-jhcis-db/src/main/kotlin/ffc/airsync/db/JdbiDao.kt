@@ -18,11 +18,11 @@
 package ffc.airsync.db
 
 import ffc.airsync.utils.printDebug
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.gson.toJson
+import ffc.entity.healthcare.Chronic
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -65,15 +65,15 @@ class JdbiDao(
 
     override fun upateHouse(house: House) {
         val houseUpdate = HouseJhcisDb(
-                hid = house.identity?.id,
-                road = house.road,
-                xgis = house.location?.coordinates?.longitude?.toString(),
-                ygis = house.location?.coordinates?.latitude?.toString(),
-                hno = house.no,
-                dateUpdate = Timestamp(house.timestamp.millis),
+            hid = house.identity?.id,
+            road = house.road,
+            xgis = house.location?.coordinates?.longitude?.toString(),
+            ygis = house.location?.coordinates?.latitude?.toString(),
+            hno = house.no,
+            dateUpdate = Timestamp(house.timestamp.millis),
 
-                pcuCode = house.link!!.keys["pcuCode"].toString(),
-                hcode = house.link!!.keys["hcode"].toString().toInt()
+            pcuCode = house.link!!.keys["pcuCode"].toString(),
+            hcode = house.link!!.keys["hcode"].toString().toInt()
         )
         printDebug("House update from could = ${houseUpdate.toJson()}")
         createJdbi().extension<QueryHouse, Any> { update(houseUpdate) }

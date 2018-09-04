@@ -34,7 +34,9 @@ dependencies {
     implementation "org.jdbi:jdbi3-kotlin:$jdbiVersion"
     implementation "org.jdbi:jdbi3-kotlin-sqlobject:$jdbiVersion"
     implementation "mysql:mysql-connector-java:5.1.38"
-    implementation "com.github.ffc-nectec:entities:$entitiesVersion"
+    implementation ("com.github.ffc-nectec:entities:$entitiesVersion"){
+        exclude group: "com.gregwoodfill.assert"
+    }
 
     runtime "com.h2database:h2:1.4.193"
 }

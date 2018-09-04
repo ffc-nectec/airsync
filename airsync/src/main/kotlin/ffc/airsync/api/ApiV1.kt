@@ -20,13 +20,13 @@ package ffc.airsync.api
 import ffc.airsync.Config
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.printDebug
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.gson.toJson
+import ffc.entity.healthcare.Chronic
 import javax.xml.bind.DatatypeConverter
 
 class ApiV1 : Api {

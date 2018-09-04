@@ -17,10 +17,10 @@
 
 package ffc.airsync.db
 
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.healthcare.Chronic
 
 interface DatabaseDao {
 
