@@ -29,6 +29,12 @@ class PropertyStore(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\da
             setProperty("userOrg", value.name)
         }
 
+    var everPutData: Boolean
+        get() = getProperty("EverPutData").toBoolean()
+        set(value) {
+            setProperty("EverPutData", value.toString())
+        }
+
     fun getProperty(key: String): String {
         loadProperty()
         return properties.getProperty(key, "")

@@ -61,8 +61,10 @@ class MainController(val dao: DatabaseDao) {
         property.orgId = org.id
         property.userOrg = org.users[0]
 
-        if (!everLogin)
+        if (!property.everPutData) {
             pushData(org)
+            property.everPutData = true
+        }
         setupNotificationHandlerFor(org)
         databaseWatcher(org)
         startLocalAirSyncServer()
