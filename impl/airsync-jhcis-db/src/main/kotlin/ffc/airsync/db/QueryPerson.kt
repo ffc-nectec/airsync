@@ -30,17 +30,23 @@ import org.joda.time.LocalDate
 import java.sql.ResultSet
 
 interface QueryPerson {
-    @SqlQuery("SELECT " +
-            "person.idcard," +
-            "person.fname," +
-            "person.lname," +
-            "person.hcode," +
-            "person.pcucodeperson," +
-            "person.birth," +
-            "person.pid," +
-            "person.dischargetype," +
-            "ctitle.titlename " +
-            "FROM person LEFT JOIN ctitle ON person.prename=ctitle.titlecode")
+    @SqlQuery(
+        """
+SELECT
+	person.idcard,
+	person.fname,
+	person.lname,
+	person.hcode,
+	person.pcucodeperson,
+	person.birth,
+	person.pid,
+	person.dischargetype,
+	ctitle.titlename
+FROM person
+	LEFT JOIN ctitle ON
+		person.prename=ctitle.titlecode
+    """
+    )
     @RegisterRowMapper(PersonMapper::class)
     fun get(): List<Person>
 }

@@ -58,6 +58,7 @@ class JdbiDao(
     }
 
     override fun getHouse(whereString: String): List<House> {
+        if (whereString.isBlank()) return arrayListOf()
         return createJdbi().extension<QueryHouse, List<House>> { findThat(whereString) }
     }
 

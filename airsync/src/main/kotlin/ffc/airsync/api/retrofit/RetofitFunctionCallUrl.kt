@@ -34,6 +34,9 @@ import java.util.HashMap
 
 interface RetofitFunctionCallUrl {
 
+    @GET("/v0")
+    fun checkCloud(): Call<Void>
+
     @POST("/v0/org")
     fun regisOrg(@Body body: Organization): Call<Organization>
 

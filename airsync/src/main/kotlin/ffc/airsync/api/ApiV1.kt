@@ -27,19 +27,10 @@ import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
+import java.net.SocketTimeoutException
 import javax.xml.bind.DatatypeConverter
 
 class ApiV1 : Api {
-
-    override fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization) {
-        val status = restService!!.createFirebaseToken(
-            orgId = org.id,
-            authkey = oAuth2Token,
-            firebaseToken = firebaseToken
-        ).execute()
-        if (status.code() != 201) printDebug("FireBase is not set $status")
-        printDebug("\tRespond filebase put $status")
-    }
 
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
 
@@ -52,8 +43,18 @@ class ApiV1 : Api {
     private val oAuth2Token: String
         get() = "Bearer " + token.token
 
+    override fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization) {
+        val status = restService!!.createFirebaseToken(
+            orgId = org.id,
+            authkey = oAuth2Token,
+            firebaseToken = firebaseToken
+        ).execute()
+        if (status.code() != 201) printDebug("FireBase is not set $status")
+        printDebug("\tRespond filebase put $status")
+    }
+
     override fun syncHouseToCloud(house: House, org: Organization) {
-        restService!!.putHouse(orgId = org.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
+        restService.putHouse(orgId = org.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
     }
 
     override fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao) {
@@ -106,7 +107,7 @@ class ApiV1 : Api {
     }
 
     override fun putChronic(chronicList: List<Chronic>, org: Organization) {
-        restService!!.createChronic(
+        restService.createChronic(
             orgId = org.id,
             authkey = oAuth2Token,
             chronicList = chronicList
@@ -116,33 +117,58 @@ class ApiV1 : Api {
     override fun registerOrganization(organization: Organization, url: String): Organization {
         Companion.organization = organization
         urlBase = url
+        wakeCloud()
 
-        if (organization.bundle["token"] != null) {
+        if (isEverRegister(organization)) {
             token = organization.bundle["token"] as Token
-            return organization
+            Companion.organization = organization
+        } else {
+            Companion.organization = regisOrgToCloud(organization)
+
+            val user = organization.users[0]
+            val authStr = user.name + ":" + user.password
+            val authEncoded = DatatypeConverter.printBase64Binary(authStr.toByteArray())
+            val authorization = "Basic $authEncoded"
+            val tokenFromServer = restService.loginOrg(Companion.organization.id, authorization).execute().body()
+                ?: throw Exception("ไม่สามารถ Login org ได้")
+            printDebug("\tToken = ${tokenFromServer.toJson()}")
+            token = tokenFromServer
+            Companion.organization.bundle["token"] = tokenFromServer
+
+            printDebug("Client update registerOrg from cloud ${Companion.organization.toJson()}")
         }
 
-        // val organization2: Organization = organization.toJson().httpPost(url).body()!!.string().fromJson()
-        val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
-        val org = restService!!.regisOrg(organization).execute().body()
+        return Companion.organization
+    }
 
-        printDebug("Client registerOrg from cloud ${org?.toJson()}")
+    private fun wakeCloud() {
+        var count = 1
+        val limitCount = 5
+        var cloudStatusDown = true
+        while (cloudStatusDown && count++ <= limitCount) {
+            try {
+                printDebug("Wake cloud loop ${count - 1} in $limitCount")
+                restService.checkCloud()
+                cloudStatusDown = false
+            } catch (ignore: SocketTimeoutException) {
+                Thread.sleep(3000)
+            }
+        }
+    }
 
-        if (org == null) throw IllegalStateException("ไม่มีข้อมูลการลงทะเบียน Org")
-        Companion.organization = org
+    private fun isEverRegister(organization: Organization) = organization.bundle["token"] != null
 
-        val user = organization.users[0]
-        val authStr = user.name + ":" + user.password
-        val authEncoded = DatatypeConverter.printBase64Binary(authStr.toByteArray())
-        val authorization = "Basic $authEncoded"
-        val tokenFromServer = restService.loginOrg(org.id, authorization).execute().body()
-            ?: throw Exception("ไม่สามารถ Login org ได้")
-        printDebug("\tToken = ${tokenFromServer.toJson()}")
-        token = tokenFromServer
-        org.bundle["token"] = tokenFromServer
+    private fun regisOrgToCloud(organization: Organization): Organization {
+        var restOrg: Organization? = restService.regisOrg(organization).execute().body()
+        var count = 1
+        val limitCount = 5
+        while (restOrg == null && count++ <= limitCount) {
+            println("Faild organization re-register wait.... 3 sec count: ${count - 1} in $limitCount")
+            Thread.sleep(3000)
+            restOrg = restService.regisOrg(organization).execute().body()
+        }
+        if (restOrg == null) throw IllegalStateException("ไม่มีข้อมูลการลงทะเบียน Org")
 
-        printDebug("Client update registerOrg from cloud ${org.toJson()}")
-
-        return org
+        return restOrg
     }
 }
