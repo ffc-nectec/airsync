@@ -8,3 +8,7 @@ fun String.toTime(): Time {
     val dt = formatter.parseDateTime(this)
     return Time(dt.millis)
 }
+
+fun Time.toTime(): Time {
+    return this.toString().toTime()
+}
