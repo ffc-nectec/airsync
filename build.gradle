@@ -29,7 +29,7 @@ buildscript {
 }
 
 ext {
-   entitiesVersion = '1.0.0-alpha4'
+   entitiesVersion = 'visit-SNAPSHOT'
 }
 
 allprojects {
@@ -56,6 +56,8 @@ subprojects {
 
         testImplementation "junit:junit:4.12"
         testImplementation "org.amshove.kluent:kluent:1.34"
+        testImplementation 'com.h2database:h2:1.4.197'
+
     }
 
     configurations { ktlint }
