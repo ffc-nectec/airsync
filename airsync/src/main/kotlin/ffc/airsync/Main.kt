@@ -55,6 +55,7 @@ internal class Main constructor(args: Array<String>) {
     }
 
     fun run() {
+        instant = this
         val dao = createDatabaseDao()
         MainController(dao).run()
     }
@@ -62,6 +63,7 @@ internal class Main constructor(args: Array<String>) {
     fun createDatabaseDao() = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
 
     companion object {
+        lateinit var instant: Main
         protected val HOSTNAMEDB = "127.0.0.1"
         protected val HOSTPORTDB = "3333"
         protected val HOSTDBNAME = "jhcisdb"
