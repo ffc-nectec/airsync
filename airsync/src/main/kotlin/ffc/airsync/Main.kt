@@ -55,9 +55,11 @@ internal class Main constructor(args: Array<String>) {
     }
 
     fun run() {
-        val dao = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
+        val dao = createDatabaseDao()
         MainController(dao).run()
     }
+
+    fun createDatabaseDao() = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
 
     companion object {
         protected val HOSTNAMEDB = "127.0.0.1"
