@@ -123,7 +123,6 @@ class MainController(val dao: DatabaseDao) {
         val person = Person().gets()
         val houseList = House().gets()
 
-
         api.putUser(userList, org)
         houseLastUpdate = api.putHouse(houseList, org)
         personLastUpdate = api.putPerson(person, org)
