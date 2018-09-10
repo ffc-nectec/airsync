@@ -6,9 +6,10 @@ import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.gson.parseTo
+import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
+import java.io.FileReader
 import java.io.FileWriter
-import java.nio.charset.Charset
 
 fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Person> {
     val persons = dao.getPerson()
@@ -38,16 +39,21 @@ private fun mapChronics(persons: List<Person>, chronics: List<Chronic>): List<Pe
     return persons
 }
 
-inline private fun writeFile(strData: String, fileName: String) {
+inline fun saveResource(strData: String, fileName: String) {
     val fileWriter = FileWriter(fileName)
     fileWriter.write(strData)
     fileWriter.close()
 }
 
-inline private fun <reified T> getResourceAs(filename: String): T {
-    val classloader = Thread.currentThread().contextClassLoader
-    val file = classloader.getResourceAsStream(filename)
-        .bufferedReader(Charset.forName("UTF-8"))
+inline fun <reified T> loadResource(fileName: String): T {
+    val file = FileReader(fileName).readText()
+    return file.parseTo()
+}
 
-    return file.readText().parseTo()
+inline fun <reified T> List<T>.save() {
+    saveResource(this.toJson(), "${this.javaClass.simpleName}.json")
+}
+
+inline fun <reified T> List<T>.load() {
+    loadResource<T>("${this.javaClass.simpleName}.json")
 }
