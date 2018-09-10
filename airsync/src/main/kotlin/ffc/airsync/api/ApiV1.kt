@@ -74,11 +74,11 @@ class ApiV1 : Api {
     }
 
     override fun putUser(userInfoList: List<User>, org: Organization) {
-        restService!!.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
+        restService.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
     }
 
     override fun putHouse(houseList: List<House>, org: Organization): List<House> {
-        val houseUpdate = arrayListOf<House>()
+        val houseLastUpdate = arrayListOf<House>()
         UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
                 val respond = restService!!.createHouse(
@@ -87,23 +87,27 @@ class ApiV1 : Api {
                     houseList = cakePlate
                 ).execute()
                 val houseList = respond.body() ?: arrayListOf()
-                houseUpdate.addAll(houseList)
+                houseLastUpdate.addAll(houseList)
             }
         })
-        return houseUpdate
+        return houseLastUpdate
     }
 
-    override fun putPerson(personList: List<Person>, org: Organization) {
+    override fun putPerson(personList: List<Person>, org: Organization): List<Person> {
 
+        val personLastUpdate = arrayListOf<Person>()
         UploadSpliter.upload(300, personList, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
-                restService!!.createPerson(
+                val respond = restService.createPerson(
                     orgId = org.id,
                     authkey = oAuth2Token,
                     personList = cakePlate
                 ).execute()
+                val personList = respond.body() ?: arrayListOf()
+                personLastUpdate.addAll(personList)
             }
         })
+        return personLastUpdate
     }
 
     override fun putChronic(chronicList: List<Chronic>, org: Organization) {

@@ -31,7 +31,7 @@ interface Api {
 
     fun putHouse(houseList: List<House>, org: Organization): List<House>
 
-    fun putPerson(personList: List<Person>, org: Organization)
+    fun putPerson(personList: List<Person>, org: Organization): List<Person>
 
     fun putChronic(chronicList: List<Chronic>, org: Organization)
 

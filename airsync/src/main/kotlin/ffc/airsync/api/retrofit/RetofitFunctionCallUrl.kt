@@ -65,7 +65,7 @@ interface RetofitFunctionCallUrl {
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Body personList: List<Person>
-    ): Call<Void>
+    ): Call<List<Person>>
 
     @POST("/v0/org/{orgId}/chronic/base")
     fun createChronic(

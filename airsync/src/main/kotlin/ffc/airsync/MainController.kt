@@ -24,6 +24,7 @@ import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.PropertyStore
+import ffc.airsync.utils.gets
 import ffc.airsync.utils.printDebug
 import ffc.entity.House
 import ffc.entity.Link
@@ -32,7 +33,6 @@ import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.Token
 import ffc.entity.User
-import ffc.entity.healthcare.Chronic
 import ffc.entity.update
 import java.util.UUID
 
@@ -40,7 +40,8 @@ class MainController(val dao: DatabaseDao) {
 
     val api: Api by lazy { ApiV1() }
     lateinit var org: Organization
-    lateinit var houseUpdate: List<House>
+    lateinit var houseLastUpdate: List<House>
+    lateinit var personLastUpdate: List<Person>
     private var property = PropertyStore("ffcProperty.cnf")
     var everLogin: Boolean = false
 
@@ -117,23 +118,21 @@ class MainController(val dao: DatabaseDao) {
     }
 
     private fun pushData(org: Organization) {
-        val userList = dao.getUsers().toMutableList()
+        val userList = User().gets().toMutableList()
 
-        val personOrgList = dao.getPerson()
-        val chronicList = dao.getChronic()
-        val houseList = dao.getHouse()
+        val person = Person().gets()
+        val houseList = House().gets()
 
-        val personHaveChronic = personOrgList.mapChronics(chronicList)
 
         api.putUser(userList, org)
-        houseUpdate = api.putHouse(houseList, org)
-        api.putPerson(personHaveChronic, org)
+        houseLastUpdate = api.putHouse(houseList, org)
+        personLastUpdate = api.putPerson(person, org)
 
         printDebug("Finish push")
     }
 
     private fun findHouseWithKey(house: House): House {
-        val house = houseUpdate.find {
+        val house = houseLastUpdate.find {
             var checkEq = true
 
             for (item in it.link!!.keys) {
@@ -168,15 +167,6 @@ class MainController(val dao: DatabaseDao) {
 
     private fun startLocalAirSyncServer() {
         airSyncUiModule().start()
-    }
-
-    fun List<Person>.mapChronics(chronics: List<Chronic>): List<Person> {
-        forEach { person ->
-            person.chronics.addAll(chronics.filter {
-                it.link!!.keys["pid"] == person.link!!.keys["pid"]
-            })
-        }
-        return this
     }
 
     fun createAirSyncUser(hosId: String): User = User().update {
