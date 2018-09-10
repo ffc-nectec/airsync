@@ -54,6 +54,11 @@ inline fun <reified T> List<T>.save() {
     saveResource(this.toJson(), "${this.javaClass.simpleName}.json")
 }
 
-inline fun <reified T> List<T>.load() {
-    loadResource<T>("${this.javaClass.simpleName}.json")
+inline fun <reified T> List<T>.load(): List<T> {
+
+    return try {
+        loadResource("${this.javaClass.simpleName}.json")
+    } catch (ex: java.io.FileNotFoundException) {
+        arrayListOf()
+    }
 }
