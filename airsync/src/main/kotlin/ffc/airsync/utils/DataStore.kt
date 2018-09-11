@@ -45,9 +45,17 @@ inline fun saveResource(strData: String, fileName: String) {
     fileWriter.close()
 }
 
-inline fun <reified T> loadResource(fileName: String): T {
+inline fun <reified T> loadResource(fileName: String): List<T> {
     val file = FileReader(fileName).readText()
-    return file.parseTo()
+    val fileJson = file.parseTo<List<Any>>()
+
+    val result = arrayListOf<T>()
+
+    fileJson.forEach {
+        val anyJson = it.toJson()
+        result.add(anyJson.parseTo())
+    }
+    return result
 }
 
 inline fun <reified T> List<T>.save() {
@@ -57,14 +65,14 @@ inline fun <reified T> List<T>.save() {
 inline fun <reified T> List<T>.load(): List<T> {
 
     return try {
-        loadResource("${getClassNameInList(this)}.json") ?: arrayListOf()
+        loadResource("${getClassNameInList(this)}.json")
     } catch (ex: java.io.FileNotFoundException) {
         arrayListOf()
     }
 }
 
 inline fun <reified T> List<T>.cleanFile() {
-    saveResource("", "${getClassNameInList(this)}.json")
+    saveResource("[]", "${getClassNameInList(this)}.json")
 }
 
 inline fun <reified T> getClassNameInList(list: List<T>): String {
