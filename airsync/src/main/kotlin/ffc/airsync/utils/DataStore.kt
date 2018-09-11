@@ -51,14 +51,22 @@ inline fun <reified T> loadResource(fileName: String): T {
 }
 
 inline fun <reified T> List<T>.save() {
-    saveResource(this.toJson(), "${this.javaClass.simpleName}.json")
+    saveResource(this.toJson(), "${getClassNameInList(this)}.json")
 }
 
 inline fun <reified T> List<T>.load(): List<T> {
 
     return try {
-        loadResource("${this.javaClass.simpleName}.json")
+        loadResource("${getClassNameInList(this)}.json") ?: arrayListOf()
     } catch (ex: java.io.FileNotFoundException) {
         arrayListOf()
     }
+}
+
+inline fun <reified T> List<T>.cleanFile() {
+    saveResource("", "${getClassNameInList(this)}.json")
+}
+
+inline fun <reified T> getClassNameInList(list: List<T>): String {
+    return T::class.java.simpleName
 }
