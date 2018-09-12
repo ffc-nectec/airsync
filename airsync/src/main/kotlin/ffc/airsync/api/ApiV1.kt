@@ -73,19 +73,21 @@ class ApiV1 : Api {
         restService.putHouse(orgId = org.id, authkey = oAuth2Token, _id = _id, house = house).execute()
     }
 
-    override fun putUser(userInfoList: List<User>, org: Organization) {
-        restService.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
+    override fun putUser(userInfoList: List<User>, org: Organization): List<User> {
+        val respond = restService.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
+        return respond.body() ?: arrayListOf()
     }
 
     override fun putHouse(houseList: List<House>, org: Organization): List<House> {
         val houseLastUpdate = arrayListOf<House>()
         UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
-                val respond = restService!!.createHouse(
+                val respond = restService.createHouse(
                     orgId = org.id,
                     authkey = oAuth2Token,
                     houseList = cakePlate
                 ).execute()
+                if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
                 val houseList = respond.body() ?: arrayListOf()
                 houseLastUpdate.addAll(houseList)
             }
@@ -93,18 +95,18 @@ class ApiV1 : Api {
         return houseLastUpdate
     }
 
-    override fun putPerson(personList: List<Person>, org: Organization): List<Person> {
+    override fun putPerson(persons: List<Person>, org: Organization): List<Person> {
 
         val personLastUpdate = arrayListOf<Person>()
-        UploadSpliter.upload(300, personList, object : UploadSpliter.HowToSendCake<Person> {
+        UploadSpliter.upload(300, persons, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
                 val respond = restService.createPerson(
                     orgId = org.id,
                     authkey = oAuth2Token,
                     personList = cakePlate
                 ).execute()
-                val personList = respond.body() ?: arrayListOf()
-                personLastUpdate.addAll(personList)
+                if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
+                personLastUpdate.addAll(respond.body() ?: arrayListOf())
             }
         })
         return personLastUpdate

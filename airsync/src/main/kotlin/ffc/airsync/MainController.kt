@@ -25,7 +25,9 @@ import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.PropertyStore
 import ffc.airsync.utils.gets
+import ffc.airsync.utils.load
 import ffc.airsync.utils.printDebug
+import ffc.airsync.utils.save
 import ffc.entity.House
 import ffc.entity.Link
 import ffc.entity.Organization
@@ -40,8 +42,8 @@ class MainController(val dao: DatabaseDao) {
 
     val api: Api by lazy { ApiV1() }
     lateinit var org: Organization
-    lateinit var houseLastUpdate: List<House>
-    lateinit var personLastUpdate: List<Person>
+    lateinit var houses: List<House>
+    lateinit var persons: List<Person>
     private var property = PropertyStore("ffcProperty.cnf")
     var everLogin: Boolean = false
 
@@ -62,10 +64,7 @@ class MainController(val dao: DatabaseDao) {
         property.orgId = org.id
         property.userOrg = org.users[0]
 
-        if (!property.everPutData) {
-            pushData(org)
-            property.everPutData = true
-        }
+        pushData(org)
         setupNotificationHandlerFor(org)
         databaseWatcher(org)
         startLocalAirSyncServer()
@@ -118,36 +117,51 @@ class MainController(val dao: DatabaseDao) {
     }
 
     private fun pushData(org: Organization) {
-        val userList = User().gets().toMutableList()
+        val localUser = arrayListOf<User>().apply {
+            addAll(load())
+        }
 
-        val person = Person().gets()
-        val houseList = House().gets()
+        val localPersons = arrayListOf<Person>().apply {
+            addAll(load())
+        }
 
-        api.putUser(userList, org)
-        houseLastUpdate = api.putHouse(houseList, org)
-        personLastUpdate = api.putPerson(person, org)
+        val localHouses = arrayListOf<House>().apply {
+            addAll(load())
+        }
+
+        if (localUser.isEmpty()) {
+            localUser.addAll(User().gets())
+            val users = api.putUser(localUser.toMutableList(), org)
+            users.save()
+        }
+
+        if (localPersons.isEmpty()) {
+            localPersons.addAll(Person().gets())
+            persons = api.putPerson(localPersons, org)
+            persons.save()
+        } else {
+            persons = localPersons
+        }
+
+        if (localHouses.isEmpty()) {
+            localHouses.addAll(House().gets())
+            houses = api.putHouse(localHouses, org)
+            houses.save()
+        } else {
+            houses = localHouses
+        }
 
         printDebug("Finish push")
     }
 
     private fun findHouseWithKey(house: House): House {
-        val house = houseLastUpdate.find {
-            var checkEq = true
 
-            for (item in it.link!!.keys) {
-                val key = item.key
-                val obj = item.value
-
-                if (house.link!!.keys[key] != obj) {
-                    checkEq = false
-                    break
-                }
-            }
-
-            checkEq
+        val houseFind = houses.find {
+            house.link!!.keys["pcucode"] == it.link!!.keys["pcucode"] &&
+                    house.link!!.keys["hcode"] == it.link!!.keys["hcode"]
         }
 
-        return house ?: throw NullPointerException("ค้นหาไม่พบบ้าน")
+        return houseFind ?: throw NullPointerException("ค้นหาไม่พบบ้าน")
     }
 
     private fun setupNotificationHandlerFor(org: Organization) {

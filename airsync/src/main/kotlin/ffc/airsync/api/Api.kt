@@ -27,7 +27,7 @@ import ffc.entity.healthcare.Chronic
 interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization
 
-    fun putUser(userInfoList: List<User>, org: Organization)
+    fun putUser(userInfoList: List<User>, org: Organization): List<User>
 
     fun putHouse(houseList: List<House>, org: Organization): List<House>
 

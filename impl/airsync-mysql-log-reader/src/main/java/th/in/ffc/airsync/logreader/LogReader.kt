@@ -24,7 +24,7 @@ class LogReader(
         if (isTest) {
             lineManage = LineManage("logTest.cfg")
         } else {
-            lineManage = LineManage()
+            lineManage = LineManage("log.cfg")
         }
     }
 
