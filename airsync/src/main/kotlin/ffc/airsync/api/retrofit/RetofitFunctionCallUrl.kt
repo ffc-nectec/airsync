@@ -23,6 +23,7 @@ import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.CommunityServiceType
 import ffc.entity.healthcare.HomeVisit
 import retrofit2.Call
 import retrofit2.http.Body
@@ -31,6 +32,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.HashMap
 
 interface RetofitFunctionCallUrl {
@@ -103,4 +105,10 @@ interface RetofitFunctionCallUrl {
         @Header("Authorization") authkey: String,
         @Path("visitId") id: String
     ): Call<HomeVisit>
+
+    @GET("/v0/homehealth")
+    fun lookupCommunityServiceType(
+        @Header("Authorization") authkey: String,
+        @Query("query") id: String
+    ): Call<List<CommunityServiceType>>
 }

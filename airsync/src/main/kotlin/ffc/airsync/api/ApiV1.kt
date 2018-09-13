@@ -66,7 +66,7 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
             it.id == healthCareService.patientId
         }!!
         val provider = users.find {
-            it.id == healthCareService.id
+            it.id == healthCareService.providerId
         }!!
         val pcucode = pcucode.toString().trim()
 

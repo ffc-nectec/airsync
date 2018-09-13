@@ -2,11 +2,13 @@ package ffc.airsync.db
 
 import ffc.entity.Link
 import ffc.entity.System
+import ffc.entity.gson.toJson
 import ffc.entity.healthcare.BloodPressure
 import ffc.entity.healthcare.CommunityServiceType
 import ffc.entity.healthcare.Diagnosis
 import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.util.generateTempId
 import me.piruin.geok.geometry.Point
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should equal`
@@ -20,7 +22,7 @@ class QueryVisitTest {
 
     lateinit var fullVisitData: VisitData
 
-    val fullHomeVisit = HomeVisit(
+    val homeVisit = HomeVisit(
         "999999",
         "000000",
         CommunityServiceType("654321", "ให้อดข้าว")
@@ -62,7 +64,7 @@ class QueryVisitTest {
     fun setUp() {
 
         fullVisitData = VisitData(
-            fullHomeVisit,
+            homeVisit,
             "01088",
             54321,
             "01088",
@@ -103,6 +105,12 @@ class QueryVisitTest {
     @Test
     fun visitdate() {
         fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 14:28:15.967")
+    }
+
+    @Test
+    fun toJson() {
+        homeVisit.toJson()
+        generateTempId() `should be equal to` ""
     }
 
     fun getMaxVisit() {

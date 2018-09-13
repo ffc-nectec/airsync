@@ -138,7 +138,10 @@ class JdbiDao(
             visitNum,
             username
         )
-        jdbiDao.extension<QueryVisit, Unit> { insertVisitDiag(visitDiagData) }
+        jdbiDao.extension<QueryVisit, Unit> { insertVisitDiag(visitDiagData.sqlData) }
+
+        val visitIndividualData = VisitIndividualData(homeVisit, pcucode, visitNum, username)
+        jdbiDao.extension<QueryVisit, Unit> { insertVitsitIndividual(visitIndividualData) }
     }
 
     fun queryMaxVisit(): Long {

@@ -111,7 +111,7 @@ VALUES(
 	:doctordiag )
     """
     )
-    fun insertVisitDiag(@BindBean visitDiagData: VisitDiagData)
+    fun insertVisitDiag(@BindBean visitDiagData: Iterable<VisitDiagData>)
 
     @SqlUpdate(
         """
@@ -230,15 +230,15 @@ class VisitData(
 }
 
 class VisitDiagData(
-    homeVisit: HomeVisit,
+    val homeVisit: HomeVisit,
     val pcucode: String,
     val visitno: Long,
     val username: String
 ) {
 
-    val diagcode = arrayListOf<String>()
-    val conti = arrayListOf<String>()
-    val dxtype = arrayListOf<String>()
+    lateinit var diagcode: String
+    lateinit var conti: String
+    lateinit var dxtype: String
     val dateupdate: Timestamp = Timestamp(DateTime.now().millis)
     val doctordiag = username
     val appointdate =
@@ -248,6 +248,13 @@ class VisitDiagData(
             null
 
     init {
+
+    }
+
+    private fun buildData(): Iterable<VisitDiagData> {
+
+        val result = arrayListOf<VisitDiagData>()
+
         homeVisit.diagnosises.forEach {
             val icd10 = it.disease.icd10!!
             val continune = if (it.isContinued) "1" else "0"
@@ -258,20 +265,23 @@ class VisitDiagData(
                 Diagnosis.Type.OTHER -> "04"
                 else -> "05"
             }
-
-            diagcode.add(icd10)
-            conti.add(continune)
-            dxtype.add(diagnosis)
+            result.add(VisitDiagData(homeVisit, pcucode, visitno, username).apply {
+                diagcode = icd10.trim()
+                conti = continune.trim()
+                dxtype = diagnosis.trim()
+            })
         }
+        return result
     }
+
+    val sqlData get() = buildData()
 }
 
 class VisitIndividualData(
     homeVisit: HomeVisit,
     val pcucode: String,
     val visitno: Long,
-    val username: String,
-    val homehealthtype: String
+    val username: String
 ) {
 
     val patientsign = homeVisit.syntom
@@ -286,4 +296,6 @@ class VisitIndividualData(
 
     val user = username
     val dateupdate = Timestamp(DateTime.now().millis)
+
+    val homehealthtype = homeVisit.serviceType.id
 }
