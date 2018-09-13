@@ -30,7 +30,8 @@ import ffc.entity.healthcare.Chronic
 import java.net.SocketTimeoutException
 import javax.xml.bind.DatatypeConverter
 
-class ApiV1 : Api {
+class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<User>, val pcucode: StringBuilder) :
+    Api {
 
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
 
@@ -53,13 +54,38 @@ class ApiV1 : Api {
         printDebug("\tRespond filebase put $status")
     }
 
+    override fun syncHealthCareFromCloud(org: Organization, id: String, dao: DatabaseDao) {
+        val data = restService.getHealthCareService(orgId = org.id, authkey = oAuth2Token, id = id).execute()
+        if (data.code() != 200) {
+            printDebug("Not success get healthcare code=${data.code()}")
+            return
+        }
+        val healthCareService = data.body()!!
+
+        val patient = persons.find {
+            it.id == healthCareService.patientId
+        }!!
+        val provider = users.find {
+            it.id == healthCareService.id
+        }!!
+        val pcucode = pcucode.toString().trim()
+
+        dao.createHomeVisit(
+            healthCareService,
+            pcucode,
+            pcucode,
+            (patient.link!!.keys["pid"] as String).toLong(),
+            provider.name
+        )
+    }
+
     override fun syncHouseToCloud(house: House, org: Organization) {
         restService.putHouse(orgId = org.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
     }
 
     override fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao) {
         printDebug("Sync From Cloud get house house _id = $_id")
-        val data = restService!!.getHouse(orgId = org.id, authkey = oAuth2Token, _id = _id).execute()
+        val data = restService.getHouse(orgId = org.id, authkey = oAuth2Token, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")

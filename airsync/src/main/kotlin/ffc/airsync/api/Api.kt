@@ -40,4 +40,6 @@ interface Api {
     fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao)
 
     fun syncHouseToCloud(house: House, org: Organization)
+
+    fun syncHealthCareFromCloud(org: Organization, id: String, dao: DatabaseDao)
 }

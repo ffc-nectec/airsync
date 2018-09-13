@@ -40,12 +40,14 @@ import java.util.UUID
 
 class MainController(val dao: DatabaseDao) {
 
-    val api: Api by lazy { ApiV1() }
     lateinit var org: Organization
-    lateinit var houses: List<House>
-    lateinit var persons: List<Person>
+    val houses = arrayListOf<House>()
+    val persons = arrayListOf<Person>()
+    val users = arrayListOf<User>()
+    val pcucode = StringBuilder()
     private var property = PropertyStore("ffcProperty.cnf")
     var everLogin: Boolean = false
+    val api: Api by lazy { ApiV1(persons, houses, users, pcucode) }
 
     fun run() {
 
@@ -105,6 +107,8 @@ class MainController(val dao: DatabaseDao) {
             val detail = dao.getDetail()
             val hosId = detail["offid"] ?: ""
 
+            pcucode.append(hosId)
+
             name = detail["name"] ?: ""
             tel = detail["tel"]
             address = detail["province"]
@@ -131,24 +135,26 @@ class MainController(val dao: DatabaseDao) {
 
         if (localUser.isEmpty()) {
             localUser.addAll(User().gets())
-            val users = api.putUser(localUser.toMutableList(), org)
+            users.addAll(api.putUser(localUser.toMutableList(), org))
             users.save()
+        } else {
+            users.addAll(localUser)
         }
 
         if (localPersons.isEmpty()) {
             localPersons.addAll(Person().gets())
-            persons = api.putPerson(localPersons, org)
+            persons.addAll(api.putPerson(localPersons, org))
             persons.save()
         } else {
-            persons = localPersons
+            persons.addAll(localPersons)
         }
 
         if (localHouses.isEmpty()) {
             localHouses.addAll(House().gets())
-            houses = api.putHouse(localHouses, org)
+            houses.addAll(api.putHouse(localHouses, org))
             houses.save()
         } else {
-            houses = localHouses
+            houses.addAll(localHouses)
         }
 
         printDebug("Finish push")
@@ -172,6 +178,7 @@ class MainController(val dao: DatabaseDao) {
             onReceiveDataUpdate { type, id ->
                 when (type) {
                     "House" -> api.syncHouseFromCloud(org, id, dao)
+                    "HealthCare" -> api.syncHealthCareFromCloud(org, id, dao)
                     else -> println("Not type house.")
                 }
             }

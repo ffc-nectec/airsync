@@ -23,6 +23,7 @@ import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.HomeVisit
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -95,4 +96,11 @@ interface RetofitFunctionCallUrl {
         @Header("Authorization") authkey: String,
         @Body firebaseToken: HashMap<String, String>
     ): Call<Void>
+
+    @GET("/v0/org/{orgId}/healthcareservice/{visitId}")
+    fun getHealthCareService(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("visitId") id: String
+    ): Call<HomeVisit>
 }

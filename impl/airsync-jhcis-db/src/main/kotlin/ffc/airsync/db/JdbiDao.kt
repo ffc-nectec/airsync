@@ -23,6 +23,7 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.HomeVisit
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -111,6 +112,33 @@ class JdbiDao(
         jdbi.installPlugin(SqlObjectPlugin())
         jdbi.installPlugin(KotlinSqlObjectPlugin())
         return jdbi
+    }
+
+    override fun createHomeVisit(
+        homeVisit: HomeVisit,
+        pcucode: String,
+        pcucodePerson: String,
+        pid: Long,
+        username: String
+    ) {
+        val visitNum = queryMaxVisit() + 1
+        val visitData = VisitData(
+            homeVisit,
+            pcucode,
+            visitNum,
+            pcucodePerson,
+            pid,
+            username
+        )
+        insertVisit(visitData)
+
+        val visitDiagData = VisitDiagData(
+            homeVisit,
+            pcucode,
+            visitNum,
+            username
+        )
+        jdbiDao.extension<QueryVisit, Unit> { insertVisitDiag(visitDiagData) }
     }
 
     fun queryMaxVisit(): Long {

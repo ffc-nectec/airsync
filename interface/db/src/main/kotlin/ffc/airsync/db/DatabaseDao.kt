@@ -21,6 +21,7 @@ import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.HomeVisit
 
 interface DatabaseDao {
 
@@ -37,4 +38,12 @@ interface DatabaseDao {
     fun getChronic(): List<Chronic>
 
     fun upateHouse(house: House)
+
+    fun createHomeVisit(
+        homeVisit: HomeVisit,
+        pcucode: String,
+        pcucodePerson: String,
+        pid: Long,
+        username: String
+    )
 }

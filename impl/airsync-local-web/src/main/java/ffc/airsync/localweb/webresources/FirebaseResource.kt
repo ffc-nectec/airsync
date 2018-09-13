@@ -56,9 +56,11 @@ class FirebaseResource {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("\tFirebase message data $message")
         val event = message.parseTo<Payload>()
-        printDebug("\t\t" +
-                "Type = ${event.message.data.type} " +
-                "Url = ${event.message.data.url}")
+        printDebug(
+            "\t\t" +
+                    "Type = ${event.message.data.type} " +
+                    "Url = ${event.message.data.url}"
+        )
         val data = event.message.data
 
         printDebug("\tGet data message")
@@ -66,12 +68,10 @@ class FirebaseResource {
 
         printDebug("\t Check house type.")
         try {
-            if (data.type == "House") {
-                printDebug("\t\tType house")
-                fbm.updateHouse(data)
-            } else {
-                printDebug("\t\tNot type house.")
-            }
+            if (data.type.isNotEmpty())
+                fbm.update(data)
+            else
+                printDebug("\t\tNot type process in firebase")
         } catch (ex: Exception) {
             ex.printStackTrace()
             throw ex

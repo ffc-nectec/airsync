@@ -1,6 +1,7 @@
 package ffc.airsync.db
 
 import ffc.airsync.utils.toTime
+import ffc.entity.healthcare.Diagnosis
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.bloodPressureLevel
 import org.jdbi.v3.core.mapper.RowMapper
@@ -58,7 +59,9 @@ INSERT INTO `jhcisdb`.`visit`
 	`respri`,
     `username`,
     `flagservice`,
-    `dateupdate`)
+    `dateupdate`,
+    `bmilevel`,
+    `flag18fileexpo`)
 VALUES
     (:pcucode,
 	:visitno,
@@ -79,10 +82,64 @@ VALUES
 	:respri,
     :username,
     :flagservice,
-    :dateupdate)
+    :dateupdate,
+    :bmilevel,
+    :flag18fileexpo)
     """
     )
     fun insertVisit(@BindBean homeVisit: List<VisitData>)
+
+    @SqlBatch(
+        """
+INSERT INTO `jhcisdb`.`visitdiag` (
+	`pcucode`,
+	`visitno`,
+	`diagcode`,
+	`conti`,
+	`dxtype`,
+	`appointdate`,
+	`dateupdate`,
+	`doctordiag`)
+VALUES(
+	:pcucode ,
+	:visitno ,
+	:diagcode ,
+	:conti ,
+	:dxtype ,
+	:appointdate ,
+	:dateupdate ,
+	:doctordiag )
+    """
+    )
+    fun insertVisitDiag(@BindBean visitDiagData: VisitDiagData)
+
+    @SqlUpdate(
+        """
+INSERT INTO `jhcisdb`.`visithomehealthindividual` (
+	`pcucode`,
+	`visitno`,
+	`homehealthtype`,
+	`patientsign`,
+	`homehealthdetail`,
+	`homehealthresult`,
+	`homehealthplan`,
+	`dateappoint`,
+	`user`,
+	`dateupdate`)
+VALUES(
+	:pcucode ,
+	:visitno ,
+	:homehealthtype ,
+	:patientsign ,
+	:homehealthdetail ,
+	:homehealthresult ,
+	:homehealthplan ,
+	:dateappoint ,
+	:user ,
+	:dateupdate)
+    """
+    )
+    fun insertVitsitIndividual(@BindBean visitIndividualData: VisitIndividualData)
 
     @SqlUpdate(
         """
@@ -121,7 +178,7 @@ class MaxVisitNumberMapper : RowMapper<Long> {
 }
 
 class VisitData(
-    he: HomeVisit,
+    homeVisit: HomeVisit,
     val pcucode: String,
     val visitno: Long,
     val pcucodeperson: String,
@@ -133,24 +190,24 @@ class VisitData(
     val flagservice = "03"
     val dateupdate: Timestamp = Timestamp(DateTime.now().millis)
 
-    val visitdate: Timestamp = Timestamp(he.time.millis)
-    val timestart: Time = Time(he.time.millis).toTime()
-    val timeend = Time(he.time.plusMinutes(5).millis).toTime()
-    val symptoms = he.syntom
-    val vitalcheck = he.result
-    val weight = he.weight
-    val height = he.height
+    val visitdate: Timestamp = Timestamp(homeVisit.time.millis)
+    val timestart: Time = Time(homeVisit.time.millis).toTime()
+    val timeend = Time(homeVisit.time.plusMinutes(5).millis).toTime()
+    val symptoms = homeVisit.syntom
+    val vitalcheck = homeVisit.result
+    val weight = homeVisit.weight
+    val height = homeVisit.height
 
     val bmilevel = when {
-        he.bmi == null -> null
-        he.bmi!!.isOverweight -> "5"
-        he.bmi!!.isObese -> "5"
-        he.bmi!!.isNormal -> "3"
+        homeVisit.bmi == null -> null
+        homeVisit.bmi!!.isOverweight -> "5"
+        homeVisit.bmi!!.isObese -> "5"
+        homeVisit.bmi!!.isNormal -> "3"
         else -> "1"
     }
 
-    val bpLevel = he.bloodPressureLevel
-    val bp = he.bloodPressure
+    val bpLevel = homeVisit.bloodPressureLevel
+    val bp = homeVisit.bloodPressure
     val pressure = if (bp != null) "${bp.systolic.toInt()}/${bp.diastolic.toInt()}" else null
     val pressurelevel = when {
         bpLevel == null -> null
@@ -158,10 +215,10 @@ class VisitData(
         bpLevel.isPreHigh -> "2"
         else -> "1"
     }
-    val temperature = he.bodyTemperature
-
-    val pulse = if (he.pulseRate == null) null else he.pulseRate
-    val respri = if (he.respiratoryRate == null) null else he.respiratoryRate
+    val temperature = homeVisit.bodyTemperature
+    val flag18fileexpo = "2"
+    val pulse = if (homeVisit.pulseRate == null) null else homeVisit.pulseRate
+    val respri = if (homeVisit.respiratoryRate == null) null else homeVisit.respiratoryRate
 
     val timeservice: Int
         get() {
@@ -170,4 +227,63 @@ class VisitData(
                 else -> 2
             }
         }
+}
+
+class VisitDiagData(
+    homeVisit: HomeVisit,
+    val pcucode: String,
+    val visitno: Long,
+    val username: String
+) {
+
+    val diagcode = arrayListOf<String>()
+    val conti = arrayListOf<String>()
+    val dxtype = arrayListOf<String>()
+    val dateupdate: Timestamp = Timestamp(DateTime.now().millis)
+    val doctordiag = username
+    val appointdate =
+        if (homeVisit.nextAppoint != null)
+            Timestamp(homeVisit.nextAppoint!!.toDate().time)
+        else
+            null
+
+    init {
+        homeVisit.diagnosises.forEach {
+            val icd10 = it.disease.icd10!!
+            val continune = if (it.isContinued) "1" else "0"
+            val diagnosis = when (it.dxType) {
+                Diagnosis.Type.PRINCIPLE_DX -> "01"
+                Diagnosis.Type.CO_MORBIDITY -> "02"
+                Diagnosis.Type.COMPLICATION -> "03"
+                Diagnosis.Type.OTHER -> "04"
+                else -> "05"
+            }
+
+            diagcode.add(icd10)
+            conti.add(continune)
+            dxtype.add(diagnosis)
+        }
+    }
+}
+
+class VisitIndividualData(
+    homeVisit: HomeVisit,
+    val pcucode: String,
+    val visitno: Long,
+    val username: String,
+    val homehealthtype: String
+) {
+
+    val patientsign = homeVisit.syntom
+    val homehealthdetail = homeVisit.detail
+    val homehealthresult = homeVisit.result
+    val homehealthplan = homeVisit.plan
+    val dateappoint =
+        if (homeVisit.nextAppoint != null)
+            Timestamp(homeVisit.nextAppoint!!.toDate().time)
+        else
+            null
+
+    val user = username
+    val dateupdate = Timestamp(DateTime.now().millis)
 }
