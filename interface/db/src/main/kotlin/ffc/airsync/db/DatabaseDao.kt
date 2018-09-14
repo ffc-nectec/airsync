@@ -31,6 +31,8 @@ interface DatabaseDao {
 
     fun getPerson(): List<Person>
 
+    fun findPerson(pcucode: String, pid: Long): Person
+
     fun getHouse(): List<House>
 
     fun getHouse(whereString: String): List<House>
@@ -43,7 +45,7 @@ interface DatabaseDao {
         homeVisit: HomeVisit,
         pcucode: String,
         pcucodePerson: String,
-        pid: Long,
+        patient: Person,
         username: String
     )
 }

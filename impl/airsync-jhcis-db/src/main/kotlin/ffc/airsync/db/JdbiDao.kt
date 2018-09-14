@@ -60,6 +60,10 @@ class JdbiDao(
         return jdbiDao.extension<QueryPerson, List<Person>> { get() }
     }
 
+    override fun findPerson(pcucode: String, pid: Long): Person {
+        return jdbiDao.extension<QueryPerson, List<Person>> { findPerson(pcucode, pid) }.first()
+    }
+
     override fun getHouse(): List<House> {
         val houses = jdbiDao.extension<QueryHouse, List<House>> { findThat() }
         houses.forEachIndexed { index, house ->
@@ -118,7 +122,7 @@ class JdbiDao(
         homeVisit: HomeVisit,
         pcucode: String,
         pcucodePerson: String,
-        pid: Long,
+        patient: Person,
         username: String
     ) {
         val visitNum = queryMaxVisit() + 1
@@ -127,8 +131,13 @@ class JdbiDao(
             pcucode,
             visitNum,
             pcucodePerson,
-            pid,
-            username
+            (patient.link!!.keys["pid"] as String).toLong(),
+            username,
+            patient.bundle["rightcode"] as String,
+            patient.bundle["rightno"] as String,
+            patient.bundle["hosmain"] as String,
+            patient.bundle["hossub"] as String
+
         )
         insertVisit(visitData)
 

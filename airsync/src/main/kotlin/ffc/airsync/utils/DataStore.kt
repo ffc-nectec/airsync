@@ -58,14 +58,14 @@ inline fun <reified T> loadResource(fileName: String): List<T> {
     return result
 }
 
-inline fun <reified T> List<T>.save() {
-    saveResource(this.toJson(), "${getClassNameInList(this)}.json")
+inline fun <reified T> List<T>.save(filename: String = "${getClassNameInList(this)}.json") {
+    saveResource(this.toJson(), filename)
 }
 
-inline fun <reified T> List<T>.load(): List<T> {
+inline fun <reified T> List<T>.load(filename: String = "${getClassNameInList(this)}.json"): List<T> {
 
     return try {
-        loadResource("${getClassNameInList(this)}.json")
+        loadResource(filename)
     } catch (ex: java.io.FileNotFoundException) {
         arrayListOf()
     }

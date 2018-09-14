@@ -56,6 +56,8 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
 
     override fun syncHealthCareFromCloud(org: Organization, id: String, dao: DatabaseDao) {
         val data = restService.getHealthCareService(orgId = org.id, authkey = oAuth2Token, id = id).execute()
+        val pcucode = this.pcucode.toString().trim()
+
         if (data.code() != 200) {
             printDebug("Not success get healthcare code=${data.code()}")
             return
@@ -65,16 +67,19 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         val patient = persons.find {
             it.id == healthCareService.patientId
         }!!
+
+        val patientHos = dao.findPerson(pcucode, (patient.link!!.keys["pid"] as String).toLong())
+        patient.bundle.putAll(patientHos.bundle)
+
         val provider = users.find {
             it.id == healthCareService.providerId
         }!!
-        val pcucode = pcucode.toString().trim()
 
         dao.createHomeVisit(
             healthCareService,
             pcucode,
             pcucode,
-            (patient.link!!.keys["pid"] as String).toLong(),
+            patient,
             provider.name
         )
     }

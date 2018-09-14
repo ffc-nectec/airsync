@@ -61,7 +61,11 @@ INSERT INTO `jhcisdb`.`visit`
     `flagservice`,
     `dateupdate`,
     `bmilevel`,
-    `flag18fileexpo`)
+    `flag18fileexpo`,
+    `rightcode`,
+    `rightno`,
+    `hosmain`,
+    `hossub`)
 VALUES
     (:pcucode,
 	:visitno,
@@ -84,7 +88,11 @@ VALUES
     :flagservice,
     :dateupdate,
     :bmilevel,
-    :flag18fileexpo)
+    :flag18fileexpo,
+    :rightcode,
+    :rightno,
+    :hosmain,
+    :hossub)
     """
     )
     fun insertVisit(@BindBean homeVisit: List<VisitData>)
@@ -183,7 +191,11 @@ class VisitData(
     val visitno: Long,
     val pcucodeperson: String,
     val pid: Long,
-    val username: String
+    val username: String,
+    val rightcode: String,
+    val rightno: String,
+    val hosmain: String,
+    val hossub: String
 
 ) {
 
@@ -246,10 +258,6 @@ class VisitDiagData(
             Timestamp(homeVisit.nextAppoint!!.toDate().time)
         else
             null
-
-    init {
-
-    }
 
     private fun buildData(): Iterable<VisitDiagData> {
 
