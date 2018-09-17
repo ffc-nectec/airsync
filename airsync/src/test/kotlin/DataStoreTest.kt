@@ -29,6 +29,8 @@ class DataStoreTest {
             System.JHICS, "pid" to "1234567", "cid" to "11014578451234",
             lastSync = DateTime.parse("2018-06-25T14:09:07.815+07:00")
         )
+        bundle["orgId"] = "00108"
+        bundle["houseId"] = "12321237896"
     }
     val house = House("123f678f90c").update(DateTime.parse("2018-06-25T14:09:07.815+07:00")) {
         identity = ThaiHouseholdId("10125501411")

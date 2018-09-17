@@ -19,6 +19,7 @@ package ffc.airsync.api
 
 import ffc.airsync.Config
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.printDebug
 import ffc.entity.House
 import ffc.entity.Organization
@@ -63,6 +64,13 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
             return
         }
         val healthCareService = data.body()!!
+
+        if (healthCareService.patientId.isTempId() ||
+            healthCareService.providerId.isTempId()
+        )
+            throw IllegalAccessException(
+                "Health Care Service provider or patient isTempId "
+            )
 
         val patient = persons.find {
             it.id == healthCareService.patientId
