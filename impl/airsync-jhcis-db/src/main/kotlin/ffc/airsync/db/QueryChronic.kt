@@ -61,7 +61,6 @@ ORDER BY person.hcode
 }
 
 class ChronicMapper : RowMapper<Chronic> {
-
     override fun map(rs: ResultSet?, ctx: StatementContext?): Chronic {
         if (rs == null) throw ClassNotFoundException()
 

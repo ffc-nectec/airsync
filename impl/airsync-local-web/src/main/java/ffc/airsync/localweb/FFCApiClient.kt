@@ -23,7 +23,6 @@ import java.awt.Desktop
 import java.net.URI
 
 class FFCApiClient(val host: String, val port: Int = 80) : AirSyncUi {
-
     private val context = ServletContextBuilder.build()
     private val server = Server(JettyServerTuning.getThreadPool())
 

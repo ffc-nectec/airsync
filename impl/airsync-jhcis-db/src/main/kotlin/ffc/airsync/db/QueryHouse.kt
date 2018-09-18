@@ -37,7 +37,6 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 interface QueryHouse {
-
     @SqlUpdate("""
 UPDATE `house`
   SET
@@ -81,7 +80,6 @@ FROM house WHERE <where>
 }
 
 class HouseMapper : RowMapper<House> {
-
     override fun map(rs: ResultSet, ctx: StatementContext?): House {
         val timestamp = DateTime(rs.getTimestamp("dateupdate"))
         val house = House().update<House>(timestamp) {

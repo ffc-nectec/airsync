@@ -17,7 +17,6 @@ class LogReader(
     val isTest: Boolean = false,
     val onLogInput: (tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
-
     private var lineManage: LineManage
 
     init {

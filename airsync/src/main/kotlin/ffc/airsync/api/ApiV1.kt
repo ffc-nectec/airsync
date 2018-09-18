@@ -33,7 +33,6 @@ import javax.xml.bind.DatatypeConverter
 
 class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<User>, val pcucode: StringBuilder) :
     Api {
-
     val restService = ApiFactory().buildApiClient(Config.baseUrlRest)
 
     companion object {
@@ -135,7 +134,6 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
     }
 
     override fun putPerson(persons: List<Person>, org: Organization): List<Person> {
-
         val personLastUpdate = arrayListOf<Person>()
         UploadSpliter.upload(300, persons, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {

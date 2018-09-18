@@ -20,7 +20,6 @@ package ffc.airsync.api
 import ffc.airsync.utils.printDebug
 
 object UploadSpliter {
-
     interface HowToSendCake<T> {
         fun send(cakePlate: ArrayList<T>)
     }
@@ -36,19 +35,16 @@ object UploadSpliter {
         statusCallbackSendCake: StatusSendCake = object :
                 StatusSendCake {}
     ) {
-
         var slotSend = 0
         var stackSlot = 0
         val size = table.size
 
         for (createSlot in 0..size) {
-
             synchronized(slotSend) {
                 if (slotSend < volumeOfSend) {
                     slotSend++
 
                     Thread(Runnable {
-
                         var cakePlate: ArrayList<T>? = null
                         synchronized(slotSend) {
                             if (stackSlot < size) {
@@ -79,7 +75,6 @@ object UploadSpliter {
     }
 
     private fun <T> putCakeNew(table: ArrayList<ArrayList<T>>, howToSend: HowToSendCake<T>) {
-
         val thread = Thread {
             Runnable {
             }
@@ -97,7 +92,6 @@ object UploadSpliter {
     }
 
     private fun <T> putCakeOld(table: ArrayList<ArrayList<T>>, howToSend: HowToSendCake<T>) {
-
         printDebug("Run size ${table.size}")
         var i = 1
         table.forEach {
@@ -117,7 +111,6 @@ object UploadSpliter {
     }
 
     private fun <T> cutCake(fixSizeCake: Int, list: List<T>): ArrayList<ArrayList<T>> {
-
         val cake = list.size
         printDebug("UploadSpliter cutCake size $cake Row per req $fixSizeCake")
 

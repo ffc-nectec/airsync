@@ -17,7 +17,6 @@ import org.junit.Test
 import java.sql.Timestamp
 
 class QueryVisitTest {
-
     lateinit var fullVisitData: VisitData
 
     val homeVisit = HomeVisit(
@@ -60,7 +59,6 @@ class QueryVisitTest {
 
     @Before
     fun setUp() {
-
         fullVisitData = VisitData(
             homeVisit,
             "01088",

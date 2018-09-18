@@ -34,7 +34,6 @@ import javax.ws.rs.core.Response
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/")
 class FirebaseResource {
-
     @POST
     @Path("/token")
     fun updateFirebaseToken(@Context req: HttpServletRequest, token: String): Response {

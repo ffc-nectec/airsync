@@ -31,7 +31,6 @@ class LogReaderTest {
         )
 
         Thread {
-
             try {
                 readLogFile.start()
             } catch (e: IOException) {

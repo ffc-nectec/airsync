@@ -63,7 +63,6 @@ inline fun <reified T> List<T>.save(filename: String = "${getClassNameInList(thi
 }
 
 inline fun <reified T> List<T>.load(filename: String = "${getClassNameInList(this)}.json"): List<T> {
-
     return try {
         loadResource(filename)
     } catch (ex: java.io.FileNotFoundException) {

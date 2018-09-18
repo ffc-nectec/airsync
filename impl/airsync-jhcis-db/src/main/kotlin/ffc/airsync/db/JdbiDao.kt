@@ -39,7 +39,6 @@ class JdbiDao(
     val dbPassword: String = "123456",
     val ds: DataSource? = null
 ) : DatabaseDao {
-
     companion object {
         lateinit var jdbiDao: Jdbi
     }

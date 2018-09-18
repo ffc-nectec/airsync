@@ -20,13 +20,11 @@ package th.in.ffc.airsync.logreader;
 import java.util.regex.Pattern;
 
 public class Config {
-
     public static final Pattern logpattern = Pattern.compile("( {7}|\\t)(insert|update .+ set|delete|create|alter) ", Pattern.CASE_INSENSITIVE);
     public static final String logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log";
     public static final Pattern timePattern = Pattern.compile("(^\\d{6} .{8})");
     public static final String csvfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.csv";
 
     private Config() {
-
     }
 }

@@ -22,7 +22,6 @@ import org.junit.Test;
 import th.in.ffc.airsync.logreader.QueryRecord;
 
 public class CreateHashTest {
-
     @Test
     public void testNowFilter() {
         CreateHash ch = new CreateHash();

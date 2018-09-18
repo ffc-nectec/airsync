@@ -23,7 +23,6 @@ import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 
 internal class Main constructor(args: Array<String>) {
-
     @Option(name = "-dbhost", usage = "Database hostserver Ex. 127.0.0.1 ")
     protected var dbhost = HOSTNAMEDB
 

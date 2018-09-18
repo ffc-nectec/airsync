@@ -24,7 +24,6 @@ import java.io.PrintWriter
 import java.util.concurrent.atomic.AtomicReference
 
 class TextFileReaderTest {
-
     private val logfile = "src/test/resources/ReadTextFileRT.txt"
 
     @Test
@@ -38,7 +37,6 @@ class TextFileReaderTest {
             recordTest.set(record)
         }
         Thread {
-
             try {
                 readLogFile.process()
             } catch (e: IOException) {

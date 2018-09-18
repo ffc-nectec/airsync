@@ -22,7 +22,6 @@ import org.junit.Test;
 import th.in.ffc.airsync.logreader.QueryRecord;
 
 public class NowFilterTest {
-
     @Test
     public void testNowFilter() {
         NowFilter rn = new NowFilter();

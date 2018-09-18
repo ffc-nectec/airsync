@@ -24,7 +24,6 @@ import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
 
 interface DatabaseDao {
-
     fun getDetail(): HashMap<String, String>
 
     fun getUsers(): List<User>

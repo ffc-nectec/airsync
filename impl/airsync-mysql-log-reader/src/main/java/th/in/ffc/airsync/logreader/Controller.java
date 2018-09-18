@@ -70,7 +70,6 @@ public class Controller {
     }
 
     public void processSingle() {
-
         try {
             csvwritemodule = new CsvLogWriter(csvfilepath);
         } catch (IOException e) {

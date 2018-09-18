@@ -20,7 +20,6 @@ package ffc.airsync.localweb;
 import org.glassfish.jersey.server.ResourceConfig;
 
 public class ApplicationConfig extends ResourceConfig {
-
     public ApplicationConfig() {
         packages("ffc.airsync.client.webservice");
     }

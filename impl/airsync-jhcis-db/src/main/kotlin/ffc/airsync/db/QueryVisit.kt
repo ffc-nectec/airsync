@@ -18,7 +18,6 @@ import java.sql.Time
 import java.sql.Timestamp
 
 interface QueryVisit {
-
     @SqlQuery(
         """
         SELECT visitno FROM visit WHERE visit.visitno = (SELECT MAX(visit.visitno) FROM visit) LIMIT 1
@@ -198,7 +197,6 @@ class VisitData(
     val hossub: String
 
 ) {
-
     val flagservice = "03"
     val dateupdate: Timestamp = Timestamp(DateTime.now().millis)
 
@@ -247,7 +245,6 @@ class VisitDiagData(
     val visitno: Long,
     val username: String
 ) {
-
     lateinit var diagcode: String
     lateinit var conti: String
     lateinit var dxtype: String
@@ -260,7 +257,6 @@ class VisitDiagData(
             null
 
     private fun buildData(): Iterable<VisitDiagData> {
-
         val result = arrayListOf<VisitDiagData>()
 
         homeVisit.diagnosises.forEach {
@@ -291,7 +287,6 @@ class VisitIndividualData(
     val visitno: Long,
     val username: String
 ) {
-
     val patientsign = homeVisit.syntom
     val homehealthdetail = homeVisit.detail
     val homehealthresult = homeVisit.result

@@ -39,7 +39,6 @@ import ffc.entity.update
 import java.util.UUID
 
 class MainController(val dao: DatabaseDao) {
-
     lateinit var org: Organization
     val houses = arrayListOf<House>()
     val persons = arrayListOf<Person>()
@@ -50,7 +49,6 @@ class MainController(val dao: DatabaseDao) {
     val api: Api by lazy { ApiV1(persons, houses, users, pcucode) }
 
     fun run() {
-
         initOrganization(property.orgId)
 
         val token = property.token
@@ -161,7 +159,6 @@ class MainController(val dao: DatabaseDao) {
     }
 
     private fun findHouseWithKey(house: House): House {
-
         val houseFind = houses.find {
             house.link!!.keys["pcucode"] == it.link!!.keys["pcucode"] &&
                     house.link!!.keys["hcode"] == it.link!!.keys["hcode"]

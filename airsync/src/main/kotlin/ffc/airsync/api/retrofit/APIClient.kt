@@ -41,7 +41,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class APIClient {
-
     fun getCientStd(baseUrl: String): Retrofit? {
         val client = OkHttpClient.Builder()
         val retrofit = Retrofit.Builder()

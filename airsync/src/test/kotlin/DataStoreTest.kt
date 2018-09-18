@@ -18,7 +18,6 @@ import org.junit.Before
 import org.junit.Test
 
 class DataStoreTest {
-
     val person = Person("e079e175c75a44f180e8eaeb").update(DateTime.parse("2018-06-25T14:09:07.815+07:00")) {
         identities.add(ThaiCitizenId("1154801544875"))
         prename = "นาย"

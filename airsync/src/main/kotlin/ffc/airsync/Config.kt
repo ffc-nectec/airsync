@@ -18,7 +18,6 @@
 package ffc.airsync
 
 class Config private constructor() {
-
     companion object {
         var baseUrlRest = "https://ffc-nectec.herokuapp.com/v0/org/"
         var logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
