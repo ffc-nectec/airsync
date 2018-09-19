@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import org.junit.Test
 import java.sql.Time
 
-class DateFunction {
+class DateFunctionTest {
 
     private val dateTime = DateTime(1536218895967)
     private val time = Time(dateTime.millis)

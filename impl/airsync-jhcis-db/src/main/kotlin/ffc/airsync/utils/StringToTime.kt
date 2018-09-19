@@ -10,5 +10,5 @@ fun String.toTime(): Time {
 }
 
 fun Time.toTime(): Time {
-    return this.toString().toTime()
+    return this.toLocalTime().toString().toTime()
 }
