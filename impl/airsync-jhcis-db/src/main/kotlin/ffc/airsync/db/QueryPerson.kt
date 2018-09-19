@@ -101,10 +101,16 @@ class PersonMapper : RowMapper<Person> {
                 "pid" to rs.getString("pid"),
                 "hcode" to rs.getString("hcode")
             )
-            bundle["rightcode"] = rs.getString("rightcode")
-            bundle["rightno"] = rs.getString("rightno")
-            bundle["hosmain"] = rs.getString("hosmain")
-            bundle["hossub"] = rs.getString("hossub")
+            bundle["rightcode"] = rs.getString("rightcode") ?: ""
+            bundle["rightno"] = rs.getString("rightno") ?: ""
+            bundle["hosmain"] = rs.getString("hosmain") ?: ""
+            bundle["hossub"] = rs.getString("hossub") ?: ""
+
+            bundle.forEach { key: String, value: Any ->
+                if ((value as String).isBlank()) {
+                    bundle.remove(key)
+                }
+            }
         }
         return person
     }
