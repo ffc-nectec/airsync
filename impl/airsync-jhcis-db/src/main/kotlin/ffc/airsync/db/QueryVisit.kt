@@ -64,7 +64,8 @@ INSERT INTO `jhcisdb`.`visit`
     `rightcode`,
     `rightno`,
     `hosmain`,
-    `hossub`)
+    `hossub`,
+    `waist`)
 VALUES
     (:pcucode,
 	:visitno,
@@ -91,7 +92,8 @@ VALUES
     :rightcode,
     :rightno,
     :hosmain,
-    :hossub)
+    :hossub,
+    :waist)
     """
     )
     fun insertVisit(@BindBean homeVisit: List<VisitData>)
@@ -208,6 +210,7 @@ class VisitData(
     val vitalcheck = homeVisit.result
     val weight = homeVisit.weight
     val height = homeVisit.height
+    val waist = homeVisit.waist
 
     val bmilevel = when {
         homeVisit.bmi == null -> null
