@@ -28,6 +28,7 @@ import th.in.ffc.airsync.logreader.filter.NowFilter;
 import th.in.ffc.airsync.logreader.filter.QueryFilter;
 
 public class Controller {
+
     List<Filters> filters = Arrays.asList(
             new GetTimeFilter(Config.timePattern),
             new QueryFilter(Config.logpattern),

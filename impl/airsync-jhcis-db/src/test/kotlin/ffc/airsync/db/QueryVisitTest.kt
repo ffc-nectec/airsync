@@ -17,6 +17,7 @@ import org.junit.Test
 import java.sql.Timestamp
 
 class QueryVisitTest {
+
     lateinit var fullVisitData: VisitData
 
     val homeVisit = HomeVisit(

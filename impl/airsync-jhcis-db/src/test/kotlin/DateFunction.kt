@@ -5,6 +5,7 @@ import org.junit.Test
 import java.sql.Time
 
 class DateFunction {
+
     private val dateTime = DateTime(1536218895967)
     private val time = Time(dateTime.millis)
 

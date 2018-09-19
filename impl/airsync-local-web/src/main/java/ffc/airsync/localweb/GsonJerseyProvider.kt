@@ -33,6 +33,7 @@ import javax.ws.rs.ext.Provider
 
 @Provider
 class GsonJerseyProvider : MessageBodyWriter<Any>, MessageBodyReader<Any> {
+
     override fun isReadable(
         type: Class<*>?,
         genericType: Type?,

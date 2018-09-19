@@ -27,6 +27,7 @@ FROM office
 }
 
 class HosDetailMapper : RowMapper<HashMap<String, String?>> {
+
     override fun map(rs: ResultSet, ctx: StatementContext): HashMap<String, String?> {
         val detailHos = HashMap<String, String?>()
 

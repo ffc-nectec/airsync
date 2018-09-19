@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import th.in.ffc.airsync.logreader.QueryRecord;
 
 public class QueryFilter implements Filters {
+
     private Pattern logpattern;
 
     public QueryFilter(Pattern logpattern) {

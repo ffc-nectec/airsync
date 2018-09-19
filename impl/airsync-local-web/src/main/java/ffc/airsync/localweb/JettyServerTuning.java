@@ -24,6 +24,7 @@ import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
 final class JettyServerTuning {
+
     private static final int MAX_THREADS = 500;
     private static final int MIN_THREADS = 50;
     private static final int IDLE_TIMEOUT = 6000;

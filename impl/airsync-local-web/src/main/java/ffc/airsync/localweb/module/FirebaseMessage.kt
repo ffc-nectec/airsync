@@ -21,6 +21,7 @@ import ffc.airsync.notification.Notification
 import ffc.entity.Messaging
 
 class FirebaseMessage private constructor() : Notification {
+
     private lateinit var identifierChange: ((HashMap<String, String>) -> Unit)
     private lateinit var onDataChange: ((type: String, id: String) -> Unit)
 

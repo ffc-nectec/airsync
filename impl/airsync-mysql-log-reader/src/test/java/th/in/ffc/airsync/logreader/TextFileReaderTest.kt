@@ -24,6 +24,7 @@ import java.io.PrintWriter
 import java.util.concurrent.atomic.AtomicReference
 
 class TextFileReaderTest {
+
     private val logfile = "src/test/resources/ReadTextFileRT.txt"
 
     @Test

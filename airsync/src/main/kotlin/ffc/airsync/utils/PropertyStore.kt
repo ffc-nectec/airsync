@@ -6,6 +6,7 @@ import java.io.FileOutputStream
 import java.util.Properties
 
 class PropertyStore(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf") {
+
     private lateinit var properties: Properties
 
     init {

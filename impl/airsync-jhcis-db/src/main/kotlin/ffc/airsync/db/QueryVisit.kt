@@ -178,6 +178,7 @@ UPDATE `jhcisdb`.`visit`
 }
 
 class MaxVisitNumberMapper : RowMapper<Long> {
+
     override fun map(rs: ResultSet?, ctx: StatementContext?): Long {
         if (rs == null) throw NullPointerException("MaxVisitNumberMapper result set is null")
         return rs.getLong("visitno")

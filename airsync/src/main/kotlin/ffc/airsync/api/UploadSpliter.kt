@@ -20,6 +20,7 @@ package ffc.airsync.api
 import ffc.airsync.utils.printDebug
 
 object UploadSpliter {
+
     interface HowToSendCake<T> {
         fun send(cakePlate: ArrayList<T>)
     }

@@ -18,6 +18,7 @@
 package th.in.ffc.airsync.logreader;
 
 public class QueryRecord {
+
     private String log;
     private String hash;
     private long linenumber;

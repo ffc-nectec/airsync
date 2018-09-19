@@ -22,6 +22,7 @@ import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 public class ServletContextBuilder {
+
     public static final String ROOT_PATH = "";
 
     public static ServletContextHandler build() {

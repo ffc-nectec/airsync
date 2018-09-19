@@ -4,6 +4,7 @@ import org.amshove.kluent.`should be equal to`
 import org.junit.Test
 
 class UpdateHouseTest {
+
     val houseMaps = arrayListOf<String>().apply {
         add("`house`")
         add("house")

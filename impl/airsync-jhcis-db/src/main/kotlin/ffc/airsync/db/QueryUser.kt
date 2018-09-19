@@ -27,6 +27,7 @@ FROM user
 }
 
 class UserMapper : RowMapper<User> {
+
     override fun map(rs: ResultSet, ctx: StatementContext): User {
         return User().update {
             name = rs.getString("username")

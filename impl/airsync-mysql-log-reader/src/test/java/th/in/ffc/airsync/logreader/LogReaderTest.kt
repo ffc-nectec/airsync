@@ -8,6 +8,7 @@ import java.io.PrintWriter
 import java.util.concurrent.atomic.AtomicReference
 
 class LogReaderTest {
+
     private val logfile = "ReadTextFileRT.txt"
 
     @Test

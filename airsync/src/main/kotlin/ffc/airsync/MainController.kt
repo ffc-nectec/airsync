@@ -39,6 +39,7 @@ import ffc.entity.update
 import java.util.UUID
 
 class MainController(val dao: DatabaseDao) {
+
     lateinit var org: Organization
     val houses = arrayListOf<House>()
     val persons = arrayListOf<Person>()
