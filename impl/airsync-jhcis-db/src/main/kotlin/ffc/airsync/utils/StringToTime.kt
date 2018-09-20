@@ -2,6 +2,8 @@ package ffc.airsync.utils
 
 import org.joda.time.format.DateTimeFormat
 import java.sql.Time
+import java.text.SimpleDateFormat
+import java.util.TimeZone
 
 fun String.toTime(): Time {
     val formatter = DateTimeFormat.forPattern("HH:mm:ss")
@@ -10,5 +12,7 @@ fun String.toTime(): Time {
 }
 
 fun Time.toTime(): Time {
-    return this.toLocalTime().toString().toTime()
+    val format = SimpleDateFormat("HH:mm:ss")
+    format.timeZone = TimeZone.getDefault()
+    return format.format(this).toTime()
 }
