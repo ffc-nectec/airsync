@@ -14,7 +14,7 @@ fun String.toTime(): Time {
 
 fun Time.toTime(): Time {
     val df = SimpleDateFormat("h:mm:ss")
-    df.timeZone = TimeZone.getTimeZone("th")
+    df.timeZone = TimeZone.getTimeZone("Asia/Bangkok")
 
     return df.format(this).toTime()
 }

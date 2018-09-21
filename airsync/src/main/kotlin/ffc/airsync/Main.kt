@@ -47,7 +47,7 @@ internal class Main constructor(args: Array<String>) {
 
     init {
         try {
-            TimeZone.setDefault(TimeZone.getTimeZone("th"))
+            TimeZone.setDefault(TimeZone.getTimeZone("Asia/Bangkok"))
             val parser = CmdLineParser(this)
             parser.parseArgument(*args)
         } catch (cmd: CmdLineException) {
