@@ -6,8 +6,9 @@ import java.text.SimpleDateFormat
 import java.util.TimeZone
 
 fun String.toTime(): Time {
-    val formatter = DateTimeFormat.forPattern("HH:mm:ss")
-    val dt = formatter.parseDateTime(this)
+    val formatter = DateTimeFormat.forPattern("HH:mm:ss Z")
+    val dt = formatter.parseDateTime(this + " +0700")
+
     return Time(dt.millis)
 }
 
