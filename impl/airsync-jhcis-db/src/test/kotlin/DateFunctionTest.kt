@@ -30,9 +30,4 @@ class DateFunctionTest {
     fun time() {
         time.toJson() `should be equal to` "14:28:15".toTime().toJson()
     }
-
-    @Test
-    fun jodaLocal() {
-        DateTime(time).toLocalTime().toString().replace(Regex("""\.\d+$"""), "") `should be equal to` "14:28:15"
-    }
 }
