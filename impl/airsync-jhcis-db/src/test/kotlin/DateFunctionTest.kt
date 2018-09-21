@@ -1,4 +1,5 @@
 import ffc.airsync.utils.toTime
+import ffc.entity.gson.toJson
 import org.amshove.kluent.`should be equal to`
 import org.joda.time.DateTime
 import org.junit.Test
@@ -27,6 +28,11 @@ class DateFunctionTest {
 
     @Test
     fun time() {
-        time.toString() `should be equal to` "14:28:15"
+        time.toJson() `should be equal to` "14:28:15".toTime().toJson()
+    }
+
+    @Test
+    fun jodaLocal() {
+        DateTime(time).toLocalTime().toString().replace(Regex("""\.\d+$"""), "") `should be equal to` "14:28:15"
     }
 }
