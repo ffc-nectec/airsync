@@ -204,7 +204,7 @@ class VisitData(
     val dateupdate: Timestamp = Timestamp(DateTime.now().millis)
 
     val visitdate: Timestamp = Timestamp(homeVisit.time.millis)
-    val timestart: Time = Time(homeVisit.time.millis).toTime()
+    val timestart: Time = Time(homeVisit.time.millis)
     val timeend = Time(homeVisit.time.plusMinutes(5).millis).toTime()
     val symptoms = homeVisit.syntom
     val vitalcheck = homeVisit.result
@@ -236,11 +236,15 @@ class VisitData(
 
     val timeservice: Int
         get() {
-            return when {
-                timestart > "08:30:00".toTime() && timestart < "16:30:00".toTime() -> 1
-                else -> 2
-            }
+            return getTimeService(timestart)
         }
+
+    fun getTimeService(time: Time = timestart): Int {
+        return when {
+            time > "08:30:00".toTime() && time < "16:30:00".toTime() -> 1
+            else -> 2
+        }
+    }
 }
 
 class VisitDiagData(

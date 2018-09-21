@@ -1,5 +1,6 @@
 package ffc.airsync.db
 
+import ffc.airsync.utils.toTime
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
@@ -13,8 +14,12 @@ import org.amshove.kluent.`should equal`
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import java.sql.Timestamp
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.util.TimeZone
 
 class QueryVisitTest {
 
@@ -60,6 +65,7 @@ class QueryVisitTest {
 
     @Before
     fun setUp() {
+        TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
         fullVisitData = VisitData(
             homeVisit,
             "01088",
@@ -99,21 +105,29 @@ class QueryVisitTest {
     }
 
     @Test
-    fun timeService() {
-        fullVisitData.timeservice `should be equal to` 1
+    fun inTimeServiceFun() {
+        fullVisitData.getTimeService("14:00:34".toTime()) `should be equal to` 1
+    }
+
+    @Test
+    fun outTimeServiceFun() {
+        fullVisitData.getTimeService("7:00:34".toTime()) `should be equal to` 2
+        fullVisitData.getTimeService("19:50:34".toTime()) `should be equal to` 2
     }
 
     @Test
     fun visitdate() {
-        fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 14:28:15.967")
+        fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 07:28:15.967")
     }
 
+    @Ignore("Get max visit in real db")
     fun getMaxVisit() {
         val maxVisitNmber = JdbiDao().queryMaxVisit()
 
         maxVisitNmber `should be equal to` 238489
     }
 
+    @Ignore("Insert visit in real db")
     fun insertVisitTest() {
         JdbiDao().insertVisit(fullVisitData)
     }

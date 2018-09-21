@@ -21,6 +21,8 @@ import ffc.airsync.provider.databaseDaoModule
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
+import java.time.ZoneId
+import java.time.ZoneOffset
 import java.util.TimeZone
 
 internal class Main constructor(args: Array<String>) {
@@ -47,7 +49,7 @@ internal class Main constructor(args: Array<String>) {
 
     init {
         try {
-            TimeZone.setDefault(TimeZone.getTimeZone("Asia/Bangkok"))
+            TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
             val parser = CmdLineParser(this)
             parser.parseArgument(*args)
         } catch (cmd: CmdLineException) {
