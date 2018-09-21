@@ -1,9 +1,9 @@
 package ffc.airsync.utils
 
-import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import java.sql.Time
-import java.util.regex.Pattern
+import java.text.SimpleDateFormat
+import java.util.TimeZone
 
 fun String.toTime(): Time {
     val formatter = DateTimeFormat.forPattern("HH:mm:ss")
@@ -12,10 +12,8 @@ fun String.toTime(): Time {
 }
 
 fun Time.toTime(): Time {
-    val p = Pattern.compile("""(1?[0-9]:[1-5]?[0-9]:[1-5]?[0-9])""")
-    val result = p.matcher(DateTime(this).toLocalTime().toString())
+    val df = SimpleDateFormat("h:mm:ss")
+    df.timeZone = TimeZone.getTimeZone("th")
 
-    result.find()
-
-    return result.group(1).toTime()
+    return df.format(this).toTime()
 }

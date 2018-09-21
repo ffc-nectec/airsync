@@ -22,8 +22,13 @@ class DateFunctionTest {
     }
 
     @Test
-    fun joda() {
+    fun jodaTime() {
         dateTime.millis `should be equal to` 1536218895967
+    }
+
+    @Test
+    fun sqlTime() {
+        time.time `should be equal to` 1536218895967
     }
 
     @Test
