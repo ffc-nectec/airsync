@@ -91,7 +91,7 @@ class MainController(val dao: DatabaseDao) {
                             link!!.isSynced = true
                         }
 
-                        api.syncHouseToCloud(houseSync, org)
+                        api.syncHouseToCloud(houseSync)
                     } catch (ignore: NullPointerException) {
                     }
                 }
@@ -137,7 +137,7 @@ class MainController(val dao: DatabaseDao) {
 
         if (localUser.isEmpty()) {
             localUser.addAll(User().gets())
-            users.addAll(api.putUser(localUser.toMutableList(), org))
+            users.addAll(api.putUser(localUser.toMutableList()))
             users.save()
         } else {
             users.addAll(localUser)
@@ -145,7 +145,7 @@ class MainController(val dao: DatabaseDao) {
 
         if (localPersons.isEmpty()) {
             localPersons.addAll(Person().gets())
-            persons.addAll(api.putPerson(localPersons, org))
+            persons.addAll(api.putPerson(localPersons))
             persons.save()
         } else {
             persons.addAll(localPersons)
@@ -153,7 +153,7 @@ class MainController(val dao: DatabaseDao) {
 
         if (localHouses.isEmpty()) {
             localHouses.addAll(House().gets())
-            houses.addAll(api.putHouse(localHouses, org))
+            houses.addAll(api.putHouse(localHouses))
             houses.save()
         } else {
             houses.addAll(localHouses)
@@ -174,12 +174,12 @@ class MainController(val dao: DatabaseDao) {
     private fun setupNotificationHandlerFor(org: Organization) {
         notificationModule().apply {
             onTokenChange { firebaseToken ->
-                api.putFirebaseToken(firebaseToken, org)
+                api.putFirebaseToken(firebaseToken)
             }
             onReceiveDataUpdate { type, id ->
                 when (type) {
-                    "House" -> api.syncHouseFromCloud(org, id, dao)
-                    "HealthCare" -> api.syncHealthCareFromCloud(org, id, dao)
+                    "House" -> api.syncHouseFromCloud(id, dao)
+                    "HealthCare" -> api.syncHealthCareFromCloud(id, dao)
                     else -> println("Not type house.")
                 }
             }

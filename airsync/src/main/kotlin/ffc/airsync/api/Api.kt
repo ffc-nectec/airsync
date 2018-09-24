@@ -27,19 +27,21 @@ import ffc.entity.healthcare.Chronic
 interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization
 
-    fun putUser(userInfoList: List<User>, org: Organization): List<User>
+    fun putUser(userInfoList: List<User>): List<User>
 
-    fun putHouse(houseList: List<House>, org: Organization): List<House>
+    fun putHouse(houseList: List<House>): List<House>
 
-    fun putPerson(personList: List<Person>, org: Organization): List<Person>
+    fun putPerson(personList: List<Person>): List<Person>
 
-    fun putChronic(chronicList: List<Chronic>, org: Organization)
+    fun putChronic(chronicList: List<Chronic>)
 
-    fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization)
+    fun putFirebaseToken(firebaseToken: HashMap<String, String>)
 
-    fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao)
+    fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao)
 
-    fun syncHouseToCloud(house: House, org: Organization)
+    fun syncHouseToCloud(house: House)
 
-    fun syncHealthCareFromCloud(org: Organization, id: String, dao: DatabaseDao)
+    fun syncHealthCareFromCloud(id: String, dao: DatabaseDao)
+
+    fun cloudAsync()
 }

@@ -45,9 +45,9 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
     private val oAuth2Token: String
         get() = "Bearer " + token.token
 
-    override fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization) {
+    override fun putFirebaseToken(firebaseToken: HashMap<String, String>) {
         restService.createFirebaseToken(
-            orgId = org.id,
+            orgId = organization.id,
             authkey = oAuth2Token,
             firebaseToken = firebaseToken
         ).enqueue {
@@ -55,8 +55,8 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         }
     }
 
-    override fun syncHealthCareFromCloud(org: Organization, id: String, dao: DatabaseDao) {
-        val data = restService.getHealthCareService(orgId = org.id, authkey = oAuth2Token, id = id).execute()
+    override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
+        val data = restService.getHomeVisit(orgId = organization.id, authkey = oAuth2Token, id = id).execute()
         val pcucode = this.pcucode.toString().trim()
 
         if (data.code() != 200) {
@@ -92,13 +92,13 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         )
     }
 
-    override fun syncHouseToCloud(house: House, org: Organization) {
-        restService.putHouse(orgId = org.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
+    override fun syncHouseToCloud(house: House) {
+        restService.putHouse(orgId = organization.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
     }
 
-    override fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao) {
+    override fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao) {
         printDebug("Sync From Cloud get house house _id = $_id")
-        val data = restService.getHouse(orgId = org.id, authkey = oAuth2Token, _id = _id).execute()
+        val data = restService.getHouse(orgId = organization.id, authkey = oAuth2Token, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")
@@ -109,20 +109,21 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         house.link?.isSynced = true
 
         printDebug("\tPut new house to cloud")
-        restService.putHouse(orgId = org.id, authkey = oAuth2Token, _id = _id, house = house).execute()
+        restService.putHouse(orgId = organization.id, authkey = oAuth2Token, _id = _id, house = house).execute()
     }
 
-    override fun putUser(userInfoList: List<User>, org: Organization): List<User> {
-        val respond = restService.regisUser(user = userInfoList, orgId = org.id, authkey = oAuth2Token).execute()
+    override fun putUser(userInfoList: List<User>): List<User> {
+        val respond =
+            restService.regisUser(user = userInfoList, orgId = organization.id, authkey = oAuth2Token).execute()
         return respond.body() ?: arrayListOf()
     }
 
-    override fun putHouse(houseList: List<House>, org: Organization): List<House> {
+    override fun putHouse(houseList: List<House>): List<House> {
         val houseLastUpdate = arrayListOf<House>()
         UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
                 val respond = restService.createHouse(
-                    orgId = org.id,
+                    orgId = organization.id,
                     authkey = oAuth2Token,
                     houseList = cakePlate
                 ).execute()
@@ -134,12 +135,12 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         return houseLastUpdate
     }
 
-    override fun putPerson(persons: List<Person>, org: Organization): List<Person> {
+    override fun putPerson(persons: List<Person>): List<Person> {
         val personLastUpdate = arrayListOf<Person>()
         UploadSpliter.upload(300, persons, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
                 val respond = restService.createPerson(
-                    orgId = org.id,
+                    orgId = organization.id,
                     authkey = oAuth2Token,
                     personList = cakePlate
                 ).execute()
@@ -150,9 +151,9 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         return personLastUpdate
     }
 
-    override fun putChronic(chronicList: List<Chronic>, org: Organization) {
+    override fun putChronic(chronicList: List<Chronic>) {
         restService.createChronic(
-            orgId = org.id,
+            orgId = organization.id,
             authkey = oAuth2Token,
             chronicList = chronicList
         ).execute()
@@ -214,5 +215,14 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         if (restOrg == null) throw IllegalStateException("ไม่มีข้อมูลการลงทะเบียน Org")
 
         return restOrg
+    }
+
+    override fun cloudAsync() {
+        Thread {
+            while (true) {
+                val result = restService.sync(organization.id, token.token)
+                Thread.sleep(60000)
+            }
+        }.start()
     }
 }

@@ -17,6 +17,7 @@
 
 package ffc.airsync.api.retrofit
 
+import ffc.entity.Entity
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
@@ -99,7 +100,7 @@ interface RetofitFunctionCallUrl {
     ): Call<Void>
 
     @GET("/v0/org/{orgId}/healthcareservice/{visitId}")
-    fun getHealthCareService(
+    fun getHomeVisit(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("visitId") id: String
@@ -110,4 +111,10 @@ interface RetofitFunctionCallUrl {
         @Header("Authorization") authkey: String,
         @Query("query") id: String
     ): Call<List<CommunityServiceType>>
+
+    @GET("/v0/org/{orgId}/sync")
+    fun sync(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<List<Entity>>
 }
