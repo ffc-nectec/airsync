@@ -53,28 +53,29 @@ class APIClient {
     }
 
     fun getCientAirsync(baseUrl: String): Retrofit? {
-        val ffcGson = GsonBuilder()
-            .adapterFor<User>(UserJsonAdapter())
-            .adapterFor<Identity>(IdentityJsonAdapter())
-            .adapterFor<HealthCareService>(HealthCareJsonAdapter())
-            .adapterForExtLibrary()
-            .create()
 
         val client = OkHttpClient.Builder()
         val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(ffcGson))
+            .addConverterFactory(GsonConverterFactory.create(airSyncGson))
             .client(client.build())
             .build()
         return retrofit
     }
+}
 
-    private fun GsonBuilder.adapterForExtLibrary(): GsonBuilder {
-        adapterFor<Geometry>(GeometrySerializer())
-        adapterFor<LatLng>(LatLngSerializer())
-        adapterFor<DateTime>(DateTimeConverter())
-        adapterFor<LocalDate>(LocalDateConverter())
-        adapterFor<LocalDateTime>(LocalDateTimeConverter())
-        return this
-    }
+val airSyncGson = GsonBuilder()
+    .adapterFor<User>(UserJsonAdapter())
+    .adapterFor<Identity>(IdentityJsonAdapter())
+    .adapterFor<HealthCareService>(HealthCareJsonAdapter())
+    .adapterForExtLibrary()
+    .create()
+
+private fun GsonBuilder.adapterForExtLibrary(): GsonBuilder {
+    adapterFor<Geometry>(GeometrySerializer())
+    adapterFor<LatLng>(LatLngSerializer())
+    adapterFor<DateTime>(DateTimeConverter())
+    adapterFor<LocalDate>(LocalDateConverter())
+    adapterFor<LocalDateTime>(LocalDateTimeConverter())
+    return this
 }

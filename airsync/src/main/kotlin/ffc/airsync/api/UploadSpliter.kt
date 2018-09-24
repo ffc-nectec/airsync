@@ -25,71 +25,9 @@ object UploadSpliter {
         fun send(cakePlate: ArrayList<T>)
     }
 
-    interface StatusSendCake {
-        fun status(noCakePlate: Int) {}
-    }
-
-    fun <T> sendCake(
-        volumeOfSend: Int,
-        table: ArrayList<ArrayList<T>>,
-        howToSend: HowToSendCake<T>,
-        statusCallbackSendCake: StatusSendCake = object :
-                StatusSendCake {}
-    ) {
-        var slotSend = 0
-        var stackSlot = 0
-        val size = table.size
-
-        for (createSlot in 0..size) {
-            synchronized(slotSend) {
-                if (slotSend < volumeOfSend) {
-                    slotSend++
-
-                    Thread(Runnable {
-                        var cakePlate: ArrayList<T>? = null
-                        synchronized(slotSend) {
-                            if (stackSlot < size) {
-                                cakePlate = table[stackSlot]
-                                stackSlot++
-                            }
-                        }
-
-                        if (cakePlate != null) {
-                            howToSend.send(cakePlate!!)
-
-                            synchronized(slotSend) {
-                                statusCallbackSendCake.status(stackSlot)
-                                slotSend--
-                            }
-                        }
-                    })
-                }
-            }
-
-            // putCake(it, howToSend)
-        }
-    }
-
     fun <T> upload(fixSizeCake: Int, list: List<T>, howToSend: HowToSendCake<T>) {
         val cakePound = cutCake(fixSizeCake, list)
         putCakeOld(cakePound, howToSend)
-    }
-
-    private fun <T> putCakeNew(table: ArrayList<ArrayList<T>>, howToSend: HowToSendCake<T>) {
-        val thread = Thread {
-            Runnable {
-            }
-        }
-
-        printDebug("Run size ${table.size}")
-        val slotRunning = 3
-
-        var stackRun = 0
-        for (noSlot: Int in 1..slotRunning) {
-        }
-    }
-
-    private fun <T> startRun(list: T, howToSend: HowToSendCake<T>) {
     }
 
     private fun <T> putCakeOld(table: ArrayList<ArrayList<T>>, howToSend: HowToSendCake<T>) {
@@ -97,7 +35,7 @@ object UploadSpliter {
         var i = 1
         table.forEach {
             val thread = Thread(Runnable {
-                var runNo: Int = 0
+                var runNo = 0
 
                 synchronized(i) {
                     runNo = i++

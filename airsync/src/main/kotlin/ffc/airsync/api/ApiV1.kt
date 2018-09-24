@@ -28,6 +28,7 @@ import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
+import retrofit2.dsl.enqueue
 import java.net.SocketTimeoutException
 import javax.xml.bind.DatatypeConverter
 
@@ -45,13 +46,13 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         get() = "Bearer " + token.token
 
     override fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization) {
-        val status = restService!!.createFirebaseToken(
+        restService.createFirebaseToken(
             orgId = org.id,
             authkey = oAuth2Token,
             firebaseToken = firebaseToken
-        ).execute()
-        if (status.code() != 201) printDebug("FireBase is not set $status")
-        printDebug("\tRespond filebase put $status")
+        ).enqueue {
+            onSuccess { printDebug("Success bind firebase to cloud") }
+        }
     }
 
     override fun syncHealthCareFromCloud(org: Organization, id: String, dao: DatabaseDao) {

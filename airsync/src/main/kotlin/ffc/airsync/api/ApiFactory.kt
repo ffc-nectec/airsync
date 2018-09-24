@@ -23,7 +23,7 @@ import ffc.airsync.api.retrofit.RetofitFunctionCallUrl
 class ApiFactory {
 
     fun buildApiClient(url: String): RetofitFunctionCallUrl {
-        val restService = APIClient().getCientStd(url)
+        val restService = APIClient().getCientAirsync(url)
         return restService!!.create(RetofitFunctionCallUrl::class.java)
     }
 }
