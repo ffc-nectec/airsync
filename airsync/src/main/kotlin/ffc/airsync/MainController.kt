@@ -51,7 +51,14 @@ class MainController(val dao: DatabaseDao) {
 
     fun run() {
         initOrganization(property.orgId)
+        val org = checkProperty()
+        pushData(org)
+        setupNotificationHandlerFor(org)
+        databaseWatcher(org)
+        startLocalAirSyncServer()
+    }
 
+    private fun checkProperty(): Organization {
         val token = property.token
         if (token.isNotEmpty()) {
             everLogin = true
@@ -64,14 +71,10 @@ class MainController(val dao: DatabaseDao) {
         property.token = (org.bundle.get("token") as Token).token
         property.orgId = org.id
         property.userOrg = org.users[0]
-
-        pushData(org)
-        setupNotificationHandlerFor(org)
-        databaseWatcher(org)
-        startLocalAirSyncServer()
+        return org
     }
 
-    fun databaseWatcher(org: Organization) {
+    private fun databaseWatcher(org: Organization) {
         databaseWatcher(
             Config.logfilepath
         ) { tableName, keyWhere ->
@@ -187,7 +190,7 @@ class MainController(val dao: DatabaseDao) {
         airSyncUiModule().start()
     }
 
-    fun createAirSyncUser(hosId: String): User = User().update {
+    private fun createAirSyncUser(hosId: String): User = User().update {
         name = "airsync$hosId"
         password = UUID.randomUUID().toString().replace("-", "")
         role = User.Role.ORG
