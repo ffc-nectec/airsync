@@ -32,7 +32,7 @@ class HosDetailMapper : RowMapper<HashMap<String, String?>> {
         val detailHos = HashMap<String, String?>()
 
         rs.next()
-        detailHos["offid"] = rs.getString("offid")
+        detailHos["pcucode"] = rs.getString("offid")
         detailHos["tel"] = rs.getString("tel")
         detailHos["name"] = rs.getString("hosname")
         detailHos["province"] = rs.getString("provname")
