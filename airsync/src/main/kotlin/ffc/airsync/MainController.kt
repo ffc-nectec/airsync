@@ -35,6 +35,8 @@ import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.Token
 import ffc.entity.User
+import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.Disease
 import ffc.entity.update
 import java.util.UUID
 
@@ -144,7 +146,12 @@ class MainController(val dao: DatabaseDao) {
         }
 
         if (localPersons.isEmpty()) {
-            localPersons.addAll(Person().gets())
+            val personFromDb = Person().gets()
+            val chronic = Chronic(Disease("", "", "")).gets()
+
+            mapChronicToPerson(personFromDb, chronic)
+
+            localPersons.addAll(personFromDb)
             persons.addAll(api.putPerson(localPersons))
             persons.save()
         } else {
@@ -160,6 +167,31 @@ class MainController(val dao: DatabaseDao) {
         }
 
         printDebug("Finish push")
+    }
+
+    private fun mapChronicToPerson(
+        personFromDb: List<Person>,
+        chronic: List<Chronic>
+    ) {
+        personFromDb.forEach {
+            if (it.link == null) false
+
+            val personPid = it.link!!.keys["pid"] as String
+            if (personPid.isBlank()) false
+
+            val chronicPerson = chronic.filter {
+                if (it.link == null) false
+
+                val chronicPid = it.link!!.keys["pid"] as String
+                if (chronicPid.isBlank()) false
+
+                (chronicPid == personPid)
+            }
+
+            if (chronicPerson.isEmpty()) false
+
+            it.chronics.addAll(chronicPerson)
+        }
     }
 
     private fun findHouseWithKey(house: House): House {
