@@ -77,6 +77,8 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
             it.id == healthCareService.patientId
         }!!
 
+        printDebug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
+
         val patientHos = dao.findPerson(pcucode, (patient.link!!.keys["pid"] as String).toLong())
         patient.bundle.putAll(patientHos.bundle)
 

@@ -54,7 +54,6 @@ class MainController(val dao: DatabaseDao) {
     fun run() {
         initOrganization(property.orgId)
         val org = checkProperty()
-        pcucode.append("01088")
         pushData(org)
         setupNotificationHandlerFor(org)
         databaseWatcher(org)
@@ -110,7 +109,7 @@ class MainController(val dao: DatabaseDao) {
         }
         with(org) {
             val detail = dao.getDetail()
-            val hosId = detail["offid"] ?: ""
+            val hosId = detail["pcucode"] ?: ""
 
             pcucode.append(hosId)
 
@@ -118,7 +117,7 @@ class MainController(val dao: DatabaseDao) {
             tel = detail["tel"]
             address = detail["province"]
             link = Link(System.JHICS).apply {
-                keys["offid"] = hosId
+                keys["pcucode"] = hosId
             }
             users.add(createAirSyncUser(hosId))
             update { }

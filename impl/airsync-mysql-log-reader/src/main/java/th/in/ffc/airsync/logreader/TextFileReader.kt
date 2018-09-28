@@ -24,7 +24,7 @@ import java.io.FileReader
 import java.io.IOException
 
 class TextFileReader @Throws(FileNotFoundException::class)
-@JvmOverloads internal constructor(fileparth: String, realtime: Boolean = true, delay: Long = 2000) {
+@JvmOverloads constructor(fileparth: String, realtime: Boolean = true, delay: Long = 2000) {
     private var linenumber: Long = 0
     private lateinit var bufferReader: BufferedReader
     private var listener: (queryRecord: QueryRecord) -> Unit = {}
