@@ -246,6 +246,20 @@ class VisitData(
     }
 }
 
+fun HomeVisit.buildVisitData(
+    pcucode: String,
+    visitno: Long,
+    pcucodeperson: String,
+    pid: Long,
+    username: String,
+    rightcode: String,
+    rightno: String,
+    hosmain: String,
+    hossub: String
+): VisitData {
+    return VisitData(this, pcucode, visitno, pcucodeperson, pid, username, rightcode, rightno, hosmain, hossub)
+}
+
 class VisitDiagData(
     val homeVisit: HomeVisit,
     val pcucode: String,
@@ -262,30 +276,26 @@ class VisitDiagData(
             Timestamp(homeVisit.nextAppoint!!.toDate().time)
         else
             null
+}
 
-    private fun buildData(): Iterable<VisitDiagData> {
-        val result = arrayListOf<VisitDiagData>()
-
-        homeVisit.diagnosises.forEach {
-            val icd10 = it.disease.icd10!!
-            val continune = if (it.isContinued) "1" else "0"
-            val diagnosis = when (it.dxType) {
+fun HomeVisit.buildVisitDiag(
+    pcucode: String,
+    visitno: Long,
+    username: String
+): Iterable<VisitDiagData> {
+    return this.diagnosises.map {
+        VisitDiagData(this, pcucode, visitno, username).apply {
+            diagcode = it.disease.icd10!!.trim()
+            conti = if (it.isContinued) "1" else "0"
+            dxtype = when (it.dxType) {
                 Diagnosis.Type.PRINCIPLE_DX -> "01"
                 Diagnosis.Type.CO_MORBIDITY -> "02"
                 Diagnosis.Type.COMPLICATION -> "03"
                 Diagnosis.Type.OTHER -> "04"
                 else -> "05"
-            }
-            result.add(VisitDiagData(homeVisit, pcucode, visitno, username).apply {
-                diagcode = icd10.trim()
-                conti = continune.trim()
-                dxtype = diagnosis.trim()
-            })
+            }.trim()
         }
-        return result
     }
-
-    val sqlData get() = buildData()
 }
 
 class VisitIndividualData(
@@ -308,4 +318,12 @@ class VisitIndividualData(
     val dateupdate = Timestamp(DateTime.now().plusHours(7).millis)
 
     val homehealthtype = homeVisit.serviceType.id
+}
+
+fun HomeVisit.buildVisitIndividualData(
+    pcucode: String,
+    visitno: Long,
+    username: String
+): VisitIndividualData {
+    return VisitIndividualData(this, pcucode, visitno, username)
 }

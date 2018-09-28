@@ -125,8 +125,7 @@ class JdbiDao(
         username: String
     ) {
         val visitNum = queryMaxVisit() + 1
-        val visitData = VisitData(
-            homeVisit,
+        val visitData = homeVisit.buildVisitData(
             pcucode,
             visitNum,
             pcucodePerson,
@@ -136,19 +135,12 @@ class JdbiDao(
             patient.bundle["rightno"] as String,
             patient.bundle["hosmain"] as String,
             patient.bundle["hossub"] as String
-
         )
         insertVisit(visitData)
 
-        val visitDiagData = VisitDiagData(
-            homeVisit,
-            pcucode,
-            visitNum,
-            username
-        )
-        jdbiDao.extension<QueryVisit, Unit> { insertVisitDiag(visitDiagData.sqlData) }
+        jdbiDao.extension<QueryVisit, Unit> { insertVisitDiag(homeVisit.buildVisitDiag(pcucode, visitNum, username)) }
 
-        val visitIndividualData = VisitIndividualData(homeVisit, pcucode, visitNum, username)
+        val visitIndividualData = homeVisit.buildVisitIndividualData(pcucode, visitNum, username)
         jdbiDao.extension<QueryVisit, Unit> { insertVitsitIndividual(visitIndividualData) }
     }
 
