@@ -160,7 +160,28 @@ class MainController(val dao: DatabaseDao) {
         }
 
         if (localHouses.isEmpty()) {
-            localHouses.addAll(House().gets())
+            val house = House().gets()
+
+            localHouses.addAll(house)
+
+            house.forEach {
+                val hcode = it.link!!.keys["hcode"] as String
+
+                if (hcode.isNotEmpty() && hcode != "1") {
+                    val personChronic = persons.find {
+                        if ((it.link!!.keys["hcode"] as String) == hcode) {
+                            it.chronics.find { it.disease.isChronic } != null
+                        }
+                        false
+                    }
+
+                    if (personChronic != null) {
+                        it.haveChronic = true
+                    }
+                }
+            }
+
+
             houses.addAll(api.putHouse(localHouses))
             houses.save()
         } else {
