@@ -54,6 +54,7 @@ class MainController(val dao: DatabaseDao) {
     fun run() {
         initOrganization(property.orgId)
         val org = checkProperty()
+        pcucode.append("01088")
         pushData(org)
         setupNotificationHandlerFor(org)
         databaseWatcher(org)

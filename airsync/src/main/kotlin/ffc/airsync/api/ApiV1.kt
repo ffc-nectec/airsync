@@ -57,13 +57,14 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
 
     override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
         val data = restService.getHomeVisit(orgId = organization.id, authkey = oAuth2Token, id = id).execute()
-        val pcucode = this.pcucode.toString().trim()
 
         if (data.code() != 200) {
             printDebug("Not success get healthcare code=${data.code()}")
             return
         }
         val healthCareService = data.body()!!
+
+        val pcucode = this.pcucode.toString().trim()
 
         if (healthCareService.patientId.isTempId() ||
             healthCareService.providerId.isTempId()
@@ -120,7 +121,7 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
 
     override fun putHouse(houseList: List<House>): List<House> {
         val houseLastUpdate = arrayListOf<House>()
-        UploadSpliter.upload(300, houseList, object : UploadSpliter.HowToSendCake<House> {
+        UploadSpliter.upload(100, houseList, object : UploadSpliter.HowToSendCake<House> {
             override fun send(cakePlate: ArrayList<House>) {
                 val respond = restService.createHouse(
                     orgId = organization.id,
@@ -137,7 +138,7 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
 
     override fun putPerson(persons: List<Person>): List<Person> {
         val personLastUpdate = arrayListOf<Person>()
-        UploadSpliter.upload(300, persons, object : UploadSpliter.HowToSendCake<Person> {
+        UploadSpliter.upload(200, persons, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
                 val respond = restService.createPerson(
                     orgId = organization.id,
