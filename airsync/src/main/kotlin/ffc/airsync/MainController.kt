@@ -168,19 +168,15 @@ class MainController(val dao: DatabaseDao) {
                 val hcode = it.link!!.keys["hcode"] as String
 
                 if (hcode.isNotEmpty() && hcode != "1") {
-                    val personChronic = persons.find {
-                        if ((it.link!!.keys["hcode"] as String) == hcode) {
-                            it.chronics.find { it.disease.isChronic } != null
-                        }
-                        false
-                    }
+                    val person = findPersonInHouse(persons, hcode)
 
-                    if (personChronic != null) {
-                        it.haveChronic = true
+                    val personChronic = person.find {
+                        it.haveChronic
                     }
+                    if (personChronic != null)
+                        it.haveChronic = true
                 }
             }
-
 
             houses.addAll(api.putHouse(localHouses))
             houses.save()
@@ -189,6 +185,12 @@ class MainController(val dao: DatabaseDao) {
         }
 
         printDebug("Finish push")
+    }
+
+    private fun findPersonInHouse(person: List<Person>, hcode: String): List<Person> {
+        return person.filter {
+            (it.link!!.keys["hcode"] as String).trim() == hcode
+        }
     }
 
     private fun mapChronicToPerson(
