@@ -1,6 +1,5 @@
 package ffc.airsync.db
 
-import ffc.airsync.utils.toTime
 import ffc.entity.healthcare.Diagnosis
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.bloodPressureLevel
@@ -190,7 +189,7 @@ class MaxVisitNumberMapper : RowMapper<Long> {
 }
 
 class VisitData(
-    homeVisit: HomeVisit,
+    val homeVisit: HomeVisit,
     val pcucode: String,
     val visitno: Long,
     val pcucodeperson: String,
@@ -203,11 +202,11 @@ class VisitData(
 
 ) {
     val flagservice = "03"
-    val dateupdate: Timestamp = Timestamp(DateTime.now().millis)
+    val dateupdate: Timestamp = Timestamp(DateTime.now().plusHours(7).millis)
 
-    val visitdate: Timestamp = Timestamp(homeVisit.time.millis)
-    val timestart: Time = Time(homeVisit.time.millis)
-    val timeend = Time(homeVisit.time.plusMinutes(5).millis).toTime()
+    val visitdate: Timestamp = Timestamp(homeVisit.time.plusHours(7).millis)
+    val timestart: Time = Time(homeVisit.time.plusHours(7).millis)
+    val timeend: Time = Time(homeVisit.time.plusHours(7).plusMinutes(5).millis)
     val symptoms = homeVisit.syntom
     val vitalcheck = homeVisit.result
     val weight = homeVisit.weight
@@ -239,14 +238,11 @@ class VisitData(
 
     val timeservice: Int
         get() {
-            return getTimeService(timestart)
+            return getTimeService(homeVisit.time.toLocalDateTime().hourOfDay)
         }
 
-    fun getTimeService(time: Time = timestart): Int {
-        return when {
-            time > "08:30:00".toTime() && time < "16:30:00".toTime() -> 1
-            else -> 2
-        }
+    fun getTimeService(houseOfDay: Int): Int {
+        return if (houseOfDay in 9..15) 1 else 2
     }
 }
 
@@ -259,7 +255,7 @@ class VisitDiagData(
     lateinit var diagcode: String
     lateinit var conti: String
     lateinit var dxtype: String
-    val dateupdate: Timestamp = Timestamp(DateTime.now().millis)
+    val dateupdate: Timestamp = Timestamp(DateTime.now().plusHours(7).millis)
     val doctordiag = username
     val appointdate =
         if (homeVisit.nextAppoint != null)
@@ -309,7 +305,7 @@ class VisitIndividualData(
             null
 
     val user = username
-    val dateupdate = Timestamp(DateTime.now().millis)
+    val dateupdate = Timestamp(DateTime.now().plusHours(7).millis)
 
     val homehealthtype = homeVisit.serviceType.id
 }

@@ -1,6 +1,5 @@
 package ffc.airsync.db
 
-import ffc.airsync.utils.toTime
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
@@ -106,18 +105,18 @@ class QueryVisitTest {
 
     @Test
     fun inTimeServiceFun() {
-        fullVisitData.getTimeService("14:00:34".toTime()) `should be equal to` 1
+        fullVisitData.timeservice `should be equal to` 1
     }
 
     @Test
     fun outTimeServiceFun() {
-        fullVisitData.getTimeService("7:00:34".toTime()) `should be equal to` 2
-        fullVisitData.getTimeService("19:50:34".toTime()) `should be equal to` 2
+        fullVisitData.getTimeService(1) `should be equal to` 2
+        fullVisitData.getTimeService(19) `should be equal to` 2
     }
 
     @Test
     fun visitdate() {
-        fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 07:28:15.967")
+        fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 14:28:15.967")
     }
 
     @Ignore("Get max visit in real db")
