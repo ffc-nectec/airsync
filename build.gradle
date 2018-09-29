@@ -52,12 +52,11 @@ subprojects {
     compileTestKotlin { kotlinOptions.jvmTarget = "1.8" }
 
     dependencies {
+        compile "com.github.ffc-nectec:entities:$entitiesVersion"
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
         testImplementation "junit:junit:4.12"
         testImplementation "org.amshove.kluent:kluent:1.34"
-        testImplementation 'com.h2database:h2:1.4.197'
-
     }
 
     configurations { ktlint }

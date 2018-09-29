@@ -21,7 +21,6 @@ dependencies {
 
     implementation project(":interface:ui")
     implementation project(":interface:notification")
-    implementation "com.github.ffc-nectec:entities:$entitiesVersion"
 
     implementation "org.eclipse.jetty:jetty-server:$jettyVersion"
     implementation "org.eclipse.jetty:jetty-servlet:$jettyVersion"
