@@ -36,7 +36,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.HashMap
 
-interface RetofitFunctionCallUrl {
+interface RetofitRestUrl {
     @GET("/v0")
     fun checkCloud(): Call<Void>
 

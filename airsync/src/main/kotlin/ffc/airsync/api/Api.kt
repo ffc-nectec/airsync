@@ -22,7 +22,6 @@ import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.User
-import ffc.entity.healthcare.Chronic
 
 interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization
@@ -33,8 +32,6 @@ interface Api {
 
     fun putPerson(personList: List<Person>): List<Person>
 
-    fun putChronic(chronicList: List<Chronic>)
-
     fun putFirebaseToken(firebaseToken: HashMap<String, String>)
 
     fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao)
@@ -42,6 +39,4 @@ interface Api {
     fun syncHouseToCloud(house: House)
 
     fun syncHealthCareFromCloud(id: String, dao: DatabaseDao)
-
-    fun cloudAsync()
 }

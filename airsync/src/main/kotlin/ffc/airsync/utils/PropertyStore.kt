@@ -1,9 +1,16 @@
 package ffc.airsync.utils
 
+import ffc.entity.House
+import ffc.entity.Person
 import ffc.entity.User
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.Properties
+
+val houses = arrayListOf<House>()
+val persons = arrayListOf<Person>()
+val users = arrayListOf<User>()
+val pcucode = StringBuilder()
 
 class PropertyStore(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf") {
 

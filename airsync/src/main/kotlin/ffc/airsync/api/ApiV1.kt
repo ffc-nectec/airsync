@@ -27,7 +27,6 @@ import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.gson.toJson
-import ffc.entity.healthcare.Chronic
 import retrofit2.dsl.enqueue
 import java.net.SocketTimeoutException
 import javax.xml.bind.DatatypeConverter
@@ -154,14 +153,6 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         return personLastUpdate
     }
 
-    override fun putChronic(chronicList: List<Chronic>) {
-        restService.createChronic(
-            orgId = organization.id,
-            authkey = oAuth2Token,
-            chronicList = chronicList
-        ).execute()
-    }
-
     override fun registerOrganization(organization: Organization, url: String): Organization {
         Companion.organization = organization
         urlBase = url
@@ -218,14 +209,5 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         if (restOrg == null) throw IllegalStateException("ไม่มีข้อมูลการลงทะเบียน Org")
 
         return restOrg
-    }
-
-    override fun cloudAsync() {
-        Thread {
-            while (true) {
-                val result = restService.sync(organization.id, token.token)
-                Thread.sleep(60000)
-            }
-        }.start()
     }
 }

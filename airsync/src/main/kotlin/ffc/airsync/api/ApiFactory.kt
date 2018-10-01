@@ -17,13 +17,13 @@
 
 package ffc.airsync.api
 
-import ffc.airsync.api.retrofit.APIClient
-import ffc.airsync.api.retrofit.RetofitFunctionCallUrl
+import ffc.airsync.api.retrofit.RetofitAPIClient
+import ffc.airsync.api.retrofit.RetofitRestUrl
 
 class ApiFactory {
 
-    fun buildApiClient(url: String): RetofitFunctionCallUrl {
-        val restService = APIClient().getCientAirsync(url)
-        return restService!!.create(RetofitFunctionCallUrl::class.java)
+    fun buildApiClient(url: String): RetofitRestUrl {
+        val restService = RetofitAPIClient().getCientAirsync(url)
+        return restService!!.create(RetofitRestUrl::class.java)
     }
 }

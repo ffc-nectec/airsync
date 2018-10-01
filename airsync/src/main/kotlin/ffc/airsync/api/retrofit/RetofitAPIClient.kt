@@ -42,7 +42,7 @@ import org.joda.time.LocalDateTime
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class APIClient {
+class RetofitAPIClient {
 
     fun getCientStd(baseUrl: String): Retrofit? {
         val client = OkHttpClient.Builder()

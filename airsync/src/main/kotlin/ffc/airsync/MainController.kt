@@ -25,9 +25,13 @@ import ffc.airsync.provider.databaseWatcher
 import ffc.airsync.provider.notificationModule
 import ffc.airsync.utils.PropertyStore
 import ffc.airsync.utils.gets
+import ffc.airsync.utils.houses
 import ffc.airsync.utils.load
+import ffc.airsync.utils.pcucode
+import ffc.airsync.utils.persons
 import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
+import ffc.airsync.utils.users
 import ffc.entity.House
 import ffc.entity.Link
 import ffc.entity.Organization
@@ -43,10 +47,6 @@ import java.util.UUID
 class MainController(val dao: DatabaseDao) {
 
     lateinit var org: Organization
-    val houses = arrayListOf<House>()
-    val persons = arrayListOf<Person>()
-    val users = arrayListOf<User>()
-    val pcucode = StringBuilder()
     private var property = PropertyStore("ffcProperty.cnf")
     var everLogin: Boolean = false
     val api: Api by lazy { ApiV1(persons, houses, users, pcucode) }
