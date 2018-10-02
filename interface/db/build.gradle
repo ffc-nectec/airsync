@@ -14,9 +14,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-dependencies {
-    implementation ("com.github.ffc-nectec:entities:$entitiesVersion"){
-        exclude group: "com.gregwoodfill.assert"
-    }
-}

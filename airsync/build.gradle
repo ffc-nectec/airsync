@@ -44,7 +44,5 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile "com.github.piruin:retrofit-dsl:1.0"
     compile "args4j:args4j:2.33"
-    compile ("com.github.ffc-nectec:entities:$entitiesVersion"){
-        exclude group: "com.gregwoodfill.assert"
-    }
+    compile "com.github.ffc-nectec:entities:$entitiesVersion"
 }
