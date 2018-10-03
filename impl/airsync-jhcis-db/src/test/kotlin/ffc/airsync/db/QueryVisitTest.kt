@@ -117,7 +117,7 @@ class QueryVisitTest {
 
     @Test
     fun getTimeServe() {
-        val visitTime = DateTime(2018, 9, 6, 14, 28, 15)
+        val visitTime = DateTime(2018, 9, 6, 14, 28, 15, timeZone(7))
         fullVisitData.getTimeService(visitTime.withZone(timeZone(7)).hourOfDay) `should be equal to` 1
         fullVisitData.getTimeService(visitTime.withZone(timeZone(8)).hourOfDay) `should be equal to` 1
         fullVisitData.getTimeService(visitTime.withZone(timeZone(9)).hourOfDay) `should be equal to` 2
