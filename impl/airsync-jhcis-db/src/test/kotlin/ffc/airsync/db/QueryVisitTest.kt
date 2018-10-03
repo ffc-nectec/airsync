@@ -54,7 +54,7 @@ class QueryVisitTest {
         principleDx = disease
         suggestion = "suggestion"
         syntom = "sleep"
-        time = DateTime(2018, 9, 6, 14, 28, 15)
+        time = DateTime(2018, 9, 6, 14, 28, 15, timeZone(7))
 
         val myLink = Link(System.JHICS)
         myLink.keys["pcucode"] = "xxxxxx"
