@@ -5,9 +5,13 @@ import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.bloodPressureLevel
 import org.amshove.kluent.`should be equal to`
 import org.joda.time.DateTime
+import org.junit.Before
 import org.junit.Test
 import java.sql.Time
 import java.sql.Timestamp
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.util.TimeZone
 
 class VisitData2(
     val homeVisit: HomeVisit,
@@ -120,6 +124,11 @@ class passObjectTest {
     "orgId": "5bacabd810257c0004c52bff"
 }
     """.trimIndent()
+
+    @Before
+    fun setUp() {
+        TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
+    }
 
     @Test
     fun timeServiceTest() {

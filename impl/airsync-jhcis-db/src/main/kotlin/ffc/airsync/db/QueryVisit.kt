@@ -15,6 +15,9 @@ import org.joda.time.DateTime
 import java.sql.ResultSet
 import java.sql.Time
 import java.sql.Timestamp
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.util.TimeZone
 
 interface QueryVisit {
     @SqlQuery(
@@ -238,6 +241,7 @@ class VisitData(
 
     val timeservice: Int
         get() {
+            TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
             return getTimeService(homeVisit.time.toLocalDateTime().hourOfDay)
         }
 
