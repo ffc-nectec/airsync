@@ -1,7 +1,6 @@
 package ffc.airsync.db
 
 import ffc.entity.healthcare.Diagnosis
-import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.bloodPressureLevel
 import org.jdbi.v3.core.mapper.RowMapper

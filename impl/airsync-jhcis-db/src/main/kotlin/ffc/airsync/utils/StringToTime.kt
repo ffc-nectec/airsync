@@ -1,5 +1,6 @@
 package ffc.airsync.utils
 
+import org.joda.time.DateTimeZone
 import org.joda.time.format.DateTimeFormat
 import java.sql.Time
 import java.text.SimpleDateFormat
@@ -15,3 +16,5 @@ fun Time.toTime(): Time {
     val df = SimpleDateFormat("h:mm:ss")
     return df.format(this).toTime()
 }
+
+fun timeZone(plus: Int) = DateTimeZone.forOffsetHours(plus)

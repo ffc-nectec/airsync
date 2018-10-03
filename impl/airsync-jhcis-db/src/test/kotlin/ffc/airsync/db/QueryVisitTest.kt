@@ -1,5 +1,6 @@
 package ffc.airsync.db
 
+import ffc.airsync.utils.timeZone
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
@@ -11,7 +12,6 @@ import me.piruin.geok.geometry.Point
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should equal`
 import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 import org.junit.Before
 import org.junit.Ignore
@@ -113,10 +113,14 @@ class QueryVisitTest {
     fun outTimeServiceFun() {
         fullVisitData.getTimeService(1) `should be equal to` 2
         fullVisitData.getTimeService(19) `should be equal to` 2
-        val visitTime = homeVisit.time
-        fullVisitData.getTimeService(visitTime.withZone(DateTimeZone.forOffsetHours(7)).hourOfDay) `should be equal to` 1
-        fullVisitData.getTimeService(visitTime.withZone(DateTimeZone.forOffsetHours(8)).hourOfDay) `should be equal to` 1
-        fullVisitData.getTimeService(visitTime.withZone(DateTimeZone.forOffsetHours(9)).hourOfDay) `should be equal to` 2
+    }
+
+    @Test
+    fun getTimeServe() {
+        val visitTime = DateTime(2018, 9, 6, 14, 28, 15)
+        fullVisitData.getTimeService(visitTime.withZone(timeZone(7)).hourOfDay) `should be equal to` 1
+        fullVisitData.getTimeService(visitTime.withZone(timeZone(8)).hourOfDay) `should be equal to` 1
+        fullVisitData.getTimeService(visitTime.withZone(timeZone(9)).hourOfDay) `should be equal to` 2
     }
 
     @Test
