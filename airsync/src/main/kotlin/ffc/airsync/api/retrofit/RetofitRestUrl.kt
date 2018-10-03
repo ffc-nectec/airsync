@@ -17,12 +17,15 @@
 
 package ffc.airsync.api.retrofit
 
-import ffc.entity.Chronic
+import ffc.entity.Entity
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
+import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.CommunityServiceType
+import ffc.entity.healthcare.HomeVisit
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -30,9 +33,12 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.HashMap
 
-interface RetofitFunctionCallUrl {
+interface RetofitRestUrl {
+    @GET("/v0")
+    fun checkCloud(): Call<Void>
 
     @POST("/v0/org")
     fun regisOrg(@Body body: Organization): Call<Organization>
@@ -48,7 +54,7 @@ interface RetofitFunctionCallUrl {
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Body user: List<User>
-    ): Call<Void>
+    ): Call<List<User>>
 
     @POST("/v0/org/{orgId}/place/houses")
     fun createHouse(
@@ -57,12 +63,12 @@ interface RetofitFunctionCallUrl {
         @Body houseList: List<House>
     ): Call<List<House>>
 
-    @POST("/v0/org/{orgId}/person")
+    @POST("/v0/org/{orgId}/persons")
     fun createPerson(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Body personList: List<Person>
-    ): Call<Void>
+    ): Call<List<Person>>
 
     @POST("/v0/org/{orgId}/chronic/base")
     fun createChronic(
@@ -92,4 +98,23 @@ interface RetofitFunctionCallUrl {
         @Header("Authorization") authkey: String,
         @Body firebaseToken: HashMap<String, String>
     ): Call<Void>
+
+    @GET("/v0/org/{orgId}/healthcareservice/{visitId}")
+    fun getHomeVisit(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("visitId") id: String
+    ): Call<HomeVisit>
+
+    @GET("/v0/homehealth")
+    fun lookupCommunityServiceType(
+        @Header("Authorization") authkey: String,
+        @Query("query") id: String
+    ): Call<List<CommunityServiceType>>
+
+    @GET("/v0/org/{orgId}/sync")
+    fun sync(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<List<Entity>>
 }

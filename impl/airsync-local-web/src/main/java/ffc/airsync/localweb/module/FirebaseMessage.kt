@@ -22,8 +22,8 @@ import ffc.entity.Messaging
 
 class FirebaseMessage private constructor() : Notification {
 
-    private var identifierChange: ((HashMap<String, String>) -> Unit)? = null
-    private var onDataChange: ((type: String, id: String) -> Unit)? = null
+    private lateinit var identifierChange: ((HashMap<String, String>) -> Unit)
+    private lateinit var onDataChange: ((type: String, id: String) -> Unit)
 
     override fun onTokenChange(callback: (HashMap<String, String>) -> Unit) {
         identifierChange = callback
@@ -38,10 +38,10 @@ class FirebaseMessage private constructor() : Notification {
     }
 
     fun updateToken(firebaseToken: HashMap<String, String>) {
-        identifierChange!!.invoke(firebaseToken)
+        identifierChange.invoke(firebaseToken)
     }
 
-    fun updateHouse(data: Messaging) {
-        onDataChange!!.invoke(data.type, data.id)
+    fun update(data: Messaging) {
+        onDataChange.invoke(data.type, data.id)
     }
 }

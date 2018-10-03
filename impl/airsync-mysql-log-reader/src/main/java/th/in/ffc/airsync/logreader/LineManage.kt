@@ -5,12 +5,11 @@ import java.io.FileOutputStream
 import java.util.Properties
 
 class LineManage(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\log.cnf") {
+
     private lateinit var properties: Properties
-    private var lastLineNumber: Long = 0
 
     init {
         loadProperty()
-        val lastLineStr = properties.getProperty("lastline") ?: "0"
     }
 
     fun getProperty(key: String): String {

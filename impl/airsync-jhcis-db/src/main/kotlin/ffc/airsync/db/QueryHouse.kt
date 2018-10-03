@@ -37,7 +37,6 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 interface QueryHouse {
-
     @SqlUpdate("""
 UPDATE `house`
   SET

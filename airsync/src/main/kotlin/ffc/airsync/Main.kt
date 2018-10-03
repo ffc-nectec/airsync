@@ -21,9 +21,11 @@ import ffc.airsync.provider.databaseDaoModule
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.util.TimeZone
 
 internal class Main constructor(args: Array<String>) {
-
     @Option(name = "-dbhost", usage = "Database hostserver Ex. 127.0.0.1 ")
     protected var dbhost = HOSTNAMEDB
 
@@ -47,6 +49,7 @@ internal class Main constructor(args: Array<String>) {
 
     init {
         try {
+            TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
             val parser = CmdLineParser(this)
             parser.parseArgument(*args)
         } catch (cmd: CmdLineException) {
@@ -55,11 +58,15 @@ internal class Main constructor(args: Array<String>) {
     }
 
     fun run() {
-        val dao = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
+        instant = this
+        val dao = createDatabaseDao()
         MainController(dao).run()
     }
 
+    fun createDatabaseDao() = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
+
     companion object {
+        lateinit var instant: Main
         protected val HOSTNAMEDB = "127.0.0.1"
         protected val HOSTPORTDB = "3333"
         protected val HOSTDBNAME = "jhcisdb"

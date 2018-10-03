@@ -17,14 +17,13 @@ class LogReader(
     val isTest: Boolean = false,
     val onLogInput: (tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
-
-    private lateinit var lineManage: LineManage
+    private var lineManage: LineManage
 
     init {
         if (isTest) {
             lineManage = LineManage("logTest.cfg")
         } else {
-            lineManage = LineManage()
+            lineManage = LineManage("log.cfg")
         }
     }
 

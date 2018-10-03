@@ -18,11 +18,11 @@
 package th.in.ffc.airsync.logreader;
 
 import com.csvreader.CsvWriter;
-
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class CsvLogWriter {
+
     private static final char SEPARATOR = ',';
     private CsvWriter csvOutput;
 

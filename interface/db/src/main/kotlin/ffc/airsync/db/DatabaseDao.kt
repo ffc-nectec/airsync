@@ -17,18 +17,20 @@
 
 package ffc.airsync.db
 
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.HomeVisit
 
 interface DatabaseDao {
-
     fun getDetail(): HashMap<String, String>
 
     fun getUsers(): List<User>
 
     fun getPerson(): List<Person>
+
+    fun findPerson(pcucode: String, pid: Long): Person
 
     fun getHouse(): List<House>
 
@@ -37,4 +39,12 @@ interface DatabaseDao {
     fun getChronic(): List<Chronic>
 
     fun upateHouse(house: House)
+
+    fun createHomeVisit(
+        homeVisit: HomeVisit,
+        pcucode: String,
+        pcucodePerson: String,
+        patient: Person,
+        username: String
+    )
 }

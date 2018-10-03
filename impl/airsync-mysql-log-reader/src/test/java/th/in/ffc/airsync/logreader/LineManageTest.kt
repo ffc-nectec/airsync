@@ -4,6 +4,7 @@ import org.amshove.kluent.`should be equal to`
 import org.junit.Test
 
 class LineManageTest {
+
     val lineManage = LineManage("lineManageUnitTest.cfg")
 
     @Test

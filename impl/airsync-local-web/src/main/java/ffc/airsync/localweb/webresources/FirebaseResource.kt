@@ -19,7 +19,7 @@ package ffc.airsync.client.webservice.webresources
 
 import ffc.airsync.client.webservice.module.FirebaseMessage
 import ffc.airsync.localweb.printDebug
-import ffc.entity.firebase.Payload
+import ffc.entity.Messaging
 import ffc.entity.gson.parseTo
 import javax.servlet.http.HttpServletRequest
 import javax.ws.rs.Consumes
@@ -34,7 +34,6 @@ import javax.ws.rs.core.Response
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/")
 class FirebaseResource {
-
     @POST
     @Path("/token")
     fun updateFirebaseToken(@Context req: HttpServletRequest, token: String): Response {
@@ -56,9 +55,11 @@ class FirebaseResource {
         printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
         printDebug("\tFirebase message data $message")
         val event = message.parseTo<Payload>()
-        printDebug("\t\t" +
-                "Type = ${event.message.data.type} " +
-                "Url = ${event.message.data.url}")
+        printDebug(
+            "\t\t" +
+                    "Type = ${event.message.data.type} " +
+                    "Url = ${event.message.data.url}"
+        )
         val data = event.message.data
 
         printDebug("\tGet data message")
@@ -66,12 +67,10 @@ class FirebaseResource {
 
         printDebug("\t Check house type.")
         try {
-            if (data.type == "House") {
-                printDebug("\t\tType house")
-                fbm.updateHouse(data)
-            } else {
-                printDebug("\t\tNot type house.")
-            }
+            if (data.type.isNotEmpty())
+                fbm.update(data)
+            else
+                printDebug("\t\tNot type process in firebase")
         } catch (ex: Exception) {
             ex.printStackTrace()
             throw ex
@@ -79,4 +78,9 @@ class FirebaseResource {
         printDebug("End")
         return Response.status(Response.Status.CREATED).build()
     }
+}
+
+data class Payload(val message: Message) {
+
+    data class Message(val data: Messaging)
 }

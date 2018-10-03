@@ -27,6 +27,5 @@ public class Config {
     public static final String csvfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.csv";
 
     private Config() {
-
     }
 }

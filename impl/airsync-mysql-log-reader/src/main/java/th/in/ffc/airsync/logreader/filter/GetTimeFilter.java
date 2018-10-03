@@ -17,10 +17,9 @@
 
 package th.in.ffc.airsync.logreader.filter;
 
-import th.in.ffc.airsync.logreader.QueryRecord;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import th.in.ffc.airsync.logreader.QueryRecord;
 
 public class GetTimeFilter implements Filters {
 

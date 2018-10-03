@@ -8,6 +8,7 @@ import java.io.PrintWriter
 import java.util.concurrent.atomic.AtomicReference
 
 class LogReaderTest {
+
     private val logfile = "ReadTextFileRT.txt"
 
     @Test
@@ -15,8 +16,7 @@ class LogReaderTest {
         val readLogFile: LogReader
         val table = AtomicReference<String>()
         val key = AtomicReference<String>()
-        var writer: PrintWriter? = null
-        writer = PrintWriter(logfile, "UTF-8")
+        val writer = PrintWriter(logfile, "UTF-8")
 
         File("logTest.cfg").delete()
         readLogFile = LogReader(
@@ -32,7 +32,6 @@ class LogReaderTest {
         )
 
         Thread {
-
             try {
                 readLogFile.start()
             } catch (e: IOException) {

@@ -18,7 +18,6 @@
 package ffc.airsync.api
 
 import ffc.airsync.db.DatabaseDao
-import ffc.entity.Chronic
 import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
@@ -27,17 +26,17 @@ import ffc.entity.User
 interface Api {
     fun registerOrganization(organization: Organization, url: String): Organization
 
-    fun putUser(userInfoList: List<User>, org: Organization)
+    fun putUser(userInfoList: List<User>): List<User>
 
-    fun putHouse(houseList: List<House>, org: Organization): List<House>
+    fun putHouse(houseList: List<House>): List<House>
 
-    fun putPerson(personList: List<Person>, org: Organization)
+    fun putPerson(personList: List<Person>): List<Person>
 
-    fun putChronic(chronicList: List<Chronic>, org: Organization)
+    fun putFirebaseToken(firebaseToken: HashMap<String, String>)
 
-    fun putFirebaseToken(firebaseToken: HashMap<String, String>, org: Organization)
+    fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao)
 
-    fun syncHouseFromCloud(org: Organization, _id: String, databaseDao: DatabaseDao)
+    fun syncHouseToCloud(house: House)
 
-    fun syncHouseToCloud(house: House, org: Organization)
+    fun syncHealthCareFromCloud(id: String, dao: DatabaseDao)
 }

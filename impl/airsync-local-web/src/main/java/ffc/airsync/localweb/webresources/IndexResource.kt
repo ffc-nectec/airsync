@@ -26,7 +26,6 @@ import javax.ws.rs.core.MediaType
 
 @Path("/")
 class IndexResource {
-
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Path("/{webpart:(.*.html)}")

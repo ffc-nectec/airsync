@@ -25,27 +25,67 @@ import ffc.entity.update
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
+import org.jdbi.v3.sqlobject.customizer.Bind
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.joda.time.LocalDate
 import java.sql.ResultSet
 
 interface QueryPerson {
-    @SqlQuery("SELECT " +
-            "person.idcard," +
-            "person.fname," +
-            "person.lname," +
-            "person.hcode," +
-            "person.pcucodeperson," +
-            "person.birth," +
-            "person.pid," +
-            "person.dischargetype," +
-            "ctitle.titlename " +
-            "FROM person LEFT JOIN ctitle ON person.prename=ctitle.titlecode")
+    @SqlQuery(
+        """
+SELECT
+	person.idcard,
+	person.fname,
+	person.lname,
+	person.hcode,
+	person.pcucodeperson,
+	person.birth,
+	person.pid,
+	person.dischargetype,
+	ctitle.titlename,
+	`person`.`rightcode`,
+	`person`.`rightno`,
+	`person`.`hosmain`,
+	`person`.`hossub`
+FROM person
+	LEFT JOIN ctitle ON
+		person.prename=ctitle.titlecode
+    """
+    )
     @RegisterRowMapper(PersonMapper::class)
     fun get(): List<Person>
+
+    @SqlQuery(
+        """
+SELECT
+	person.idcard,
+	person.fname,
+	person.lname,
+	person.hcode,
+	person.pcucodeperson,
+	person.birth,
+	person.pid,
+	person.dischargetype,
+	ctitle.titlename,
+	`person`.`rightcode`,
+	`person`.`rightno`,
+	`person`.`hosmain`,
+	`person`.`hossub`
+FROM `person`
+	LEFT JOIN ctitle ON
+		person.prename=ctitle.titlecode
+
+	WHERE
+		`person`.`pcucodeperson` = :pcucode AND `person`.`pid`= :pid
+LIMIT 1
+    """
+    )
+    @RegisterRowMapper(PersonMapper::class)
+    fun findPerson(@Bind("pcucode") pcucode: String, @Bind("pid") pid: Long): List<Person>
 }
 
 class PersonMapper : RowMapper<Person> {
+
     override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
         if (rs == null) throw ClassNotFoundException()
         val statusLive = rs.getString("dischargetype")
@@ -55,11 +95,22 @@ class PersonMapper : RowMapper<Person> {
             lastname = rs.getString("lname")
             prename = rs.getString("titlename")
             birthDate = LocalDate.fromDateFields(rs.getDate("birth"))
-            link = Link(System.JHICS,
-                    "pcucodeperson" to rs.getString("pcucodeperson"),
-                    "pid" to rs.getString("pid"),
-                    "hcode" to rs.getString("hcode")
+            link = Link(
+                System.JHICS,
+                "pcucodeperson" to rs.getString("pcucodeperson"),
+                "pid" to rs.getString("pid"),
+                "hcode" to rs.getString("hcode")
             )
+            bundle["rightcode"] = rs.getString("rightcode") ?: ""
+            bundle["rightno"] = rs.getString("rightno") ?: ""
+            bundle["hosmain"] = rs.getString("hosmain") ?: ""
+            bundle["hossub"] = rs.getString("hossub") ?: ""
+
+            bundle.forEach { key: String, value: Any ->
+                if ((value as String).isBlank()) {
+                    bundle.remove(key)
+                }
+            }
         }
         return person
     }

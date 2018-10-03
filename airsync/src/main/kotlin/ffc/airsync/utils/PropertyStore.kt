@@ -1,11 +1,19 @@
 package ffc.airsync.utils
 
+import ffc.entity.House
+import ffc.entity.Person
 import ffc.entity.User
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.Properties
 
+val houses = arrayListOf<House>()
+val persons = arrayListOf<Person>()
+val users = arrayListOf<User>()
+val pcucode = StringBuilder()
+
 class PropertyStore(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf") {
+
     private lateinit var properties: Properties
 
     init {
@@ -27,6 +35,12 @@ class PropertyStore(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\da
         set(value) {
             setProperty("userIdOrg", value.id)
             setProperty("userOrg", value.name)
+        }
+
+    var everPutData: Boolean
+        get() = getProperty("EverPutData").toBoolean()
+        set(value) {
+            setProperty("EverPutData", value.toString())
         }
 
     fun getProperty(key: String): String {
