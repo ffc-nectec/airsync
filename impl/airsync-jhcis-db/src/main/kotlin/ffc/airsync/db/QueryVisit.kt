@@ -1,6 +1,7 @@
 package ffc.airsync.db
 
 import ffc.entity.healthcare.Diagnosis
+import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.bloodPressureLevel
 import org.jdbi.v3.core.mapper.RowMapper
@@ -12,12 +13,10 @@ import org.jdbi.v3.sqlobject.statement.SqlBatch
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import java.sql.ResultSet
 import java.sql.Time
 import java.sql.Timestamp
-import java.time.ZoneId
-import java.time.ZoneOffset
-import java.util.TimeZone
 
 interface QueryVisit {
     @SqlQuery(
@@ -241,8 +240,7 @@ class VisitData(
 
     val timeservice: Int
         get() {
-            TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
-            return getTimeService(homeVisit.time.toLocalDateTime().hourOfDay)
+            return getTimeService(homeVisit.time.withZone(DateTimeZone.forOffsetHours(7)).hourOfDay)
         }
 
     fun getTimeService(houseOfDay: Int): Int {

@@ -11,6 +11,7 @@ import me.piruin.geok.geometry.Point
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should equal`
 import org.joda.time.DateTime
+import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 import org.junit.Before
 import org.junit.Ignore
@@ -25,9 +26,9 @@ class QueryVisitTest {
     lateinit var fullVisitData: VisitData
 
     val homeVisit = HomeVisit(
-        "999999",
-        "000000",
-        CommunityServiceType("654321", "ให้อดข้าว")
+            "999999",
+            "000000",
+            CommunityServiceType("654321", "ให้อดข้าว")
     ).apply {
         detail = "ทดสอบ ปกติทุกอย่าง ราบรื่น มากๆ"
         nextAppoint = LocalDate(1536218895967).plusMonths(5)
@@ -38,12 +39,12 @@ class QueryVisitTest {
         bodyTemperature = 37.1
 
         val disease = Disease(
-            "9981abcdeeeffdeab",
-            "สมองเสื่อม",
-            "I10.1",
-            true,
-            true,
-            false
+                "9981abcdeeeffdeab",
+                "สมองเสื่อม",
+                "I10.1",
+                true,
+                true,
+                false
         )
         diagnosises.add(Diagnosis(disease, Diagnosis.Type.OTHER))
 
@@ -53,7 +54,7 @@ class QueryVisitTest {
         principleDx = disease
         suggestion = "suggestion"
         syntom = "sleep"
-        time = DateTime(1536218895967)
+        time = DateTime(2018, 9, 6, 14, 28, 15)
 
         val myLink = Link(System.JHICS)
         myLink.keys["pcucode"] = "xxxxxx"
@@ -66,16 +67,16 @@ class QueryVisitTest {
     fun setUp() {
         TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
         fullVisitData = VisitData(
-            homeVisit,
-            "01088",
-            54321,
-            "01088",
-            16840,
-            "คนดีช่วยรอด",
-            "",
-            "",
-            "",
-            ""
+                homeVisit,
+                "01088",
+                54321,
+                "01088",
+                16840,
+                "คนดีช่วยรอด",
+                "",
+                "",
+                "",
+                ""
         )
     }
 
@@ -112,11 +113,15 @@ class QueryVisitTest {
     fun outTimeServiceFun() {
         fullVisitData.getTimeService(1) `should be equal to` 2
         fullVisitData.getTimeService(19) `should be equal to` 2
+        val visitTime = homeVisit.time
+        fullVisitData.getTimeService(visitTime.withZone(DateTimeZone.forOffsetHours(7)).hourOfDay) `should be equal to` 1
+        fullVisitData.getTimeService(visitTime.withZone(DateTimeZone.forOffsetHours(8)).hourOfDay) `should be equal to` 1
+        fullVisitData.getTimeService(visitTime.withZone(DateTimeZone.forOffsetHours(9)).hourOfDay) `should be equal to` 2
     }
 
     @Test
     fun visitdate() {
-        fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 14:28:15.967")
+        fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 14:28:15.0")
     }
 
     @Ignore("Get max visit in real db")
