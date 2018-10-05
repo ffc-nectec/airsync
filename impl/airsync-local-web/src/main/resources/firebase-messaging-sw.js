@@ -17,6 +17,7 @@
 
 importScripts('https://www.gstatic.com/firebasejs/4.13.0/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/4.13.0/firebase-messaging.js');
+importScripts('jquery-3.3.1.min.js');
 
 firebase.initializeApp({
     'messagingSenderId': '656545465'
@@ -31,9 +32,22 @@ messaging.setBackgroundMessageHandler(function (payload) {
     // Customize notification here
     var notificationTitle = 'Background Message Title';
     var notificationOptions = {
-        body: 'Background Message body.',
-        icon: '/firebase-logo.png'
+        body: "FFC Sync " + payload.message.type,
+        icon: 'https://avatars0.githubusercontent.com/u/18624547?s=60&v=4'
     };
+
+    appendMessage(payload);
+
+    var messageToAir = {"message": payload};
+
+    $.ajax({
+        type: 'post',
+        url: '/event',
+        data: JSON.stringify(messageToAir),
+        contentType: "application/json",
+        traditional: true,
+        dataType: "application/json"
+    });
 
     return self.registration.showNotification(notificationTitle,
         notificationOptions);
