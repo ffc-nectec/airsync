@@ -87,7 +87,7 @@ class JdbiDao(
             hno = house.no,
             dateUpdate = Timestamp(house.timestamp.millis),
 
-            pcuCode = house.link!!.keys["pcucode"].toString(),
+            pcucode = house.link!!.keys["pcucode"].toString(),
             hcode = house.link!!.keys["hcode"].toString().toInt()
         )
         printDebug("House update from could = ${houseUpdate.toJson()}")
