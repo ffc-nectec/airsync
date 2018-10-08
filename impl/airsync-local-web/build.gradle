@@ -28,5 +28,6 @@ dependencies {
     implementation "org.glassfish.jersey.containers:jersey-container-servlet-core:$jerseyVersion"
     implementation "org.glassfish.jersey.containers:jersey-container-jetty-servlet:$jerseyVersion"
     implementation "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.2.50"
 }
 
