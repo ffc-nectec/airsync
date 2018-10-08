@@ -1,12 +1,9 @@
 package ffc.airsync.api.user
 
 import ffc.airsync.retrofit.RetofitApi
-import ffc.entity.Organization
-import ffc.entity.Token
 import ffc.entity.User
 
-class RetofitUserApi(org: Organization, serviceUrl: String, token: Token) : RetofitApi(org, serviceUrl, token),
-    UserApi {
+class RetofitUserApi : RetofitApi(), UserApi {
     override fun putUser(userInfoList: List<User>): List<User> {
         val respond =
             restService.regisUser(user = userInfoList, orgId = organization.id, authkey = tokenBarer).execute()

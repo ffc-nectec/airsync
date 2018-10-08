@@ -4,12 +4,9 @@ import ffc.airsync.api.ApiV1
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.persons
-import ffc.entity.Organization
 import ffc.entity.Person
-import ffc.entity.Token
 
-class RetofitPersonApi(org: Organization, serviceUrl: String, token: Token) : PersonApi,
-    RetofitApi(org, serviceUrl, token) {
+class RetofitPersonApi : RetofitApi(), PersonApi {
     override fun putPerson(personList: List<Person>): List<Person> {
         val personLastUpdate = arrayListOf<Person>()
         UploadSpliter.upload(200, persons, object : UploadSpliter.HowToSendCake<Person> {

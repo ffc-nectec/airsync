@@ -5,11 +5,8 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.printDebug
 import ffc.entity.House
-import ffc.entity.Organization
-import ffc.entity.Token
 
-class RetofitHouseApi(org: Organization, serviceUrl: String, token: Token) : RetofitApi(org, serviceUrl, token),
-    HouseApi {
+class RetofitHouseApi : RetofitApi(), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
         val houseLastUpdate = arrayListOf<House>()
         UploadSpliter.upload(100, houseList, object : UploadSpliter.HowToSendCake<House> {
