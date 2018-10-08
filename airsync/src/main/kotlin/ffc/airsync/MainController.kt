@@ -17,8 +17,6 @@
 
 package ffc.airsync
 
-import ffc.airsync.api.Api
-import ffc.airsync.api.ApiV1
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.provider.databaseWatcher
@@ -46,21 +44,33 @@ import java.util.UUID
 
 class MainController(val dao: DatabaseDao) {
 
-    lateinit var org: Organization
+    // lateinit var org: Organization
     private var property = PropertyStore("ffcProperty.cnf")
     var everLogin: Boolean = false
-    val api: Api by lazy { ApiV1(persons, houses, users, pcucode) }
 
     fun run() {
-        initOrganization(property.orgId)
-        val org = checkProperty()
-        pushData(org)
-        setupNotificationHandlerFor(org)
-        databaseWatcher(org)
+        val orgPropertyStore = loadProperty(property.orgId)
+        checkProperty(orgPropertyStore)
+        registerOrg(orgPropertyStore)
+
+        pushData()
+
+        setupNotificationHandlerFor()
+
+        databaseWatcher()
+
         startLocalAirSyncServer()
     }
 
-    private fun checkProperty(): Organization {
+    private fun registerOrg(orgPropertyStore: Organization) {
+        orgApi.registerOrganization(orgPropertyStore) { organization, token ->
+            property.token = token.token
+            property.orgId = organization.id
+            property.userOrg = organization.users[0]
+        }
+    }
+
+    private fun checkProperty(org: Organization) {
         val token = property.token
         if (token.isNotEmpty()) {
             everLogin = true
@@ -68,15 +78,9 @@ class MainController(val dao: DatabaseDao) {
             org.users.add(user)
             org.bundle["token"] = Token(user, property.token)
         }
-
-        val org = api.registerOrganization(org, Config.baseUrlRest)
-        property.token = (org.bundle.get("token") as Token).token
-        property.orgId = org.id
-        property.userOrg = org.users[0]
-        return org
     }
 
-    private fun databaseWatcher(org: Organization) {
+    private fun databaseWatcher() {
         databaseWatcher(
             Config.logfilepath
         ) { tableName, keyWhere ->
@@ -93,7 +97,7 @@ class MainController(val dao: DatabaseDao) {
                             link!!.isSynced = true
                         }
 
-                        api.syncHouseToCloud(houseSync)
+                        houseApi.syncHouseToCloud(houseSync)
                     } catch (ignore: NullPointerException) {
                     }
                 }
@@ -101,7 +105,8 @@ class MainController(val dao: DatabaseDao) {
         }.start()
     }
 
-    private fun initOrganization(orgId: String) {
+    private fun loadProperty(orgId: String): Organization {
+        val org: Organization
         if (orgId.isNotEmpty()) {
             org = Organization(orgId)
         } else {
@@ -122,9 +127,10 @@ class MainController(val dao: DatabaseDao) {
             users.add(createAirSyncUser(hosId))
             update { }
         }
+        return org
     }
 
-    private fun pushData(org: Organization) {
+    private fun pushData() {
         val localUser = arrayListOf<User>().apply {
             addAll(load())
         }
@@ -139,7 +145,7 @@ class MainController(val dao: DatabaseDao) {
 
         if (localUser.isEmpty()) {
             localUser.addAll(User().gets())
-            users.addAll(api.putUser(localUser.toMutableList()))
+            users.addAll(userApi.putUser(localUser.toMutableList()))
             users.save()
         } else {
             users.addAll(localUser)
@@ -165,7 +171,7 @@ class MainController(val dao: DatabaseDao) {
                 }
             }
 
-            houses.addAll(api.putHouse(localHouses))
+            houses.addAll(houseApi.putHouse(localHouses))
             houses.save()
         } else {
             houses.addAll(localHouses)
@@ -178,7 +184,7 @@ class MainController(val dao: DatabaseDao) {
             mapChronicToPerson(personFromDb, chronic)
 
             localPersons.addAll(personFromDb)
-            persons.addAll(api.putPerson(localPersons))
+            persons.addAll(personApi.putPerson(localPersons))
             persons.save()
         } else {
             persons.addAll(localPersons)
@@ -226,15 +232,15 @@ class MainController(val dao: DatabaseDao) {
         return houseFind ?: throw NullPointerException("ค้นหาไม่พบบ้าน")
     }
 
-    private fun setupNotificationHandlerFor(org: Organization) {
+    private fun setupNotificationHandlerFor() {
         notificationModule().apply {
             onTokenChange { firebaseToken ->
-                api.putFirebaseToken(firebaseToken)
+                notificationApi.putFirebaseToken(firebaseToken)
             }
             onReceiveDataUpdate { type, id ->
                 when (type) {
-                    "House" -> api.syncHouseFromCloud(id, dao)
-                    "HealthCare" -> api.syncHealthCareFromCloud(id, dao)
+                    "House" -> houseApi.syncHouseFromCloud(id, dao)
+                    "HealthCare" -> healthCareApi.syncHealthCareFromCloud(id, dao)
                     else -> println("Not type house.")
                 }
             }

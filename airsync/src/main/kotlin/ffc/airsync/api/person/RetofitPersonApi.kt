@@ -1,6 +1,5 @@
 package ffc.airsync.api.person
 
-import ffc.airsync.api.ApiV1
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.persons
@@ -12,7 +11,7 @@ class RetofitPersonApi : RetofitApi(), PersonApi {
         UploadSpliter.upload(200, persons, object : UploadSpliter.HowToSendCake<Person> {
             override fun send(cakePlate: ArrayList<Person>) {
                 val respond = restService.createPerson(
-                    orgId = ApiV1.organization.id,
+                    orgId = organization.id,
                     authkey = tokenBarer,
                     personList = cakePlate
                 ).execute()
