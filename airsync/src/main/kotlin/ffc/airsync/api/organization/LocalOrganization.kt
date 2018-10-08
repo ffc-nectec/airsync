@@ -1,4 +1,4 @@
-package ffc.airsync.utils
+package ffc.airsync.api.organization
 
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.pcucode

@@ -1,5 +1,5 @@
+import ffc.airsync.api.organization.LocalOrganization
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.utils.LocalOrganization
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
