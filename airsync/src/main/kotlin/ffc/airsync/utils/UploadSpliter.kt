@@ -15,9 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api
-
-import ffc.airsync.utils.printDebug
+package ffc.airsync.utils
 
 object UploadSpliter {
 

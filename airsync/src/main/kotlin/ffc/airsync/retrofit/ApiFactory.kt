@@ -15,10 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api
-
-import ffc.airsync.api.retrofit.RetofitAPIClient
-import ffc.airsync.api.retrofit.RetofitRestUrl
+package ffc.airsync.retrofit
 
 class ApiFactory {
 

@@ -1,4 +1,4 @@
-package ffc.airsync.api
+package ffc.airsync.api.healthcare
 
 import ffc.airsync.db.DatabaseDao
 

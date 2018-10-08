@@ -145,19 +145,6 @@ class MainController(val dao: DatabaseDao) {
             users.addAll(localUser)
         }
 
-        if (localPersons.isEmpty()) {
-            val personFromDb = Person().gets()
-            val chronic = Chronic(Disease("", "", "")).gets()
-
-            mapChronicToPerson(personFromDb, chronic)
-
-            localPersons.addAll(personFromDb)
-            persons.addAll(api.putPerson(localPersons))
-            persons.save()
-        } else {
-            persons.addAll(localPersons)
-        }
-
         if (localHouses.isEmpty()) {
             val house = House().gets()
 
@@ -165,6 +152,7 @@ class MainController(val dao: DatabaseDao) {
 
             house.forEach {
                 val hcode = it.link!!.keys["hcode"] as String
+                val persons = Person().gets()
 
                 if (hcode.isNotEmpty() && hcode != "1") {
                     val person = findPersonInHouse(persons, hcode)
@@ -183,6 +171,18 @@ class MainController(val dao: DatabaseDao) {
             houses.addAll(localHouses)
         }
 
+        if (localPersons.isEmpty()) {
+            val personFromDb = Person().gets()
+            val chronic = Chronic(Disease("", "", "")).gets()
+
+            mapChronicToPerson(personFromDb, chronic)
+
+            localPersons.addAll(personFromDb)
+            persons.addAll(api.putPerson(localPersons))
+            persons.save()
+        } else {
+            persons.addAll(localPersons)
+        }
         printDebug("Finish push")
     }
 

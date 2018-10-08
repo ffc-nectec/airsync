@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.api.retrofit
+package ffc.airsync.retrofit
 
 import ffc.entity.Entity
 import ffc.entity.House

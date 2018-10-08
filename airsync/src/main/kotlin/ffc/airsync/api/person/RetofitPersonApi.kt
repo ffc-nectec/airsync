@@ -1,8 +1,8 @@
-package ffc.airsync.api.retrofit
+package ffc.airsync.api.person
 
 import ffc.airsync.api.ApiV1
-import ffc.airsync.api.PersonApi
-import ffc.airsync.api.UploadSpliter
+import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.persons
 import ffc.entity.Organization
 import ffc.entity.Person

@@ -19,14 +19,19 @@ package ffc.airsync.api
 
 import ffc.airsync.Config
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.retrofit.ApiFactory
+import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.printDebug
+import ffc.entity.Entity
 import ffc.entity.House
+import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.gson.toJson
+import retrofit2.Response
 import retrofit2.dsl.enqueue
 import java.net.SocketTimeoutException
 import javax.xml.bind.DatatypeConverter
@@ -41,13 +46,13 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         lateinit var token: Token
     }
 
-    private val oAuth2Token: String
+    val tokenBarer: String
         get() = "Bearer " + token.token
 
     override fun putFirebaseToken(firebaseToken: HashMap<String, String>) {
         restService.createFirebaseToken(
             orgId = organization.id,
-            authkey = oAuth2Token,
+            authkey = tokenBarer,
             firebaseToken = firebaseToken
         ).enqueue {
             onSuccess { printDebug("Success bind firebase to cloud") }
@@ -55,7 +60,7 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
     }
 
     override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
-        val data = restService.getHomeVisit(orgId = organization.id, authkey = oAuth2Token, id = id).execute()
+        val data = restService.getHomeVisit(orgId = organization.id, authkey = tokenBarer, id = id).execute()
 
         if (data.code() != 200) {
             printDebug("Not success get healthcare code=${data.code()}")
@@ -94,13 +99,36 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         )
     }
 
+    data class SyncObject(val link: Link)
+
+    inline fun <reified T> getType(): String {
+        return T::class.simpleName.toString()
+    }
+
+    inline fun <reified T : Entity> syncFromCloud(id: String, databaseDao: DatabaseDao) {
+        val entity: SyncObject
+
+        when (getType<T>()) {
+            getType<House>() -> {
+                entity = (restService.getHouse(
+                    orgId = organization.id,
+                    authkey = tokenBarer,
+                    _id = id
+                ).execute() as Response<SyncObject>).body() ?: throw IllegalArgumentException("No data Sync $id")
+            }
+            else -> return
+        }
+
+        if (entity.link.isSynced) return
+    }
+
     override fun syncHouseToCloud(house: House) {
-        restService.putHouse(orgId = organization.id, authkey = oAuth2Token, _id = house.id, house = house).execute()
+        restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = house.id, house = house).execute()
     }
 
     override fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao) {
         printDebug("Sync From Cloud get house house _id = $_id")
-        val data = restService.getHouse(orgId = organization.id, authkey = oAuth2Token, _id = _id).execute()
+        val data = restService.getHouse(orgId = organization.id, authkey = tokenBarer, _id = _id).execute()
         printDebug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
         printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")
@@ -111,12 +139,12 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
         house.link?.isSynced = true
 
         printDebug("\tPut new house to cloud")
-        restService.putHouse(orgId = organization.id, authkey = oAuth2Token, _id = _id, house = house).execute()
+        restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = _id, house = house).execute()
     }
 
     override fun putUser(userInfoList: List<User>): List<User> {
         val respond =
-            restService.regisUser(user = userInfoList, orgId = organization.id, authkey = oAuth2Token).execute()
+            restService.regisUser(user = userInfoList, orgId = organization.id, authkey = tokenBarer).execute()
         return respond.body() ?: arrayListOf()
     }
 
@@ -126,7 +154,7 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
             override fun send(cakePlate: ArrayList<House>) {
                 val respond = restService.createHouse(
                     orgId = organization.id,
-                    authkey = oAuth2Token,
+                    authkey = tokenBarer,
                     houseList = cakePlate
                 ).execute()
                 if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
@@ -143,7 +171,7 @@ class ApiV1(val persons: List<Person>, val houses: List<House>, val users: List<
             override fun send(cakePlate: ArrayList<Person>) {
                 val respond = restService.createPerson(
                     orgId = organization.id,
-                    authkey = oAuth2Token,
+                    authkey = tokenBarer,
                     personList = cakePlate
                 ).execute()
                 if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
