@@ -6,11 +6,8 @@ import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.persons
 import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.users
-import ffc.entity.Organization
-import ffc.entity.Token
 
-class RetofitHealthCareApi(org: Organization, serviceUrl: String, token: Token) : RetofitApi(org, serviceUrl, token),
-    HealthCareApi {
+class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
     override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
         val data = restService.getHomeVisit(orgId = organization.id, authkey = tokenBarer, id = id).execute()
 

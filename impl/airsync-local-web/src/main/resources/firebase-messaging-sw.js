@@ -32,11 +32,9 @@ messaging.setBackgroundMessageHandler(function (payload) {
     // Customize notification here
     var notificationTitle = 'Background Message Title';
     var notificationOptions = {
-        body: "FFC Sync " + payload.message.type,
+        body: "FFC Sync ",
         icon: 'https://avatars0.githubusercontent.com/u/18624547?s=60&v=4'
     };
-
-    appendMessage(payload);
 
     var messageToAir = {"message": payload};
 

@@ -1,11 +1,20 @@
 package ffc.airsync.retrofit
 
+import ffc.airsync.Config
 import ffc.airsync.utils.printDebug
 import ffc.entity.Organization
 import ffc.entity.Token
 import java.net.SocketTimeoutException
 
-abstract class RetofitApi(val organization: Organization, urlBase: String, val token: Token) {
+abstract class RetofitApi {
+
+    companion object {
+        lateinit var organization: Organization
+        lateinit var token: Token
+    }
+
+    val urlBase: String
+        get() = Config.baseUrlRest
     val tokenBarer: String
         get() = "Bearer " + token.token
     val pcucode: String
