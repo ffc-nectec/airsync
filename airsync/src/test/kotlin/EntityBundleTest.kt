@@ -1,4 +1,4 @@
-import ffc.airsync.api.retrofit.airSyncGson
+import ffc.airsync.retrofit.airSyncGson
 import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.System

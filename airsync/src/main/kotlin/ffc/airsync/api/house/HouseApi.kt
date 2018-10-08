@@ -1,4 +1,4 @@
-package ffc.airsync.api
+package ffc.airsync.api.house
 
 import ffc.airsync.db.DatabaseDao
 import ffc.entity.House

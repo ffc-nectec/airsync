@@ -1,4 +1,4 @@
-package ffc.airsync.api
+package ffc.airsync.api.person
 
 import ffc.entity.Person
 
