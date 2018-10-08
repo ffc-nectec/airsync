@@ -1,6 +1,7 @@
-package ffc.airsync.utils
+package ffc.airsync.api.person
 
-import ffc.entity.House
+import ffc.airsync.Main
+import ffc.airsync.db.DatabaseDao
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
 
@@ -12,13 +13,11 @@ fun List<Person>.findByHouseCode(hcode: String): List<Person> {
     return findPersonInHouse(this, hcode)
 }
 
-fun House.findPerson(persons: List<Person>): List<Person> {
-    val houseCode = (link!!.keys["hcode"] as String)
-    return findPersonInHouse(persons, houseCode)
-}
+fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Person> {
+    val persons = dao.getPerson()
+    val chronic = dao.getChronic()
 
-fun List<House>.chronicCalculate(persons: List<Person>) {
-    checkChronicInHouse(persons, this)
+    return mapChronics(persons, chronic)
 }
 
 private fun mapChronicToPerson(
@@ -52,18 +51,11 @@ private fun findPersonInHouse(person: List<Person>, hcode: String): List<Person>
     }
 }
 
-private fun checkChronicInHouse(persons: List<Person>, house: List<House>) {
-    house.forEach {
-        val hcode = it.link!!.keys["hcode"] as String
-
-        if (hcode.isNotEmpty() && hcode != "1") {
-            val person = persons.findByHouseCode(hcode)
-
-            val personChronic = person.find {
-                it.haveChronic
-            }
-            if (personChronic != null)
-                it.haveChronic = true
-        }
+private fun mapChronics(persons: List<Person>, chronics: List<Chronic>): List<Person> {
+    persons.forEach { person ->
+        person.chronics.addAll(chronics.filter {
+            it.link!!.keys["pid"] == person.link!!.keys["pid"]
+        })
     }
+    return persons
 }
