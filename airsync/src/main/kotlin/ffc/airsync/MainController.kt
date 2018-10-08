@@ -17,25 +17,15 @@
 
 package ffc.airsync
 
-import ffc.airsync.api.chronic.gets
-import ffc.airsync.api.house.chronicCalculate
-import ffc.airsync.api.house.gets
+import ffc.airsync.api.house.initSync
 import ffc.airsync.api.organization.LocalOrganization
-import ffc.airsync.api.person.gets
-import ffc.airsync.api.person.mapChronic
-import ffc.airsync.api.user.gets
+import ffc.airsync.api.person.initSync
+import ffc.airsync.api.user.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
-import ffc.airsync.utils.load
 import ffc.airsync.utils.printDebug
-import ffc.airsync.utils.save
-import ffc.entity.House
 import ffc.entity.Organization
-import ffc.entity.Person
 import ffc.entity.Token
-import ffc.entity.User
-import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.Disease
 
 class MainController(val dao: DatabaseDao) {
 
@@ -46,22 +36,10 @@ class MainController(val dao: DatabaseDao) {
         val orgLocal = property.organization
         checkProperty(orgLocal)
         registerOrg(orgLocal)
-
-        pushData()
-
+        initSync()
         SetupNotification(dao)
-
         SetupDatabaseWatcher(dao)
-
         startLocalAirSyncServer()
-    }
-
-    private fun registerOrg(orgPropertyStore: Organization) {
-        orgApi.registerOrganization(orgPropertyStore) { organization, token ->
-            property.token = token.token
-            property.orgId = organization.id
-            property.userOrg = organization.users[0]
-        }
     }
 
     private fun checkProperty(org: Organization) {
@@ -74,52 +52,18 @@ class MainController(val dao: DatabaseDao) {
         }
     }
 
-    private fun pushData() {
-        val localUser = arrayListOf<User>().apply {
-            addAll(load())
+    private fun registerOrg(orgPropertyStore: Organization) {
+        orgApi.registerOrganization(orgPropertyStore) { organization, token ->
+            property.token = token.token
+            property.orgId = organization.id
+            property.userOrg = organization.users[0]
         }
+    }
 
-        val localPersons = arrayListOf<Person>().apply {
-            addAll(load())
-        }
-
-        val localHouses = arrayListOf<House>().apply {
-            addAll(load())
-        }
-
-        if (localUser.isEmpty()) {
-            localUser.addAll(User().gets())
-            users.addAll(userApi.putUser(localUser.toMutableList()))
-            users.save()
-        } else {
-            users.addAll(localUser)
-        }
-
-        if (localHouses.isEmpty()) {
-            val house = House().gets()
-
-            localHouses.addAll(house)
-
-            house.chronicCalculate(Person().gets())
-
-            houses.addAll(houseApi.putHouse(localHouses))
-            houses.save()
-        } else {
-            houses.addAll(localHouses)
-        }
-
-        if (localPersons.isEmpty()) {
-            val personFromDb = Person().gets()
-            val chronic = Chronic(Disease("", "", "")).gets()
-
-            personFromDb.mapChronic(chronic)
-
-            localPersons.addAll(personFromDb)
-            persons.addAll(personApi.putPerson(localPersons))
-            persons.save()
-        } else {
-            persons.addAll(localPersons)
-        }
+    private fun initSync() {
+        users.initSync()
+        persons.initSync()
+        houses.initSync()
         printDebug("Finish push")
     }
 
