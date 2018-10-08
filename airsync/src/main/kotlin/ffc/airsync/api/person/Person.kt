@@ -1,9 +1,40 @@
 package ffc.airsync.api.person
 
 import ffc.airsync.Main
+import ffc.airsync.api.chronic.gets
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.personApi
+import ffc.airsync.utils.load
+import ffc.airsync.utils.save
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.Disease
+
+fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Person> {
+    val persons = dao.getPerson()
+    val chronic = dao.getChronic()
+
+    return mapChronics(persons, chronic)
+}
+
+fun ArrayList<Person>.initSync() {
+    val localPersons = arrayListOf<Person>().apply {
+        addAll(load())
+    }
+
+    if (localPersons.isEmpty()) {
+        val personFromDb = Person().gets()
+        val chronic = Chronic(Disease("", "", "")).gets()
+
+        personFromDb.mapChronic(chronic)
+
+        localPersons.addAll(personFromDb)
+        addAll(personApi.putPerson(localPersons))
+        save()
+    } else {
+        addAll(localPersons)
+    }
+}
 
 fun List<Person>.mapChronic(chronic: List<Chronic>) {
     mapChronicToPerson(this, chronic)
@@ -11,13 +42,6 @@ fun List<Person>.mapChronic(chronic: List<Chronic>) {
 
 fun List<Person>.findByHouseCode(hcode: String): List<Person> {
     return findPersonInHouse(this, hcode)
-}
-
-fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Person> {
-    val persons = dao.getPerson()
-    val chronic = dao.getChronic()
-
-    return mapChronics(persons, chronic)
 }
 
 private fun mapChronicToPerson(

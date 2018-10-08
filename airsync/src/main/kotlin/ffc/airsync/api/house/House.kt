@@ -2,16 +2,39 @@ package ffc.airsync.api.house
 
 import ffc.airsync.Main
 import ffc.airsync.api.person.findByHouseCode
+import ffc.airsync.api.person.gets
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.houseApi
+import ffc.airsync.utils.load
+import ffc.airsync.utils.save
 import ffc.entity.House
 import ffc.entity.Person
 
-fun List<House>.chronicCalculate(persons: List<Person>) {
-    checkChronicInHouse(persons, this)
-}
-
 fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.createDatabaseDao()): List<House> {
     return if (where.isBlank()) dao.getHouse() else dao.getHouse(where)
+}
+
+fun ArrayList<House>.initSync() {
+    val localHouses = arrayListOf<House>().apply {
+        addAll(load())
+    }
+
+    if (localHouses.isEmpty()) {
+        val house = House().gets()
+
+        localHouses.addAll(house)
+
+        house.chronicCalculate(Person().gets())
+
+        addAll(houseApi.putHouse(localHouses))
+        save()
+    } else {
+        addAll(localHouses)
+    }
+}
+
+fun List<House>.chronicCalculate(persons: List<Person>) {
+    checkChronicInHouse(persons, this)
 }
 
 private fun checkChronicInHouse(persons: List<Person>, house: List<House>) {
