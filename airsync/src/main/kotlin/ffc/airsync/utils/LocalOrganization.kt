@@ -1,23 +1,28 @@
 package ffc.airsync.utils
 
-import ffc.entity.House
-import ffc.entity.Person
+import ffc.airsync.db.DatabaseDao
+import ffc.airsync.pcucode
+import ffc.entity.Link
+import ffc.entity.Organization
+import ffc.entity.System
 import ffc.entity.User
+import ffc.entity.update
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.util.Properties
+import java.util.UUID
 
-val houses = arrayListOf<House>()
-val persons = arrayListOf<Person>()
-val users = arrayListOf<User>()
-val pcucode = StringBuilder()
-
-class PropertyStore(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf") {
+class LocalOrganization(
+    val dao: DatabaseDao,
+    var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf"
+) {
 
     private lateinit var properties: Properties
+    val organization: Organization
 
     init {
         loadProperty()
+        organization = loadProperty(orgId)
     }
 
     var token: String
@@ -64,5 +69,36 @@ class PropertyStore(var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\da
         } catch (ignore: java.io.FileNotFoundException) {
         }
         properties = conf
+    }
+
+    private fun loadProperty(orgId: String): Organization {
+        val org: Organization
+        if (orgId.isNotEmpty()) {
+            org = Organization(orgId)
+        } else {
+            org = Organization()
+        }
+        with(org) {
+            val detail = dao.getDetail()
+            val hosId = detail["pcucode"] ?: ""
+
+            pcucode.append(hosId)
+
+            name = detail["name"] ?: ""
+            tel = detail["tel"]
+            address = detail["province"]
+            link = Link(System.JHICS).apply {
+                keys["pcucode"] = hosId
+            }
+            users.add(createAirSyncUser(hosId))
+            update { }
+        }
+        return org
+    }
+
+    private fun createAirSyncUser(hosId: String): User = User().update {
+        name = "airsync$hosId"
+        password = UUID.randomUUID().toString().replace("-", "")
+        role = User.Role.ORG
     }
 }

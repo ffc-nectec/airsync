@@ -1,11 +1,11 @@
 package ffc.airsync.api.healthcare
 
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.users
 import ffc.airsync.utils.isTempId
-import ffc.airsync.utils.persons
 import ffc.airsync.utils.printDebug
-import ffc.airsync.utils.users
 
 class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
     override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
