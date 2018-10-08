@@ -20,10 +20,10 @@ package ffc.airsync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.utils.LocalOrganization
-import ffc.airsync.utils.checkChronicInHouse
+import ffc.airsync.utils.chronicCalculate
 import ffc.airsync.utils.gets
 import ffc.airsync.utils.load
-import ffc.airsync.utils.mapChronicToPerson
+import ffc.airsync.utils.mapChronic
 import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
 import ffc.entity.House
@@ -97,7 +97,7 @@ class MainController(val dao: DatabaseDao) {
 
             localHouses.addAll(house)
 
-            checkChronicInHouse(house)
+            house.chronicCalculate(Person().gets())
 
             houses.addAll(houseApi.putHouse(localHouses))
             houses.save()
@@ -109,7 +109,7 @@ class MainController(val dao: DatabaseDao) {
             val personFromDb = Person().gets()
             val chronic = Chronic(Disease("", "", "")).gets()
 
-            mapChronicToPerson(personFromDb, chronic)
+            personFromDb.mapChronic(chronic)
 
             localPersons.addAll(personFromDb)
             persons.addAll(personApi.putPerson(localPersons))
