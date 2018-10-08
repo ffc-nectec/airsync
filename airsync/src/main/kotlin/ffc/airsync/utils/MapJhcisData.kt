@@ -4,7 +4,24 @@ import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
 
-fun mapChronicToPerson(
+fun List<Person>.mapChronic(chronic: List<Chronic>) {
+    mapChronicToPerson(this, chronic)
+}
+
+fun List<Person>.findByHouseCode(hcode: String): List<Person> {
+    return findPersonInHouse(this, hcode)
+}
+
+fun House.findPerson(persons: List<Person>): List<Person> {
+    val houseCode = (link!!.keys["hcode"] as String)
+    return findPersonInHouse(persons, houseCode)
+}
+
+fun List<House>.chronicCalculate(persons: List<Person>) {
+    checkChronicInHouse(persons, this)
+}
+
+private fun mapChronicToPerson(
     personFromDb: List<Person>,
     chronic: List<Chronic>
 ) {
@@ -29,19 +46,18 @@ fun mapChronicToPerson(
     }
 }
 
-fun findPersonInHouse(person: List<Person>, hcode: String): List<Person> {
+private fun findPersonInHouse(person: List<Person>, hcode: String): List<Person> {
     return person.filter {
         (it.link!!.keys["hcode"] as String).trim() == hcode
     }
 }
 
-fun checkChronicInHouse(house: List<House>) {
+private fun checkChronicInHouse(persons: List<Person>, house: List<House>) {
     house.forEach {
         val hcode = it.link!!.keys["hcode"] as String
-        val persons = Person().gets()
 
         if (hcode.isNotEmpty() && hcode != "1") {
-            val person = findPersonInHouse(persons, hcode)
+            val person = persons.findByHouseCode(hcode)
 
             val personChronic = person.find {
                 it.haveChronic
