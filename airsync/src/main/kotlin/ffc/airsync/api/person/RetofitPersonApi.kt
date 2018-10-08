@@ -1,8 +1,8 @@
 package ffc.airsync.api.person
 
+import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.UploadSpliter
-import ffc.airsync.utils.persons
 import ffc.entity.Person
 
 class RetofitPersonApi : RetofitApi(), PersonApi {
