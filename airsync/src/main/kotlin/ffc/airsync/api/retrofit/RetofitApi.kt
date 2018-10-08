@@ -1,7 +1,11 @@
 package ffc.airsync.api.retrofit
 
-import ffc.entity.House
+import ffc.airsync.api.ApiFactory
 import ffc.entity.Organization
-import ffc.entity.Person
+import ffc.entity.Token
 
-abstract class RetofitApi(val persons: List<Person>, val houses: List<House>, val organization: Organization)
+abstract class RetofitApi(val organization: Organization, urlBase: String, val token: Token) {
+    val tokenBarer: String
+        get() = "Bearer " + token.token
+    val restService = ApiFactory().buildApiClient(urlBase)
+}
