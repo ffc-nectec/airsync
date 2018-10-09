@@ -10,7 +10,6 @@ class RetofitSyncCloud : RetofitApi(), SyncCloud {
         val syncList = syncRespond.body()
 
         if (syncRespond.code() != 200 || syncList == null) {
-            println("Not data sync... ${syncRespond.code()}")
             return
         }
 

@@ -14,9 +14,9 @@ class RetofitOrganizationApi : RetofitApi(), OrganizationApi {
     ) {
         wakeCloud()
 
-        if (isEverRegister(organization)) {
-            token = organization.bundle["token"] as Token
-            organization = organization
+        if (isEverRegister(localOrganization)) {
+            token = localOrganization.bundle["token"] as Token
+            organization = localOrganization
         } else {
 
             organization = regisOrgToCloud(localOrganization)
