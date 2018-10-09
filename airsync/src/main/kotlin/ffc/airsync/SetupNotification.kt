@@ -15,7 +15,7 @@ class SetupNotification(val dao: DatabaseDao) {
     private fun setupNotificationHandlerFor() {
         notificationModule().apply {
             onTokenChange { firebaseToken ->
-                notificationApi.putFirebaseToken(firebaseToken)
+                notificationApi.registerChannel(firebaseToken)
             }
             onReceiveDataUpdate { type, id ->
                 syncFlow(type, id, dao)
