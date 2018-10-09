@@ -37,6 +37,7 @@ class MainController(val dao: DatabaseDao) {
         checkProperty(orgLocal)
         registerOrg(orgLocal)
         initSync()
+        SetupAutoSync(dao)
         SetupNotification(dao)
         SetupDatabaseWatcher(dao)
         startLocalAirSyncServer()

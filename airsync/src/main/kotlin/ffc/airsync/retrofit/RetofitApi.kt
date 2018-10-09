@@ -20,7 +20,6 @@ abstract class RetofitApi {
     val pcucode: String
         get() = (organization.link!!.keys["pcucode"] as String).trim()
     val restService = ApiFactory().buildApiClient(urlBase)
-
     protected fun wakeCloud() {
         var count = 1
         val limitCount = 5

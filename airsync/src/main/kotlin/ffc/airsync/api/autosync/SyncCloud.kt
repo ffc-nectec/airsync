@@ -1,7 +1,7 @@
 package ffc.airsync.api.autosync
 
-import ffc.entity.Token
+import ffc.airsync.db.DatabaseDao
 
 interface SyncCloud {
-    fun sync(orgId: String, token: Token)
+    fun sync(dao: DatabaseDao)
 }
