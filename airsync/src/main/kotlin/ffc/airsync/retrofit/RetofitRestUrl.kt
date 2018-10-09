@@ -23,7 +23,6 @@ import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
-import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.CommunityServiceType
 import ffc.entity.healthcare.HomeVisit
 import retrofit2.Call
@@ -70,13 +69,6 @@ interface RetofitRestUrl {
         @Body personList: List<Person>
     ): Call<List<Person>>
 
-    @POST("/v0/org/{orgId}/chronic/base")
-    fun createChronic(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String,
-        @Body chronicList: List<Chronic>
-    ): Call<Void>
-
     @GET("/v0/org/{orgId}/place/house/{house_id}")
     fun getHouse(
         @Path("orgId") orgId: String,
@@ -113,7 +105,7 @@ interface RetofitRestUrl {
     ): Call<List<CommunityServiceType>>
 
     @GET("/v0/org/{orgId}/sync")
-    fun sync(
+    fun syncData(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<List<Entity>>
