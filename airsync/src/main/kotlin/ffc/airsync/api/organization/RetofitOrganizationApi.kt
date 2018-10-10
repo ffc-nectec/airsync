@@ -21,7 +21,7 @@ class RetofitOrganizationApi : RetofitApi(), OrganizationApi {
 
             organization = regisOrgToCloud(localOrganization)
 
-            val user = organization.users[0]
+            val user = localOrganization.users[0]
             val authStr = user.name + ":" + user.password
             val authEncoded = DatatypeConverter.printBase64Binary(authStr.toByteArray())
             val authorization = "Basic $authEncoded"

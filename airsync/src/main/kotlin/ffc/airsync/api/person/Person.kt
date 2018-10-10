@@ -1,14 +1,13 @@
 package ffc.airsync.api.person
 
 import ffc.airsync.Main
-import ffc.airsync.api.chronic.gets
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.personApi
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
+import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.Disease
 
 fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Person> {
     val persons = dao.getPerson()
@@ -17,18 +16,16 @@ fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Perso
     return mapChronics(persons, chronic)
 }
 
-fun ArrayList<Person>.initSync() {
+fun ArrayList<Person>.initSync(houseFromCloud: List<House>, personIsChronic: List<Person>) {
     val localPersons = arrayListOf<Person>().apply {
         addAll(load())
     }
 
     if (localPersons.isEmpty()) {
-        val personFromDb = Person().gets()
-        val chronic = Chronic(Disease("", "", "")).gets()
 
-        personFromDb.mapChronic(chronic)
+        personIsChronic.mapHouseId(houseFromCloud)
+        localPersons.addAll(personIsChronic)
 
-        localPersons.addAll(personFromDb)
         addAll(personApi.putPerson(localPersons))
         save()
     } else {
@@ -36,19 +33,27 @@ fun ArrayList<Person>.initSync() {
     }
 }
 
+private fun List<Person>.mapHouseId(houseFromCloud: List<House>) {
+    forEach {
+        if (it.link != null) {
+            val hcodePerson = (it.link!!.keys["hcode"] as String)
+            val house = houseFromCloud.find {
+                if (it.link != null) {
+                    (it.link!!.keys["hcode"] as String) == hcodePerson
+                } else
+                    false
+            }
+
+            if (house != null)
+                it.houseId = house.id
+            else
+                it.houseId = ""
+        }
+    }
+}
+
 fun List<Person>.mapChronic(chronic: List<Chronic>) {
-    mapChronicToPerson(this, chronic)
-}
-
-fun List<Person>.findByHouseCode(hcode: String): List<Person> {
-    return findPersonInHouse(this, hcode)
-}
-
-private fun mapChronicToPerson(
-    personFromDb: List<Person>,
-    chronic: List<Chronic>
-) {
-    personFromDb.forEach {
+    forEach {
         if (it.link == null) false
 
         val personPid = it.link!!.keys["pid"] as String
@@ -69,8 +74,8 @@ private fun mapChronicToPerson(
     }
 }
 
-private fun findPersonInHouse(person: List<Person>, hcode: String): List<Person> {
-    return person.filter {
+fun List<Person>.findByHouseCode(hcode: String): List<Person> {
+    return filter {
         (it.link!!.keys["hcode"] as String).trim() == hcode
     }
 }

@@ -17,15 +17,21 @@
 
 package ffc.airsync
 
+import ffc.airsync.api.chronic.gets
 import ffc.airsync.api.house.initSync
 import ffc.airsync.api.organization.LocalOrganization
+import ffc.airsync.api.person.gets
 import ffc.airsync.api.person.initSync
+import ffc.airsync.api.person.mapChronic
 import ffc.airsync.api.user.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.utils.printDebug
 import ffc.entity.Organization
+import ffc.entity.Person
 import ffc.entity.Token
+import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.Disease
 
 class MainController(val dao: DatabaseDao) {
 
@@ -62,9 +68,12 @@ class MainController(val dao: DatabaseDao) {
     }
 
     private fun initSync() {
+        val person = Person().gets()
+        person.mapChronic(Chronic(Disease("", "", "")).gets())
+
         users.initSync()
-        persons.initSync()
-        houses.initSync()
+        houses.initSync(person)
+        persons.initSync(houses, person)
         printDebug("Finish push")
     }
 
