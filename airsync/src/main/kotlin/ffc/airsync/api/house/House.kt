@@ -2,7 +2,6 @@ package ffc.airsync.api.house
 
 import ffc.airsync.Main
 import ffc.airsync.api.person.findByHouseCode
-import ffc.airsync.api.person.gets
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.houseApi
 import ffc.airsync.utils.load
@@ -14,17 +13,15 @@ fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.createDatabas
     return if (where.isBlank()) dao.getHouse() else dao.getHouse(where)
 }
 
-fun ArrayList<House>.initSync() {
+fun ArrayList<House>.initSync(person: List<Person>) {
     val localHouses = arrayListOf<House>().apply {
         addAll(load())
     }
 
     if (localHouses.isEmpty()) {
         val house = House().gets()
-
+        house.chronicCalculate(person)
         localHouses.addAll(house)
-
-        house.chronicCalculate(Person().gets())
 
         addAll(houseApi.putHouse(localHouses))
         save()

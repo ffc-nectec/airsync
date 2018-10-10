@@ -22,7 +22,7 @@ class LocalOrganization(
 
     init {
         loadProperty()
-        organization = loadProperty(orgId)
+        organization = getOrganizationDetail(orgId)
     }
 
     var token: String
@@ -71,7 +71,7 @@ class LocalOrganization(
         properties = conf
     }
 
-    private fun loadProperty(orgId: String): Organization {
+    private fun getOrganizationDetail(orgId: String): Organization {
         val org: Organization
         if (orgId.isNotEmpty()) {
             org = Organization(orgId)

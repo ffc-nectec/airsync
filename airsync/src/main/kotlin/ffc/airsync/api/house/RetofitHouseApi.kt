@@ -9,18 +9,16 @@ import ffc.entity.House
 class RetofitHouseApi : RetofitApi(), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
         val houseLastUpdate = arrayListOf<House>()
-        UploadSpliter.upload(100, houseList, object : UploadSpliter.HowToSendCake<House> {
-            override fun send(cakePlate: ArrayList<House>) {
-                val respond = restService.createHouse(
-                    orgId = organization.id,
-                    authkey = tokenBarer,
-                    houseList = cakePlate
-                ).execute()
-                if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
-                val houseFromCloud = respond.body() ?: arrayListOf()
-                houseLastUpdate.addAll(houseFromCloud)
-            }
-        })
+        UploadSpliter.upload(100, houseList) {
+            val respond = restService.createHouse(
+                orgId = organization.id,
+                authkey = tokenBarer,
+                houseList = it
+            ).execute()
+            if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
+            val houseFromCloud = respond.body() ?: arrayListOf()
+            houseLastUpdate.addAll(houseFromCloud)
+        }
         return houseLastUpdate
     }
 

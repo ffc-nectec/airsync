@@ -19,16 +19,12 @@ package ffc.airsync.utils
 
 object UploadSpliter {
 
-    interface HowToSendCake<T> {
-        fun send(cakePlate: ArrayList<T>)
-    }
-
-    fun <T> upload(fixSizeCake: Int, list: List<T>, howToSend: HowToSendCake<T>) {
+    fun <T> upload(fixSizeCake: Int, list: List<T>, howToSend: (list: List<T>) -> Unit) {
         val cakePound = cutCake(fixSizeCake, list)
         putCakeOld(cakePound, howToSend)
     }
 
-    private fun <T> putCakeOld(table: ArrayList<ArrayList<T>>, howToSend: HowToSendCake<T>) {
+    private fun <T> putCakeOld(table: ArrayList<ArrayList<T>>, howToSend: (list: List<T>) -> Unit) {
         printDebug("Run size ${table.size}")
         var i = 1
         table.forEach {
@@ -39,7 +35,7 @@ object UploadSpliter {
                     runNo = i++
                 }
                 printDebug("\t\t Start upload $runNo")
-                howToSend.send(it)
+                howToSend(it)
                 printDebug("\t\t Finish upload $runNo")
             })
             thread.start()
