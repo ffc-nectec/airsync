@@ -37,13 +37,7 @@ private fun List<Person>.mapHouseId(houseFromCloud: List<House>) {
     forEach {
         if (it.link != null) {
             val hcodePerson = (it.link!!.keys["hcode"] as String)
-            val house = houseFromCloud.find {
-                if (it.link != null) {
-                    (it.link!!.keys["hcode"] as String) == hcodePerson
-                } else
-                    false
-            }
-
+            val house = houseFromCloud.find { it.link?.keys?.get("hcode") as String == hcodePerson }
             if (house != null)
                 it.houseId = house.id
             else

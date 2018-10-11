@@ -19,31 +19,22 @@ package ffc.airsync.utils
 
 object UploadSpliter {
 
-    fun <T> upload(fixSizeCake: Int, list: List<T>, howToSend: (list: List<T>) -> Unit) {
+    fun <T> upload(fixSizeCake: Int, list: List<T>, howToPutCake: (list: List<T>) -> Unit) {
         val cakePound = cutCake(fixSizeCake, list)
-        putCakeOld(cakePound, howToSend)
-    }
 
-    private fun <T> putCakeOld(table: ArrayList<ArrayList<T>>, howToSend: (list: List<T>) -> Unit) {
-        printDebug("Run size ${table.size}")
-        var i = 1
-        table.forEach {
-            val thread = Thread(Runnable {
-                var runNo = 0
-
-                synchronized(i) {
-                    runNo = i++
-                }
-                printDebug("\t\t Start upload $runNo")
-                howToSend(it)
-                printDebug("\t\t Finish upload $runNo")
-            })
-            thread.start()
-            thread.join()
+        printDebug("Run size ${list.size}")
+        cakePound.forEachIndexed { index, it ->
+            print("\nStart push $index ....")
+            try {
+                howToPutCake(it)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
+            print(" Finish push")
         }
     }
 
-    private fun <T> cutCake(fixSizeCake: Int, list: List<T>): ArrayList<ArrayList<T>> {
+    private fun <T> cutCake(fixSizeCake: Int, list: List<T>): List<List<T>> {
         val cake = list.size
         printDebug("UploadSpliter cutCake size $cake Row per req $fixSizeCake")
 
@@ -55,7 +46,7 @@ object UploadSpliter {
             val cakePlate = arrayListOf<T>()
 
             val startPositionCutCake = cakeNo * fixSizeCake
-            val endPositionCutCake = startPositionCutCake + fixSizeCake
+            val endPositionCutCake = (startPositionCutCake + fixSizeCake) - 1
 
             for (pieceOfCake in startPositionCutCake..endPositionCutCake) {
                 cakePlate.add(list[pieceOfCake])
@@ -65,8 +56,8 @@ object UploadSpliter {
 
         if (cakeScraps != 0) {
             val cakePlate = arrayListOf<T>()
-            val startPositionCutCake = (noOfCake - 1) * fixSizeCake
-            val endPositionCutCake = startPositionCutCake + cakeScraps
+            val startPositionCutCake = noOfCake * fixSizeCake
+            val endPositionCutCake = (startPositionCutCake + cakeScraps) - 1
 
             for (pieceOfCake in startPositionCutCake..endPositionCutCake) {
                 cakePlate.add(list[pieceOfCake])
