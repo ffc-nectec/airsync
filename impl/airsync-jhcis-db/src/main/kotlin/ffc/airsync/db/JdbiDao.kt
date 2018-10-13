@@ -21,6 +21,7 @@ import ffc.airsync.utils.printDebug
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
@@ -154,5 +155,9 @@ class JdbiDao(
             add(visitData)
         }
         jdbiDao.extension<QueryVisit, Unit> { insertVisit(visitData) }
+    }
+
+    override fun getVillage(): List<Village> {
+        return jdbiDao.extension<QueryVillage, List<Village>> { get() }
     }
 }

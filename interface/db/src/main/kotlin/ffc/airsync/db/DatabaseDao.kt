@@ -20,6 +20,7 @@ package ffc.airsync.db
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
 
@@ -47,4 +48,6 @@ interface DatabaseDao {
         patient: Person,
         username: String
     )
+
+    fun getVillage(): List<Village>
 }
