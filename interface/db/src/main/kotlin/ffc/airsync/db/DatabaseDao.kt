@@ -23,6 +23,9 @@ import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.place.Businsess
+import ffc.entity.place.School
+import ffc.entity.place.Temple
 
 interface DatabaseDao {
     fun getDetail(): HashMap<String, String>
@@ -50,4 +53,10 @@ interface DatabaseDao {
     )
 
     fun getVillage(): List<Village>
+
+    fun getBusiness(): List<Businsess>
+
+    fun getSchool(): List<School>
+
+    fun getTemple(): List<Temple>
 }
