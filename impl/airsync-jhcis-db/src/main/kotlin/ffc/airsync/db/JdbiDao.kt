@@ -165,7 +165,10 @@ class JdbiDao(
     }
 
     override fun getBusiness(): List<Businsess> {
-        return jdbiDao.extension<QueryBusiness, List<Businsess>> { get() }
+        val business = jdbiDao.extension<QueryBusiness, List<Businsess>> { get() }
+        val foodShop = jdbiDao.extension<QueryFoodShop, List<Businsess>> { get() }
+
+        return business + foodShop
     }
 
     override fun getSchool(): List<School> {
