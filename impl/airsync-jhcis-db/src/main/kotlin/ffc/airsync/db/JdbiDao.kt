@@ -172,7 +172,7 @@ class JdbiDao(
     }
 
     override fun getSchool(): List<School> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return jdbiDao.extension<QuerySchool, List<School>> { get() }
     }
 
     override fun getTemple(): List<Temple> {
