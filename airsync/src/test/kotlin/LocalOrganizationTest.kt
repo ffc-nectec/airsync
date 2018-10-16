@@ -3,8 +3,12 @@ import ffc.airsync.db.DatabaseDao
 import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
+import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.place.Businsess
+import ffc.entity.place.School
+import ffc.entity.place.Temple
 import org.amshove.kluent.`should be equal to`
 import org.junit.Test
 
@@ -78,6 +82,22 @@ class TestDao : DatabaseDao {
         patient: Person,
         username: String
     ) {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getVillage(): List<Village> {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getBusiness(): List<Businsess> {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getSchool(): List<School> {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getTemple(): List<Temple> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }
