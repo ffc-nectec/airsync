@@ -25,6 +25,9 @@ import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.place.Businsess
+import ffc.entity.place.School
+import ffc.entity.place.Temple
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -159,5 +162,17 @@ class JdbiDao(
 
     override fun getVillage(): List<Village> {
         return jdbiDao.extension<QueryVillage, List<Village>> { get() }
+    }
+
+    override fun getBusiness(): List<Businsess> {
+        return jdbiDao.extension<QueryBusiness, List<Businsess>> { get() }
+    }
+
+    override fun getSchool(): List<School> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getTemple(): List<Temple> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
