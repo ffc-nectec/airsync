@@ -5,6 +5,7 @@ import ffc.entity.System
 import ffc.entity.place.Businsess
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
+import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import java.sql.ResultSet
 
@@ -24,6 +25,7 @@ LEFT JOIN cbusiness ON
 	cbusiness.businesstypecode=villagebusiness.businesstype
     """
     )
+    @RegisterRowMapper(BusinessMapper::class)
     fun get(): List<Businsess>
 }
 
