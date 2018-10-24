@@ -42,6 +42,19 @@ SELECT
 	person.birth,
 	person.pid,
 	person.dischargetype,
+
+	person.marystatus,
+
+	person.familyno,
+	person.familyposition,
+
+	person.father,
+	person.fatherid,
+	person.mother,
+	person.motherid,
+	person.mate,
+	person.mateid,
+
 	ctitle.titlename,
 	`person`.`rightcode`,
 	`person`.`rightno`,
