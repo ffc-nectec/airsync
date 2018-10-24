@@ -17,15 +17,15 @@
 
 package ffc.airsync.db
 
-import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
-import ffc.entity.place.Businsess
+import ffc.entity.place.Business
+import ffc.entity.place.House
+import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
-import ffc.entity.place.Temple
 
 interface DatabaseDao {
     fun getDetail(): HashMap<String, String>
@@ -54,9 +54,9 @@ interface DatabaseDao {
 
     fun getVillage(): List<Village>
 
-    fun getBusiness(): List<Businsess>
+    fun getBusiness(): List<Business>
 
     fun getSchool(): List<School>
 
-    fun getTemple(): List<Temple>
+    fun getTemple(): List<ReligiousPlace>
 }

@@ -18,13 +18,13 @@
 package ffc.airsync.retrofit
 
 import ffc.entity.Entity
-import ffc.entity.House
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.healthcare.CommunityServiceType
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.place.House
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
