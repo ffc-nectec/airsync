@@ -2,7 +2,7 @@ package ffc.airsync
 
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.printDebug
-import ffc.entity.House
+import ffc.entity.place.House
 import ffc.entity.update
 
 class SetupDatabaseWatcher(val dao: DatabaseDao) {

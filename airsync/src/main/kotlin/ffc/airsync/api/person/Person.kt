@@ -5,9 +5,9 @@ import ffc.airsync.db.DatabaseDao
 import ffc.airsync.personApi
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
-import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
+import ffc.entity.place.House
 
 fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Person> {
     val persons = dao.getPerson()

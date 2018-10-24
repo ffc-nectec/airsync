@@ -3,8 +3,7 @@ package ffc.airsync.db
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.place.Religion
-import ffc.entity.place.Temple
-import ffc.entity.place.valueOfTh
+import ffc.entity.place.ReligiousPlace
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -30,15 +29,15 @@ LEFT JOIN creligion ON
 	creligion.religioncode=villagetemple.religion
     """
     )
-    fun get(): List<Temple>
+    fun get(): List<ReligiousPlace>
 }
 
-class TempleMapper : RowMapper<Temple> {
-    override fun map(rs: ResultSet, ctx: StatementContext): Temple {
-        return Temple().apply {
+class TempleMapper : RowMapper<ReligiousPlace> {
+    override fun map(rs: ResultSet, ctx: StatementContext): ReligiousPlace {
+        return ReligiousPlace().apply {
             name = rs.getString("name")
             no = rs.getString("address")
-            religion = Religion.Etc.valueOfTh(rs.getString("religion"))
+            religion = Religion.byName(rs.getString("religion"))
 
             val xgis = rs.getDouble("xgis")
             val ygis = rs.getDouble("ygis")

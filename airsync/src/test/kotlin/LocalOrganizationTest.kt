@@ -1,14 +1,14 @@
 import ffc.airsync.api.organization.LocalOrganization
 import ffc.airsync.db.DatabaseDao
-import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
-import ffc.entity.place.Businsess
+import ffc.entity.place.Business
+import ffc.entity.place.House
+import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
-import ffc.entity.place.Temple
 import org.amshove.kluent.`should be equal to`
 import org.junit.Test
 
@@ -89,7 +89,7 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getBusiness(): List<Businsess> {
+    override fun getBusiness(): List<Business> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
@@ -97,7 +97,7 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getTemple(): List<Temple> {
+    override fun getTemple(): List<ReligiousPlace> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

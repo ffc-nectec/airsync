@@ -18,11 +18,11 @@
 package ffc.airsync.db
 
 import ffc.airsync.utils.printDebug
-import ffc.entity.House
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.ThaiHouseholdId
 import ffc.entity.gson.toJson
+import ffc.entity.place.House
 import ffc.entity.update
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper

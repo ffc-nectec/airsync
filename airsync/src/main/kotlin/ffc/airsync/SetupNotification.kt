@@ -2,9 +2,9 @@ package ffc.airsync
 
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.notificationModule
-import ffc.entity.House
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.place.House
 
 class SetupNotification(val dao: DatabaseDao) {
 

@@ -4,7 +4,7 @@ import ffc.airsync.db.DatabaseDao
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.printDebug
-import ffc.entity.House
+import ffc.entity.place.House
 
 class RetofitHouseApi : RetofitApi(), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {

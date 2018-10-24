@@ -2,6 +2,7 @@ package ffc.airsync.db
 
 import ffc.entity.Link
 import ffc.entity.System
+import ffc.entity.place.Education
 import ffc.entity.place.School
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
@@ -41,8 +42,8 @@ class SchoolMapper : RowMapper<School> {
         return School().apply {
 
             name = rs.getString("name")
-            maxclass = rs.getString("maxclass")
-            depen = rs.getString("depen")
+            educationLevel = Education.byName(rs.getString("maxclass"))
+            depend = rs.getString("depen")
             no = rs.getString("address")
 
             val xgis = rs.getDouble("xgis")

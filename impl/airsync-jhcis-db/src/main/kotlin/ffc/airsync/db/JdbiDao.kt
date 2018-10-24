@@ -18,16 +18,16 @@
 package ffc.airsync.db
 
 import ffc.airsync.utils.printDebug
-import ffc.entity.House
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.HomeVisit
-import ffc.entity.place.Businsess
+import ffc.entity.place.Business
+import ffc.entity.place.House
+import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
-import ffc.entity.place.Temple
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -154,19 +154,19 @@ class JdbiDao(
     }
 
     fun insertVisit(visitData: VisitData) {
-        val visitData = arrayListOf<VisitData>().apply {
+        val listVisitData = arrayListOf<VisitData>().apply {
             add(visitData)
         }
-        jdbiDao.extension<QueryVisit, Unit> { insertVisit(visitData) }
+        jdbiDao.extension<QueryVisit, Unit> { insertVisit(listVisitData) }
     }
 
     override fun getVillage(): List<Village> {
         return jdbiDao.extension<QueryVillage, List<Village>> { get() }
     }
 
-    override fun getBusiness(): List<Businsess> {
-        val business = jdbiDao.extension<QueryBusiness, List<Businsess>> { get() }
-        val foodShop = jdbiDao.extension<QueryFoodShop, List<Businsess>> { get() }
+    override fun getBusiness(): List<Business> {
+        val business = jdbiDao.extension<QueryBusiness, List<Business>> { get() }
+        val foodShop = jdbiDao.extension<QueryFoodShop, List<Business>> { get() }
 
         return business + foodShop
     }
@@ -175,7 +175,7 @@ class JdbiDao(
         return jdbiDao.extension<QuerySchool, List<School>> { get() }
     }
 
-    override fun getTemple(): List<Temple> {
-        return jdbiDao.extension<QueryTemple, List<Temple>> { get() }
+    override fun getTemple(): List<ReligiousPlace> {
+        return jdbiDao.extension<QueryTemple, List<ReligiousPlace>> { get() }
     }
 }

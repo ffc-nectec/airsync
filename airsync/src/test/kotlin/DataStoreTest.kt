@@ -2,12 +2,12 @@ import ffc.airsync.utils.cleanFile
 import ffc.airsync.utils.getClassNameInList
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
-import ffc.entity.House
 import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.ThaiCitizenId
 import ffc.entity.ThaiHouseholdId
+import ffc.entity.place.House
 import ffc.entity.update
 import me.piruin.geok.geometry.Point
 import org.amshove.kluent.`should be equal to`

@@ -2,7 +2,7 @@ package ffc.airsync.db
 
 import ffc.entity.Link
 import ffc.entity.System
-import ffc.entity.place.Businsess
+import ffc.entity.place.Business
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -30,12 +30,12 @@ LEFT JOIN cbusiness ON
     """
     )
     @RegisterRowMapper(BusinessMapper::class)
-    fun get(): List<Businsess>
+    fun get(): List<Business>
 }
 
-class BusinessMapper : RowMapper<Businsess> {
-    override fun map(rs: ResultSet, ctx: StatementContext): Businsess {
-        return Businsess().apply {
+class BusinessMapper : RowMapper<Business> {
+    override fun map(rs: ResultSet, ctx: StatementContext): Business {
+        return Business().apply {
             name = rs.getString("name")
             businessType = rs.getString("type")
             no = rs.getString("address")
