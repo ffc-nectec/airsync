@@ -44,9 +44,11 @@ SELECT
 	person.dischargetype,
 
 	person.marystatus,
+	cstatus.statusname,
 
 	person.familyno,
 	person.familyposition,
+	cfamilyposition.famposname,
 
 	person.father,
 	person.fatherid,
@@ -63,6 +65,10 @@ SELECT
 FROM person
 	LEFT JOIN ctitle ON
 		person.prename=ctitle.titlecode
+	LEFT JOIN cfamilyposition ON
+		person.familyposition=cfamilyposition.famposcode
+	LEFT JOIN cstatus ON
+		person.marystatus=cstatus.statuscode
     """
     )
     @RegisterRowMapper(PersonMapper::class)
