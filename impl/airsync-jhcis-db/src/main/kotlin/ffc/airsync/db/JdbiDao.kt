@@ -133,12 +133,12 @@ class JdbiDao(
             pcucode,
             visitNum,
             pcucodePerson,
-            (patient.link!!.keys["pid"] as String).toLong(),
+            ((patient.link?.keys?.get("pid")) as String).toLong(),
             username,
-            patient.bundle["rightcode"] as String,
-            patient.bundle["rightno"] as String,
-            patient.bundle["hosmain"] as String,
-            patient.bundle["hossub"] as String
+            (patient.link?.keys?.get("rightcode")) as String,
+            (patient.link?.keys?.get("rightno")) as String,
+            (patient.link?.keys?.get("hosmain")) as String,
+            (patient.link?.keys?.get("hossub")) as String
         )
         insertVisit(visitData)
 

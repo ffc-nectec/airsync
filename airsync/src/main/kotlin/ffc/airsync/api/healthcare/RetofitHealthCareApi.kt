@@ -32,9 +32,6 @@ class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
 
         printDebug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
 
-        val patientHos = dao.findPerson(pcucode, (patient.link!!.keys["pid"] as String).toLong())
-        patient.bundle.putAll(patientHos.bundle)
-
         val provider = users.find {
             it.id == healthCareService.providerId
         }!!
