@@ -70,7 +70,7 @@ FROM person
 	LEFT JOIN cstatus ON
 		person.marystatus=cstatus.statuscode
     """
-    )
+    )   // WHERE hcode = 3890
     @RegisterRowMapper(PersonMapper::class)
     fun get(): List<Person>
 
@@ -85,14 +85,33 @@ SELECT
 	person.birth,
 	person.pid,
 	person.dischargetype,
+
+	person.marystatus,
+	cstatus.statusname,
+
+	person.familyno,
+	person.familyposition,
+	cfamilyposition.famposname,
+
+	person.father,
+	person.fatherid,
+	person.mother,
+	person.motherid,
+	person.mate,
+	person.mateid,
+
 	ctitle.titlename,
 	`person`.`rightcode`,
 	`person`.`rightno`,
 	`person`.`hosmain`,
 	`person`.`hossub`
-FROM `person`
+FROM person
 	LEFT JOIN ctitle ON
 		person.prename=ctitle.titlecode
+	LEFT JOIN cfamilyposition ON
+		person.familyposition=cfamilyposition.famposcode
+	LEFT JOIN cstatus ON
+		person.marystatus=cstatus.statuscode
 
 	WHERE
 		`person`.`pcucodeperson` = :pcucode AND `person`.`pid`= :pid
@@ -108,7 +127,7 @@ class PersonMapper : RowMapper<Person> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
         if (rs == null) throw ClassNotFoundException()
         val statusLive = rs.getString("dischargetype")
-        val person = Person().update<Person> {
+        return Person().update {
             identities.add(ThaiCitizenId(rs.getString("idcard")))
             firstname = rs.getString("fname")
             lastname = rs.getString("lname")
@@ -118,19 +137,30 @@ class PersonMapper : RowMapper<Person> {
                 System.JHICS,
                 "pcucodeperson" to rs.getString("pcucodeperson"),
                 "pid" to rs.getString("pid"),
-                "hcode" to rs.getString("hcode")
+                "hcode" to rs.getString("hcode"),
+                "marystatus" to rs.getString("statusname"),
+                "familyposition" to rs.getString("famposname"),
+
+                "rightcode" to rs.getString("rightcode"),
+                "rightno" to rs.getString("rightno"),
+                "hosmain" to rs.getString("hosmain"),
+                "hossub" to rs.getString("hossub")
+
             )
-            bundle["rightcode"] = rs.getString("rightcode") ?: ""
-            bundle["rightno"] = rs.getString("rightno") ?: ""
-            bundle["hosmain"] = rs.getString("hosmain") ?: ""
-            bundle["hossub"] = rs.getString("hossub") ?: ""
+            bundle["fatherid"] = rs.getString("fatherid") ?: ""
+            bundle["motherid"] = rs.getString("motherid") ?: ""
 
             bundle.forEach { key: String, value: Any ->
                 if ((value as String).isBlank()) {
                     bundle.remove(key)
                 }
             }
+
+            link?.keys?.forEach { key, value ->
+                if ((value as String).isBlank()) {
+                    link?.keys?.remove(key)
+                }
+            }
         }
-        return person
     }
 }
