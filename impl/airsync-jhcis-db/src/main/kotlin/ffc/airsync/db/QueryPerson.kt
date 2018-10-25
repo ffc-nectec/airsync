@@ -70,7 +70,7 @@ FROM person
 	LEFT JOIN cstatus ON
 		person.marystatus=cstatus.statuscode
     """
-    )   // WHERE hcode = 3890
+    ) // WHERE hcode = 3890
     @RegisterRowMapper(PersonMapper::class)
     fun get(): List<Person>
 
@@ -126,7 +126,7 @@ class PersonMapper : RowMapper<Person> {
 
     override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
         if (rs == null) throw ClassNotFoundException()
-        val statusLive = rs.getString("dischargetype")
+        // val statusLive = rs.getString("dischargetype")
         return Person().update {
             identities.add(ThaiCitizenId(rs.getString("idcard")))
             firstname = rs.getString("fname")
@@ -138,8 +138,13 @@ class PersonMapper : RowMapper<Person> {
                 "pcucodeperson" to rs.getString("pcucodeperson"),
                 "pid" to rs.getString("pid"),
                 "hcode" to rs.getString("hcode"),
+
                 "marystatus" to rs.getString("statusname"),
                 "familyposition" to rs.getString("famposname"),
+
+                "fatherid" to rs.getString("fatherid"),
+                "motherid" to rs.getString("motherid"),
+                "mateid" to rs.getString("mateid"),
 
                 "rightcode" to rs.getString("rightcode"),
                 "rightno" to rs.getString("rightno"),
@@ -147,8 +152,6 @@ class PersonMapper : RowMapper<Person> {
                 "hossub" to rs.getString("hossub")
 
             )
-            bundle["fatherid"] = rs.getString("fatherid") ?: ""
-            bundle["motherid"] = rs.getString("motherid") ?: ""
 
             bundle.forEach { key: String, value: Any ->
                 if ((value as String).isBlank()) {
