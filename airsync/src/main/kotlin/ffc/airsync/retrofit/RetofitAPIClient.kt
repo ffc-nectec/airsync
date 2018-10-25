@@ -17,68 +17,20 @@
 
 package ffc.airsync.retrofit
 
-import com.fatboyindustrial.gsonjodatime.DateTimeConverter
-import com.fatboyindustrial.gsonjodatime.LocalDateConverter
-import com.fatboyindustrial.gsonjodatime.LocalDateTimeConverter
-import com.google.gson.GsonBuilder
-import ffc.entity.Identity
-import ffc.entity.User
-import ffc.entity.gson.HealthCareJsonAdapter
-import ffc.entity.gson.IdentityJsonAdapter
-import ffc.entity.gson.URLsJsonAdapter
-import ffc.entity.gson.UserJsonAdapter
 import ffc.entity.gson.ffcGson
-import ffc.entity.healthcare.HealthCareService
-import ffc.entity.util.URLs
-import me.piruin.geok.LatLng
-import me.piruin.geok.geometry.Geometry
-import me.piruin.geok.gson.GeometrySerializer
-import me.piruin.geok.gson.LatLngSerializer
-import me.piruin.geok.gson.adapterFor
 import okhttp3.OkHttpClient
-import org.joda.time.DateTime
-import org.joda.time.LocalDate
-import org.joda.time.LocalDateTime
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetofitAPIClient {
 
-    fun getCientStd(baseUrl: String): Retrofit? {
+    fun getCient(baseUrl: String): Retrofit? {
+
         val client = OkHttpClient.Builder()
-        val retrofit = Retrofit.Builder()
+        return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(ffcGson))
             .client(client.build())
             .build()
-        return retrofit
     }
-
-    fun getCientAirsync(baseUrl: String): Retrofit? {
-
-        val client = OkHttpClient.Builder()
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(airSyncGson))
-            .client(client.build())
-            .build()
-        return retrofit
-    }
-}
-
-val airSyncGson = GsonBuilder()
-    .adapterFor<User>(UserJsonAdapter())
-    .adapterFor<Identity>(IdentityJsonAdapter())
-    .adapterFor<HealthCareService>(HealthCareJsonAdapter())
-    .adapterFor<URLs>(URLsJsonAdapter())
-    .adapterForExtLibrary()
-    .create()
-
-private fun GsonBuilder.adapterForExtLibrary(): GsonBuilder {
-    adapterFor<Geometry>(GeometrySerializer())
-    adapterFor<LatLng>(LatLngSerializer())
-    adapterFor<DateTime>(DateTimeConverter())
-    adapterFor<LocalDate>(LocalDateConverter())
-    adapterFor<LocalDateTime>(LocalDateTimeConverter())
-    return this
 }
