@@ -85,6 +85,8 @@ class LocalOrganization(
             pcucode.append(hosId)
 
             name = detail["name"] ?: ""
+            name = name.replace(Regex("""[\.\,\|\(\)\ ]"""), "")
+            displayName = detail["name"] ?: ""
             tel = detail["tel"]
             address = detail["province"]
             link = Link(System.JHICS).apply {

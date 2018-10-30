@@ -27,9 +27,11 @@ abstract class RetofitApi {
         while (cloudStatusDown && count++ <= limitCount) {
             try {
                 printDebug("Wake cloud loop ${count - 1} in $limitCount")
-                restService.checkCloud()
-                cloudStatusDown = false
+                val response = restService.checkCloud().execute()
+                if (response.code() == 200)
+                    cloudStatusDown = false
             } catch (ignore: SocketTimeoutException) {
+                cloudStatusDown = true
                 Thread.sleep(3000)
             }
         }

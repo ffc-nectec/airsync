@@ -22,14 +22,10 @@ object UploadSpliter {
     fun <T> upload(fixSizeCake: Int, list: List<T>, howToPutCake: (list: List<T>) -> Unit) {
         val cakePound = cutCake(fixSizeCake, list)
 
-        printDebug("Run size ${list.size}")
+        printDebug("Run size ${cakePound.size}")
         cakePound.forEachIndexed { index, it ->
             print("\nStart push $index ....")
-            try {
-                howToPutCake(it)
-            } catch (ex: Exception) {
-                ex.printStackTrace()
-            }
+            howToPutCake(it)
             print(" Finish push")
         }
     }

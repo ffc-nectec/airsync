@@ -39,8 +39,11 @@ class RetofitOrganizationApi : RetofitApi(), OrganizationApi {
     private fun isEverRegister(organization: Organization) = organization.bundle["token"] != null
 
     private fun regisOrgToCloud(organization: Organization): Organization {
-        val restOrg: Organization? = restService.regisOrg(organization).execute().body()
-        check(restOrg != null) { "ลงทะเบียนชื่อหน่วยงานซ้ำ" }
+        val response = restService.regisOrg(organization).execute()
+        if (response.code() != 201) {
+            throw Exception("Code ${response.code()} \n Message ${response.errorBody()?.source()}")
+        }
+        val restOrg: Organization? = response.body()
 
         return restOrg!!
     }
