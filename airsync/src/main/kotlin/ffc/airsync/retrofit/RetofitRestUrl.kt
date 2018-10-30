@@ -27,6 +27,7 @@ import ffc.entity.healthcare.HomeVisit
 import ffc.entity.place.House
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -55,12 +56,24 @@ interface RetofitRestUrl {
         @Body user: List<User>
     ): Call<List<User>>
 
+    @DELETE("/v0/org/{orgId}/place/houses")
+    fun clernHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<Void>
+
     @POST("/v0/org/{orgId}/place/houses")
     fun createHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Body houseList: List<House>
     ): Call<List<House>>
+
+    @DELETE("/v0/org/{orgId}/persons")
+    fun clearnPerson(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<Void>
 
     @POST("/v0/org/{orgId}/persons")
     fun createPerson(

@@ -9,6 +9,8 @@ import ffc.entity.place.House
 class RetofitHouseApi : RetofitApi(), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
         val houseLastUpdate = arrayListOf<House>()
+        restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute()
+
         UploadSpliter.upload(100, houseList) {
             val respond = restService.createHouse(
                 orgId = organization.id,
@@ -19,6 +21,7 @@ class RetofitHouseApi : RetofitApi(), HouseApi {
             val houseFromCloud = respond.body() ?: arrayListOf()
             houseLastUpdate.addAll(houseFromCloud)
         }
+
         return houseLastUpdate
     }
 

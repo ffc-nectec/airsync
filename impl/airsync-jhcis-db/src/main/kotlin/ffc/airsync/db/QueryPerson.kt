@@ -135,21 +135,21 @@ class PersonMapper : RowMapper<Person> {
             birthDate = LocalDate.fromDateFields(rs.getDate("birth"))
             link = Link(
                 System.JHICS,
-                "pcucodeperson" to rs.getString("pcucodeperson"),
-                "pid" to rs.getString("pid"),
-                "hcode" to rs.getString("hcode"),
+                "pcucodeperson" to (rs.getString("pcucodeperson") ?: ""),
+                "pid" to (rs.getString("pid") ?: ""),
+                "hcode" to (rs.getString("hcode") ?: ""),
 
-                "marystatus" to rs.getString("statusname"),
-                "familyposition" to rs.getString("famposname"),
+                "marystatus" to (rs.getString("statusname") ?: ""),
+                "familyposition" to (rs.getString("famposname") ?: ""),
 
-                "fatherid" to rs.getString("fatherid"),
-                "motherid" to rs.getString("motherid"),
-                "mateid" to rs.getString("mateid"),
+                "fatherid" to (rs.getString("fatherid") ?: ""),
+                "motherid" to (rs.getString("motherid") ?: ""),
+                "mateid" to (rs.getString("mateid") ?: ""),
 
-                "rightcode" to rs.getString("rightcode"),
-                "rightno" to rs.getString("rightno"),
-                "hosmain" to rs.getString("hosmain"),
-                "hossub" to rs.getString("hossub")
+                "rightcode" to (rs.getString("rightcode") ?: ""),
+                "rightno" to (rs.getString("rightno") ?: ""),
+                "hosmain" to (rs.getString("hosmain") ?: ""),
+                "hossub" to (rs.getString("hossub") ?: "")
 
             )
 
@@ -159,10 +159,15 @@ class PersonMapper : RowMapper<Person> {
                 }
             }
 
+            val removeKey = arrayListOf<String>()
             link?.keys?.forEach { key, value ->
                 if ((value as String).isBlank()) {
-                    link?.keys?.remove(key)
+                    removeKey.add(key)
                 }
+            }
+
+            removeKey.forEach {
+                link?.keys?.remove(it)
             }
         }
     }
