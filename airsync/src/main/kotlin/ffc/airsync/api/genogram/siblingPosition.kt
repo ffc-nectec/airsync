@@ -1,6 +1,6 @@
-package ffc.airsync.api.familytree
+package ffc.airsync.api.genogram
 
-fun siblingPosition(familyPosition: String): String {
+internal fun siblingPosition(familyPosition: String): String {
     if (familyPosition.isEmpty())
         return ""
 

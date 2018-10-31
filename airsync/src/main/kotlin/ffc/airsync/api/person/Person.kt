@@ -6,10 +6,6 @@ import ffc.airsync.personApi
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person
-import ffc.entity.Person.Relate.Child
-import ffc.entity.Person.Relate.Father
-import ffc.entity.Person.Relate.Married
-import ffc.entity.Person.Relate.Mother
 import ffc.entity.healthcare.Chronic
 import ffc.entity.place.House
 
@@ -36,45 +32,6 @@ fun ArrayList<Person>.initSync(houseFromCloud: List<House>, personIsChronic: Lis
         addAll(localPersons)
     }
 }
-
-fun List<Person>.syncRelation() {
-
-    val houseMap = HashMap<String, ArrayList<Person>>()
-
-    forEach { person ->
-
-        if (person.link?.keys?.get("hcode") == "1") return@forEach
-
-        val father = person.link?.keys?.get("father")
-        val mother = person.link?.keys?.get("mother")
-        val mate = person.link?.keys?.get("mate")
-
-        person.link?.keys?.get("fatherid")?.let { personId ->
-            find { search(it, personId) }?.let {
-                person.addRelationship(Pair(Father, it))
-                it.addRelationship(Pair(Child, person))
-            }
-        }
-
-        person.link?.keys?.get("motherid")?.let { personId ->
-            find { search(it, personId) }?.let {
-                person.addRelationship(Pair(Mother, it))
-                it.addRelationship(Pair(Child, person))
-            }
-        }
-
-        person.link?.keys?.get("mateid")?.let { personId ->
-            find { search(it, personId) }?.let {
-                person.addRelationship(Pair(Married, it))
-                it.addRelationship(Pair(Married, person))
-            }
-        }
-
-        val personInHouse = filter { it.houseId == person.houseId }
-    }
-}
-
-private fun search(it: Person, personId: Any) = it.identities.find { it.id == personId } != null
 
 private fun List<Person>.mapHouseId(houseFromCloud: List<House>) {
     forEach {
