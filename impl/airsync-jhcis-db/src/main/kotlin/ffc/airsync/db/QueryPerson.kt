@@ -140,10 +140,15 @@ class PersonMapper : RowMapper<Person> {
                 "hcode" to (rs.getString("hcode") ?: ""),
 
                 "marystatus" to (rs.getString("statusname") ?: ""),
-                "familyposition" to (rs.getString("famposname") ?: ""),
+                "famposname" to (rs.getString("famposname") ?: ""),
+                "familyposition" to (rs.getString("familyposition") ?: ""),
+                "familyno" to (rs.getString("familyno") ?: ""),
 
                 "fatherid" to (rs.getString("fatherid") ?: ""),
+                "father" to (rs.getString("father") ?: ""),
                 "motherid" to (rs.getString("motherid") ?: ""),
+                "mother" to (rs.getString("mother") ?: ""),
+                "mate" to (rs.getString("mate") ?: ""),
                 "mateid" to (rs.getString("mateid") ?: ""),
 
                 "rightcode" to (rs.getString("rightcode") ?: ""),
