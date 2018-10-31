@@ -1,6 +1,6 @@
-package ffc.airsync.api.familytree
+package ffc.airsync.api.genogram
 
-fun childPosition(familyPosition: String, foundMate: Boolean): String {
+internal fun childPosition(familyPosition: String, foundMate: Boolean): String {
     // leader child
     // child of childWithMate
     // else if (familyPosition.equalsIgnoreCase("3"))

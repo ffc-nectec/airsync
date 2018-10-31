@@ -1,6 +1,6 @@
-package ffc.airsync.api.familytree
+package ffc.airsync.api.genogram
 
-fun childWithMatePosition(familyPosition: String): String {
+internal fun childWithMatePosition(familyPosition: String): String {
     return when (familyPosition) {
         "1", "2" -> "3"
         "3" -> "จ"

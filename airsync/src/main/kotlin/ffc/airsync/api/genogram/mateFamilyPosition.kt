@@ -1,7 +1,7 @@
-package ffc.airsync.api.familytree
+package ffc.airsync.api.genogram
 
-fun mateFamilyPosition(familyPosition: String): String? {
-    val mateFamilyPostion: String?
+internal fun mateFamilyPosition(familyPosition: String): String {
+    val mateFamilyPostion: String
     // หัวหน้าครอบครัว กับ
     // คู๋สมรส
     println("find mate's familyposition by his/her familypositon =$familyPosition")
@@ -21,7 +21,7 @@ fun mateFamilyPosition(familyPosition: String): String? {
         "n" -> mateFamilyPostion = "m"
         "o" -> mateFamilyPostion = "p"
         "p" -> mateFamilyPostion = "o"
-        else -> mateFamilyPostion = null
+        else -> mateFamilyPostion = ""
     } // บุตร บุตรสะใภ้ บุตรเขย
     // else if ((familyPosition.equalsIgnoreCase("3")) && (sex == 1))
     // mateFamilyPostion = "ฑ";

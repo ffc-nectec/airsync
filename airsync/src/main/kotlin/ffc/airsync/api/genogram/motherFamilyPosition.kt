@@ -1,7 +1,7 @@
-package ffc.airsync.api.familytree
+package ffc.airsync.api.genogram
 
-fun motherFamilyPosition(familyPosition: String): String? {
-    val motherPosition: String?
+internal fun motherFamilyPosition(familyPosition: String): String {
+    val motherPosition: String
     when {
         familyPosition.equals("1", ignoreCase = true) -> motherPosition = "7"
         familyPosition.equals("2", ignoreCase = true) -> motherPosition = "9"
@@ -10,7 +10,7 @@ fun motherFamilyPosition(familyPosition: String): String? {
         familyPosition.equals("6", ignoreCase = true) -> motherPosition = "j"
         familyPosition.equals("8", ignoreCase = true) -> motherPosition = "n"
         familyPosition.equals("9", ignoreCase = true) -> motherPosition = "p"
-        else -> motherPosition = null
+        else -> motherPosition = ""
     }
     return motherPosition
 }

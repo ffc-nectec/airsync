@@ -1,6 +1,6 @@
-package ffc.airsync.api.familytree
+package ffc.airsync.api.genogram
 
-fun fatherFamilyPosition(familyPosition: String): String {
+internal fun fatherFamilyPosition(familyPosition: String): String {
 
     val fatherPosition: String
     val position = familyPosition
