@@ -2,6 +2,8 @@ package ffc.airsync
 
 import ffc.airsync.api.autosync.RetofitSyncCloud
 import ffc.airsync.api.autosync.SyncCloud
+import ffc.airsync.api.genogram.GeonogramApi
+import ffc.airsync.api.genogram.RetrofitGeonogramApi
 import ffc.airsync.api.healthcare.HealthCareApi
 import ffc.airsync.api.healthcare.RetofitHealthCareApi
 import ffc.airsync.api.house.HouseApi
@@ -22,3 +24,4 @@ val notificationApi: NotificationApi by lazy { RetofitNotificationApi() }
 val personApi: PersonApi by lazy { RetofitPersonApi() }
 val userApi: UserApi by lazy { RetofitUserApi() }
 val syncCloud: SyncCloud by lazy { RetofitSyncCloud() }
+val geonogramApi: GeonogramApi by lazy { RetrofitGeonogramApi() }
