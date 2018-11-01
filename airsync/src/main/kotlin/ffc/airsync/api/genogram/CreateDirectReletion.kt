@@ -1,10 +1,11 @@
 package ffc.airsync.api.genogram
 
+import ffc.airsync.persons
 import ffc.entity.Person
 
 internal fun List<Person>.createMate(person: Person) {
     person.link?.keys?.get("mateid")?.let { personId ->
-        find { checkId(it, personId) }?.let {
+        persons.find { checkId(it, personId) }?.let {
             `สร้างความสัมพันธ์ภรรยา`(person, it)
         }
     }
@@ -18,7 +19,7 @@ internal fun List<Person>.createMate(person: Person) {
 
 internal fun List<Person>.creteMother(person: Person) {
     person.link?.keys?.get("motherid")?.let { personId ->
-        find { checkId(it, personId) }?.let {
+        persons.find { checkId(it, personId) }?.let {
             `สร้างความสัมพันธ์แม่`(person, it)
         }
     }
@@ -33,7 +34,7 @@ internal fun List<Person>.creteMother(person: Person) {
 
 internal fun List<Person>.createFather(person: Person) {
     person.link?.keys?.get("fatherid")?.let { personId ->
-        find { checkId(it, personId) }?.let {
+        persons.find { checkId(it, personId) }?.let {
             `สร้างความสัมพันธ์พ่อ`(person, it)
         }
     }

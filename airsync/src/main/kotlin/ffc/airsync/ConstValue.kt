@@ -7,4 +7,5 @@ import ffc.entity.place.House
 val houses = arrayListOf<House>()
 val persons = arrayListOf<Person>()
 val users = arrayListOf<User>()
+val relation = arrayListOf<Person>()
 val pcucode = StringBuilder()

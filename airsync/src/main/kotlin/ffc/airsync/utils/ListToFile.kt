@@ -12,16 +12,12 @@ inline fun saveResource(strData: String, fileName: String) {
 }
 
 inline fun <reified T> loadResource(fileName: String): List<T> {
-    val file = FileReader(fileName).readText()
-    val fileJson = file.parseTo<List<Any>>()
+    val fileJson = FileReader(fileName).readText().parseTo<List<Any>>()
 
-    val result = arrayListOf<T>()
-
-    fileJson.forEach {
-        val anyJson = it.toJson()
-        result.add(anyJson.parseTo())
+    return fileJson.map {
+        val ii = it.toJson().parseTo<T>()
+        ii
     }
-    return result
 }
 
 inline fun <reified T> List<T>.save(filename: String = "${getClassNameInList(this)}.json") {

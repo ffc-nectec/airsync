@@ -1,14 +1,12 @@
 package ffc.airsync.api.genogram
 
-internal fun siblingPosition(familyPosition: String): String {
+internal fun siblingPosition(familyPosition: String): List<String> {
     if (familyPosition.isEmpty())
-        return ""
+        return listOf()
 
-    val siblingPosition: String?
-    when (familyPosition) {
-        "1" -> siblingPosition = " (familyposition = \'ก\' OR familyposition = \'ข\')"
-        "2" -> siblingPosition = " (familyposition = \'ค\' OR familyposition = \'ง\')"
-        else -> siblingPosition = ""
+    return when (familyPosition) {
+        "1" -> listOf("ก", "ข")
+        "2" -> listOf("ค", "ง")
+        else -> listOf()
     }
-    return siblingPosition
 }

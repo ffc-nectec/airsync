@@ -18,6 +18,7 @@
 package ffc.airsync
 
 import ffc.airsync.api.chronic.Chronics
+import ffc.airsync.api.genogram.initRelation
 import ffc.airsync.api.house.initSync
 import ffc.airsync.api.organization.LocalOrganization
 import ffc.airsync.api.person.gets
@@ -72,6 +73,10 @@ class MainController(val dao: DatabaseDao) {
         users.initSync()
         houses.initSync(person)
         persons.initSync(houses, person)
+        // persons.syncRelation()
+        // persons.save("relation.json")
+        relation.initRelation()
+
         printDebug("Finish push")
     }
 

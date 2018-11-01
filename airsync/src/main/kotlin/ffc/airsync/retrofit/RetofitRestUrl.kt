@@ -82,6 +82,14 @@ interface RetofitRestUrl {
         @Body personList: List<Person>
     ): Call<List<Person>>
 
+    @PUT("/v0/org/{orgId}/person/{personId}/relationship")
+    fun updateRelationship(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("personId") personId: String,
+        @Body relationship: List<Person.Relationship>
+    ): Call<List<Person.Relationship>>
+
     @GET("/v0/org/{orgId}/place/house/{house_id}")
     fun getHouse(
         @Path("orgId") orgId: String,
