@@ -32,9 +32,7 @@ fun ArrayList<Person>.initRelation() {
 
 private fun List<Person>.updateToCloud() {
     val size = count()
-    var i = 0
-    forEach {
-        i++
+    forEachIndexed { i, it ->
         if (it.relationships.isNotEmpty()) {
             print("Update Relation $i:$size")
             val relation = geonogramApi.put(it.id, it.relationships)
@@ -42,10 +40,6 @@ private fun List<Person>.updateToCloud() {
             it.relationships.addAll(relation)
         }
     }
-}
-
-fun List<Person>.syncRelation() {
-    `สร้างความสัมพันธ์`()
 }
 
 private fun List<Person>.`สร้างความสัมพันธ์`() {
