@@ -29,6 +29,7 @@ fun syncFlow(type: String, id: String, dao: DatabaseDao) {
         House::class.java.simpleName -> houseApi.syncHouseFromCloud(id, dao)
         HealthCareService::class.java.simpleName -> healthCareApi.syncHealthCareFromCloud(id, dao)
         HomeVisit::class.java.simpleName -> healthCareApi.syncHealthCareFromCloud(id, dao)
-        else -> println("Not type sync.")
+        else -> {
+        }
     }
 }

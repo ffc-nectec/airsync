@@ -10,17 +10,25 @@ class RetrofitGeonogramApi : RetofitApi(), GeonogramApi {
         var syncccc = false
         var loop = 1
         while (!syncccc) {
-            print("Sync rela loop ${loop++} ")
-            val response = restService.updateRelationship(
-                orgId = organization.id,
-                authkey = tokenBarer,
-                personId = personId,
-                relationship = relationship
-            ).execute()
-            printDebug(" response ${response.code()} err:${response.errorBody()?.source()}")
-            if (response.code() != 201) throw IllegalAccessException("Cannot Login ${response.code()}")
-            relationLastUpdate.addAll(response.body() ?: arrayListOf())
-            syncccc = true
+            try {
+                print("Sync rela loop ${loop++} ")
+                val response = restService.updateRelationship(
+                    orgId = organization.id,
+                    authkey = tokenBarer,
+                    personId = personId,
+                    relationship = relationship
+                ).execute()
+                printDebug(" response ${response.code()} err:${response.errorBody()?.source()}")
+                if (response.code() == 201 || response.code() == 200) {
+                    relationLastUpdate.addAll(response.body() ?: arrayListOf())
+                    syncccc = true
+                } else {
+                    syncccc = false
+                }
+            } catch (ex: Exception) {
+                syncccc = false
+                Thread.sleep(5000)
+            }
         }
         return relationLastUpdate
     }
