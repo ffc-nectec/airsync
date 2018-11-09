@@ -135,7 +135,9 @@ class PersonMapper : RowMapper<Person> {
             birthDate = LocalDate.fromDateFields(rs.getDate("birth"))
             link = Link(
                 System.JHICS,
+                "pcucodeperson" to (getResult("pcucodeperson", rs)),
                 "pcucodeperson" to (rs.getString("pcucodeperson") ?: ""),
+
                 "pid" to (rs.getString("pid") ?: ""),
                 "hcode" to (rs.getString("hcode") ?: ""),
 
@@ -158,22 +160,34 @@ class PersonMapper : RowMapper<Person> {
 
             )
 
+            val bundleRemoveKey = arrayListOf<String>()
             bundle.forEach { key: String, value: Any ->
-                if ((value as String).isBlank()) {
-                    bundle.remove(key)
+                if ((value as String).isBlank() || value.toLowerCase() == "null") {
+                    bundleRemoveKey.add(key)
                 }
             }
 
             val removeKey = arrayListOf<String>()
             link?.keys?.forEach { key, value ->
-                if ((value as String).isBlank()) {
+                if ((value as String).isBlank() || value.toLowerCase() == "null") {
                     removeKey.add(key)
                 }
+            }
+
+            bundleRemoveKey.forEach {
+                bundle.remove(it)
             }
 
             removeKey.forEach {
                 link?.keys?.remove(it)
             }
         }
+    }
+
+    private fun getResult(column: String, rs: ResultSet): String {
+        var value = rs.getString(column)
+        if (value == "null")
+            value = null
+        return value ?: ""
     }
 }

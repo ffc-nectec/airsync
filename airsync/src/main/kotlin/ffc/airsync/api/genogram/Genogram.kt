@@ -1,6 +1,7 @@
 package ffc.airsync.api.genogram
 
 import ffc.airsync.geonogramApi
+import ffc.airsync.persons
 import ffc.airsync.utils.load
 import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
@@ -10,19 +11,22 @@ import ffc.entity.Person.Relate.Father
 import ffc.entity.Person.Relate.Married
 import ffc.entity.Person.Relate.Mother
 import ffc.entity.Person.Relate.Sibling
-import java.util.Collections.addAll
 
-fun List<Person>.initRelation() {
+fun ArrayList<Person>.initRelation() {
     val localRelation = arrayListOf<Person>().apply {
         addAll(load("relation.json"))
     }
 
     if (localRelation.isEmpty()) {
+        this.addAll(persons)
+        this.forEach {
+            it.relationships.clear()
+        }
         `สร้างความสัมพันธ์`()
         updateToCloud()
         save("relation.json")
     } else {
-        addAll(localRelation)
+        this.addAll(localRelation)
     }
 }
 
@@ -33,8 +37,9 @@ private fun List<Person>.updateToCloud() {
         i++
         if (it.relationships.isNotEmpty()) {
             print("Update Relation $i:$size")
+            val relation = geonogramApi.put(it.id, it.relationships)
             it.relationships.clear()
-            it.relationships.addAll(geonogramApi.put(it.id, it.relationships))
+            it.relationships.addAll(relation)
         }
     }
 }
@@ -56,14 +61,22 @@ private fun List<Person>.`สร้างความสัมพันธ์`()
             if (familyPosition.isNotBlank()) {
                 if (!person.haveFather()) {
                     val father = `ค้นหาความสัมพันธ์ในบ้าน`(house, fatherFamilyPosition(familyPosition))
-                    if (father.isNotEmpty())
-                        `สร้างความสัมพันธ์พ่อ`(person, father.first())
+                    if (father.isNotEmpty() && person.fatherId == null) {
+                        if (person.sex == Person.Sex.MALE)
+                            `สร้างความสัมพันธ์พ่อ`(person, father.first())
+                        else
+                            `สร้างความสัมพันธ์แม่`(person, father.first())
+                    }
                 }
 
                 if (!person.haveMother()) {
                     val mother = `ค้นหาความสัมพันธ์ในบ้าน`(house, motherFamilyPosition(familyPosition))
-                    if (mother.isNotEmpty())
-                        `สร้างความสัมพันธ์แม่`(person, mother.first())
+                    if (mother.isNotEmpty() && person.motherId == null) {
+                        if (person.sex == Person.Sex.FEMALE)
+                            `สร้างความสัมพันธ์แม่`(person, mother.first())
+                        else
+                            `สร้างความสัมพันธ์พ่อ`(person, mother.first())
+                    }
                 }
 
                 if (!person.haveSpouse()) {
@@ -169,8 +182,10 @@ internal fun `สร้างความสัมพันธ์ภรรยา
 internal fun `สร้างความสัมพันธ์แม่`(child: Person, mother: Person) {
 
     try {
-        child.addRelationship(Pair(Mother, mother))
-        mother.addRelationship(Pair(Child, child))
+        if (child.motherId == null) {
+            child.addRelationship(Pair(Mother, mother))
+            mother.addRelationship(Pair(Child, child))
+        }
     } catch (ex: java.lang.IllegalArgumentException) {
         // printDebug("Error ความสัมพันธ์แม่")
         // ex.printStackTrace()
@@ -179,8 +194,10 @@ internal fun `สร้างความสัมพันธ์แม่`(chil
 
 internal fun `สร้างความสัมพันธ์พ่อ`(child: Person, father: Person) {
     try {
-        child.addRelationship(Pair(Father, father))
-        father.addRelationship(Pair(Child, child))
+        if (child.fatherId == null) {
+            child.addRelationship(Pair(Father, father))
+            father.addRelationship(Pair(Child, child))
+        }
     } catch (ex: java.lang.IllegalArgumentException) {
         // printDebug("Error ความสัมพันธ์พ่อ")
         // ex.printStackTrace()
@@ -192,8 +209,13 @@ internal fun `สร้างความสัมพันธ์ลูก`(head
     try {
 
         child.forEach {
-            head.addRelationship(Pair(Child, it))
-            it.addRelationship(Pair(relationToHead, head))
+            if (relationToHead == Mother && it.motherId == null) {
+                head.addRelationship(Pair(Child, it))
+                it.addRelationship(Pair(relationToHead, head))
+            } else if (relationToHead == Father && it.fatherId == null) {
+                head.addRelationship(Pair(Child, it))
+                it.addRelationship(Pair(relationToHead, head))
+            }
         }
     } catch (ex: java.lang.IllegalArgumentException) {
         // printDebug("Error ความสัมพันธ์ลูก")
