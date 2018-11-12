@@ -9,19 +9,7 @@
 .idea/dictionaries
 
 # Sensitive or high-churn files:
-.idea/**
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.xml
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/workspace.xml
-
-# Gradle:
-.idea/**/gradle.xml
-.idea/**/libraries
+.idea
 
 # CMake
 cmake-build-debug/
@@ -42,9 +30,6 @@ out/
 
 # JIRA plugin
 atlassian-ide-plugin.xml
-
-# Cursive Clojure plugin
-.idea/replstate.xml
 
 # Ruby plugin and RubyMine
 /.rakeTasks
@@ -121,6 +106,3 @@ gradle-app.setting
 
 local.properties
 
-# End of https://www.gitignore.io/api/java,gradle,kotlin,intellij
-.idea/compiler.xml
-.idea/workspace.xml
