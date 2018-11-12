@@ -17,6 +17,12 @@
 
 package ffc.airsync.db
 
+import ffc.airsync.db.visit.InsertData
+import ffc.airsync.db.visit.InsertUpdate
+import ffc.airsync.db.visit.Query
+import ffc.airsync.db.visit.buildInsertData
+import ffc.airsync.db.visit.buildInsertDiag
+import ffc.airsync.db.visit.buildInsertIndividualData
 import ffc.airsync.utils.printDebug
 import ffc.entity.Person
 import ffc.entity.User
@@ -84,15 +90,15 @@ class JdbiDao(
 
     override fun upateHouse(house: House) {
         val houseUpdate = HouseJhcisDb(
-            hid = house.identity?.id,
-            road = house.road,
-            xgis = house.location?.coordinates?.longitude?.toString(),
-            ygis = house.location?.coordinates?.latitude?.toString(),
-            hno = house.no,
-            dateUpdate = Timestamp(house.timestamp.millis),
+                hid = house.identity?.id,
+                road = house.road,
+                xgis = house.location?.coordinates?.longitude?.toString(),
+                ygis = house.location?.coordinates?.latitude?.toString(),
+                hno = house.no,
+                dateUpdate = Timestamp(house.timestamp.millis),
 
-            pcucode = house.link!!.keys["pcucode"].toString(),
-            hcode = house.link!!.keys["hcode"].toString().toInt()
+                pcucode = house.link!!.keys["pcucode"].toString(),
+                hcode = house.link!!.keys["hcode"].toString().toInt()
         )
         printDebug("House update from could = ${houseUpdate.toJson()}")
         jdbiDao.extension<QueryHouse, Any> { update(houseUpdate) }
@@ -129,35 +135,37 @@ class JdbiDao(
         username: String
     ) {
         val visitNum = queryMaxVisit() + 1
-        val visitData = homeVisit.buildVisitData(
-            pcucode,
-            visitNum,
-            pcucodePerson,
-            ((patient.link?.keys?.get("pid")) as String).toLong(),
-            username,
-            (patient.link?.keys?.get("rightcode")) as String,
-            (patient.link?.keys?.get("rightno")) as String,
-            (patient.link?.keys?.get("hosmain")) as String,
-            (patient.link?.keys?.get("hossub")) as String
+        val visitData = homeVisit.buildInsertData(
+                pcucode,
+                visitNum,
+                pcucodePerson,
+                ((patient.link?.keys?.get("pid")) as String).toLong(),
+                username,
+                (patient.link?.keys?.get("rightcode")) as String,
+                (patient.link?.keys?.get("rightno")) as String,
+                (patient.link?.keys?.get("hosmain")) as String,
+                (patient.link?.keys?.get("hossub")) as String
         )
         insertVisit(visitData)
 
-        jdbiDao.extension<QueryVisit, Unit> { insertVisitDiag(homeVisit.buildVisitDiag(pcucode, visitNum, username)) }
+        jdbiDao.extension<InsertUpdate, Unit> {
+            insertVisitDiag(homeVisit.buildInsertDiag(pcucode, visitNum, username))
+        }
 
-        val visitIndividualData = homeVisit.buildVisitIndividualData(pcucode, visitNum, username)
-        jdbiDao.extension<QueryVisit, Unit> { insertVitsitIndividual(visitIndividualData) }
+        val visitIndividualData = homeVisit.buildInsertIndividualData(pcucode, visitNum, username)
+        jdbiDao.extension<InsertUpdate, Unit> { insertVitsitIndividual(visitIndividualData) }
     }
 
     fun queryMaxVisit(): Long {
-        val listMaxVisit = jdbiDao.extension<QueryVisit, List<Long>> { getMaxVisitNumber() }
+        val listMaxVisit = jdbiDao.extension<Query, List<Long>> { getMaxVisitNumber() }
         return listMaxVisit.last()
     }
 
-    fun insertVisit(visitData: VisitData) {
-        val listVisitData = arrayListOf<VisitData>().apply {
-            add(visitData)
+    fun insertVisit(insertData: InsertData) {
+        val listVisitData = arrayListOf<InsertData>().apply {
+            add(insertData)
         }
-        jdbiDao.extension<QueryVisit, Unit> { insertVisit(listVisitData) }
+        jdbiDao.extension<InsertUpdate, Unit> { insertVisit(listVisitData) }
     }
 
     override fun getVillage(): List<Village> {

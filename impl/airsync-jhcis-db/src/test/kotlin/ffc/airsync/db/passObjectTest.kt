@@ -1,5 +1,6 @@
 package ffc.airsync.db
 
+import ffc.airsync.db.visit.InsertData
 import ffc.entity.gson.parseTo
 import ffc.entity.healthcare.HomeVisit
 import org.amshove.kluent.`should be equal to`
@@ -63,7 +64,7 @@ class passObjectTest {
     @Test
     fun timeServiceTest() {
         val homeVisit = json.parseTo<HomeVisit>()
-        val visitdata = VisitData(
+        val visitdata = InsertData(
                 homeVisit,
                 "00123",
                 123456789,

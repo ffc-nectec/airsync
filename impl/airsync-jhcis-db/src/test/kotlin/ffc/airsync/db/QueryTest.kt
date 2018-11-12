@@ -1,5 +1,6 @@
 package ffc.airsync.db
 
+import ffc.airsync.db.visit.InsertData
 import ffc.airsync.utils.timeZone
 import ffc.entity.Link
 import ffc.entity.System
@@ -21,9 +22,9 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
 
-class QueryVisitTest {
+class QueryTest {
 
-    lateinit var fullVisitData: VisitData
+    lateinit var fullInsertData: InsertData
 
     val homeVisit = HomeVisit(
             "999999",
@@ -66,7 +67,7 @@ class QueryVisitTest {
     @Before
     fun setUp() {
         TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
-        fullVisitData = VisitData(
+        fullInsertData = InsertData(
                 homeVisit,
                 "01088",
                 54321,
@@ -82,50 +83,50 @@ class QueryVisitTest {
 
     @Test
     fun bp() {
-        val bp = fullVisitData.bp!!
+        val bp = fullInsertData.bp!!
 
         bp.systolic `should equal` 110.0
         bp.diastolic `should equal` 90.0
-        fullVisitData.pressure `should equal` "110/90"
+        fullInsertData.pressure `should equal` "110/90"
     }
 
     @Test
     fun visitcode() {
-        fullVisitData.pcucode `should be equal to` "01088"
+        fullInsertData.pcucode `should be equal to` "01088"
     }
 
     @Test
     fun visitnumber() {
-        fullVisitData.visitno `should be equal to` 54321
+        fullInsertData.visitno `should be equal to` 54321
     }
 
     @Test
     fun pcucodeperson() {
-        fullVisitData.pcucodeperson `should be equal to` "01088"
+        fullInsertData.pcucodeperson `should be equal to` "01088"
     }
 
     @Test
     fun inTimeServiceFun() {
-        fullVisitData.timeservice `should be equal to` 1
+        fullInsertData.timeservice `should be equal to` 1
     }
 
     @Test
     fun outTimeServiceFun() {
-        fullVisitData.getTimeService(1) `should be equal to` 2
-        fullVisitData.getTimeService(19) `should be equal to` 2
+        fullInsertData.getTimeService(1) `should be equal to` 2
+        fullInsertData.getTimeService(19) `should be equal to` 2
     }
 
     @Test
     fun getTimeServe() {
         val visitTime = DateTime(2018, 9, 6, 14, 28, 15, timeZone(7))
-        fullVisitData.getTimeService(visitTime.withZone(timeZone(7)).hourOfDay) `should be equal to` 1
-        fullVisitData.getTimeService(visitTime.withZone(timeZone(8)).hourOfDay) `should be equal to` 1
-        fullVisitData.getTimeService(visitTime.withZone(timeZone(9)).hourOfDay) `should be equal to` 2
+        fullInsertData.getTimeService(visitTime.withZone(timeZone(7)).hourOfDay) `should be equal to` 1
+        fullInsertData.getTimeService(visitTime.withZone(timeZone(8)).hourOfDay) `should be equal to` 1
+        fullInsertData.getTimeService(visitTime.withZone(timeZone(9)).hourOfDay) `should be equal to` 2
     }
 
     @Test
     fun visitdate() {
-        fullVisitData.visitdate `should equal` Timestamp.valueOf("2018-09-06 14:28:15.0")
+        fullInsertData.visitdate `should equal` Timestamp.valueOf("2018-09-06 14:28:15.0")
     }
 
     @Ignore("Get max visit in real db")
@@ -135,8 +136,8 @@ class QueryVisitTest {
         maxVisitNmber `should be equal to` 238489
     }
 
-    @Ignore("Insert visit in real db")
+    @Ignore("InsertUpdate visit in real db")
     fun insertVisitTest() {
-        JdbiDao().insertVisit(fullVisitData)
+        JdbiDao().insertVisit(fullInsertData)
     }
 }
