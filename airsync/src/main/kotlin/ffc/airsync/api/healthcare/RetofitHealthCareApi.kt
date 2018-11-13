@@ -4,10 +4,40 @@ import ffc.airsync.db.DatabaseDao
 import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.users
+import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.printDebug
+import ffc.entity.healthcare.HomeVisit
 
 class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
+
+    override fun createHomeVisit(homeVisit: List<HomeVisit>): List<HomeVisit> {
+        var syncccc = true
+        val homeVisitLastUpdate = arrayListOf<HomeVisit>()
+        var loop = 0
+        while (syncccc) {
+            try {
+                println("Loop createHomeVisit ${++loop}")
+                restService.deleteHomeVisit(orgId = organization.id, authkey = tokenBarer)
+                homeVisitLastUpdate.clear()
+                UploadSpliter.upload(200, homeVisit) {
+                    val respond = restService.createHomeVisit(
+                        orgId = organization.id,
+                        authkey = tokenBarer,
+                        homeVisit = it
+                    ).execute()
+                    if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
+                    homeVisitLastUpdate.addAll(respond.body() ?: arrayListOf())
+                }
+                syncccc = false
+            } catch (ex: java.net.SocketTimeoutException) {
+                println("Time out loop $loop")
+                ex.printStackTrace()
+            }
+        }
+        return homeVisitLastUpdate
+    }
+
     override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
         val data = restService.getHomeVisit(orgId = organization.id, authkey = tokenBarer, id = id).execute()
 

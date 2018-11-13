@@ -73,8 +73,6 @@ class MainController(val dao: DatabaseDao) {
         users.initSync()
         houses.initSync(person)
         persons.initSync(houses, person)
-        // persons.syncRelation()
-        // persons.save("relation.json")
         relation.initRelation()
 
         printDebug("Finish push")

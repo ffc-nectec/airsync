@@ -4,6 +4,8 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.CommunityServiceType
+import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.place.Business
 import ffc.entity.place.House
@@ -99,5 +101,14 @@ class TestDao : DatabaseDao {
 
     override fun getTemple(): List<ReligiousPlace> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getHomeVisit(
+        user: List<User>,
+        person: List<Person>,
+        lookupDisease: (icd10: String) -> Disease,
+        lookupHealthType: (id: String) -> CommunityServiceType
+    ): List<HomeVisit> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
