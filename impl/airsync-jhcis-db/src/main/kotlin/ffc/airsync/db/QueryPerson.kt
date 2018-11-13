@@ -42,6 +42,7 @@ SELECT
 	person.birth,
 	person.pid,
 	person.dischargetype,
+    person.sex,
 
 	person.marystatus,
 	cstatus.statusname,
@@ -85,6 +86,7 @@ SELECT
 	person.birth,
 	person.pid,
 	person.dischargetype,
+    person.sex,
 
 	person.marystatus,
 	cstatus.statusname,
@@ -132,6 +134,8 @@ class PersonMapper : RowMapper<Person> {
             firstname = rs.getString("fname")
             lastname = rs.getString("lname")
             prename = rs.getString("titlename")
+            sex = if (rs.getString("sex") == "1") Person.Sex.MALE else Person.Sex.FEMALE
+
             birthDate = LocalDate.fromDateFields(rs.getDate("birth"))
             link = Link(
                 System.JHICS,
