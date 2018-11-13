@@ -57,7 +57,6 @@ SELECT
 	visit.waist,
 	visit.ass,
 
-
 	visitdiag.diagcode,
 	visitdiag.conti,
 	visitdiag.dxtype,
