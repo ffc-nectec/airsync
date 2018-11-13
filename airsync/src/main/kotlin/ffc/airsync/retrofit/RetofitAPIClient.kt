@@ -18,6 +18,7 @@
 package ffc.airsync.retrofit
 
 import ffc.entity.gson.ffcGson
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,7 +27,9 @@ class RetofitAPIClient {
 
     fun getCient(baseUrl: String): Retrofit? {
 
-        val client = OkHttpClient.Builder()
+        val cacheSize = Cache(createTempDir(), 50 * 1024 * 1024)
+
+        val client = OkHttpClient.Builder().cache(cacheSize)
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(ffcGson))
