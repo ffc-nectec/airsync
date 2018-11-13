@@ -20,6 +20,7 @@ package ffc.airsync.db
 import ffc.airsync.db.visit.InsertData
 import ffc.airsync.db.visit.InsertUpdate
 import ffc.airsync.db.visit.Query
+import ffc.airsync.db.visit.VisitUtil
 import ffc.airsync.db.visit.buildInsertData
 import ffc.airsync.db.visit.buildInsertDiag
 import ffc.airsync.db.visit.buildInsertIndividualData
@@ -29,6 +30,8 @@ import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.CommunityServiceType
+import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.place.Business
 import ffc.entity.place.House
@@ -90,15 +93,15 @@ class JdbiDao(
 
     override fun upateHouse(house: House) {
         val houseUpdate = HouseJhcisDb(
-                hid = house.identity?.id,
-                road = house.road,
-                xgis = house.location?.coordinates?.longitude?.toString(),
-                ygis = house.location?.coordinates?.latitude?.toString(),
-                hno = house.no,
-                dateUpdate = Timestamp(house.timestamp.millis),
+            hid = house.identity?.id,
+            road = house.road,
+            xgis = house.location?.coordinates?.longitude?.toString(),
+            ygis = house.location?.coordinates?.latitude?.toString(),
+            hno = house.no,
+            dateUpdate = Timestamp(house.timestamp.millis),
 
-                pcucode = house.link!!.keys["pcucode"].toString(),
-                hcode = house.link!!.keys["hcode"].toString().toInt()
+            pcucode = house.link!!.keys["pcucode"].toString(),
+            hcode = house.link!!.keys["hcode"].toString().toInt()
         )
         printDebug("House update from could = ${houseUpdate.toJson()}")
         jdbiDao.extension<QueryHouse, Any> { update(houseUpdate) }
@@ -136,15 +139,15 @@ class JdbiDao(
     ) {
         val visitNum = queryMaxVisit() + 1
         val visitData = homeVisit.buildInsertData(
-                pcucode,
-                visitNum,
-                pcucodePerson,
-                ((patient.link?.keys?.get("pid")) as String).toLong(),
-                username,
-                (patient.link?.keys?.get("rightcode")) as String,
-                (patient.link?.keys?.get("rightno")) as String,
-                (patient.link?.keys?.get("hosmain")) as String,
-                (patient.link?.keys?.get("hossub")) as String
+            pcucode,
+            visitNum,
+            pcucodePerson,
+            ((patient.link?.keys?.get("pid")) as String).toLong(),
+            username,
+            (patient.link?.keys?.get("rightcode")) as String,
+            (patient.link?.keys?.get("rightno")) as String,
+            (patient.link?.keys?.get("hosmain")) as String,
+            (patient.link?.keys?.get("hossub")) as String
         )
         insertVisit(visitData)
 
@@ -185,5 +188,31 @@ class JdbiDao(
 
     override fun getTemple(): List<ReligiousPlace> {
         return jdbiDao.extension<QueryTemple, List<ReligiousPlace>> { get() }
+    }
+
+    override fun getHomeVisit(
+        user: List<User>,
+        person: List<Person>,
+        lookupDisease: (icd10: String) -> Disease,
+        lookupHealthType: (id: String) -> CommunityServiceType
+    ): List<HomeVisit> {
+        val homeVisitList = arrayListOf<HomeVisit>()
+
+        val visit = VisitUtil()
+
+        jdbiDao.extension<Query, List<HomeVisit>> { getHomeVisit() }.forEach { current ->
+
+            visit.`ใสข้อมูล Disease`(current, lookupDisease)
+
+            val oldHomeVisit = homeVisitList.find { visit.checkDuplicateVisitDiag(it, current) }
+
+            if (oldHomeVisit != null) { // มีข้อมูลการ visit ซ้ำเกิดการการมีหลาย diagnosises
+                oldHomeVisit.diagnosises.add(current.diagnosises.first())
+            } else {
+                val homeVisit = visit.mapId(user, current, person)
+                homeVisitList.add(homeVisit)
+            }
+        }
+        return homeVisitList
     }
 }
