@@ -109,6 +109,6 @@ class TestDao : DatabaseDao {
         lookupDisease: (icd10: String) -> Disease,
         lookupHealthType: (id: String) -> CommunityServiceType
     ): List<HomeVisit> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }
