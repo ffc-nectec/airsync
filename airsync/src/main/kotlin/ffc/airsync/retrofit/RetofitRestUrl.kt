@@ -119,6 +119,19 @@ interface RetofitRestUrl {
         @Path("visitId") id: String
     ): Call<HomeVisit>
 
+    @POST("/v0/org/{orgId}/healthcareservices")
+    fun createHomeVisit(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body homeVisit: List<HomeVisit>
+    ): Call<List<HomeVisit>>
+
+    @DELETE("/v0/org/{orgId}/healthcareservices")
+    fun deleteHomeVisit(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<Void>
+
     @GET("/v0/homehealth")
     fun lookupCommunityServiceType(
         @Header("Authorization") authkey: String,
