@@ -23,6 +23,7 @@ import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
 import ffc.entity.healthcare.CommunityServiceType
+import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.place.House
 import retrofit2.Call
@@ -135,8 +136,14 @@ interface RetofitRestUrl {
     @GET("/v0/homehealth")
     fun lookupCommunityServiceType(
         @Header("Authorization") authkey: String,
-        @Query("query") id: String
+        @Query("query") query: String
     ): Call<List<CommunityServiceType>>
+
+    @GET("/v0/disease")
+    fun lookupDisease(
+        @Header("Authorization") authkey: String,
+        @Query("query") query: String
+    ): Call<List<Disease>>
 
     @GET("/v0/org/{orgId}/sync")
     fun syncData(
