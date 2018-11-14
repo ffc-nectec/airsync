@@ -57,13 +57,13 @@ interface RetofitRestUrl {
         @Body user: List<User>
     ): Call<List<User>>
 
-    @DELETE("/v0/org/{orgId}/place/houses")
+    @DELETE("/v0/org/{orgId}/houses")
     fun clernHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<Void>
 
-    @POST("/v0/org/{orgId}/place/houses")
+    @POST("/v0/org/{orgId}/houses")
     fun createHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -91,14 +91,14 @@ interface RetofitRestUrl {
         @Body relationship: List<Person.Relationship>
     ): Call<List<Person.Relationship>>
 
-    @GET("/v0/org/{orgId}/place/house/{house_id}")
+    @GET("/v0/org/{orgId}/house/{house_id}")
     fun getHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("house_id") _id: String
     ): Call<House>
 
-    @PUT("/v0/org/{orgId}/place/house/{house_id}")
+    @PUT("/v0/org/{orgId}/house/{house_id}")
     fun putHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
