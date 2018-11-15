@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.db
+package ffc.airsync.db.person
 
 import ffc.entity.Link
 import ffc.entity.Person

@@ -17,6 +17,7 @@
 
 package ffc.airsync.db
 
+import ffc.airsync.db.person.QueryPerson
 import ffc.airsync.db.visit.InsertData
 import ffc.airsync.db.visit.InsertUpdate
 import ffc.airsync.db.visit.Query
