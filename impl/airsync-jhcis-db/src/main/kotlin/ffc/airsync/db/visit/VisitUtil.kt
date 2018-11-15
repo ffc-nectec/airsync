@@ -55,6 +55,9 @@ internal class VisitUtil {
     fun checkDuplicateVisitDiag(
         it: HomeVisit,
         currentVisit: HomeVisit
-    ) = ((it.link!!.keys["pcucode"] == currentVisit.link!!.keys["pcucode"])
-            && (it.link!!.keys["visitno"] == currentVisit.link!!.keys["visitno"]))
+    ): Boolean {
+        val checkPcuCode = it.link!!.keys["pcucode"] == currentVisit.link!!.keys["pcucode"]
+        val checkVisitNo = it.link!!.keys["visitno"] == currentVisit.link!!.keys["visitno"]
+        return (checkPcuCode && checkVisitNo)
+    }
 }

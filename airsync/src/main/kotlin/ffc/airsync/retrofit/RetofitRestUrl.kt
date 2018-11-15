@@ -57,18 +57,18 @@ interface RetofitRestUrl {
         @Body user: List<User>
     ): Call<List<User>>
 
-    @DELETE("/v0/org/{orgId}/houses")
-    fun clernHouse(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String
-    ): Call<Void>
-
     @POST("/v0/org/{orgId}/houses")
     fun createHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Body houseList: List<House>
     ): Call<List<House>>
+
+    @DELETE("/v0/org/{orgId}/houses")
+    fun clernHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<Void>
 
     @DELETE("/v0/org/{orgId}/persons")
     fun clearnPerson(

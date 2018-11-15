@@ -102,11 +102,11 @@ class HomeVisitMapper : RowMapper<HomeVisit> {
         ).apply {
 
             // IndividualData
-            syntom = rs.getString("patientsign")
-            detail = rs.getString("homehealthdetail")
-            result = rs.getString("homehealthresult")
-            plan = rs.getString("homehealthplan")
-            nextAppoint = LocalDate(rs.getDate("dateappoint").time)
+            rs.getString("patientsign")?.let { syntom = it }
+            rs.getString("homehealthdetail")?.let { detail = it }
+            rs.getString("homehealthresult")?.let { result = it }
+            rs.getString("homehealthplan")?.let { plan = it }
+            rs.getDate("dateappoint")?.let { nextAppoint = LocalDate(it.time) }
 
             // DiagData
             diagnosises.add(
@@ -131,30 +131,31 @@ class HomeVisitMapper : RowMapper<HomeVisit> {
             time = DateTime(rs.getDate("visitdate")).minusHours(7)
             if ((syntom ?: "").isBlank()) syntom = rs.getString("symptoms")
             if ((result ?: "").isBlank()) result = rs.getString("vitalcheck")
-            weight = rs.getDouble("weight")
-            height = rs.getDouble("height")
-            waist = rs.getDouble("waist")
-            ass = rs.getDouble("ass")
+            rs.getString("weight")?.let { weight = it.toDouble() }
+            rs.getString("height")?.let { height = it.toDouble() }
+            rs.getString("waist")?.let { waist = it.toDouble() }
+            rs.getString("ass")?.let { ass = it.toDouble() }
 
-            val bp = rs.getString("pressure")
-            val systolic = bp.getSystolic()
-            val diastolic = bp.getDiastolic()
-            if (systolic != null && diastolic != null)
-                bloodPressure = BloodPressure(systolic, diastolic)
+            rs.getString("pressure")?.let {
+                val systolic = it.getSystolic()
+                val diastolic = it.getDiastolic()
+                if (systolic != null && diastolic != null)
+                    bloodPressure = BloodPressure(systolic, diastolic)
+            }
 
-            bodyTemperature = rs.getDouble("temperature")
-            pulseRate = rs.getDouble("pulse")
-            respiratoryRate = rs.getDouble("respri")
+            rs.getString("temperature")?.let { bodyTemperature = it.toDouble() }
+            rs.getString("pulse")?.let { pulseRate = it.toDouble() }
+            rs.getString("respri")?.let { respiratoryRate = it.toDouble() }
 
             val link = Link(System.JHICS)
             link.keys = hashMapOf()
-            link.keys["pcucode"] = rs.getString("pcucode")
-            link.keys["visitno"] = rs.getString("visitno")
-            link.keys["pid"] = rs.getString("pid")
-            link.keys["rightcode"] = rs.getString("rightcode")
-            link.keys["rightno"] = rs.getString("rightno")
-            link.keys["hosmain"] = rs.getString("hosmain")
-            link.keys["hossub"] = rs.getString("hossub")
+            rs.getString("pcucode")?.let { link.keys["pcucode"] = it }
+            rs.getString("visitno")?.let { link.keys["visitno"] = it }
+            rs.getString("pid")?.let { link.keys["pid"] = it }
+            rs.getString("rightcode")?.let { link.keys["rightcode"] = it }
+            rs.getString("rightno")?.let { link.keys["rightno"] = it }
+            rs.getString("hosmain")?.let { link.keys["hosmain"] = it }
+            rs.getString("hossub")?.let { link.keys["hossub"] = it }
             this.link = link
         }
     }
