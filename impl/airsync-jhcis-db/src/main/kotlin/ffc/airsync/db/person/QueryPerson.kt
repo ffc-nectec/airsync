@@ -21,6 +21,7 @@ import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.ThaiCitizenId
+import ffc.entity.healthcare.Disease
 import ffc.entity.update
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -30,9 +31,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.joda.time.LocalDate
 import java.sql.ResultSet
 
-interface QueryPerson {
-    @SqlQuery(
-        """
+private const val baseSql = """
 SELECT
 	person.idcard,
 	person.fname,
@@ -41,8 +40,7 @@ SELECT
 	person.pcucodeperson,
 	person.birth,
 	person.pid,
-	person.dischargetype,
-    person.sex,
+   person.sex,
 
 	person.marystatus,
 	cstatus.statusname,
@@ -62,7 +60,16 @@ SELECT
 	`person`.`rightcode`,
 	`person`.`rightno`,
 	`person`.`hosmain`,
-	`person`.`hossub`
+	`person`.`hossub`,
+
+	persondeath.deadcause,
+	persondeath.deaddate,
+	persondeath.cdeatha,
+	persondeath.cdeathb,
+	persondeath.cdeathc,
+	persondeath.cdeathd,
+	persondeath.odisease
+
 FROM person
 	LEFT JOIN ctitle ON
 		person.prename=ctitle.titlecode
@@ -70,51 +77,21 @@ FROM person
 		person.familyposition=cfamilyposition.famposcode
 	LEFT JOIN cstatus ON
 		person.marystatus=cstatus.statuscode
-    """
-    ) // WHERE hcode = 3890
+	LEFT JOIN persondeath ON
+		person.pcucodeperson=persondeath.pcucodeperson
+			AND
+		person.pid=persondeath.pid
+"""
+
+interface QueryPerson {
+
+    @SqlQuery(baseSql) // WHERE hcode = 3890
     @RegisterRowMapper(PersonMapper::class)
     fun get(): List<Person>
 
     @SqlQuery(
-        """
-SELECT
-	person.idcard,
-	person.fname,
-	person.lname,
-	person.hcode,
-	person.pcucodeperson,
-	person.birth,
-	person.pid,
-	person.dischargetype,
-    person.sex,
-
-	person.marystatus,
-	cstatus.statusname,
-
-	person.familyno,
-	person.familyposition,
-	cfamilyposition.famposname,
-
-	person.father,
-	person.fatherid,
-	person.mother,
-	person.motherid,
-	person.mate,
-	person.mateid,
-
-	ctitle.titlename,
-	`person`.`rightcode`,
-	`person`.`rightno`,
-	`person`.`hosmain`,
-	`person`.`hossub`
-FROM person
-	LEFT JOIN ctitle ON
-		person.prename=ctitle.titlecode
-	LEFT JOIN cfamilyposition ON
-		person.familyposition=cfamilyposition.famposcode
-	LEFT JOIN cstatus ON
-		person.marystatus=cstatus.statuscode
-
+        baseSql +
+                """
 	WHERE
 		`person`.`pcucodeperson` = :pcucode AND `person`.`pid`= :pid
 LIMIT 1
@@ -137,32 +114,45 @@ class PersonMapper : RowMapper<Person> {
             sex = if (rs.getString("sex") == "1") Person.Sex.MALE else Person.Sex.FEMALE
 
             birthDate = LocalDate.fromDateFields(rs.getDate("birth"))
-            link = Link(
-                System.JHICS,
-                "pcucodeperson" to (getResult("pcucodeperson", rs)),
-                "pcucodeperson" to (rs.getString("pcucodeperson") ?: ""),
 
-                "pid" to (rs.getString("pid") ?: ""),
-                "hcode" to (rs.getString("hcode") ?: ""),
+            death = rs.getString("deadcause")?.let { deadcause ->
+                LocalDate.fromDateFields(rs.getDate("deaddate"))?.let { deaddate ->
+                    val disease = HashMap<String, Disease>()
+                    disease[deadcause] = deadcause.toDisease()
+                    rs.getString("odisease")?.let { disease[it] = it.toDisease() }
+                    rs.getString("cdeatha")?.let { disease[it] = it.toDisease() }
+                    rs.getString("cdeathb")?.let { disease[it] = it.toDisease() }
+                    rs.getString("cdeathc")?.let { disease[it] = it.toDisease() }
+                    rs.getString("cdeathd")?.let { disease[it] = it.toDisease() }
+                    Person.Death(deaddate, disease.map { it.value })
+                }
+            }
 
-                "marystatus" to (rs.getString("statusname") ?: ""),
-                "famposname" to (rs.getString("famposname") ?: ""),
-                "familyposition" to (rs.getString("familyposition") ?: ""),
-                "familyno" to (rs.getString("familyno") ?: ""),
+            link = Link(System.JHICS)
 
-                "fatherid" to (rs.getString("fatherid") ?: ""),
-                "father" to (rs.getString("father") ?: ""),
-                "motherid" to (rs.getString("motherid") ?: ""),
-                "mother" to (rs.getString("mother") ?: ""),
-                "mate" to (rs.getString("mate") ?: ""),
-                "mateid" to (rs.getString("mateid") ?: ""),
+            getResult("pcucodeperson", rs)?.let { link!!.keys["pcucodeperson"] = it }
 
-                "rightcode" to (rs.getString("rightcode") ?: ""),
-                "rightno" to (rs.getString("rightno") ?: ""),
-                "hosmain" to (rs.getString("hosmain") ?: ""),
-                "hossub" to (rs.getString("hossub") ?: "")
+            getResult("pcucodeperson", rs)?.let { link!!.keys["pcucodeperson"] = it }
+            getResult("pid", rs)?.let { link!!.keys["pid"] = it }
+            getResult("hcode", rs)?.let { link!!.keys["hcode"] = it }
 
-            )
+            getResult("marystatus", rs)?.let { link!!.keys["marystatus"] = it }
+            getResult("statusname", rs)?.let { link!!.keys["marystatusth"] = it }
+            getResult("famposname", rs)?.let { link!!.keys["famposname"] = it }
+            getResult("familyposition", rs)?.let { link!!.keys["familyposition"] = it }
+            getResult("familyno", rs)?.let { link!!.keys["familyno"] = it }
+
+            getResult("fatherid", rs)?.let { link!!.keys["fatherid"] = it }
+            getResult("father", rs)?.let { link!!.keys["father"] = it }
+            getResult("motherid", rs)?.let { link!!.keys["motherid"] = it }
+            getResult("mother", rs)?.let { link!!.keys["mother"] = it }
+            getResult("mate", rs)?.let { link!!.keys["mate"] = it }
+            getResult("mateid", rs)?.let { link!!.keys["mateid"] = it }
+
+            getResult("rightcode", rs)?.let { link!!.keys["rightcode"] = it }
+            getResult("rightno", rs)?.let { link!!.keys["rightno"] = it }
+            getResult("hosmain", rs)?.let { link!!.keys["hosmain"] = it }
+            getResult("hossub", rs)?.let { link!!.keys["hossub"] = it }
 
             val bundleRemoveKey = arrayListOf<String>()
             bundle.forEach { key: String, value: Any ->
@@ -188,10 +178,14 @@ class PersonMapper : RowMapper<Person> {
         }
     }
 
-    private fun getResult(column: String, rs: ResultSet): String {
-        var value = rs.getString(column)
-        if (value == "null")
-            value = null
-        return value ?: ""
+    private fun getResult(column: String, rs: ResultSet): String? {
+        return rs.getString(column)?.let {
+            if (it == "null")
+                null
+            else
+                it
+        }
     }
 }
+
+private fun String.toDisease() = Disease("", "", this)
