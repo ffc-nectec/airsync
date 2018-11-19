@@ -19,13 +19,13 @@ package ffc.airsync.utils
 
 object UploadSpliter {
 
-    fun <T> upload(fixSizeCake: Int, list: List<T>, howToPutCake: (list: List<T>) -> Unit) {
+    fun <T> upload(fixSizeCake: Int, list: List<T>, howToPutCake: (list: List<T>, block: Int) -> Unit) {
         val cakePound = cutCake(fixSizeCake, list)
 
         printDebug("Run size ${cakePound.size}")
         cakePound.forEachIndexed { index, it ->
             print("\nStart push $index ....")
-            howToPutCake(it)
+            howToPutCake(it, index)
             print(" Finish push")
         }
     }

@@ -20,7 +20,7 @@ class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
                 println("Loop createHomeVisit ${++loop}")
                 restService.deleteHomeVisit(orgId = organization.id, authkey = tokenBarer)
                 homeVisitLastUpdate.clear()
-                UploadSpliter.upload(200, homeVisit) {
+                UploadSpliter.upload(200, homeVisit) { it, index ->
                     val respond = restService.createHomeVisit(
                         orgId = organization.id,
                         authkey = tokenBarer,
