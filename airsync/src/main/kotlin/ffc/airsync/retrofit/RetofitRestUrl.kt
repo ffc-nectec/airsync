@@ -31,6 +31,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.OPTIONS
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -79,6 +80,28 @@ interface RetofitRestUrl {
     @POST("/v0/org/{orgId}/persons")
     fun createPerson(
         @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body personList: List<Person>
+    ): Call<List<Person>>
+
+    @OPTIONS("/v0/org/{orgId}/person/sync/{block}")
+    fun confirmPersonBlock(
+        @Path("orgId") orgId: String,
+        @Path("block") block: Int,
+        @Header("Authorization") authkey: String
+    ): Call<Void>
+
+    @DELETE("/v0/org/{orgId}/person/sync/{block}")
+    fun unConfirmPersonBlock(
+        @Path("orgId") orgId: String,
+        @Path("block") block: Int,
+        @Header("Authorization") authkey: String
+    ): Call<Void>
+
+    @POST("/v0/org/{orgId}/person/sync/{block}")
+    fun createPersonBlock(
+        @Path("orgId") orgId: String,
+        @Path("block") block: Int,
         @Header("Authorization") authkey: String,
         @Body personList: List<Person>
     ): Call<List<Person>>
