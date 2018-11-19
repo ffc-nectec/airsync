@@ -14,7 +14,7 @@ class RetofitHouseApi : RetofitApi(), HouseApi {
                 println("Start put house to cloud")
                 val houseLastUpdate = arrayListOf<House>()
                 restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute()
-                UploadSpliter.upload(100, houseList) {
+                UploadSpliter.upload(100, houseList) { it, index ->
                     val respond = restService.createHouse(
                         orgId = organization.id,
                         authkey = tokenBarer,

@@ -17,7 +17,7 @@ class UploadSpliterTest {
     @Test
     fun uploadBestCase() {
         val array = arrayListOf<List<String>>()
-        UploadSpliter.upload(10, list) {
+        UploadSpliter.upload(10, list) { it, index ->
             array.add(it)
         }
 
@@ -29,7 +29,7 @@ class UploadSpliterTest {
     @Test
     fun uploadScraps() {
         val array = arrayListOf<List<String>>()
-        UploadSpliter.upload(7, list) {
+        UploadSpliter.upload(7, list) { it, index ->
             array.add(it)
         }
 

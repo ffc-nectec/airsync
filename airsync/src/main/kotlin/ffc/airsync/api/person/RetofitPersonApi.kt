@@ -14,7 +14,7 @@ class RetofitPersonApi : RetofitApi(), PersonApi {
                 println("Loop putPerson ${++loop}")
                 personLastUpdate.clear()
                 restService.clearnPerson(orgId = organization.id, authkey = tokenBarer).execute()
-                UploadSpliter.upload(200, personList) {
+                UploadSpliter.upload(200, personList) { it, index ->
                     val respond = restService.createPerson(
                         orgId = organization.id,
                         authkey = tokenBarer,
