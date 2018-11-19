@@ -180,7 +180,7 @@ class PersonMapper : RowMapper<Person> {
 
     private fun getResult(column: String, rs: ResultSet): String? {
         return rs.getString(column)?.let {
-            if (it == "null")
+            if (it.toLowerCase() == "null")
                 null
             else
                 it
