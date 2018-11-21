@@ -5,15 +5,16 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.printDebug
 import ffc.entity.place.House
+import retrofit2.dsl.enqueue
 
 class RetofitHouseApi : RetofitApi(), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
-        var loop = 0
         restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute()
         println("Start put house to cloud")
         val houseLastUpdate = arrayListOf<House>()
         UploadSpliter.upload(100, houseList) { it, index ->
             var syncc = true
+            var loop = 0
             while (syncc) {
                 try {
                     restService.unConfirmHouseBlock(
@@ -29,12 +30,12 @@ class RetofitHouseApi : RetofitApi(), HouseApi {
                         block = index
                     ).execute()
                     if (respond.code() == 201) {
+                        houseLastUpdate.addAll(respond.body() ?: arrayListOf())
                         restService.confirmHouseBlock(
                             orgId = organization.id,
                             authkey = tokenBarer,
                             block = index
-                        ).execute()
-                        houseLastUpdate.addAll(respond.body() ?: arrayListOf())
+                        ).enqueue { }
                         syncc = false
                     } else {
                         println("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
