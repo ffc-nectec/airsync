@@ -9,21 +9,19 @@ import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService
 
 fun ArrayList<HealthCareService>.initSync() {
-    val localHomeVisit = arrayListOf<HealthCareService>().apply {
+    val localHealthCare = arrayListOf<HealthCareService>().apply {
         addAll(load())
     }
 
-    if (localHomeVisit.isEmpty()) {
-        localHomeVisit.addAll(getHomeVisit())
-        addAll(healthCareApi.createHomeVisit(localHomeVisit))
+    if (localHealthCare.isEmpty()) {
+        localHealthCare.addAll(getHealthCare())
+        addAll(healthCareApi.createHealthCare(localHealthCare))
         save()
     } else {
-        addAll(localHomeVisit)
+        addAll(localHealthCare)
     }
 }
 
-private fun getHomeVisit(): List<HealthCareService> {
-    val dao = Main.instant.createDatabaseDao()
-
-    return dao.getHealthCareService(users, persons)
+private fun getHealthCare(): List<HealthCareService> {
+    return Main.instant.createDatabaseDao().getHealthCareService(users, persons)
 }

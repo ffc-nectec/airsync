@@ -143,11 +143,11 @@ interface RetofitRestUrl {
     ): Call<Void>
 
     @POST("/v0/org/{orgId}/healthcareservice/sync/{block}")
-    fun createHealthCareBlock(
+    fun insertHealthCareBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int,
-        @Body personList: List<HealthCareService>
+        @Body healthCare: List<HealthCareService>
     ): Call<List<HealthCareService>>
 
     @PUT("/v0/org/{orgId}/healthcareservice/sync/{block}")
@@ -194,7 +194,7 @@ interface RetofitRestUrl {
     ): Call<List<HealthCareService>>
 
     @DELETE("/v0/org/{orgId}/healthcareservices")
-    fun deleteHomeVisit(
+    fun cleanHealthCare(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<Void>
