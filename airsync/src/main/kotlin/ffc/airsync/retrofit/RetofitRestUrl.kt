@@ -121,7 +121,7 @@ interface RetofitRestUrl {
     ): Call<List<Person>>
 
     @POST("/v0/org/{orgId}/person/sync/{block}")
-    fun createPersonBlock(
+    fun insertPersonBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int,
