@@ -18,10 +18,13 @@
 package ffc.airsync.db
 
 import ffc.airsync.db.person.QueryPerson
+import ffc.airsync.db.service.HomeVisitQuery
+import ffc.airsync.db.service.NCDscreenQuery
+import ffc.airsync.db.service.SpecialppQuery
+import ffc.airsync.db.service.VisitDiagQuery
+import ffc.airsync.db.service.VisitQuery
 import ffc.airsync.db.visit.InsertData
 import ffc.airsync.db.visit.InsertUpdate
-import ffc.airsync.db.visit.Query
-import ffc.airsync.db.visit.VisitUtil
 import ffc.airsync.db.visit.buildInsertData
 import ffc.airsync.db.visit.buildInsertDiag
 import ffc.airsync.db.visit.buildInsertIndividualData
@@ -31,9 +34,11 @@ import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.CommunityServiceType
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.Diagnosis
+import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.NCDScreen
+import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
@@ -42,6 +47,7 @@ import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
+import org.joda.time.LocalDate
 import java.sql.Timestamp
 import javax.sql.DataSource
 
@@ -133,13 +139,14 @@ class JdbiDao(
 
     override fun createHomeVisit(
         homeVisit: HomeVisit,
+        healthCareService: HealthCareService,
         pcucode: String,
         pcucodePerson: String,
         patient: Person,
         username: String
     ) {
         val visitNum = queryMaxVisit() + 1
-        val visitData = homeVisit.buildInsertData(
+        val visitData = healthCareService.buildInsertData(
             pcucode,
             visitNum,
             pcucodePerson,
@@ -153,15 +160,15 @@ class JdbiDao(
         insertVisit(visitData)
 
         jdbiDao.extension<InsertUpdate, Unit> {
-            insertVisitDiag(homeVisit.buildInsertDiag(pcucode, visitNum, username))
+            insertVisitDiag(healthCareService.buildInsertDiag(pcucode, visitNum, username))
         }
 
-        val visitIndividualData = homeVisit.buildInsertIndividualData(pcucode, visitNum, username)
+        val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
         jdbiDao.extension<InsertUpdate, Unit> { insertVitsitIndividual(visitIndividualData) }
     }
 
     fun queryMaxVisit(): Long {
-        val listMaxVisit = jdbiDao.extension<Query, List<Long>> { getMaxVisitNumber() }
+        val listMaxVisit = jdbiDao.extension<VisitQuery, List<Long>> { getMaxVisitNumber() }
         return listMaxVisit.last()
     }
 
@@ -191,29 +198,34 @@ class JdbiDao(
         return jdbiDao.extension<QueryTemple, List<ReligiousPlace>> { get() }
     }
 
-    override fun getHomeVisit(
-        user: List<User>,
-        person: List<Person>,
-        lookupDisease: (icd10: String) -> Disease,
-        lookupHealthType: (id: String) -> CommunityServiceType
-    ): List<HomeVisit> {
-        val homeVisitList = arrayListOf<HomeVisit>()
+    override fun getHealthCareService(user: List<User>, person: List<Person>): List<HealthCareService> {
 
-        val visit = VisitUtil()
+        return jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }.map { healthcareService ->
+            healthcareService.link?.keys?.get("visitno")?.toString()?.toInt()?.let { visitNumber ->
+                val diagnosis = jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
+                val specislPP = jdbiDao.extension<SpecialppQuery, List<String>> { get(visitNumber) }
+                val ncdScreen = jdbiDao.extension<NCDscreenQuery, List<NCDScreen>> { get(visitNumber) }
+                val homeVisit = jdbiDao.extension<HomeVisitQuery, List<HomeVisit>> { get(visitNumber) }
 
-        jdbiDao.extension<Query, List<HomeVisit>> { getHomeVisit() }.forEach { current ->
+                healthcareService.diagnosises = diagnosis.toMutableList()
 
-            visit.`ใสข้อมูล Disease`(current, lookupDisease)
+                specislPP.forEach {
+                    healthcareService.addSpecialPP(
+                        SpecialPP.PPType(
+                            id = it,
+                            name = ""
+                        )
+                    )
+                }
 
-            val oldHomeVisit = homeVisitList.find { visit.checkDuplicateVisitDiag(it, current) }
+                healthcareService.ncdScreen = ncdScreen.firstOrNull()
 
-            if (oldHomeVisit != null) { // มีข้อมูลการ visit ซ้ำเกิดการการมีหลาย diagnosises
-                oldHomeVisit.diagnosises.add(current.diagnosises.first())
-            } else {
-                val homeVisit = visit.mapId(user, current, person)
-                homeVisitList.add(homeVisit)
+                homeVisit.forEach {
+                    healthcareService.communityServices.add(it)
+                    healthcareService.nextAppoint = it.bundle["dateappoint"] as LocalDate
+                }
             }
+            healthcareService
         }
-        return homeVisitList
     }
 }

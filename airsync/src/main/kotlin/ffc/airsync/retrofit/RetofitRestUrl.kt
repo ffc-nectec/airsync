@@ -22,9 +22,9 @@ import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token
 import ffc.entity.User
-import ffc.entity.healthcare.CommunityServiceType
+import ffc.entity.healthcare.CommunityService.ServiceType
 import ffc.entity.healthcare.Disease
-import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.HealthCareService
 import ffc.entity.place.House
 import retrofit2.Call
 import retrofit2.http.Body
@@ -141,14 +141,14 @@ interface RetofitRestUrl {
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("visitId") id: String
-    ): Call<HomeVisit>
+    ): Call<HealthCareService>
 
     @POST("/v0/org/{orgId}/healthcareservices")
     fun createHomeVisit(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
-        @Body homeVisit: List<HomeVisit>
-    ): Call<List<HomeVisit>>
+        @Body homeVisit: List<HealthCareService>
+    ): Call<List<HealthCareService>>
 
     @DELETE("/v0/org/{orgId}/healthcareservices")
     fun deleteHomeVisit(
@@ -160,7 +160,7 @@ interface RetofitRestUrl {
     fun lookupCommunityServiceType(
         @Header("Authorization") authkey: String,
         @Query("query") query: String
-    ): Call<List<CommunityServiceType>>
+    ): Call<List<ServiceType>>
 
     @GET("/v0/disease")
     fun lookupDisease(

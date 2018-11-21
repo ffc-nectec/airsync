@@ -1,10 +1,10 @@
 package ffc.airsync.api.homehealthtype
 
 import ffc.airsync.retrofit.RetofitApi
-import ffc.entity.healthcare.CommunityServiceType
+import ffc.entity.healthcare.CommunityService.ServiceType
 
 class RetofitHomeHealthTypeApi : RetofitApi(), HomeHealthTypeApi {
-    override fun lookup(healthTypeId: String): List<CommunityServiceType> {
+    override fun lookup(healthTypeId: String): List<ServiceType> {
         while (true) {
 
             try {

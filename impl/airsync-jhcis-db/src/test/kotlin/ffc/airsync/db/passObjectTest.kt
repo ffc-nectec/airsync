@@ -2,79 +2,114 @@ package ffc.airsync.db
 
 import ffc.airsync.db.visit.InsertData
 import ffc.entity.gson.parseTo
-import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.HealthCareService
 import org.amshove.kluent.`should be equal to`
 import org.junit.Test
 
 class passObjectTest {
 
     val json = """
-        {
-    "_id": {
-        "${'$'}oid": "5bb1949aac308300049268d3"
-    },
-    "detail": "ทายา",
-    "result": "น่าจะหายหลังจากนี้",
-    "plan": "ทาา",
-    "serviceType": {
+{
+  "link": {
+    "isSynced": true,
+    "lastSync": "2018-11-21T14:23:28.289+07:00",
+    "system": "JHICS",
+    "keys": {
+      "pcucode": "xxxxxx",
+      "visitno": "yyyyyy"
+    }
+  },
+  "id": "0f39f52bedeb4927a0793cdd4711a08e",
+  "type": "HealthCareService",
+  "timestamp": "2018-11-21T14:23:28.173+07:00",
+  "nextAppoint": "2019-02-06",
+  "syntom": "sleep",
+  "suggestion": "suggestion",
+  "weight": 80.3,
+  "height": 190.5,
+  "bloodPressure": {
+    "systolic": 110,
+    "diastolic": 90
+  },
+  "pulseRate": 62.2,
+  "respiratoryRate": 20.4,
+  "bodyTemperature": 37.1,
+  "diagnosises": [
+    {
+      "disease": {
+        "icd10": "I10.1",
+        "isEpimedic": true,
+        "isChronic": true,
+        "isNCD": false,
+        "type": "Icd10",
         "translation": {},
-        "id": "1A016",
-        "name": "เยี่ยมผู้ป่วยโรคเอดส์"
+        "id": "5b69bf7ce5144493a3e57199d7461bd3",
+        "name": "สมองเสื่อม"
+      },
+      "dxType": "OTHER",
+      "isContinued": false
     },
-    "time": "2018-10-01T10:29:27.649+07:00",
-    "endTime": "2018-10-01T10:34:27.649+07:00",
-    "nextAppoint": "2018-10-05",
-    "syntom": "มีผื่นเต็มตัว",
-    "weight": 47,
-    "height": 157,
-    "waist": 75,
-    "ass": 95,
-    "bloodPressure": {
-        "systolic": 110,
-        "diastolic": 30
-    },
-    "pulseRate": 60,
-    "respiratoryRate": 30,
-    "bodyTemperature": 37,
-    "diagnosises": [
-        {
-            "disease": {
-                "icd10": "A00",
-                "isEpimedic": false,
-                "isChronic": false,
-                "isNCD": false,
-                "translation": {},
-                "id": "6fdaf4b5713a4994b6e963f75ff3f501",
-                "name": "อหิวาตกโรค"
-            },
-            "dxType": "PRINCIPLE_DX",
-            "isContinued": false
-        }
-    ],
-    "photosUrl": [],
-    "providerId": "5bacabd910257c0004c52c06",
-    "patientId": "5bacac9d10257c0004c55897",
-    "id": "5bb1949aac308300049268d3",
-    "type": "HomeVisit",
-    "timestamp": "2018-10-01T10:29:27.649+07:00",
-    "orgId": "5bacabd810257c0004c52bff"
+    {
+      "disease": {
+        "icd10": "I10.1",
+        "isEpimedic": true,
+        "isChronic": true,
+        "isNCD": false,
+        "type": "Icd10",
+        "translation": {},
+        "id": "5b69bf7ce5144493a3e57199d7461bd3",
+        "name": "สมองเสื่อม"
+      },
+      "dxType": "PRINCIPLE_DX",
+      "isContinued": false
+    }
+  ],
+  "photosUrl": [],
+  "communityServices": [
+    {
+      "detail": "ทดสอบ ปกติทุกอย่าง ราบรื่น มากๆ",
+      "plan": "กินอื่ม นอนหลับ ทานของมันให้น้อยลง ออกกำลังกาย",
+      "serviceType": {
+        "type": "ServiceType",
+        "translation": {},
+        "id": "654321",
+        "name": "ให้อดข้าว"
+      },
+      "id": "26d15fe218d84b0a877853e6d585e4d6",
+      "type": "HomeVisit",
+      "timestamp": "2018-11-21T14:23:28.280+07:00"
+    }
+  ],
+  "specialPPs": [],
+  "time": "2018-09-06T14:28:15.000+07:00",
+  "endTime": "2018-11-21T14:28:28.234+07:00",
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      113.34,
+      13
+    ]
+  },
+  "providerId": "999999",
+  "patientId": "000000"
 }
     """.trimIndent()
 
     @Test
     fun timeServiceTest() {
-        val homeVisit = json.parseTo<HomeVisit>()
+        val homeVisit = json.parseTo<HealthCareService>()
         val visitdata = InsertData(
-                homeVisit,
-                "00123",
-                123456789,
-                "445566",
-                11122233343,
-                "puy",
-                "R45",
-                "X99",
-                "hotmain",
-                "hossub")
+            homeVisit,
+            "00123",
+            123456789,
+            "445566",
+            11122233343,
+            "puy",
+            "R45",
+            "X99",
+            "hotmain",
+            "hossub"
+        )
 
         visitdata.timeservice `should be equal to` 1
     }

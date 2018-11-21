@@ -4,11 +4,13 @@ import ffc.airsync.db.visit.InsertData
 import ffc.airsync.utils.timeZone
 import ffc.entity.Link
 import ffc.entity.System
+import ffc.entity.gson.toJson
 import ffc.entity.healthcare.BloodPressure
-import ffc.entity.healthcare.CommunityServiceType
+import ffc.entity.healthcare.CommunityService.ServiceType
 import ffc.entity.healthcare.Diagnosis
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.Icd10
 import me.piruin.geok.geometry.Point
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should equal`
@@ -26,26 +28,30 @@ class QueryTest {
 
     lateinit var fullInsertData: InsertData
 
-    val homeVisit = HomeVisit(
-            "999999",
-            "000000",
-            CommunityServiceType("654321", "ให้อดข้าว")
+    val healthcare = HealthCareService(
+        "999999",
+        "000000"
     ).apply {
-        detail = "ทดสอบ ปกติทุกอย่าง ราบรื่น มากๆ"
         nextAppoint = LocalDate(1536218895967).plusMonths(5)
-        plan = "กินอื่ม นอนหลับ ทานของมันให้น้อยลง ออกกำลังกาย"
         bloodPressure = BloodPressure(110.0, 90.0)
         respiratoryRate = 20.4
         pulseRate = 62.2
         bodyTemperature = 37.1
+        communityServices.add(
+            HomeVisit(
+                ServiceType("654321", "ให้อดข้าว")
+            ).apply {
+                detail = "ทดสอบ ปกติทุกอย่าง ราบรื่น มากๆ"
+                plan = "กินอื่ม นอนหลับ ทานของมันให้น้อยลง ออกกำลังกาย"
+            }
+        )
 
-        val disease = Disease(
-                "9981abcdeeeffdeab",
-                "สมองเสื่อม",
-                "I10.1",
-                true,
-                true,
-                false
+        val disease = Icd10(
+            "สมองเสื่อม",
+            "I10.1",
+            true,
+            true,
+            false
         )
         diagnosises.add(Diagnosis(disease, Diagnosis.Type.OTHER))
 
@@ -68,17 +74,22 @@ class QueryTest {
     fun setUp() {
         TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
         fullInsertData = InsertData(
-                homeVisit,
-                "01088",
-                54321,
-                "01088",
-                16840,
-                "คนดีช่วยรอด",
-                "",
-                "",
-                "",
-                ""
+            healthcare,
+            "01088",
+            54321,
+            "01088",
+            16840,
+            "คนดีช่วยรอด",
+            "",
+            "",
+            "",
+            ""
         )
+    }
+
+    @Test
+    fun toJson() {
+        println(healthcare.toJson())
     }
 
     @Test

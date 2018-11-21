@@ -75,7 +75,7 @@ class MainController(val dao: DatabaseDao) {
         houses.initSync(person)
         persons.initSync(houses, person)
         relation.initRelation()
-        homeVisit.initSync()
+        healthCare.initSync()
 
         printDebug("Finish push")
     }

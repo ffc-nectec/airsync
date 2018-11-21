@@ -43,7 +43,7 @@ SELECT
 	visit.waist,
 	visit.ass,
 	visit.healthsuggest1 as suggest,
-	visit.doccounseling
+	visit.diagnote
 FROM
 	visit
 """
@@ -92,7 +92,7 @@ class VisitMapper : RowMapper<HealthCareService> {
 
             rs.getString("temperature")?.let { bodyTemperature = it.toDouble() }
 
-            rs.getString("doccounseling")?.let { note = it }
+            rs.getString("diagnote")?.let { note = it }
 
             link = Link(System.JHICS)
             rs.getString("pcucode")?.let { link!!.keys["pcucode"] = it }
