@@ -31,7 +31,6 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.OPTIONS
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -65,10 +64,47 @@ interface RetofitRestUrl {
         @Body houseList: List<House>
     ): Call<List<House>>
 
+    @GET("/v0/org/{orgId}/house/{house_id}")
+    fun getHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("house_id") _id: String
+    ): Call<House>
+
+    @PUT("/v0/org/{orgId}/house/{house_id}")
+    fun putHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("house_id") _id: String,
+        @Body house: House
+    ): Call<Void>
+
     @DELETE("/v0/org/{orgId}/houses")
     fun clernHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
+    ): Call<Void>
+
+    @POST("/v0/org/{orgId}/house/sync/{block}")
+    fun insertHouseBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int,
+        @Body houseList: List<House>
+    ): Call<List<House>>
+
+    @PUT("/v0/org/{orgId}/house/sync/{block}")
+    fun confirmHouseBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
+    ): Call<Void>
+
+    @DELETE("/v0/org/{orgId}/house/sync/{block}")
+    fun unConfirmHouseBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
     ): Call<Void>
 
     @DELETE("/v0/org/{orgId}/persons")
@@ -84,27 +120,49 @@ interface RetofitRestUrl {
         @Body personList: List<Person>
     ): Call<List<Person>>
 
-    @OPTIONS("/v0/org/{orgId}/person/sync/{block}")
+    @POST("/v0/org/{orgId}/person/sync/{block}")
+    fun createPersonBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int,
+        @Body personList: List<Person>
+    ): Call<List<Person>>
+
+    @PUT("/v0/org/{orgId}/person/sync/{block}")
     fun confirmPersonBlock(
         @Path("orgId") orgId: String,
-        @Path("block") block: Int,
-        @Header("Authorization") authkey: String
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
     ): Call<Void>
 
     @DELETE("/v0/org/{orgId}/person/sync/{block}")
     fun unConfirmPersonBlock(
         @Path("orgId") orgId: String,
-        @Path("block") block: Int,
-        @Header("Authorization") authkey: String
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
     ): Call<Void>
 
-    @POST("/v0/org/{orgId}/person/sync/{block}")
-    fun createPersonBlock(
+    @POST("/v0/org/{orgId}/healthcareservice/sync/{block}")
+    fun createHealthCareBlock(
         @Path("orgId") orgId: String,
-        @Path("block") block: Int,
         @Header("Authorization") authkey: String,
-        @Body personList: List<Person>
-    ): Call<List<Person>>
+        @Path("block") block: Int,
+        @Body personList: List<HealthCareService>
+    ): Call<List<HealthCareService>>
+
+    @PUT("/v0/org/{orgId}/healthcareservice/sync/{block}")
+    fun confirmHealthCareBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
+    ): Call<Void>
+
+    @DELETE("/v0/org/{orgId}/healthcareservice/sync/{block}")
+    fun unConfirmHealthCareBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
+    ): Call<Void>
 
     @PUT("/v0/org/{orgId}/person/{personId}/relationship")
     fun updateRelationship(
@@ -113,21 +171,6 @@ interface RetofitRestUrl {
         @Path("personId") personId: String,
         @Body relationship: List<Person.Relationship>
     ): Call<List<Person.Relationship>>
-
-    @GET("/v0/org/{orgId}/house/{house_id}")
-    fun getHouse(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String,
-        @Path("house_id") _id: String
-    ): Call<House>
-
-    @PUT("/v0/org/{orgId}/house/{house_id}")
-    fun putHouse(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String,
-        @Path("house_id") _id: String,
-        @Body house: House
-    ): Call<Void>
 
     @POST("/v0/org/{orgId}/firebasetoken")
     fun createFirebaseToken(
