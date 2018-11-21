@@ -9,34 +9,49 @@ import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.printDebug
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import retrofit2.dsl.enqueue
 
 class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
 
-    override fun createHomeVisit(homeVisit: List<HealthCareService>): List<HealthCareService> {
-        var syncccc = true
-        val homeVisitLastUpdate = arrayListOf<HealthCareService>()
-        var loop = 0
-        while (syncccc) {
-            try {
-                println("Loop createHomeVisit ${++loop}")
-                restService.deleteHomeVisit(orgId = organization.id, authkey = tokenBarer)
-                homeVisitLastUpdate.clear()
-                UploadSpliter.upload(200, homeVisit) { it, index ->
-                    val respond = restService.createHomeVisit(
+    override fun createHealthCare(homeVisit: List<HealthCareService>): List<HealthCareService> {
+        val healthCareLastUpdate = arrayListOf<HealthCareService>()
+        restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer)
+        UploadSpliter.upload(200, homeVisit) { it, index ->
+            var syncc = true
+            var loop = 0
+            while (syncc) {
+                try {
+                    restService.unConfirmHealthCareBlock(
                         orgId = organization.id,
                         authkey = tokenBarer,
-                        homeVisit = it
+                        block = index
                     ).execute()
-                    if (respond.code() != 201) throw IllegalAccessException("Cannot Login ${respond.code()}")
-                    homeVisitLastUpdate.addAll(respond.body() ?: arrayListOf())
+
+                    val respond = restService.insertHealthCareBlock(
+                        orgId = organization.id,
+                        authkey = tokenBarer,
+                        healthCare = it,
+                        block = index
+                    ).execute()
+
+                    if (respond.code() == 201) {
+                        healthCareLastUpdate.addAll(respond.body() ?: arrayListOf())
+                        restService.confirmHealthCareBlock(
+                            orgId = organization.id,
+                            authkey = tokenBarer,
+                            block = index
+                        ).enqueue { }
+                        syncc = false
+                    } else {
+                        println("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
+                    }
+                } catch (ex: java.net.SocketTimeoutException) {
+                    println("Time out loop ${++loop}")
+                    ex.printStackTrace()
                 }
-                syncccc = false
-            } catch (ex: java.net.SocketTimeoutException) {
-                println("Time out loop $loop")
-                ex.printStackTrace()
             }
         }
-        return homeVisitLastUpdate
+        return healthCareLastUpdate
     }
 
     override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
