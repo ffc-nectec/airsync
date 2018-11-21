@@ -9,31 +9,43 @@ import ffc.entity.place.House
 class RetofitHouseApi : RetofitApi(), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
         var loop = 0
-        while (true) {
-            try {
-                println("Start put house to cloud")
-                val houseLastUpdate = arrayListOf<House>()
-                restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute()
-                UploadSpliter.upload(100, houseList) { it, index ->
-                    val respond = restService.createHouse(
+        restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute()
+        println("Start put house to cloud")
+        val houseLastUpdate = arrayListOf<House>()
+        UploadSpliter.upload(100, houseList) { it, index ->
+            var syncc = true
+            while (syncc) {
+                try {
+                    restService.unConfirmHouseBlock(
                         orgId = organization.id,
                         authkey = tokenBarer,
-                        houseList = it
+                        block = index
                     ).execute()
-                    if (respond.code() != 201)
-                        throw IllegalAccessException(
-                            "Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}"
-                        )
-                    val houseFromCloud = respond.body() ?: arrayListOf()
-                    houseLastUpdate.addAll(houseFromCloud)
-                }
 
-                return houseLastUpdate
-            } catch (ex: java.net.SocketTimeoutException) {
-                println("Time out loop ${++loop}")
-                ex.printStackTrace()
+                    val respond = restService.insertHouseBlock(
+                        orgId = organization.id,
+                        authkey = tokenBarer,
+                        houseList = it,
+                        block = index
+                    ).execute()
+                    if (respond.code() == 201) {
+                        restService.confirmHouseBlock(
+                            orgId = organization.id,
+                            authkey = tokenBarer,
+                            block = index
+                        ).execute()
+                        houseLastUpdate.addAll(respond.body() ?: arrayListOf())
+                        syncc = false
+                    } else {
+                        println("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
+                    }
+                } catch (ex: java.net.SocketTimeoutException) {
+                    println("Time out loop ${++loop}")
+                    ex.printStackTrace()
+                }
             }
         }
+        return houseLastUpdate
     }
 
     override fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao) {
