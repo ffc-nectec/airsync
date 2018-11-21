@@ -21,8 +21,7 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.CommunityServiceType
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.place.Business
 import ffc.entity.place.House
@@ -46,15 +45,14 @@ interface DatabaseDao {
 
     fun upateHouse(house: House)
 
-    fun getHomeVisit(
+    fun getHealthCareService(
         user: List<User>,
-        person: List<Person>,
-        lookupDisease: (icd10: String) -> Disease,
-        lookupHealthType: (id: String) -> CommunityServiceType
-    ): List<HomeVisit>
+        person: List<Person>
+    ): List<HealthCareService>
 
     fun createHomeVisit(
         homeVisit: HomeVisit,
+        healthCareService: HealthCareService,
         pcucode: String,
         pcucodePerson: String,
         patient: Person,

@@ -7,13 +7,14 @@ import ffc.airsync.users
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.printDebug
+import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 
 class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
 
-    override fun createHomeVisit(homeVisit: List<HomeVisit>): List<HomeVisit> {
+    override fun createHomeVisit(homeVisit: List<HealthCareService>): List<HealthCareService> {
         var syncccc = true
-        val homeVisitLastUpdate = arrayListOf<HomeVisit>()
+        val homeVisitLastUpdate = arrayListOf<HealthCareService>()
         var loop = 0
         while (syncccc) {
             try {
@@ -66,12 +67,17 @@ class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
             it.id == healthCareService.providerId
         }!!
 
-        dao.createHomeVisit(
-            healthCareService,
-            pcucode,
-            pcucode,
-            patient,
-            provider.name
-        )
+        healthCareService.communityServices.forEach {
+            if (it is HomeVisit) {
+                dao.createHomeVisit(
+                    it,
+                    healthCareService,
+                    pcucode,
+                    pcucode,
+                    patient,
+                    provider.name
+                )
+            }
+        }
     }
 }

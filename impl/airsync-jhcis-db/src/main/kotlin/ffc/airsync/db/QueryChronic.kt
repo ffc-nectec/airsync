@@ -22,7 +22,7 @@ import ffc.entity.Lang
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.Icd10
 import ffc.entity.util.generateTempId
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -70,7 +70,7 @@ class ChronicMapper : RowMapper<Chronic> {
         return createChronic(rs, disease)
     }
 
-    private fun createChronic(rs: ResultSet, disease: Disease): Chronic {
+    private fun createChronic(rs: ResultSet, disease: Icd10): Chronic {
         val hcode = rs.getInt("hcode")
         val hospCode = rs.getString("pcucodeperson")
         val pid = rs.getInt("pid")
@@ -88,13 +88,13 @@ class ChronicMapper : RowMapper<Chronic> {
         }
     }
 
-    private fun createDisease(rs: ResultSet): Disease {
+    private fun createDisease(rs: ResultSet): Icd10 {
         val icd10 = rs.getString("diseasecode")
         val nameEn = rs.getString("diseasename")
         val nameTh = rs.getString("diseasenamethai")
         val chronicCode = rs.getString("codechronic")
 
-        val disease = Disease(
+        val disease = Icd10(
             id = generateTempId(),
             name = nameEn,
             icd10 = icd10,

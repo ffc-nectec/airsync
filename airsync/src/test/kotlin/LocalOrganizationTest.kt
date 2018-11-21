@@ -4,8 +4,7 @@ import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.CommunityServiceType
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.place.Business
 import ffc.entity.place.House
@@ -79,6 +78,7 @@ class TestDao : DatabaseDao {
 
     override fun createHomeVisit(
         homeVisit: HomeVisit,
+        healthCareService: HealthCareService,
         pcucode: String,
         pcucodePerson: String,
         patient: Person,
@@ -103,12 +103,7 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getHomeVisit(
-        user: List<User>,
-        person: List<Person>,
-        lookupDisease: (icd10: String) -> Disease,
-        lookupHealthType: (id: String) -> CommunityServiceType
-    ): List<HomeVisit> {
+    override fun getHealthCareService(user: List<User>, person: List<Person>): List<HealthCareService> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

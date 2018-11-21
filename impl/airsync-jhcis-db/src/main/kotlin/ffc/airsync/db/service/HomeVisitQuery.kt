@@ -7,6 +7,7 @@ import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.customizer.Bind
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
+import org.joda.time.LocalDate
 import java.sql.ResultSet
 
 private const val homeHealthQuery = """
@@ -14,6 +15,7 @@ SELECT
 	visithomehealthindividual.homehealthtype,
 	visithomehealthindividual.homehealthdetail,
 	visithomehealthindividual.homehealthresult,
+	visithomehealthindividual.dateappoint,
 	visithomehealthindividual.homehealthplan
 FROM
     visithomehealthindividual
@@ -44,7 +46,7 @@ class VisitHomeHealthMapper : RowMapper<HomeVisit> {
             rs.getString("homehealthdetail")?.let { detail = it }
             rs.getString("homehealthresult")?.let { result = it }
             rs.getString("homehealthplan")?.let { plan = it }
+            rs.getDate("dateappoint")?.let { bundle.put("dateappoint", LocalDate(it.time)) }
         }
     }
 }
-

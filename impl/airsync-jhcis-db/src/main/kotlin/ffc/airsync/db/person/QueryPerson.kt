@@ -22,6 +22,7 @@ import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.ThaiCitizenId
 import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.Icd10
 import ffc.entity.update
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -118,12 +119,12 @@ class PersonMapper : RowMapper<Person> {
             death = rs.getString("deadcause")?.let { deadcause ->
                 LocalDate.fromDateFields(rs.getDate("deaddate"))?.let { deaddate ->
                     val disease = HashMap<String, Disease>()
-                    disease[deadcause] = deadcause.toDisease()
-                    rs.getString("odisease")?.let { disease[it] = it.toDisease() }
-                    rs.getString("cdeatha")?.let { disease[it] = it.toDisease() }
-                    rs.getString("cdeathb")?.let { disease[it] = it.toDisease() }
-                    rs.getString("cdeathc")?.let { disease[it] = it.toDisease() }
-                    rs.getString("cdeathd")?.let { disease[it] = it.toDisease() }
+                    disease[deadcause] = deadcause.toIcd10()
+                    rs.getString("odisease")?.let { disease[it] = it.toIcd10() }
+                    rs.getString("cdeatha")?.let { disease[it] = it.toIcd10() }
+                    rs.getString("cdeathb")?.let { disease[it] = it.toIcd10() }
+                    rs.getString("cdeathc")?.let { disease[it] = it.toIcd10() }
+                    rs.getString("cdeathd")?.let { disease[it] = it.toIcd10() }
                     Person.Death(deaddate, disease.map { it.value })
                 }
             }
@@ -188,4 +189,4 @@ class PersonMapper : RowMapper<Person> {
     }
 }
 
-private fun String.toDisease() = Disease("", "", this)
+private fun String.toIcd10() = Icd10("", this)
