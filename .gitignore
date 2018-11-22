@@ -10,10 +10,12 @@
 
 # Sensitive or high-churn files:
 .idea
-
+.temp
 # CMake
 cmake-build-debug/
-
+ffcProperty.cnf
+House.json
+User.json
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 
