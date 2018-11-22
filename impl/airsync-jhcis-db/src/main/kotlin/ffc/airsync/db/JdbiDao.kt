@@ -34,9 +34,11 @@ import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.CommunityService.ServiceType
 import ffc.entity.healthcare.Diagnosis
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.NCDScreen
 import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.Business
@@ -51,6 +53,7 @@ import org.joda.time.LocalDate
 import java.sql.Timestamp
 import javax.sql.DataSource
 
+@Deprecated("JdbiDao move to MySqlJdbi")
 class JdbiDao(
     val dbHost: String = "127.0.0.1",
     val dbPort: String = "3333",
@@ -198,34 +201,104 @@ class JdbiDao(
         return jdbiDao.extension<QueryTemple, List<ReligiousPlace>> { get() }
     }
 
-    override fun getHealthCareService(user: List<User>, person: List<Person>): List<HealthCareService> {
+    override fun getHealthCareService(
+        user: List<User>,
+        person: List<Person>,
+        lookupHealthType: (serviceId: String) -> ServiceType,
+        lookupICD10: (icd10: String) -> Icd10,
+        lookupSpecial: (specialId: String) -> SpecialPP.PPType
+    ): List<HealthCareService> {
 
-        return jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }.map { healthcareService ->
+        return jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }.map { healthCare ->
+            val providerId = (user.find { it.name == healthCare.providerId } ?: user.last()).id
+            val patientId = person.find { it.link!!.keys["pid"] == healthCare.patientId }?.id ?: ""
+            val healthcareService = copyHealthCare(providerId, patientId, healthCare)
+
             healthcareService.link?.keys?.get("visitno")?.toString()?.toInt()?.let { visitNumber ->
-                val diagnosis = jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
+                val diagnosisIcd10 = jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
                 val specislPP = jdbiDao.extension<SpecialppQuery, List<String>> { get(visitNumber) }
                 val ncdScreen = jdbiDao.extension<NCDscreenQuery, List<NCDScreen>> { get(visitNumber) }
                 val homeVisit = jdbiDao.extension<HomeVisitQuery, List<HomeVisit>> { get(visitNumber) }
 
-                healthcareService.diagnosises = diagnosis.toMutableList()
+                healthcareService.diagnosises = diagnosisIcd10.map {
+                    Diagnosis(
+                        disease = lookupICD10(it.disease.id),
+                        dxType = it.dxType,
+                        isContinued = it.isContinued
+                    )
+                }.toMutableList()
+
+                healthcareService.nextAppoint
 
                 specislPP.forEach {
                     healthcareService.addSpecialPP(
-                        SpecialPP.PPType(
-                            id = it,
-                            name = ""
+                        lookupSpecial(it)
+                    )
+                }
+
+                healthcareService.ncdScreen = ncdScreen.firstOrNull()?.let {
+                    createNcdScreen(providerId, patientId, it)
+                }
+
+                homeVisit.firstOrNull()?.let { visit ->
+                    visit.bundle["dateappoint"]?.let { healthcareService.nextAppoint = it as LocalDate }
+                    healthcareService.communityServices.add(
+                        HomeVisit(
+                            serviceType = lookupHealthType(visit.serviceType.id),
+                            detail = visit.detail,
+                            plan = visit.plan,
+                            result = visit.result
                         )
                     )
                 }
 
-                healthcareService.ncdScreen = ncdScreen.firstOrNull()
-
-                homeVisit.forEach {
-                    healthcareService.communityServices.add(it)
-                    healthcareService.nextAppoint = it.bundle["dateappoint"] as LocalDate
-                }
             }
             healthcareService
+        }
+    }
+
+    private fun createNcdScreen(
+        providerId: String,
+        patientId: String,
+        it: NCDScreen
+    ): NCDScreen {
+        return NCDScreen(
+            providerId = providerId,
+            patientId = patientId,
+            hasDmInFamily = it.hasDmInFamily,
+            hasHtInFamily = it.hasHtInFamily,
+            smoke = it.smoke,
+            alcohol = it.alcohol,
+            bloodSugar = it.bloodSugar,
+            weight = it.weight,
+            height = it.height,
+            waist = it.waist,
+            bloodPressure = it.bloodPressure,
+            bloodPressure2nd = it.bloodPressure2nd
+        ).apply {
+            time = it.time
+            link = it.link
+        }
+    }
+
+    private fun copyHealthCare(
+        providerId: String,
+        patientId: String,
+        healthCare: HealthCareService
+    ): HealthCareService {
+        return HealthCareService(providerId, patientId).apply {
+            syntom = healthCare.syntom
+            suggestion = healthCare.suggestion
+            weight = healthCare.weight
+            height = healthCare.height
+            waist = healthCare.waist
+            ass = healthCare.ass
+            bloodPressure = healthCare.bloodPressure
+            bloodPressure2nd = healthCare.bloodPressure2nd
+            pulseRate = healthCare.pulseRate
+            bodyTemperature = healthCare.bodyTemperature
+            note = healthCare.note
+            link = healthCare.link
         }
     }
 }
