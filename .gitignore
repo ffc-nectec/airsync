@@ -16,6 +16,9 @@ cmake-build-debug/
 ffcProperty.cnf
 House.json
 User.json
+healthTemp.json
+Person.json
+relation.json
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 
