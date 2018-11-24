@@ -46,6 +46,8 @@ SELECT
 	visit.diagnote
 FROM
 	visit
+WHERE
+	visit.dateupdate >= NOW() - INTERVAL 1 YEAR
 """
 
 interface VisitQuery {

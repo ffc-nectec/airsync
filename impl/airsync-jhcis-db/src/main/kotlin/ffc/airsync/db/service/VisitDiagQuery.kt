@@ -1,8 +1,7 @@
 package ffc.airsync.db.service
 
 import ffc.entity.healthcare.Diagnosis
-import ffc.entity.healthcare.Icd10
-import ffc.entity.util.generateTempId
+import ffc.entity.healthcare.Disease
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
@@ -36,11 +35,11 @@ interface VisitDiagQuery {
 
 class VisitDiagMapper : RowMapper<Diagnosis> {
     override fun map(rs: ResultSet, ctx: StatementContext?): Diagnosis {
+        val icd10 = rs.getString("diagcode")
         return Diagnosis(
-            disease = Icd10(
-                id = generateTempId(),
-                name = "",
-                icd10 = rs.getString("diagcode")
+            disease = Disease(
+                id = icd10,
+                name = ""
             ),
             dxType = when (rs.getString("dxtype")) {
                 "01" -> Diagnosis.Type.PRINCIPLE_DX

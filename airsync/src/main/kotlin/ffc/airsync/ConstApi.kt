@@ -2,8 +2,6 @@ package ffc.airsync
 
 import ffc.airsync.api.autosync.RetofitSyncCloud
 import ffc.airsync.api.autosync.SyncCloud
-import ffc.airsync.api.disease.DiseaseApi
-import ffc.airsync.api.disease.RetofitDiseaseApi
 import ffc.airsync.api.genogram.GeonogramApi
 import ffc.airsync.api.genogram.RetrofitGeonogramApi
 import ffc.airsync.api.healthcare.HealthCareApi
@@ -12,6 +10,10 @@ import ffc.airsync.api.homehealthtype.HomeHealthTypeApi
 import ffc.airsync.api.homehealthtype.RetofitHomeHealthTypeApi
 import ffc.airsync.api.house.HouseApi
 import ffc.airsync.api.house.RetofitHouseApi
+import ffc.airsync.api.icd10.Icd10Api
+import ffc.airsync.api.icd10.RetofitIcd10Api
+import ffc.airsync.api.icd10.RetofitSpecialPpApi
+import ffc.airsync.api.icd10.SpecialPpApi
 import ffc.airsync.api.notification.NotificationApi
 import ffc.airsync.api.notification.RetofitNotificationApi
 import ffc.airsync.api.organization.OrganizationApi
@@ -29,5 +31,6 @@ val personApi: PersonApi by lazy { RetofitPersonApi() }
 val userApi: UserApi by lazy { RetofitUserApi() }
 val syncCloud: SyncCloud by lazy { RetofitSyncCloud() }
 val geonogramApi: GeonogramApi by lazy { RetrofitGeonogramApi() }
-val diseaseApi: DiseaseApi by lazy { RetofitDiseaseApi() }
+val icd10Api: Icd10Api by lazy { RetofitIcd10Api() }
+val specialPpApi: SpecialPpApi by lazy { RetofitSpecialPpApi() }
 val homeHealthTypeApi: HomeHealthTypeApi by lazy { RetofitHomeHealthTypeApi() }

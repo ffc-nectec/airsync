@@ -4,6 +4,7 @@ import ffc.entity.healthcare.CommunityService
 import ffc.entity.healthcare.HomeVisit
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
+import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.Bind
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
@@ -32,6 +33,7 @@ interface HomeVisitQuery {
 WHERE visithomehealthindividual.visitno = :visitnumber
     """
     )
+    @RegisterRowMapper(VisitHomeHealthMapper::class)
     fun get(@Bind("visitnumber") visitnumber: Int): List<HomeVisit>
 }
 
