@@ -50,6 +50,7 @@ import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import org.joda.time.LocalDate
+import java.sql.Connection
 import java.sql.Timestamp
 import javax.sql.DataSource
 
@@ -60,10 +61,11 @@ class JdbiDao(
     val dbName: String = "jhcisdb",
     val dbUsername: String = "root",
     val dbPassword: String = "123456",
-    val ds: DataSource? = null
+    var ds: DataSource? = null
 ) : DatabaseDao {
     companion object {
         lateinit var jdbiDao: Jdbi
+        val pool = arrayListOf<Connection>()
     }
 
     init {
@@ -123,13 +125,24 @@ class JdbiDao(
         val jdbi: Jdbi
 
         if (ds == null) {
-            val ds = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
-            ds.setURL("jdbc:mysql://$dbHost:$dbPort/$dbName?autoReconnect=true&useSSL=false")
-            ds.databaseName = dbName
-            ds.user = dbUsername
-            ds.setPassword(dbPassword)
-            ds.port = dbPort.toInt()
-            jdbi = Jdbi.create(ds)
+            val dsMySql = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
+
+            dsMySql.setURL(
+                "jdbc:mysql://$dbHost:$dbPort/$dbName?" +
+                        "autoReconnect=true&" +
+                        "useSSL=false&" +
+                        "maxReconnects=2&" +
+                        "autoReconnectForPools=true&" +
+                        "connectTimeout=10000&" +
+                        "socketTimeout=10000"
+            )
+            dsMySql.databaseName = dbName
+            dsMySql.user = dbUsername
+            dsMySql.setPassword(dbPassword)
+            dsMySql.port = dbPort.toInt()
+            ds = dsMySql
+            // pool.add(dsMySql.connection)
+            jdbi = Jdbi.create(dsMySql)
         } else {
             jdbi = Jdbi.create(ds)
         }
@@ -208,8 +221,14 @@ class JdbiDao(
         lookupICD10: (icd10: String) -> Icd10,
         lookupSpecial: (specialId: String) -> SpecialPP.PPType
     ): List<HealthCareService> {
-
-        return jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }.map { healthCare ->
+        var i = 0
+        val result = jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
+        val size = result.size
+        return result.map { healthCare ->
+            printDebug("Visit ${++i}:$size")
+            if (i % 4000 == 0) {
+                printDebug("4000")
+            }
             val providerId = (user.find { it.name == healthCare.providerId } ?: user.last()).id
             val patientId = person.find { it.link!!.keys["pid"] == healthCare.patientId }?.id ?: ""
             val healthcareService = copyHealthCare(providerId, patientId, healthCare)
@@ -251,7 +270,6 @@ class JdbiDao(
                         )
                     )
                 }
-
             }
             healthcareService
         }

@@ -25,6 +25,8 @@ import ffc.entity.User
 import ffc.entity.healthcare.CommunityService.ServiceType
 import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HealthCareService
+import ffc.entity.healthcare.Icd10
+import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.House
 import retrofit2.Call
 import retrofit2.http.Body
@@ -147,7 +149,7 @@ interface RetofitRestUrl {
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int,
-        @Body healthCare: List<HealthCareService>
+        @Body healthCare: List<@JvmSuppressWildcards HealthCareService>
     ): Call<List<HealthCareService>>
 
     @PUT("/v0/org/{orgId}/healthcareservice/sync/{block}")
@@ -199,17 +201,29 @@ interface RetofitRestUrl {
         @Header("Authorization") authkey: String
     ): Call<Void>
 
-    @GET("/v0/homehealth")
+    @GET("/v0/homehealth/{id}")
     fun lookupCommunityServiceType(
         @Header("Authorization") authkey: String,
-        @Query("query") query: String
-    ): Call<List<ServiceType>>
+        @Path("id") id: String
+    ): Call<ServiceType>
 
     @GET("/v0/disease")
     fun lookupDisease(
         @Header("Authorization") authkey: String,
         @Query("query") query: String
     ): Call<List<Disease>>
+
+    @GET("/v0/disease/icd10/{id}")
+    fun lookupIcd10(
+        @Header("Authorization") authkey: String,
+        @Path("id") id: String
+    ): Call<Icd10>
+
+    @GET("/v0/disease/specialId/{id}")
+    fun lookupSpecialPP(
+        @Header("Authorization") authkey: String,
+        @Path("id") id: String
+    ): Call<SpecialPP.PPType>
 
     @GET("/v0/org/{orgId}/sync")
     fun syncData(

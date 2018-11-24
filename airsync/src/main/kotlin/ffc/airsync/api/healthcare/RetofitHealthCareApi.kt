@@ -13,10 +13,10 @@ import retrofit2.dsl.enqueue
 
 class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
 
-    override fun createHealthCare(homeVisit: List<HealthCareService>): List<HealthCareService> {
+    override fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
         val healthCareLastUpdate = arrayListOf<HealthCareService>()
         restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer)
-        UploadSpliter.upload(200, homeVisit) { it, index ->
+        UploadSpliter.upload(200, healthCare) { it, index ->
             var syncc = true
             var loop = 0
             while (syncc) {
@@ -27,14 +27,15 @@ class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
                         block = index
                     ).execute()
 
-                    val respond = restService.insertHealthCareBlock(
+                    val temp = restService.insertHealthCareBlock(
                         orgId = organization.id,
                         authkey = tokenBarer,
                         healthCare = it,
                         block = index
-                    ).execute()
+                    )
+                    val respond = temp.execute()
 
-                    if (respond.code() == 201) {
+                    if (respond.code() == 201 || respond.code() == 200) {
                         healthCareLastUpdate.addAll(respond.body() ?: arrayListOf())
                         restService.confirmHealthCareBlock(
                             orgId = organization.id,

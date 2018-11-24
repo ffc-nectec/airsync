@@ -5,5 +5,5 @@ import ffc.entity.healthcare.HealthCareService
 
 interface HealthCareApi {
     fun syncHealthCareFromCloud(id: String, dao: DatabaseDao)
-    fun createHealthCare(homeVisit: List<HealthCareService>): List<HealthCareService>
+    fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService>
 }

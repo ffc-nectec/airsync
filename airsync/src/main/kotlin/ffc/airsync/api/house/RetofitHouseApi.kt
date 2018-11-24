@@ -29,7 +29,7 @@ class RetofitHouseApi : RetofitApi(), HouseApi {
                         houseList = it,
                         block = index
                     ).execute()
-                    if (respond.code() == 201) {
+                    if (respond.code() == 201 || respond.code() == 200) {
                         houseLastUpdate.addAll(respond.body() ?: arrayListOf())
                         restService.confirmHouseBlock(
                             orgId = organization.id,

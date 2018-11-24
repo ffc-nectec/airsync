@@ -19,7 +19,7 @@ SELECT
 	ncd_person_ncd_screen.pcucode,
 	ncd_person_ncd_screen.pid,
 	ncd_person_ncd_screen.`no`,
-	ncd_person_ncd_screen.
+	ncd_person_ncd_screen.screen_date,
 
 	ncd_person_ncd_screen.height,
 	ncd_person_ncd_screen.weight,
@@ -102,7 +102,11 @@ class NCDscreenMapper : RowMapper<NCDScreen> {
             rs.getString("pcucode")?.let { link!!.keys["pcucode"] = it }
             rs.getString("pid")?.let { link!!.keys["pid"] = it }
             rs.getString("no")?.let { link!!.keys["no"] = it }
-            rs.getString("screen_date")?.let { link!!.keys["screen_date"] = it }
+            try {
+                rs.getString("screen_date")?.let { link!!.keys["screen_date"] = it }
+            } catch (ignore: org.jdbi.v3.core.result.ResultSetException) {
+            } catch (ignore: java.sql.SQLException) {
+            }
         }
     }
 }

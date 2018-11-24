@@ -27,7 +27,7 @@ class RetofitPersonApi : RetofitApi(), PersonApi {
                         block = index
                     ).execute()
 
-                    if (response.code() != 201) {
+                    if (response.code() == 201 || response.code() == 200) {
                         personLastUpdate.addAll(response.body() ?: arrayListOf())
                         restService.confirmPersonBlock(
                             orgId = organization.id,

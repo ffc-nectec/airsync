@@ -17,9 +17,21 @@
 
 package ffc.airsync.db
 
+import ffc.airsync.utils.printDebug
 import org.jdbi.v3.core.Jdbi
-import java.lang.RuntimeException
 
 inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R {
-    return withExtension<R, E, RuntimeException>(E::class.java, { call(it) })
+    while (true) {
+        try {
+            return withExtension<R, E, RuntimeException>(E::class.java, { call(it) })
+        } catch (ex: org.jdbi.v3.core.ConnectionException) {
+            printDebug("JDBI Error Loop 1 Except")
+            ex.printStackTrace()
+            Thread.sleep(120000)
+        } catch (ex: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException) {
+            printDebug("JDBI Error Loop 2 Except")
+            ex.printStackTrace()
+            Thread.sleep(120000)
+        }
+    }
 }
