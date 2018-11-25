@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.db
+package ffc.airsync.db.chronic
 
 import ffc.airsync.utils.ncdsFilter
 import ffc.entity.Lang

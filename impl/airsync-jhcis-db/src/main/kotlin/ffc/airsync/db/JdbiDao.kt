@@ -17,12 +17,22 @@
 
 package ffc.airsync.db
 
+import ffc.airsync.db.business.QueryBusiness
+import ffc.airsync.db.chronic.QueryChronic
+import ffc.airsync.db.foodshop.QueryFoodShop
+import ffc.airsync.db.hosdetail.QueryHosDetail
+import ffc.airsync.db.house.HouseJhcisDb
+import ffc.airsync.db.house.QueryHouse
 import ffc.airsync.db.person.QueryPerson
+import ffc.airsync.db.school.QuerySchool
 import ffc.airsync.db.service.HomeVisitQuery
 import ffc.airsync.db.service.NCDscreenQuery
 import ffc.airsync.db.service.SpecialppQuery
 import ffc.airsync.db.service.VisitDiagQuery
 import ffc.airsync.db.service.VisitQuery
+import ffc.airsync.db.temple.QueryTemple
+import ffc.airsync.db.user.QueryUser
+import ffc.airsync.db.village.QueryVillage
 import ffc.airsync.db.visit.InsertData
 import ffc.airsync.db.visit.InsertUpdate
 import ffc.airsync.db.visit.buildInsertData
