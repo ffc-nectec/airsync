@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ffc.airsync.db
+package ffc.airsync.db.house
 
 import ffc.airsync.utils.printDebug
 import ffc.entity.Link

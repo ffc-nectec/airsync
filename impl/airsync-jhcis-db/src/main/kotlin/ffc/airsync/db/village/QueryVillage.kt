@@ -1,4 +1,4 @@
-package ffc.airsync.db
+package ffc.airsync.db.village
 
 import ffc.entity.Link
 import ffc.entity.Place

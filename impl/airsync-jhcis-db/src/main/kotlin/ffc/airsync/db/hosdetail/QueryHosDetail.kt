@@ -1,4 +1,4 @@
-package ffc.airsync.db
+package ffc.airsync.db.hosdetail
 
 import ffc.airsync.utils.printDebug
 import ffc.entity.gson.toJson

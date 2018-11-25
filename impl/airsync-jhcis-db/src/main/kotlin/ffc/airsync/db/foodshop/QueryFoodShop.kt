@@ -1,4 +1,4 @@
-package ffc.airsync.db
+package ffc.airsync.db.foodshop
 
 import ffc.entity.Link
 import ffc.entity.System
@@ -10,30 +10,30 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import java.sql.ResultSet
 
-interface QueryBusiness {
-
+interface QueryFoodShop {
     @SqlQuery(
         """
 SELECT
-	villagebusiness.pcucode,
-	villagebusiness.villcode,
-	villagebusiness.businessno,
-	villagebusiness.businessname as name,
-	villagebusiness.address,
+	villagefoodshop.pcucode,
+	villagefoodshop.villcode,
+	villagefoodshop.foodshopno,
+	villagefoodshop.foodshopname as name,
+	villagefoodshop.address,
 	cbusiness.businessdesc as type,
-	villagebusiness.xgis,
-	villagebusiness.ygis
+	villagefoodshop.xgis,
+	villagefoodshop.ygis
 FROM
-	villagebusiness
+	villagefoodshop
 LEFT JOIN cbusiness ON
-	cbusiness.businesstypecode=villagebusiness.businesstype
+	cbusiness.businesstypecode=villagefoodshop.foodshopno
+
     """
     )
-    @RegisterRowMapper(BusinessMapper::class)
+    @RegisterRowMapper(FoodShopMapper::class)
     fun get(): List<Business>
 }
 
-class BusinessMapper : RowMapper<Business> {
+class FoodShopMapper : RowMapper<Business> {
     override fun map(rs: ResultSet, ctx: StatementContext): Business {
         return Business().apply {
             name = rs.getString("name")
@@ -48,7 +48,7 @@ class BusinessMapper : RowMapper<Business> {
             link = Link(System.JHICS)
             link?.keys?.put("pcucode", rs.getString("pcucode"))
             link?.keys?.put("villcode", rs.getString("villcode"))
-            link?.keys?.put("businessno", rs.getString("businessno"))
+            link?.keys?.put("foodshopno", rs.getString("foodshopno"))
         }
     }
 }

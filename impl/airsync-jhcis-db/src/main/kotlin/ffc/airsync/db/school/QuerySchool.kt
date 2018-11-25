@@ -1,4 +1,4 @@
-package ffc.airsync.db
+package ffc.airsync.db.school
 
 import ffc.entity.Link
 import ffc.entity.System
