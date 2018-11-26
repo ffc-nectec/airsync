@@ -19,6 +19,8 @@ User.json
 healthTemp.json
 Person.json
 relation.json
+log.cfg
+HealthCareService.json
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 
