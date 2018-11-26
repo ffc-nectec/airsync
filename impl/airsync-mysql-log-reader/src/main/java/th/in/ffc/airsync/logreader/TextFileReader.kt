@@ -30,6 +30,7 @@ class TextFileReader @Throws(FileNotFoundException::class)
     private var listener: (queryRecord: QueryRecord) -> Unit = {}
     private var realtime: Boolean = false
     private var delay: Long = 0
+    private var lastLine: Long = 0
 
     init {
         run {
@@ -53,7 +54,8 @@ class TextFileReader @Throws(FileNotFoundException::class)
         }
     }
 
-    fun setListener(listener: (queryRecord: QueryRecord) -> Unit) {
+    fun setListener(lastLine: Long = 0L, listener: (queryRecord: QueryRecord) -> Unit) {
+        this.lastLine = lastLine
         this.listener = listener
     }
 
@@ -64,10 +66,19 @@ class TextFileReader @Throws(FileNotFoundException::class)
     @Throws(IOException::class)
     fun process() {
         var line: String?
+
+        while (linenumber <= lastLine) {
+            linenumber++
+            bufferReader.readLine()
+        }
+
         do {
             line = bufferReader.readLine()
             while (line != null) {
-                this.listener(QueryRecord(line, linenumber++))
+                linenumber++
+                if (linenumber > lastLine)
+                    if (line.isNotBlank())
+                        this.listener(QueryRecord(line, linenumber))
                 line = bufferReader.readLine()
             }
             try {
