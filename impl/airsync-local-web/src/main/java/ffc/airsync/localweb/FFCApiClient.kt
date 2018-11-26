@@ -25,7 +25,7 @@ import java.net.URI
 class FFCApiClient(val host: String, val port: Int = 80) : AirSyncUi {
 
     private val context = ServletContextBuilder.build()
-    private val server = Server(JettyServerTuning.getThreadPool())
+    private val server = Server(JettyServerTuning.threadPool)
 
     init {
         println("Start client webservice process")

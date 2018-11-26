@@ -1,5 +1,5 @@
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.db.JdbiDao
+import ffc.airsync.JdbiDao
 import org.h2.jdbcx.JdbcConnectionPool
 import java.sql.DriverManager
 

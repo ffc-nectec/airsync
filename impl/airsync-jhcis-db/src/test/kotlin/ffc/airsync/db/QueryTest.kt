@@ -1,6 +1,7 @@
 package ffc.airsync.db
 
-import ffc.airsync.db.visit.InsertData
+import ffc.airsync.JdbiDao
+import ffc.airsync.visit.InsertData
 import ffc.airsync.utils.timeZone
 import ffc.entity.Link
 import ffc.entity.System
