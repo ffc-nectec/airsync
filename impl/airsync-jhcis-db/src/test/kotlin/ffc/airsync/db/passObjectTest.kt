@@ -1,6 +1,6 @@
 package ffc.airsync.db
 
-import ffc.airsync.db.visit.InsertData
+import ffc.airsync.visit.InsertData
 import ffc.entity.gson.parseTo
 import ffc.entity.healthcare.HealthCareService
 import org.amshove.kluent.`should be equal to`

@@ -20,7 +20,7 @@ package ffc.airsync.provider
 import ffc.airsync.client.webservice.module.FirebaseMessage
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.db.DatabaseWatcherDao
-import ffc.airsync.db.JdbiDao
+import ffc.airsync.JdbiDao
 import ffc.airsync.localweb.FFCApiClient
 import ffc.airsync.notification.Notification
 import ffc.airsync.ui.AirSyncUi

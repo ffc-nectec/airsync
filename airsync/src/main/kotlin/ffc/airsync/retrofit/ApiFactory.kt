@@ -21,6 +21,6 @@ class ApiFactory {
 
     fun buildApiClient(url: String): RetofitRestUrl {
         val restService = RetofitAPIClient().getCient(url)
-        return restService!!.create(RetofitRestUrl::class.java)
+        return restService.create(RetofitRestUrl::class.java)
     }
 }

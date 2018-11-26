@@ -25,15 +25,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetofitAPIClient {
 
-    fun getCient(baseUrl: String): Retrofit? {
+    fun getCient(baseUrl: String): Retrofit {
 
-        val cacheSize = Cache(createTempDir(), 50 * 1024 * 1024)
+        val cacheSize = Cache(createTempDir("cache", "airsync"), 50 * 1024 * 1024)
 
-        val client = OkHttpClient.Builder().cache(cacheSize)
+        val client = OkHttpClient
+            .Builder()
+            .cache(cacheSize)
+            .build()
+
         return Retrofit.Builder()
             .baseUrl(baseUrl)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create(ffcGson))
-            .client(client.build())
             .build()
     }
 }
