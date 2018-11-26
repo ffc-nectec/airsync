@@ -60,20 +60,24 @@ class LogReader(
 
     private fun readSingleLogFileRealTime() {
         val readLogFile = TextFileReader(filepath, true, delay)
-        readLogFile.setListener { record ->
+        readLogFile.setListener(lineManage.getLastLineNumber()) { record ->
             if (record.linenumber > lineManage.getLastLineNumber()) {
                 loadFilters.forEach {
                     it.process(record)
                 }
-                var key = ""
-                for (keyFilter in keyFilters) {
-                    key = keyFilter.get(record.log)
-                    if (key != "") {
-                        break
-                    }
-                }
 
-                if (record.log != "") {
+                if ((record.linenumber % 500000) == 0L)
+                    lineManage.setLastLineNumber(record.linenumber)
+
+                if (record.log.isNotBlank()) {
+                    var key = ""
+                    for (keyFilter in keyFilters) {
+                        key = keyFilter.get(record.log)
+                        if (key != "") {
+                            break
+                        }
+                    }
+
                     val tableInLog = getTable(record.log)
                     for ((k, v) in tableMaps) {
                         when (k) {
