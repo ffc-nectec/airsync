@@ -2,20 +2,18 @@ package ffc.airsync.api.analyzer
 
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.callApi
+import ffc.airsync.utils.callApiNoReturn
 import ffc.entity.healthcare.analyze.HealthAnalyzer
 
 class RetofitAnalyzerApi : RetofitApi(), AnalyzerApi {
 
     override fun insert(personId: String, healthAnalyzer: HealthAnalyzer): HealthAnalyzer {
-
-        return callApi(
-            cleanAll = { restService.cleanHealthAnalyzeOrgId(organization.id, tokenBarer) }
-        ) {
+        return callApi {
             restService.removeHealthAnalyze(
                 orgId = organization.id,
                 authkey = tokenBarer,
                 personId = personId
-            )
+            ).execute()
             val respond = restService.createHealthAnalyze(
                 orgId = organization.id,
                 authkey = tokenBarer,
@@ -37,6 +35,12 @@ class RetofitAnalyzerApi : RetofitApi(), AnalyzerApi {
                 authkey = tokenBarer,
                 personId = personId
             )
+        }
+    }
+
+    override fun deleteAll() {
+        callApiNoReturn {
+            restService.cleanHealthAnalyzeOrgId(organization.id, tokenBarer).execute()
         }
     }
 }

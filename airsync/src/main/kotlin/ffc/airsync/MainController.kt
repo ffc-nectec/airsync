@@ -17,6 +17,7 @@
 
 package ffc.airsync
 
+import ffc.airsync.api.analyzer.initSync
 import ffc.airsync.api.chronic.Chronics
 import ffc.airsync.api.genogram.initRelation
 import ffc.airsync.api.healthcare.initSync
@@ -76,6 +77,7 @@ class MainController(val dao: DatabaseDao) {
         persons.initSync(houses, person)
         relation.initRelation()
         healthCare.initSync()
+        analyzer.initSync(healthCare)
 
         printDebug("Finish push")
     }
