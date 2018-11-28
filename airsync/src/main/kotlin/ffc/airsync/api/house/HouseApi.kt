@@ -8,3 +8,5 @@ interface HouseApi {
     fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao)
     fun syncHouseToCloud(house: House)
 }
+
+val houseApi: HouseApi by lazy { RetofitHouseApi() }

@@ -9,3 +9,5 @@ interface OrganizationApi {
         onSuccessRegister: (organization: Organization, token: Token) -> Unit
     )
 }
+
+val orgApi: OrganizationApi by lazy { RetofitOrganizationApi() }

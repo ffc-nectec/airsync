@@ -1,5 +1,8 @@
 package ffc.airsync
 
+import ffc.airsync.api.healthcare.healthCareApi
+import ffc.airsync.api.house.houseApi
+import ffc.airsync.api.notification.notificationApi
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.notificationModule
 import ffc.entity.healthcare.HealthCareService

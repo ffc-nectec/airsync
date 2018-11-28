@@ -6,3 +6,5 @@ import ffc.entity.Person.Relationship
 interface GeonogramApi {
     fun put(personId: String, relationship: List<Relationship>): List<Person.Relationship>
 }
+
+val geonogramApi: GeonogramApi by lazy { RetrofitGeonogramApi() }

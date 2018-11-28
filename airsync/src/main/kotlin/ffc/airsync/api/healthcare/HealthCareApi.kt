@@ -7,3 +7,5 @@ interface HealthCareApi {
     fun syncHealthCareFromCloud(id: String, dao: DatabaseDao)
     fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService>
 }
+
+val healthCareApi: HealthCareApi by lazy { RetofitHealthCareApi() }
