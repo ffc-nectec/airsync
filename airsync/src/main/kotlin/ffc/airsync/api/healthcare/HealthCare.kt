@@ -1,7 +1,6 @@
 package ffc.airsync.api.healthcare
 
 import ffc.airsync.Main
-import ffc.airsync.healthCareApi
 import ffc.airsync.persons
 import ffc.airsync.users
 import ffc.airsync.utils.load

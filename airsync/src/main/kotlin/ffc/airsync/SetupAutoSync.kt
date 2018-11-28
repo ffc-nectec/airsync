@@ -1,6 +1,7 @@
 package ffc.airsync
 
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.utils.syncCloud
 
 class SetupAutoSync(val dao: DatabaseDao) {
 
@@ -16,7 +17,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
                 } catch (ignore: Exception) {
                 }
 
-                Thread.sleep(5000)
+                Thread.sleep(60000)
             }
         }.start()
     }

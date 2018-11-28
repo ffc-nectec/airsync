@@ -2,7 +2,6 @@ package ffc.airsync.api.person
 
 import ffc.airsync.Main
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.personApi
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person
