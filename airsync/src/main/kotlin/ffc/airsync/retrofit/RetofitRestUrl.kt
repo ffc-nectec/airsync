@@ -27,6 +27,7 @@ import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.SpecialPP
+import ffc.entity.healthcare.analyze.HealthAnalyzer
 import ffc.entity.place.House
 import retrofit2.Call
 import retrofit2.http.Body
@@ -197,6 +198,34 @@ interface RetofitRestUrl {
 
     @DELETE("/v0/org/{orgId}/healthcareservices")
     fun cleanHealthCare(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<Void>
+
+    @POST("/v0/org/{orgId}/person/{personId}/healthanalyze")
+    fun createHealthAnalyze(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("personId") personId: String,
+        @Body healtyAnalyzer: HealthAnalyzer
+    ): Call<HealthAnalyzer>
+
+    @GET("/v0/org/{orgId}/person/{personId}/healthanalyze")
+    fun getHealthAnalyze(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("personId") personId: String
+    ): Call<HealthAnalyzer>
+
+    @DELETE("/v0/org/{orgId}/person/{personId}/healthanalyze")
+    fun removeHealthAnalyze(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("personId") personId: String
+    ): Call<Void>
+
+    @DELETE("/v0/org/{orgId}/healthanalyze")
+    fun cleanHealthAnalyzeOrgId(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<Void>
