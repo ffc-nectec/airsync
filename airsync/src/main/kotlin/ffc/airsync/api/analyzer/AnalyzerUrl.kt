@@ -7,6 +7,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface AnalyzerUrl {
@@ -37,5 +38,34 @@ interface AnalyzerUrl {
     fun cleanHealthAnalyzeOrgId(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
+    ): Call<Void>
+
+    @POST("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    fun insertBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int,
+        @Body healtyAnalyzer: Map<String, HealthAnalyzer>
+    ): Call<Map<String, HealthAnalyzer>>
+
+    @GET("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    fun getBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
+    ): Call<Map<String, HealthAnalyzer>>
+
+    @PUT("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    fun confirmBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
+    ): Call<Void>
+
+    @DELETE("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    fun unConfirmBlock(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("block") block: Int
     ): Call<Void>
 }
