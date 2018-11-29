@@ -1,9 +1,10 @@
-package ffc.airsync.api.icd10
+package ffc.airsync.api.specialPP
 
+import ffc.airsync.api.icd10.SpecialPpApi
 import ffc.airsync.retrofit.RetofitApi
 import ffc.entity.healthcare.SpecialPP
 
-class RetofitSpecialPpApi : RetofitApi(), SpecialPpApi {
+class RetofitSpecialPpApi : RetofitApi<SpecialPpUrl>(SpecialPpUrl::class.java), SpecialPpApi {
     override fun lookup(id: String): SpecialPP.PPType {
         while (true) {
 

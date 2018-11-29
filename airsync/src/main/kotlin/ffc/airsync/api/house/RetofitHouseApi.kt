@@ -7,7 +7,7 @@ import ffc.airsync.utils.printDebug
 import ffc.entity.place.House
 import retrofit2.dsl.enqueue
 
-class RetofitHouseApi : RetofitApi(), HouseApi {
+class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
         restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute()
         println("Start put house to cloud")

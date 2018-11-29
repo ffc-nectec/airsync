@@ -5,7 +5,7 @@ import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
 import ffc.entity.healthcare.analyze.HealthAnalyzer
 
-class RetofitAnalyzerApi : RetofitApi(), AnalyzerApi {
+class RetofitAnalyzerApi : RetofitApi<AnalyzerUrl>(AnalyzerUrl::class.java), AnalyzerApi {
 
     override fun insert(personId: String, healthAnalyzer: HealthAnalyzer): HealthAnalyzer {
         return callApi {

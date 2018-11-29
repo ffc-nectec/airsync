@@ -1,12 +1,13 @@
 package ffc.airsync.retrofit
 
 import ffc.airsync.Config
-import ffc.airsync.utils.printDebug
 import ffc.entity.Organization
 import ffc.entity.Token
-import java.net.SocketTimeoutException
 
-abstract class RetofitApi {
+abstract class RetofitApi<T>(
+    retofitUrl: Class<T>,
+    cacheKbyte: Int = 1024
+) {
 
     companion object {
         lateinit var organization: Organization
@@ -19,21 +20,5 @@ abstract class RetofitApi {
         get() = "Bearer " + token.token
     val pcucode: String
         get() = (organization.link!!.keys["pcucode"] as String).trim()
-    val restService = ApiFactory().buildApiClient(urlBase)
-    protected fun wakeCloud() {
-        var count = 1
-        val limitCount = 5
-        var cloudStatusDown = true
-        while (cloudStatusDown && count++ <= limitCount) {
-            try {
-                printDebug("Wake cloud loop ${count - 1} in $limitCount")
-                val response = restService.checkCloud().execute()
-                if (response.code() == 200)
-                    cloudStatusDown = false
-            } catch (ignore: SocketTimeoutException) {
-                cloudStatusDown = true
-                Thread.sleep(3000)
-            }
-        }
-    }
+    val restService = ApiFactory().buildApiClient(urlBase, retofitUrl, cacheKbyte)
 }

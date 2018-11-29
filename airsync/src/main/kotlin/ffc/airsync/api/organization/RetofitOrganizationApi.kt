@@ -1,5 +1,6 @@
 package ffc.airsync.api.organization
 
+import ffc.airsync.api.cloudweakup.RetofitWeakUp
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.printDebug
 import ffc.entity.Organization
@@ -7,12 +8,12 @@ import ffc.entity.Token
 import ffc.entity.gson.toJson
 import javax.xml.bind.DatatypeConverter
 
-class RetofitOrganizationApi : RetofitApi(), OrganizationApi {
+class RetofitOrganizationApi : RetofitApi<OrganizationUrl>(OrganizationUrl::class.java), OrganizationApi {
     override fun registerOrganization(
         localOrganization: Organization,
         onSuccessRegister: (organization: Organization, token: Token) -> Unit
     ) {
-        wakeCloud()
+        RetofitWeakUp().weakUp()
 
         if (isEverRegister(localOrganization)) {
             token = localOrganization.bundle["token"] as Token

@@ -5,7 +5,7 @@ import ffc.airsync.utils.UploadSpliter
 import ffc.entity.Person
 import retrofit2.dsl.enqueue
 
-class RetofitPersonApi : RetofitApi(), PersonApi {
+class RetofitPersonApi : RetofitApi<PersonUrl>(PersonUrl::class.java), PersonApi {
     override fun putPerson(personList: List<Person>): List<Person> {
         val personLastUpdate = arrayListOf<Person>()
         var loop = 0

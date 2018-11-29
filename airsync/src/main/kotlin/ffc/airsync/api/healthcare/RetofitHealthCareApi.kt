@@ -11,7 +11,7 @@ import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import retrofit2.dsl.enqueue
 
-class RetofitHealthCareApi : RetofitApi(), HealthCareApi {
+class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java), HealthCareApi {
 
     override fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
         val healthCareLastUpdate = arrayListOf<HealthCareService>()

@@ -19,8 +19,8 @@ package ffc.airsync.retrofit
 
 class ApiFactory {
 
-    fun buildApiClient(url: String): RetofitRestUrl {
-        val restService = RetofitAPIClient().getCient(url)
-        return restService.create(RetofitRestUrl::class.java)
+    fun <T> buildApiClient(baseUrl: String, retofitUrl: Class<T>, cacheKbyte: Int): T {
+        val restService = RetofitAPIClient().getCient(baseUrl, cacheKbyte)
+        return restService.create(retofitUrl)
     }
 }
