@@ -4,7 +4,7 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.printDebug
 import retrofit2.dsl.enqueue
 
-class RetofitNotificationApi : RetofitApi(), NotificationApi {
+class RetofitNotificationApi : RetofitApi<NotificationUrl>(NotificationUrl::class.java), NotificationApi {
     override fun registerChannel(firebaseToken: HashMap<String, String>) {
         restService.createFirebaseToken(
             orgId = organization.id,

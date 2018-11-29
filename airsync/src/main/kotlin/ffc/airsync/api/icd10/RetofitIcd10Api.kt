@@ -3,7 +3,7 @@ package ffc.airsync.api.icd10
 import ffc.airsync.retrofit.RetofitApi
 import ffc.entity.healthcare.Icd10
 
-class RetofitIcd10Api : RetofitApi(), Icd10Api {
+class RetofitIcd10Api : RetofitApi<Icd10Url>(Icd10Url::class.java), Icd10Api {
     override fun lookup(icd10: String): Icd10 {
         while (true) {
             try {

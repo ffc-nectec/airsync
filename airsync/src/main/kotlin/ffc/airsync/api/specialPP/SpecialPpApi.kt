@@ -1,5 +1,6 @@
 package ffc.airsync.api.icd10
 
+import ffc.airsync.api.specialPP.RetofitSpecialPpApi
 import ffc.entity.healthcare.SpecialPP
 
 interface SpecialPpApi {

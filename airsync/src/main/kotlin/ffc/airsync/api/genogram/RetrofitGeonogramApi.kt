@@ -4,7 +4,7 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.printDebug
 import ffc.entity.Person
 
-class RetrofitGeonogramApi : RetofitApi(), GeonogramApi {
+class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), GeonogramApi {
     override fun put(personId: String, relationship: List<Person.Relationship>): List<Person.Relationship> {
         val relationLastUpdate = arrayListOf<Person.Relationship>()
         var syncccc = false
