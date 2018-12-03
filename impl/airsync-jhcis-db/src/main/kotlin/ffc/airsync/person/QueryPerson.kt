@@ -29,6 +29,7 @@ import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.Bind
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.sql.ResultSet
 
@@ -42,6 +43,7 @@ SELECT
 	person.birth,
 	person.pid,
    person.sex,
+   person.dateupdate,
 
 	person.marystatus,
 	cstatus.statusname,
@@ -107,7 +109,7 @@ class PersonMapper : RowMapper<Person> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
         if (rs == null) throw ClassNotFoundException()
         // val statusLive = rs.getString("dischargetype")
-        return Person().update {
+        return Person().update(DateTime(rs.getTimestamp("dateupdate"))) {
             identities.add(ThaiCitizenId(rs.getString("idcard")))
             firstname = rs.getString("fname")
             lastname = rs.getString("lname")
