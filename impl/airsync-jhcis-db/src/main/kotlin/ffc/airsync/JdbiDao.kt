@@ -59,6 +59,7 @@ import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
+import ffc.entity.update
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -280,7 +281,7 @@ class JdbiDao(
         patientId: String,
         healthCare: HealthCareService
     ): HealthCareService {
-        return HealthCareService(providerId, patientId).apply {
+        return HealthCareService(providerId, patientId).update(healthCare.timestamp) {
             syntom = healthCare.syntom
             suggestion = healthCare.suggestion
             weight = healthCare.weight
