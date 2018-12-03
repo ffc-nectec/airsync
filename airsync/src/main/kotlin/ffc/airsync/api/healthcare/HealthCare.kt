@@ -1,6 +1,9 @@
 package ffc.airsync.api.healthcare
 
 import ffc.airsync.Main
+import ffc.airsync.api.homehealthtype.homeHealthTypeApi
+import ffc.airsync.api.icd10.icd10Api
+import ffc.airsync.api.icd10.specialPpApi
 import ffc.airsync.persons
 import ffc.airsync.users
 import ffc.airsync.utils.load
@@ -27,8 +30,16 @@ fun ArrayList<HealthCareService>.initSync() {
 }
 
 private fun getHealthCare(): List<HealthCareService> {
+    /*return Main.instant.createDatabaseDao().getHealthCareService(
+        lookupPatientId = { pid -> persons.find { it.link!!.keys["pid"] == pid }?.id ?: "" },
+        lookupProviderId = { name -> (users.find { it.name == name } ?: users.last()).id }
+    )*/
+
     return Main.instant.createDatabaseDao().getHealthCareService(
-        user = users,
-        person = persons
+        lookupPatientId = { pid -> persons.find { it.link!!.keys["pid"] == pid }?.id ?: "" },
+        lookupProviderId = { name -> (users.find { it.name == name } ?: users.last()).id },
+        lookupDisease = { icd10 -> icd10Api.lookup(icd10) },
+        lookupServiceType = { serviceId -> homeHealthTypeApi.lookup(serviceId) },
+        lookupSpecialPP = { ppCode -> specialPpApi.lookup(ppCode.trim()) }
     )
 }

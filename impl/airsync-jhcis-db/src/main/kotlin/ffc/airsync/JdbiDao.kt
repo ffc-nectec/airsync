@@ -230,85 +230,25 @@ class JdbiDao(
     }
 
     override fun getHealthCareService(
-        user: List<User>,
-        person: List<Person>
+        lookupPatientId: (pid: String) -> String,
+        lookupProviderId: (name: String) -> String
     ): List<HealthCareService> {
-        var i = 0
-        val result = jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
-        val size = result.size
-        return result.map { healthCare ->
-            print("Visit ${++i}:$size")
-
-            var providerId = ""
-            var patientId = ""
-            val runtimeLookupUser = measureTimeMillis {
-
-                providerId = (user.find { it.name == healthCare.providerId } ?: user.last()).id
-                patientId = person.find { it.link!!.keys["pid"] == healthCare.patientId }?.id ?: ""
+        return getHealthCareService(
+            lookupPatientId, lookupProviderId,
+            lookupDisease = { icd10 ->
+                jdbiDao.extension<QueryDisease, List<Disease>> {
+                    get(icd10)
+                }.firstOrNull()
+            },
+            lookupServiceType = { serviceId ->
+                jdbiDao.extension<QueryHomeHealthType, List<ServiceType>> {
+                    get(serviceId)
+                }.firstOrNull()
+            },
+            lookupSpecialPP = { ppCode ->
+                jdbiDao.extension<LookupSpecialPP, List<SpecialPP.PPType>> { get(ppCode) }.firstOrNull()
             }
-
-            print("\tLookupUser:$runtimeLookupUser")
-
-            val healthcareService = copyHealthCare(providerId, patientId, healthCare)
-
-            healthcareService.link?.keys?.get("visitno")?.toString()?.toInt()?.let { visitNumber ->
-
-                var diagnosisIcd10: List<Diagnosis> = emptyList()
-                var specislPP: List<String> = emptyList()
-                var ncdScreen: List<NCDScreen> = emptyList()
-                var homeVisit: List<HomeVisit> = emptyList()
-
-                val runtimeQueryDb = measureTimeMillis {
-                    diagnosisIcd10 = jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
-                    specislPP = jdbiDao.extension<SpecialppQuery, List<String>> { get(visitNumber) }
-                    ncdScreen = jdbiDao.extension<NCDscreenQuery, List<NCDScreen>> { get(visitNumber) }
-                    homeVisit = jdbiDao.extension<HomeVisitQuery, List<HomeVisit>> { get(visitNumber) }
-                }
-
-                print("\tRuntime DB:$runtimeQueryDb")
-
-                val runtimeLookupApi = measureTimeMillis {
-                    healthcareService.diagnosises = diagnosisIcd10.map {
-                        Diagnosis(
-                            disease = jdbiDao.extension<QueryDisease, List<Disease>> {
-                                get(it.disease.id)
-                            }.firstOrNull() ?: it.disease,
-                            dxType = it.dxType,
-                            isContinued = it.isContinued
-                        )
-                    }.toMutableList()
-
-                    healthcareService.nextAppoint
-
-                    specislPP.forEach {
-                        healthcareService.addSpecialPP(
-                            jdbiDao.extension<LookupSpecialPP, List<SpecialPP.PPType>> { get(it.trim()) }.firstOrNull()
-                                ?: SpecialPP.PPType("it", "it")
-                        )
-                    }
-
-                    healthcareService.ncdScreen = ncdScreen.firstOrNull()?.let {
-                        createNcdScreen(providerId, patientId, it)
-                    }
-
-                    homeVisit.firstOrNull()?.let { visit ->
-                        visit.bundle["dateappoint"]?.let { healthcareService.nextAppoint = it as LocalDate }
-                        healthcareService.communityServices.add(
-                            HomeVisit(
-                                serviceType = jdbiDao.extension<QueryHomeHealthType, List<ServiceType>> {
-                                    get(visit.serviceType.id)
-                                }.firstOrNull() ?: visit.serviceType,
-                                detail = visit.detail,
-                                plan = visit.plan,
-                                result = visit.result
-                            )
-                        )
-                    }
-                }
-                println("\tLookupApi:$runtimeLookupApi")
-            }
-            healthcareService
-        }
+        )
     }
 
     private fun createNcdScreen(
@@ -353,6 +293,85 @@ class JdbiDao(
             bodyTemperature = healthCare.bodyTemperature
             note = healthCare.note
             link = healthCare.link
+        }
+    }
+
+    override fun getHealthCareService(
+        lookupPatientId: (pid: String) -> String,
+        lookupProviderId: (name: String) -> String,
+        lookupDisease: (icd10: String) -> Disease?,
+        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
+        lookupServiceType: (serviceId: String) -> ServiceType?
+    ): List<HealthCareService> {
+        var i = 0
+        val result = jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
+        val size = result.size
+        return result.map { healthCare ->
+            print("Visit ${++i}:$size")
+
+            var providerId = ""
+            var patientId = ""
+            val runtimeLookupUser = measureTimeMillis {
+                providerId = lookupProviderId(healthCare.providerId)
+                patientId = lookupPatientId(healthCare.patientId)
+            }
+
+            print("\tLookupUser:$runtimeLookupUser")
+
+            val healthcareService = copyHealthCare(providerId, patientId, healthCare)
+
+            healthcareService.link?.keys?.get("visitno")?.toString()?.toInt()?.let { visitNumber ->
+
+                var diagnosisIcd10: List<Diagnosis> = emptyList()
+                var specislPP: List<String> = emptyList()
+                var ncdScreen: List<NCDScreen> = emptyList()
+                var homeVisit: List<HomeVisit> = emptyList()
+
+                val runtimeQueryDb = measureTimeMillis {
+                    diagnosisIcd10 = jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
+                    specislPP = jdbiDao.extension<SpecialppQuery, List<String>> { get(visitNumber) }
+                    ncdScreen = jdbiDao.extension<NCDscreenQuery, List<NCDScreen>> { get(visitNumber) }
+                    homeVisit = jdbiDao.extension<HomeVisitQuery, List<HomeVisit>> { get(visitNumber) }
+                }
+
+                print("\tRuntime DB:$runtimeQueryDb")
+
+                val runtimeLookupApi = measureTimeMillis {
+                    healthcareService.diagnosises = diagnosisIcd10.map {
+                        Diagnosis(
+                            disease = lookupDisease(it.disease.id.trim()) ?: it.disease,
+                            dxType = it.dxType,
+                            isContinued = it.isContinued
+                        )
+                    }.toMutableList()
+
+                    healthcareService.nextAppoint
+
+                    specislPP.forEach {
+                        healthcareService.addSpecialPP(
+                            lookupSpecialPP(it.trim()) ?: SpecialPP.PPType("it", "it")
+                        )
+                    }
+
+                    healthcareService.ncdScreen = ncdScreen.firstOrNull()?.let {
+                        createNcdScreen(providerId, patientId, it)
+                    }
+
+                    homeVisit.firstOrNull()?.let { visit ->
+                        visit.bundle["dateappoint"]?.let { healthcareService.nextAppoint = it as LocalDate }
+                        healthcareService.communityServices.add(
+                            HomeVisit(
+                                serviceType = lookupServiceType(visit.serviceType.id.trim()) ?: visit.serviceType,
+                                detail = visit.detail,
+                                plan = visit.plan,
+                                result = visit.result
+                            )
+                        )
+                    }
+                }
+                println("\tLookupApi:$runtimeLookupApi")
+            }
+            healthcareService
         }
     }
 }

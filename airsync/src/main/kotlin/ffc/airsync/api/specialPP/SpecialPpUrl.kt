@@ -7,7 +7,7 @@ import retrofit2.http.Header
 import retrofit2.http.Path
 
 interface SpecialPpUrl {
-    @GET("/v0/disease/specialId/{id}")
+    @GET("/v0/specialPP/{id}")
     fun lookupSpecialPP(
         @Header("Authorization") authkey: String,
         @Path("id") id: String

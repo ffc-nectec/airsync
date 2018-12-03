@@ -9,13 +9,12 @@ import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.printDebug
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
-import retrofit2.dsl.enqueue
 
 class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java), HealthCareApi {
 
     override fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
         val healthCareLastUpdate = arrayListOf<HealthCareService>()
-        restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer)
+        restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute()
         UploadSpliter.upload(200, healthCare) { it, index ->
             var syncc = true
             var loop = 0
@@ -41,7 +40,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
                             orgId = organization.id,
                             authkey = tokenBarer,
                             block = index
-                        ).enqueue { }
+                        ).execute()
                         syncc = false
                     } else {
                         println("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
