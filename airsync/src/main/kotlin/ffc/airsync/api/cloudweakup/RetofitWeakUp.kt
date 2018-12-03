@@ -7,7 +7,7 @@ import java.net.SocketTimeoutException
 
 class RetofitWeakUp : WeakUpApi {
 
-    private val restService = ApiFactory().buildApiClient(Config.baseUrlRest, WeakUpUrl::class.java, 0)
+    private val restService = ApiFactory().buildApiClient(Config.baseUrlRest, WeakUpUrl::class.java, 128)
     override fun weakUp() {
         var count = 1
         val limitCount = 5

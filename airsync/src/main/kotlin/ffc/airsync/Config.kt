@@ -21,7 +21,7 @@ class Config private constructor() {
 
     companion object {
         var baseUrlRest = "https://ffc-nectec.herokuapp.com/v0/org/"
-        // var baseUrlRest = "http://127.0.0.1:8080/v0/org/"
+        //var baseUrlRest = "http://127.0.0.1:8080/v0/org/"
         var logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
     }
 

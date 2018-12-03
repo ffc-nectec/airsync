@@ -25,9 +25,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetofitAPIClient {
 
-    fun getCient(baseUrl: String, cacheKbyte: Int): Retrofit {
+    fun getCient(baseUrl: String, cacheKbyte: Int, prefix: String): Retrofit {
 
-        val cacheSize = Cache(createTempDir("cache", "airsync"), cacheKbyte * 1024L)
+        val cacheSize = Cache(createTempDir(prefix, "airsync"), cacheKbyte * 1024L)
 
         val client = OkHttpClient
             .Builder()

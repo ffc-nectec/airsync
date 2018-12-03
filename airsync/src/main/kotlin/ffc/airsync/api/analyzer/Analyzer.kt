@@ -44,3 +44,34 @@ fun HashMap<String, HealthAnalyzer>.initSync(healthCareService: List<HealthCareS
         putAll(localAnalyzer)
     }
 }
+
+fun HashMap<String, HealthAnalyzer>.initSync2(healthCareService: List<HealthCareService>) {
+
+    val localAnalyzer = hashMapOf<String, HealthAnalyzer>()
+    localAnalyzer.putAll(localAnalyzer.load("analyzer.json"))
+
+    if (localAnalyzer.isEmpty()) {
+        val processSet = HashSet<String>()
+        healthCareService.forEach {
+            processSet.add(it.patientId)
+        }
+
+        println()
+        processSet.forEachIndexed { index, patientId ->
+            val analyzer = HealthAnalyzer()
+            val visit = healthCareService.filter { it.patientId == patientId }
+            analyzer.analyze(*visit.toTypedArray())
+            localAnalyzer[patientId] = analyzer
+        }
+
+        val processCloud = hashMapOf<String, HealthAnalyzer>()
+        processCloud.putAll(analyzerSyncApi.insert(localAnalyzer))
+
+        localAnalyzer.clear()
+        localAnalyzer.putAll(processCloud)
+
+        localAnalyzer.save("analyzer.json")
+    } else {
+        putAll(localAnalyzer)
+    }
+}
