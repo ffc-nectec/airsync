@@ -4,11 +4,13 @@ import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
 import ffc.entity.healthcare.HealthCareService
+import ffc.entity.update
 import ffc.entity.util.generateTempId
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.joda.time.DateTime
 import java.sql.ResultSet
 
 private const val visitQuery = """
@@ -70,7 +72,7 @@ class VisitMapper : RowMapper<HealthCareService> {
             providerId = rs.getString("username"),
             patientId = rs.getString("pid"),
             id = generateTempId()
-        ).apply {
+        ).update(DateTime(rs.getTimestamp("dateupdate"))) {
 
             syntom = rs.getString("symptoms")
 
