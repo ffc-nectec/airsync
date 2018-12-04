@@ -26,5 +26,3 @@ class RetofitSpecialPpApi : RetofitApi<SpecialPpUrl>(SpecialPpUrl::class.java, 1
         }
     }
 }
-
-

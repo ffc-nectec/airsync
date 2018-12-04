@@ -1,5 +1,6 @@
 package ffc.airsync.visit
 
+import ffc.airsync.utils.printDebug
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
@@ -72,9 +73,27 @@ class VisitMapper : RowMapper<HealthCareService> {
             providerId = rs.getString("username"),
             patientId = rs.getString("pid"),
             id = generateTempId()
-        ).update(DateTime(rs.getTimestamp("dateupdate"))) {
+        ).update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
 
             syntom = rs.getString("symptoms")
+
+            val visitdate = rs.getDate("visitdate")
+
+            rs.getTime("timestart")?.let { timestart ->
+                time = DateTime(visitdate).plus(timestart.time).minusHours(7)
+
+                rs.getTime("timeend")?.let { timeend ->
+                    try {
+                        endTime = DateTime(visitdate).plus(timeend.time).minusHours(7)
+                    } catch (ex: java.lang.IllegalArgumentException) {
+                        printDebug(
+                            "Visit time end error " +
+                                    "time=$time " +
+                                    "endtime=${DateTime(visitdate).plus(timeend.time).minusHours(7)} ${ex.message}"
+                        )
+                    }
+                }
+            }
 
             rs.getString("suggest")?.let { suggestion = it }
             rs.getString("weight")?.let { weight = it.toDouble() }

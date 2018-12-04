@@ -1,6 +1,10 @@
 package ffc.airsync.api.genogram
 
 import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.utils.ApiLoopException
+import ffc.airsync.utils.UploadSpliterMap
+import ffc.airsync.utils.callApi
+import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.printDebug
 import ffc.entity.Person
 
@@ -31,5 +35,33 @@ class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), G
             }
         }
         return relationLastUpdate
+    }
+
+    override fun putBlock(
+        relationship: Map<String, List<Person.Relationship>>
+    ): Map<String, List<Person.Relationship>> {
+        val output = hashMapOf<String, List<Person.Relationship>>()
+        callApiNoReturn { restService.cleanAll(organization.id, tokenBarer).execute() }
+
+        UploadSpliterMap.upload(200, relationship) { list, block ->
+
+            val result = callApi {
+                restService.unConfirmBlock(organization.id, tokenBarer, block).execute()
+
+                val response = restService.insertBlock(
+                    organization.id, tokenBarer,
+                    block = block,
+                    relationship = list
+                ).execute()
+
+                if (response.code() == 201 || response.code() == 200) {
+                    response.body()
+                } else {
+                    throw ApiLoopException("Response code wrong.")
+                }
+            }
+            output.putAll(result)
+        }
+        return output
     }
 }

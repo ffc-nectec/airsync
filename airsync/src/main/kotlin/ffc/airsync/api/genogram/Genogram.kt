@@ -30,14 +30,15 @@ fun ArrayList<Person>.initRelation() {
 }
 
 private fun List<Person>.updateToCloud() {
-    val size = count()
-    forEachIndexed { i, it ->
+    val personBlock = hashMapOf<String, List<Person.Relationship>>()
+
+    forEach {
         if (it.relationships.isNotEmpty()) {
-            print("Update Relation $i:$size")
-            val relation = geonogramApi.put(it.id, it.relationships)
-            it.relationships.clear()
-            it.relationships.addAll(relation)
+            personBlock[it.id] = it.relationships
         }
+    }
+    geonogramApi.putBlock(personBlock).forEach { personId, relation ->
+        this.find { it.id == personId }!!.relationships = relation.toMutableList()
     }
 }
 
@@ -48,7 +49,9 @@ private fun List<Person>.`สร้างความสัมพันธ์`()
     val size = groupByFamilyNo.count()
     var i = 1
     groupByFamilyNo.forEach { key, house ->
-        printDebug("createRela ${i++}:$size")
+        i++
+        if (i % 300 == 0 || i == size)
+            printDebug("createRela $i:$size")
         house.forEach { person ->
             val familyPosition = (person.link?.keys?.get("familyposition") ?: "") as String
             if (familyPosition.isNotBlank()) {
@@ -101,7 +104,9 @@ private fun List<Person>.groupFamilyNo(
     val size = houseMap.count()
     var i = 1
     houseMap.forEach { hcode, houseGroupByHcode ->
-        printDebug("groupFamilyNo ${i++}:$size")
+        i++
+        if (i % 300 == 0 || i == size)
+            printDebug("groupFamilyNo $i:$size")
         houseGroupByHcode.forEach { person ->
 
             `ค้นหาพ่อแม่ภรรยาจากหมายเลขบัตรประชาชนและชื่อ`(person)

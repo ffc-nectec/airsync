@@ -48,6 +48,10 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
                 } catch (ex: java.net.SocketTimeoutException) {
                     println("Time out loop ${++loop}")
                     ex.printStackTrace()
+                } catch (ex: java.net.SocketException) {
+                    println("Socket error check network ${++loop}")
+                    Thread.sleep(10000)
+                    ex.printStackTrace()
                 }
             }
         }

@@ -9,7 +9,8 @@ import java.sql.ResultSet
 
 private const val specialQuery = """
 SELECT
-	f43specialpp.ppspecial
+	f43specialpp.ppspecial,
+	f43specialpp.dateupdate
 FROM
 	f43specialpp
 """
