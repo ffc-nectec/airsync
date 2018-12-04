@@ -24,6 +24,10 @@ fun <T> callApi(cleanAll: () -> Unit = {}, call: () -> T?): T {
             ex.printStackTrace()
         } catch (ex: ApiLoopException) {
             println("Loop api custom by user ${ex.message}")
+        } catch (ex: java.net.SocketException) {
+            println("Socket error check network ${++loop}")
+            Thread.sleep(10000)
+            ex.printStackTrace()
         }
     }
 }
@@ -36,6 +40,10 @@ fun callApiNoReturn(call: () -> Unit) {
             return
         } catch (ex: java.net.SocketTimeoutException) {
             println("Time out loop ${++loop}")
+            ex.printStackTrace()
+        } catch (ex: java.net.SocketException) {
+            println("Socket error check network ${++loop}")
+            Thread.sleep(10000)
             ex.printStackTrace()
         }
     }

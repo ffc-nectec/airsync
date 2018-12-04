@@ -37,7 +37,8 @@ import java.sql.ResultSet
 import java.sql.Timestamp
 
 interface QueryHouse {
-    @SqlUpdate("""
+    @SqlUpdate(
+        """
 UPDATE `house`
   SET
    `hid`= :hid,
@@ -47,10 +48,12 @@ UPDATE `house`
    `hno`= :hno,
    `dateupdate`= :dateUpdate
 WHERE  `pcucode`= :pcucode AND `hcode`= :hcode
-    """)
+    """
+    )
     fun update(@BindBean house: HouseJhcisDb)
 
-    @SqlQuery("""
+    @SqlQuery(
+        """
 SELECT house.pcucode,
 	house.hcode,
     house.hno,
@@ -60,11 +63,13 @@ SELECT house.pcucode,
 	house.ygis,
 	house.dateupdate
 FROM house
-""")
+"""
+    )
     @RegisterRowMapper(HouseMapper::class)
     fun findThat(): List<House>
 
-    @SqlQuery("""
+    @SqlQuery(
+        """
 SELECT house.pcucode,
 	house.hcode,
     house.hno,
@@ -74,7 +79,8 @@ SELECT house.pcucode,
 	house.ygis,
 	house.dateupdate
 FROM house WHERE <where>
-""")
+"""
+    )
     @RegisterRowMapper(HouseMapper::class)
     fun findThat(@Define("where") whereString: String): List<House>
 }
@@ -82,8 +88,8 @@ FROM house WHERE <where>
 class HouseMapper : RowMapper<House> {
 
     override fun map(rs: ResultSet, ctx: StatementContext?): House {
-        val timestamp = DateTime(rs.getTimestamp("dateupdate"))
-        val house = House().update<House>(timestamp) {
+        val timestamp = DateTime(rs.getTimestamp("dateupdate")).minusHours(7)
+        val house = House().update(timestamp) {
             rs.getString("hid")?.let { identity = ThaiHouseholdId(it) }
             no = rs.getString("hno")
             road = rs.getString("road")
@@ -92,8 +98,9 @@ class HouseMapper : RowMapper<House> {
             val ygis = rs.getDouble("ygis")
             if ((xgis != 0.0) && (ygis != 0.0))
                 location = Point(ygis, xgis)
-            link = Link(System.JHICS,
-                    "hcode" to rs.getString("hcode"),
+            link = Link(
+                System.JHICS,
+                "hcode" to rs.getString("hcode"),
                 "pcucode" to rs.getString("pcucode")
             )
         }

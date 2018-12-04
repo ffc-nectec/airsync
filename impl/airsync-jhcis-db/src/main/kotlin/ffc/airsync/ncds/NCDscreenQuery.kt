@@ -5,6 +5,7 @@ import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
 import ffc.entity.healthcare.Frequency
 import ffc.entity.healthcare.NCDScreen
+import ffc.entity.update
 import ffc.entity.util.generateTempId
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -92,7 +93,7 @@ class NCDscreenMapper : RowMapper<NCDScreen> {
             bloodPressure2nd = rs.getString("bloodPressureS2")?.let {
                 BloodPressure(it.toDouble(), rs.getString("bloodPressureD2").toDouble())
             }
-        ).apply {
+        ).update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
 
             rs.getDate("dateupdate")?.let {
                 time = DateTime(it).minusHours(7)

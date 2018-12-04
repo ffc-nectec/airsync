@@ -109,7 +109,7 @@ class PersonMapper : RowMapper<Person> {
     override fun map(rs: ResultSet?, ctx: StatementContext?): Person {
         if (rs == null) throw ClassNotFoundException()
         // val statusLive = rs.getString("dischargetype")
-        return Person().update(DateTime(rs.getTimestamp("dateupdate"))) {
+        return Person().update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
             identities.add(ThaiCitizenId(rs.getString("idcard")))
             firstname = rs.getString("fname")
             lastname = rs.getString("lname")

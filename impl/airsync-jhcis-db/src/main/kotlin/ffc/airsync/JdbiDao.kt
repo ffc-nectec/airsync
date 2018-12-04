@@ -126,7 +126,7 @@ class JdbiDao(
             xgis = house.location?.coordinates?.longitude?.toString(),
             ygis = house.location?.coordinates?.latitude?.toString(),
             hno = house.no,
-            dateUpdate = Timestamp(house.timestamp.millis),
+            dateUpdate = Timestamp(house.timestamp.plusHours(7).millis),
 
             pcucode = house.link!!.keys["pcucode"].toString(),
             hcode = house.link!!.keys["hcode"].toString().toInt()
@@ -294,6 +294,8 @@ class JdbiDao(
             bodyTemperature = healthCare.bodyTemperature
             note = healthCare.note
             link = healthCare.link
+            time = healthCare.time
+            endTime = healthCare.endTime
         }
     }
 
@@ -308,8 +310,7 @@ class JdbiDao(
         val result = jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
         val size = result.size
         return result.map { healthCare ->
-            print("Visit ${++i}:$size")
-
+            i++
             var providerId = ""
             var patientId = ""
             val runtimeLookupUser = measureTimeMillis {
@@ -317,10 +318,7 @@ class JdbiDao(
                 patientId = lookupPatientId(healthCare.patientId)
             }
 
-            print("\tLookupUser:$runtimeLookupUser")
-
             val healthcareService = copyHealthCare(providerId, patientId, healthCare)
-
             healthcareService.link?.keys?.get("visitno")?.toString()?.toInt()?.let { visitNumber ->
 
                 var diagnosisIcd10: List<Diagnosis> = emptyList()
@@ -334,8 +332,6 @@ class JdbiDao(
                     ncdScreen = jdbiDao.extension<NCDscreenQuery, List<NCDScreen>> { get(visitNumber) }
                     homeVisit = jdbiDao.extension<HomeVisitQuery, List<HomeVisit>> { get(visitNumber) }
                 }
-
-                print("\tRuntime DB:$runtimeQueryDb")
 
                 val runtimeLookupApi = measureTimeMillis {
                     healthcareService.diagnosises = diagnosisIcd10.map {
@@ -370,7 +366,12 @@ class JdbiDao(
                         )
                     }
                 }
-                println("\tLookupApi:$runtimeLookupApi")
+                if (i % 300 == 0 || i == size) {
+                    print("Visit $i:$size")
+                    print("\tLookupUser:$runtimeLookupUser")
+                    print("\tRuntime DB:$runtimeQueryDb")
+                    println("\tLookupApi:$runtimeLookupApi")
+                }
             }
             healthcareService
         }
