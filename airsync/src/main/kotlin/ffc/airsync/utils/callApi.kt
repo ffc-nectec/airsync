@@ -2,7 +2,12 @@ package ffc.airsync.utils
 
 import kotlin.system.measureTimeMillis
 
-fun <T> callApi(cleanAll: () -> Unit = {}, call: () -> T?): T {
+fun <T> callApi(
+    msRuntime: (Long) -> Unit = {},
+    cleanAll: () -> Unit = {},
+    call: () -> T?
+): T {
+
     cleanAll()
     var loop = 0
 
@@ -12,11 +17,7 @@ fun <T> callApi(cleanAll: () -> Unit = {}, call: () -> T?): T {
             val runtime = measureTimeMillis {
                 call()?.let { result = it }
             }
-
-            val sec = (runtime / 1000) % 60
-            val min = (runtime / 60000) % 60
-            val hour = (runtime / 36e5).toInt()
-            print("\tTime:$runtime $hour:$min:$sec")
+            msRuntime(runtime)
 
             return result!!
         } catch (ex: java.net.SocketTimeoutException) {
@@ -30,6 +31,13 @@ fun <T> callApi(cleanAll: () -> Unit = {}, call: () -> T?): T {
             ex.printStackTrace()
         }
     }
+}
+
+fun Long.printTime() {
+    val sec = (this / 1000) % 60
+    val min = (this / 60000) % 60
+    val hour = (this / 36e5).toInt()
+    print("\t$hour:$min:$sec")
 }
 
 fun callApiNoReturn(call: () -> Unit) {

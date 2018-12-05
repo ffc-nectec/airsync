@@ -17,17 +17,27 @@
 
 package ffc.airsync.utils
 
-object UploadSpliter {
+import kotlin.system.measureTimeMillis
 
+object UploadSpliter {
     fun <T> upload(fixSizeCake: Int, list: List<T>, howToPutCake: (list: List<T>, block: Int) -> Unit) {
         val cakePound = cutCake(fixSizeCake, list)
+        var runtime = 0L
+        val size = cakePound.size
 
-        printDebug("Run size ${cakePound.size}")
+        printDebug("Run size $size")
         cakePound.forEachIndexed { index, it ->
-            print("\nStart push $index ....")
-            howToPutCake(it, index)
-            print(" Finish push")
+
+            val time = measureTimeMillis {
+                print("\nStart push $index ....")
+                howToPutCake(it, index + 1)
+                print(" Finish push")
+            }
+            runtime += time
+            val realIndex = index + 1
+            ((size - realIndex) * (runtime / realIndex)).printTime()
         }
+        println()
     }
 
     private fun <T> cutCake(fixSizeCake: Int, list: List<T>): List<List<T>> {
