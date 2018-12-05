@@ -4,7 +4,10 @@ import ffc.airsync.db.DatabaseDao
 import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.users
+import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
+import ffc.airsync.utils.callApi
+import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.printDebug
 import ffc.entity.healthcare.HealthCareService
@@ -14,46 +17,37 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
 
     override fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
         val healthCareLastUpdate = arrayListOf<HealthCareService>()
-        restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute()
+        callApiNoReturn { restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute() }
+
         UploadSpliter.upload(200, healthCare) { it, index ->
-            var syncc = true
-            var loop = 0
-            while (syncc) {
-                try {
-                    restService.unConfirmHealthCareBlock(
+            val result = callApi {
+                restService.unConfirmHealthCareBlock(
+                    orgId = organization.id,
+                    authkey = tokenBarer,
+                    block = index
+                ).execute()
+
+                val temp = restService.insertHealthCareBlock(
+                    orgId = organization.id,
+                    authkey = tokenBarer,
+                    healthCare = it,
+                    block = index
+                )
+                val respond = temp.execute()
+
+                if (respond.code() == 201 || respond.code() == 200) {
+                    restService.confirmHealthCareBlock(
                         orgId = organization.id,
                         authkey = tokenBarer,
                         block = index
                     ).execute()
 
-                    val temp = restService.insertHealthCareBlock(
-                        orgId = organization.id,
-                        authkey = tokenBarer,
-                        healthCare = it,
-                        block = index
-                    )
-                    val respond = temp.execute()
-
-                    if (respond.code() == 201 || respond.code() == 200) {
-                        healthCareLastUpdate.addAll(respond.body() ?: arrayListOf())
-                        restService.confirmHealthCareBlock(
-                            orgId = organization.id,
-                            authkey = tokenBarer,
-                            block = index
-                        ).execute()
-                        syncc = false
-                    } else {
-                        println("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
-                    }
-                } catch (ex: java.net.SocketTimeoutException) {
-                    println("Time out loop ${++loop}")
-                    ex.printStackTrace()
-                } catch (ex: java.net.SocketException) {
-                    println("Socket error check network ${++loop}")
-                    Thread.sleep(10000)
-                    ex.printStackTrace()
+                    respond.body() ?: arrayListOf()
+                } else {
+                    throw ApiLoopException("Error Loop ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
                 }
             }
+            healthCareLastUpdate.addAll(result)
         }
         return healthCareLastUpdate
     }
