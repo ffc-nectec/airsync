@@ -8,7 +8,7 @@ import ffc.airsync.utils.save
 import ffc.entity.Person
 import ffc.entity.place.House
 
-fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.createDatabaseDao()): List<House> {
+fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.dao): List<House> {
     return if (where.isBlank()) dao.getHouse() else dao.getHouse(where)
 }
 

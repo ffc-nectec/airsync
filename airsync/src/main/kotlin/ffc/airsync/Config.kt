@@ -20,18 +20,7 @@ package ffc.airsync
 class Config private constructor() {
 
     companion object {
-        var baseUrlRest = "https://ffc-nectec.herokuapp.com/v0/org/"
-        // var baseUrlRest = "http://127.0.0.1:8080/v0/org/"
-        var logfilepath = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
-    }
-
-    init {
-        val url = System.getenv("FFC_CLOUD")
-        val logfilepath = System.getenv("FFC_LOG_PART")
-
-        if (logfilepath != null)
-            Config.logfilepath = logfilepath
-        if (url != null)
-            baseUrlRest = url
+        lateinit var baseUrlRest: String
+        lateinit var logfilepath: String
     }
 }

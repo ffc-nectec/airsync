@@ -17,7 +17,6 @@
 
 package ffc.airsync
 
-import ffc.airsync.api.analyzer.initSync
 import ffc.airsync.api.analyzer.initSync2
 import ffc.airsync.api.chronic.Chronics
 import ffc.airsync.api.genogram.initRelation

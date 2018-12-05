@@ -41,7 +41,6 @@ class RetofitPersonApi : RetofitApi<PersonUrl>(PersonUrl::class.java), PersonApi
                 }
             }
             personLastUpdate.addAll(result)
-
         }
         return personLastUpdate
     }

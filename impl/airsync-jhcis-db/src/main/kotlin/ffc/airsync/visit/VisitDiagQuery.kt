@@ -7,6 +7,7 @@ import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.Bind
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import java.sql.ResultSet
 
 private const val visitDiagQuery = """
@@ -24,6 +25,10 @@ FROM
 private const val visitNumberIndex = """CREATE INDEX visitnumber ON visitdiag(visitno)"""
 
 interface VisitDiagQuery {
+
+    @SqlUpdate(visitNumberIndex)
+    fun createIndex()
+
     @SqlQuery(
         visitDiagQuery + """
         WHERE visitdiag.visitno = :visitnumber
