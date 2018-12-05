@@ -166,7 +166,21 @@ class JdbiDao(
         jdbi.installPlugin(KotlinPlugin())
         jdbi.installPlugin(SqlObjectPlugin())
         jdbi.installPlugin(KotlinSqlObjectPlugin())
+
+        createIndex { jdbi.extension<VisitQuery, Unit> { createIndex() } }
+        createIndex { jdbi.extension<VisitDiagQuery, Unit> { createIndex() } }
+        createIndex { jdbi.extension<SpecialppQuery, Unit> { createIndex() } }
+        createIndex { jdbi.extension<NCDscreenQuery, Unit> { createIndex() } }
+        createIndex { jdbi.extension<HomeVisitQuery, Unit> { createIndex() } }
+
         return jdbi
+    }
+
+    private fun createIndex(f: () -> Unit) {
+        try {
+            f()
+        } catch (ignore: org.jdbi.v3.core.statement.UnableToExecuteStatementException) {
+        }
     }
 
     override fun createHomeVisit(

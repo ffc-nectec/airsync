@@ -5,6 +5,7 @@ import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.Bind
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import java.sql.ResultSet
 
 private const val specialQuery = """
@@ -18,6 +19,10 @@ FROM
 private const val visitNumberIndex = """CREATE  INDEX visitnumber ON f43specialpp(visitno)"""
 
 interface SpecialppQuery {
+
+    @SqlUpdate(visitNumberIndex)
+    fun createIndex()
+
     @SqlQuery(
         specialQuery + """
     WHERE f43specialpp.visitno = :visitnumber

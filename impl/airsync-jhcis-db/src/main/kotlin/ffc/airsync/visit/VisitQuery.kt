@@ -11,6 +11,7 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
 import java.sql.ResultSet
 
@@ -53,7 +54,13 @@ WHERE
 	visit.dateupdate >= NOW() - INTERVAL 1 YEAR
 """
 
+private const val visitNumberIndex = """CREATE  INDEX visitnumber ON f43specialpp(visitno)"""
+
 interface VisitQuery {
+
+    @SqlUpdate(visitNumberIndex)
+    fun createIndex()
+
     @SqlQuery(visitQuery)
     @RegisterRowMapper(VisitMapper::class)
     fun get(): List<HealthCareService>

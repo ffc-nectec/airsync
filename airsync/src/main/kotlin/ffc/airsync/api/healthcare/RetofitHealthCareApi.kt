@@ -20,6 +20,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
         callApiNoReturn { restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute() }
 
         UploadSpliter.upload(200, healthCare) { it, index ->
+
             val result = callApi {
                 restService.unConfirmHealthCareBlock(
                     orgId = organization.id,
@@ -44,7 +45,8 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
 
                     respond.body() ?: arrayListOf()
                 } else {
-                    throw ApiLoopException("Error Loop ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
+                    val message = "Error Loop ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}"
+                    throw ApiLoopException(message)
                 }
             }
             healthCareLastUpdate.addAll(result)

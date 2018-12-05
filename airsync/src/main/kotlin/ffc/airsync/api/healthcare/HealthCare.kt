@@ -30,12 +30,12 @@ fun ArrayList<HealthCareService>.initSync() {
 }
 
 private fun getHealthCare(): List<HealthCareService> {
-    /*return Main.instant.createDatabaseDao().getHealthCareService(
+    /*return Main.instant.dao.getHealthCareService(
         lookupPatientId = { pid -> persons.find { it.link!!.keys["pid"] == pid }?.id ?: "" },
         lookupProviderId = { name -> (users.find { it.name == name } ?: users.last()).id }
     )*/
 
-    return Main.instant.createDatabaseDao().getHealthCareService(
+    return Main.instant.dao.getHealthCareService(
         lookupPatientId = { pid -> persons.find { it.link!!.keys["pid"] == pid }?.id ?: "" },
         lookupProviderId = { name -> (users.find { it.name == name } ?: users.last()).id },
         lookupDisease = { icd10 -> icd10Api.lookup(icd10) },

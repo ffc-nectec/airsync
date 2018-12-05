@@ -9,9 +9,18 @@ class RetofitUserApi : RetofitApi<UserUrl>(UserUrl::class.java), UserApi {
         return try {
             val respond =
                 restService.regisUser(user = userInfoList, orgId = organization.id, authkey = tokenBarer).execute()
-            respond.body() ?: arrayListOf()
+            if (respond.code() == 200 || respond.code() == 201)
+                respond.body() ?: arrayListOf()
+            else {
+                getuser()
+            }
         } catch (ex: java.net.SocketTimeoutException) {
-            callApi { restService.getUser(organization.id, tokenBarer).execute().body() }
+            getuser()
         }
+    }
+
+    private fun getuser(): List<User> {
+        Thread.sleep(10000)
+        return callApi { restService.getUser(organization.id, tokenBarer).execute().body() }
     }
 }

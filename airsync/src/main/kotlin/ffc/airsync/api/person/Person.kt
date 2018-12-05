@@ -8,7 +8,7 @@ import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
 import ffc.entity.place.House
 
-fun Person.gets(dao: DatabaseDao = Main.instant.createDatabaseDao()): List<Person> {
+fun Person.gets(dao: DatabaseDao = Main.instant.dao): List<Person> {
     val persons = dao.getPerson()
     val chronic = dao.getChronic()
 

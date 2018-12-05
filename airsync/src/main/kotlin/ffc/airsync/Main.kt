@@ -25,27 +25,37 @@ import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
 
+private const val HOSTNAMEDB = "127.0.0.1"
+private const val HOSTPORTDB = "3333"
+private const val HOSTDBNAME = "jhcisdb"
+private const val HOSTUSERNAME = "root"
+private const val HOSTPASSWORD = "123456"
+// private const val API = "https://ffc-nectec.herokuapp.com"
+private const val API = "https://ffc-nectec-staging.herokuapp.com"
+// private const val API="http://127.0.0.1:8080"
+private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
+
 internal class Main constructor(args: Array<String>) {
     @Option(name = "-dbhost", usage = "Database hostserver Ex. 127.0.0.1 ")
-    protected var dbhost = HOSTNAMEDB
+    private var dbhost = HOSTNAMEDB
 
     @Option(name = "-dbport", usage = "Database port Ex. 3333 ")
-    protected var dbport = HOSTPORTDB
+    private var dbport = HOSTPORTDB
 
     @Option(name = "-dbname", usage = "Database name Ex. jhcisdb ")
-    protected var dbname = HOSTDBNAME
+    private var dbname = HOSTDBNAME
 
     @Option(name = "-dbusername", usage = "Database name Ex. root ")
-    protected var dbusername = HOSTUSERNAME
+    private var dbusername = HOSTUSERNAME
 
     @Option(name = "-dbpassword", usage = "Database name Ex. 111111 ")
-    protected var dbpassword = HOSTPASSWORD
+    private var dbpassword = HOSTPASSWORD
 
-    @Option(name = "-orgname", usage = "Database name Ex. NECTEC ")
-    protected var orgName = ORGNAME
+    @Option(name = "-api", usage = "Api url Ex. https://ffc-nectec.herokuapp.com ")
+    private var api = API
 
-    @Option(name = "-orgcode", usage = "Database name Ex. 9843 ")
-    protected var orgCode = ORGCODE
+    @Option(name = "-mysqllog", usage = "MySQL query log file Ex. C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log ")
+    private var mysqlLog = MYSQLLOG
 
     init {
         try {
@@ -57,23 +67,17 @@ internal class Main constructor(args: Array<String>) {
         }
     }
 
+    val dao = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
+
     fun run() {
         instant = this
-        val dao = createDatabaseDao()
+        Config.baseUrlRest = api
+        Config.logfilepath = mysqlLog
         MainController(dao).run()
     }
 
-    fun createDatabaseDao() = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
-
     companion object {
         lateinit var instant: Main
-        protected val HOSTNAMEDB = "127.0.0.1"
-        protected val HOSTPORTDB = "3333"
-        protected val HOSTDBNAME = "jhcisdb"
-        protected val HOSTUSERNAME = "root"
-        protected val HOSTPASSWORD = "123456"
-        protected val ORGNAME = "NECTEC"
-        protected val ORGCODE = "589"
     }
 }
 
