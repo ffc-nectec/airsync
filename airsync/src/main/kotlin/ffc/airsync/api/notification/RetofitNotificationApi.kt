@@ -1,17 +1,16 @@
 package ffc.airsync.api.notification
 
 import ffc.airsync.retrofit.RetofitApi
-import ffc.airsync.utils.printDebug
-import retrofit2.dsl.enqueue
+import ffc.airsync.utils.callApi
 
 class RetofitNotificationApi : RetofitApi<NotificationUrl>(NotificationUrl::class.java), NotificationApi {
     override fun registerChannel(firebaseToken: HashMap<String, String>) {
-        restService.createFirebaseToken(
-            orgId = organization.id,
-            authkey = tokenBarer,
-            firebaseToken = firebaseToken
-        ).enqueue {
-            onSuccess { printDebug("Success bind firebase to cloud") }
+        callApi {
+            restService.createFirebaseToken(
+                orgId = organization.id,
+                authkey = tokenBarer,
+                firebaseToken = firebaseToken
+            ).execute()
         }
     }
 }

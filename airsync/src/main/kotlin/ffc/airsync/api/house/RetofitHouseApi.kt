@@ -2,53 +2,46 @@ package ffc.airsync.api.house
 
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
+import ffc.airsync.utils.callApi
+import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.printDebug
 import ffc.entity.place.House
-import retrofit2.dsl.enqueue
 
 class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
-        restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute()
+        callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }
+
         println("Start put house to cloud")
         val houseLastUpdate = arrayListOf<House>()
         UploadSpliter.upload(100, houseList) { it, index ->
-            var syncc = true
-            var loop = 0
-            while (syncc) {
-                try {
-                    restService.unConfirmHouseBlock(
-                        orgId = organization.id,
-                        authkey = tokenBarer,
-                        block = index
-                    ).execute()
 
-                    val respond = restService.insertHouseBlock(
+            val result = callApi {
+                restService.unConfirmHouseBlock(
+                    orgId = organization.id,
+                    authkey = tokenBarer,
+                    block = index
+                ).execute()
+
+                val respond = restService.insertHouseBlock(
+                    orgId = organization.id,
+                    authkey = tokenBarer,
+                    houseList = it,
+                    block = index
+                ).execute()
+                if (respond.code() == 201 || respond.code() == 200) {
+                    restService.confirmHouseBlock(
                         orgId = organization.id,
                         authkey = tokenBarer,
-                        houseList = it,
                         block = index
                     ).execute()
-                    if (respond.code() == 201 || respond.code() == 200) {
-                        houseLastUpdate.addAll(respond.body() ?: arrayListOf())
-                        restService.confirmHouseBlock(
-                            orgId = organization.id,
-                            authkey = tokenBarer,
-                            block = index
-                        ).enqueue { }
-                        syncc = false
-                    } else {
-                        println("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
-                    }
-                } catch (ex: java.net.SocketTimeoutException) {
-                    println("Time out loop ${++loop}")
-                    ex.printStackTrace()
-                } catch (ex: java.net.SocketException) {
-                    println("Socket error check network ${++loop}")
-                    Thread.sleep(10000)
-                    ex.printStackTrace()
+                    respond.body() ?: arrayListOf()
+                } else {
+                    throw ApiLoopException("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
                 }
             }
+            houseLastUpdate.addAll(result)
         }
         return houseLastUpdate
     }
