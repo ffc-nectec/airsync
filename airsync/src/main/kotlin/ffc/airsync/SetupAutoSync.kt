@@ -15,6 +15,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
                 try {
                     syncCloud.sync(dao)
                 } catch (ignore: Exception) {
+                    ignore.printStackTrace()
                 }
 
                 Thread.sleep(60000)

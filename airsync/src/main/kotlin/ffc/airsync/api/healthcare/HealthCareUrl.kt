@@ -41,6 +41,14 @@ interface HealthCareUrl {
         @Path("visitId") id: String
     ): Call<HealthCareService>
 
+    @PUT("/v0/org/{orgId}/healthcareservice/{visitId}")
+    fun updateHomeVisit(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Path("visitId") visitId: String,
+        @Body homeVisit: HealthCareService
+    ): Call<HealthCareService>
+
     @POST("/v0/org/{orgId}/healthcareservices")
     fun createHomeVisit(
         @Path("orgId") orgId: String,

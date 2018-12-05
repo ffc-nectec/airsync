@@ -191,8 +191,9 @@ class JdbiDao(
         )
         insertVisit(visitData)
 
+        val insertDiagData = healthCareService.buildInsertDiag(pcucode, visitNum, username)
         jdbiDao.extension<InsertUpdate, Unit> {
-            insertVisitDiag(healthCareService.buildInsertDiag(pcucode, visitNum, username))
+            insertVisitDiag(insertDiagData)
         }
 
         val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)

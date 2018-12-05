@@ -98,5 +98,13 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
                 )
             }
         }
+        healthCareService.link!!.isSynced = true
+
+        // healthCareService.nextAppoint = null
+
+        val result = restService.updateHomeVisit(
+            organization.id, tokenBarer,
+            healthCareService.id, healthCareService
+        ).execute()
     }
 }
