@@ -137,7 +137,7 @@ private fun String.getBloodPressure(): BloodPressure? = this.getSystolic()?.let 
 
 private fun String.getSystolic(): Double? = Regex("""(\d+)/\d+""").matchEntire(this)?.groupValues?.last()?.toDouble()
 
-private fun String.getDiastolic(): Double? = Regex("""\d+/(\d)+""").matchEntire(this)?.groupValues?.last()?.toDouble()
+private fun String.getDiastolic(): Double? = Regex("""\d+/(\d+)""").matchEntire(this)?.groupValues?.last()?.toDouble()
 
 class MaxVisitNumberMapper : RowMapper<Long> {
 
