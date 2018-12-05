@@ -1,6 +1,7 @@
 package ffc.airsync.visit
 
 import ffc.entity.healthcare.HealthCareService
+import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.bloodPressureLevel
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
@@ -20,6 +21,19 @@ class InsertData(
     val hossub: String
 
 ) {
+    var vitalcheck: String = ""
+
+    init {
+        healthCareService.communityServices.forEach {
+            if (it is HomeVisit)
+                it.result?.let { result ->
+                    if (result.isNotEmpty())
+                        vitalcheck = result
+                }
+        }
+    }
+
+    // TODO // error
     val flagservice = "03"
     val dateupdate: Timestamp = Timestamp(DateTime.now().plusHours(7).millis)
 

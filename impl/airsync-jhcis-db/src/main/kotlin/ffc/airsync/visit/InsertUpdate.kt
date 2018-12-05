@@ -48,7 +48,8 @@ INSERT INTO `jhcisdb`.`visit`
     `waist`,
     `ass`)
 VALUES
-    (:pcucode,
+    (
+    :pcucode,
 	:visitno,
 	:visitdate,
 	:pcucodeperson,
@@ -75,7 +76,8 @@ VALUES
     :hosmain,
     :hossub,
     :waist,
-    :ass)
+    :ass
+    )
     """
     )
     fun insertVisit(@BindBean homeInsert: List<InsertData>)
