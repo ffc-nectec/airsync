@@ -15,10 +15,10 @@ class InsertData(
     val pcucodeperson: String,
     val pid: Long,
     val username: String,
-    val rightcode: String,
-    val rightno: String,
-    val hosmain: String,
-    val hossub: String
+    val rightcode: String?,
+    val rightno: String?,
+    val hosmain: String?,
+    val hossub: String?
 
 ) {
     var vitalcheck: String = ""
@@ -97,10 +97,10 @@ fun HealthCareService.buildInsertData(
     pcucodeperson: String,
     pid: Long,
     username: String,
-    rightcode: String,
-    rightno: String,
-    hosmain: String,
-    hossub: String
+    rightcode: String?,
+    rightno: String?,
+    hosmain: String?,
+    hossub: String?
 ): InsertData {
     return InsertData(
         this,

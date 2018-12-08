@@ -167,7 +167,7 @@ class JdbiDao(
         jdbi.installPlugin(SqlObjectPlugin())
         jdbi.installPlugin(KotlinSqlObjectPlugin())
 
-        createIndex { jdbi.extension<VisitQuery, Unit> { createIndex() } }
+        // createIndex { jdbi.extension<VisitQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<VisitDiagQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<SpecialppQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<NCDscreenQuery, Unit> { createIndex() } }
@@ -198,10 +198,10 @@ class JdbiDao(
             pcucodePerson,
             ((patient.link?.keys?.get("pid")) as String).toLong(),
             username,
-            (patient.link?.keys?.get("rightcode")) as String,
-            (patient.link?.keys?.get("rightno")) as String,
-            (patient.link?.keys?.get("hosmain")) as String,
-            (patient.link?.keys?.get("hossub")) as String
+            (patient.link?.keys?.get("rightcode")) as String?,
+            (patient.link?.keys?.get("rightno")) as String?,
+            (patient.link?.keys?.get("hosmain")) as String?,
+            (patient.link?.keys?.get("hossub")) as String?
         )
         insertVisit(visitData)
 
