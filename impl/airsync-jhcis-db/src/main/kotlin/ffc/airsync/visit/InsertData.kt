@@ -67,7 +67,7 @@ class InsertData(
     }
 
     val bpLevel2 = healthCareService.bloodPressureLevel
-    val bp2 = healthCareService.bloodPressure
+    val bp2 = healthCareService.bloodPressure2nd
     val pressure2 = if (bp2 != null) "${bp2.systolic.toInt()}/${bp2.diastolic.toInt()}" else null
     val pressurelevel2 = when {
         bpLevel2 == null -> null
