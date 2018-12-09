@@ -11,6 +11,15 @@ import th.`in`.ffc.airsync.logreader.getkey.Update
 import java.util.Arrays
 import java.util.regex.Pattern
 
+/**
+ * ใช้สำหรับอ่าน Log mysql จะถูกกระตุ้นให้เรียก callback onLogInput
+ * เมื่อมี log เกิดขึ้นตามที่ระบุไว้ใน Filter
+ * @param filepath ที่อยู่ของ log file
+ * @param delay ค่าหน่วงเวลาในการตรวจสอบ
+ * @param isTest ใช้สำหรับกำหนดที่เก็บบันทึก config ของตัว logreader
+ * @param tableMaps Filter สำหรับกรอง Table
+ * @param onLogInput callback จะถูกเรียกเมื่อพบ log ที่ระบุไว้ใน tableMaps
+ */
 class LogReader(
     val filepath: String,
     val delay: Long = 300,
@@ -33,14 +42,6 @@ class LogReader(
         thread.start()
     }
 
-    /*private val tableMaps = HashMap<String, ArrayList<String>>().apply {
-        val houseMaps = arrayListOf<String>().apply {
-            add("`house`")
-            add("house")
-        }
-
-        put("house", houseMaps)
-    }*/
     private val startWithBeforeTable = arrayListOf<String>().apply {
         add("insert into")
         add("update")
@@ -100,6 +101,9 @@ class LogReader(
         readLogFile.process()
     }
 
+    /**
+     * ดึงชื่อตารางออกมาจาก บรรทัดการ query
+     */
     private fun getTable(logLine: String): String {
         for (it in startWithBeforeTable) {
             if (logLine.startsWith(it)) {
