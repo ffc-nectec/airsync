@@ -15,6 +15,7 @@ class LogReader(
     val filepath: String,
     val delay: Long = 300,
     val isTest: Boolean = false,
+    val tableMaps: Map<String, List<String>>,
     val onLogInput: (tableName: String, keyWhere: String) -> Unit
 ) : DatabaseWatcherDao {
     private var lineManage: LineManage
@@ -32,14 +33,14 @@ class LogReader(
         thread.start()
     }
 
-    private val tableMaps = HashMap<String, ArrayList<String>>().apply {
+    /*private val tableMaps = HashMap<String, ArrayList<String>>().apply {
         val houseMaps = arrayListOf<String>().apply {
             add("`house`")
             add("house")
         }
 
         put("house", houseMaps)
-    }
+    }*/
     private val startWithBeforeTable = arrayListOf<String>().apply {
         add("insert into")
         add("update")
@@ -55,7 +56,9 @@ class LogReader(
         CreateHash()
     )
     private val keyFilters = arrayListOf<GetWhere>().apply {
-        add(Update(tableMaps["house"]!!.toList()))
+        tableMaps.forEach { _, value ->
+            add(Update(value.toList()))
+        }
     }
 
     private fun readSingleLogFileRealTime() {

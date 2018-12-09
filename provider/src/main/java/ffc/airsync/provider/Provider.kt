@@ -17,10 +17,10 @@
 
 package ffc.airsync.provider
 
+import ffc.airsync.JdbiDao
 import ffc.airsync.client.webservice.module.FirebaseMessage
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.db.DatabaseWatcherDao
-import ffc.airsync.JdbiDao
 import ffc.airsync.localweb.FFCApiClient
 import ffc.airsync.notification.Notification
 import ffc.airsync.ui.AirSyncUi
@@ -40,5 +40,6 @@ fun databaseDaoModule(
 
 fun databaseWatcher(
     filepath: String,
+    tableMaps: Map<String, List<String>>,
     onLogInput: (tableName: String, keyWhere: String) -> Unit
-): DatabaseWatcherDao = LogReader(filepath, onLogInput = onLogInput)
+): DatabaseWatcherDao = LogReader(filepath, tableMaps = tableMaps, onLogInput = onLogInput)

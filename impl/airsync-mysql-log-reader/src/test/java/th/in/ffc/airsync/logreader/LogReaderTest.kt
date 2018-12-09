@@ -19,10 +19,16 @@ class LogReaderTest {
         val writer = PrintWriter(logfile, "UTF-8")
 
         File("logTest.cfg").delete()
+
+        val filter = hashMapOf<String, List<String>>().apply {
+            put("house", listOf("house", "`house`"))
+        }
+
         readLogFile = LogReader(
             logfile,
             isTest = true,
             delay = 100,
+            tableMaps = filter,
             onLogInput = { tableName,
                 keyWhere ->
 
