@@ -2,15 +2,15 @@ package th.`in`.ffc.airsync.logreader.getkey
 
 import java.util.regex.Pattern
 
-class Update(table: List<String>) : GetWhere {
+class Update : GetWhere {
 
     val pattern = Pattern.compile("^update .+ set .+ where +(.*)", Pattern.CASE_INSENSITIVE)
 
-    override fun get(log: String): String {
+    override fun get(log: String): List<String> {
         val query = pattern.matcher(log)
         if (query.find()) {
-            return query.group(1)
+            return listOf(query.group(1))
         }
-        return ""
+        return emptyList()
     }
 }

@@ -41,5 +41,5 @@ fun databaseDaoModule(
 fun databaseWatcher(
     filepath: String,
     tableMaps: Map<String, List<String>>,
-    onLogInput: (tableName: String, keyWhere: String) -> Unit
+    onLogInput: (tableName: String, keyWhere: List<String>) -> Unit
 ): DatabaseWatcherDao = LogReader(filepath, tableMaps = tableMaps, onLogInput = onLogInput)

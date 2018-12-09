@@ -7,6 +7,7 @@ import th.`in`.ffc.airsync.logreader.filter.GetTimeFilter
 import th.`in`.ffc.airsync.logreader.filter.NowFilter
 import th.`in`.ffc.airsync.logreader.filter.QueryFilter
 import th.`in`.ffc.airsync.logreader.getkey.GetWhere
+import th.`in`.ffc.airsync.logreader.getkey.Insert
 import th.`in`.ffc.airsync.logreader.getkey.Update
 import java.util.Arrays
 import java.util.regex.Pattern
@@ -21,20 +22,21 @@ import java.util.regex.Pattern
  * @param onLogInput callback จะถูกเรียกเมื่อพบ log ที่ระบุไว้ใน tableMaps
  */
 class LogReader(
-    val filepath: String,
+    private val filepath: String,
     val delay: Long = 300,
     val isTest: Boolean = false,
     val tableMaps: Map<String, List<String>>,
-    val onLogInput: (tableName: String, keyWhere: String) -> Unit
+    val onLogInput: (tableName: String, keyWhere: List<String>) -> Unit
 ) : DatabaseWatcherDao {
-    private var lineManage: LineManage
+    private var lineManage: LineManage = when {
+        isTest -> LineManage("logTest.cfg")
+        else -> LineManage("log.cfg")
+    }
+    private val keyFilters = arrayListOf<GetWhere>()
 
     init {
-        if (isTest) {
-            lineManage = LineManage("logTest.cfg")
-        } else {
-            lineManage = LineManage("log.cfg")
-        }
+        keyFilters.add(Update())
+        keyFilters.add(Insert())
     }
 
     override fun start() {
@@ -56,11 +58,6 @@ class LogReader(
         NowFilter(),
         CreateHash()
     )
-    private val keyFilters = arrayListOf<GetWhere>().apply {
-        tableMaps.forEach { _, value ->
-            add(Update(value.toList()))
-        }
-    }
 
     private fun readSingleLogFileRealTime() {
         val readLogFile = TextFileReader(filepath, true, delay)
@@ -74,26 +71,10 @@ class LogReader(
                     lineManage.setLastLineNumber(record.linenumber)
 
                 if (record.log.isNotBlank()) {
-                    var key = ""
-                    for (keyFilter in keyFilters) {
-                        key = keyFilter.get(record.log)
-                        if (key != "") {
-                            break
-                        }
-                    }
-
                     val tableInLog = getTable(record.log)
-                    for ((k, v) in tableMaps) {
-                        when (k) {
-                            "house" ->
-                                for (value in v) {
-                                    if (tableInLog.contains(value)) {
-                                        onLogInput(k, key)
-                                        break
-                                    }
-                                }
-                        }
-                    }
+                    val key = getPrimaryKey(record)
+                    callBack(tableInLog, key)
+
                     lineManage.setLastLineNumber(record.linenumber)
                 }
             }
@@ -101,22 +82,37 @@ class LogReader(
         readLogFile.process()
     }
 
+    private fun callBack(tableInLog: String, key: List<String>) {
+
+        tableMaps.forEach loop@{ k, v ->
+            v.forEach { value ->
+                if (tableInLog == value) {
+                    onLogInput(k, key)
+                    return@loop
+                }
+            }
+        }
+    }
+
+    private fun getPrimaryKey(record: QueryRecord): List<String> {
+        var key1 = listOf<String>()
+        keyFilters.forEach {
+            if (key1.isEmpty())
+                key1 = it.get(record.log)
+        }
+        return key1
+    }
+
     /**
      * ดึงชื่อตารางออกมาจาก บรรทัดการ query
      */
     private fun getTable(logLine: String): String {
-        for (it in startWithBeforeTable) {
+        startWithBeforeTable.forEach { it ->
             if (logLine.startsWith(it)) {
                 val pattern = Pattern.compile("""^$it +(`?[\w\d]+`?(\.?`?[\w\d]+`?)?) ?""", Pattern.CASE_INSENSITIVE)
                 val tableMatch = pattern.matcher(logLine.trim())
                 tableMatch.find()
-                var table = ""
-                try {
-                    table = tableMatch.group(1)
-                } catch (ignore: java.lang.IllegalStateException) {
-                    println("\n\nIg $it + $logLine")
-                }
-                return table
+                return tableMatch.group(1) ?: ""
             }
         }
         return ""
