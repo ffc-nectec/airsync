@@ -14,7 +14,8 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
 
     private fun databaseWatcher() {
         val filter = hashMapOf<String, List<String>>().apply {
-            put("house", listOf("house", "`house`"))
+            put("house", listOf("house", "`house`", "`jhcisdb`.`house`"))
+            put("visit", listOf("visit", "`visit`"))
         }
 
         ffc.airsync.provider.databaseWatcher(
@@ -23,19 +24,21 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             printDebug("Database watcher $tableName $keyWhere")
             when (tableName) {
                 "house" -> {
-                    val house = dao.getHouse(keyWhere)
-                    house.forEach {
-                        try {
-                            val houseSync = findHouseWithKey(it)
-                            houseSync.update(it.timestamp) {
-                                road = it.road
-                                no = it.no
-                                location = it.location
-                                link!!.isSynced = true
-                            }
+                    if (keyWhere.size == 1) {
+                        val house = dao.getHouse(keyWhere.first())
+                        house.forEach {
+                            try {
+                                val houseSync = findHouseWithKey(it)
+                                houseSync.update(it.timestamp) {
+                                    road = it.road
+                                    no = it.no
+                                    location = it.location
+                                    link!!.isSynced = true
+                                }
 
-                            houseApi.syncHouseToCloud(houseSync)
-                        } catch (ignore: NullPointerException) {
+                                houseApi.syncHouseToCloud(houseSync)
+                            } catch (ignore: NullPointerException) {
+                            }
                         }
                     }
                 }
