@@ -33,13 +33,14 @@ class InsertData(
         }
     }
 
-    // TODO // error
-    val flagservice = "03"
     val dateupdate: Timestamp = Timestamp(DateTime.now().plusHours(7).millis)
-
     val visitdate: Timestamp = Timestamp(healthCareService.time.plusHours(7).millis)
+
     val timestart: Time = Time(healthCareService.time.plusHours(7).millis)
     val timeend: Time = Time(healthCareService.time.plusHours(7).plusMinutes(5).millis)
+    // TODO // error
+    val flagservice = "03"
+
     val symptoms = healthCareService.syntom
 
     val weight = healthCareService.weight
