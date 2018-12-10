@@ -90,6 +90,21 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun queryMaxVisit(): Long {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getHealthCareService(
+        lookupPatientId: (pid: String) -> String,
+        lookupProviderId: (name: String) -> String,
+        lookupDisease: (icd10: String) -> Disease?,
+        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
+        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
+        whereString: String
+    ): List<HealthCareService> {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getVillage(): List<Village> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }

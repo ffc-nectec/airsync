@@ -17,7 +17,8 @@ SELECT
 	visithomehealthindividual.homehealthdetail,
 	visithomehealthindividual.homehealthresult,
 	visithomehealthindividual.dateappoint,
-	visithomehealthindividual.homehealthplan
+	visithomehealthindividual.homehealthplan,
+    visithomehealthindividual.visitno
 FROM
     visithomehealthindividual
 """
@@ -34,21 +35,39 @@ WHERE visithomehealthindividual.visitno = :visitnumber
     """
     )
     @RegisterRowMapper(VisitHomeHealthMapper::class)
-    fun get(@Bind("visitnumber") visitnumber: Int): List<HomeVisit>
+    fun get(@Bind("visitnumber") visitnumber: Long): List<HomeVisit>
+
+    @SqlQuery(
+        homeHealthQuery + """
+WHERE visithomehealthindividual.visitno IS NOT NULL
+    """
+    )
+    @RegisterRowMapper(VisitHomeHealthMapperAll::class)
+    fun getAll(): List<HashMap<Long, HomeVisit>>
 }
 
 class VisitHomeHealthMapper : RowMapper<HomeVisit> {
     override fun map(rs: ResultSet, ctx: StatementContext?): HomeVisit {
-        return HomeVisit(
-            serviceType = CommunityService.ServiceType(
-                id = rs.getString("homehealthtype"),
-                name = ""
-            )
-        ).apply {
-            rs.getString("homehealthdetail")?.let { detail = it }
-            rs.getString("homehealthresult")?.let { result = it }
-            rs.getString("homehealthplan")?.let { plan = it }
-            rs.getDate("dateappoint")?.let { bundle.put("dateappoint", LocalDate(it.time)) }
-        }
+        return createHomeVisit(rs)
+    }
+}
+
+class VisitHomeHealthMapperAll : RowMapper<HashMap<Long, HomeVisit>> {
+    override fun map(rs: ResultSet, ctx: StatementContext?): HashMap<Long, HomeVisit> {
+        return hashMapOf(rs.getLong("visitno") to createHomeVisit(rs))
+    }
+}
+
+private fun createHomeVisit(rs: ResultSet): HomeVisit {
+    return HomeVisit(
+        serviceType = CommunityService.ServiceType(
+            id = rs.getString("homehealthtype"),
+            name = ""
+        )
+    ).apply {
+        rs.getString("homehealthdetail")?.let { detail = it }
+        rs.getString("homehealthresult")?.let { result = it }
+        rs.getString("homehealthplan")?.let { plan = it }
+        rs.getDate("dateappoint")?.let { bundle.put("dateappoint", LocalDate(it.time)) }
     }
 }

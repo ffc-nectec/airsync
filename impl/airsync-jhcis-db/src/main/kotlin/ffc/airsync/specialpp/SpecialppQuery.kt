@@ -11,7 +11,8 @@ import java.sql.ResultSet
 private const val specialQuery = """
 SELECT
 	f43specialpp.ppspecial,
-	f43specialpp.dateupdate
+	f43specialpp.dateupdate,
+    f43specialpp.visitno
 FROM
 	f43specialpp
 """
@@ -29,11 +30,25 @@ interface SpecialppQuery {
     """
     )
     @RegisterRowMapper(SpecialPPMapper::class)
-    fun get(@Bind("visitnumber") visitnumber: Int): List<String>
+    fun get(@Bind("visitnumber") visitnumber: Long): List<String>
+
+    @SqlQuery(
+        specialQuery + """
+    WHERE f43specialpp.visitno IS NOT NULL
+    """
+    )
+    @RegisterRowMapper(SpecialPPMapperAll::class)
+    fun getAll(): List<HashMap<Long, String>>
 }
 
 class SpecialPPMapper : RowMapper<String> {
     override fun map(rs: ResultSet, ctx: StatementContext?): String {
         return rs.getString("ppspecial")
+    }
+}
+
+class SpecialPPMapperAll : RowMapper<HashMap<Long, String>> {
+    override fun map(rs: ResultSet, ctx: StatementContext?): HashMap<Long, String> {
+        return hashMapOf(rs.getLong("visitno") to rs.getString("ppspecial")!!)
     }
 }

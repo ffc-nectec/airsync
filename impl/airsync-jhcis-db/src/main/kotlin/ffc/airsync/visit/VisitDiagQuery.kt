@@ -35,7 +35,7 @@ interface VisitDiagQuery {
     """
     )
     @RegisterRowMapper(VisitDiagMapper::class)
-    fun getDiag(@Bind("visitnumber") visitnumber: Int): List<Diagnosis>
+    fun getDiag(@Bind("visitnumber") visitnumber: Long): List<Diagnosis>
 }
 
 class VisitDiagMapper : RowMapper<Diagnosis> {

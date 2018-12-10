@@ -48,6 +48,8 @@ interface DatabaseDao {
 
     fun upateHouse(house: House)
 
+    fun queryMaxVisit(): Long
+
     fun getHealthCareService(
         lookupPatientId: (pid: String) -> String,
         lookupProviderId: (name: String) -> String
@@ -59,6 +61,15 @@ interface DatabaseDao {
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?
+    ): List<HealthCareService>
+
+    fun getHealthCareService(
+        lookupPatientId: (pid: String) -> String,
+        lookupProviderId: (name: String) -> String,
+        lookupDisease: (icd10: String) -> Disease?,
+        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
+        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
+        whereString: String
     ): List<HealthCareService>
 
     fun createHomeVisit(

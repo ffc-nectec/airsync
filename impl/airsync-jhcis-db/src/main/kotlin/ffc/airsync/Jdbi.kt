@@ -23,7 +23,9 @@ import org.jdbi.v3.core.Jdbi
 inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R {
     while (true) {
         try {
-            return withExtension<R, E, RuntimeException>(E::class.java, { call(it) })
+            return withExtension<R, E, RuntimeException>(E::class.java) {
+                call(it)
+            }
         } catch (ex: org.jdbi.v3.core.ConnectionException) {
             printDebug("JDBI Error Loop 1 Except")
             ex.printStackTrace()

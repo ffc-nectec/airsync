@@ -10,6 +10,7 @@ import ffc.entity.util.generateTempId
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
+import org.jdbi.v3.sqlobject.customizer.Define
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
@@ -50,8 +51,15 @@ SELECT
 	visit.diagnote
 FROM
 	visit
-WHERE
-	visit.dateupdate >= NOW() - INTERVAL 1 YEAR
+
+"""
+
+private const val visitQueryLast1Year = visitQuery + """
+    WHERE visit.dateupdate >= NOW() - INTERVAL 1 YEAR
+"""
+
+private const val visitQueryWhere = visitQuery + """
+    WHERE <where>
 """
 
 private const val visitNumberIndex = """CREATE  INDEX visitnumber ON f43specialpp(visitno)"""
@@ -61,9 +69,13 @@ interface VisitQuery {
     @SqlUpdate(visitNumberIndex)
     fun createIndex()
 
-    @SqlQuery(visitQuery)
+    @SqlQuery(visitQueryLast1Year)
     @RegisterRowMapper(VisitMapper::class)
     fun get(): List<HealthCareService>
+
+    @SqlQuery(visitQueryWhere)
+    @RegisterRowMapper(VisitMapper::class)
+    fun get(@Define("where") whereString: String): List<HealthCareService>
 
     @SqlQuery(
         """

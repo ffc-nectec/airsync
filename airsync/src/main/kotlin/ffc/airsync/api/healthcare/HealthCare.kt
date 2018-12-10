@@ -16,6 +16,7 @@ fun ArrayList<HealthCareService>.initSync() {
     }
 
     if (localHealthCare.isEmpty()) {
+        hashMapOf<String, Long>("maxvisit" to Main.instant.dao.queryMaxVisit()).save("maxvisit.json")
         val temp = listOf<HealthCareService>().load("healthTemp.json")
         if (temp.isEmpty()) {
             localHealthCare.addAll(getHealthCare())

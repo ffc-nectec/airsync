@@ -67,6 +67,8 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import org.joda.time.LocalDate
 import java.sql.Connection
 import java.sql.Timestamp
+import java.util.LinkedList
+import java.util.Queue
 import javax.sql.DataSource
 import kotlin.system.measureTimeMillis
 
@@ -214,7 +216,7 @@ class JdbiDao(
         jdbiDao.extension<InsertUpdate, Unit> { insertVitsitIndividual(visitIndividualData) }
     }
 
-    fun queryMaxVisit(): Long {
+    override fun queryMaxVisit(): Long {
         val listMaxVisit = jdbiDao.extension<VisitQuery, List<Long>> { getMaxVisitNumber() }
         return listMaxVisit.last()
     }
@@ -321,74 +323,162 @@ class JdbiDao(
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> ServiceType?
     ): List<HealthCareService> {
+        return getHealthCareService(
+            lookupPatientId,
+            lookupProviderId,
+            lookupDisease,
+            lookupSpecialPP,
+            lookupServiceType,
+            ""
+        )
+    }
+
+    override fun getHealthCareService(
+        lookupPatientId: (pid: String) -> String,
+        lookupProviderId: (name: String) -> String,
+        lookupDisease: (icd10: String) -> Disease?,
+        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
+        lookupServiceType: (serviceId: String) -> ServiceType?,
+        whereString: String
+    ): List<HealthCareService> {
         var i = 0
-        val result = jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
+        val result = if (whereString.isBlank())
+            jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
+        else
+            jdbiDao.extension<VisitQuery, List<HealthCareService>> { get(whereString) }
         val size = result.size
+        val avgTimeRun: Queue<Long> = LinkedList()
+        var sumTime = 0L
+
+        val specialPpList = hashMapOf<Long, List<String>>()
+        val ncdScreenList = hashMapOf<Long, List<NCDScreen>>()
+        val homeVisitList = hashMapOf<Long, List<HomeVisit>>()
+
+        jdbiDao.extension<SpecialppQuery, List<Map<Long, String>>> { getAll() }.forEach {
+            mapList(it, specialPpList)
+        }
+        jdbiDao.extension<NCDscreenQuery, List<Map<Long, NCDScreen>>> { getAll() }.forEach {
+            mapList(it, ncdScreenList)
+        }
+
+        jdbiDao.extension<HomeVisitQuery, List<Map<Long, HomeVisit>>> { getAll() }.forEach {
+            mapList(it, homeVisitList)
+        }
+
         return result.map { healthCare ->
-            i++
-            var providerId = ""
-            var patientId = ""
-            val runtimeLookupUser = measureTimeMillis {
-                providerId = lookupProviderId(healthCare.providerId)
-                patientId = lookupPatientId(healthCare.patientId)
+            var healthcareService = HealthCareService("", "")
+
+            val allRunTime = measureTimeMillis {
+
+                i++
+                var providerId = ""
+                var patientId = ""
+                val runtimeLookupUser = measureTimeMillis {
+                    providerId = lookupProviderId(healthCare.providerId)
+                    patientId = lookupPatientId(healthCare.patientId)
+                }
+
+                healthcareService = copyHealthCare(providerId, patientId, healthCare)
+                healthcareService.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
+
+                    var diagnosisIcd10: List<Diagnosis> = emptyList()
+                    var specislPP: List<String> = emptyList()
+                    var ncdScreen: List<NCDScreen> = emptyList()
+                    var homeVisit: List<HomeVisit> = emptyList()
+
+                    val runtimeQueryDb = measureTimeMillis {
+                        diagnosisIcd10 = jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
+                        specislPP = specialPpList[visitNumber] ?: emptyList()
+
+                        ncdScreen = ncdScreenList[visitNumber] ?: emptyList()
+                        homeVisit = homeVisitList[visitNumber] ?: emptyList()
+                    }
+
+                    val runtimeLookupApi = measureTimeMillis {
+                        healthcareService.diagnosises = diagnosisIcd10.map {
+                            Diagnosis(
+                                disease = lookupDisease(it.disease.id.trim()) ?: it.disease,
+                                dxType = it.dxType,
+                                isContinued = it.isContinued
+                            )
+                        }.toMutableList()
+
+                        healthcareService.nextAppoint
+
+                        specislPP.forEach {
+                            healthcareService.addSpecialPP(
+                                lookupSpecialPP(it.trim()) ?: SpecialPP.PPType("it", "it")
+                            )
+                        }
+
+                        healthcareService.ncdScreen = ncdScreen.firstOrNull()?.let {
+                            createNcdScreen(providerId, patientId, it)
+                        }
+
+                        homeVisit.firstOrNull()?.let { visit ->
+                            visit.bundle["dateappoint"]?.let { healthcareService.nextAppoint = it as LocalDate }
+                            healthcareService.communityServices.add(
+                                HomeVisit(
+                                    serviceType = lookupServiceType(visit.serviceType.id.trim()) ?: visit.serviceType,
+                                    detail = visit.detail,
+                                    plan = visit.plan,
+                                    result = visit.result
+                                )
+                            )
+                        }
+                    }
+                    if (i % 300 == 0 || i == size) {
+                        print("Visit $i:$size")
+                        print("\tLookupUser:$runtimeLookupUser")
+                        print("\tRuntime DB:$runtimeQueryDb")
+                        print("\tLookupApi:$runtimeLookupApi")
+                    }
+                }
             }
 
-            val healthcareService = copyHealthCare(providerId, patientId, healthCare)
-            healthcareService.link?.keys?.get("visitno")?.toString()?.toInt()?.let { visitNumber ->
+            if (avgTimeRun.size > 10000)
+                sumTime -= avgTimeRun.poll()
+            avgTimeRun.offer(allRunTime)
+            sumTime += allRunTime
 
-                var diagnosisIcd10: List<Diagnosis> = emptyList()
-                var specislPP: List<String> = emptyList()
-                var ncdScreen: List<NCDScreen> = emptyList()
-                var homeVisit: List<HomeVisit> = emptyList()
+            val avgTime = sumTime / avgTimeRun.size
 
-                val runtimeQueryDb = measureTimeMillis {
-                    diagnosisIcd10 = jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
-                    specislPP = jdbiDao.extension<SpecialppQuery, List<String>> { get(visitNumber) }
-                    ncdScreen = jdbiDao.extension<NCDscreenQuery, List<NCDScreen>> { get(visitNumber) }
-                    homeVisit = jdbiDao.extension<HomeVisitQuery, List<HomeVisit>> { get(visitNumber) }
-                }
-
-                val runtimeLookupApi = measureTimeMillis {
-                    healthcareService.diagnosises = diagnosisIcd10.map {
-                        Diagnosis(
-                            disease = lookupDisease(it.disease.id.trim()) ?: it.disease,
-                            dxType = it.dxType,
-                            isContinued = it.isContinued
-                        )
-                    }.toMutableList()
-
-                    healthcareService.nextAppoint
-
-                    specislPP.forEach {
-                        healthcareService.addSpecialPP(
-                            lookupSpecialPP(it.trim()) ?: SpecialPP.PPType("it", "it")
-                        )
-                    }
-
-                    healthcareService.ncdScreen = ncdScreen.firstOrNull()?.let {
-                        createNcdScreen(providerId, patientId, it)
-                    }
-
-                    homeVisit.firstOrNull()?.let { visit ->
-                        visit.bundle["dateappoint"]?.let { healthcareService.nextAppoint = it as LocalDate }
-                        healthcareService.communityServices.add(
-                            HomeVisit(
-                                serviceType = lookupServiceType(visit.serviceType.id.trim()) ?: visit.serviceType,
-                                detail = visit.detail,
-                                plan = visit.plan,
-                                result = visit.result
-                            )
-                        )
-                    }
-                }
-                if (i % 300 == 0 || i == size) {
-                    print("Visit $i:$size")
-                    print("\tLookupUser:$runtimeLookupUser")
-                    print("\tRuntime DB:$runtimeQueryDb")
-                    println("\tLookupApi:$runtimeLookupApi")
-                }
+            if (i % 300 == 0 || i == size) {
+                ((size - i) * avgTime).printTime()
+                println()
             }
             healthcareService
+        }
+    }
+
+    private inline fun <reified T> mapList(
+        it: Map<Long, T>,
+        resut: HashMap<Long, List<T>>
+    ) {
+        val toList = it.toList()
+        val key = toList[0].first
+        val value = toList[0].second
+        if (resut[key] == null || resut[key]?.isEmpty() == true)
+            resut[key] = listOf(value)
+        else {
+            resut[key] =
+                    listOf(*resut[key]!!.toTypedArray(), value)
+        }
+    }
+
+    private fun calAvgTime(avgTimeRun: Queue<Long>): Long {
+        var sum = 0L
+        avgTimeRun.forEach { sum += it }
+
+        return sum / avgTimeRun.size
+    }
+
+    fun Long.printTime() {
+        if (this > 0) {
+            val sec = (this / 1000) % 60
+            val min = (this / 60000) % 60
+            val hour = (this / 36e5).toInt()
+            print("\t$hour:$min:$sec")
         }
     }
 }
