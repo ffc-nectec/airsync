@@ -137,4 +137,15 @@ class TestDao : DatabaseDao {
     ): List<HealthCareService> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun updateHomeVisit(
+        homeVisit: HomeVisit,
+        healthCareService: HealthCareService,
+        pcucode: String,
+        pcucodePerson: String,
+        patient: Person,
+        username: String
+    ): HealthCareService {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
 }
