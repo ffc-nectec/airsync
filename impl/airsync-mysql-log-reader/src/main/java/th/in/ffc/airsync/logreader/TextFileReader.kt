@@ -24,38 +24,44 @@ import java.io.FileReader
 import java.io.IOException
 
 class TextFileReader @Throws(FileNotFoundException::class)
-@JvmOverloads constructor(fileparth: String, realtime: Boolean = true, delay: Long = 2000) {
-    private var linenumber: Long = 0
+@JvmOverloads constructor(
+    val fileparth: String,
+    private var realtime: Boolean = true,
+    private var delay: Long = 2000
+) {
+    private var linenumber: Long = 1
     private lateinit var bufferReader: BufferedReader
     private var listener: (queryRecord: QueryRecord) -> Unit = {}
-    private var realtime: Boolean = false
-    private var delay: Long = 0
     private var lastLine: Long = 0
+    private lateinit var lineManager: LineManage
 
     init {
         run {
-            this.realtime = realtime
-            this.delay = delay
-            val textfilepath = File(fileparth)
-            var openLog = false
-            // Wait Open Log
-            while (!openLog) {
+            openFile(fileparth)
+        }
+    }
+
+    private fun openFile(fileparth: String) {
+        val textfilepath = File(fileparth)
+        var openLog = false
+        // Wait Open Log
+        while (!openLog) {
+            try {
+                bufferReader = BufferedReader(FileReader(textfilepath))
+                openLog = true
+            } catch (ex: FileNotFoundException) {
                 try {
-                    bufferReader = BufferedReader(FileReader(textfilepath))
-                    openLog = true
-                } catch (ex: java.io.FileNotFoundException) {
-                    try {
-                        Thread.sleep(3000)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
+                    Thread.sleep(3000)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
                 }
             }
         }
     }
 
-    fun setListener(lastLine: Long = 0L, listener: (queryRecord: QueryRecord) -> Unit) {
-        this.lastLine = lastLine
+    fun setListener(lineManager: LineManage, listener: (queryRecord: QueryRecord) -> Unit) {
+        this.lineManager = lineManager
+        this.lastLine = lineManager.getLastLineNumber()
         this.listener = listener
     }
 
@@ -65,11 +71,18 @@ class TextFileReader @Throws(FileNotFoundException::class)
 
     @Throws(IOException::class)
     fun process() {
-        var line: String?
+        var line: String? = ""
+        if (lastLine == 0L) lastLine = 1L
 
-        while (linenumber <= lastLine) {
+        while ((linenumber < lastLine) && line != null) {
             linenumber++
-            bufferReader.readLine()
+            line = bufferReader.readLine()
+        }
+
+        if (line == null) {
+            linenumber = 1
+            lineManager.setLastLineNumber(linenumber)
+            openFile(fileparth)
         }
 
         do {
