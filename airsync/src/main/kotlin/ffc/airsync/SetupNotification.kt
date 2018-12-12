@@ -5,6 +5,7 @@ import ffc.airsync.api.house.houseApi
 import ffc.airsync.api.notification.notificationApi
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.notificationModule
+import ffc.airsync.utils.printDebug
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.place.House
@@ -33,6 +34,7 @@ fun syncFlow(type: String, id: String, dao: DatabaseDao) {
         HealthCareService::class.java.simpleName -> healthCareApi.syncHealthCareFromCloud(id, dao)
         HomeVisit::class.java.simpleName -> healthCareApi.syncHealthCareFromCloud(id, dao)
         else -> {
+            printDebug("Sync else type:$type id:$id")
         }
     }
 }

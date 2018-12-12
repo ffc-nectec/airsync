@@ -185,13 +185,13 @@ interface InsertUpdate {
     fun insertVisit(@BindBean homeInsert: List<InsertData>)
 
     @SqlUpdate(updateVisit)
-    fun updateVisit(@BindBean homeInsert: List<InsertData>)
+    fun updateVisit(@BindBean homeInsert: InsertData)
 
     @SqlBatch(insertVisitDiag)
     fun insertVisitDiag(@BindBean insertDiagData: Iterable<InsertDiagData>)
 
     @SqlUpdate(updateVisitDiag)
-    fun updateVisitDiag(@BindBean insertDiagData: Iterable<InsertDiagData>)
+    fun updateVisitDiag(@BindBean insertDiagData: InsertDiagData)
 
     @SqlUpdate(insertVisitIndividual)
     fun insertVitsitIndividual(@BindBean insertIndividualData: InsertIndividualData)

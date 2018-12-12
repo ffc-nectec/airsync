@@ -260,11 +260,12 @@ class JdbiDao(
             hossub
         )
 
-        updateVisit(visitData)
+        jdbiDao.extension<InsertUpdate, Unit> { updateVisit(visitData) }
 
-        val insertDiagData = healthCareService.buildInsertDiag(pcucode, visitNum, username)
-        jdbiDao.extension<InsertUpdate, Unit> {
-            updateVisitDiag(insertDiagData)
+        healthCareService.buildInsertDiag(pcucode, visitNum, username).forEach {
+            jdbiDao.extension<InsertUpdate, Unit> {
+                updateVisitDiag(it)
+            }
         }
 
         val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
@@ -295,13 +296,6 @@ class JdbiDao(
             add(insertData)
         }
         jdbiDao.extension<InsertUpdate, Unit> { insertVisit(listVisitData) }
-    }
-
-    fun updateVisit(insertData: InsertData) {
-        val listVisitData = arrayListOf<InsertData>().apply {
-            add(insertData)
-        }
-        jdbiDao.extension<InsertUpdate, Unit> { updateVisit(listVisitData) }
     }
 
     override fun getVillage(): List<Village> {
