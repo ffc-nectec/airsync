@@ -79,7 +79,7 @@ interface DatabaseDao {
         pcucodePerson: String,
         patient: Person,
         username: String
-    )
+    ): HealthCareService
 
     fun getVillage(): List<Village>
 

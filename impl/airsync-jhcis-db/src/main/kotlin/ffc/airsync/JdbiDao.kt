@@ -192,19 +192,24 @@ class JdbiDao(
         pcucodePerson: String,
         patient: Person,
         username: String
-    ) {
+    ): HealthCareService {
         val visitNum = queryMaxVisit() + 1
+        val rightcode = (patient.link?.keys?.get("rightcode")) as String?
+        val rightno = (patient.link?.keys?.get("rightno")) as String?
+        val hosmain = (patient.link?.keys?.get("hosmain")) as String?
+        val hossub = (patient.link?.keys?.get("hossub")) as String?
         val visitData = healthCareService.buildInsertData(
             pcucode,
             visitNum,
             pcucodePerson,
             ((patient.link?.keys?.get("pid")) as String).toLong(),
             username,
-            (patient.link?.keys?.get("rightcode")) as String?,
-            (patient.link?.keys?.get("rightno")) as String?,
-            (patient.link?.keys?.get("hosmain")) as String?,
-            (patient.link?.keys?.get("hossub")) as String?
+            rightcode,
+            rightno,
+            hosmain,
+            hossub
         )
+
         insertVisit(visitData)
 
         val insertDiagData = healthCareService.buildInsertDiag(pcucode, visitNum, username)
@@ -214,6 +219,20 @@ class JdbiDao(
 
         val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
         jdbiDao.extension<InsertUpdate, Unit> { insertVitsitIndividual(visitIndividualData) }
+
+        healthCareService.link!!.keys["pcucode"] = pcucode
+        healthCareService.link!!.keys["visitno"] = visitNum.toString()
+
+        ((patient.link?.keys?.get("pid")) as String?)?.let {
+            healthCareService.link!!.keys["pid"] = it
+        }
+        rightcode?.let { healthCareService.link!!.keys["rightcode"] = it }
+        rightno?.let { healthCareService.link!!.keys["rightno"] = it }
+        hosmain?.let { healthCareService.link!!.keys["hosmain"] = it }
+        hossub?.let { healthCareService.link!!.keys["hossub"] = it }
+        healthCareService.link!!.isSynced = true
+
+        return healthCareService
     }
 
     override fun queryMaxVisit(): Long {
