@@ -97,6 +97,16 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
             }
         } else {
             healthCareService.communityServices.forEach {
+                if (it is HomeVisit) {
+                    dao.updateHomeVisit(
+                        it,
+                        healthCareService,
+                        pcucode,
+                        pcucode,
+                        patient,
+                        provider.name
+                    )
+                }
             }
         }
 

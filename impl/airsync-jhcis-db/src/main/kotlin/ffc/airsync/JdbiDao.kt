@@ -235,6 +235,56 @@ class JdbiDao(
         return healthCareService
     }
 
+    override fun updateHomeVisit(
+        homeVisit: HomeVisit,
+        healthCareService: HealthCareService,
+        pcucode: String,
+        pcucodePerson: String,
+        patient: Person,
+        username: String
+    ): HealthCareService {
+        val visitNum = queryMaxVisit() + 1
+        val rightcode = (patient.link?.keys?.get("rightcode")) as String?
+        val rightno = (patient.link?.keys?.get("rightno")) as String?
+        val hosmain = (patient.link?.keys?.get("hosmain")) as String?
+        val hossub = (patient.link?.keys?.get("hossub")) as String?
+        val visitData = healthCareService.buildInsertData(
+            pcucode,
+            visitNum,
+            pcucodePerson,
+            ((patient.link?.keys?.get("pid")) as String).toLong(),
+            username,
+            rightcode,
+            rightno,
+            hosmain,
+            hossub
+        )
+
+        updateVisit(visitData)
+
+        val insertDiagData = healthCareService.buildInsertDiag(pcucode, visitNum, username)
+        jdbiDao.extension<InsertUpdate, Unit> {
+            updateVisitDiag(insertDiagData)
+        }
+
+        val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
+        jdbiDao.extension<InsertUpdate, Unit> { updateVitsitIndividual(visitIndividualData) }
+
+        healthCareService.link!!.keys["pcucode"] = pcucode
+        healthCareService.link!!.keys["visitno"] = visitNum.toString()
+
+        ((patient.link?.keys?.get("pid")) as String?)?.let {
+            healthCareService.link!!.keys["pid"] = it
+        }
+        rightcode?.let { healthCareService.link!!.keys["rightcode"] = it }
+        rightno?.let { healthCareService.link!!.keys["rightno"] = it }
+        hosmain?.let { healthCareService.link!!.keys["hosmain"] = it }
+        hossub?.let { healthCareService.link!!.keys["hossub"] = it }
+        healthCareService.link!!.isSynced = true
+
+        return healthCareService
+    }
+
     override fun queryMaxVisit(): Long {
         val listMaxVisit = jdbiDao.extension<VisitQuery, List<Long>> { getMaxVisitNumber() }
         return listMaxVisit.last()
@@ -245,6 +295,13 @@ class JdbiDao(
             add(insertData)
         }
         jdbiDao.extension<InsertUpdate, Unit> { insertVisit(listVisitData) }
+    }
+
+    fun updateVisit(insertData: InsertData) {
+        val listVisitData = arrayListOf<InsertData>().apply {
+            add(insertData)
+        }
+        jdbiDao.extension<InsertUpdate, Unit> { updateVisit(listVisitData) }
     }
 
     override fun getVillage(): List<Village> {

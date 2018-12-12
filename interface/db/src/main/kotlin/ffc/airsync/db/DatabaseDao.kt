@@ -81,6 +81,15 @@ interface DatabaseDao {
         username: String
     ): HealthCareService
 
+    fun updateHomeVisit(
+        homeVisit: HomeVisit,
+        healthCareService: HealthCareService,
+        pcucode: String,
+        pcucodePerson: String,
+        patient: Person,
+        username: String
+    ): HealthCareService
+
     fun getVillage(): List<Village>
 
     fun getBusiness(): List<Business>
