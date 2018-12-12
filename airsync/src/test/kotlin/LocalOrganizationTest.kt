@@ -86,7 +86,7 @@ class TestDao : DatabaseDao {
         pcucodePerson: String,
         patient: Person,
         username: String
-    ) {
+    ): HealthCareService {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 

@@ -82,21 +82,23 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
             it.id == healthCareService.providerId
         }!!
 
-        healthCareService.communityServices.forEach {
-            if (it is HomeVisit) {
-                dao.createHomeVisit(
-                    it,
-                    healthCareService,
-                    pcucode,
-                    pcucode,
-                    patient,
-                    provider.name
-                )
+        if (healthCareService.link!!.keys.isEmpty()) {
+            healthCareService.communityServices.forEach {
+                if (it is HomeVisit) {
+                    dao.createHomeVisit(
+                        it,
+                        healthCareService,
+                        pcucode,
+                        pcucode,
+                        patient,
+                        provider.name
+                    )
+                }
+            }
+        } else {
+            healthCareService.communityServices.forEach {
             }
         }
-        healthCareService.link!!.isSynced = true
-
-        // healthCareService.nextAppoint = null
 
         callApi {
             val result = restService.updateHomeVisit(
