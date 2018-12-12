@@ -61,7 +61,7 @@ class LogReader(
 
     private fun readSingleLogFileRealTime() {
         val readLogFile = TextFileReader(filepath, true, delay)
-        readLogFile.setListener(lineManage.getLastLineNumber()) { record ->
+        readLogFile.setListener(lineManage) { record ->
             if (record.linenumber > lineManage.getLastLineNumber()) {
                 loadFilters.forEach {
                     it.process(record)

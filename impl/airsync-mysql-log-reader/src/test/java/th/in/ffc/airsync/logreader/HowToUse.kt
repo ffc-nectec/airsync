@@ -12,7 +12,7 @@ class HowToUse {
     fun exampleTextFileReader() {
         val readTextFile = TextFileReader(Config.logfilepath, true, 100)
 
-        readTextFile.setListener(0L) {
+        readTextFile.setListener(LineManage("temp.a")) {
             println(it.log)
         }
 

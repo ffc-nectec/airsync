@@ -79,7 +79,7 @@ public class Controller {
 
         try {
             TextFileReader readLogFile = new TextFileReader(Config.logfilepath);
-            readLogFile.setListener(0L, record -> {
+            readLogFile.setListener(new LineManage("temp.a"), record -> {
                 for (Filters filter : filters) {
                     filter.process(record);
                     if (record.getLog().equals("")) break;

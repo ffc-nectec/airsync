@@ -30,11 +30,10 @@ class TextFileReaderTest {
     @Test
     @Throws(Exception::class)
     fun read() {
-        val readLogFile: TextFileReader
+        val readLogFile = TextFileReader(logfile, true, 100)
         val recordTest = AtomicReference<QueryRecord>()
-        var writer = PrintWriter(logfile, "UTF-8")
-        readLogFile = TextFileReader(logfile, true, 100)
-        readLogFile.setListener { record ->
+        val writer = PrintWriter(logfile, "UTF-8")
+        readLogFile.setListener(LineManage("temp.a")) { record ->
             recordTest.set(record)
         }
         Thread {
