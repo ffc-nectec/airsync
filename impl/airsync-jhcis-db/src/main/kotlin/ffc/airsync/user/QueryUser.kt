@@ -13,13 +13,15 @@ import java.sql.ResultSet
 interface QueryUser {
     @SqlQuery(
         """
-        SELECT
+SELECT
 	user.username,
 	user.password,
-	user.pcucode
+	user.pcucode,
+	user.markdelete
 FROM user
 	WHERE
 		user.password IS NOT NULL
+		AND user.markdelete IS NULL
 """
     )
     @RegisterRowMapper(UserMapper::class)
