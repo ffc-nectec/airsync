@@ -57,6 +57,7 @@ WHERE  `pcucode`= :pcucode AND `hcode`= :hcode
 SELECT house.pcucode,
 	house.hcode,
     house.hno,
+    house.villcode,
 	house.road,
 	house.xgis,
     house.hid,
@@ -73,9 +74,10 @@ FROM house
 SELECT house.pcucode,
 	house.hcode,
     house.hno,
+    house.villcode,
 	house.road,
 	house.xgis,
-	house.hid,
+    house.hid,
 	house.ygis,
 	house.dateupdate
 FROM house WHERE <where>
@@ -89,9 +91,11 @@ class HouseMapper : RowMapper<House> {
 
     override fun map(rs: ResultSet, ctx: StatementContext?): House {
         val timestamp = DateTime(rs.getTimestamp("dateupdate")).minusHours(7)
+        val regexMoo = Regex("""^\d+(\d{2})${'$'}""")
         val house = House().update(timestamp) {
             rs.getString("hid")?.let { identity = ThaiHouseholdId(it) }
-            no = rs.getString("hno")
+            val moo = regexMoo.matchEntire(rs.getString("villcode") ?: "00")?.groupValues?.last()?.toInt()
+            no = rs.getString("hno") + if (moo != null) " หมู่ $moo" else ""
             road = rs.getString("road")
 
             val xgis = rs.getDouble("xgis")
