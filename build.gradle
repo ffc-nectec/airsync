@@ -29,7 +29,7 @@ buildscript {
 }
 
 ext {
-   entitiesVersion = 'b87d330ec2'
+    entitiesVersion = '1.0.0-alpha13'
 }
 
 allprojects {
