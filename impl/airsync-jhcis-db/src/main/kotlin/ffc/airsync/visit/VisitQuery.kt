@@ -137,6 +137,7 @@ class VisitMapper : RowMapper<HealthCareService> {
             rs.getString("diagnote")?.let { note = it }
 
             link = Link(System.JHICS)
+            link!!.isSynced = true
             rs.getString("pcucode")?.let { link!!.keys["pcucode"] = it }
             rs.getString("visitno")?.let { link!!.keys["visitno"] = it }
             rs.getString("pid")?.let { link!!.keys["pid"] = it }
