@@ -43,7 +43,7 @@ class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), G
         val output = hashMapOf<String, List<Person.Relationship>>()
         callApiNoReturn { restService.cleanAll(organization.id, tokenBarer).execute() }
 
-        UploadSpliterMap.upload(200, relationship) { list, block ->
+        UploadSpliterMap.upload(100, relationship) { list, block ->
 
             val result = callApi {
                 restService.unConfirmBlock(organization.id, tokenBarer, block).execute()
@@ -55,6 +55,10 @@ class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), G
                 ).execute()
 
                 if (response.code() == 201 || response.code() == 200) {
+                    restService.confirmBlock(
+                        organization.id, tokenBarer,
+                        block = block
+                    )
                     response.body()
                 } else {
                     throw ApiLoopException("Response code wrong.")
