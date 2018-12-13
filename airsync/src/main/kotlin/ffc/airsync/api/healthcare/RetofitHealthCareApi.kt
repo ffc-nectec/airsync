@@ -110,11 +110,18 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
             }
         }
 
-        callApi {
-            val result = restService.updateHomeVisit(
+        val result = updateHealthCare(healthCareService)
+
+        printDebug("Result healthcare from cloud $result")
+    }
+
+    override fun updateHealthCare(healthCareService: HealthCareService): HealthCareService {
+        val result = callApi {
+            restService.updateHomeVisit(
                 organization.id, tokenBarer,
                 healthCareService.id, healthCareService
             ).execute()
-        }
+        }.body()
+        return result!!
     }
 }
