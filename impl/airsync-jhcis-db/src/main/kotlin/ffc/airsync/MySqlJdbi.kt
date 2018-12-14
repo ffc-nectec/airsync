@@ -12,7 +12,7 @@ abstract class MySqlJdbi(
     val dbName: String = "jhcisdb",
     val dbUsername: String = "root",
     val dbPassword: String = "123456",
-    val ds: DataSource? = null
+    var ds: DataSource? = null
 ) {
     companion object {
         lateinit var jdbiDao: Jdbi
@@ -27,8 +27,9 @@ abstract class MySqlJdbi(
         val jdbi: Jdbi
 
         if (ds == null) {
-            val ds = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
-            ds.setURL(
+            val dsMySql = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
+
+            dsMySql.setURL(
                 "jdbc:mysql://$dbHost:$dbPort/$dbName?" +
                         "autoReconnect=true&" +
                         "useSSL=false&" +
@@ -37,11 +38,13 @@ abstract class MySqlJdbi(
                         "connectTimeout=10000&" +
                         "socketTimeout=10000"
             )
-            ds.databaseName = dbName
-            ds.user = dbUsername
-            ds.setPassword(dbPassword)
-            ds.port = dbPort.toInt()
-            jdbi = Jdbi.create(ds)
+            dsMySql.databaseName = dbName
+            dsMySql.user = dbUsername
+            dsMySql.setPassword(dbPassword)
+            dsMySql.port = dbPort.toInt()
+            ds = dsMySql
+            // pool.add(dsMySql.connection)
+            jdbi = Jdbi.create(dsMySql)
         } else {
             jdbi = Jdbi.create(ds)
         }
