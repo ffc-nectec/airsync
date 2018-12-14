@@ -39,7 +39,7 @@ interface HouseUrl {
         @Header("Authorization") authkey: String
     ): Call<Void>
 
-    @POST("/v0/org/{orgId}/house/sync/{block}")
+    @POST("/v0/org/{orgId}/houses/sync/{block}")
     fun insertHouseBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -47,14 +47,14 @@ interface HouseUrl {
         @Body houseList: List<House>
     ): Call<List<House>>
 
-    @PUT("/v0/org/{orgId}/house/sync/{block}")
+    @PUT("/v0/org/{orgId}/houses/sync/{block}")
     fun confirmHouseBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/house/sync/{block}")
+    @DELETE("/v0/org/{orgId}/houses/sync/{block}")
     fun unConfirmHouseBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,

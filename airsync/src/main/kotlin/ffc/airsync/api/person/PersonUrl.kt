@@ -23,7 +23,7 @@ interface PersonUrl {
         @Body personList: List<Person>
     ): Call<List<Person>>
 
-    @POST("/v0/org/{orgId}/person/sync/{block}")
+    @POST("/v0/org/{orgId}/persons/sync/{block}")
     fun insertPersonBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -31,14 +31,14 @@ interface PersonUrl {
         @Body personList: List<Person>
     ): Call<List<Person>>
 
-    @PUT("/v0/org/{orgId}/person/sync/{block}")
+    @PUT("/v0/org/{orgId}/persons/sync/{block}")
     fun confirmPersonBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/person/sync/{block}")
+    @DELETE("/v0/org/{orgId}/persons/sync/{block}")
     fun unConfirmPersonBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
