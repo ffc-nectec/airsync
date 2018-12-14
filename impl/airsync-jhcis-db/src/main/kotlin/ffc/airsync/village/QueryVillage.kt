@@ -18,8 +18,8 @@ SELECT
 	village.pcucode,
 	village.villcode,
 	village.villname,
-	village.latitude as ygis,
-	village.longitude as xgis
+	village.latitude,
+	village.longitude
 FROM
 	village
     """
@@ -32,13 +32,14 @@ class VillageMapper : RowMapper<Village> {
     override fun map(rs: ResultSet, ctx: StatementContext): Village {
         return Village().apply {
             val place = Place().apply {
-                val xgis = rs.getDouble("xgis")
-                val ygis = rs.getDouble("ygis")
+                val longitude = rs.getString("longitude")?.toDoubleOrNull()
+                val latitude = rs.getString("latitude")?.toDoubleOrNull()
 
                 villageName = rs.getString("villname") ?: ""
 
-                if ((xgis != 0.0) && (ygis != 0.0))
-                    location = Point(xgis, ygis)
+                if (longitude != null && latitude != null)
+                    if ((longitude != 0.0) && (latitude != 0.0))
+                        location = Point(longitude, latitude)
 
                 link = Link(
                     System.JHICS,
