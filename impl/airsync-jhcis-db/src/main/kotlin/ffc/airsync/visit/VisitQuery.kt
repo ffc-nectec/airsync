@@ -10,7 +10,10 @@ import ffc.entity.util.generateTempId
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
+import org.jdbi.v3.sqlobject.customizer.Bind
+import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.customizer.Define
+import org.jdbi.v3.sqlobject.statement.SqlBatch
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
@@ -53,6 +56,99 @@ FROM
 	visit
 
 """
+private const val insertVisit = """
+INSERT INTO `jhcisdb`.`visit`
+    (`pcucode`,
+	`visitno`,
+	`visitdate`,
+	`pcucodeperson`,
+	`pid`,
+	`timeservice`,
+	`timestart`,
+	`timeend`,
+	`symptoms`,
+	`vitalcheck`,
+	`weight`,
+	`height`,
+	`pressure`,
+    `pressure2`,
+	`pressurelevel`,
+	`temperature`,
+	`pulse`,
+	`respri`,
+    `username`,
+    `flagservice`,
+    `dateupdate`,
+    `bmilevel`,
+    `flag18fileexpo`,
+    `rightcode`,
+    `rightno`,
+    `hosmain`,
+    `hossub`,
+    `waist`,
+    `ass`)
+VALUES
+    (
+    :pcucode,
+	:visitno,
+	:visitdate,
+	:pcucodeperson,
+	:pid,
+	:timeservice,
+	:timestart,
+	:timeend,
+	:symptoms,
+	:vitalcheck,
+	:weight,
+	:height,
+	:pressure,
+	:pressure2,
+	:pressurelevel,
+	:temperature,
+	:pulse,
+	:respri,
+    :username,
+    :flagservice,
+    :dateupdate,
+    :bmilevel,
+    :flag18fileexpo,
+    :rightcode,
+    :rightno,
+    :hosmain,
+    :hossub,
+    :waist,
+    :ass
+    )
+    """
+private const val updateVisit = """
+UPDATE `jhcisdb`.`visit` SET
+	`timeservice`= :timeservice,
+	`timestart`= :timestart,
+	`timeend`= :timeend,
+	`symptoms`= :symptoms,
+	`vitalcheck`= :vitalcheck,
+	`weight`= :weight,
+	`height`= :height,
+	`pressure`= :pressure,
+	`pressure2`= :pressure2,
+	`pressurelevel`= :pressurelevel,
+	`temperature`= :temperature,
+	`pulse`= :pulse,
+	`respri`= :respri,
+    `username`= :username,
+    `flagservice`= :flagservice,
+    `dateupdate`= :dateupdate,
+    `bmilevel`= :bmilevel,
+    `flag18fileexpo`= :flag18fileexpo,
+    `rightcode`= :rightcode,
+    `rightno`= :rightno,
+    `hosmain`= :hosmain,
+    `hossub`= :hossub,
+    `waist`= :waist,
+    `ass`= :ass
+WHERE
+	`pcucode`= :pcucode AND `visitno`= :visitno
+"""
 
 private const val visitQueryLast1Year = visitQuery + """
     WHERE visit.dateupdate >= NOW() - INTERVAL 1 YEAR
@@ -84,6 +180,22 @@ interface VisitQuery {
     )
     @RegisterRowMapper(MaxVisitNumberMapper::class)
     fun getMaxVisitNumber(): List<Long>
+
+    @SqlBatch(insertVisit)
+    fun insertVisit(@BindBean homeInsert: List<InsertData>)
+
+    @SqlUpdate(
+        """
+        INSERT INTO `jhcisdb`.`visit` (`pcucode`, `visitno`) VALUES ( :pcuCode, :visitNumber )
+    """
+    )
+    fun inserVisit(
+        @Bind("pcuCode") pcuCode: String,
+        @Bind("visitNumber") visitNumber: Long
+    )
+
+    @SqlUpdate(updateVisit)
+    fun updateVisit(@BindBean homeInsert: InsertData)
 }
 
 class VisitMapper : RowMapper<HealthCareService> {

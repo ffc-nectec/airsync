@@ -35,9 +35,8 @@ import ffc.airsync.temple.QueryTemple
 import ffc.airsync.user.QueryUser
 import ffc.airsync.utils.printDebug
 import ffc.airsync.village.QueryVillage
-import ffc.airsync.visit.HomeVisitQuery
+import ffc.airsync.visit.HomeVisitIndividualQuery
 import ffc.airsync.visit.InsertData
-import ffc.airsync.visit.InsertUpdate
 import ffc.airsync.visit.VisitDiagQuery
 import ffc.airsync.visit.VisitQuery
 import ffc.airsync.visit.buildInsertData
@@ -173,7 +172,7 @@ class JdbiDao(
         createIndex { jdbi.extension<VisitDiagQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<SpecialppQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<NCDscreenQuery, Unit> { createIndex() } }
-        createIndex { jdbi.extension<HomeVisitQuery, Unit> { createIndex() } }
+        createIndex { jdbi.extension<HomeVisitIndividualQuery, Unit> { createIndex() } }
 
         return jdbi
     }
@@ -213,12 +212,12 @@ class JdbiDao(
         insertVisit(visitData)
 
         val insertDiagData = healthCareService.buildInsertDiag(pcucode, visitNum, username)
-        jdbiDao.extension<InsertUpdate, Unit> {
+        jdbiDao.extension<VisitDiagQuery, Unit> {
             insertVisitDiag(insertDiagData)
         }
 
         val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
-        jdbiDao.extension<InsertUpdate, Unit> { insertVitsitIndividual(visitIndividualData) }
+        jdbiDao.extension<HomeVisitIndividualQuery, Unit> { insertVitsitIndividual(visitIndividualData) }
 
         healthCareService.link!!.keys["pcucode"] = pcucode
         healthCareService.link!!.keys["visitno"] = visitNum.toString()
@@ -260,16 +259,16 @@ class JdbiDao(
             hossub
         )
 
-        jdbiDao.extension<InsertUpdate, Unit> { updateVisit(visitData) }
+        jdbiDao.extension<VisitQuery, Unit> { updateVisit(visitData) }
 
         healthCareService.buildInsertDiag(pcucode, visitNum, username).forEach {
-            jdbiDao.extension<InsertUpdate, Unit> {
+            jdbiDao.extension<VisitDiagQuery, Unit> {
                 updateVisitDiag(it)
             }
         }
 
         val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
-        jdbiDao.extension<InsertUpdate, Unit> { updateVitsitIndividual(visitIndividualData) }
+        jdbiDao.extension<HomeVisitIndividualQuery, Unit> { updateVitsitIndividual(visitIndividualData) }
 
         healthCareService.link!!.keys["pcucode"] = pcucode
         healthCareService.link!!.keys["visitno"] = visitNum.toString()
@@ -295,7 +294,7 @@ class JdbiDao(
         val listVisitData = arrayListOf<InsertData>().apply {
             add(insertData)
         }
-        jdbiDao.extension<InsertUpdate, Unit> { insertVisit(listVisitData) }
+        jdbiDao.extension<VisitQuery, Unit> { insertVisit(listVisitData) }
     }
 
     override fun getVillage(): List<Village> {
@@ -431,7 +430,7 @@ class JdbiDao(
             mapList(it, ncdScreenList)
         }
 
-        jdbiDao.extension<HomeVisitQuery, List<Map<Long, HomeVisit>>> { getAll() }.forEach {
+        jdbiDao.extension<HomeVisitIndividualQuery, List<Map<Long, HomeVisit>>> { getAll() }.forEach {
             mapList(it, homeVisitList)
         }
 

@@ -7,11 +7,11 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import javax.sql.DataSource
 
 abstract class MySqlJdbi(
-    val dbHost: String = "127.0.0.1",
-    val dbPort: String = "3333",
-    val dbName: String = "jhcisdb",
-    val dbUsername: String = "root",
-    val dbPassword: String = "123456",
+    val dbHost: String,
+    val dbPort: String,
+    val dbName: String,
+    val dbUsername: String,
+    val dbPassword: String,
     var ds: DataSource? = null
 ) {
     companion object {
@@ -19,7 +19,11 @@ abstract class MySqlJdbi(
     }
 
     init {
-        jdbiDao = createJdbi()
+        try {
+            jdbiDao.toString()
+        } catch (ex: kotlin.UninitializedPropertyAccessException) {
+            jdbiDao = createJdbi()
+        }
     }
 
     private fun createJdbi(): Jdbi {

@@ -6,6 +6,7 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.Bind
+import org.jdbi.v3.sqlobject.customizer.BindBean
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.LocalDate
@@ -22,10 +23,48 @@ SELECT
 FROM
     visithomehealthindividual
 """
+private const val insertVisitIndividual = """
+INSERT INTO `jhcisdb`.`visithomehealthindividual` (
+	`pcucode`,
+	`visitno`,
+	`homehealthtype`,
+	`patientsign`,
+	`homehealthdetail`,
+	`homehealthresult`,
+	`homehealthplan`,
+	`dateappoint`,
+	`user`,
+	`dateupdate`)
+VALUES(
+	:pcucode ,
+	:visitno ,
+	:homehealthtype ,
+	:patientsign ,
+	:homehealthdetail ,
+	:homehealthresult ,
+	:homehealthplan ,
+	:dateappoint ,
+	:user ,
+	:dateupdate)
+    """
+private const val updateVisitIndividual = """
+UPDATE `jhcisdb`.`visithomehealthindividual` SET
+	`homehealthtype`= :homehealthtype,
+	`patientsign`= :patientsign,
+	`homehealthdetail`= :homehealthdetail,
+	`homehealthresult`= :homehealthresult,
+	`homehealthplan`= :homehealthplan,
+	`dateappoint`= :dateappoint,
+	`user`= :user,
+	`dateupdate`= :dateupdate
+
+WHERE
+	`pcucode`= :pcucode AND `visitno`= :visitno
+"""
 
 private const val homehealthIndex = """CREATE INDEX visithomehealthindividual ON visitdiag(visitno)"""
 
-interface HomeVisitQuery {
+interface HomeVisitIndividualQuery {
     @SqlUpdate(homehealthIndex)
     fun createIndex()
 
@@ -44,6 +83,12 @@ WHERE visithomehealthindividual.visitno IS NOT NULL
     )
     @RegisterRowMapper(VisitHomeHealthMapperAll::class)
     fun getAll(): List<HashMap<Long, HomeVisit>>
+
+    @SqlUpdate(insertVisitIndividual)
+    fun insertVitsitIndividual(@BindBean insertIndividualData: InsertIndividualData)
+
+    @SqlUpdate(updateVisitIndividual)
+    fun updateVitsitIndividual(@BindBean insertIndividualData: InsertIndividualData)
 }
 
 class VisitHomeHealthMapper : RowMapper<HomeVisit> {
