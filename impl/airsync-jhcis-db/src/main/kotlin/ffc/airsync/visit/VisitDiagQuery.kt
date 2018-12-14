@@ -6,6 +6,8 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.Bind
+import org.jdbi.v3.sqlobject.customizer.BindBean
+import org.jdbi.v3.sqlobject.statement.SqlBatch
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import java.sql.ResultSet
@@ -20,6 +22,38 @@ SELECT
 	visitdiag.doctordiag
 FROM
     visitdiag
+"""
+private const val insertVisitDiag = """
+INSERT INTO `jhcisdb`.`visitdiag` (
+	`pcucode`,
+	`visitno`,
+	`diagcode`,
+	`conti`,
+	`dxtype`,
+	`appointdate`,
+	`dateupdate`,
+	`doctordiag`)
+VALUES(
+	:pcucode ,
+	:visitno ,
+	:diagcode ,
+	:conti ,
+	:dxtype ,
+	:appointdate ,
+	:dateupdate ,
+	:doctordiag )
+    """
+private const val updateVisitDiag = """
+UPDATE `jhcisdb`.`visitdiag` SET
+	`diagcode`= :diagcode,
+	`conti`= :conti,
+	`dxtype`= :dxtype,
+	`appointdate`= :appointdate,
+	`dateupdate`= :dateupdate,
+	`doctordiag`= :doctordiag
+
+WHERE
+	`pcucode`= :pcucode AND `visitno`= :visitno
 """
 
 private const val visitNumberIndex = """CREATE INDEX visitnumber ON visitdiag(visitno)"""
@@ -36,6 +70,12 @@ interface VisitDiagQuery {
     )
     @RegisterRowMapper(VisitDiagMapper::class)
     fun getDiag(@Bind("visitnumber") visitnumber: Long): List<Diagnosis>
+
+    @SqlBatch(insertVisitDiag)
+    fun insertVisitDiag(@BindBean insertDiagData: Iterable<InsertDiagData>)
+
+    @SqlUpdate(updateVisitDiag)
+    fun updateVisitDiag(@BindBean insertDiagData: InsertDiagData)
 }
 
 class VisitDiagMapper : RowMapper<Diagnosis> {
