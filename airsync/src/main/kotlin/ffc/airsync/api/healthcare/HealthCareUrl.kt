@@ -12,7 +12,7 @@ import retrofit2.http.Path
 
 interface HealthCareUrl {
 
-    @POST("/v0/org/{orgId}/healthcareservice/sync/{block}")
+    @POST("/v0/org/{orgId}/healthcareservices/sync/{block}")
     fun insertHealthCareBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -20,14 +20,14 @@ interface HealthCareUrl {
         @Body healthCare: List<@JvmSuppressWildcards HealthCareService>
     ): Call<List<HealthCareService>>
 
-    @PUT("/v0/org/{orgId}/healthcareservice/sync/{block}")
+    @PUT("/v0/org/{orgId}/healthcareservices/sync/{block}")
     fun confirmHealthCareBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/healthcareservice/sync/{block}")
+    @DELETE("/v0/org/{orgId}/healthcareservices/sync/{block}")
     fun unConfirmHealthCareBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,

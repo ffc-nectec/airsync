@@ -19,7 +19,7 @@ interface GenogramUrl {
         @Body relationship: List<Person.Relationship>
     ): Call<List<Person.Relationship>>
 
-    @POST("/v0/org/{orgId}/person/relationship/sync/{block}")
+    @POST("/v0/org/{orgId}/person/relationships/sync/{block}")
     fun insertBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -27,28 +27,28 @@ interface GenogramUrl {
         @Body relationship: Map<String, @JvmSuppressWildcards List<Person.Relationship>>
     ): Call<Map<String, List<Person.Relationship>>>
 
-    @GET("/v0/org/{orgId}/person/relationship/sync/{block}")
+    @GET("/v0/org/{orgId}/person/relationships/sync/{block}")
     fun getBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Map<String, List<Person.Relationship>>>
 
-    @PUT("/v0/org/{orgId}/person/relationship/sync/{block}")
+    @PUT("/v0/org/{orgId}/person/relationships/sync/{block}")
     fun confirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/person/relationship/sync/{block}")
+    @DELETE("/v0/org/{orgId}/person/relationships/sync/{block}")
     fun unConfirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/person/relationship/sync/clean")
+    @DELETE("/v0/org/{orgId}/person/relationships/sync/clean")
     fun cleanAll(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String

@@ -40,7 +40,7 @@ interface AnalyzerUrl {
         @Header("Authorization") authkey: String
     ): Call<Void>
 
-    @POST("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    @POST("/v0/org/{orgId}/healthanalyzes/sync/{block}")
     fun insertBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -48,21 +48,21 @@ interface AnalyzerUrl {
         @Body healtyAnalyzer: Map<String, HealthAnalyzer>
     ): Call<Map<String, HealthAnalyzer>>
 
-    @GET("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    @GET("/v0/org/{orgId}/healthanalyzes/sync/{block}")
     fun getBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Map<String, HealthAnalyzer>>
 
-    @PUT("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    @PUT("/v0/org/{orgId}/healthanalyzes/sync/{block}")
     fun confirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/healthanalyze/sync/{block}")
+    @DELETE("/v0/org/{orgId}/healthanalyzes/sync/{block}")
     fun unConfirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
