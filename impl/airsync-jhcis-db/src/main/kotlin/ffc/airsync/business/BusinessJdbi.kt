@@ -12,7 +12,7 @@ class BusinessJdbi(
     dbUsername: String = "root",
     dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), QueryBusiness {
+) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), BusinessDao {
     override fun get(): List<Business> {
         return jdbiDao.extension<QueryBusiness, List<Business>> { get() }
     }

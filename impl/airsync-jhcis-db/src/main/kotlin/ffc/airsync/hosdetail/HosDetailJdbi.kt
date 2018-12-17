@@ -11,8 +11,8 @@ class HosDetailJdbi(
     dbUsername: String = "root",
     dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), QueryHosDetail {
-    override fun get(): List<HashMap<String, String>> {
-        return jdbiDao.extension<QueryHosDetail, List<kotlin.collections.HashMap<String, String>>> { get() }
+) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), HosDao {
+    override fun get(): HashMap<String, String> {
+        return jdbiDao.extension<QueryHosDetail, List<kotlin.collections.HashMap<String, String>>> { get() }[0]
     }
 }

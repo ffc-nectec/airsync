@@ -12,7 +12,7 @@ class VillageJdbi(
     dbUsername: String = "root",
     dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), QueryVillage {
+) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), VillageDao {
     override fun get(): List<Village> {
         return jdbiDao.extension<QueryVillage, List<Village>> { get() }
     }

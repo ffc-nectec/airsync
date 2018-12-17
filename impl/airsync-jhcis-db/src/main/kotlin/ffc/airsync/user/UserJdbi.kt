@@ -12,7 +12,7 @@ class UserJdbi(
     dbUsername: String = "root",
     dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), QueryUser {
+) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), UserDao {
     override fun get(): List<User> {
         return jdbiDao.extension<QueryUser, List<User>> { get() }
     }
