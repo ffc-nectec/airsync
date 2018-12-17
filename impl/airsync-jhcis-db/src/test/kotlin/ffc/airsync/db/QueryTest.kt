@@ -1,8 +1,9 @@
 package ffc.airsync.db
 
 import ffc.airsync.JdbiDao
-import ffc.airsync.visit.InsertData
 import ffc.airsync.utils.timeZone
+import ffc.airsync.visit.InsertData
+import ffc.airsync.visit.VisitJdbi
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.gson.toJson
@@ -150,6 +151,6 @@ class QueryTest {
 
     @Ignore("InsertUpdate visit in real db")
     fun insertVisitTest() {
-        JdbiDao().insertVisit(fullInsertData)
+        VisitJdbi().insertVisit(fullInsertData)
     }
 }

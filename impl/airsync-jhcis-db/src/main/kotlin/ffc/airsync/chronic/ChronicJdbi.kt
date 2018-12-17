@@ -12,8 +12,6 @@ class ChronicJdbi(
     dbUsername: String = "root",
     dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), QueryChronic {
-    override fun get(): List<Chronic> {
-        return jdbiDao.extension<QueryChronic, List<Chronic>> { get() }
-    }
+) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), ChronicDao {
+    override fun get(): List<Chronic> = jdbiDao.extension<QueryChronic, List<Chronic>> { get() }
 }

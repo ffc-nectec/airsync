@@ -12,12 +12,12 @@ class PersonJdbi(
     dbUsername: String = "root",
     dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), QueryPerson {
+) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), PersonDao {
     override fun get(): List<Person> {
         return jdbiDao.extension<QueryPerson, List<Person>> { get() }
     }
 
-    override fun findPerson(pcucode: String, pid: Long): List<Person> {
+    override fun find(pcucode: String, pid: Long): List<Person> {
         return jdbiDao.extension<QueryPerson, List<Person>> { findPerson(pcucode, pid) }
     }
 }
