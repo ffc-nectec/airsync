@@ -1,6 +1,6 @@
 package ffc.airsync.api.genogram
 
-import ffc.airsync.persons
+import ffc.airsync.api.person.persons
 import ffc.entity.Person
 
 internal fun List<Person>.createMate(person: Person) {

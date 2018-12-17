@@ -7,3 +7,4 @@ interface AnalyzerSyncApi {
 }
 
 val analyzerSyncApi: AnalyzerSyncApi by lazy { RetofitAnalyzerSyncApi() }
+val analyzer = hashMapOf<String, HealthAnalyzer>()

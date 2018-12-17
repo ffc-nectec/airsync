@@ -10,3 +10,4 @@ interface HealthCareApi {
 }
 
 val healthCareApi: HealthCareApi by lazy { RetofitHealthCareApi() }
+val healthCare = arrayListOf<HealthCareService>()
