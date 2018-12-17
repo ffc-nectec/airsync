@@ -7,3 +7,4 @@ interface PersonApi {
 }
 
 val personApi: PersonApi by lazy { RetofitPersonApi() }
+val persons = arrayListOf<Person>()

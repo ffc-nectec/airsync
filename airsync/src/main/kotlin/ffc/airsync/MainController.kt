@@ -17,17 +17,23 @@
 
 package ffc.airsync
 
+import ffc.airsync.api.analyzer.analyzer
 import ffc.airsync.api.analyzer.initSync2
 import ffc.airsync.api.chronic.Chronics
 import ffc.airsync.api.genogram.initRelation
+import ffc.airsync.api.genogram.relation
+import ffc.airsync.api.healthcare.healthCare
 import ffc.airsync.api.healthcare.initSync
+import ffc.airsync.api.house.houses
 import ffc.airsync.api.house.initSync
 import ffc.airsync.api.organization.LocalOrganization
 import ffc.airsync.api.organization.orgApi
 import ffc.airsync.api.person.gets
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.person.mapChronic
+import ffc.airsync.api.person.persons
 import ffc.airsync.api.user.initSync
+import ffc.airsync.api.user.users
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.utils.printDebug

@@ -10,3 +10,4 @@ interface GeonogramApi {
 }
 
 val geonogramApi: GeonogramApi by lazy { RetrofitGeonogramApi() }
+val relation = arrayListOf<Person>()

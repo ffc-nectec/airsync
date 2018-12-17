@@ -1,7 +1,6 @@
 package ffc.airsync.api.organization
 
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.pcucode
 import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.System
@@ -82,7 +81,7 @@ class LocalOrganization(
             val detail = dao.getDetail()
             val hosId = detail["pcucode"] ?: ""
 
-            pcucode.append(hosId)
+            // pcucode.append(hosId)
 
             name = detail["name"] ?: ""
             name = name.replace(Regex("""[\.\,\|\(\)\ ]"""), "")

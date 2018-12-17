@@ -1,6 +1,6 @@
 package ffc.airsync.api.genogram
 
-import ffc.airsync.persons
+import ffc.airsync.api.person.persons
 import ffc.airsync.utils.load
 import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save

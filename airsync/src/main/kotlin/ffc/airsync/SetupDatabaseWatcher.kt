@@ -1,10 +1,14 @@
 package ffc.airsync
 
+import ffc.airsync.api.healthcare.healthCare
 import ffc.airsync.api.healthcare.healthCareApi
 import ffc.airsync.api.homehealthtype.homeHealthTypeApi
 import ffc.airsync.api.house.houseApi
+import ffc.airsync.api.house.houses
 import ffc.airsync.api.icd10.icd10Api
 import ffc.airsync.api.icd10.specialPpApi
+import ffc.airsync.api.person.persons
+import ffc.airsync.api.user.users
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.printDebug

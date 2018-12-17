@@ -10,3 +10,4 @@ interface HouseApi {
 }
 
 val houseApi: HouseApi by lazy { RetofitHouseApi() }
+val houses = arrayListOf<House>()

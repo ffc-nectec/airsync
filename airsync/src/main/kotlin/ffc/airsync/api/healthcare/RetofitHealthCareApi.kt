@@ -1,9 +1,9 @@
 package ffc.airsync.api.healthcare
 
+import ffc.airsync.api.person.persons
+import ffc.airsync.api.user.users
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
-import ffc.airsync.users
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
