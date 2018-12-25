@@ -94,8 +94,8 @@ class HouseMapper : RowMapper<House> {
         val regexMoo = Regex("""^\d+(\d{2})${'$'}""")
         val house = House().update(timestamp) {
             rs.getString("hid")?.let { identity = ThaiHouseholdId(it) }
-            val moo = regexMoo.matchEntire(rs.getString("villcode") ?: "00")?.groupValues?.last()?.toInt()
-            no = rs.getString("hno") + if (moo != null) " หมู่ $moo" else ""
+            // val moo = regexMoo.matchEntire(rs.getString("villcode") ?: "00")?.groupValues?.last()?.toInt()
+            no = rs.getString("hno")
             road = rs.getString("road")
 
             val xgis = rs.getDouble("xgis")
@@ -105,7 +105,8 @@ class HouseMapper : RowMapper<House> {
             link = Link(
                 System.JHICS,
                 "hcode" to rs.getString("hcode"),
-                "pcucode" to rs.getString("pcucode")
+                "pcucode" to rs.getString("pcucode"),
+                "villcode" to rs.getString("villcode")
             )
         }
         printDebug("Read house database" + house.toJson())

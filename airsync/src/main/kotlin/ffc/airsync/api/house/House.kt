@@ -2,6 +2,7 @@ package ffc.airsync.api.house
 
 import ffc.airsync.Main
 import ffc.airsync.api.person.findByHouseCode
+import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
@@ -9,7 +10,7 @@ import ffc.entity.Person
 import ffc.entity.place.House
 
 fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.dao): List<House> {
-    return if (where.isBlank()) dao.getHouse() else dao.getHouse(where)
+    return if (where.isBlank()) dao.getHouse(VILLAGELOOKUP) else dao.getHouse(VILLAGELOOKUP, where)
 }
 
 fun ArrayList<House>.initSync(person: List<Person>) {

@@ -9,6 +9,7 @@ import ffc.airsync.api.icd10.icd10Api
 import ffc.airsync.api.icd10.specialPpApi
 import ffc.airsync.api.person.persons
 import ffc.airsync.api.user.users
+import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.printDebug
@@ -37,7 +38,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             when (tableName) {
                 "house" -> {
                     if (keyWhere.size == 1) {
-                        val house = dao.getHouse(keyWhere.first())
+                        val house = dao.getHouse(VILLAGELOOKUP, keyWhere.first())
                         house.forEach {
                             try {
                                 val houseSync = findHouseWithKey(it)

@@ -34,6 +34,8 @@ import ffc.airsync.api.person.mapChronic
 import ffc.airsync.api.person.persons
 import ffc.airsync.api.user.initSync
 import ffc.airsync.api.user.users
+import ffc.airsync.api.village.initSync
+import ffc.airsync.api.village.villages
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.utils.printDebug
@@ -80,6 +82,7 @@ class MainController(val dao: DatabaseDao) {
         person.mapChronic(Chronics())
 
         users.initSync()
+        villages.initSync()
         houses.initSync(person)
         persons.initSync(houses, person)
         relation.initRelation()
