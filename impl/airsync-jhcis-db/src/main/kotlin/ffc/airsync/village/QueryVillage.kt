@@ -4,6 +4,7 @@ import ffc.entity.Link
 import ffc.entity.Place
 import ffc.entity.System
 import ffc.entity.Village
+import ffc.entity.gson.toJson
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -30,7 +31,7 @@ FROM
 
 class VillageMapper : RowMapper<Village> {
     override fun map(rs: ResultSet, ctx: StatementContext): Village {
-        return Village().apply {
+        val village = Village().apply {
             val place = Place().apply {
                 val longitude = rs.getString("longitude")?.toDoubleOrNull()
                 val latitude = rs.getString("latitude")?.toDoubleOrNull()
@@ -52,5 +53,7 @@ class VillageMapper : RowMapper<Village> {
             places.add(place)
             link = place.link
         }
+        println(village.toJson())
+        return village
     }
 }

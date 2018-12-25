@@ -40,9 +40,9 @@ interface DatabaseDao {
 
     fun findPerson(pcucode: String, pid: Long): Person
 
-    fun getHouse(): List<House>
+    fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House>
 
-    fun getHouse(whereString: String): List<House>
+    fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House>
 
     fun getChronic(): List<Chronic>
 

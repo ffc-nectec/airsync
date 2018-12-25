@@ -17,6 +17,13 @@ interface VillageUrl {
         @Body villages: List<Village>
     ): Call<List<Village>>
 
+    @POST("/v0/org/{orgId}/village")
+    fun createSingel(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body village: Village
+    ): Call<Village>
+
     @PUT("/v0/org/{orgId}/village/{villageId}")
     fun edit(
         @Path("orgId") orgId: String,

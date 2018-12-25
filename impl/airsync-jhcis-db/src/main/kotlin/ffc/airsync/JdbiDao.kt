@@ -102,12 +102,12 @@ class JdbiDao(
         return persons.find(pcucode, pid).first()
     }
 
-    override fun getHouse(): List<House> {
-        return houses.getHouse()
+    override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
+        return houses.getHouse(lookupVillage)
     }
 
-    override fun getHouse(whereString: String): List<House> {
-        return houses.getHouse(whereString)
+    override fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House> {
+        return houses.getHouse(lookupVillage, whereString)
     }
 
     override fun getChronic(): List<Chronic> = chronic.get()

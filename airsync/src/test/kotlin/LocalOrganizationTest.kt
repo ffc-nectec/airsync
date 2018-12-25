@@ -63,11 +63,11 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getHouse(): List<House> {
+    override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getHouse(whereString: String): List<House> {
+    override fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
