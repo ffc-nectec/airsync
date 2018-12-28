@@ -23,6 +23,7 @@ log.cfg
 Village.json
 HealthCareService.json
 analyzer.json
+maxvisit.json
 # Mongo Explorer plugin:
 .idea/**/mongoSettings.xml
 
