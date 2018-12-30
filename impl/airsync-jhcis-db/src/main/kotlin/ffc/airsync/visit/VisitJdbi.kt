@@ -1,6 +1,5 @@
 package ffc.airsync.visit
 
-import ffc.airsync.JdbiDao
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.disease.QueryDisease
 import ffc.airsync.extension
@@ -153,17 +152,17 @@ class VisitJdbi(
         return getHealthCareService(
             lookupPatientId, lookupProviderId,
             lookupDisease = { icd10 ->
-                JdbiDao.jdbiDao.extension<QueryDisease, List<Disease>> {
+                jdbiDao.extension<QueryDisease, List<Disease>> {
                     get(icd10)
                 }.firstOrNull()
             },
             lookupServiceType = { serviceId ->
-                JdbiDao.jdbiDao.extension<QueryHomeHealthType, List<CommunityService.ServiceType>> {
+                jdbiDao.extension<QueryHomeHealthType, List<CommunityService.ServiceType>> {
                     get(serviceId)
                 }.firstOrNull()
             },
             lookupSpecialPP = { ppCode ->
-                JdbiDao.jdbiDao.extension<LookupSpecialPP, List<SpecialPP.PPType>> { get(ppCode) }.firstOrNull()
+                jdbiDao.extension<LookupSpecialPP, List<SpecialPP.PPType>> { get(ppCode) }.firstOrNull()
             }
         )
     }
@@ -242,9 +241,9 @@ class VisitJdbi(
     ): List<HealthCareService> {
         var i = 0
         val result = if (whereString.isBlank())
-            JdbiDao.jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
+            jdbiDao.extension<VisitQuery, List<HealthCareService>> { get() }
         else
-            JdbiDao.jdbiDao.extension<VisitQuery, List<HealthCareService>> { get(whereString) }
+            jdbiDao.extension<VisitQuery, List<HealthCareService>> { get(whereString) }
         val size = result.size
         val avgTimeRun: Queue<Long> = LinkedList()
         var sumTime = 0L
@@ -253,14 +252,14 @@ class VisitJdbi(
         val ncdScreenList = hashMapOf<Long, List<NCDScreen>>()
         val homeVisitList = hashMapOf<Long, List<HomeVisit>>()
 
-        JdbiDao.jdbiDao.extension<SpecialppQuery, List<Map<Long, String>>> { getAll() }.forEach {
+        jdbiDao.extension<SpecialppQuery, List<Map<Long, String>>> { getAll() }.forEach {
             mapList(it, specialPpList)
         }
-        JdbiDao.jdbiDao.extension<NCDscreenQuery, List<Map<Long, NCDScreen>>> { getAll() }.forEach {
+        jdbiDao.extension<NCDscreenQuery, List<Map<Long, NCDScreen>>> { getAll() }.forEach {
             mapList(it, ncdScreenList)
         }
 
-        JdbiDao.jdbiDao.extension<HomeVisitIndividualQuery, List<Map<Long, HomeVisit>>> { getAll() }.forEach {
+        jdbiDao.extension<HomeVisitIndividualQuery, List<Map<Long, HomeVisit>>> { getAll() }.forEach {
             mapList(it, homeVisitList)
         }
 
@@ -287,7 +286,7 @@ class VisitJdbi(
 
                     val runtimeQueryDb = measureTimeMillis {
                         diagnosisIcd10 =
-                                JdbiDao.jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
+                                jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
                         specislPP = specialPpList[visitNumber] ?: emptyList()
 
                         ncdScreen = ncdScreenList[visitNumber] ?: emptyList()
