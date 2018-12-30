@@ -30,9 +30,10 @@ private const val HOSTPORTDB = "3333"
 private const val HOSTDBNAME = "jhcisdb"
 private const val HOSTUSERNAME = "root"
 private const val HOSTPASSWORD = "123456"
-// private const val API = "https://ffc-nectec.herokuapp.com"
+private const val API = "https://ffc-nectec.herokuapp.com"
+// private const val API = "https://ffc-beta.herokuapp.com"
 // private const val API = "https://ffc-nectec-staging.herokuapp.com"
-private const val API = "http://127.0.0.1:8080"
+// private const val API = "http://127.0.0.1:8080"
 private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
 
 internal class Main constructor(args: Array<String>) {
