@@ -32,6 +32,7 @@ import ffc.airsync.api.person.gets
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.person.mapChronic
 import ffc.airsync.api.person.persons
+import ffc.airsync.api.template.TemplateInit
 import ffc.airsync.api.user.initSync
 import ffc.airsync.api.user.users
 import ffc.airsync.api.village.initSync
@@ -81,6 +82,8 @@ class MainController(val dao: DatabaseDao) {
         val person = Person().gets()
         person.mapChronic(Chronics())
 
+        println("Template Init....")
+        TemplateInit()
         println("sync user 1:7")
         users.initSync()
         println("sync village 2:7")

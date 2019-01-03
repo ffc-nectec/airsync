@@ -1,6 +1,7 @@
 import ffc.airsync.api.organization.LocalOrganization
 import ffc.airsync.db.DatabaseDao
 import ffc.entity.Person
+import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
@@ -146,6 +147,10 @@ class TestDao : DatabaseDao {
         patient: Person,
         username: String
     ): HealthCareService {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getTemplate(): List<Template> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }
