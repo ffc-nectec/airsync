@@ -5,6 +5,7 @@ import ffc.entity.healthcare.HealthCareService
 
 interface HealthCareApi {
     fun syncHealthCareFromCloud(id: String, dao: DatabaseDao)
+    fun clearAndCreateHealthCare(healthCare: List<HealthCareService>): List<HealthCareService>
     fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService>
     fun updateHealthCare(healthCareService: HealthCareService): HealthCareService
 }

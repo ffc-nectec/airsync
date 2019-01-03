@@ -58,20 +58,22 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                 "visit" -> {
                     when (keyWhere.size) {
                         1 -> {
-                            val regexType = Regex("""^.*pcucode`='(\d+).*visitno`='(\d+)'*$""")
+                            val regexType =
+                                Regex("""^.*pcucode[` ]+?=[' ]+?(\d+)[' ]+?.*visitno[` ]+?=[' ]+?(\d+)[' ]+?.*$""")
                             val updateWhere = keyWhere.first()
                             val groupValues = regexType.matchEntire(updateWhere)?.groupValues
 
-                            if (groupValues?.size == 2) {
-                                val pcucode = groupValues.firstOrNull()?.toLongOrNull()
-                                val visitno = groupValues.lastOrNull()?.toLongOrNull()
+                            if (groupValues?.size == 3) {
+                                val pcucode = groupValues[1]
+                                val visitno = groupValues[2].toLongOrNull()
                                 visitno
                                     ?.let { visitNo ->
                                         val healthcareDb = getHealthCareFromDb(updateWhere)
 
                                         val oldmat = healthCare.find {
-                                            val checkPcuCode = it.link?.keys?.get("pcucode") == pcucode
-                                            val checkVisitNumber = it.link?.keys?.get("visitno") == visitNo
+                                            val checkPcuCode = it.link?.keys?.get("pcucode").toString() == pcucode
+                                            val checkVisitNumber =
+                                                it.link?.keys?.get("visitno").toString() == visitNo.toString()
                                             checkPcuCode && checkVisitNumber
                                         }
 

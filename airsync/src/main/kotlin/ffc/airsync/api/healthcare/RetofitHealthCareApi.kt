@@ -15,10 +15,22 @@ import ffc.entity.healthcare.HomeVisit
 
 class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java), HealthCareApi {
 
-    override fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
+    override fun clearAndCreateHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
         val healthCareLastUpdate = arrayListOf<HealthCareService>()
         callApiNoReturn { restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute() }
 
+        return _createHealthCare(healthCare, healthCareLastUpdate)
+    }
+
+    override fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
+        val healthCareLastUpdate = arrayListOf<HealthCareService>()
+        return _createHealthCare(healthCare, healthCareLastUpdate)
+    }
+
+    private fun _createHealthCare(
+        healthCare: List<HealthCareService>,
+        healthCareLastUpdate: ArrayList<HealthCareService>
+    ): ArrayList<HealthCareService> {
         UploadSpliter.upload(200, healthCare) { it, index ->
 
             val result = callApi {
