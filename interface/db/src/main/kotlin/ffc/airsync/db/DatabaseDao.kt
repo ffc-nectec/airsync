@@ -18,6 +18,7 @@
 package ffc.airsync.db
 
 import ffc.entity.Person
+import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
@@ -97,4 +98,6 @@ interface DatabaseDao {
     fun getSchool(): List<School>
 
     fun getTemple(): List<ReligiousPlace>
+
+    fun getTemplate(): List<Template>
 }

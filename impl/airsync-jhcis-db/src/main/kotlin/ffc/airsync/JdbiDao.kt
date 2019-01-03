@@ -30,6 +30,8 @@ import ffc.airsync.house.HouseJdbi
 import ffc.airsync.person.PersonDao
 import ffc.airsync.person.PersonJdbi
 import ffc.airsync.school.QuerySchool
+import ffc.airsync.template.TemplateDao
+import ffc.airsync.template.TemplateJdbi
 import ffc.airsync.temple.QueryTemple
 import ffc.airsync.user.UserDao
 import ffc.airsync.user.UserJdbi
@@ -38,6 +40,7 @@ import ffc.airsync.village.VillageJdbi
 import ffc.airsync.visit.VisitDao
 import ffc.airsync.visit.VisitJdbi
 import ffc.entity.Person
+import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
@@ -69,6 +72,7 @@ class JdbiDao(
     val users: UserDao by lazy { UserJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
     val chronic: ChronicDao by lazy { ChronicJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
     val village: VillageDao by lazy { VillageJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
+    val template: TemplateDao by lazy { TemplateJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
 
     override fun getDetail(): HashMap<String, String> {
         return hos.get()
@@ -187,5 +191,9 @@ class JdbiDao(
             lookupServiceType,
             whereString
         )
+    }
+
+    override fun getTemplate(): List<Template> {
+        return template.get()
     }
 }
