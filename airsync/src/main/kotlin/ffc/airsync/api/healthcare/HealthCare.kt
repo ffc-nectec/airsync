@@ -23,7 +23,7 @@ fun ArrayList<HealthCareService>.initSync() {
             localHealthCare.save("healthTemp.json")
         }
         localHealthCare.addAll(temp)
-        addAll(healthCareApi.createHealthCare(localHealthCare))
+        addAll(healthCareApi.clearAndCreateHealthCare(localHealthCare))
         save()
     } else {
         addAll(localHealthCare)
