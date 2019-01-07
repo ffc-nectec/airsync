@@ -74,7 +74,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
             return
         }
         val healthCareService = data.body()!!
-
+        if (healthCareService.link?.isSynced == true) return
         val pcucode = pcucode
 
         if (healthCareService.patientId.isTempId() ||
