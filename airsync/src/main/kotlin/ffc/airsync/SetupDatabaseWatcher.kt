@@ -83,6 +83,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                                         } else {
                                             healthcareDb.forEach { it ->
                                                 it.link = oldmat.link
+                                                it.link?.isSynced = true
                                                 healthCareApi.updateHealthCare(it.copy(oldmat.id))
                                             }
                                         }
