@@ -10,6 +10,7 @@
 
 # Sensitive or high-churn files:
 JavaCommonFiles
+airsync.jar
 .idea
 .temp
 # CMake
