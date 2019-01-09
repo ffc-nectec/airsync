@@ -9,7 +9,8 @@
 .idea/dictionaries
 
 # Sensitive or high-churn files:
-JavaCommonFiles
+CommonFiles
+jPortable.*exe
 airsync.jar
 .idea
 .temp
