@@ -18,23 +18,21 @@ internal fun mateFamilyPosition(familyPosition: String): String {
     // ปู่ ย่า หัวหน้าครอบครัว
     // พ่อแม่หัวหน้าครอบครัว
     // println((" found mate's familyposition with " + mateFamilyPostion))
-    val mateFamilyPostion: String
-    when (familyPosition) {
-        "1" -> mateFamilyPostion = "2"
-        "2" -> mateFamilyPostion = "1"
-        "6" -> mateFamilyPostion = "7"
-        "7" -> mateFamilyPostion = "6"
-        "i" -> mateFamilyPostion = "j"
-        "j" -> mateFamilyPostion = "i"
-        "k" -> mateFamilyPostion = "l"
-        "l" -> mateFamilyPostion = "k"
-        "8" -> mateFamilyPostion = "9"
-        "9" -> mateFamilyPostion = "8"
-        "m" -> mateFamilyPostion = "n"
-        "n" -> mateFamilyPostion = "m"
-        "o" -> mateFamilyPostion = "p"
-        "p" -> mateFamilyPostion = "o"
-        else -> mateFamilyPostion = ""
+    return when (familyPosition) {
+        "1" -> "2"
+        "2" -> "1"
+        "6" -> "7"
+        "7" -> "6"
+        "i" -> "j"
+        "j" -> "i"
+        "k" -> "l"
+        "l" -> "k"
+        "8" -> "9"
+        "9" -> "8"
+        "m" -> "n"
+        "n" -> "m"
+        "o" -> "p"
+        "p" -> "o"
+        else -> ""
     }
-    return mateFamilyPostion
 }
