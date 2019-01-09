@@ -10,7 +10,7 @@
 
 # Sensitive or high-churn files:
 CommonFiles
-jPortable.*exe
+jPortable**exe
 airsync.jar
 .idea
 .temp
