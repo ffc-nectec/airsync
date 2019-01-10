@@ -36,71 +36,77 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         ) { tableName, keyWhere ->
             printDebug("Database watcher $tableName $keyWhere")
             when (tableName) {
-                "house" -> {
-                    if (keyWhere.size == 1) {
-                        val house = dao.getHouse(VILLAGELOOKUP, keyWhere.first())
-                        house.forEach {
-                            try {
-                                val houseSync = findHouseWithKey(it)
-                                houseSync.update(it.timestamp) {
-                                    road = it.road
-                                    no = it.no
-                                    location = it.location
-                                    link!!.isSynced = true
-                                }
-
-                                houseApi.syncHouseToCloud(houseSync)
-                            } catch (ignore: NullPointerException) {
-                            }
-                        }
-                    }
-                }
-                "visit" -> {
-                    when (keyWhere.size) {
-                        1 -> {
-                            val regexType =
-                                Regex("""^.*pcucode[` ]+?=[' ]+?(\d+)[' ]+?.*visitno[` ]+?=[' ]+?(\d+)[' ]+?.*$""")
-                            val updateWhere = keyWhere.first()
-                            val groupValues = regexType.matchEntire(updateWhere)?.groupValues
-
-                            if (groupValues?.size == 3) {
-                                val pcucode = groupValues[1]
-                                val visitno = groupValues[2].toLongOrNull()
-                                visitno
-                                    ?.let { visitNo ->
-                                        val healthcareDb = getHealthCareFromDb(updateWhere)
-
-                                        val oldmat = healthCare.find {
-                                            val checkPcuCode = it.link?.keys?.get("pcucode").toString() == pcucode
-                                            val checkVisitNumber =
-                                                it.link?.keys?.get("visitno").toString() == visitNo.toString()
-                                            checkPcuCode && checkVisitNumber
-                                        }
-
-                                        if (oldmat == null) {
-                                            val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) }
-                                            healthCare.addAll(healcareCloud)
-                                        } else {
-                                            healthcareDb.forEach { it ->
-                                                it.link = oldmat.link
-                                                it.link?.isSynced = true
-                                                healthCareApi.updateHealthCare(it.copy(oldmat.id))
-                                            }
-                                        }
-
-                                        healthCare.save()
-                                    }
-                            }
-                        }
-                        2 -> {
-                            printDebug("Insert where")
-                        }
-                    }
-
-                    printDebug("visit t:$tableName k:$keyWhere")
-                }
+                "house" -> houseEvent(keyWhere)
+                "visit" -> visitEvent(keyWhere, tableName)
             }
         }.start()
+    }
+
+    private fun houseEvent(keyWhere: List<String>) {
+        if (keyWhere.size == 1) {
+            val house = dao.getHouse(VILLAGELOOKUP, keyWhere.first())
+            house.forEach {
+                try {
+                    val houseSync = findHouseWithKey(it)
+                    houseSync.update(it.timestamp) {
+                        road = it.road
+                        no = it.no
+                        location = it.location
+                        link!!.isSynced = true
+                    }
+
+                    houseApi.syncHouseToCloud(houseSync)
+                } catch (ignore: NullPointerException) {
+                }
+            }
+        }
+    }
+
+    private fun visitEvent(keyWhere: List<String>, tableName: String) {
+        when (keyWhere.size) {
+            1 -> {
+                val aggregateRegex =
+                    Regex("""^.*pcucode[` ]+?=[' ]+?(\d+)[' ]+?.*visitno[` ]+?=[' ]+?(\d+)[' ]+?.*$""")
+                val updateWhere = keyWhere.first()
+                val aggregate = aggregateRegex.matchEntire(updateWhere)?.groupValues
+
+                if (aggregate?.size == 3)
+                    visitToCloud(aggregate, updateWhere)
+            }
+            2 -> {
+                printDebug("Insert where")
+            }
+        }
+
+        printDebug("visit t:$tableName k:$keyWhere")
+    }
+
+    private fun visitToCloud(aggregate: List<String>, updateWhere: String) {
+        val pcucode = aggregate[1]
+        val visitno = aggregate[2].toLongOrNull()
+        visitno?.let { visitNo ->
+            val healthcareDb = getHealthCareFromDb(updateWhere)
+
+            val oldmat = healthCare.find {
+                val checkPcuCode = it.link?.keys?.get("pcucode").toString() == pcucode
+                val checkVisitNumber =
+                    it.link?.keys?.get("visitno").toString() == visitNo.toString()
+                checkPcuCode && checkVisitNumber
+            }
+
+            if (oldmat == null) {
+                val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) }
+                healthCare.addAll(healcareCloud)
+            } else {
+                healthcareDb.forEach { it ->
+                    it.link = oldmat.link
+                    it.link?.isSynced = true
+                    healthCareApi.updateHealthCare(it.copy(oldmat.id))
+                }
+            }
+
+            healthCare.save()
+        }
     }
 
     private fun getHealthCareFromDb(updateWhere: String): List<HealthCareService> {
