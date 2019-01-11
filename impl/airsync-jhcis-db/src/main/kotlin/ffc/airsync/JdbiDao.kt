@@ -83,7 +83,10 @@ class JdbiDao(
     }
 
     override fun getPerson(): List<Person> {
-        return persons.get()
+        val person = arrayListOf<Person>()
+        person.addAll(persons.get())
+        person.removeIf { it.bundle["remove"] == true }
+        return person.toList()
     }
 
     override fun findPerson(pcucode: String, pid: Long): Person {
