@@ -111,13 +111,16 @@ class PersonMapper : RowMapper<Person> {
         if (rs == null) throw ClassNotFoundException()
         // val statusLive = rs.getString("dischargetype")
         return Person().update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
-            identities.add(ThaiCitizenId(rs.getString("idcard")))
-            firstname = rs.getString("fname")
-            lastname = rs.getString("lname")
-            prename = rs.getString("titlename")
-            sex = if (rs.getString("sex") == "1") Person.Sex.MALE else Person.Sex.FEMALE
 
-            birthDate = LocalDate.fromDateFields(rs.getDate("birth"))
+            rs.getString("idcard")?.let { identities.add(ThaiCitizenId(it)) }
+            rs.getString("fname")?.let { firstname = it }
+            rs.getString("lname")?.let { lastname = it }
+            rs.getString("titlename")?.let { prename = it }
+            rs.getString("sex")?.let {
+                sex = if (it == "1") Person.Sex.MALE else Person.Sex.FEMALE
+            }
+
+            rs.getDate("birth")?.let { birthDate = LocalDate.fromDateFields(it) }
 
             death = rs.getString("deadcause")?.let { deadcause ->
                 try {
@@ -133,7 +136,7 @@ class PersonMapper : RowMapper<Person> {
                         Person.Death(deaddate, disease.map { it.value })
                     }
                 } catch (ex: java.lang.IllegalArgumentException) {
-                    printDebug("Person deat error $this")
+                    printDebug("Person deat error ${this.name}")
                     bundle["remove"] = true
                     null
                 }
@@ -167,8 +170,11 @@ class PersonMapper : RowMapper<Person> {
 
             val bundleRemoveKey = arrayListOf<String>()
             bundle.forEach { key: String, value: Any ->
-                if ((value as String).isBlank() || value.toLowerCase() == "null") {
-                    bundleRemoveKey.add(key)
+                try {
+                    if ((value as String).isBlank() || value.toLowerCase() == "null") {
+                        bundleRemoveKey.add(key)
+                    }
+                } catch (ignore: java.lang.ClassCastException) {
                 }
             }
 

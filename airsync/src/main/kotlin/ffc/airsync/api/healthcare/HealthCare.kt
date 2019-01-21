@@ -20,9 +20,12 @@ fun ArrayList<HealthCareService>.initSync() {
         val temp = listOf<HealthCareService>().load("healthTemp.json")
         if (temp.isEmpty()) {
             localHealthCare.addAll(getHealthCare())
+            val debugNcdScreen = localHealthCare.filter {
+                it.ncdScreen != null
+            }
             localHealthCare.save("healthTemp.json")
-        }
-        localHealthCare.addAll(temp)
+        } else
+            localHealthCare.addAll(temp)
         addAll(healthCareApi.clearAndCreateHealthCare(localHealthCare))
         save()
     } else {

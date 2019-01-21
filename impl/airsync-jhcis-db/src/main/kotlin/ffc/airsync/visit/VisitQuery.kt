@@ -210,8 +210,12 @@ class VisitMapper : RowMapper<HealthCareService> {
 
             val visitdate = rs.getDate("visitdate")
 
-            rs.getTime("timestart")?.let { timestart ->
-                time = DateTime(visitdate).plus(timestart.time).minusHours(7)
+            rs.getTime("timestart").let { timestart ->
+                if (timestart != null)
+                    time = DateTime(visitdate).plus(timestart.time).minusHours(7)
+                else {
+                    printDebug("Visit timestart is null visitno:${rs.getString("visitno")}")
+                }
 
                 rs.getTime("timeend")?.let { timeend ->
                     try {
