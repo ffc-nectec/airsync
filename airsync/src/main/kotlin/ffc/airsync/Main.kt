@@ -17,6 +17,7 @@
 
 package ffc.airsync
 
+import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.databaseDaoModule
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
@@ -24,7 +25,9 @@ import org.kohsuke.args4j.Option
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
+import kotlin.system.exitProcess
 
+private const val VERSION = "0.0.1"
 private const val HOSTNAMEDB = "127.0.0.1"
 private const val HOSTPORTDB = "3333"
 private const val HOSTDBNAME = "jhcisdb"
@@ -60,6 +63,10 @@ internal class Main constructor(args: Array<String>) {
     private var mysqlLog = MYSQLLOG
 
     init {
+        if (args.contains("-v")) {
+            print(VERSION)
+            exitProcess(0)
+        }
         try {
             TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
             val parser = CmdLineParser(this)
@@ -69,7 +76,7 @@ internal class Main constructor(args: Array<String>) {
         }
     }
 
-    val dao = databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword)
+    val dao: DatabaseDao by lazy { databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword) }
 
     fun run() {
         instant = this
