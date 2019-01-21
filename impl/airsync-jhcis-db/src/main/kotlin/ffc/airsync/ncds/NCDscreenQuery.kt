@@ -110,9 +110,9 @@ private fun createNcd(rs: ResultSet): NCDScreen {
             else -> Frequency.UNKNOWN
         },
         bloodSugar = rs.getDouble("bloodSugar"),
-        weight = rs.getString("weight")?.toDouble(),
-        height = rs.getString("height")?.toDouble(),
-        waist = rs.getString("waist")?.toDouble(),
+        weight = rs.getString("weight")?.toDoubleOrNull(),
+        height = rs.getString("height")?.toDoubleOrNull(),
+        waist = rs.getString("waist")?.toDoubleOrNull(),
         bloodPressure = rs.getString("bloodPressureS1")?.let {
             BloodPressure(it.toDouble(), rs.getString("bloodPressureD1").toDouble())
         },
@@ -121,8 +121,8 @@ private fun createNcd(rs: ResultSet): NCDScreen {
         }
     ).update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
 
-        rs.getDate("dateupdate")?.let {
-            time = DateTime(it).minusHours(7)
+        rs.getDate("screen_date").let {
+            time = DateTime(it)
         }
 
         link = Link(System.JHICS)
