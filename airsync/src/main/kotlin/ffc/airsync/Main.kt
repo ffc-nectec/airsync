@@ -27,7 +27,7 @@ import java.time.ZoneOffset
 import java.util.TimeZone
 import kotlin.system.exitProcess
 
-private const val VERSION = "0.0.1"
+private const val VERSION = "0.0.2"
 private const val HOSTNAMEDB = "127.0.0.1"
 private const val HOSTPORTDB = "3333"
 private const val HOSTDBNAME = "jhcisdb"

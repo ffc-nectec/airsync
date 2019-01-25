@@ -1,11 +1,13 @@
 package ffc.airsync.api.person
 
 import ffc.airsync.Main
+import ffc.airsync.api.icd10.icd10Api
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
+import ffc.entity.healthcare.Disease
 import ffc.entity.place.House
 
 fun Person.gets(dao: DatabaseDao = Main.instant.dao): List<Person> {
@@ -24,7 +26,7 @@ fun ArrayList<Person>.initSync(houseFromCloud: List<House>, personIsChronic: Lis
 
         personIsChronic.mapHouseId(houseFromCloud)
         localPersons.addAll(personIsChronic)
-
+        mapDeath(personIsChronic)
         addAll(personApi.putPerson(localPersons))
         save()
     } else {
@@ -80,4 +82,20 @@ private fun mapChronics(persons: List<Person>, chronics: List<Chronic>): List<Pe
         })
     }
     return persons
+}
+
+private fun mapDeath(persons: List<Person>) {
+    val lookUpIcd10 = { icd10: String -> icd10Api.lookup(icd10) }
+
+    persons.forEach { person ->
+        val death = person.death
+        if (death != null) {
+            println("Dead ${person.name}")
+            val diseaseList = arrayListOf<Disease>()
+            death.causes.forEach {
+                diseaseList.add(lookUpIcd10(it.name))
+            }
+            person.death = Person.Death(death.date, diseaseList.toList())
+        }
+    }
 }

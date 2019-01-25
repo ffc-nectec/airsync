@@ -205,4 +205,4 @@ class PersonMapper : RowMapper<Person> {
     }
 }
 
-private fun String.toIcd10() = Icd10("", this)
+private fun String.toIcd10() = Icd10(this, this)
