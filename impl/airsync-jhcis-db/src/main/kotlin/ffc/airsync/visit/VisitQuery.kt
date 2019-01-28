@@ -152,6 +152,10 @@ WHERE
 
 private const val visitQueryLast1Year = visitQuery + """
     WHERE visit.dateupdate >= NOW() - INTERVAL 1 YEAR
+        AND
+    visit.timestart IS NOT NULL
+		AND
+	visit.timeend IS NOT NULL
 """
 
 private const val visitQueryWhere = visitQuery + """
