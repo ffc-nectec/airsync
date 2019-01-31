@@ -18,10 +18,12 @@
 package ffc.airsync
 
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.mysqlconfig.SetupMySqlConfig
 import ffc.airsync.provider.databaseDaoModule
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
+import java.io.File
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
@@ -62,11 +64,17 @@ internal class Main constructor(args: Array<String>) {
     @Option(name = "-mysqllog", usage = "MySQL query log file Ex. C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log ")
     private var mysqlLog = MYSQLLOG
 
+    var skipConfigMyIni = false
+
     init {
         if (args.contains("-v")) {
             print(VERSION)
             exitProcess(0)
         }
+        if (args.contains("-skipcon")) {
+            skipConfigMyIni = true
+        }
+
         try {
             TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
             val parser = CmdLineParser(this)
@@ -79,6 +87,7 @@ internal class Main constructor(args: Array<String>) {
     val dao: DatabaseDao by lazy { databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword) }
 
     fun run() {
+        if (!skipConfigMyIni) SetupMySqlConfig(File("C:\\Program Files\\JHCIS\\MySQL\\my.ini"))
         instant = this
         Config.baseUrlRest = api
         Config.logfilepath = mysqlLog
