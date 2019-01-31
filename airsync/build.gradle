@@ -49,4 +49,5 @@ dependencies {
     compile "com.github.piruin:retrofit-dsl:1.0"
     compile "args4j:args4j:2.33"
     compile "com.github.ffc-nectec:entities:$entitiesVersion"
+    compile 'com.github.lionants02:ManageConfigSaveLoad-my.ini:0.2'
 }
