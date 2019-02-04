@@ -5,7 +5,7 @@ import mysql.config.read.ReadOptionMyini
 import org.amshove.kluent.`should be equal to`
 import org.junit.After
 import org.junit.Before
-import org.junit.Test
+import org.junit.Ignore
 import java.io.File
 
 class SetupMySqlConfigTest {
@@ -26,16 +26,10 @@ class SetupMySqlConfigTest {
         fileTest.deleteOnExit()
     }
 
-    @Test
+    @Ignore("Require admin")
     fun `checkConfig$airsync`() {
         mangeConfig.writeConfig() `should be equal to` true
 
         ReadOptionMyini(fileTest).read().getValue("mysqld").getValue("log") `should be equal to` "jlog.log"
-    }
-
-    @Test
-    fun mySqlStop() {
-        mangeConfig.stopJhcisMySql()
-        mangeConfig.startJhcisMySql()
     }
 }
