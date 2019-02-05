@@ -20,6 +20,8 @@ package ffc.airsync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.mysqlconfig.SetupMySqlConfig
 import ffc.airsync.provider.databaseDaoModule
+import max.kotlin.checkdupp.CheckDupplicate
+import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
@@ -66,6 +68,8 @@ internal class Main constructor(args: Array<String>) {
 
     var skipConfigMyIni = false
 
+    private val processDupplicate: CheckDupplicate = CheckDupplicateWithRest("airsync")
+
     init {
         if (args.contains("-v")) {
             print(VERSION)
@@ -74,6 +78,8 @@ internal class Main constructor(args: Array<String>) {
         if (args.contains("-skipcon")) {
             skipConfigMyIni = true
         }
+
+        processDupplicate.register()
 
         try {
             TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
