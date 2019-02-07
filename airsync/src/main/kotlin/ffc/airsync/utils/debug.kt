@@ -18,5 +18,7 @@ fun printDebug(infoDebug: String) {
                 logPrint.text = (infoDebug)
         } catch (ex: kotlin.UninitializedPropertyAccessException) {
             println(infoDebug)
+        } catch (ex: java.awt.HeadlessException) {
+            println(infoDebug)
         }
 }
