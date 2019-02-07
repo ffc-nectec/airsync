@@ -71,6 +71,20 @@ internal class Main constructor(args: Array<String>) {
     private val processDupplicate: CheckDupplicate = CheckDupplicateWithRest("airsync")
 
     init {
+        run {
+            val mb = 1024L * 1024L
+            val runtime = Runtime.getRuntime()
+            val totalMemory = runtime.totalMemory()
+            val freeMemory = runtime.freeMemory()
+            val maxMemory = runtime.maxMemory()
+
+            println("Total mem = ${totalMemory / mb} mb")
+            println("Free mem = ${freeMemory / mb} mb")
+            println("User mem = ${(totalMemory - freeMemory) / mb} mb")
+            println("Max mem = ${maxMemory / mb} mb")
+            Thread.sleep(5000)
+        }
+
         if (args.contains("-v")) {
             print(VERSION)
             exitProcess(0)
