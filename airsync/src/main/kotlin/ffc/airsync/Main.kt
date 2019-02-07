@@ -140,7 +140,6 @@ val debug = System.getenv("FFC_DEBUG")
 internal fun printDebug(infoDebug: String) {
     if (debug == null)
         try {
-            println("noGui = ${Main.instant.noGUI}")
             if (Main.instant.noGUI)
                 println(infoDebug)
             else
