@@ -1,6 +1,7 @@
 package ffc.airsync.api.analyzer
 
 import ffc.airsync.utils.load
+import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.analyze.HealthAnalyzer
@@ -16,7 +17,7 @@ fun HashMap<String, HealthAnalyzer>.initSync2(healthCareService: List<HealthCare
             processSet.add(it.patientId)
         }
 
-        println()
+        printDebug("")
         processSet.forEachIndexed { index, patientId ->
             val analyzer = HealthAnalyzer()
             val visit = healthCareService.filter { it.patientId == patientId }

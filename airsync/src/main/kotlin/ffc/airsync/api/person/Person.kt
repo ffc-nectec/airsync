@@ -4,6 +4,7 @@ import ffc.airsync.Main
 import ffc.airsync.api.icd10.icd10Api
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.load
+import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
@@ -90,7 +91,7 @@ private fun mapDeath(persons: List<Person>) {
     persons.forEach { person ->
         val death = person.death
         if (death != null) {
-            println("Dead ${person.name}")
+            printDebug("Dead ${person.name}")
             val diseaseList = arrayListOf<Disease>()
             death.causes.forEach {
                 diseaseList.add(lookUpIcd10(it.name))

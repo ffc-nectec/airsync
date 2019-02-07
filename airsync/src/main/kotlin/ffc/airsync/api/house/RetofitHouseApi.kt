@@ -13,7 +13,7 @@ class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
     override fun putHouse(houseList: List<House>): List<House> {
         callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }
 
-        println("Start put house to cloud")
+        printDebug("Start put house to cloud")
         val houseLastUpdate = arrayListOf<House>()
         UploadSpliter.upload(100, houseList) { it, index ->
 
