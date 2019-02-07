@@ -1,7 +1,7 @@
 package ffc.airsync.api.analyzer
 
+import ffc.airsync.printDebug
 import ffc.airsync.utils.load
-import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.analyze.HealthAnalyzer

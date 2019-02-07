@@ -1,12 +1,12 @@
 package ffc.airsync.api.house
 
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
-import ffc.airsync.utils.printDebug
 import ffc.entity.place.House
 
 class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {

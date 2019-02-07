@@ -39,7 +39,6 @@ import ffc.airsync.api.village.initSync
 import ffc.airsync.api.village.villages
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
-import ffc.airsync.utils.printDebug
 import ffc.entity.Organization
 import ffc.entity.Person
 import ffc.entity.Token

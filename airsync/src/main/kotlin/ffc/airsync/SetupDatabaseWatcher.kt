@@ -12,7 +12,6 @@ import ffc.airsync.api.user.users
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.callApi
-import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
 import ffc.entity.copy
 import ffc.entity.healthcare.HealthCareService

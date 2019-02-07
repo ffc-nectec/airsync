@@ -3,13 +3,13 @@ package ffc.airsync.api.healthcare
 import ffc.airsync.api.person.persons
 import ffc.airsync.api.user.users
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.isTempId
-import ffc.airsync.utils.printDebug
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 

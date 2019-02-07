@@ -1,8 +1,8 @@
 package ffc.airsync.api.organization
 
 import ffc.airsync.api.cloudweakup.RetofitWeakUp
+import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
-import ffc.airsync.utils.printDebug
 import ffc.entity.Organization
 import ffc.entity.Token
 import ffc.entity.gson.toJson

@@ -3,8 +3,8 @@ package ffc.airsync.api.person
 import ffc.airsync.Main
 import ffc.airsync.api.icd10.icd10Api
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.printDebug
 import ffc.airsync.utils.load
-import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
