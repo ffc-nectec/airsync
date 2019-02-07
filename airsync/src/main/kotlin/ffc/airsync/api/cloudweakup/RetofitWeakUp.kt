@@ -1,8 +1,8 @@
 package ffc.airsync.api.cloudweakup
 
 import ffc.airsync.Config
+import ffc.airsync.printDebug
 import ffc.airsync.retrofit.ApiFactory
-import ffc.airsync.utils.printDebug
 import java.net.SocketTimeoutException
 
 class RetofitWeakUp : WeakUpApi {

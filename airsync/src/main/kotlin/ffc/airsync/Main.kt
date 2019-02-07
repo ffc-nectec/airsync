@@ -20,7 +20,7 @@ package ffc.airsync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.mysqlconfig.SetupMySqlConfig
 import ffc.airsync.provider.databaseDaoModule
-import ffc.airsync.utils.printDebug
+import hii.log.print.easy.EasyPrintLogGUI
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
@@ -95,7 +95,7 @@ internal class Main constructor(args: Array<String>) {
             val freeMemory = runtime.freeMemory()
             val maxMemory = runtime.maxMemory()
 
-            printDebug("Total mem = ${totalMemory / mb} mb")
+            logPrint.text = ("Total mem = ${totalMemory / mb} mb")
             printDebug("Free mem = ${freeMemory / mb} mb")
             printDebug("User mem = ${(totalMemory - freeMemory) / mb} mb")
             printDebug("Max mem = ${maxMemory / mb} mb")
@@ -129,4 +129,27 @@ internal class Main constructor(args: Array<String>) {
 
 fun main(args: Array<String>) {
     Main(args).run()
+}
+
+val logPrint = EasyPrintLogGUI(
+    "AirSync to cloud...",
+    lineLimit = 1000
+)
+
+val debug = System.getenv("FFC_DEBUG")
+internal fun printDebug(infoDebug: String) {
+    if (debug == null)
+        try {
+            println("noGui = ${Main.instant.noGUI}")
+            if (Main.instant.noGUI)
+                println(infoDebug)
+            else
+                logPrint.text = infoDebug
+        } catch (ex: kotlin.UninitializedPropertyAccessException) {
+            ex.printStackTrace()
+            println(infoDebug)
+        } catch (ex: java.awt.HeadlessException) {
+            ex.printStackTrace()
+            println(infoDebug)
+        }
 }

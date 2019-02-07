@@ -1,8 +1,8 @@
 package ffc.airsync.api.genogram
 
 import ffc.airsync.api.person.persons
+import ffc.airsync.printDebug
 import ffc.airsync.utils.load
-import ffc.airsync.utils.printDebug
 import ffc.airsync.utils.save
 import ffc.entity.Person
 import ffc.entity.Person.Relate.Child

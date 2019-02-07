@@ -5,7 +5,6 @@ import ffc.airsync.api.house.houseApi
 import ffc.airsync.api.notification.notificationApi
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.notificationModule
-import ffc.airsync.utils.printDebug
 import ffc.entity.Person
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit

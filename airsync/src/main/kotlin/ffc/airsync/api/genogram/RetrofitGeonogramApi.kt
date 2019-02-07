@@ -1,11 +1,11 @@
 package ffc.airsync.api.genogram
 
+import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliterMap
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
-import ffc.airsync.utils.printDebug
 import ffc.entity.Person
 
 class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), GeonogramApi {
