@@ -1,8 +1,22 @@
 package ffc.airsync.utils
 
-val debug = System.getenv("FFC_DEBUG")
+import ffc.airsync.Main
+import hii.log.print.easy.EasyPrintLogGUI
 
-inline fun printDebug(infoDebug: String) {
+val debug = System.getenv("FFC_DEBUG")
+private val logPrint = EasyPrintLogGUI(
+    "AirSync to cloud...",
+    lineLimit = 1000
+)
+
+fun printDebug(infoDebug: String) {
     if (debug == null)
-        println(infoDebug)
+        try {
+            if (Main.instant.noGUI)
+                println(infoDebug)
+            else
+                logPrint.text = (infoDebug)
+        } catch (ex: kotlin.UninitializedPropertyAccessException) {
+            println(infoDebug)
+        }
 }
