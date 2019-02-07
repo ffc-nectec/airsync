@@ -30,15 +30,15 @@ object UploadSpliterMap {
         var index = 0
         cakePound.forEach { someCake ->
             val time = measureTimeMillis {
-                print("\nStart push ${++index} ..")
+                printDebug("\nStart push ${++index} ..")
                 howToPutCake(someCake.value, someCake.key)
-                print(" Finish push")
+                printDebug(" Finish push")
             }
             runtime += time
             val realIndex = index + 1
             ((size - realIndex) * (runtime / realIndex)).printTime()
         }
-        println()
+        printDebug("")
     }
 
     private fun <K, T> cutCake(fixSizeCake: Int, list: Map<K, T>): Map<Int, Map<K, T>> {

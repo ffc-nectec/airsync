@@ -29,15 +29,15 @@ object UploadSpliter {
         cakePound.forEachIndexed { index, it ->
 
             val time = measureTimeMillis {
-                print("\nStart push $index ....")
+                printDebug("\nStart push $index ....")
                 howToPutCake(it, index + 1)
-                print(" Finish push")
+                printDebug(" Finish push")
             }
             runtime += time
             val realIndex = index + 1
             ((size - realIndex) * (runtime / realIndex)).printTime()
         }
-        println()
+        printDebug("")
     }
 
     private fun <T> cutCake(fixSizeCake: Int, list: List<T>): List<List<T>> {

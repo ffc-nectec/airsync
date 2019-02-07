@@ -15,7 +15,7 @@ class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), G
         var loop = 1
         while (!syncccc) {
             try {
-                print("Sync rela loop ${loop++} ")
+                printDebug("Sync rela loop ${loop++} ")
                 val response = restService.updateRelationship(
                     orgId = organization.id,
                     authkey = tokenBarer,

@@ -21,12 +21,12 @@ fun <T> callApi(
 
             return result!!
         } catch (ex: java.net.SocketTimeoutException) {
-            println("Time out loop ${++loop}")
+            printDebug("Time out loop ${++loop}")
             ex.printStackTrace()
         } catch (ex: ApiLoopException) {
-            println("Loop api custom by user ${ex.message}")
+            printDebug("Loop api custom by user ${ex.message}")
         } catch (ex: java.net.SocketException) {
-            println("Socket error check network ${++loop}")
+            printDebug("Socket error check network ${++loop}")
             Thread.sleep(10000)
             ex.printStackTrace()
         }
@@ -38,7 +38,7 @@ fun Long.printTime() {
         val sec = (this / 1000) % 60
         val min = (this / 60000) % 60
         val hour = (this / 36e5).toInt()
-        print("\t$hour:$min:$sec")
+        printDebug("\t$hour:$min:$sec")
     }
 }
 
@@ -49,10 +49,10 @@ fun callApiNoReturn(call: () -> Unit) {
             call()
             return
         } catch (ex: java.net.SocketTimeoutException) {
-            println("Time out loop ${++loop}")
+            printDebug("Time out loop ${++loop}")
             ex.printStackTrace()
         } catch (ex: java.net.SocketException) {
-            println("Socket error check network ${++loop}")
+            printDebug("Socket error check network ${++loop}")
             Thread.sleep(10000)
             ex.printStackTrace()
         }
