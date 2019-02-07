@@ -20,6 +20,7 @@ package ffc.airsync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.mysqlconfig.SetupMySqlConfig
 import ffc.airsync.provider.databaseDaoModule
+import ffc.airsync.utils.printDebug
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
@@ -68,9 +69,25 @@ internal class Main constructor(args: Array<String>) {
 
     var skipConfigMyIni = false
 
+    var noGUI = false
+
     private val processDupplicate: CheckDupplicate = CheckDupplicateWithRest("airsync")
 
     init {
+        instant = this
+        if (args.contains("-v")) {
+            print(VERSION)
+            exitProcess(0)
+        }
+
+        if (args.contains("-nogui")) {
+            noGUI = true
+        }
+
+        if (args.contains("-skipcon")) {
+            skipConfigMyIni = true
+        }
+
         run {
             val mb = 1024L * 1024L
             val runtime = Runtime.getRuntime()
@@ -78,19 +95,11 @@ internal class Main constructor(args: Array<String>) {
             val freeMemory = runtime.freeMemory()
             val maxMemory = runtime.maxMemory()
 
-            println("Total mem = ${totalMemory / mb} mb")
-            println("Free mem = ${freeMemory / mb} mb")
-            println("User mem = ${(totalMemory - freeMemory) / mb} mb")
-            println("Max mem = ${maxMemory / mb} mb")
+            printDebug("Total mem = ${totalMemory / mb} mb")
+            printDebug("Free mem = ${freeMemory / mb} mb")
+            printDebug("User mem = ${(totalMemory - freeMemory) / mb} mb")
+            printDebug("Max mem = ${maxMemory / mb} mb")
             Thread.sleep(5000)
-        }
-
-        if (args.contains("-v")) {
-            print(VERSION)
-            exitProcess(0)
-        }
-        if (args.contains("-skipcon")) {
-            skipConfigMyIni = true
         }
 
         processDupplicate.register()
@@ -108,7 +117,6 @@ internal class Main constructor(args: Array<String>) {
 
     fun run() {
         if (!skipConfigMyIni) SetupMySqlConfig(File("C:\\Program Files\\JHCIS\\MySQL\\my.ini"))
-        instant = this
         Config.baseUrlRest = api
         Config.logfilepath = mysqlLog
         MainController(dao).run()
