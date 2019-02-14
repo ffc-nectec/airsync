@@ -30,14 +30,16 @@ object UploadSpliterMap {
         printDebug("Run size $size")
         var index = 0
         cakePound.forEach { someCake ->
+            var log = "Run ${++index}"
             val time = measureTimeMillis {
-                printDebug("\nStart push ${++index} ..")
+                log += (":$size ....")
                 howToPutCake(someCake.value, someCake.key)
-                printDebug(" Finish push")
             }
             runtime += time
             val realIndex = index + 1
-            ((size - realIndex) * (runtime / realIndex)).printTime()
+            val timeString = ((size - realIndex) * (runtime / realIndex)).toStringTime()
+            log += "push $timeString"
+            printDebug(log)
         }
         printDebug("")
     }
