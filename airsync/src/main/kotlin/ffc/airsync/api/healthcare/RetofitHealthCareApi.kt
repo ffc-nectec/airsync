@@ -31,7 +31,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
         healthCare: List<HealthCareService>,
         healthCareLastUpdate: ArrayList<HealthCareService>
     ): ArrayList<HealthCareService> {
-        UploadSpliter.upload(200, healthCare) { it, index ->
+        UploadSpliter.upload(100, healthCare) { it, index ->
 
             val result = callApi {
                 restService.unConfirmHealthCareBlock(
