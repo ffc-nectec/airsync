@@ -37,6 +37,7 @@ import java.time.ZoneOffset
 import java.util.TimeZone
 import kotlin.system.exitProcess
 
+const val APIVERSION = "v1"
 private const val VERSION = "0.0.7"
 private const val HOSTNAMEDB = "127.0.0.1"
 private const val HOSTPORTDB = "3333"
@@ -44,7 +45,8 @@ private const val HOSTDBNAME = "jhcisdb"
 private const val HOSTUSERNAME = "root"
 private const val HOSTPASSWORD = "123456"
 // private const val API = "https://ffc-nectec.herokuapp.com"
-private const val API = "https://ffcmaekawtom.herokuapp.com"
+private const val API = "https://api.ffc.in.th"
+// private const val API = "https://ffcmaekawtom.herokuapp.com"
 // private const val API = "https://ffc-beta.herokuapp.com"
 // private const val API = "https://ffc-nectec-staging.herokuapp.com"
 // private const val API = "http://127.0.0.1:8080"
@@ -85,7 +87,7 @@ internal class Main constructor(args: Array<String>) {
             exitProcess(0)
         }
 
-        checkLauncherVersion()
+        // checkLauncherVersion()
 
         if (args.contains("-nogui")) {
             noGUI = true
@@ -182,8 +184,10 @@ internal fun printDebug(infoDebug: String) {
         try {
             if (Main.instant.noGUI)
                 println(infoDebug)
-            else
+            else {
                 logPrint.text = infoDebug
+                println(infoDebug)
+            }
         } catch (ex: kotlin.UninitializedPropertyAccessException) {
             ex.printStackTrace()
             println(infoDebug)

@@ -1,5 +1,6 @@
 package ffc.airsync.api.notification
 
+import ffc.airsync.APIVERSION
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -8,7 +9,7 @@ import retrofit2.http.Path
 import java.util.HashMap
 
 interface NotificationUrl {
-    @POST("/v0/org/{orgId}/firebasetoken")
+    @POST("/$APIVERSION/org/{orgId}/firebasetoken")
     fun createFirebaseToken(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,

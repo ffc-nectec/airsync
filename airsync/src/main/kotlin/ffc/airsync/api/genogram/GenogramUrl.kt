@@ -1,5 +1,6 @@
 package ffc.airsync.api.genogram
 
+import ffc.airsync.APIVERSION
 import ffc.entity.Person
 import retrofit2.Call
 import retrofit2.http.Body
@@ -11,7 +12,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface GenogramUrl {
-    @PUT("/v0/org/{orgId}/person/{personId}/relationship")
+    @PUT("/$APIVERSION/org/{orgId}/person/{personId}/relationship")
     fun updateRelationship(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -19,7 +20,7 @@ interface GenogramUrl {
         @Body relationship: List<Person.Relationship>
     ): Call<List<Person.Relationship>>
 
-    @POST("/v0/org/{orgId}/person/relationships/sync/{block}")
+    @POST("/$APIVERSION/org/{orgId}/person/relationships/sync/{block}")
     fun insertBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -27,28 +28,28 @@ interface GenogramUrl {
         @Body relationship: Map<String, @JvmSuppressWildcards List<Person.Relationship>>
     ): Call<Map<String, List<Person.Relationship>>>
 
-    @GET("/v0/org/{orgId}/person/relationships/sync/{block}")
+    @GET("/$APIVERSION/org/{orgId}/person/relationships/sync/{block}")
     fun getBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Map<String, List<Person.Relationship>>>
 
-    @PUT("/v0/org/{orgId}/person/relationships/sync/{block}")
+    @PUT("/$APIVERSION/org/{orgId}/person/relationships/sync/{block}")
     fun confirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/person/relationships/sync/{block}")
+    @DELETE("/$APIVERSION/org/{orgId}/person/relationships/sync/{block}")
     fun unConfirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/person/relationships/sync/clean")
+    @DELETE("/$APIVERSION/org/{orgId}/person/relationships/sync/clean")
     fun cleanAll(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String

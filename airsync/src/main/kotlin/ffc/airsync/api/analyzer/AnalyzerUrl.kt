@@ -1,5 +1,6 @@
 package ffc.airsync.api.analyzer
 
+import ffc.airsync.APIVERSION
 import ffc.entity.healthcare.analyze.HealthAnalyzer
 import retrofit2.Call
 import retrofit2.http.Body
@@ -12,7 +13,7 @@ import retrofit2.http.Path
 
 interface AnalyzerUrl {
 
-    @POST("/v0/org/{orgId}/person/{personId}/healthanalyze")
+    @POST("/$APIVERSION/org/{orgId}/person/{personId}/healthanalyze")
     fun createHealthAnalyze(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -20,27 +21,27 @@ interface AnalyzerUrl {
         @Body healtyAnalyzer: HealthAnalyzer
     ): Call<HealthAnalyzer>
 
-    @GET("/v0/org/{orgId}/person/{personId}/healthanalyze")
+    @GET("/$APIVERSION/org/{orgId}/person/{personId}/healthanalyze")
     fun getHealthAnalyze(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("personId") personId: String
     ): Call<HealthAnalyzer>
 
-    @DELETE("/v0/org/{orgId}/person/{personId}/healthanalyze")
+    @DELETE("/$APIVERSION/org/{orgId}/person/{personId}/healthanalyze")
     fun removeHealthAnalyze(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("personId") personId: String
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/healthanalyze")
+    @DELETE("/$APIVERSION/org/{orgId}/healthanalyze")
     fun cleanHealthAnalyzeOrgId(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<Void>
 
-    @POST("/v0/org/{orgId}/healthanalyzes/sync/{block}")
+    @POST("/$APIVERSION/org/{orgId}/healthanalyzes/sync/{block}")
     fun insertBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -48,21 +49,21 @@ interface AnalyzerUrl {
         @Body healtyAnalyzer: Map<String, HealthAnalyzer>
     ): Call<Map<String, HealthAnalyzer>>
 
-    @GET("/v0/org/{orgId}/healthanalyzes/sync/{block}")
+    @GET("/$APIVERSION/org/{orgId}/healthanalyzes/sync/{block}")
     fun getBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Map<String, HealthAnalyzer>>
 
-    @PUT("/v0/org/{orgId}/healthanalyzes/sync/{block}")
+    @PUT("/$APIVERSION/org/{orgId}/healthanalyzes/sync/{block}")
     fun confirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/healthanalyzes/sync/{block}")
+    @DELETE("/$APIVERSION/org/{orgId}/healthanalyzes/sync/{block}")
     fun unConfirmBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
