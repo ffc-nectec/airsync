@@ -34,13 +34,14 @@ fun <T> callApi(
     }
 }
 
-fun Long.printTime() {
+fun Long.toStringTime(): String {
     if (this > 0) {
         val sec = (this / 1000) % 60
         val min = (this / 60000) % 60
         val hour = (this / 36e5).toInt()
-        printDebug("\t$hour:$min:$sec")
+        return ("\t$hour:$min:$sec")
     }
+    return ""
 }
 
 fun callApiNoReturn(call: () -> Unit) {
