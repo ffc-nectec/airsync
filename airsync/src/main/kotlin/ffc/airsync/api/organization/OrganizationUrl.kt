@@ -1,5 +1,6 @@
 package ffc.airsync.api.organization
 
+import ffc.airsync.APIVERSION
 import ffc.entity.Organization
 import ffc.entity.Token
 import retrofit2.Call
@@ -9,10 +10,10 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface OrganizationUrl {
-    @POST("/v0/org")
+    @POST("/$APIVERSION/org")
     fun regisOrg(@Body body: Organization): Call<Organization>
 
-    @POST("/v0/org/{orgId}/authorize")
+    @POST("/$APIVERSION/org/{orgId}/authorize")
     fun loginOrg(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String

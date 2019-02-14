@@ -1,5 +1,6 @@
 package ffc.airsync.api.house
 
+import ffc.airsync.APIVERSION
 import ffc.entity.place.House
 import retrofit2.Call
 import retrofit2.http.Body
@@ -11,21 +12,21 @@ import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface HouseUrl {
-    @POST("/v0/org/{orgId}/houses")
+    @POST("/$APIVERSION/org/{orgId}/houses")
     fun createHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Body houseList: List<House>
     ): Call<List<House>>
 
-    @GET("/v0/org/{orgId}/house/{house_id}")
+    @GET("/$APIVERSION/org/{orgId}/house/{house_id}")
     fun getHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("house_id") _id: String
     ): Call<House>
 
-    @PUT("/v0/org/{orgId}/house/{house_id}")
+    @PUT("/$APIVERSION/org/{orgId}/house/{house_id}")
     fun putHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -33,13 +34,13 @@ interface HouseUrl {
         @Body house: House
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/houses")
+    @DELETE("/$APIVERSION/org/{orgId}/houses")
     fun clernHouse(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<Void>
 
-    @POST("/v0/org/{orgId}/houses/sync/{block}")
+    @POST("/$APIVERSION/org/{orgId}/houses/sync/{block}")
     fun insertHouseBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
@@ -47,14 +48,14 @@ interface HouseUrl {
         @Body houseList: List<House>
     ): Call<List<House>>
 
-    @PUT("/v0/org/{orgId}/houses/sync/{block}")
+    @PUT("/$APIVERSION/org/{orgId}/houses/sync/{block}")
     fun confirmHouseBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
-    @DELETE("/v0/org/{orgId}/houses/sync/{block}")
+    @DELETE("/$APIVERSION/org/{orgId}/houses/sync/{block}")
     fun unConfirmHouseBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,

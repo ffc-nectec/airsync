@@ -1,5 +1,6 @@
 package ffc.airsync.api.template
 
+import ffc.airsync.APIVERSION
 import ffc.entity.Template
 import retrofit2.Call
 import retrofit2.http.Body
@@ -8,7 +9,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface TemplateUrl {
-    @POST("/v0/org/{orgId}/template")
+    @POST("/$APIVERSION/org/{orgId}/template")
     fun clearnAndCreate(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
