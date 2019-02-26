@@ -66,17 +66,6 @@ class InsertData(
         bpLevel.isPreHigh -> "2"
         else -> "1"
     }
-
-    val bpLevel2 = healthCareService.bloodPressureLevel
-    val bp2 = healthCareService.bloodPressure2nd
-    val pressure2 = if (bp2 != null) "${bp2.systolic.toInt()}/${bp2.diastolic.toInt()}" else null
-    val pressurelevel2 = when {
-        bpLevel2 == null -> null
-        bpLevel2.isHigh -> "3"
-        bpLevel2.isPreHigh -> "2"
-        else -> "1"
-    }
-
     val temperature = healthCareService.bodyTemperature
     val flag18fileexpo = "2"
     val pulse = healthCareService.pulseRate
