@@ -6,7 +6,7 @@ import ffc.entity.Token
 
 abstract class RetofitApi<T>(
     retofitUrl: Class<T>,
-    cacheKbyte: Int = 1024
+    cacheKbyte: Int = 2048
 ) {
 
     companion object {
