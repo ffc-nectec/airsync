@@ -1,4 +1,4 @@
-package ffc.airsync.mysqlconfig
+package ffc.airsync.mysql
 
 import mysql.config.read.ReadOptionMyini
 import mysql.config.write.WriteOptionMyini
@@ -8,9 +8,6 @@ import java.util.prefs.Preferences
 class SetupMySqlConfig(myIni: File) {
     private val readMyIni = ReadOptionMyini(myIni).read()
     private val writeMyIni = WriteOptionMyini(myIni)
-
-    private val mySqlStop = "net stop mysql_jhcis"
-    private val mySqlStart = "net start mysql_jhcis"
 
     init {
         if (checkLogNeedConfig()) {
@@ -26,20 +23,6 @@ class SetupMySqlConfig(myIni: File) {
             }
         }
         startJhcisMySql()
-    }
-
-    internal fun stopJhcisMySql() {
-        val proc = Runtime.getRuntime().exec(mySqlStop)
-        while (proc.isAlive) {
-            Thread.sleep(200)
-        }
-    }
-
-    internal fun startJhcisMySql() {
-        val proc = Runtime.getRuntime().exec(mySqlStart)
-        while (proc.isAlive) {
-            Thread.sleep(200)
-        }
     }
 
     internal fun writeConfig(): Boolean {
