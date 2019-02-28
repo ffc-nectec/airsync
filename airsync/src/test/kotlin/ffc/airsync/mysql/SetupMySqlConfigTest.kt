@@ -1,4 +1,4 @@
-package ffc.airsync.mysqlconfig
+package ffc.airsync.mysql
 
 import mysql.config.copyFileUsingStream
 import mysql.config.read.ReadOptionMyini
