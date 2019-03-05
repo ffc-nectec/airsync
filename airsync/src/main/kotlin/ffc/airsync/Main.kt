@@ -18,37 +18,32 @@
 package ffc.airsync
 
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.mysqlconfig.SetupMySqlConfig
+import ffc.airsync.mysql.SetupMySqlConfig
 import ffc.airsync.provider.databaseDaoModule
 import hii.log.print.easy.EasyPrintLogGUI
-import max.download.zip.ZIpDownload
-import max.githubapi.GitHubLatestApi
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 import java.io.File
-import java.io.FileNotFoundException
-import java.io.FileReader
-import java.net.URL
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
 import kotlin.system.exitProcess
 
 const val APIVERSION = "v1"
-private const val VERSION = "0.0.7"
+private const val VERSION = "0.0.8"
 private const val HOSTNAMEDB = "127.0.0.1"
 private const val HOSTPORTDB = "3333"
 private const val HOSTDBNAME = "jhcisdb"
 private const val HOSTUSERNAME = "root"
 private const val HOSTPASSWORD = "123456"
-// private const val API = "https://ffc-nectec.herokuapp.com"
+
 private const val API = "https://api.ffc.in.th"
 // private const val API = "https://ffcmaekawtom.herokuapp.com"
 // private const val API = "https://ffc-beta.herokuapp.com"
-// private const val API = "https://ffc-nectec-staging.herokuapp.com"
+// private const val API = "https://ffc-staging.herokuapp.com"
 // private const val API = "http://127.0.0.1:8080"
 private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
 
@@ -104,10 +99,10 @@ internal class Main constructor(args: Array<String>) {
             val freeMemory = runtime.freeMemory()
             val maxMemory = runtime.maxMemory()
 
-            logPrint.text = ("Total mem = ${totalMemory / mb} mb")
-            printDebug("Free mem = ${freeMemory / mb} mb")
-            printDebug("User mem = ${(totalMemory - freeMemory) / mb} mb")
-            printDebug("Max mem = ${maxMemory / mb} mb")
+            logPrint.text = ("Total memory = ${totalMemory / mb} mb")
+            printDebug("Free memory = ${freeMemory / mb} mb")
+            printDebug("User memory = ${(totalMemory - freeMemory) / mb} mb")
+            printDebug("Max memory = ${maxMemory / mb} mb")
             Thread.sleep(5000)
         }
 
@@ -119,39 +114,6 @@ internal class Main constructor(args: Array<String>) {
             parser.parseArgument(*args)
         } catch (cmd: CmdLineException) {
             cmd.printStackTrace()
-        }
-    }
-
-    private fun checkLauncherVersion() {
-        printDebug("Check Launcher Version")
-        var launcherVersion = ""
-        try {
-            val fr = FileReader("launcher.version")
-            launcherVersion = fr.readText().trim()
-            fr.close()
-        } catch (ignore: FileNotFoundException) {
-        }
-
-        val gh = GitHubLatestApi("ffc-nectec/AirSyncLauncher").getLastRelease()
-        printDebug("Check launcher local version $launcherVersion and git version ${gh.tag_name}")
-        if (gh.tag_name != launcherVersion) {
-            val ass = gh.assets.find { it.name == "install.zip" }
-            val downloadUrl = ass?.browser_download_url
-            if (downloadUrl != null) {
-                println("Launcher download...")
-                val zipD = ZIpDownload(URL(downloadUrl)) {
-                    printDebug("Launcher download ${((it / ass.size) * 100)} %")
-                }
-                zipD.download(File(""))
-                try {
-                    printDebug("Start Launcher...")
-                    Runtime.getRuntime().exec("cmd /k start AirSyncLauncher.exe")
-                    Thread.sleep(5000)
-                } catch (ex: Exception) {
-                    printDebug("Cannot run launcher ${ex.message}")
-                }
-            }
-            System.exit(1)
         }
     }
 
@@ -174,7 +136,7 @@ fun main(args: Array<String>) {
 }
 
 val logPrint = EasyPrintLogGUI(
-    "AirSync to cloud...",
+    "AirSync console",
     lineLimit = 1000
 )
 

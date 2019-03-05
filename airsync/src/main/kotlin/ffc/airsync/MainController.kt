@@ -81,24 +81,24 @@ class MainController(val dao: DatabaseDao) {
         val person = Person().gets()
         person.mapChronic(Chronics())
 
-        printDebug("Template Init....")
+        printDebug("ใส่ข้อมูล ช่วยกรอกอัตโนมัติ....")
         TemplateInit()
-        printDebug("sync user 1:7")
+        printDebug("ใส่ข้อมูลผู้ใช้ (1/7)")
         users.initSync()
-        printDebug("sync village 2:7")
+        printDebug("เข้าถึงหมู่บ้าน (2/7)")
         villages.initSync()
-        printDebug("sync house 3:7")
+        printDebug("ดูบ้าน (3/7)")
         houses.initSync(person)
-        printDebug("sync person 4:7")
+        printDebug("ดูข้อมูลคน (4/7)")
         persons.initSync(houses, person)
-        printDebug("sync relation 5:7")
+        printDebug("วิเคราะห์ความสัมพันธ์ (5/7)")
         relation.initRelation()
-        printDebug("sync healthcare 6:7")
+        printDebug("รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)")
         healthCare.initSync()
-        printDebug("sync analyzer 7:7")
+        printDebug("สำรวจความเจ็บป่วย (7/7)")
         analyzer.initSync2(healthCare)
 
-        printDebug("Finish push")
+        printDebug("Finished push")
     }
 
     private fun startLocalAirSyncServer() {
