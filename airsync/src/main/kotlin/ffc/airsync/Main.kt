@@ -82,7 +82,7 @@ internal class Main constructor(args: Array<String>) {
             exitProcess(0)
         }
 
-        // checkLauncherVersion()
+        CheckLauncherVersion().check()
 
         if (args.contains("-nogui")) {
             noGUI = true
