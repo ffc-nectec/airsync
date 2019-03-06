@@ -241,10 +241,6 @@ class VisitMapper : RowMapper<HealthCareService> {
                 bloodPressure = it.getBloodPressure()
             }
 
-            rs.getString("pressure2")?.let {
-                bloodPressure2nd = it.getBloodPressure()
-            }
-
             rs.getString("pulse")?.let {
                 pulseRate = it.toDouble()
             }
