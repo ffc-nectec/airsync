@@ -10,7 +10,7 @@ cache:
     - $HOME/.gradle/wrapper/
 
 before_deploy:
-  - zip airsync.zip airsync/build/bin/airsync.jar
+  - zip -j airsync.zip airsync.jar
 
 deploy:
   provider: releases
