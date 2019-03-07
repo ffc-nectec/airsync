@@ -21,7 +21,7 @@ class CheckLauncherVersion {
         val gh = GitHubLatestApi("ffc-nectec/AirSyncLauncher").getLastRelease()
         printDebug("Check launcher local version $launcherVersion and git version ${gh.tag_name}")
         if (gh.tag_name != launcherVersion) {
-            val ass = gh.assets.find { it.name == "install.zip" }
+            val ass = gh.assets.find { it.name == "ffc-airsync.zip" }
             val downloadUrl = ass?.browser_download_url
             if (downloadUrl != null) {
                 println("Launcher download...")
@@ -29,15 +29,7 @@ class CheckLauncherVersion {
                     printDebug("Launcher download ${((it / ass.size) * 100)} %")
                 }
                 zipD.download(File(""))
-                try {
-                    printDebug("Start Launcher...")
-                    Runtime.getRuntime().exec("cmd /k start AirSyncLauncher.exe")
-                    Thread.sleep(5000)
-                } catch (ex: Exception) {
-                    printDebug("Cannot run launcher ${ex.message}")
-                }
             }
-            System.exit(1)
         }
     }
 }

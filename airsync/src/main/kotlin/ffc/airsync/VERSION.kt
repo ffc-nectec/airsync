@@ -1,3 +1,3 @@
 package ffc.airsync
 
-const val VERSION = "0.0.8"
+const val VERSION = "0.0.9"

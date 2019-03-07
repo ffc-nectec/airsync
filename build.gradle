@@ -1,3 +1,5 @@
+import java.nio.charset.StandardCharsets
+
 /*
  * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
@@ -29,7 +31,7 @@ buildscript {
 }
 
 ext {
-    entitiesVersion = 'f14d9cd0aa'
+    entitiesVersion = '1.0.0'
 }
 
 allprojects {
@@ -82,4 +84,28 @@ subprojects {
 task wrapper(type: Wrapper) {
     gradleVersion = '4.8'
     distributionUrl = distributionUrl.replace("bin", "all")
+}
+
+task buildByVersion() {
+    def orgMain = "$projectDir/airsync/src/main/kotlin/launcher/VERSION.kt"
+    def newMain = "$projectDir/airsync/src/main/kotlin/launcher/VERSION.kt.new"
+
+    doLast {
+        def file = file(orgMain)
+        def data = file.readLines()
+        def fstream = new OutputStreamWriter(new FileOutputStream(newMain), StandardCharsets.UTF_8)
+        println(data.size())
+        data.each {
+            if (it.contains("val VERSION")) {
+                fstream.println("const val VERSION  = \"$VERSION\"")
+            } else {
+                fstream.println(it)
+            }
+        }
+        fstream.close()
+
+        delete orgMain
+        ant.move file: newMain,
+                tofile: orgMain
+    }
 }
