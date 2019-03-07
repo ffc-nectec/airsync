@@ -80,7 +80,6 @@ internal class Main constructor(args: Array<String>) {
     val tryIcon: TryIcon
 
     init {
-        logPrint.hideWindows()
         instant = this
         if (args.contains("-v")) {
             print(VERSION)
