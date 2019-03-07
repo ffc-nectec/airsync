@@ -20,12 +20,15 @@ package ffc.airsync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.mysql.SetupMySqlConfig
 import ffc.airsync.provider.databaseDaoModule
+import ffc.airsync.utils.TryIcon
 import hii.log.print.easy.EasyPrintLogGUI
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
 import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
+import java.awt.event.MouseEvent
+import java.awt.event.MouseListener
 import java.io.File
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -74,7 +77,10 @@ internal class Main constructor(args: Array<String>) {
 
     private val processDupplicate: CheckDupplicate = CheckDupplicateWithRest("airsync")
 
+    val tryIcon: TryIcon
+
     init {
+        logPrint.hideWindows()
         instant = this
         if (args.contains("-v")) {
             print(VERSION)
@@ -83,6 +89,10 @@ internal class Main constructor(args: Array<String>) {
 
         CheckLauncherVersion().check()
 
+        if (!args.contains("-runnow")) {
+            Runtime.getRuntime().exec("cmd /k start AirSyncLauncher.exe")
+        }
+
         if (args.contains("-nogui")) {
             noGUI = true
         }
@@ -90,7 +100,26 @@ internal class Main constructor(args: Array<String>) {
         if (args.contains("-skipcon")) {
             skipConfigMyIni = true
         }
+        processDupplicate.register()
+        tryIcon = TryIcon("FFC Airsync", "icon.png") {
+            object : MouseListener {
+                override fun mouseReleased(e: MouseEvent?) {
+                }
 
+                override fun mouseEntered(e: MouseEvent?) {
+                }
+
+                override fun mouseClicked(e: MouseEvent?) {
+                    logPrint.switchShowHideWindows()
+                }
+
+                override fun mouseExited(e: MouseEvent?) {
+                }
+
+                override fun mousePressed(e: MouseEvent?) {
+                }
+            }
+        }
         run {
             val mb = 1024L * 1024L
             val runtime = Runtime.getRuntime()
@@ -104,8 +133,6 @@ internal class Main constructor(args: Array<String>) {
             printDebug("Max memory = ${maxMemory / mb} mb")
             Thread.sleep(5000)
         }
-
-        processDupplicate.register()
 
         try {
             TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
