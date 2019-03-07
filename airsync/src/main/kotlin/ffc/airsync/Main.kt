@@ -90,6 +90,7 @@ internal class Main constructor(args: Array<String>) {
 
         if (!args.contains("-runnow")) {
             Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
+            System.exit(1)
         }
 
         if (args.contains("-nogui")) {
