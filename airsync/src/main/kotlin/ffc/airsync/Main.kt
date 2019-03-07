@@ -89,7 +89,7 @@ internal class Main constructor(args: Array<String>) {
         CheckLauncherVersion().check()
 
         if (!args.contains("-runnow")) {
-            Runtime.getRuntime().exec("cmd /k start AirSyncLauncher.exe")
+            Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
         }
 
         if (args.contains("-nogui")) {
