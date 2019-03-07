@@ -119,19 +119,6 @@ internal class Main constructor(args: Array<String>) {
                 }
             }
         }
-        run {
-            val mb = 1024L * 1024L
-            val runtime = Runtime.getRuntime()
-            val totalMemory = runtime.totalMemory()
-            val freeMemory = runtime.freeMemory()
-            val maxMemory = runtime.maxMemory()
-
-            logPrint.text = ("Total memory = ${totalMemory / mb} mb")
-            printDebug("Free memory = ${freeMemory / mb} mb")
-            printDebug("User memory = ${(totalMemory - freeMemory) / mb} mb")
-            printDebug("Max memory = ${maxMemory / mb} mb")
-            Thread.sleep(5000)
-        }
 
         try {
             TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
