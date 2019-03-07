@@ -33,7 +33,6 @@ import java.util.TimeZone
 import kotlin.system.exitProcess
 
 const val APIVERSION = "v1"
-private const val VERSION = "0.0.8"
 private const val HOSTNAMEDB = "127.0.0.1"
 private const val HOSTPORTDB = "3333"
 private const val HOSTDBNAME = "jhcisdb"
