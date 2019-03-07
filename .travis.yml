@@ -9,8 +9,8 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 script:
-  - ECHO %TRAVIS_TAG%
-  - ./gradlew setVersionByTag -Pversion=%TRAVIS_TAG%
+  - ECHO $(TRAVIS_TAG)
+  - ./gradlew setVersionByTag -Pversion=$(TRAVIS_TAG)
   - ./gradlew build
 before_deploy:
   - zip -j airsync.zip airsync/build/bin/airsync.jar
