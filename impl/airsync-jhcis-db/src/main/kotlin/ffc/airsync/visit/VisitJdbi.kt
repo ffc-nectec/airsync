@@ -90,7 +90,7 @@ class VisitJdbi(
         username: String
     ): HealthCareService {
 
-        val visitNum = getMaxVisit() + 1
+        val visitNum = healthCareService.link!!.keys["visitno"].toString().toLong()
         val rightcode = (patient.link?.keys?.get("rightcode")) as String?
         val rightno = (patient.link?.keys?.get("rightno")) as String?
         val hosmain = (patient.link?.keys?.get("hosmain")) as String?
@@ -107,7 +107,8 @@ class VisitJdbi(
             hossub
         )
 
-        jdbiDao.extension<VisitQuery, Unit> { updateVisit(visitData) }
+        val updateResult = jdbiDao.extension<VisitQuery, Number> { updateVisit(visitData) }
+        check(updateResult == 1)
 
         healthCareService.buildInsertDiag(pcucode, visitNum, username).forEach {
             jdbiDao.extension<VisitDiagQuery, Unit> {
@@ -405,6 +406,6 @@ private inline fun <reified T> mapList(
         resut[key] = listOf(value)
     else {
         resut[key] =
-                listOf(*resut[key]!!.toTypedArray(), value)
+            listOf(*resut[key]!!.toTypedArray(), value)
     }
 }

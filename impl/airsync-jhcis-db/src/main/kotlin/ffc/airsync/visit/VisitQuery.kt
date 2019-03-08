@@ -196,7 +196,7 @@ interface VisitQuery {
     )
 
     @SqlUpdate(updateVisit)
-    fun updateVisit(@BindBean homeInsert: InsertData)
+    fun updateVisit(@BindBean homeInsert: InsertData): Number
 }
 
 class VisitMapper : RowMapper<HealthCareService> {
