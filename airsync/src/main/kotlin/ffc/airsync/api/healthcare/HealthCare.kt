@@ -28,6 +28,7 @@ fun ArrayList<HealthCareService>.initSync(progressCallback: (Int) -> Unit) {
     } else {
         addAll(localHealthCare)
     }
+    progressCallback(100)
 }
 
 private fun getHealthCare(progressCallback: (Int) -> Unit): List<HealthCareService> {

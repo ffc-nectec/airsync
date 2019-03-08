@@ -28,6 +28,7 @@ fun ArrayList<House>.initSync(person: List<Person>, progressCallback: (Int) -> U
     } else {
         addAll(localHouses)
     }
+    progressCallback(100)
 }
 
 private fun checkChronicInHouse(persons: List<Person>, house: List<House>, progressCallback: (Int) -> Unit) {
