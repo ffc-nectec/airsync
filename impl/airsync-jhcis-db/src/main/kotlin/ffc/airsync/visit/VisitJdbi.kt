@@ -203,11 +203,11 @@ class VisitJdbi(
         var sumTime = 0L
 
         val specialPpList = getSpecialPP()
-        progressCallback(3)
+        progressCallback(1)
         val ncdScreenList = getNcdScreen()
-        progressCallback(6)
+        progressCallback(3)
         val homeVisitList = getHomeVisit()
-        progressCallback(10)
+        progressCallback(5)
 
         return result.map { healthCare ->
             var outputVisit = HealthCareService("", "")
@@ -264,7 +264,7 @@ class VisitJdbi(
                         }
                     }
                     if (i % 200 == 0 || i == size) {
-                        progressCallback(((i * 90) / size) + 10)
+                        progressCallback(((i * 45) / size) + 5)
                         print("Visit $i:$size")
                         print("\tLookupUser:$runtimeLookupUser")
                         print("\tRuntime DB:$runtimeQueryDb")

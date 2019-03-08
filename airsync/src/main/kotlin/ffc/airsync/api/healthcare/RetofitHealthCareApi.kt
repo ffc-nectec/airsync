@@ -15,22 +15,30 @@ import ffc.entity.healthcare.HomeVisit
 
 class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java), HealthCareApi {
 
-    override fun clearAndCreateHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
+    override fun clearAndCreateHealthCare(
+        healthCare: List<HealthCareService>,
+        progressCallback: (Int) -> Unit
+    ): List<HealthCareService> {
         val healthCareLastUpdate = arrayListOf<HealthCareService>()
         callApiNoReturn { restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute() }
 
-        return _createHealthCare(healthCare, healthCareLastUpdate)
+        return _createHealthCare(healthCare, healthCareLastUpdate, progressCallback)
     }
 
-    override fun createHealthCare(healthCare: List<HealthCareService>): List<HealthCareService> {
+    override fun createHealthCare(
+        healthCare: List<HealthCareService>,
+        progressCallback: (Int) -> Unit
+    ): List<HealthCareService> {
         val healthCareLastUpdate = arrayListOf<HealthCareService>()
-        return _createHealthCare(healthCare, healthCareLastUpdate)
+        return _createHealthCare(healthCare, healthCareLastUpdate, progressCallback)
     }
 
     private fun _createHealthCare(
         healthCare: List<HealthCareService>,
-        healthCareLastUpdate: ArrayList<HealthCareService>
+        healthCareLastUpdate: ArrayList<HealthCareService>,
+        progressCallback: (Int) -> Unit
     ): ArrayList<HealthCareService> {
+        val healthCareSize = healthCare.size
         UploadSpliter.upload(100, healthCare) { it, index ->
 
             val result = callApi {
@@ -54,7 +62,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
                         authkey = tokenBarer,
                         block = index
                     ).execute()
-
+                    progressCallback(((index * 50) / healthCareSize) + 50)
                     respond.body() ?: arrayListOf()
                 } else {
                     val message = "Error Loop ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}"

@@ -94,7 +94,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             }
 
             if (oldmat == null) {
-                val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) }
+                val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) {} }
                 healthCare.addAll(healcareCloud)
             } else {
                 healthcareDb.forEach { it ->
