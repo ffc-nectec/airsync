@@ -1,5 +1,3 @@
-import java.nio.charset.StandardCharsets
-
 /*
  * Copyright (c) 2018 NECTEC
  *   National Electronics and Computer Technology Center, Thailand
@@ -17,12 +15,18 @@ import java.nio.charset.StandardCharsets
  * limitations under the License.
  */
 
+plugins {
+    id 'idea'
+    id 'de.fuerstenau.buildconfig' version '1.1.8'
+}
+
 jar {
     from {
         configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
     destinationDir = file("$buildDir/bin")
+    archiveName project.name + '.jar'
 
     manifest { attributes "Main-Class": "ffc.airsync.MainKt" }
 
@@ -41,15 +45,13 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':provider')
 
-    // https://mvnrepository.com/artifact/de.bwaldvogel/mongo-java-server-h2-backend
+    compile "args4j:args4j:2.33"
     compile "de.bwaldvogel:mongo-java-server-h2-backend:1.9.8"
     compile "de.bwaldvogel:mongo-java-server:1.9.8"
     compile "com.google.code.gson:gson:2.8.1"
-
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile "com.github.piruin:retrofit-dsl:1.0"
-    compile "args4j:args4j:2.33"
     compile "com.github.ffc-nectec:entities:$entitiesVersion"
     compile 'com.github.lionants02:ManageConfigSaveLoad-my.ini:0.2'
     compile 'com.github.lionants02:CheckDuplicate:0.0.4'
@@ -58,27 +60,4 @@ dependencies {
     compile 'com.github.lionants02:ZIpDownload:0.0.1'
 }
 
-task setVersionByTag() {
-    def orgMain = "$projectDir/src/main/kotlin/ffc/airsync/VERSION.kt"
-    def newMain = "$projectDir/src/main/kotlin/ffc/airsync/VERSION.kt.new"
-
-    doLast {
-        def file = file(orgMain)
-        def data = file.readLines()
-        def fstream = new OutputStreamWriter(new FileOutputStream(newMain), StandardCharsets.UTF_8)
-        println(data.size())
-        data.each {
-            if (it.contains("val VERSION")) {
-                println(version)
-                fstream.println("const val VERSION = \"$VERSION\"")
-            } else {
-                fstream.println(it)
-            }
-        }
-        fstream.close()
-
-        delete orgMain
-        ant.move file: newMain,
-                tofile: orgMain
-    }
-}
+buildConfig {}
