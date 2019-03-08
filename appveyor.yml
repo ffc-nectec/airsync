@@ -4,19 +4,39 @@ max_jobs: 1
 
 environment:
   matrix:
-  - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
+    - JAVA_HOME: C:\Program Files\Java\jdk1.8.0
 
 build:
   verbosity: detailed
 
 build_script:
-- gradlew.bat assemble --info --no-daemon
+  - IF DEFINED APPVEYOR_REPO_TAG_NAME ( gradlew.bat setVersionByTag -PVERSION=%APPVEYOR_REPO_TAG_NAME% )
+  - gradlew.bat build --info --no-daemon
+  - ls -al airsync/build/bin/
+  - pwd
 
-test_script:
-- gradlew.bat check --info --no-daemon
+after_build:
+  - cp airsync/build/bin/airsync.jar airsync.jar
+  - 7z a -mx9 airsync.zip airsync.jar icon.png
 
 cache:
-- C:\Users\appveyor\.gradle
+  - .gradle
 
 matrix:
   fast_finish: true
+
+artifacts:
+  - path: airsync.zip
+    name: ffc-airsync client
+    type: File
+
+deploy:
+  description: 'โปรแกรม airsync สำหรับ sync ข้อมูลกับ JHCIS'
+  provider: GitHub
+  auth_token:
+    secure: q3WgoVWpklbGnGcjjS7g8QKNDoD6roJ7PY+BDWFg4I2h5CC9QdCjhd5MM3HSlRPz
+  artifact: /.*/
+  draft: false
+  prerelease: false
+  on:
+    APPVEYOR_REPO_TAG: true
