@@ -10,7 +10,7 @@ import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService
 
-fun ArrayList<HealthCareService>.initSync() {
+fun ArrayList<HealthCareService>.initSync(progressCallback: (Int) -> Unit) {
     val localHealthCare = arrayListOf<HealthCareService>().apply {
         addAll(load())
     }
@@ -44,6 +44,8 @@ private fun getHealthCare(): List<HealthCareService> {
         lookupProviderId = { name -> (users.find { it.name == name } ?: users.last()).id },
         lookupDisease = { icd10 -> icd10Api.lookup(icd10) },
         lookupServiceType = { serviceId -> homeHealthTypeApi.lookup(serviceId) },
-        lookupSpecialPP = { ppCode -> specialPpApi.lookup(ppCode.trim()) }
+        lookupSpecialPP = { ppCode -> specialPpApi.lookup(ppCode.trim()) },
+        progressCallback = {
+        }
     )
 }

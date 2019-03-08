@@ -173,7 +173,8 @@ class VisitJdbi(
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?
+        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
+        progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         return getHealthCareService(
             lookupPatientId,
@@ -181,7 +182,8 @@ class VisitJdbi(
             lookupDisease,
             lookupSpecialPP,
             lookupServiceType,
-            ""
+            "",
+            progressCallback
         )
     }
 
@@ -191,7 +193,8 @@ class VisitJdbi(
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        whereString: String
+        whereString: String,
+        progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         var i = 0
         val result = getVisit(whereString)
@@ -200,8 +203,11 @@ class VisitJdbi(
         var sumTime = 0L
 
         val specialPpList = getSpecialPP()
+        progressCallback(3)
         val ncdScreenList = getNcdScreen()
+        progressCallback(6)
         val homeVisitList = getHomeVisit()
+        progressCallback(10)
 
         return result.map { healthCare ->
             var outputVisit = HealthCareService("", "")
@@ -257,7 +263,8 @@ class VisitJdbi(
                             )
                         }
                     }
-                    if (i % 300 == 0 || i == size) {
+                    if (i % 200 == 0 || i == size) {
+                        progressCallback(((i * 90) / size) + 10)
                         print("Visit $i:$size")
                         print("\tLookupUser:$runtimeLookupUser")
                         print("\tRuntime DB:$runtimeQueryDb")

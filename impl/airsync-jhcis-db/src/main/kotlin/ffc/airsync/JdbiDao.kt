@@ -167,14 +167,16 @@ class JdbiDao(
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> ServiceType?
+        lookupServiceType: (serviceId: String) -> ServiceType?,
+        progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         return visit.getHealthCareService(
             lookupPatientId,
             lookupProviderId,
             lookupDisease,
             lookupSpecialPP,
-            lookupServiceType
+            lookupServiceType,
+            progressCallback
         )
     }
 
@@ -184,7 +186,8 @@ class JdbiDao(
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> ServiceType?,
-        whereString: String
+        whereString: String,
+        progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         return visit.getHealthCareService(
             lookupPatientId,
