@@ -94,7 +94,8 @@ class MainController(val dao: DatabaseDao) {
         persons.initSync(houses, person) {
         }
         printDebug("วิเคราะห์ความสัมพันธ์ (5/7)")
-        relation.initRelation()
+        relation.initRelation {
+        }
         printDebug("รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)")
         healthCare.initSync {
             printDebug("รวบรวมข้อมูลการให้บริการ $it%")

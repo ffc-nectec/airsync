@@ -38,12 +38,14 @@ class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), G
     }
 
     override fun putBlock(
-        relationship: Map<String, List<Person.Relationship>>
+        relationship: Map<String, List<Person.Relationship>>,
+        progressCallback: (Int) -> Unit
     ): Map<String, List<Person.Relationship>> {
         val output = hashMapOf<String, List<Person.Relationship>>()
         callApiNoReturn { restService.cleanAll(organization.id, tokenBarer).execute() }
-
-        UploadSpliterMap.upload(100, relationship) { list, block ->
+        val fixSizeCake = 100
+        val sizeOfLoop = relationship.size / fixSizeCake
+        UploadSpliterMap.upload(fixSizeCake, relationship) { list, block ->
 
             val result = callApi {
                 restService.unConfirmBlock(organization.id, tokenBarer, block).execute()
@@ -65,6 +67,7 @@ class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), G
                 }
             }
             output.putAll(result)
+            progressCallback(((block * 45) / sizeOfLoop) + 50)
         }
         return output
     }

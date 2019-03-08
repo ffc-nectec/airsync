@@ -11,7 +11,7 @@ import ffc.entity.Person.Relate.Married
 import ffc.entity.Person.Relate.Mother
 import ffc.entity.Person.Relate.Sibling
 
-fun ArrayList<Person>.initRelation() {
+fun ArrayList<Person>.initRelation(progressCallback: (Int) -> Unit) {
     val localRelation = arrayListOf<Person>().apply {
         addAll(load("relation.json"))
     }
@@ -21,15 +21,16 @@ fun ArrayList<Person>.initRelation() {
         this.forEach {
             it.relationships.clear()
         }
-        `สร้างความสัมพันธ์`()
-        updateToCloud()
+        `สร้างความสัมพันธ์`(progressCallback)
+        updateToCloud(progressCallback)
         save("relation.json")
     } else {
         this.addAll(localRelation)
     }
+    progressCallback(100)
 }
 
-private fun List<Person>.updateToCloud() {
+private fun List<Person>.updateToCloud(progressCallback: (Int) -> Unit) {
     val personBlock = hashMapOf<String, List<Person.Relationship>>()
 
     forEach {
@@ -37,21 +38,21 @@ private fun List<Person>.updateToCloud() {
             personBlock[it.id] = it.relationships
         }
     }
-    geonogramApi.putBlock(personBlock).forEach { personId, relation ->
+    geonogramApi.putBlock(personBlock, progressCallback).forEach { personId, relation ->
         this.find { it.id == personId }!!.relationships = relation.toMutableList()
     }
 }
 
-private fun List<Person>.`สร้างความสัมพันธ์`() {
+private fun List<Person>.`สร้างความสัมพันธ์`(progressCallback: (Int) -> Unit) {
     val houseMap = groupByHcode()
     val groupByFamilyNo = groupFamilyNo(houseMap)
 
     val size = groupByFamilyNo.count()
-    var i = 1
+    var index = 1
     groupByFamilyNo.forEach { key, house ->
-        i++
-        if (i % 300 == 0 || i == size)
-            printDebug("createRela $i:$size")
+        index++
+        if (index % 300 == 0 || index == size)
+            printDebug("createRela $index:$size")
         house.forEach { person ->
             val familyPosition = (person.link?.keys?.get("familyposition") ?: "") as String
             if (familyPosition.isNotBlank()) {
@@ -94,6 +95,7 @@ private fun List<Person>.`สร้างความสัมพันธ์`()
                     `สร้างความสัมพันธ์พี่น้อง`(person, sibling)
             }
         }
+        progressCallback((index * 50) / size)
     }
 }
 
