@@ -13,8 +13,9 @@ class RetofitPersonApi : RetofitApi<PersonUrl>(PersonUrl::class.java), PersonApi
         val personLastUpdate = arrayListOf<Person>()
         callApiNoReturn { restService.clearnPerson(orgId = organization.id, authkey = tokenBarer).execute() }
 
-        val sizeOfLoop = personList.size
-        UploadSpliter.upload(200, personList) { it, index ->
+        val fixSizeCake = 200
+        val sizeOfLoop = personList.size / fixSizeCake
+        UploadSpliter.upload(fixSizeCake, personList) { it, index ->
 
             val result = callApi {
                 restService.unConfirmPersonBlock(
