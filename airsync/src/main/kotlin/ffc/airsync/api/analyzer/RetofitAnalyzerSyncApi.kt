@@ -9,11 +9,16 @@ import ffc.entity.healthcare.analyze.HealthAnalyzer
 
 class RetofitAnalyzerSyncApi : RetofitApi<AnalyzerUrl>(AnalyzerUrl::class.java), AnalyzerSyncApi {
 
-    override fun insert(healtyAnalyzer: Map<String, HealthAnalyzer>): Map<String, HealthAnalyzer> {
+    override fun insert(
+        healtyAnalyzer: Map<String, HealthAnalyzer>,
+        progressCallback: (Int) -> Unit
+    ): Map<String, HealthAnalyzer> {
         val output = hashMapOf<String, HealthAnalyzer>()
         callApiNoReturn { restService.cleanHealthAnalyzeOrgId(organization.id, tokenBarer).execute() }
 
-        UploadSpliterMap.upload(200, healtyAnalyzer) { analyzer, block ->
+        val fixSizeCake = 200
+        val sizeOfLoop = healtyAnalyzer.size / fixSizeCake
+        UploadSpliterMap.upload(fixSizeCake, healtyAnalyzer) { analyzer, block ->
 
             val result = callApi {
                 restService.unConfirmBlock(organization.id, tokenBarer, block).execute()
@@ -30,6 +35,7 @@ class RetofitAnalyzerSyncApi : RetofitApi<AnalyzerUrl>(AnalyzerUrl::class.java),
             }
 
             output.putAll(result)
+            progressCallback(((block * 50) / sizeOfLoop) + 50)
         }
         return output
     }
