@@ -100,7 +100,12 @@ internal class Main constructor(args: Array<String>) {
         if (args.contains("-skipcon")) {
             skipConfigMyIni = true
         }
-        processDupplicate.register()
+        try {
+            processDupplicate.register()
+        } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
+            printDebug("Duplicate process")
+            System.exit(1)
+        }
         tryIcon = TryIcon("FFC Airsync", "icon.png") {
             object : MouseListener {
                 override fun mouseReleased(e: MouseEvent?) {
