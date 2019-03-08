@@ -15,8 +15,9 @@ class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
 
         printDebug("Start put house to cloud")
         val houseLastUpdate = arrayListOf<House>()
-        val houseSize = houseList.size
-        UploadSpliter.upload(100, houseList) { it, index ->
+        val fixSizeCake = 100
+        val houseSize = houseList.size / fixSizeCake
+        UploadSpliter.upload(fixSizeCake, houseList) { it, index ->
 
             val result = callApi {
                 restService.unConfirmHouseBlock(

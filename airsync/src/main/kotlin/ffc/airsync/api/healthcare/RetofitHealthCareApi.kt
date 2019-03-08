@@ -38,8 +38,9 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
         healthCareLastUpdate: ArrayList<HealthCareService>,
         progressCallback: (Int) -> Unit
     ): ArrayList<HealthCareService> {
-        val healthCareSize = healthCare.size
-        UploadSpliter.upload(100, healthCare) { it, index ->
+        val fixSizeCake = 100
+        val healthCareSize = healthCare.size / fixSizeCake
+        UploadSpliter.upload(fixSizeCake, healthCare) { it, index ->
 
             val result = callApi {
                 restService.unConfirmHealthCareBlock(
