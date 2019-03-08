@@ -37,6 +37,7 @@ fun ArrayList<Person>.initSync(
     } else {
         addAll(localPersons)
     }
+    progressCallback(100)
 }
 
 private fun List<Person>.mapHouseId(
