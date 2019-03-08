@@ -108,7 +108,7 @@ class TestDao : DatabaseDao {
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        whereString: String
+        progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
@@ -141,7 +141,9 @@ class TestDao : DatabaseDao {
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?
+        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
+        whereString: String,
+        progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }

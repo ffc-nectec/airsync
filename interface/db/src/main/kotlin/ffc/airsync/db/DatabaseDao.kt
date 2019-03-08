@@ -61,7 +61,8 @@ interface DatabaseDao {
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?
+        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
+        progressCallback: (Int) -> Unit = {}
     ): List<HealthCareService>
 
     fun getHealthCareService(
@@ -70,7 +71,8 @@ interface DatabaseDao {
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        whereString: String
+        whereString: String,
+        progressCallback: (Int) -> Unit = {}
     ): List<HealthCareService>
 
     fun createHomeVisit(
