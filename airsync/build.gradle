@@ -70,7 +70,7 @@ task setVersionByTag() {
         data.each {
             if (it.contains("val VERSION")) {
                 println(version)
-                fstream.println("const val VERSION = \"$version\"")
+                fstream.println("const val VERSION = \"$VERSION\"")
             } else {
                 fstream.println(it)
             }

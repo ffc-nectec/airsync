@@ -100,7 +100,12 @@ internal class Main constructor(args: Array<String>) {
         if (args.contains("-skipcon")) {
             skipConfigMyIni = true
         }
-        processDupplicate.register()
+        try {
+            processDupplicate.register()
+        } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
+            printDebug("Duplicate process")
+            System.exit(1)
+        }
         tryIcon = TryIcon("FFC Airsync", "icon.png") {
             object : MouseListener {
                 override fun mouseReleased(e: MouseEvent?) {
@@ -124,7 +129,10 @@ internal class Main constructor(args: Array<String>) {
         try {
             TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
             val parser = CmdLineParser(this)
-            parser.parseArgument(*args)
+            val dd = arrayListOf<String>()
+            dd.addAll(args)
+            dd.remove("-runnow")
+            parser.parseArgument(dd.toList())
         } catch (cmd: CmdLineException) {
             cmd.printStackTrace()
         }
