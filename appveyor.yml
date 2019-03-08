@@ -12,8 +12,7 @@ build:
 build_script:
   - IF DEFINED APPVEYOR_REPO_TAG_NAME ( gradlew.bat buildByVersion -PVERSION=%APPVEYOR_REPO_TAG_NAME% )
   - gradlew.bat build --info --no-daemon
-  - gradlew.bat createAllExecutables
-  - ls -al build/launch4j/
+  - ls -al build/bin/
   - pwd
 
 after_build:
