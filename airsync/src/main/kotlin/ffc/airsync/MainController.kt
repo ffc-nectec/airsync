@@ -18,7 +18,7 @@
 package ffc.airsync
 
 import ffc.airsync.api.analyzer.analyzer
-import ffc.airsync.api.analyzer.initSync2
+import ffc.airsync.api.analyzer.initSync
 import ffc.airsync.api.chronic.Chronics
 import ffc.airsync.api.genogram.initRelation
 import ffc.airsync.api.genogram.relation
@@ -101,7 +101,8 @@ class MainController(val dao: DatabaseDao) {
             printDebug("รวบรวมข้อมูลการให้บริการ $it%")
         }
         printDebug("สำรวจความเจ็บป่วย (7/7)")
-        analyzer.initSync2(healthCare)
+        analyzer.initSync(healthCare) {
+        }
 
         printDebug("Finished push")
     }
