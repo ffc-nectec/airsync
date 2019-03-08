@@ -31,7 +31,7 @@ artifacts:
     type: File
 
 deploy:
-  description: 'ffc-airsync'
+  description: 'โปรแกรม airsync สำหรับ sync ข้อมูลกับ JHCIS'
   provider: GitHub
   auth_token:
     secure: q3WgoVWpklbGnGcjjS7g8QKNDoD6roJ7PY+BDWFg4I2h5CC9QdCjhd5MM3HSlRPz
