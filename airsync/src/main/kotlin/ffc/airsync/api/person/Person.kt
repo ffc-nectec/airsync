@@ -18,25 +18,33 @@ fun Person.gets(dao: DatabaseDao = Main.instant.dao): List<Person> {
     return mapChronics(persons, chronic)
 }
 
-fun ArrayList<Person>.initSync(houseFromCloud: List<House>, personIsChronic: List<Person>) {
+fun ArrayList<Person>.initSync(
+    houseFromCloud: List<House>,
+    personIsChronic: List<Person>,
+    progressCallback: (Int) -> Unit
+) {
     val localPersons = arrayListOf<Person>().apply {
         addAll(load())
     }
 
     if (localPersons.isEmpty()) {
 
-        personIsChronic.mapHouseId(houseFromCloud)
+        personIsChronic.mapHouseId(houseFromCloud, progressCallback)
         localPersons.addAll(personIsChronic)
-        mapDeath(personIsChronic)
-        addAll(personApi.putPerson(localPersons))
+        mapDeath(personIsChronic, progressCallback)
+        addAll(personApi.putPerson(localPersons, progressCallback))
         save()
     } else {
         addAll(localPersons)
     }
 }
 
-private fun List<Person>.mapHouseId(houseFromCloud: List<House>) {
-    forEach {
+private fun List<Person>.mapHouseId(
+    houseFromCloud: List<House>,
+    progressCallback: (Int) -> Unit
+) {
+    val sizeOfLoop = size
+    forEachIndexed { index, it ->
         if (it.link != null) {
             val hcodePerson = (it.link!!.keys["hcode"] as String)
             val house = houseFromCloud.find { it.link?.keys?.get("hcode") as String == hcodePerson }
@@ -45,6 +53,7 @@ private fun List<Person>.mapHouseId(houseFromCloud: List<House>) {
             else
                 it.houseId = ""
         }
+        progressCallback((index * 30) / sizeOfLoop)
     }
 }
 
@@ -85,10 +94,11 @@ private fun mapChronics(persons: List<Person>, chronics: List<Chronic>): List<Pe
     return persons
 }
 
-private fun mapDeath(persons: List<Person>) {
+private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
     val lookUpIcd10 = { icd10: String -> icd10Api.lookup(icd10) }
 
-    persons.forEach { person ->
+    val sizeOfLoop = persons.size
+    persons.forEachIndexed { index, person ->
         val death = person.death
         if (death != null) {
             printDebug("Dead ${person.name}")
@@ -98,5 +108,6 @@ private fun mapDeath(persons: List<Person>) {
             }
             person.death = Person.Death(death.date, diseaseList.toList())
         }
+        progressCallback(((index * 20) / sizeOfLoop) + 30)
     }
 }

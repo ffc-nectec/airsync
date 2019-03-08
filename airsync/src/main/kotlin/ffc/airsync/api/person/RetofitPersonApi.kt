@@ -9,10 +9,11 @@ import ffc.entity.Person
 import retrofit2.dsl.enqueue
 
 class RetofitPersonApi : RetofitApi<PersonUrl>(PersonUrl::class.java), PersonApi {
-    override fun putPerson(personList: List<Person>): List<Person> {
+    override fun putPerson(personList: List<Person>, progressCallback: (Int) -> Unit): List<Person> {
         val personLastUpdate = arrayListOf<Person>()
         callApiNoReturn { restService.clearnPerson(orgId = organization.id, authkey = tokenBarer).execute() }
 
+        val sizeOfLoop = personList.size
         UploadSpliter.upload(200, personList) { it, index ->
 
             val result = callApi {
@@ -41,6 +42,7 @@ class RetofitPersonApi : RetofitApi<PersonUrl>(PersonUrl::class.java), PersonApi
                 }
             }
             personLastUpdate.addAll(result)
+            progressCallback(((index * 50) / sizeOfLoop) + 50)
         }
         return personLastUpdate
     }
