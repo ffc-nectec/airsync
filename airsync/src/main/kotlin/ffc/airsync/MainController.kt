@@ -88,7 +88,8 @@ class MainController(val dao: DatabaseDao) {
         printDebug("เข้าถึงหมู่บ้าน (2/7)")
         villages.initSync()
         printDebug("ดูบ้าน (3/7)")
-        houses.initSync(person)
+        houses.initSync(person) {
+        }
         printDebug("ดูข้อมูลคน (4/7)")
         persons.initSync(houses, person)
         printDebug("วิเคราะห์ความสัมพันธ์ (5/7)")
