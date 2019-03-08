@@ -20,20 +20,17 @@ fun ArrayList<HealthCareService>.initSync(progressCallback: (Int) -> Unit) {
         val temp = listOf<HealthCareService>().load("healthTemp.json")
         if (temp.isEmpty()) {
             localHealthCare.addAll(getHealthCare())
-            val debugNcdScreen = localHealthCare.filter {
-                it.ncdScreen != null
-            }
             localHealthCare.save("healthTemp.json")
         } else
             localHealthCare.addAll(temp)
-        addAll(healthCareApi.clearAndCreateHealthCare(localHealthCare))
+        addAll(healthCareApi.clearAndCreateHealthCare(localHealthCare, progressCallback))
         save()
     } else {
         addAll(localHealthCare)
     }
 }
 
-private fun getHealthCare(): List<HealthCareService> {
+private fun getHealthCare(progressCallback: (Int) -> Unit): List<HealthCareService> {
     /*return Main.instant.dao.getHealthCareService(
         lookupPatientId = { pid -> persons.find { it.link!!.keys["pid"] == pid }?.id ?: "" },
         lookupProviderId = { name -> (users.find { it.name == name } ?: users.last()).id }
@@ -45,7 +42,6 @@ private fun getHealthCare(): List<HealthCareService> {
         lookupDisease = { icd10 -> icd10Api.lookup(icd10) },
         lookupServiceType = { serviceId -> homeHealthTypeApi.lookup(serviceId) },
         lookupSpecialPP = { ppCode -> specialPpApi.lookup(ppCode.trim()) },
-        progressCallback = {
-        }
+        progressCallback = progressCallback
     )
 }
