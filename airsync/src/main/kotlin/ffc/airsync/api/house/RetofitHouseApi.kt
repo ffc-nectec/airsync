@@ -37,13 +37,13 @@ class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
                         authkey = tokenBarer,
                         block = index
                     ).execute()
-                    progressCallback(((index * 50) / houseSize) + 50)
                     respond.body() ?: arrayListOf()
                 } else {
                     throw ApiLoopException("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
                 }
             }
             houseLastUpdate.addAll(result)
+            progressCallback(((index * 50) / houseSize) + 50)
         }
         return houseLastUpdate
     }
