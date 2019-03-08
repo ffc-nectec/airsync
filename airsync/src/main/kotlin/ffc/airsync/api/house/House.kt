@@ -13,29 +13,26 @@ fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.dao): List<Ho
     return if (where.isBlank()) dao.getHouse(VILLAGELOOKUP) else dao.getHouse(VILLAGELOOKUP, where)
 }
 
-fun ArrayList<House>.initSync(person: List<Person>) {
+fun ArrayList<House>.initSync(person: List<Person>, progressCallback: (Int) -> Unit) {
     val localHouses = arrayListOf<House>().apply {
         addAll(load())
     }
 
     if (localHouses.isEmpty()) {
         val house = House().gets()
-        house.chronicCalculate(person)
+        checkChronicInHouse(person, house, progressCallback)
         localHouses.addAll(house)
 
-        addAll(houseApi.putHouse(localHouses))
+        addAll(houseApi.putHouse(localHouses, progressCallback))
         save()
     } else {
         addAll(localHouses)
     }
 }
 
-fun List<House>.chronicCalculate(persons: List<Person>) {
-    checkChronicInHouse(persons, this)
-}
-
-private fun checkChronicInHouse(persons: List<Person>, house: List<House>) {
-    house.forEach {
+private fun checkChronicInHouse(persons: List<Person>, house: List<House>, progressCallback: (Int) -> Unit) {
+    val houseSize = house.size
+    house.forEachIndexed { index, it ->
         val hcode = it.link!!.keys["hcode"] as String
 
         if (hcode.isNotEmpty() && hcode != "1") {
@@ -47,5 +44,6 @@ private fun checkChronicInHouse(persons: List<Person>, house: List<House>) {
             if (personChronic != null)
                 it.haveChronic = true
         }
+        progressCallback((index * 50) / houseSize)
     }
 }

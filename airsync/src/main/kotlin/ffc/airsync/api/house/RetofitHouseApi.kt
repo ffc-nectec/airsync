@@ -10,11 +10,12 @@ import ffc.airsync.utils.callApiNoReturn
 import ffc.entity.place.House
 
 class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
-    override fun putHouse(houseList: List<House>): List<House> {
+    override fun putHouse(houseList: List<House>, progressCallback: (Int) -> Unit): List<House> {
         callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }
 
         printDebug("Start put house to cloud")
         val houseLastUpdate = arrayListOf<House>()
+        val houseSize = houseList.size
         UploadSpliter.upload(100, houseList) { it, index ->
 
             val result = callApi {
@@ -36,6 +37,7 @@ class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
                         authkey = tokenBarer,
                         block = index
                     ).execute()
+                    progressCallback(((index * 50) / houseSize) + 50)
                     respond.body() ?: arrayListOf()
                 } else {
                     throw ApiLoopException("Error ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}")
