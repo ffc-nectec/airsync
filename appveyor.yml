@@ -10,7 +10,7 @@ build:
   verbosity: detailed
 
 build_script:
-  - IF DEFINED APPVEYOR_REPO_TAG_NAME ( gradlew.bat buildByVersion -PVERSION=%APPVEYOR_REPO_TAG_NAME% )
+  - IF DEFINED APPVEYOR_REPO_TAG_NAME ( gradlew.bat setVersionByTag -PVERSION=%APPVEYOR_REPO_TAG_NAME% )
   - gradlew.bat build --info --no-daemon
   - ls -al airsync/build/bin/
   - pwd
