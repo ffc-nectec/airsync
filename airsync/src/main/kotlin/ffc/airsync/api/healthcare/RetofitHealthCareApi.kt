@@ -62,7 +62,6 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
                         authkey = tokenBarer,
                         block = index
                     ).execute()
-                    progressCallback(((index * 50) / healthCareSize) + 50)
                     respond.body() ?: arrayListOf()
                 } else {
                     val message = "Error Loop ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}"
@@ -70,6 +69,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
                 }
             }
             healthCareLastUpdate.addAll(result)
+            progressCallback(((index * 50) / healthCareSize) + 50)
         }
         return healthCareLastUpdate
     }
