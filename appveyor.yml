@@ -10,12 +10,10 @@ build:
   verbosity: detailed
 
 build_script:
-  - IF DEFINED APPVEYOR_REPO_TAG_NAME ( gradlew.bat setVersionByTag -PVERSION=%APPVEYOR_REPO_TAG_NAME% )
-  - gradlew.bat build --info --no-daemon
-  - ls -al airsync/build/bin/
-  - pwd
+  - gradlew.bat build --no-daemon
 
 after_build:
+  - ls -al airsync/build/bin/
   - cp airsync/build/bin/airsync.jar airsync.jar
   - 7z a -mx9 airsync.zip airsync.jar icon.png
 
@@ -31,7 +29,6 @@ artifacts:
     type: File
 
 deploy:
-  description: 'โปรแกรม airsync สำหรับ sync ข้อมูลกับ JHCIS'
   provider: GitHub
   auth_token:
     secure: q3WgoVWpklbGnGcjjS7g8QKNDoD6roJ7PY+BDWFg4I2h5CC9QdCjhd5MM3HSlRPz

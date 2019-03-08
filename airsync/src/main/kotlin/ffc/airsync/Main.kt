@@ -82,7 +82,7 @@ internal class Main constructor(args: Array<String>) {
     init {
         instant = this
         if (args.contains("-v")) {
-            print(VERSION)
+            print(BuildConfig.VERSION)
             exitProcess(0)
         }
 
