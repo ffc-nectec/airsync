@@ -124,7 +124,10 @@ internal class Main constructor(args: Array<String>) {
         try {
             TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
             val parser = CmdLineParser(this)
-            parser.parseArgument(*args)
+            val dd = arrayListOf<String>()
+            dd.addAll(args)
+            dd.remove("-runnow")
+            parser.parseArgument(dd.toList())
         } catch (cmd: CmdLineException) {
             cmd.printStackTrace()
         }

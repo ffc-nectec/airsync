@@ -17,7 +17,7 @@ build_script:
 
 after_build:
   - cp airsync/build/bin/airsync.jar airsync.jar
-  - 7z a -mx9 airsync.zip airsync.jar
+  - 7z a -mx9 airsync.zip airsync.jar icon.png
 
 cache:
   - .gradle
