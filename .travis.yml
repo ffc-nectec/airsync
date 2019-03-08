@@ -8,17 +8,3 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-script:
-  - ECHO $(TRAVIS_TAG)
-  - ./gradlew setVersionByTag -Pversion=$(TRAVIS_TAG)
-  - ./gradlew build
-before_deploy:
-  - zip -j airsync.zip airsync/build/bin/airsync.jar
-
-deploy:
-  provider: releases
-  api_key: "$GITHUB_OAUTH_TOKEN"
-  file: "airsync.zip"
-  skip_cleanup: true
-  on:
-    tags: true
