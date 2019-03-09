@@ -45,7 +45,7 @@ private fun List<Person>.updateToCloud(progressCallback: (Int) -> Unit) {
 
 private fun List<Person>.`สร้างความสัมพันธ์`(progressCallback: (Int) -> Unit) {
     val houseMap = groupByHcode()
-    val groupByFamilyNo = groupFamilyNo(houseMap)
+    val groupByFamilyNo = groupFamilyNo(houseMap, progressCallback)
 
     val size = groupByFamilyNo.count()
     var index = 1
@@ -95,12 +95,13 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
                     `สร้างความสัมพันธ์พี่น้อง`(person, sibling)
             }
         }
-        progressCallback((index * 50) / size)
+        progressCallback(((index * 50) / size) + 25)
     }
 }
 
 private fun List<Person>.groupFamilyNo(
-    houseMap: HashMap<String, ArrayList<Person>>
+    houseMap: HashMap<String, ArrayList<Person>>,
+    progressCallback: (Int) -> Unit
 ): HashMap<String, ArrayList<Person>> {
     val groupByFamilyNo = HashMap<String, ArrayList<Person>>()
     val size = houseMap.count()
@@ -117,6 +118,7 @@ private fun List<Person>.groupFamilyNo(
             if (groupByFamilyNo["$hcode:$familyno"] == null) groupByFamilyNo["$hcode:$familyno"] = arrayListOf()
             groupByFamilyNo["$hcode:$familyno"]!!.add(person)
         }
+        progressCallback((i * 25) / size)
     }
     return groupByFamilyNo
 }
