@@ -17,30 +17,11 @@
 
 package ffc.airsync
 
-import ffc.airsync.api.analyzer.analyzer
-import ffc.airsync.api.analyzer.initSync
-import ffc.airsync.api.chronic.Chronics
-import ffc.airsync.api.genogram.initRelation
-import ffc.airsync.api.genogram.relation
-import ffc.airsync.api.healthcare.healthCare
-import ffc.airsync.api.healthcare.initSync
-import ffc.airsync.api.house.houses
-import ffc.airsync.api.house.initSync
 import ffc.airsync.api.organization.LocalOrganization
 import ffc.airsync.api.organization.orgApi
-import ffc.airsync.api.person.gets
-import ffc.airsync.api.person.initSync
-import ffc.airsync.api.person.mapChronic
-import ffc.airsync.api.person.persons
-import ffc.airsync.api.template.TemplateInit
-import ffc.airsync.api.user.initSync
-import ffc.airsync.api.user.users
-import ffc.airsync.api.village.initSync
-import ffc.airsync.api.village.villages
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.entity.Organization
-import ffc.entity.Person
 import ffc.entity.Token
 
 class MainController(val dao: DatabaseDao) {
@@ -52,7 +33,7 @@ class MainController(val dao: DatabaseDao) {
         val orgLocal = property.organization
         checkProperty(orgLocal)
         registerOrg(orgLocal)
-        initSync()
+        InitSync().init()
         SetupAutoSync(dao)
         SetupNotification(dao)
         SetupDatabaseWatcher(dao)
@@ -75,36 +56,6 @@ class MainController(val dao: DatabaseDao) {
             property.orgId = organization.id
             property.userOrg = organization.users[0]
         }
-    }
-
-    private fun initSync() {
-        val person = Person().gets()
-        person.mapChronic(Chronics())
-
-        printDebug("ใส่ข้อมูล ช่วยกรอกอัตโนมัติ....")
-        TemplateInit()
-        printDebug("ใส่ข้อมูลผู้ใช้ (1/7)")
-        users.initSync()
-        printDebug("เข้าถึงหมู่บ้าน (2/7)")
-        villages.initSync()
-        printDebug("ดูบ้าน (3/7)")
-        houses.initSync(person) {
-        }
-        printDebug("ดูข้อมูลคน (4/7)")
-        persons.initSync(houses, person) {
-        }
-        printDebug("วิเคราะห์ความสัมพันธ์ (5/7)")
-        relation.initRelation {
-        }
-        printDebug("รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)")
-        healthCare.initSync {
-            printDebug("รวบรวมข้อมูลการให้บริการ $it%")
-        }
-        printDebug("สำรวจความเจ็บป่วย (7/7)")
-        analyzer.initSync(healthCare) {
-        }
-
-        printDebug("Finished push")
     }
 
     private fun startLocalAirSyncServer() {
