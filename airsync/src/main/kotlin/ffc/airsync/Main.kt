@@ -18,9 +18,9 @@
 package ffc.airsync
 
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.gui.TryIcon
 import ffc.airsync.mysql.SetupMySqlConfig
 import ffc.airsync.provider.databaseDaoModule
-import ffc.airsync.utils.TryIcon
 import hii.log.print.easy.EasyPrintLogGUI
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest

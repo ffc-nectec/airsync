@@ -1,4 +1,4 @@
-package ffc.airsync.utils
+package ffc.airsync.gui
 
 import java.awt.PopupMenu
 import java.awt.SystemTray
@@ -6,6 +6,7 @@ import java.awt.Toolkit
 import java.awt.TrayIcon
 import java.awt.TrayIcon.MessageType
 import java.awt.event.MouseListener
+import javax.imageio.ImageIO
 
 class TryIcon(
     private val name: String,
@@ -44,8 +45,9 @@ class TryIcon(
         val tray = SystemTray.getSystemTray()
 
         // If the icon is a file
-        val image = Toolkit.getDefaultToolkit().createImage(imageParth)
-
+        val classloader = Thread.currentThread().contextClassLoader
+        val bufferImageIO = ImageIO.read(classloader.getResourceAsStream("icon.png"))
+        val image = Toolkit.getDefaultToolkit().createImage(bufferImageIO.source)
         trayIcon = TrayIcon(image, name)
         // Let the system resize the image if needed
         trayIcon.isImageAutoSize = true

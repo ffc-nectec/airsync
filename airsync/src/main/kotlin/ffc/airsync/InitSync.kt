@@ -18,9 +18,10 @@ import ffc.airsync.api.user.initSync
 import ffc.airsync.api.user.users
 import ffc.airsync.api.village.initSync
 import ffc.airsync.api.village.villages
+import ffc.airsync.gui.ProgressList
 import ffc.entity.Person
 
-class InitSync {
+class InitSync : ProgressList {
 
     var progressTemplate = 0
     var progressUser = 0
@@ -72,5 +73,19 @@ class InitSync {
         printDebug("สำรวจความเจ็บป่วย (7/7)")
         analyzer.initSync(healthCare) { progressAnalyzer = it }
         printDebug("Finished push")
+    }
+
+    override fun get(): Map<String, Int> {
+        val map = hashMapOf<String, Int>()
+        map["ระบบช่วยกรอก"] = progressTemplate
+        map["ข้อมูลผู้ใช้"] = progressUser
+        map["หมู่บ้าน"] = progressVillage
+        map["เพิ่มบ้านในระบบ"] = progressHouse
+        map["เพิ่มคนในระบบ"] = progressPerson
+        map["วิเคราะห์ความสัมพันธ์"] = progressRelation
+        map["ข้อมูลการให้บริการ"] = progressHealthCare
+        map["สำรวจความเจ็บป่วย"] = progressAnalyzer
+
+        return map.toMap()
     }
 }
