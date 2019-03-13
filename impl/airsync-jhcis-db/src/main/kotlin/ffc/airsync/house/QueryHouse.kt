@@ -101,7 +101,10 @@ class HouseMapper : RowMapper<House> {
             val xgis = rs.getDouble("xgis")
             val ygis = rs.getDouble("ygis")
             if ((xgis != 0.0) && (ygis != 0.0))
-                location = Point(ygis, xgis)
+                location = if (xgis < ygis)
+                    Point(xgis, ygis)
+                else
+                    Point(ygis, xgis)
             link = Link(
                 System.JHICS,
                 "hcode" to rs.getString("hcode"),
