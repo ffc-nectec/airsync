@@ -29,6 +29,8 @@ class CheckLauncherVersion {
                     printDebug("Launcher download ${((it / ass.size) * 100)} %")
                 }
                 zipD.download(File(""))
+                Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
+                System.exit(1)
             }
         }
     }
