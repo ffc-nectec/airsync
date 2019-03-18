@@ -23,4 +23,5 @@ dependencies {
     implementation project(":impl:airsync-local-web")
     implementation project(":impl:airsync-jhcis-db")
     implementation project(":impl:airsync-mysql-log-reader")
+    implementation project(":impl:GUI")
 }
