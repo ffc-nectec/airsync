@@ -12,9 +12,6 @@ import java.awt.Dimension;
  */
 public class StatusProgress extends javax.swing.JPanel {
 
-    public javax.swing.JLabel label;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar jProgressBar;
 
     /**
      * Creates new form StatusProgress
@@ -76,5 +73,8 @@ public class StatusProgress extends javax.swing.JPanel {
                                 .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
+    public javax.swing.JLabel label;
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar jProgressBar;
     // End of variables declaration//GEN-END:variables
 }
