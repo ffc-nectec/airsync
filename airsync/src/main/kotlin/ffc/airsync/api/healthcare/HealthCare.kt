@@ -19,7 +19,7 @@ fun ArrayList<HealthCareService>.initSync(progressCallback: (Int) -> Unit) {
         hashMapOf<String, Long>("maxvisit" to Main.instant.dao.queryMaxVisit()).save("maxvisit.json")
         val temp = listOf<HealthCareService>().load("healthTemp.json")
         if (temp.isEmpty()) {
-            localHealthCare.addAll(getHealthCare())
+            localHealthCare.addAll(getHealthCare(progressCallback))
             localHealthCare.save("healthTemp.json")
         } else
             localHealthCare.addAll(temp)
