@@ -30,6 +30,7 @@ class MainController(val dao: DatabaseDao) {
     var everLogin: Boolean = false
 
     fun run() {
+        gui.showWIndows()
         val orgLocal = property.organization
         checkProperty(orgLocal)
         registerOrg(orgLocal)
