@@ -25,6 +25,5 @@ include 'interface:db'
 include 'impl:airsync-mysql-log-reader'
 include 'impl:airsync-local-web'
 include 'impl:airsync-jhcis-db'
-include 'impl:GUI'
-findProject(':impl:GUI')?.name = 'GUI'
+include 'impl:airsync-gui-swing'
 
