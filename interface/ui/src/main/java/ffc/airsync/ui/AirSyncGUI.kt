@@ -1,7 +1,5 @@
 package ffc.airsync.ui
 
-import java.awt.Image
-
 typealias KEY = String
 
 interface AirSyncGUI {
@@ -10,8 +8,7 @@ interface AirSyncGUI {
     fun hideWindows()
     fun showWIndows()
     fun switchhHideShow()
-    fun setLogo(image: Image)
     fun setHeader(string: String)
 
-    data class ProgressData(val current: Int, val all: Int)
+    data class ProgressData(val current: Int, val max: Int, val message: String? = null)
 }
