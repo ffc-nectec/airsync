@@ -1,6 +1,7 @@
 package ffc.airsync.gui.drawable
 
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.AirSyncGUI.CheckData
 import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
 import java.awt.Component
@@ -12,9 +13,11 @@ import javax.imageio.ImageIO
 import javax.swing.ImageIcon
 
 class AirSyncGUIController : AirSyncGUI {
-
+    // check.png designed by Freepik from Flaticon
     val airsync = MainGUI()
     val listComponent = hashMapOf<KEY, Component>()
+    val width = airsync.statusPanel.width - 10
+    val height = 55
 
     init {
         val screenSize = getScreenSize()
@@ -28,44 +31,54 @@ class AirSyncGUIController : AirSyncGUI {
 
     private fun configSyncIcon() {
         val openWebButton = airsync.openWeb
-        val image = "sync.png".getImageResource()
-        val newImage = image.getScaledInstance(openWebButton.width, openWebButton.height, Image.SCALE_SMOOTH)
-        openWebButton.icon = ImageIcon(newImage)
+        // sync.png designed by prosymbols from Flaticon
+        val image = "sync.png".getImageScalingResource(openWebButton.width, openWebButton.height)
+        openWebButton.icon = ImageIcon(image)
     }
 
     private fun configLogoIcon() {
         val icon = airsync.icon
-        val image = "logo.png".getImageResource()
-        val newImage = image.getScaledInstance(icon.width, icon.height, Image.SCALE_SMOOTH)
-        icon.icon = ImageIcon(newImage)
+        val image = "logo.png".getImageScalingResource(icon.width, icon.height)
+        icon.icon = ImageIcon(image)
     }
 
     override fun set(data: Pair<KEY, Any>) {
+        when (data.second) {
+            is ProgressData -> {
+                if (listComponent[data.first] == null) {
+                    val newStatusProgress = StatusProgress()
+                    newStatusProgress.preferredSize = Dimension(width, height)
+                    listComponent[data.first] = newStatusProgress
+                    airsync.statusPanel.add(newStatusProgress)
+                }
 
-        var component = listComponent[data.first]
-        if (component == null) {
-            if (data.second is AirSyncGUI.ProgressData) {
-                val statusProgress = StatusProgress()
-                val width = airsync.statusPanel.width - 10
-                println(width)
-                val height = statusProgress.height
-                println(height)
-                statusProgress.preferredSize = Dimension(width, 55)
-
-                component = statusProgress
-                listComponent[data.first] = component
-                airsync.statusPanel.add(component)
-            }
-        }
-
-        when (component) {
-            is StatusProgress -> {
                 val progressData = data.second as ProgressData
-                component.jProgressBar.maximum = progressData.max
-                component.jProgressBar.value = progressData.current
-                component.label.text =
+                val statusProgress = listComponent[data.first] as StatusProgress
+                statusProgress.jProgressBar.maximum = progressData.max
+                statusProgress.jProgressBar.value = progressData.current
+                statusProgress.label.text =
                     data.first + if (progressData.message != null) ":${progressData.message}" else ""
             }
+            is CheckData -> {
+                if (listComponent[data.first] == null) {
+                    val newCheckData = SuccessConfirm()
+                    newCheckData.preferredSize = Dimension(width, height)
+                    newCheckData.icon.icon =
+                        ImageIcon(
+                            "check.png".getImageScalingResource(
+                                height,
+                                height
+                            )
+                        )
+                    listComponent[data.first] = newCheckData
+                    airsync.statusPanel.add(newCheckData)
+                }
+                val checkData = data.second as CheckData
+                val checkDataConfirm = listComponent[data.first] as SuccessConfirm
+
+                checkDataConfirm.text.text = checkData.message
+            }
+
         }
     }
 
@@ -74,6 +87,7 @@ class AirSyncGUIController : AirSyncGUI {
         if (component != null) {
             airsync.statusPanel.remove(component)
             listComponent.remove(key)
+            airsync.statusPanel.updateUI()
         }
     }
 
@@ -99,8 +113,19 @@ class AirSyncGUIController : AirSyncGUI {
         return Toolkit.getDefaultToolkit().createImage(bufferImageIO.source)
     }
 
+    private fun String.getImageScalingResource(width: Int, height: Int): Image {
+        val image = this.getImageResource()
+        return image.getScaledInstance(width, height, Image.SCALE_SMOOTH)
+    }
+
     fun getScreenSize(): Pair<Int, Int> {
         val gd = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice
         return Pair(gd.displayMode.width, gd.displayMode.height)
     }
+
+    override var enableSyncButton: Boolean
+        get() = airsync.openWeb.isEnabled
+        set(value) {
+            airsync.openWeb.isEnabled = value
+        }
 }

@@ -9,6 +9,8 @@ interface AirSyncGUI {
     fun showWIndows()
     fun switchhHideShow()
     fun setHeader(string: String)
+    var enableSyncButton: Boolean
 
     data class ProgressData(val current: Int, val max: Int, val message: String? = null)
+    data class CheckData(val message: String)
 }

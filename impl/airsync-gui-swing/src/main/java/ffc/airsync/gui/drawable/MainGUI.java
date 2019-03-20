@@ -6,6 +6,9 @@
 package ffc.airsync.gui.drawable;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -49,16 +52,22 @@ public class MainGUI extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 255, 0));
         setForeground(java.awt.Color.white);
 
-        headerPanel.setBackground(new java.awt.Color(204, 255, 204));
+        headerPanel.setBackground(new java.awt.Color(76, 189, 148));
 
         icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         icon.setText("icon");
 
-        headerLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        headerLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         headerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         headerLabel.setText("headerLabel");
 
         openWeb.setText("openWeb");
+        openWeb.setEnabled(false);
+        openWeb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openWebActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout headerPanelLayout = new javax.swing.GroupLayout(headerPanel);
         headerPanel.setLayout(headerPanelLayout);
@@ -113,6 +122,14 @@ public class MainGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void openWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openWebActionPerformed
+        try {
+            Runtime.getRuntime().exec("cmd /k start http://127.0.0.1:8081/index.html");
+        } catch (IOException ex) {
+            Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_openWebActionPerformed
 
     /**
      * @param args the command line arguments
