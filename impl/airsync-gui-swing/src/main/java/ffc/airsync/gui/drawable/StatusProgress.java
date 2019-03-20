@@ -5,6 +5,7 @@
  */
 package ffc.airsync.gui.drawable;
 
+import java.awt.Color;
 import java.awt.Dimension;
 
 /**
@@ -17,6 +18,7 @@ public class StatusProgress extends javax.swing.JPanel {
      * Creates new form StatusProgress
      */
     public StatusProgress() {
+        setBackground(new Color(204, 255, 204));
         initComponents();
     }
 
@@ -39,43 +41,42 @@ public class StatusProgress extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        label = new javax.swing.JLabel();
+        label = new javax.swing.JTextPane();
         jProgressBar = new javax.swing.JProgressBar();
 
+        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setName(""); // NOI18N
 
-        label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        label.setBackground(new java.awt.Color(204, 255, 204));
+        label.setBorder(null);
+        label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label.setForeground(new java.awt.Color(0, 102, 0));
-        label.setText("jLabel2");
-        label.setAlignmentX(0.5F);
-        label.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        label.setPreferredSize(new java.awt.Dimension(34, 19));
 
         jProgressBar.setBackground(new java.awt.Color(255, 255, 255));
-        jProgressBar.setForeground(new java.awt.Color(0, 255, 51));
+        jProgressBar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jProgressBar.setForeground(new java.awt.Color(0, 102, 0));
         jProgressBar.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(label)
+            .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JProgressBar jProgressBar;
-    public javax.swing.JLabel label;
+    public javax.swing.JTextPane label;
     // End of variables declaration//GEN-END:variables
 }

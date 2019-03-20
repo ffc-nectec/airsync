@@ -4,6 +4,7 @@ import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
 import java.awt.Component
+import java.awt.Dimension
 import java.awt.GraphicsEnvironment
 import java.awt.Image
 import java.awt.Toolkit
@@ -44,7 +45,14 @@ class AirSyncGUIController : AirSyncGUI {
         var component = listComponent[data.first]
         if (component == null) {
             if (data.second is AirSyncGUI.ProgressData) {
-                component = StatusProgress()
+                val statusProgress = StatusProgress()
+                val width = airsync.statusPanel.width - 10
+                println(width)
+                val height = statusProgress.height
+                println(height)
+                statusProgress.preferredSize = Dimension(width, 55)
+
+                component = statusProgress
                 listComponent[data.first] = component
                 airsync.statusPanel.add(component)
             }
@@ -53,8 +61,10 @@ class AirSyncGUIController : AirSyncGUI {
         when (component) {
             is StatusProgress -> {
                 val progressData = data.second as ProgressData
-                component.jProgressBar.maximum = progressData.all
+                component.jProgressBar.maximum = progressData.max
                 component.jProgressBar.value = progressData.current
+                component.label.text =
+                    data.first + if (progressData.message != null) ":${progressData.message}" else ""
             }
         }
     }
@@ -77,12 +87,6 @@ class AirSyncGUIController : AirSyncGUI {
 
     override fun switchhHideShow() {
         airsync.isVisible = !airsync.isVisible
-    }
-
-    override fun setLogo(image: Image) {
-        val icon = airsync.icon
-        val newImage = image.getScaledInstance(icon.width, icon.height, java.awt.Image.SCALE_SMOOTH)
-        icon.icon = ImageIcon(newImage)
     }
 
     override fun setHeader(string: String) {

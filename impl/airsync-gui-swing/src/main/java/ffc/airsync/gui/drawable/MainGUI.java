@@ -5,6 +5,7 @@
  */
 package ffc.airsync.gui.drawable;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -19,6 +20,7 @@ public class MainGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setType(Type.UTILITY);
         setUndecorated(true);
+        getContentPane().setBackground(new Color(204, 255, 204));
         initComponents();
     }
 
@@ -39,11 +41,13 @@ public class MainGUI extends javax.swing.JFrame {
         icon = new javax.swing.JLabel();
         headerLabel = new javax.swing.JLabel();
         openWeb = new javax.swing.JButton();
-        centerPanel = new javax.swing.JScrollPane();
         statusPanel = new javax.swing.JPanel();
         footerPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
+
+        setBackground(new java.awt.Color(51, 255, 0));
+        setForeground(java.awt.Color.white);
 
         headerPanel.setBackground(new java.awt.Color(204, 255, 204));
 
@@ -77,7 +81,6 @@ public class MainGUI extends javax.swing.JFrame {
         openWeb.getAccessibleContext().setAccessibleDescription("");
 
         statusPanel.setBackground(new java.awt.Color(204, 255, 204));
-        centerPanel.setViewportView(statusPanel);
 
         footerPanel.setLayout(new java.awt.GridLayout(1, 3));
 
@@ -93,9 +96,9 @@ public class MainGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(footerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(centerPanel)
+                .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -103,7 +106,7 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(centerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+                .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(footerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -154,7 +157,6 @@ public class MainGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane centerPanel;
     public javax.swing.JPanel footerPanel;
     public javax.swing.JLabel headerLabel;
     private javax.swing.JPanel headerPanel;
