@@ -38,7 +38,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="titlePanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="statusPanel" pref="245" max="32767" attributes="0"/>
+              <Component id="statusPanel" pref="136" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="footer" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -82,7 +82,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="icon" min="-2" pref="92" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="headerLabel" pref="479" max="32767" attributes="0"/>
+                      <Component id="headerLabel" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="closeButton" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -166,7 +166,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="343" max="32767" attributes="0"/>
                   <Component id="openWeb" min="-2" pref="87" max="-2" attributes="0"/>
               </Group>
           </Group>
