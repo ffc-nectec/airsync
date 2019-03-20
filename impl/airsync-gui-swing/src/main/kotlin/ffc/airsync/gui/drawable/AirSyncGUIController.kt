@@ -24,9 +24,10 @@ class AirSyncGUIController : AirSyncGUI {
 
     init {
         val screenSize = getScreenSize()
+        val windowsHeigh = screenSize.second - airsync.height
         airsync.setLocation(
-            (screenSize.first / 2) - (airsync.width / 2),
-            (screenSize.second / 2) - (airsync.height / 2)
+            (screenSize.first - airsync.width) - 20,
+            windowsHeigh - (windowsHeigh / 10)
         )
         configSyncIcon()
         configLogoIcon()
@@ -62,6 +63,7 @@ class AirSyncGUIController : AirSyncGUI {
 
                 val progressData = data.second as ProgressData
                 val statusProgress = listComponent[data.first] as StatusProgress
+                statusProgress.jProgressBar.minimum = 0
                 statusProgress.jProgressBar.maximum = progressData.max
                 statusProgress.jProgressBar.value = progressData.current
                 statusProgress.label.text =
@@ -129,6 +131,10 @@ class AirSyncGUIController : AirSyncGUI {
     fun getScreenSize(): Pair<Int, Int> {
         val gd = GraphicsEnvironment.getLocalGraphicsEnvironment().defaultScreenDevice
         return Pair(gd.displayMode.width, gd.displayMode.height)
+    }
+
+    override fun setLocation(x: Int, y: Int) {
+        airsync.setLocation((getScreenSize().first - airsync.width) - 20, y - airsync.height - 50)
     }
 
     override var enableSyncButton: Boolean

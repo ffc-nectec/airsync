@@ -57,7 +57,7 @@ dependencies {
     compile 'com.github.lionants02:CheckDuplicate:0.0.4'
     compile 'com.github.lionants02:EasyPrintLogGUI:0.0.6'
     compile 'com.github.lionants02:GitHubLatestApi:0.0.1'
-    compile 'com.github.lionants02:ZIpDownload:0.0.1'
+    compile 'com.github.lionants02:ZIpDownload:0.0.2'
 }
 
 buildConfig {}

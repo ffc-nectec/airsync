@@ -85,8 +85,29 @@ internal class Main constructor(args: Array<String>) {
             print(BuildConfig.VERSION)
             exitProcess(0)
         }
+        gui.setHeader(BuildConfig.VERSION)
+        gui.showWIndows()
+        tryIcon = TryIcon("FFC Airsync", "icon.png") {
+            object : MouseListener {
+                override fun mouseReleased(e: MouseEvent?) {
+                }
 
-        CheckLauncherVersion().check()
+                override fun mouseEntered(e: MouseEvent?) {
+                }
+
+                override fun mouseClicked(e: MouseEvent) {
+                    gui.switchhHideShow()
+                    gui.setLocation(e.point.x, e.point.y)
+                }
+
+                override fun mouseExited(e: MouseEvent?) {
+                }
+
+                override fun mousePressed(e: MouseEvent?) {
+                }
+            }
+        }
+        CheckLauncherVersion(gui).check()
 
         if (!args.contains("-runnow")) {
             Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
@@ -105,25 +126,6 @@ internal class Main constructor(args: Array<String>) {
         } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
             printDebug("Duplicate process")
             System.exit(1)
-        }
-        tryIcon = TryIcon("FFC Airsync", "icon.png") {
-            object : MouseListener {
-                override fun mouseReleased(e: MouseEvent?) {
-                }
-
-                override fun mouseEntered(e: MouseEvent?) {
-                }
-
-                override fun mouseClicked(e: MouseEvent?) {
-                    gui.switchhHideShow()
-                }
-
-                override fun mouseExited(e: MouseEvent?) {
-                }
-
-                override fun mousePressed(e: MouseEvent?) {
-                }
-            }
         }
 
         try {
