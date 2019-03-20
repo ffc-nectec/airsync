@@ -20,8 +20,8 @@ package ffc.airsync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui.TryIcon
 import ffc.airsync.mysql.SetupMySqlConfig
+import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.provider.databaseDaoModule
-import hii.log.print.easy.EasyPrintLogGUI
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
@@ -115,7 +115,7 @@ internal class Main constructor(args: Array<String>) {
                 }
 
                 override fun mouseClicked(e: MouseEvent?) {
-                    logPrint.switchShowHideWindows()
+                    gui.switchhHideShow()
                 }
 
                 override fun mouseExited(e: MouseEvent?) {
@@ -156,10 +156,7 @@ fun main(args: Array<String>) {
     Main(args).run()
 }
 
-val logPrint = EasyPrintLogGUI(
-    "AirSync console",
-    lineLimit = 1000
-)
+val gui = createArisyncGui()
 
 val debug = System.getenv("FFC_DEBUG")
 internal fun printDebug(infoDebug: String) {
@@ -168,7 +165,6 @@ internal fun printDebug(infoDebug: String) {
             if (Main.instant.noGUI)
                 println(infoDebug)
             else {
-                logPrint.text = infoDebug
                 println(infoDebug)
             }
         } catch (ex: kotlin.UninitializedPropertyAccessException) {

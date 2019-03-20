@@ -34,7 +34,8 @@ class InitSync : ProgressList {
 
     val progressOrg: Int
         get() {
-            val sum = progressTemplate +
+            // Max 800
+            return progressTemplate +
                     progressUser +
                     progressVillage +
                     progressHouse +
@@ -42,7 +43,6 @@ class InitSync : ProgressList {
                     progressRelation +
                     progressHealthCare +
                     progressAnalyzer
-            return sum / 8
         }
 
     fun init() {
