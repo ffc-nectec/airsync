@@ -87,7 +87,6 @@ class AirSyncGUIController : AirSyncGUI {
 
                 checkDataConfirm.text.text = checkData.message
             }
-
         }
     }
 
