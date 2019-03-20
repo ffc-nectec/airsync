@@ -6,6 +6,7 @@ import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
 import java.awt.Component
 import java.awt.Dimension
+import java.awt.Font
 import java.awt.GraphicsEnvironment
 import java.awt.Image
 import java.awt.Toolkit
@@ -13,11 +14,13 @@ import javax.imageio.ImageIO
 import javax.swing.ImageIcon
 
 class AirSyncGUIController : AirSyncGUI {
-    // check.png designed by Freepik from Flaticon
+    // check.png designed by Smashicons from Flaticon
     val airsync = MainGUI()
     val listComponent = hashMapOf<KEY, Component>()
     val width = airsync.statusPanel.width - 10
     val height = 55
+    val kanitBold = Font.createFont(Font.TRUETYPE_FONT, "font/Kanit-Bold.otf".getFileResource())
+    val kanitMedium = Font.createFont(Font.TRUETYPE_FONT, "font/Kanit-Medium.otf".getFileResource())
 
     init {
         val screenSize = getScreenSize()
@@ -27,6 +30,10 @@ class AirSyncGUIController : AirSyncGUI {
         )
         configSyncIcon()
         configLogoIcon()
+        val icon = "close.png".getImageScalingResource(airsync.closeButton.width, airsync.closeButton.height)
+        airsync.closeButton.icon = ImageIcon(icon)
+
+        airsync.headerLabel.font = kanitMedium.deriveFont(airsync.headerLabel.font.size2D)
     }
 
     private fun configSyncIcon() {
@@ -49,6 +56,7 @@ class AirSyncGUIController : AirSyncGUI {
                     val newStatusProgress = StatusProgress()
                     newStatusProgress.preferredSize = Dimension(width, height)
                     listComponent[data.first] = newStatusProgress
+                    newStatusProgress.label.font = kanitMedium.deriveFont(newStatusProgress.label.font.size.toFloat())
                     airsync.statusPanel.add(newStatusProgress)
                 }
 
@@ -63,11 +71,12 @@ class AirSyncGUIController : AirSyncGUI {
                 if (listComponent[data.first] == null) {
                     val newCheckData = SuccessConfirm()
                     newCheckData.preferredSize = Dimension(width, height)
+                    newCheckData.text.font = kanitMedium.deriveFont(18f)
                     newCheckData.icon.icon =
                         ImageIcon(
                             "check.png".getImageScalingResource(
-                                height,
-                                height
+                                height - 10,
+                                height - 10
                             )
                         )
                     listComponent[data.first] = newCheckData
@@ -108,7 +117,7 @@ class AirSyncGUIController : AirSyncGUI {
     }
 
     private fun String.getImageResource(): Image {
-        val resourceStream = Thread.currentThread().contextClassLoader.getResourceAsStream(this)
+        val resourceStream = getFileResource()
         val bufferImageIO = ImageIO.read(resourceStream)
         return Toolkit.getDefaultToolkit().createImage(bufferImageIO.source)
     }

@@ -44,18 +44,18 @@ public class StatusProgress extends javax.swing.JPanel {
         label = new javax.swing.JTextPane();
         jProgressBar = new javax.swing.JProgressBar();
 
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setBackground(new java.awt.Color(253, 253, 253));
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setName(""); // NOI18N
 
-        label.setBackground(new java.awt.Color(204, 255, 204));
+        label.setBackground(new java.awt.Color(253, 253, 253));
         label.setBorder(null);
         label.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         label.setForeground(new java.awt.Color(0, 102, 0));
 
         jProgressBar.setBackground(new java.awt.Color(255, 255, 255));
         jProgressBar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jProgressBar.setForeground(new java.awt.Color(0, 102, 0));
+        jProgressBar.setForeground(new java.awt.Color(76, 189, 148));
         jProgressBar.setStringPainted(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -63,7 +63,7 @@ public class StatusProgress extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(label)
-            .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+            .addComponent(jProgressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
