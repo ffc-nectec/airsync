@@ -21,8 +21,11 @@ import ffc.airsync.api.organization.LocalOrganization
 import ffc.airsync.api.organization.orgApi
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
+import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.utils.toBuddistString
 import ffc.entity.Organization
 import ffc.entity.Token
+import org.joda.time.DateTime
 
 class MainController(val dao: DatabaseDao) {
 
@@ -31,13 +34,28 @@ class MainController(val dao: DatabaseDao) {
 
     fun run() {
         gui.showWIndows()
+        gui.set("Check" to AirSyncGUI.ProgressData(15, 100, "Get organization config."))
         val orgLocal = property.organization
+        gui.set("Check" to AirSyncGUI.ProgressData(35, 100, "Validate config."))
         checkProperty(orgLocal)
+        gui.set("Check" to AirSyncGUI.ProgressData(75, 100, "Validate cloud."))
         registerOrg(orgLocal)
-        InitSync().init()
+        gui.set("Check" to AirSyncGUI.ProgressData(100, 100, "Validate cloud."))
+        Thread {
+            Thread.sleep(5000)
+            gui.remove("Check")
+        }.start()
+        InitSync().init(gui)
+        gui.set("Setup" to AirSyncGUI.ProgressData(1, 4, " Auto sync.."))
         SetupAutoSync(dao)
+        gui.set("Setup" to AirSyncGUI.ProgressData(2, 4, " Notification."))
         SetupNotification(dao)
+        gui.set("Setup" to AirSyncGUI.ProgressData(3, 4, " Database watcher."))
         SetupDatabaseWatcher(dao)
+        gui.set("Setup" to AirSyncGUI.ProgressData(4, 4, " Sync.."))
+        gui.remove("Setup")
+        gui.set("Success" to AirSyncGUI.CheckData("ข้อมูล Sync แล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}"))
+        gui.enableSyncButton = true
         startLocalAirSyncServer()
     }
 

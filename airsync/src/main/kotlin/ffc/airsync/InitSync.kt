@@ -19,6 +19,7 @@ import ffc.airsync.api.user.users
 import ffc.airsync.api.village.initSync
 import ffc.airsync.api.village.villages
 import ffc.airsync.gui.ProgressList
+import ffc.airsync.ui.AirSyncGUI
 import ffc.entity.Person
 
 class InitSync : ProgressList {
@@ -44,8 +45,17 @@ class InitSync : ProgressList {
                     progressHealthCare +
                     progressAnalyzer
         }
+    var message = "sync.."
 
-    fun init() {
+    fun init(gui: AirSyncGUI) {
+        var isFinish = false
+        Thread {
+            while (!isFinish) {
+                gui.set("Sync" to AirSyncGUI.ProgressData(progressOrg, 800, message))
+                Thread.sleep(500)
+            }
+            gui.remove("Sync")
+        }.start()
         val person = Person().gets()
         progressTemplate = 5
         person.mapChronic(Chronics())
@@ -63,16 +73,32 @@ class InitSync : ProgressList {
         progressVillage = 100
 
         printDebug("ดูบ้าน (3/7)")
-        houses.initSync(person) { progressHouse = it }
+        houses.initSync(person) {
+            message = "สำรวจบ้าน $it%"
+            progressHouse = it
+        }
         printDebug("ดูข้อมูลคน (4/7)")
-        persons.initSync(houses, person) { progressPerson = it }
+        persons.initSync(houses, person) {
+            message = "สำรวจคน $it%"
+            progressPerson = it
+        }
         printDebug("วิเคราะห์ความสัมพันธ์ (5/7)")
-        relation.initRelation { progressRelation = it }
+        relation.initRelation {
+            message = "คำนวนความสัมพันธ์ $it%"
+            progressRelation = it
+        }
         printDebug("รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)")
-        healthCare.initSync { progressHealthCare = it }
+        healthCare.initSync {
+            message = "วิเคราะห์การให้บริการ $it%"
+            progressHealthCare = it
+        }
         printDebug("สำรวจความเจ็บป่วย (7/7)")
-        analyzer.initSync(healthCare) { progressAnalyzer = it }
+        analyzer.initSync(healthCare) {
+            message = "วิเคราะห์ความเจ็บป่วย $it%"
+            progressAnalyzer = it
+        }
         printDebug("Finished push")
+        isFinish = true
     }
 
     override fun get(): Map<String, Int> {
