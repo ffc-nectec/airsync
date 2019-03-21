@@ -39,7 +39,17 @@ class MainController(val dao: DatabaseDao) {
         gui.set("Check" to AirSyncGUI.ProgressData(35, 100, "Validate config."))
         checkProperty(orgLocal)
         gui.set("Check" to AirSyncGUI.ProgressData(75, 100, "Validate cloud."))
-        registerOrg(orgLocal)
+        try {
+            registerOrg(orgLocal)
+        } catch (ex: java.lang.Exception) {
+            gui.set(
+                "Organization Error" to AirSyncGUI.CheckData(
+                    "ตรวจสอบพบการลงทะเบียนซ้ำ อาจเกิดจากการลบและติดตั้งใหม่ โปรดติดต่อผู้ดูแล FFC",
+                    AirSyncGUI.MESSAGE_TYPE.ERROR
+                )
+            )
+            throw ex
+        }
         gui.set("Check" to AirSyncGUI.ProgressData(100, 100, "Validate cloud."))
         Thread {
             Thread.sleep(5000)
