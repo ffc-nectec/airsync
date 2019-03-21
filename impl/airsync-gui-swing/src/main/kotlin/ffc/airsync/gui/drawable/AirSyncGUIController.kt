@@ -74,19 +74,29 @@ class AirSyncGUIController : AirSyncGUI {
                     val newCheckData = SuccessConfirm()
                     newCheckData.preferredSize = Dimension(width, height)
                     newCheckData.text.font = kanitMedium.deriveFont(18f)
-                    newCheckData.icon.icon =
+                    listComponent[data.first] = newCheckData
+                    airsync.statusPanel.add(newCheckData)
+                }
+                val checkData = data.second as CheckData
+                val checkDataConfirm = listComponent[data.first] as SuccessConfirm
+                checkDataConfirm.icon.icon = when (checkData.type) {
+                    AirSyncGUI.MESSAGE_TYPE.OK -> {
                         ImageIcon(
                             "check.png".getImageScalingResource(
                                 height - 10,
                                 height - 10
                             )
                         )
-                    listComponent[data.first] = newCheckData
-                    airsync.statusPanel.add(newCheckData)
+                    }
+                    AirSyncGUI.MESSAGE_TYPE.ERROR -> {
+                        ImageIcon(
+                            "error.png".getImageScalingResource(
+                                height - 10,
+                                height - 10
+                            )
+                        )
+                    }
                 }
-                val checkData = data.second as CheckData
-                val checkDataConfirm = listComponent[data.first] as SuccessConfirm
-
                 checkDataConfirm.text.text = checkData.message
             }
         }

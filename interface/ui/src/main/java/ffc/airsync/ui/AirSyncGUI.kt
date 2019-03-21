@@ -13,5 +13,9 @@ interface AirSyncGUI {
     var enableSyncButton: Boolean
 
     data class ProgressData(val current: Int, val max: Int, val message: String? = null)
-    data class CheckData(val message: String)
+    data class CheckData(val message: String, val type: MESSAGE_TYPE = MESSAGE_TYPE.OK)
+
+    enum class MESSAGE_TYPE {
+        OK, ERROR
+    }
 }
