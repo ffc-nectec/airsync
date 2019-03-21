@@ -10,7 +10,7 @@ build:
   verbosity: detailed
 
 build_script:
-  - gradlew.bat build --no-daemon
+  - gradlew.bat build --info
 
 after_build:
   - ls -al airsync/build/bin/
