@@ -53,7 +53,7 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
                         zipD.download(File(""))
                     }
                     Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
-                    System.exit(1)
+                    System.exit(0)
                 }
                 isFinish = true
             } catch (ex: java.net.UnknownHostException) {
