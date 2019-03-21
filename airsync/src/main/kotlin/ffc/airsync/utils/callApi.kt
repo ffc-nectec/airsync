@@ -22,14 +22,19 @@ fun <T> callApi(
 
             return result!!
         } catch (ex: java.net.SocketTimeoutException) {
+            if (loop > 5) throw ex
             printDebug("Time out loop ${++loop}")
             ex.printStackTrace()
         } catch (ex: ApiLoopException) {
-            printDebug("Loop api custom by user ${ex.message}")
+            if (loop > 5) throw ex
+            System.err.println("Loop api custom by user ${ex.message}")
         } catch (ex: java.net.SocketException) {
+            if (loop > 5) throw ex
             printDebug("Socket error check network ${++loop}")
-            Thread.sleep(10000)
             ex.printStackTrace()
+        } finally {
+            loop++
+            Thread.sleep(10000)
         }
     }
 }

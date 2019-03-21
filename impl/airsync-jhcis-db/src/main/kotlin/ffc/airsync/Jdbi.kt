@@ -21,19 +21,23 @@ import ffc.airsync.utils.printDebug
 import org.jdbi.v3.core.Jdbi
 
 inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R {
+    var loop = 0
     while (true) {
         try {
             return withExtension<R, E, RuntimeException>(E::class.java) {
                 call(it)
             }
         } catch (ex: org.jdbi.v3.core.ConnectionException) {
-            printDebug("JDBI Error Loop 1 Except")
-            ex.printStackTrace()
-            Thread.sleep(10000)
+            if (loop < 3) {
+                printDebug("JDBI Error Loop 1 Except $loop $ex")
+            } else throw ex
         } catch (ex: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException) {
-            printDebug("JDBI Error Loop 2 Except")
-            ex.printStackTrace()
-            Thread.sleep(10000)
+            if (loop < 3) {
+                printDebug("JDBI Error Loop 2 Except $loop $ex")
+            } else throw ex
+        } finally {
+            loop++
+            Thread.sleep(3000)
         }
     }
 }

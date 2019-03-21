@@ -22,6 +22,8 @@ import ffc.airsync.gui.TryIcon
 import ffc.airsync.mysql.SetupMySqlConfig
 import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.provider.databaseDaoModule
+import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.utils.ApiLoopException
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
@@ -87,7 +89,48 @@ internal class Main constructor(args: Array<String>) {
         }
         gui.setHeader(BuildConfig.VERSION)
         gui.showWIndows()
-        tryIcon = TryIcon("FFC Airsync", "icon.png") {
+        tryIcon = CreateTryIcon()
+        try {
+
+            CheckLauncherVersion(gui).check()
+
+            if (!args.contains("-runnow")) {
+                Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
+                System.exit(1)
+            }
+
+            if (args.contains("-nogui")) {
+                noGUI = true
+            }
+
+            if (args.contains("-skipcon")) {
+                skipConfigMyIni = true
+            }
+            try {
+                processDupplicate.register()
+            } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
+                printDebug("Duplicate process")
+                System.exit(1)
+            }
+
+            try {
+                TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
+                val parser = CmdLineParser(this)
+                val dd = arrayListOf<String>()
+                dd.addAll(args)
+                dd.remove("-runnow")
+                parser.parseArgument(dd.toList())
+            } catch (cmd: CmdLineException) {
+                cmd.printStackTrace()
+            }
+        } catch (ex: Exception) {
+            errMessage("Init Error", "Init Error $ex\r\n${ex.printStackTrace()}")
+            throw ex
+        }
+    }
+
+    private fun CreateTryIcon(): TryIcon {
+        return TryIcon("FFC Airsync", "icon.png") {
             object : MouseListener {
                 override fun mouseReleased(e: MouseEvent?) {
                 }
@@ -111,37 +154,6 @@ internal class Main constructor(args: Array<String>) {
                 }
             }
         }
-        CheckLauncherVersion(gui).check()
-
-        if (!args.contains("-runnow")) {
-            Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
-            System.exit(1)
-        }
-
-        if (args.contains("-nogui")) {
-            noGUI = true
-        }
-
-        if (args.contains("-skipcon")) {
-            skipConfigMyIni = true
-        }
-        try {
-            processDupplicate.register()
-        } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
-            printDebug("Duplicate process")
-            System.exit(1)
-        }
-
-        try {
-            TimeZone.setDefault(TimeZone.getTimeZone(ZoneId.ofOffset("UTC", ZoneOffset.ofHours(7))))
-            val parser = CmdLineParser(this)
-            val dd = arrayListOf<String>()
-            dd.addAll(args)
-            dd.remove("-runnow")
-            parser.parseArgument(dd.toList())
-        } catch (cmd: CmdLineException) {
-            cmd.printStackTrace()
-        }
     }
 
     val dao: DatabaseDao by lazy { databaseDaoModule(dbhost, dbport, dbname, dbusername, dbpassword) }
@@ -159,7 +171,36 @@ internal class Main constructor(args: Array<String>) {
 }
 
 fun main(args: Array<String>) {
-    Main(args).run()
+    try {
+        Main(args).run()
+    } catch (ex: org.jdbi.v3.core.ConnectionException) {
+        gui.remove("Database")
+        errMessage(
+            "Init Controller Error",
+            "ไม่สามารถเชื่อมต่อ Database ตรวจสอบการตั้งค่า ปิดแล้วเปิด FFC Airsync ใหม่อีกครั้ง"
+        )
+        throw ex
+    } catch (ex: ApiLoopException) {
+        errMessage("Api Error", "เกิดข้อผิดพลาด Api $ex")
+        throw ex
+    } catch (ex: java.net.SocketTimeoutException) {
+        errMessage("Network Error", "ไม่สามารถเชื่อมต่อกับ Cloud ได้")
+    } catch (ex: java.net.SocketException) {
+        errMessage("Socket Error", "Network Socket Error $ex")
+        throw ex
+    } catch (ex: Exception) {
+        errMessage("Error Message", "Init Error $ex\r\n${ex.printStackTrace()}")
+        throw ex
+    }
+}
+
+fun errMessage(key: String, message: String) {
+    gui.set(
+        key to AirSyncGUI.CheckData(
+            message,
+            AirSyncGUI.MESSAGE_TYPE.ERROR
+        )
+    )
 }
 
 val gui = createArisyncGui()
