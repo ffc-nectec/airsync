@@ -35,6 +35,7 @@ import java.io.File
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
+import javax.ws.rs.NotAuthorizedException
 import kotlin.system.exitProcess
 
 const val APIVERSION = "v1"
@@ -185,8 +186,12 @@ fun main(args: Array<String>) {
         throw ex
     } catch (ex: java.net.SocketTimeoutException) {
         errMessage("Network Error", "ไม่สามารถเชื่อมต่อกับ Cloud ได้")
+        throw ex
     } catch (ex: java.net.SocketException) {
         errMessage("Socket Error", "Network Socket Error $ex")
+        throw ex
+    } catch (ex: NotAuthorizedException) {
+        errMessage("Auth Error", "Server ปฏิเสทการเชื่อมต่อ Cannot auth ${ex.message}")
         throw ex
     } catch (ex: Exception) {
         errMessage("Error Message", "Init Error $ex\r\n${ex.printStackTrace()}")
