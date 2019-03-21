@@ -16,7 +16,9 @@ import javax.swing.ImageIcon
 class AirSyncGUIController : AirSyncGUI {
     // check.png designed by Smashicons from Flaticon
     val airsync = MainGUI()
-    val rightClick = RightClick()
+    val rightClick = RightClick(RightClick.OnOpenAirsync {
+        airsync.isVisible = true
+    })
     val listComponent = hashMapOf<KEY, Component>()
     val width = airsync.statusPanel.width - 10
     val height = 55
@@ -35,8 +37,6 @@ class AirSyncGUIController : AirSyncGUI {
         val icon = "close.png".getImageScalingResource(airsync.closeButton.width, airsync.closeButton.height)
         airsync.closeButton.icon = ImageIcon(icon)
         airsync.headerLabel.font = kanitMedium.deriveFont(airsync.headerLabel.font.size2D)
-        rightClick.icon.icon =
-            ImageIcon("logo.png".getImageScalingResource(rightClick.icon.width, rightClick.icon.height))
     }
 
     private fun configSyncIcon() {
