@@ -98,7 +98,7 @@ internal class Main constructor(args: Array<String>) {
 
             if (!args.contains("-runnow")) {
                 Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
-                System.exit(1)
+                System.exit(0)
             }
 
             if (args.contains("-nogui")) {
@@ -112,6 +112,7 @@ internal class Main constructor(args: Array<String>) {
                 processDupplicate.register()
             } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
                 printDebug("Duplicate process")
+                Thread.sleep(2000)
                 System.exit(1)
             }
 
