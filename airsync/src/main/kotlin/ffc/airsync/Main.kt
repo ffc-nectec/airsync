@@ -96,8 +96,12 @@ internal class Main constructor(args: Array<String>) {
                 }
 
                 override fun mouseClicked(e: MouseEvent) {
-                    gui.switchhHideShow()
-                    gui.setLocation(e.point.x, e.point.y)
+                    if (e.button == MouseEvent.BUTTON3) {
+                        gui.createRightClick(e.point.x, e.point.y)
+                    } else {
+                        gui.switchhHideShow()
+                        gui.setLocation(e.point.x, e.point.y)
+                    }
                 }
 
                 override fun mouseExited(e: MouseEvent?) {

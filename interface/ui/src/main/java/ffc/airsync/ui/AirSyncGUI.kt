@@ -10,6 +10,8 @@ interface AirSyncGUI {
     fun switchhHideShow()
     fun setHeader(string: String)
     fun setLocation(x: Int, y: Int)
+    fun createRightClick(x: Int, y: Int)
+    fun hideRightClick()
     var enableSyncButton: Boolean
 
     data class ProgressData(val current: Int, val max: Int, val message: String? = null)
