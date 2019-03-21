@@ -66,7 +66,6 @@ public class MainGUI extends javax.swing.JFrame {
 
         closeButton.setBorderPainted(false);
         closeButton.setContentAreaFilled(false);
-        closeButton.setOpaque(false);
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
@@ -149,7 +148,7 @@ public class MainGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                .addComponent(statusPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -215,22 +214,10 @@ public class MainGUI extends javax.swing.JFrame {
     public javax.swing.JButton closeButton;
     private javax.swing.JPanel footer;
     public javax.swing.JLabel headerLabel;
-    public javax.swing.JLabel headerLabel1;
-    public javax.swing.JLabel headerLabel2;
-    public javax.swing.JLabel headerLabel3;
     private javax.swing.JPanel headerPanel;
-    private javax.swing.JPanel headerPanel1;
-    private javax.swing.JPanel headerPanel2;
-    private javax.swing.JPanel headerPanel3;
     public javax.swing.JLabel icon;
-    public javax.swing.JLabel icon1;
-    public javax.swing.JLabel icon2;
-    public javax.swing.JLabel icon3;
     public javax.swing.JButton openWeb;
-    public javax.swing.JButton openWeb1;
-    public javax.swing.JButton openWeb2;
-    public javax.swing.JButton openWeb3;
     public javax.swing.JPanel statusPanel;
-    private javax.swing.JPanel titlePanel;
+    public javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
 }
