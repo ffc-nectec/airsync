@@ -49,6 +49,7 @@ dependencies {
     compile "de.bwaldvogel:mongo-java-server-h2-backend:1.9.8"
     compile "de.bwaldvogel:mongo-java-server:1.9.8"
     compile "com.google.code.gson:gson:2.8.1"
+    compile "org.jdbi:jdbi3-core:$jdbiVersion"
     compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     compile "com.github.piruin:retrofit-dsl:1.0"

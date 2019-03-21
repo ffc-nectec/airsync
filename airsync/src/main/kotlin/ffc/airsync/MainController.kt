@@ -29,8 +29,18 @@ import org.joda.time.DateTime
 
 class MainController(val dao: DatabaseDao) {
 
-    private var property = LocalOrganization(dao, "ffcProperty.cnf")
+    private val property: LocalOrganization
     var everLogin: Boolean = false
+
+    init {
+        gui.set("Database" to AirSyncGUI.ProgressData(3, 10, "กำลังเชื่อมต่อ..."))
+        property = LocalOrganization(dao, "ffcProperty.cnf")
+        gui.set("Database" to AirSyncGUI.ProgressData(10, 10, "เชื่อมต่อสำเร็จ"))
+        Thread {
+            Thread.sleep(1000)
+            gui.remove("Database")
+        }.start()
+    }
 
     fun run() {
         gui.showWIndows()
@@ -52,7 +62,7 @@ class MainController(val dao: DatabaseDao) {
         }
         gui.set("Check" to AirSyncGUI.ProgressData(100, 100, "Validate cloud."))
         Thread {
-            Thread.sleep(5000)
+            Thread.sleep(1000)
             gui.remove("Check")
         }.start()
         InitSync().init(gui)
