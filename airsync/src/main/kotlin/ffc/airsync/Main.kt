@@ -24,6 +24,7 @@ import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.provider.databaseDaoModule
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.utils.ApiLoopException
+import ffc.airsync.utils.DummyGuiForCommand
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
@@ -208,7 +209,11 @@ fun errMessage(key: String, message: String) {
     )
 }
 
-val gui = createArisyncGui()
+val gui: AirSyncGUI = try {
+    createArisyncGui()
+} catch (ex: java.awt.HeadlessException) {
+    DummyGuiForCommand()
+}
 
 val debug = System.getenv("FFC_DEBUG")
 internal fun printDebug(infoDebug: String) {
