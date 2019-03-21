@@ -4,6 +4,7 @@ typealias KEY = String
 
 interface AirSyncGUI {
     fun set(data: Pair<KEY, Any>)
+    fun createMessageDelay(message: String, type: MESSAGE_TYPE = MESSAGE_TYPE.OK, delay: Long = 1000)
     fun remove(key: KEY)
     fun hideWindows()
     fun showWIndows()

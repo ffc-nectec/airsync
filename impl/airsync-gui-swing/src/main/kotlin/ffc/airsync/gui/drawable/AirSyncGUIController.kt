@@ -12,6 +12,7 @@ import java.awt.Image
 import java.awt.Toolkit
 import javax.imageio.ImageIO
 import javax.swing.ImageIcon
+import kotlin.random.Random
 
 class AirSyncGUIController : AirSyncGUI {
     // check.png designed by Smashicons from Flaticon
@@ -19,6 +20,7 @@ class AirSyncGUIController : AirSyncGUI {
     val rightClick = RightClick(RightClick.OnOpenAirsync {
         airsync.isVisible = true
     })
+    val random = Random(123182L)
     val listComponent = hashMapOf<KEY, Component>()
     val width = airsync.statusPanel.width - 10
     val height = 55
@@ -111,6 +113,16 @@ class AirSyncGUIController : AirSyncGUI {
             listComponent.remove(key)
             airsync.statusPanel.updateUI()
         }
+    }
+
+    override fun createMessageDelay(message: String, type: AirSyncGUI.MESSAGE_TYPE, delay: Long) {
+        val key = random.nextLong().toString()
+        set(key to CheckData(message, type))
+
+        Thread {
+            Thread.sleep(delay)
+            remove(key)
+        }.start()
     }
 
     override fun createRightClick(x: Int, y: Int) {
