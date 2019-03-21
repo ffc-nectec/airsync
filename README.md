@@ -1,6 +1,6 @@
 # FFC-AirSync
 
-[![Build Statusd](https://ci.appveyor.com/api/projects/status/ffc-nectec/airsync/branch/master?svg=true)](https://ci.appveyor.com/project/lionants02/airsync)
+[![Build status](https://ci.appveyor.com/api/projects/status/ljwwytr8cmi92uun?svg=true)](https://ci.appveyor.com/project/lionants02/airsync)
 [![Build Status](https://travis-ci.org/ffc-nectec/airsync.svg?branch=master)](https://travis-ci.org/ffc-nectec/airsync)
 [![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
