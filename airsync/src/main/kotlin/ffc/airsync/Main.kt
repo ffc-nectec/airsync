@@ -25,6 +25,7 @@ import ffc.airsync.provider.databaseDaoModule
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.EmptyGUI
+import ffc.airsync.utils.getPathJarDir
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
 import org.kohsuke.args4j.CmdLineException
@@ -87,6 +88,11 @@ internal class Main constructor(args: Array<String>) {
         instant = this
         if (args.contains("-v")) {
             print(BuildConfig.VERSION)
+            exitProcess(0)
+        }
+
+        if (args.contains("-getpath")) {
+            print(getPathJarDir())
             exitProcess(0)
         }
         gui.setHeader(BuildConfig.VERSION)
