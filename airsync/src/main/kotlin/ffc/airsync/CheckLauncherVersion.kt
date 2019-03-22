@@ -1,6 +1,7 @@
 package ffc.airsync
 
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.utils.getPathJarDir
 import max.download.zip.ZIpDownload
 import max.githubapi.GitHubLatestApi
 import java.io.File
@@ -14,7 +15,7 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
         printDebug("Check Launcher Version")
         var launcherVersion = ""
         try {
-            val fr = FileReader("launcher.version")
+            val fr = FileReader("${getPathJarDir()}/launcher.version")
             launcherVersion = fr.readText().trim()
             fr.close()
         } catch (ignore: FileNotFoundException) {
@@ -50,7 +51,7 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
                                 )
                             }
                         }
-                        zipD.download(File(""))
+                        zipD.download(File(getPathJarDir(), ""))
                     }
                 }
                 isFinish = true

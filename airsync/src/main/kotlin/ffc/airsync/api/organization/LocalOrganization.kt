@@ -1,6 +1,7 @@
 package ffc.airsync.api.organization
 
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.printDebug
 import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.System
@@ -66,6 +67,7 @@ class LocalOrganization(
         try {
             conf.load(FileInputStream(logConfig))
         } catch (ignore: java.io.FileNotFoundException) {
+            printDebug("Cannot config file.")
         }
         properties = conf
     }
