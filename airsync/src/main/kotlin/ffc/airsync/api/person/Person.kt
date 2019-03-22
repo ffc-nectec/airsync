@@ -102,12 +102,12 @@ private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
     persons.forEachIndexed { index, person ->
         val death = person.death
         if (death != null) {
-            printDebug("Dead ${person.name}")
             val diseaseList = arrayListOf<Disease>()
             death.causes.forEach {
                 diseaseList.add(lookUpIcd10(it.name))
             }
             person.death = Person.Death(death.date, diseaseList.toList())
+            printDebug("Dead ${person.name} ${person.death?.causes}")
         }
         progressCallback(((index * 20) / sizeOfLoop) + 30)
     }

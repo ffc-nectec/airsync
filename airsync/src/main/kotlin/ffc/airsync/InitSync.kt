@@ -45,7 +45,7 @@ class InitSync : ProgressList {
                     progressHealthCare +
                     progressAnalyzer
         }
-    var message = "sync.."
+    var message = "เตรียมพร้อม.."
 
     fun init(gui: AirSyncGUI) {
         var isFinish = false
@@ -76,27 +76,27 @@ class InitSync : ProgressList {
 
         printDebug("ดูบ้าน (3/7)")
         houses.initSync(person) {
-            message = "สำรวจบ้าน $it%"
+            message = "สำรวจบ้าน "
             progressHouse = it
         }
         printDebug("ดูข้อมูลคน (4/7)")
         persons.initSync(houses, person) {
-            message = "สำรวจคน $it%"
+            message = "สำรวจคน"
             progressPerson = it
         }
         printDebug("วิเคราะห์ความสัมพันธ์ (5/7)")
         relation.initRelation {
-            message = "คำนวนความสัมพันธ์ $it%"
+            message = "คำนวนความสัมพันธ์"
             progressRelation = it
         }
         printDebug("รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)")
         healthCare.initSync {
-            message = "วิเคราะห์การให้บริการ $it%"
+            message = "วิเคราะห์การให้บริการ"
             progressHealthCare = it
         }
         printDebug("สำรวจความเจ็บป่วย (7/7)")
         analyzer.initSync(healthCare) {
-            message = "วิเคราะห์ความเจ็บป่วย $it%"
+            message = "วิเคราะห์ความเจ็บป่วย"
             progressAnalyzer = it
         }
         printDebug("Finished push")
