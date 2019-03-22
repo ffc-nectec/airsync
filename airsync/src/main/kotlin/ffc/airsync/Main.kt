@@ -100,10 +100,6 @@ internal class Main constructor(args: Array<String>) {
         tryIcon = CreateTryIcon()
         try {
 
-            Thread {
-                CheckLauncherVersion(gui).check()
-            }.start()
-
             if (args.contains("-nogui")) {
                 noGUI = true
             }
