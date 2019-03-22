@@ -100,12 +100,9 @@ internal class Main constructor(args: Array<String>) {
         tryIcon = CreateTryIcon()
         try {
 
-            CheckLauncherVersion(gui).check()
-
-            if (!args.contains("-runnow")) {
-                Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
-                System.exit(0)
-            }
+            Thread {
+                CheckLauncherVersion(gui).check()
+            }.start()
 
             if (args.contains("-nogui")) {
                 noGUI = true
