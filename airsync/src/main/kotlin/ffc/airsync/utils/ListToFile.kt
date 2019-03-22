@@ -2,6 +2,7 @@ package ffc.airsync.utils
 
 import ffc.entity.gson.parseTo
 import ffc.entity.gson.toJson
+import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 
@@ -25,16 +26,16 @@ inline fun <reified T> loadResourceHashMap(fileName: String): HashMap<String, T>
 }
 
 inline fun <reified T> List<T>.save(filename: String = "${getClassNameInList(this)}.json") {
-    saveResource(this.toJson(), filename)
+    saveResource(this.toJson(), getDataStore(filename))
 }
 
 inline fun <reified T> HashMap<String, T>.save(filename: String) {
-    saveResource(this.toJson(), filename)
+    saveResource(this.toJson(), getDataStore(filename))
 }
 
 inline fun <reified T> List<T>.load(filename: String = "${getClassNameInList(this)}.json"): List<T> {
     return try {
-        loadResource(filename)
+        loadResource(getDataStore(filename))
     } catch (ex: java.io.FileNotFoundException) {
         arrayListOf()
     }
@@ -42,16 +43,24 @@ inline fun <reified T> List<T>.load(filename: String = "${getClassNameInList(thi
 
 inline fun <reified T> HashMap<String, T>.load(filename: String): HashMap<String, T> {
     return try {
-        loadResourceHashMap(filename)
+        loadResourceHashMap(getDataStore(filename))
     } catch (ex: java.io.FileNotFoundException) {
         hashMapOf()
     }
 }
 
 inline fun <reified T> List<T>.cleanFile() {
-    saveResource("[]", "${getClassNameInList(this)}.json")
+    val fileName = "${getClassNameInList(this)}.json"
+    saveResource("[]", getDataStore(fileName))
 }
 
 inline fun <reified T> getClassNameInList(list: List<T>): String {
     return T::class.java.simpleName
+}
+
+fun getDataStore(filename: String): String {
+    val dataDirectory = File(getPathJarDir(), "data")
+    if (!dataDirectory.exists())
+        dataDirectory.mkdirs()
+    return File(dataDirectory, filename).absolutePath
 }
