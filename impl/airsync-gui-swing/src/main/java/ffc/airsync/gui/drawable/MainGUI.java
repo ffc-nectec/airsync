@@ -159,6 +159,7 @@ public class MainGUI extends javax.swing.JFrame {
     private void openWebActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openWebActionPerformed
         try {
             Runtime.getRuntime().exec("cmd /k start http://127.0.0.1:8081/index.html");
+            openWeb.setEnabled(false);
         } catch (IOException ex) {
             Logger.getLogger(MainGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
