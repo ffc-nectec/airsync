@@ -57,12 +57,14 @@ class InitSync : ProgressList {
             gui.remove("Sync")
         }.start()
         val person = Person().gets()
-        progressTemplate = 5
-        person.mapChronic(Chronics())
-        progressTemplate = 10
-        printDebug("ใส่ข้อมูล ช่วยกรอกอัตโนมัติ....")
-        TemplateInit()
-        progressTemplate = 100
+        Thread {
+            progressTemplate = 5
+            person.mapChronic(Chronics())
+            progressTemplate = 10
+            printDebug("ใส่ข้อมูล ช่วยกรอกอัตโนมัติ....")
+            TemplateInit()
+            progressTemplate = 100
+        }.start()
 
         printDebug("ใส่ข้อมูลผู้ใช้ (1/7)")
         users.initSync()
