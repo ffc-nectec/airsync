@@ -26,8 +26,13 @@ class RetofitOrganizationApi : RetofitApi<OrganizationUrl>(OrganizationUrl::clas
             val bodyLogin = hashMapOf<String, String>()
             bodyLogin["username"] = user.name
             bodyLogin["password"] = user.password
-            val tokenFromServer = restService.loginOrg(organization.id, bodyLogin).execute().body()
-                ?: throw Exception("ไม่สามารถ Login org ได้")
+            printDebug("Organization login is ${bodyLogin["username"]}")
+            val response = restService.loginOrg(organization.id, bodyLogin).execute()
+            val tokenFromServer = response.body()
+                ?: throw Exception(
+                    "ไม่สามารถ Login org ได้ code:${response.code()} " +
+                            "${response.errorBody()?.byteStream()?.reader()?.readLines()}"
+                )
             printDebug("\tToken = ${tokenFromServer.toJson()}")
             token = tokenFromServer
             organization.bundle["token"] = tokenFromServer
