@@ -9,6 +9,7 @@ import java.io.FileNotFoundException
 import java.io.FileReader
 import java.net.URL
 
+@Deprecated("Disable because move to ffc-launcher.")
 class CheckLauncherVersion(val gui: AirSyncGUI) {
     fun check() {
         gui.set("Check Launcher" to AirSyncGUI.ProgressData(0, 100))
