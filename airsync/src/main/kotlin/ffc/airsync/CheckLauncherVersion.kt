@@ -39,7 +39,7 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
                         val zipD = ZIpDownload(URL(downloadUrl)) {
                             val percenDownload = (it / ass.size) * 100
                             kotlin.run {
-                                val message = "Launcher download $percenDownload %"
+                                val message = "Launcher download"
                                 printDebug(message)
                                 gui.set(
                                     "Check Launcher" to AirSyncGUI.ProgressData(
@@ -52,8 +52,6 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
                         }
                         zipD.download(File(""))
                     }
-                    Runtime.getRuntime().exec("cmd /k start ffc-airsync.exe")
-                    System.exit(0)
                 }
                 isFinish = true
             } catch (ex: java.net.UnknownHostException) {
@@ -63,7 +61,6 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
                         AirSyncGUI.MESSAGE_TYPE.ERROR
                     )
                 )
-                Thread.sleep(3000)
             }
         Thread {
             Thread.sleep(1000)
