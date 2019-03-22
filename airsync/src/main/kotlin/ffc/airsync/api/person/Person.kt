@@ -107,7 +107,7 @@ private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
                 diseaseList.add(lookUpIcd10(it.name))
             }
             person.death = Person.Death(death.date, diseaseList.toList())
-            printDebug("Dead ${person.name} ${person.death?.causes}")
+            printDebug("Dead ${person.name} ${person.death?.causes?.size}")
         }
         progressCallback(((index * 20) / sizeOfLoop) + 30)
     }

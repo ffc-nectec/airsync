@@ -8,16 +8,17 @@ import ffc.entity.healthcare.Icd10
 class RetofitIcd10Api : RetofitApi<Icd10Url>(Icd10Url::class.java, 10240), Icd10Api {
     override fun lookup(icd10: String): Icd10 {
 
+        val icd10Upper = icd10.toUpperCase()
         return callApi {
             val response = restService.lookupIcd10(
                 authkey = tokenBarer,
-                id = icd10
+                id = icd10Upper
             ).execute()
             if (response.code() != 200) {
                 val errorBody = response.errorBody()?.byteStream()?.reader()?.readLines()
-                printDebug("Error LookupICD10=$icd10 error=${response.code()} body=$errorBody")
+                printDebug("Error LookupICD10=$icd10Upper error=${response.code()} body=$errorBody")
             }
-            response.body() ?: Icd10(icd10 = icd10, id = icd10, name = "")
+            response.body() ?: Icd10(icd10 = icd10Upper, id = icd10Upper, name = "")
         }
     }
 }
