@@ -17,6 +17,7 @@
 
 package ffc.airsync.retrofit
 
+import ffc.airsync.printDebug
 import ffc.entity.gson.ffcGson
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -27,7 +28,9 @@ class RetofitAPIClient {
 
     fun getCient(baseUrl: String, cacheKbyte: Int, prefix: String): Retrofit {
 
-        val cacheSize = Cache(createTempDir(prefix, "airsync"), cacheKbyte * 1024L)
+        val createTempDir = createTempDir(prefix, "airsync")
+        printDebug("Retofit temp dir ${createTempDir.absolutePath}")
+        val cacheSize = Cache(createTempDir, cacheKbyte * 1024L)
 
         val client = OkHttpClient
             .Builder()
