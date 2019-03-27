@@ -33,6 +33,8 @@ import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
 
 interface DatabaseDao {
+    fun init()
+
     fun getDetail(): HashMap<String, String>
 
     fun getUsers(): List<User>

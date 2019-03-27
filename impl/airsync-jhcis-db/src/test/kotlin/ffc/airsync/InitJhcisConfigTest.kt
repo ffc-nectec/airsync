@@ -1,4 +1,4 @@
-package ffc.airsync.mysql
+package ffc.airsync
 
 import mysql.config.copyFileUsingStream
 import mysql.config.read.ReadOptionMyini
@@ -8,17 +8,16 @@ import org.junit.Before
 import org.junit.Ignore
 import java.io.File
 
-class SetupMySqlConfigTest {
-
+class InitJhcisConfigTest {
     private val mySmall = File("src/test/resources/my-small.ini")
     private val fileTest = File("mmyy.ini")
 
-    private lateinit var mangeConfig: SetupMySqlConfig
+    private lateinit var mangeConfig: InitJhcisConfig
 
     @Before
     fun setUp() {
         copyFileUsingStream(mySmall, fileTest)
-        mangeConfig = SetupMySqlConfig(fileTest)
+        mangeConfig = InitJhcisConfig(fileTest)
     }
 
     @After

@@ -19,7 +19,6 @@ package ffc.airsync
 
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui.TryIcon
-import ffc.airsync.mysql.SetupMySqlConfig
 import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.provider.databaseDaoModule
 import ffc.airsync.ui.AirSyncGUI
@@ -33,7 +32,6 @@ import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
-import java.io.File
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
@@ -141,7 +139,7 @@ internal class Main constructor(args: Array<String>) {
     val dao: DatabaseDao by lazy { databaseDaoModule() }
 
     fun run() {
-        if (!skipConfigMyIni) SetupMySqlConfig(File("C:\\Program Files\\JHCIS\\MySQL\\my.ini"))
+        if (!skipConfigMyIni) dao.init()
         Config.baseUrlRest = api
         Config.logfilepath = mysqlLog
         MainController(dao).run()
