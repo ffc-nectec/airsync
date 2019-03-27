@@ -16,6 +16,8 @@ import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.NCDScreen
 import ffc.entity.healthcare.SpecialPP
 import ffc.entity.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.joda.time.LocalDate
 import java.util.LinkedList
 import java.util.Queue
@@ -197,13 +199,17 @@ class VisitJdbi(
         val avgTimeRun: Queue<Long> = LinkedList()
         var sumTime = 0L
 
-        val specialPpList = getSpecialPP()
-        progressCallback(1)
-        val ncdScreenList = getNcdScreen()
+        var specialPpList: HashMap<Long, List<String>>? = null
+        var ncdScreenList: HashMap<Long, List<NCDScreen>>? = null
+        var homeVisitList: HashMap<Long, List<HomeVisit>>? = null
         progressCallback(3)
-        val homeVisitList = getHomeVisit()
+        runBlocking {
+            launch { specialPpList = getSpecialPP() }
+            launch { ncdScreenList = getNcdScreen() }
+            launch { homeVisitList = getHomeVisit() }
+            Unit
+        }
         progressCallback(5)
-
         return result.map { healthCare ->
             var outputVisit = HealthCareService("", "")
 
@@ -213,10 +219,14 @@ class VisitJdbi(
                 var providerId = ""
                 var patientId = ""
 
-                val runtimeLookupUser = measureTimeMillis {
-                    providerId = lookupProviderId(healthCare.providerId)
-                    patientId = lookupPatientId(healthCare.patientId)
+                val runtimeLookupUser = runBlocking {
+                    measureTimeMillis {
+                        launch { providerId = lookupProviderId(healthCare.providerId) }
+                        launch { patientId = lookupPatientId(healthCare.patientId) }
+                    }
                 }
+                check(providerId.isNotBlank()) { "visit ไม่พบ ผู้ให้บริการ" }
+                check(patientId.isNotBlank()) { "visit ไม่พบ ผู้ใช้บริการ" }
 
                 outputVisit = copyVisit(providerId, patientId, healthCare)
                 outputVisit.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
@@ -226,36 +236,47 @@ class VisitJdbi(
                     var ncdScreen: List<NCDScreen> = emptyList()
                     var homeVisit: List<HomeVisit> = emptyList()
 
-                    val runtimeQueryDb = measureTimeMillis {
-                        diagnosisIcd10 = getVisitDiag(visitNumber)
-                        specislPP = specialPpList[visitNumber] ?: emptyList()
-                        ncdScreen = ncdScreenList[visitNumber] ?: emptyList()
-                        homeVisit = homeVisitList[visitNumber] ?: emptyList()
+                    val runtimeQueryDb = runBlocking {
+                        measureTimeMillis {
+                            launch { diagnosisIcd10 = getVisitDiag(visitNumber) }
+                            launch { specislPP = specialPpList!![visitNumber] ?: emptyList() }
+                            launch { ncdScreen = ncdScreenList!![visitNumber] ?: emptyList() }
+                            launch { homeVisit = homeVisitList!![visitNumber] ?: emptyList() }
+                        }
                     }
 
-                    val runtimeLookupApi = measureTimeMillis {
-                        outputVisit.diagnosises = getDiagnosisIcd10(diagnosisIcd10, lookupDisease)
+                    val runtimeLookupApi = runBlocking {
+                        measureTimeMillis {
+                            launch { outputVisit.diagnosises = getDiagnosisIcd10(diagnosisIcd10, lookupDisease) }
 
-                        specislPP.forEach {
-                            outputVisit.addSpecialPP(
-                                lookupSpecialPP(it.trim()) ?: SpecialPP.PPType(it, it)
-                            )
-                        }
+                            launch {
+                                specislPP.forEach {
+                                    outputVisit.addSpecialPP(
+                                        lookupSpecialPP(it.trim()) ?: SpecialPP.PPType(it, it)
+                                    )
+                                }
+                            }
 
-                        outputVisit.ncdScreen = ncdScreen.firstOrNull()?.let {
-                            createNcdScreen(providerId, patientId, it)
-                        }
+                            launch {
+                                outputVisit.ncdScreen = ncdScreen.firstOrNull()?.let {
+                                    createNcdScreen(providerId, patientId, it)
+                                }
+                            }
 
-                        homeVisit.firstOrNull()?.let { visit ->
-                            visit.bundle["dateappoint"]?.let { outputVisit.nextAppoint = it as LocalDate }
-                            outputVisit.communityServices.add(
-                                HomeVisit(
-                                    serviceType = lookupServiceType(visit.serviceType.id.trim()) ?: visit.serviceType,
-                                    detail = visit.detail,
-                                    plan = visit.plan,
-                                    result = visit.result
-                                )
-                            )
+                            launch {
+                                homeVisit.firstOrNull()?.let { visit ->
+                                    visit.bundle["dateappoint"]?.let { outputVisit.nextAppoint = it as LocalDate }
+                                    outputVisit.communityServices.add(
+                                        HomeVisit(
+                                            serviceType = lookupServiceType(visit.serviceType.id.trim())
+                                                ?: visit.serviceType,
+                                            detail = visit.detail,
+                                            plan = visit.plan,
+                                            result = visit.result
+                                        )
+                                    )
+                                }
+                            }
                         }
                     }
                     if (i % 200 == 0 || i == size) {
