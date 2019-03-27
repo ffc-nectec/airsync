@@ -11,16 +11,18 @@ import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import javax.sql.DataSource
 
 abstract class MySqlJdbi(
-    val dbHost: String,
-    val dbPort: String,
-    val dbName: String,
-    val dbUsername: String,
-    val dbPassword: String,
     var ds: DataSource? = null
 ) {
     companion object {
         lateinit var jdbiDao: Jdbi
+        private val dbConfig = DatabaseConfig()
     }
+
+    val dbHost: String = dbConfig.server
+    val dbPort: String = dbConfig.port
+    val dbName: String = dbConfig.databaseName
+    val dbUsername: String = dbConfig.username
+    val dbPassword: String = dbConfig.password
 
     init {
         try {

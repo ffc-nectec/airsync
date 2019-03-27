@@ -10,13 +10,8 @@ import java.sql.Timestamp
 import javax.sql.DataSource
 
 class HouseJdbi(
-    dbHost: String = "127.0.0.1",
-    dbPort: String = "3333",
-    dbName: String = "jhcisdb",
-    dbUsername: String = "root",
-    dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), HouseDao {
+) : MySqlJdbi(ds), HouseDao {
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
         val houses = jdbiDao.extension<QueryHouse, List<House>> { findThat() }
         houses.forEachIndexed { index, house ->
