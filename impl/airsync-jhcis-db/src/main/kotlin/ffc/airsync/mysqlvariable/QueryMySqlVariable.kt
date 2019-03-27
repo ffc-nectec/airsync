@@ -21,4 +21,3 @@ internal class VariableMapping : RowMapper<String> {
         return rs.getString("Value")
     }
 }
-
