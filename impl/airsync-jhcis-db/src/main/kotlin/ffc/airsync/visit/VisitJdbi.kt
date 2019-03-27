@@ -23,13 +23,8 @@ import javax.sql.DataSource
 import kotlin.system.measureTimeMillis
 
 class VisitJdbi(
-    dbHost: String = "127.0.0.1",
-    dbPort: String = "3333",
-    dbName: String = "jhcisdb",
-    dbUsername: String = "root",
-    dbPassword: String = "123456",
     ds: DataSource? = null
-) : MySqlJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds), VisitDao {
+) : MySqlJdbi(ds), VisitDao {
     override fun createHomeVisit(
         homeVisit: HomeVisit,
         healthCareService: HealthCareService,

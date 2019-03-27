@@ -60,21 +60,14 @@ class JdbiDao(
     var ds: DataSource? = null
 ) : DatabaseDao {
 
-    private val dbConfig = DatabaseConfig()
-    val dbHost: String = dbConfig.server
-    val dbPort: String = dbConfig.port
-    val dbName: String = dbConfig.databaseName
-    val dbUsername: String = dbConfig.username
-    val dbPassword: String = dbConfig.password
-
-    val houses: HouseDao by lazy { HouseJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
-    val visit: VisitDao by lazy { VisitJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
-    val persons: PersonDao by lazy { PersonJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
-    val hos: HosDao by lazy { HosDetailJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
-    val users: UserDao by lazy { UserJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
-    val chronic: ChronicDao by lazy { ChronicJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
-    val village: VillageDao by lazy { VillageJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
-    val template: TemplateDao by lazy { TemplateJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
+    val houses: HouseDao by lazy { HouseJdbi(ds) }
+    val visit: VisitDao by lazy { VisitJdbi(ds) }
+    val persons: PersonDao by lazy { PersonJdbi(ds) }
+    val hos: HosDao by lazy { HosDetailJdbi(ds) }
+    val users: UserDao by lazy { UserJdbi(ds) }
+    val chronic: ChronicDao by lazy { ChronicJdbi(ds) }
+    val village: VillageDao by lazy { VillageJdbi(ds) }
+    val template: TemplateDao by lazy { TemplateJdbi(ds) }
 
     override fun getDetail(): HashMap<String, String> {
         return hos.get()
