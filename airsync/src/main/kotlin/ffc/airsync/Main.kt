@@ -22,6 +22,7 @@ import ffc.airsync.gui.TryIcon
 import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.provider.databaseDaoModule
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.createProgress
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.EmptyGUI
 import ffc.airsync.utils.getPathJarDir
@@ -139,7 +140,10 @@ internal class Main constructor(args: Array<String>) {
     val dao: DatabaseDao by lazy { databaseDaoModule() }
 
     fun run() {
+        gui.createProgress("Init Dao", 50, 100, "กำลังตรวจสอบการตั้งค่า Mysql JHCIS")
         if (!skipConfigMyIni) dao.init()
+        gui.createProgress("Init Dao", 100, 100, "กำลังตรวจสอบการตั้งค่า Mysql JHCIS")
+        gui.remove("Init Dao")
         Config.baseUrlRest = api
         Config.logfilepath = mysqlLog
         MainController(dao).run()
@@ -180,7 +184,7 @@ fun main(args: Array<String>) {
 
 fun errMessage(key: String, message: String) {
     gui.set(
-        key to AirSyncGUI.CheckData(
+        key to AirSyncGUI.Message(
             message,
             AirSyncGUI.MESSAGE_TYPE.ERROR
         )

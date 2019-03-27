@@ -1,7 +1,7 @@
 package ffc.airsync.gui.drawable
 
 import ffc.airsync.ui.AirSyncGUI
-import ffc.airsync.ui.AirSyncGUI.CheckData
+import ffc.airsync.ui.AirSyncGUI.Message
 import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
 import java.awt.Component
@@ -73,7 +73,7 @@ class AirSyncGUIController : AirSyncGUI {
                 statusProgress.label.text =
                     data.first + if (progressData.message != null) ":${progressData.message}" else ""
             }
-            is CheckData -> {
+            is Message -> {
                 if (listComponent[data.first] == null) {
                     val newCheckData = SuccessConfirm()
                     newCheckData.preferredSize = Dimension(width, height)
@@ -81,7 +81,7 @@ class AirSyncGUIController : AirSyncGUI {
                     listComponent[data.first] = newCheckData
                     airsync.statusPanel.add(newCheckData)
                 }
-                val checkData = data.second as CheckData
+                val checkData = data.second as Message
                 val checkDataConfirm = listComponent[data.first] as SuccessConfirm
                 checkDataConfirm.icon.icon = when (checkData.type) {
                     AirSyncGUI.MESSAGE_TYPE.OK -> {
@@ -117,7 +117,7 @@ class AirSyncGUIController : AirSyncGUI {
 
     override fun createMessageDelay(message: String, type: AirSyncGUI.MESSAGE_TYPE, delay: Long) {
         val key = random.nextLong().toString()
-        set(key to CheckData(message, type))
+        set(key to Message(message, type))
 
         Thread {
             Thread.sleep(delay)

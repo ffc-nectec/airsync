@@ -1,5 +1,9 @@
 package ffc.airsync.ui
 
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 typealias KEY = String
 
 interface AirSyncGUI {
@@ -16,9 +20,24 @@ interface AirSyncGUI {
     var enableSyncButton: Boolean
 
     data class ProgressData(val current: Int, val max: Int, val message: String? = null)
-    data class CheckData(val message: String, val type: MESSAGE_TYPE = MESSAGE_TYPE.OK)
+    data class Message(val message: String, val type: MESSAGE_TYPE = MESSAGE_TYPE.OK)
 
     enum class MESSAGE_TYPE {
         OK, ERROR
+    }
+}
+
+fun AirSyncGUI.createProgress(key: String, current: Int, max: Int, message: String? = null) {
+    this.set(key to AirSyncGUI.ProgressData(current, max, message))
+}
+
+fun AirSyncGUI.createMessage(key: String, message: String, type: AirSyncGUI.MESSAGE_TYPE = AirSyncGUI.MESSAGE_TYPE.OK) {
+    this.set(key to AirSyncGUI.Message(message, type))
+}
+
+fun AirSyncGUI.delayRemove(key: String, delayTime: Long = 500) {
+    GlobalScope.launch {
+        delay(delayTime)
+        remove(key)
     }
 }

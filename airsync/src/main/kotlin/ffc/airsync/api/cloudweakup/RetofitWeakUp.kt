@@ -26,7 +26,7 @@ class RetofitWeakUp : WeakUpApi {
                 Thread.sleep(3000)
             } catch (ex: java.net.UnknownHostException) {
                 gui.set(
-                    "Cloud Network error" to AirSyncGUI.CheckData(
+                    "Cloud Network error" to AirSyncGUI.Message(
                         "Network Error $ex",
                         AirSyncGUI.MESSAGE_TYPE.ERROR
                     )
