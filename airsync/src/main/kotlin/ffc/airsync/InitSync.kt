@@ -21,6 +21,9 @@ import ffc.airsync.api.village.villages
 import ffc.airsync.gui.ProgressList
 import ffc.airsync.ui.AirSyncGUI
 import ffc.entity.Person
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class InitSync : ProgressList {
 
@@ -49,13 +52,13 @@ class InitSync : ProgressList {
 
     fun init(gui: AirSyncGUI) {
         var isFinish = false
-        Thread {
+        GlobalScope.launch {
             while (!isFinish) {
                 gui.set("Sync" to AirSyncGUI.ProgressData(progressOrg, 800, message))
-                Thread.sleep(500)
+                delay(500)
             }
             gui.remove("Sync")
-        }.start()
+        }
         val person = Person().gets()
 
         progressTemplate = 5
@@ -74,28 +77,28 @@ class InitSync : ProgressList {
         progressVillage = 100
 
         printDebug("ดูบ้าน (3/7)")
+        message = "สำรวจบ้าน "
         houses.initSync(person) {
-            message = "สำรวจบ้าน "
             progressHouse = it
         }
         printDebug("ดูข้อมูลคน (4/7)")
+        message = "สำรวจคน"
         persons.initSync(houses, person) {
-            message = "สำรวจคน"
             progressPerson = it
         }
         printDebug("วิเคราะห์ความสัมพันธ์ (5/7)")
+        message = "คำนวนความสัมพันธ์"
         relation.initRelation {
-            message = "คำนวนความสัมพันธ์"
             progressRelation = it
         }
         printDebug("รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)")
+        message = "วิเคราะห์การให้บริการ"
         healthCare.initSync {
-            message = "วิเคราะห์การให้บริการ"
             progressHealthCare = it
         }
         printDebug("สำรวจความเจ็บป่วย (7/7)")
+        message = "วิเคราะห์ความเจ็บป่วย"
         analyzer.initSync(healthCare) {
-            message = "วิเคราะห์ความเจ็บป่วย"
             progressAnalyzer = it
         }
         printDebug("Finished push")
