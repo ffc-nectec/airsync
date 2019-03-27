@@ -60,7 +60,7 @@ subprojects {
     }
 
     configurations { ktlint }
-    dependencies { ktlint "com.github.shyiko:ktlint:0.24.0" }
+    dependencies { ktlint "com.github.shyiko:ktlint:0.31.0" }
 
     task ktlint(type: JavaExec, group: "verification") {
         description = "Check Kotlin code style."
