@@ -32,8 +32,7 @@ fun airSyncUiModule(): AirSyncUi = FFCApiClient("127.0.0.1", 8081)
 
 fun notificationModule(): Notification = FirebaseMessage.instant
 
-fun databaseDaoModule(
-): DatabaseDao = JdbiDao()
+fun databaseDaoModule(): DatabaseDao = JdbiDao()
 
 fun databaseWatcher(
     filepath: String,
