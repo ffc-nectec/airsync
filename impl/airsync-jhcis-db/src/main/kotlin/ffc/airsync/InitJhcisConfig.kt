@@ -1,11 +1,13 @@
-package ffc.airsync.mysql
+package ffc.airsync
 
+import ffc.airsync.utils.startJhcisMySql
+import ffc.airsync.utils.stopJhcisMySql
 import mysql.config.read.ReadOptionMyini
 import mysql.config.write.WriteOptionMyini
 import java.io.File
 import java.util.prefs.Preferences
 
-class SetupMySqlConfig(myIni: File) {
+class InitJhcisConfig(myIni: File) {
     private val readMyIni = ReadOptionMyini(myIni).read()
     private val writeMyIni = WriteOptionMyini(myIni)
 

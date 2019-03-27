@@ -59,6 +59,10 @@ class TestDao : DatabaseDao {
         return hashMapOf()
     }
 
+    override fun init() {
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getUsers(): List<User> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }

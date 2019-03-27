@@ -27,6 +27,8 @@ import ffc.airsync.hosdetail.HosDao
 import ffc.airsync.hosdetail.HosDetailJdbi
 import ffc.airsync.house.HouseDao
 import ffc.airsync.house.HouseJdbi
+import ffc.airsync.mysqlvariable.GetMySqlVariable
+import ffc.airsync.mysqlvariable.MySqlVariableJdbi
 import ffc.airsync.person.PersonDao
 import ffc.airsync.person.PersonJdbi
 import ffc.airsync.school.QuerySchool
@@ -53,9 +55,9 @@ import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
+import java.io.File
 import javax.sql.DataSource
 
-@Deprecated("JdbiDao move to MySqlJdbi")
 class JdbiDao(
     var ds: DataSource? = null
 ) : DatabaseDao {
@@ -68,6 +70,12 @@ class JdbiDao(
     val chronic: ChronicDao by lazy { ChronicJdbi(ds) }
     val village: VillageDao by lazy { VillageJdbi(ds) }
     val template: TemplateDao by lazy { TemplateJdbi(ds) }
+    val configFromDb: GetMySqlVariable by lazy { MySqlVariableJdbi(ds) }
+
+    override fun init() {
+        val baseDir = File(configFromDb.mysqlLocation())
+        InitJhcisConfig(File(baseDir, "my.ini"))
+    }
 
     override fun getDetail(): HashMap<String, String> {
         return hos.get()

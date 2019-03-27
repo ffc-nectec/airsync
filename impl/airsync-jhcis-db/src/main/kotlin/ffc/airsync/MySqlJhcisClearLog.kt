@@ -1,5 +1,7 @@
-package ffc.airsync.mysql
+package ffc.airsync
 
+import ffc.airsync.utils.startJhcisMySql
+import ffc.airsync.utils.stopJhcisMySql
 import java.io.File
 
 class MySqlJhcisClearLog {
