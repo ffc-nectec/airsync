@@ -15,22 +15,23 @@ abstract class MySqlJdbi(
 ) {
     companion object {
         lateinit var jdbiDao: Jdbi
-        private val dbConfig = DatabaseConfig()
+        private var dbConfig: DatabaseConfig? = null
     }
 
-    val dbHost: String = dbConfig.server
-    val dbPort: String = dbConfig.port
-    val dbName: String = dbConfig.databaseName
-    val dbUsername: String = dbConfig.username
-    val dbPassword: String = dbConfig.password
-
     init {
+        if (dbConfig == null) dbConfig = DatabaseConfig()
         try {
             jdbiDao.toString()
         } catch (ex: kotlin.UninitializedPropertyAccessException) {
             jdbiDao = createJdbi()
         }
     }
+
+    val dbHost: String = dbConfig!!.server
+    val dbPort: String = dbConfig!!.port
+    val dbName: String = dbConfig!!.databaseName
+    val dbUsername: String = dbConfig!!.username
+    val dbPassword: String = dbConfig!!.password
 
     private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")
