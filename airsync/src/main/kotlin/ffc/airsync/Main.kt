@@ -22,6 +22,7 @@ import ffc.airsync.gui.TryIcon
 import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.provider.databaseDaoModule
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.createMessage
 import ffc.airsync.ui.createProgress
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.EmptyGUI
@@ -183,11 +184,10 @@ fun main(args: Array<String>) {
 }
 
 fun errMessage(key: String, message: String) {
-    gui.set(
-        key to AirSyncGUI.Message(
-            message,
-            AirSyncGUI.MESSAGE_TYPE.ERROR
-        )
+    gui.createMessage(
+        key,
+        message,
+        AirSyncGUI.MESSAGE_TYPE.ERROR
     )
 }
 
