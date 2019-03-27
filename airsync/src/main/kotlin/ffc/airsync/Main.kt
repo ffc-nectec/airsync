@@ -41,11 +41,6 @@ import javax.ws.rs.NotAuthorizedException
 import kotlin.system.exitProcess
 
 const val APIVERSION = "v1"
-private const val HOSTNAMEDB = "127.0.0.1"
-private const val HOSTPORTDB = "3333"
-private const val HOSTDBNAME = "jhcisdb"
-private const val HOSTUSERNAME = "root"
-private const val HOSTPASSWORD = "123456"
 
 private const val API = "https://api.ffc.in.th"
 // private const val API = "https://ffcmaekawtom.herokuapp.com"
@@ -55,21 +50,6 @@ private const val API = "https://api.ffc.in.th"
 private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
 
 internal class Main constructor(args: Array<String>) {
-    @Option(name = "-dbhost", usage = "Database hostserver Ex. 127.0.0.1 ")
-    private var dbhost = HOSTNAMEDB
-
-    @Option(name = "-dbport", usage = "Database port Ex. 3333 ")
-    private var dbport = HOSTPORTDB
-
-    @Option(name = "-dbname", usage = "Database name Ex. jhcisdb ")
-    private var dbname = HOSTDBNAME
-
-    @Option(name = "-dbusername", usage = "Database name Ex. root ")
-    private var dbusername = HOSTUSERNAME
-
-    @Option(name = "-dbpassword", usage = "Database name Ex. 111111 ")
-    private var dbpassword = HOSTPASSWORD
-
     @Option(name = "-api", usage = "Api url Ex. https://ffc-nectec.herokuapp.com ")
     private var api = API
 
