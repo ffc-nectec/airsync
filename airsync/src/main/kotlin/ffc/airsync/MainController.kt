@@ -22,6 +22,8 @@ import ffc.airsync.api.organization.orgApi
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.createMessage
+import ffc.airsync.ui.createProgress
 import ffc.airsync.ui.delayRemove
 import ffc.airsync.utils.getDataStore
 import ffc.airsync.utils.toBuddistString
@@ -35,42 +37,41 @@ class MainController(val dao: DatabaseDao) {
     var everLogin: Boolean = false
 
     init {
-        gui.set("Database" to AirSyncGUI.ProgressData(3, 10, "กำลังเชื่อมต่อ..."))
+        gui.createProgress("Database", 3, 10, "กำลังเชื่อมต่อ...")
         property = LocalOrganization(dao, getDataStore("ffcProperty.cnf"))
-        gui.set("Database" to AirSyncGUI.ProgressData(10, 10, "เชื่อมต่อสำเร็จ"))
+        gui.createProgress("Database", 10, 10, "เชื่อมต่อสำเร็จ")
         gui.delayRemove("Database", 1000)
     }
 
     fun run() {
         gui.showWIndows()
-        gui.set("Check" to AirSyncGUI.ProgressData(15, 100, "Get organization config."))
+        gui.createProgress("Check", 15, 100, "Get organization config.")
         val orgLocal = property.organization
-        gui.set("Check" to AirSyncGUI.ProgressData(35, 100, "Validate config."))
+        gui.createProgress("Check", 35, 100, "Validate config.")
         checkProperty(orgLocal)
-        gui.set("Check" to AirSyncGUI.ProgressData(75, 100, "Validate cloud."))
+        gui.createProgress("Check", 75, 100, "Validate cloud.")
         try {
             registerOrg(orgLocal)
         } catch (ex: java.lang.Exception) {
-            gui.set(
-                "Organization Error" to AirSyncGUI.Message(
-                    "ตรวจสอบพบการลงทะเบียนซ้ำ อาจเกิดจากการลบและติดตั้งใหม่ โปรดติดต่อผู้ดูแล FFC",
-                    AirSyncGUI.MESSAGE_TYPE.ERROR
-                )
+            gui.createMessage(
+                "Organization Error", "ตรวจสอบพบการลงทะเบียนซ้ำ อาจเกิดจากการลบและติดตั้งใหม่ โปรดติดต่อผู้ดูแล FFC",
+                AirSyncGUI.MESSAGE_TYPE.ERROR
             )
+
             throw ex
         }
-        gui.set("Check" to AirSyncGUI.ProgressData(100, 100, "Validate cloud."))
+        gui.createProgress("Check", 100, 100, "Validate cloud.")
         gui.delayRemove("Check", 1000)
         InitSync().init(gui)
-        gui.set("Setup" to AirSyncGUI.ProgressData(1, 4, " Auto sync.."))
+        gui.createProgress("Setup", 1, 4, " Auto sync..")
         SetupAutoSync(dao)
-        gui.set("Setup" to AirSyncGUI.ProgressData(2, 4, " Notification."))
+        gui.createProgress("Setup", 2, 4, " Notification.")
         SetupNotification(dao)
-        gui.set("Setup" to AirSyncGUI.ProgressData(3, 4, " Database watcher."))
+        gui.createProgress("Setup", 3, 4, " Database watcher.")
         SetupDatabaseWatcher(dao)
-        gui.set("Setup" to AirSyncGUI.ProgressData(4, 4, " Sync.."))
+        gui.createProgress("Setup", 4, 4, " Sync..")
         gui.remove("Setup")
-        gui.set("Success" to AirSyncGUI.Message("ข้อมูล Sync แล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}"))
+        gui.createMessage("Success", "ข้อมูล Sync แล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}")
         gui.enableSyncButton = true
         startLocalAirSyncServer()
     }

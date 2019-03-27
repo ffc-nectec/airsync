@@ -20,6 +20,7 @@ import ffc.airsync.api.village.initSync
 import ffc.airsync.api.village.villages
 import ffc.airsync.gui.ProgressList
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.createProgress
 import ffc.entity.Person
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -54,7 +55,7 @@ class InitSync : ProgressList {
         var isFinish = false
         GlobalScope.launch {
             while (!isFinish) {
-                gui.set("Sync" to AirSyncGUI.ProgressData(progressOrg, 800, message))
+                gui.createProgress("Sync", progressOrg, 800, message)
                 delay(500)
             }
             gui.remove("Sync")

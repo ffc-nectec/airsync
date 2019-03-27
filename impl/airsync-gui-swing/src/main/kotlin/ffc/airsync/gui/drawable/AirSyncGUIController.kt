@@ -4,6 +4,10 @@ import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.AirSyncGUI.Message
 import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
+import ffc.airsync.ui.createMessage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.awt.Component
 import java.awt.Dimension
 import java.awt.Font
@@ -115,14 +119,13 @@ class AirSyncGUIController : AirSyncGUI {
         }
     }
 
-    override fun createMessageDelay(message: String, type: AirSyncGUI.MESSAGE_TYPE, delay: Long) {
+    override fun createMessageDelay(message: String, type: AirSyncGUI.MESSAGE_TYPE, delayTime: Long) {
         val key = random.nextLong().toString()
-        set(key to Message(message, type))
-
-        Thread {
-            Thread.sleep(delay)
+        createMessage(key, message, type)
+        GlobalScope.launch {
+            delay(delayTime)
             remove(key)
-        }.start()
+        }
     }
 
     override fun createRightClick(x: Int, y: Int) {

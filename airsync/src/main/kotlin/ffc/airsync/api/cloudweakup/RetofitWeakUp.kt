@@ -5,6 +5,7 @@ import ffc.airsync.gui
 import ffc.airsync.printDebug
 import ffc.airsync.retrofit.ApiFactory
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.createMessage
 import java.net.SocketTimeoutException
 
 class RetofitWeakUp : WeakUpApi {
@@ -25,11 +26,10 @@ class RetofitWeakUp : WeakUpApi {
                 cloudStatusDown = true
                 Thread.sleep(3000)
             } catch (ex: java.net.UnknownHostException) {
-                gui.set(
-                    "Cloud Network error" to AirSyncGUI.Message(
-                        "Network Error $ex",
-                        AirSyncGUI.MESSAGE_TYPE.ERROR
-                    )
+                gui.createMessage(
+                    "Cloud Network error",
+                    "Network Error $ex",
+                    AirSyncGUI.MESSAGE_TYPE.ERROR
                 )
                 Thread.sleep(3000)
             }
