@@ -27,15 +27,14 @@ abstract class MySqlJdbi(
         }
     }
 
-    val dbHost: String = dbConfig!!.server
-    val dbPort: String = dbConfig!!.port
-    val dbName: String = dbConfig!!.databaseName
-    val dbUsername: String = dbConfig!!.username
-    val dbPassword: String = dbConfig!!.password
-
     private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")
         val jdbi: Jdbi
+        val dbHost: String = dbConfig!!.server
+        val dbPort: String = dbConfig!!.port
+        val dbName: String = dbConfig!!.databaseName
+        val dbUsername: String = dbConfig!!.username
+        val dbPassword: String = dbConfig!!.password
 
         if (ds == null) {
             val dsMySql = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()
