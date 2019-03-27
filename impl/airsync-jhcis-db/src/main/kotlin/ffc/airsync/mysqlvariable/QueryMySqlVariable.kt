@@ -22,4 +22,3 @@ internal class VariableMapping : RowMapper<String> {
     }
 }
 
-
