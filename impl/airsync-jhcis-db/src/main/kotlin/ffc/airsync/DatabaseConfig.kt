@@ -4,7 +4,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
 
-class JhcisConfig {
+internal class DatabaseConfig {
     private val jhcisConfigFile = "C:\\Program Files\\JHCIS\\database.properties"
     private val property = Properties()
 

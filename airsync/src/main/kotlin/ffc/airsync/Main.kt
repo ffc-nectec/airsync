@@ -84,8 +84,6 @@ internal class Main constructor(args: Array<String>) {
 
     val tryIcon: TryIcon
 
-    val jhcisConfigDatabase: JhcisConfig
-
     init {
         instant = this
         if (args.contains("-v")) {
@@ -105,8 +103,6 @@ internal class Main constructor(args: Array<String>) {
             if (args.contains("-nogui")) {
                 noGUI = true
             }
-
-            jhcisConfigDatabase = JhcisConfig()
 
             if (args.contains("-skipcon")) {
                 skipConfigMyIni = true
@@ -162,15 +158,7 @@ internal class Main constructor(args: Array<String>) {
         }
     }
 
-    val dao: DatabaseDao by lazy {
-        databaseDaoModule(
-            jhcisConfigDatabase.server,
-            jhcisConfigDatabase.port,
-            jhcisConfigDatabase.databaseName,
-            jhcisConfigDatabase.username,
-            jhcisConfigDatabase.password
-        )
-    }
+    val dao: DatabaseDao by lazy { databaseDaoModule() }
 
     fun run() {
         if (!skipConfigMyIni) SetupMySqlConfig(File("C:\\Program Files\\JHCIS\\MySQL\\my.ini"))

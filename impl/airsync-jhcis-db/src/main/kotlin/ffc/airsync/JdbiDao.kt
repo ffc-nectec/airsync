@@ -57,13 +57,15 @@ import javax.sql.DataSource
 
 @Deprecated("JdbiDao move to MySqlJdbi")
 class JdbiDao(
-    val dbHost: String = "127.0.0.1",
-    val dbPort: String = "3333",
-    val dbName: String = "jhcisdb",
-    val dbUsername: String = "root",
-    val dbPassword: String = "123456",
     var ds: DataSource? = null
 ) : DatabaseDao {
+
+    private val dbConfig = DatabaseConfig()
+    val dbHost: String = dbConfig.server
+    val dbPort: String = dbConfig.port
+    val dbName: String = dbConfig.databaseName
+    val dbUsername: String = dbConfig.username
+    val dbPassword: String = dbConfig.password
 
     val houses: HouseDao by lazy { HouseJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
     val visit: VisitDao by lazy { VisitJdbi(dbHost, dbPort, dbName, dbUsername, dbPassword, ds) }
