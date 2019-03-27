@@ -22,6 +22,7 @@ import ffc.airsync.api.organization.orgApi
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.delayRemove
 import ffc.airsync.utils.getDataStore
 import ffc.airsync.utils.toBuddistString
 import ffc.entity.Organization
@@ -37,10 +38,7 @@ class MainController(val dao: DatabaseDao) {
         gui.set("Database" to AirSyncGUI.ProgressData(3, 10, "กำลังเชื่อมต่อ..."))
         property = LocalOrganization(dao, getDataStore("ffcProperty.cnf"))
         gui.set("Database" to AirSyncGUI.ProgressData(10, 10, "เชื่อมต่อสำเร็จ"))
-        Thread {
-            Thread.sleep(1000)
-            gui.remove("Database")
-        }.start()
+        gui.delayRemove("Database", 1000)
     }
 
     fun run() {
@@ -62,10 +60,7 @@ class MainController(val dao: DatabaseDao) {
             throw ex
         }
         gui.set("Check" to AirSyncGUI.ProgressData(100, 100, "Validate cloud."))
-        Thread {
-            Thread.sleep(1000)
-            gui.remove("Check")
-        }.start()
+        gui.delayRemove("Check", 1000)
         InitSync().init(gui)
         gui.set("Setup" to AirSyncGUI.ProgressData(1, 4, " Auto sync.."))
         SetupAutoSync(dao)

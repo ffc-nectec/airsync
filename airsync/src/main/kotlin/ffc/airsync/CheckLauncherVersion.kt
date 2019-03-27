@@ -2,6 +2,9 @@ package ffc.airsync
 
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.utils.getPathJarDir
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import max.download.zip.ZIpDownload
 import max.githubapi.GitHubLatestApi
 import java.io.File
@@ -64,9 +67,9 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
                     )
                 )
             }
-        Thread {
-            Thread.sleep(1000)
+        GlobalScope.launch {
+            delay(1000)
             gui.remove("Check Launcher")
-        }.start()
+        }
     }
 }
