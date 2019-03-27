@@ -24,7 +24,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetofitAPIClient {
+internal class RetofitAPIClient {
 
     fun getCient(baseUrl: String, cacheKbyte: Int, prefix: String): Retrofit {
 
@@ -33,14 +33,15 @@ class RetofitAPIClient {
         val cacheSize = Cache(createTempDir, cacheKbyte * 1024L)
 
         val client = OkHttpClient
-            .Builder()
-            .cache(cacheSize)
-            .build()
+                .Builder()
+                .cache(cacheSize)
+                .addInterceptor(DefaultInterceptor())
+                .build()
 
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create(ffcGson))
-            .build()
+                .baseUrl(baseUrl)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create(ffcGson))
+                .build()
     }
 }
