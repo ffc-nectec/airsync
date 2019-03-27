@@ -20,7 +20,7 @@ class AirSyncGUITest {
         gui.remove("Person")
         gui.remove("House")
         gui.enableSyncButton = true
-        gui.set("Person" to AirSyncGUI.CheckData("Person \r\nSuccess"))
+        gui.set("Person" to AirSyncGUI.Message("Person \r\nSuccess"))
         while (true)
             Thread.sleep(10000)
     }

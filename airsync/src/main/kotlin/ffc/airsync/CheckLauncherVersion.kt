@@ -58,7 +58,7 @@ class CheckLauncherVersion(val gui: AirSyncGUI) {
                 isFinish = true
             } catch (ex: java.net.UnknownHostException) {
                 gui.set(
-                    "Launcher Network Error" to AirSyncGUI.CheckData(
+                    "Launcher Network Error" to AirSyncGUI.Message(
                         "Network Error $ex",
                         AirSyncGUI.MESSAGE_TYPE.ERROR
                     )

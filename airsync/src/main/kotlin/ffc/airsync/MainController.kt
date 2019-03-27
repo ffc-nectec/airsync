@@ -54,7 +54,7 @@ class MainController(val dao: DatabaseDao) {
             registerOrg(orgLocal)
         } catch (ex: java.lang.Exception) {
             gui.set(
-                "Organization Error" to AirSyncGUI.CheckData(
+                "Organization Error" to AirSyncGUI.Message(
                     "ตรวจสอบพบการลงทะเบียนซ้ำ อาจเกิดจากการลบและติดตั้งใหม่ โปรดติดต่อผู้ดูแล FFC",
                     AirSyncGUI.MESSAGE_TYPE.ERROR
                 )
@@ -75,7 +75,7 @@ class MainController(val dao: DatabaseDao) {
         SetupDatabaseWatcher(dao)
         gui.set("Setup" to AirSyncGUI.ProgressData(4, 4, " Sync.."))
         gui.remove("Setup")
-        gui.set("Success" to AirSyncGUI.CheckData("ข้อมูล Sync แล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}"))
+        gui.set("Success" to AirSyncGUI.Message("ข้อมูล Sync แล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}"))
         gui.enableSyncButton = true
         startLocalAirSyncServer()
     }
