@@ -213,13 +213,16 @@ class VisitJdbi(
         return result.map { healthCare ->
             var outputVisit = HealthCareService("", "")
 
+            var runtimeLookupUser: Long = -1L
+            var runtimeQueryDb: Long = -1L
+            var runtimeLookupApi: Long = -1L
             val allRunTime = measureTimeMillis {
                 i++
 
                 var providerId = ""
                 var patientId = ""
 
-                val runtimeLookupUser = runBlocking {
+                runtimeLookupUser = runBlocking {
                     measureTimeMillis {
                         launch { providerId = lookupProviderId(healthCare.providerId) }
                         launch { patientId = lookupPatientId(healthCare.patientId) }
@@ -236,7 +239,7 @@ class VisitJdbi(
                     var ncdScreen: List<NCDScreen> = emptyList()
                     var homeVisit: List<HomeVisit> = emptyList()
 
-                    val runtimeQueryDb = runBlocking {
+                    runtimeQueryDb = runBlocking {
                         measureTimeMillis {
                             launch { diagnosisIcd10 = getVisitDiag(visitNumber) }
                             launch { specislPP = specialPpList!![visitNumber] ?: emptyList() }
@@ -245,7 +248,7 @@ class VisitJdbi(
                         }
                     }
 
-                    val runtimeLookupApi = runBlocking {
+                    runtimeLookupApi = runBlocking {
                         measureTimeMillis {
                             launch { outputVisit.diagnosises = getDiagnosisIcd10(diagnosisIcd10, lookupDisease) }
 
@@ -279,13 +282,6 @@ class VisitJdbi(
                             }
                         }
                     }
-                    if (i % 200 == 0 || i == size) {
-                        progressCallback(((i * 45) / size) + 5)
-                        print("Visit $i:$size")
-                        print("\tLookupUser:$runtimeLookupUser")
-                        print("\tRuntime DB:$runtimeQueryDb")
-                        print("\tLookupApi:$runtimeLookupApi")
-                    }
                 }
             }
 
@@ -296,10 +292,17 @@ class VisitJdbi(
 
             val avgTime = sumTime / avgTimeRun.size
 
-            if (i % 300 == 0 || i == size) {
+            if (i % 200 == 0 || i == size) {
+                progressCallback(((i * 45) / size) + 5)
+                print("Visit $i:$size")
+                print("\tLookupUser:$runtimeLookupUser")
+                print("\tRuntime DB:$runtimeQueryDb")
+                print("\tLookupApi:$runtimeLookupApi")
+                print("\tAllTime:$allRunTime")
                 ((size - i) * avgTime).printTime()
                 println()
             }
+
             outputVisit
         }
     }
