@@ -26,6 +26,7 @@ import ffc.entity.place.House
 import ffc.entity.update
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
+import org.jdbi.v3.core.result.ResultSetException
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.customizer.BindBean
@@ -98,13 +99,16 @@ class HouseMapper : RowMapper<House> {
             no = rs.getString("hno")
             road = rs.getString("road")
 
-            val xgis = rs.getDouble("xgis")
-            val ygis = rs.getDouble("ygis")
-            if ((xgis != 0.0) && (ygis != 0.0))
-                location = if (xgis < ygis)
-                    Point(xgis, ygis)
-                else
-                    Point(ygis, xgis)
+            try {
+                val xgis = rs.getDouble("xgis")
+                val ygis = rs.getDouble("ygis")
+                if ((xgis != 0.0) && (ygis != 0.0))
+                    location = if (xgis < ygis)
+                        Point(xgis, ygis)
+                    else
+                        Point(ygis, xgis)
+            } catch (ignore: ResultSetException) {
+            }
             link = Link(
                 System.JHICS,
                 "hcode" to rs.getString("hcode"),
