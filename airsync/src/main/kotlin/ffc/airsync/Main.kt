@@ -106,7 +106,7 @@ internal class Main constructor(args: Array<String>) {
                 cmd.printStackTrace()
             }
         } catch (ex: Exception) {
-            errMessage("Init Error", "Init Error $ex\r\n${ex.printStackTrace()}")
+            errMessage("Init Error", "Init Error", ex)
             throw ex
         }
     }
@@ -162,31 +162,35 @@ fun main(args: Array<String>) {
         gui.remove("Database")
         errMessage(
             "Init Controller Error",
-            "ไม่สามารถเชื่อมต่อ Database ตรวจสอบการตั้งค่า ปิดแล้วเปิด FFC Airsync ใหม่อีกครั้ง"
+            "ไม่สามารถเชื่อมต่อ Database ตรวจสอบการตั้งค่า ปิดแล้วเปิด FFC Airsync ใหม่อีกครั้ง", ex
         )
         throw ex
     } catch (ex: ApiLoopException) {
-        errMessage("Api Error", "เกิดข้อผิดพลาด Api $ex")
+        errMessage("Api Error", "เกิดข้อผิดพลาด Api", ex)
         throw ex
     } catch (ex: java.net.SocketTimeoutException) {
-        errMessage("Network Error", "ไม่สามารถเชื่อมต่อกับ Cloud ได้")
+        errMessage("Network Error", "ไม่สามารถเชื่อมต่อกับ Cloud ได้", ex)
         throw ex
     } catch (ex: java.net.SocketException) {
-        errMessage("Socket Error", "Network Socket Error $ex")
+        errMessage("Socket Error", "Network Socket Error", ex)
         throw ex
     } catch (ex: NotAuthorizedException) {
-        errMessage("Auth Error", "Server ปฏิเสทการเชื่อมต่อ Cannot auth ${ex.message}")
+        errMessage("Auth Error", "Server ปฏิเสทการเชื่อมต่อ Cannot auth ${ex.message}", ex)
         throw ex
     } catch (ex: Exception) {
-        errMessage("Error Message", "Init Error $ex\r\n${ex.printStackTrace()}")
+        errMessage("Error Message", "Init Error $ex\r\n${ex.printStackTrace()}", ex)
         throw ex
     }
 }
 
-fun errMessage(key: String, message: String) {
+fun errMessage(key: String, message: String, ex: java.lang.Exception) {
+    var exMessage = "\n"
+    ex.stackTrace.forEach {
+        exMessage += "$it\n}"
+    }
     gui.createMessage(
         key,
-        message,
+        message + ex,
         AirSyncGUI.MESSAGE_TYPE.ERROR
     )
 }
