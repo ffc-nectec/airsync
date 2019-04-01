@@ -49,7 +49,7 @@ private const val API = "https://api.ffc.in.th"
 // private const val API = "https://ffc-staging.herokuapp.com"
 // private const val API = "http://127.0.0.1:8080"
 private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
-val logger = getLogger(Main::class.java)
+private val logger = getLogger(Main::class.java)
 
 internal class Main constructor(args: Array<String>) {
     @Option(name = "-api", usage = "Api url Ex. https://ffc-nectec.herokuapp.com ")
@@ -208,10 +208,4 @@ val gui: AirSyncGUI = try {
     createArisyncGui()
 } catch (ex: java.awt.HeadlessException) {
     EmptyGUI()
-}
-
-val debug = System.getenv("FFC_DEBUG")
-internal fun printDebug(infoDebug: String) {
-    if (debug == null)
-        logger.debug(infoDebug)
 }

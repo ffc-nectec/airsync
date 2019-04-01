@@ -3,18 +3,19 @@ package ffc.airsync.api.healthcare
 import ffc.airsync.api.person.persons
 import ffc.airsync.api.user.users
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.isTempId
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 
 class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java), HealthCareApi {
 
+    private val logger by lazy { getLogger(this) }
     override fun clearAndCreateHealthCare(
         healthCare: List<HealthCareService>,
         progressCallback: (Int) -> Unit
@@ -79,7 +80,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
         val data = restService.getHomeVisit(orgId = organization.id, authkey = tokenBarer, id = id).execute()
 
         if (data.code() != 200) {
-            printDebug("Not success get healthcare code=${data.code()}")
+            logger.error("Not success get healthcare code=${data.code()}")
             return
         }
         val healthCareService = data.body()!!
@@ -97,7 +98,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
             it.id == healthCareService.patientId
         }!!
 
-        printDebug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
+        logger.debug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
 
         val provider = users.find {
             it.id == healthCareService.providerId
@@ -133,7 +134,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
 
         val result = updateHealthCare(healthCareService)
 
-        printDebug("Result healthcare from cloud $result")
+        logger.info("Result healthcare from cloud $result")
     }
 
     override fun updateHealthCare(healthCareService: HealthCareService): HealthCareService {

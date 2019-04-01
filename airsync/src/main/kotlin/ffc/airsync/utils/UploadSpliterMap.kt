@@ -17,17 +17,16 @@
 
 package ffc.airsync.utils
 
-import ffc.airsync.printDebug
 import kotlin.system.measureTimeMillis
 
 object UploadSpliterMap {
-
+    private val logger by lazy { getLogger(this) }
     fun <K, T> upload(fixSizeCake: Int, list: Map<K, T>, howToPutCake: (list: Map<K, T>, block: Int) -> Unit) {
         val cakePound = cutCake(fixSizeCake, list)
         var runtime = 0L
         val size = cakePound.size
 
-        printDebug("Run size $size")
+        logger.debug("Run size $size")
         var index = 0
         cakePound.forEach { someCake ->
             var log = "Run ${++index}"
@@ -39,9 +38,8 @@ object UploadSpliterMap {
             val realIndex = index + 1
             val timeString = ((size - realIndex) * (runtime / realIndex)).toStringTime()
             log += "push $timeString"
-            printDebug(log)
+            logger.debug(log)
         }
-        printDebug("")
     }
 
     private fun <K, T> cutCake(fixSizeCake: Int, list: Map<K, T>): Map<Int, Map<K, T>> {

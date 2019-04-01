@@ -1,7 +1,7 @@
 package ffc.airsync.api.genogram
 
 import ffc.airsync.api.person.persons
-import ffc.airsync.printDebug
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person
@@ -10,6 +10,10 @@ import ffc.entity.Person.Relate.Father
 import ffc.entity.Person.Relate.Married
 import ffc.entity.Person.Relate.Mother
 import ffc.entity.Person.Relate.Sibling
+
+private interface GenogramUtil
+
+private val logger by lazy { getLogger(GenogramUtil::class) }
 
 fun ArrayList<Person>.initRelation(progressCallback: (Int) -> Unit) {
     val localRelation = arrayListOf<Person>().apply {
@@ -52,7 +56,7 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
     groupByFamilyNo.forEach { key, house ->
         index++
         if (index % 300 == 0 || index == size)
-            printDebug("createRela $index:$size")
+            logger.trace("createRela $index:$size")
         house.forEach { person ->
             val familyPosition = (person.link?.keys?.get("familyposition") ?: "") as String
             if (familyPosition.isNotBlank()) {
@@ -109,7 +113,7 @@ private fun List<Person>.groupFamilyNo(
     houseMap.forEach { hcode, houseGroupByHcode ->
         i++
         if (i % 300 == 0 || i == size)
-            printDebug("groupFamilyNo $i:$size")
+            logger.trace("groupFamilyNo $i:$size")
         houseGroupByHcode.forEach { person ->
 
             `ค้นหาพ่อแม่ภรรยาจากหมายเลขบัตรประชาชนและชื่อ`(person)
@@ -176,8 +180,6 @@ internal fun `สร้างความสัมพันธ์ภรรยา
         person.addRelationship(Pair(Married, it))
         it.addRelationship(Pair(Married, person))
     } catch (ex: java.lang.IllegalArgumentException) {
-        // printDebug("Error ความสัมพันธ์ภรรยา")
-        // ex.printStackTrace()
     }
 }
 
@@ -189,8 +191,6 @@ internal fun `สร้างความสัมพันธ์แม่`(chil
             mother.addRelationship(Pair(Child, child))
         }
     } catch (ex: java.lang.IllegalArgumentException) {
-        // printDebug("Error ความสัมพันธ์แม่")
-        // ex.printStackTrace()
     }
 }
 
@@ -201,8 +201,6 @@ internal fun `สร้างความสัมพันธ์พ่อ`(chil
             father.addRelationship(Pair(Child, child))
         }
     } catch (ex: java.lang.IllegalArgumentException) {
-        // printDebug("Error ความสัมพันธ์พ่อ")
-        // ex.printStackTrace()
     }
 }
 
@@ -220,8 +218,6 @@ internal fun `สร้างความสัมพันธ์ลูก`(head
             }
         }
     } catch (ex: java.lang.IllegalArgumentException) {
-        // printDebug("Error ความสัมพันธ์ลูก")
-        // ex.printStackTrace()
     }
 }
 
@@ -233,7 +229,5 @@ internal fun `สร้างความสัมพันธ์พี่น้
             it.addRelationship(Pair(Sibling, head))
         }
     } catch (ex: java.lang.IllegalArgumentException) {
-        // printDebug("Error ความสัมพันธ์พี่น้อง")
-        // ex.printStackTrace()
     }
 }

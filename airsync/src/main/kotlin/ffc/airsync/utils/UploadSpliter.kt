@@ -17,10 +17,10 @@
 
 package ffc.airsync.utils
 
-import ffc.airsync.printDebug
 import kotlin.system.measureTimeMillis
 
 object UploadSpliter {
+    private val logger by lazy { getLogger(this) }
     fun <T> upload(fixSizeCake: Int, list: List<T>, howToPutCake: (list: List<T>, block: Int) -> Unit) {
         val cakePound = cutCake(fixSizeCake, list)
         var runtime = 0L
@@ -36,14 +36,13 @@ object UploadSpliter {
             val realIndex = index + 1
             val timeString = ((size - realIndex) * (runtime / realIndex)).toStringTime()
             log += "push $timeString"
-            printDebug(log)
+            logger.debug(log)
         }
-        printDebug("")
     }
 
     private fun <T> cutCake(fixSizeCake: Int, list: List<T>): List<List<T>> {
         val cake = list.size
-        printDebug("UploadSpliter cutCake size $cake Row per req $fixSizeCake")
+        logger.info("UploadSpliter cutCake size $cake Row per req $fixSizeCake")
 
         val noOfCake = cake / fixSizeCake // แบ่งได้กี่ชุด
         val cakeScraps = cake % fixSizeCake // เคษเหลือ

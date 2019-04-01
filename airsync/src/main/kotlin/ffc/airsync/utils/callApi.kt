@@ -1,7 +1,10 @@
 package ffc.airsync.utils
 
-import ffc.airsync.printDebug
 import kotlin.system.measureTimeMillis
+
+private interface CallApi
+
+private val logger by lazy { getLogger(CallApi::class) }
 
 fun <T> callApi(
     msRuntime: (Long) -> Unit = {},
@@ -23,15 +26,13 @@ fun <T> callApi(
             return result!!
         } catch (ex: java.net.SocketTimeoutException) {
             if (loop > 5) throw ex
-            printDebug("Time out loop ${++loop}")
-            ex.printStackTrace()
+            logger.error("Time out loop ${++loop}")
         } catch (ex: ApiLoopException) {
             if (loop > 5) throw ex
-            System.err.println("Loop api custom by user ${ex.message}")
+            logger.error("Loop api custom by user cannot return standard ${ex.message}")
         } catch (ex: java.net.SocketException) {
             if (loop > 5) throw ex
-            printDebug("Socket error check network ${++loop}")
-            ex.printStackTrace()
+            logger.error("Socket error check network ${++loop}")
         } finally {
             loop++
             Thread.sleep(10000)
@@ -50,18 +51,20 @@ fun Long.toStringTime(): String {
 }
 
 fun callApiNoReturn(call: () -> Unit) {
-    var loop = 0
+    var loop = 1
     while (true) {
         try {
             call()
             return
         } catch (ex: java.net.SocketTimeoutException) {
-            printDebug("Time out loop ${++loop}")
-            ex.printStackTrace()
+            if (loop > 5) throw ex
+            logger.error("Time out loop $loop")
         } catch (ex: java.net.SocketException) {
-            printDebug("Socket error check network ${++loop}")
+            if (loop > 5) throw ex
+            logger.error("Socket error check network $loop")
             Thread.sleep(10000)
-            ex.printStackTrace()
+        } finally {
+            loop++
         }
     }
 }

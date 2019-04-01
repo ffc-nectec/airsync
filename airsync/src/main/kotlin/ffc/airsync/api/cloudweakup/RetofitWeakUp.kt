@@ -2,10 +2,10 @@ package ffc.airsync.api.cloudweakup
 
 import ffc.airsync.Config
 import ffc.airsync.gui
-import ffc.airsync.printDebug
 import ffc.airsync.retrofit.ApiFactory
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.createMessage
+import ffc.airsync.utils.getLogger
 import java.net.SocketTimeoutException
 
 class RetofitWeakUp : WeakUpApi {
@@ -15,9 +15,10 @@ class RetofitWeakUp : WeakUpApi {
         var count = 1
         val limitCount = 5
         var cloudStatusDown = true
+        val logger = getLogger(this)
         while (cloudStatusDown && count++ <= limitCount) {
             try {
-                printDebug("Wake cloud loop ${count - 1} in $limitCount")
+                logger.info("Wake cloud loop ${count - 1} in $limitCount")
                 val response = restService.checkCloud().execute()
                 gui.remove("Cloud Network error")
                 if (response.code() == 200)
