@@ -26,6 +26,7 @@ import ffc.airsync.ui.createMessage
 import ffc.airsync.ui.createProgress
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.EmptyGUI
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.getPathJarDir
 import max.kotlin.checkdupp.CheckDupplicate
 import max.kotlin.checkdupp.CheckDupplicateWithRest
@@ -62,6 +63,8 @@ internal class Main constructor(args: Array<String>) {
 
     private val processDupplicate: CheckDupplicate = CheckDupplicateWithRest("airsync")
 
+    val logger = getLogger()
+
     val tryIcon: TryIcon
 
     init {
@@ -75,22 +78,28 @@ internal class Main constructor(args: Array<String>) {
             print(getPathJarDir())
             exitProcess(0)
         }
+        logger.info("Run with BuildConfig.VERSION")
         gui.setHeader(BuildConfig.VERSION)
+        logger.trace("Show gui")
         gui.showWIndows()
+        logger.trace("Create small icon")
         tryIcon = CreateTryIcon()
         try {
 
             if (args.contains("-nogui")) {
+                logger.info("No gui mode")
                 noGUI = true
             }
 
             if (args.contains("-skipcon")) {
+                logger.info("Skip check my.ini")
                 skipConfigMyIni = true
             }
             try {
+                logger.debug("Check process duplicate.")
                 processDupplicate.register()
             } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
-                printDebug("Duplicate process")
+                logger.error("Duplicate process")
                 Thread.sleep(2000)
                 System.exit(1)
             }
