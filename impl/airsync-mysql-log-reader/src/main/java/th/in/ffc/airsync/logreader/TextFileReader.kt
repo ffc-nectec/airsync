@@ -29,6 +29,7 @@ class TextFileReader @Throws(FileNotFoundException::class)
     private var realtime: Boolean = true,
     private var delay: Long = 2000
 ) {
+    private val logger by lazy { getLogger(this) }
     private var linenumber: Long = 1
     private lateinit var bufferReader: BufferedReader
     private var listener: (queryRecord: QueryRecord) -> Unit = {}
@@ -53,7 +54,7 @@ class TextFileReader @Throws(FileNotFoundException::class)
                 try {
                     Thread.sleep(3000)
                 } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                    logger.error(e, e)
                 }
             }
         }
@@ -97,7 +98,7 @@ class TextFileReader @Throws(FileNotFoundException::class)
             try {
                 if (realtime) Thread.sleep(delay)
             } catch (e: InterruptedException) {
-                e.printStackTrace()
+                logger.error(e, e)
             }
         } while (realtime)
         bufferReader.close()
