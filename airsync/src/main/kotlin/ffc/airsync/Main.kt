@@ -111,7 +111,7 @@ internal class Main constructor(args: Array<String>) {
                 dd.remove("-runnow")
                 parser.parseArgument(dd.toList())
             } catch (cmd: CmdLineException) {
-                cmd.printStackTrace()
+                logger.error(cmd, cmd)
             }
         } catch (ex: Exception) {
             errMessage("Init Error", "Init Error", ex)
@@ -186,7 +186,7 @@ fun main(args: Array<String>) {
         errMessage("Auth Error", "Server ปฏิเสทการเชื่อมต่อ Cannot auth ${ex.message}", ex)
         throw ex
     } catch (ex: Exception) {
-        errMessage("Error Message", "Init Error $ex\r\n${ex.printStackTrace()}", ex)
+        errMessage("Error Message", "Init Error $ex", ex)
         throw ex
     }
 }
