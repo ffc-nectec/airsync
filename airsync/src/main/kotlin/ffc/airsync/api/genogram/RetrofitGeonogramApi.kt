@@ -1,28 +1,29 @@
 package ffc.airsync.api.genogram
 
-import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliterMap
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
+import ffc.airsync.utils.getLogger
 import ffc.entity.Person
 
 class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), GeonogramApi {
+    private val logger by lazy { getLogger(this) }
     override fun put(personId: String, relationship: List<Person.Relationship>): List<Person.Relationship> {
         val relationLastUpdate = arrayListOf<Person.Relationship>()
         var syncccc = false
         var loop = 1
         while (!syncccc) {
             try {
-                printDebug("Sync rela loop ${loop++} ")
+                logger.debug("Sync rela loop ${loop++} ")
                 val response = restService.updateRelationship(
                     orgId = organization.id,
                     authkey = tokenBarer,
                     personId = personId,
                     relationship = relationship
                 ).execute()
-                printDebug(" response ${response.code()} err:${response.errorBody()?.source()}")
+                logger.debug(" response ${response.code()} err:${response.errorBody()?.source()}")
                 if (response.code() == 201 || response.code() == 200) {
                     relationLastUpdate.addAll(response.body() ?: arrayListOf())
                     syncccc = true

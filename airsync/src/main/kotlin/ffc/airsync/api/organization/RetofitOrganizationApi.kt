@@ -1,19 +1,19 @@
 package ffc.airsync.api.organization
 
 import ffc.airsync.api.cloudweakup.RetofitWeakUp
-import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.utils.getLogger
 import ffc.entity.Organization
 import ffc.entity.Token
 import ffc.entity.gson.toJson
 
 class RetofitOrganizationApi : RetofitApi<OrganizationUrl>(OrganizationUrl::class.java), OrganizationApi {
+    private val logger by lazy { getLogger(this) }
     override fun registerOrganization(
         localOrganization: Organization,
         onSuccessRegister: (organization: Organization, token: Token) -> Unit
     ) {
         RetofitWeakUp().weakUp()
-
         if (isEverRegister(localOrganization)) {
             token = localOrganization.bundle["token"] as Token
             organization = localOrganization
@@ -26,18 +26,18 @@ class RetofitOrganizationApi : RetofitApi<OrganizationUrl>(OrganizationUrl::clas
             val bodyLogin = hashMapOf<String, String>()
             bodyLogin["username"] = user.name
             bodyLogin["password"] = user.password
-            printDebug("Organization login is ${bodyLogin["username"]}")
+            logger.info("Organization login is ${bodyLogin["username"]}")
             val response = restService.loginOrg(organization.id, bodyLogin).execute()
             val tokenFromServer = response.body()
                 ?: throw Exception(
                     "ไม่สามารถ Login org ได้ code:${response.code()} " +
                             "${response.errorBody()?.byteStream()?.reader()?.readLines()}"
                 )
-            printDebug("\tToken = ${tokenFromServer.toJson()}")
+            logger.debug("\tToken = ${tokenFromServer.toJson()}")
             token = tokenFromServer
             organization.bundle["token"] = tokenFromServer
 
-            printDebug("Client update registerOrg from cloud ${organization.toJson()}")
+            logger.debug("Client update registerOrg from cloud ${organization.toJson()}")
         }
         onSuccessRegister(organization, token)
     }

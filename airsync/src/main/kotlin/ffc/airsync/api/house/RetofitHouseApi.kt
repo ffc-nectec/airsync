@@ -1,19 +1,20 @@
 package ffc.airsync.api.house
 
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.printDebug
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
+import ffc.airsync.utils.getLogger
 import ffc.entity.place.House
 
 class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
+    private val logger by lazy { getLogger(this) }
     override fun putHouse(houseList: List<House>, progressCallback: (Int) -> Unit): List<House> {
         callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }
 
-        printDebug("Start put house to cloud")
+        logger.info("Start put house to cloud")
         val houseLastUpdate = arrayListOf<House>()
         val fixSizeCake = 100
         val houseSize = houseList.size / fixSizeCake
@@ -50,18 +51,18 @@ class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
     }
 
     override fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao) {
-        printDebug("Sync From Cloud get house house _id = $_id")
+        logger.info("Sync From Cloud get house house _id = $_id")
         val data = restService.getHouse(orgId = organization.id, authkey = tokenBarer, _id = _id).execute()
-        printDebug("\tRespond code ${data.code()}")
+        logger.debug("\tRespond code ${data.code()}")
         val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
-        printDebug("\t From house cloud _id = ${house.id} house No. ${house.no}")
+        logger.debug("\t From house cloud _id = ${house.id} house No. ${house.no}")
         if (house.link?.isSynced == true) return
 
         databaseDao.upateHouse(house)
-        printDebug("\tUpdate house to database and sync = true")
+        logger.debug("\tUpdate house to database and sync = true")
         house.link?.isSynced = true
 
-        printDebug("\tPut new house to cloud")
+        logger.info("\tPut new house to cloud")
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = _id, house = house).execute()
     }
 

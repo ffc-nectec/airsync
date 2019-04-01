@@ -17,7 +17,7 @@
 
 package ffc.airsync.retrofit
 
-import ffc.airsync.printDebug
+import ffc.airsync.utils.getLogger
 import ffc.entity.gson.ffcGson
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -26,22 +26,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 internal class RetofitAPIClient {
 
+    private val logger by lazy { getLogger(this) }
     fun getCient(baseUrl: String, cacheKbyte: Int, prefix: String): Retrofit {
 
         val createTempDir = createTempDir(prefix, "airsync")
-        printDebug("Retofit temp dir ${createTempDir.absolutePath}")
+        logger.debug("Retofit temp dir ${createTempDir.absolutePath}")
         val cacheSize = Cache(createTempDir, cacheKbyte * 1024L)
 
         val client = OkHttpClient
-                .Builder()
-                .cache(cacheSize)
-                .addInterceptor(DefaultInterceptor())
-                .build()
+            .Builder()
+            .cache(cacheSize)
+            .addInterceptor(DefaultInterceptor())
+            .build()
 
         return Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(ffcGson))
-                .build()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(ffcGson))
+            .build()
     }
 }

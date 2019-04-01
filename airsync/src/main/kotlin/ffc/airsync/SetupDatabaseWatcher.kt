@@ -12,6 +12,7 @@ import ffc.airsync.api.user.users
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.callApi
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.save
 import ffc.entity.copy
 import ffc.entity.healthcare.HealthCareService
@@ -24,6 +25,8 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         databaseWatcher()
     }
 
+    private val logger by lazy { getLogger(this) }
+
     private fun databaseWatcher() {
         val filter = hashMapOf<String, List<String>>().apply {
             put("house", listOf("house", "`house`", "`jhcisdb`.`house`"))
@@ -33,7 +36,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         ffc.airsync.provider.databaseWatcher(
             Config.logfilepath, filter
         ) { tableName, keyWhere ->
-            printDebug("Database watcher $tableName $keyWhere")
+            logger.info("Database watcher $tableName $keyWhere")
             when (tableName) {
                 "house" -> houseEvent(keyWhere)
                 "visit" -> visitEvent(keyWhere, tableName)
@@ -73,11 +76,11 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                     visitToCloud(aggregate, updateWhere)
             }
             2 -> {
-                printDebug("Insert where")
+                logger.debug("Insert where")
             }
         }
 
-        printDebug("visit t:$tableName k:$keyWhere")
+        logger.debug("visit t:$tableName k:$keyWhere")
     }
 
     private fun visitToCloud(aggregate: List<String>, updateWhere: String) {

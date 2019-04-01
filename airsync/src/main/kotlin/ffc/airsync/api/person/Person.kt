@@ -3,13 +3,17 @@ package ffc.airsync.api.person
 import ffc.airsync.Main
 import ffc.airsync.api.icd10.icd10Api
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.printDebug
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.Disease
 import ffc.entity.place.House
+
+private interface PersonUtil
+
+private val logger by lazy { getLogger(PersonUtil::class) }
 
 fun Person.gets(dao: DatabaseDao = Main.instant.dao): List<Person> {
     val persons = dao.getPerson()
@@ -24,17 +28,19 @@ fun ArrayList<Person>.initSync(
     progressCallback: (Int) -> Unit
 ) {
     val localPersons = arrayListOf<Person>().apply {
+        logger.trace("initSync load person.")
         addAll(load())
     }
 
     if (localPersons.isEmpty()) {
-
+        logger.info("Load person from databse.")
         personIsChronic.mapHouseId(houseFromCloud, progressCallback)
         localPersons.addAll(personIsChronic)
         mapDeath(personIsChronic, progressCallback)
         addAll(personApi.putPerson(localPersons, progressCallback))
         save()
     } else {
+        logger.info("Load person from airsync file.")
         addAll(localPersons)
     }
     progressCallback(100)
@@ -87,6 +93,7 @@ fun List<Person>.findByHouseCode(hcode: String): List<Person> {
 }
 
 private fun mapChronics(persons: List<Person>, chronics: List<Chronic>): List<Person> {
+    logger.trace("Map chronics to person")
     persons.forEach { person ->
         person.chronics.addAll(chronics.filter {
             it.link!!.keys["pid"] == person.link!!.keys["pid"]
@@ -96,6 +103,7 @@ private fun mapChronics(persons: List<Person>, chronics: List<Chronic>): List<Pe
 }
 
 private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
+    logger.trace("Process person death.")
     val lookUpIcd10 = { icd10: String -> icd10Api.lookup(icd10) }
 
     val sizeOfLoop = persons.size
@@ -107,7 +115,7 @@ private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
                 diseaseList.add(lookUpIcd10(it.name))
             }
             person.death = Person.Death(death.date, diseaseList.toList())
-            printDebug("Dead ${person.name} ${person.death?.causes?.size}")
+            logger.debug("Dead ${person.name} ${person.death?.causes?.size}")
         }
         progressCallback(((index * 20) / sizeOfLoop) + 30)
     }

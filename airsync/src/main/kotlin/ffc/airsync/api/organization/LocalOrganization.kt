@@ -1,7 +1,7 @@
 package ffc.airsync.api.organization
 
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.printDebug
+import ffc.airsync.utils.getLogger
 import ffc.entity.Link
 import ffc.entity.Organization
 import ffc.entity.System
@@ -16,6 +16,7 @@ class LocalOrganization(
     val dao: DatabaseDao,
     var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf"
 ) {
+    private val logger by lazy { getLogger(this) }
 
     private lateinit var properties: Properties
     val organization: Organization
@@ -63,23 +64,25 @@ class LocalOrganization(
     }
 
     private fun loadProperty() {
+        logger.trace("Load config property from file.")
         val conf = Properties()
         try {
             conf.load(FileInputStream(logConfig))
         } catch (ignore: java.io.FileNotFoundException) {
-            printDebug("Cannot config file.")
+            logger.debug("ไม่พบ config file ของ airsync อาจเป็นเพราะเข้าใช้งานครั้งแรก ระบบจะสร้างให้อัตโนมัติ")
         }
         properties = conf
     }
 
     private fun getOrganizationDetail(orgId: String): Organization {
-        val org: Organization
-        if (orgId.isNotEmpty()) {
-            org = Organization(orgId)
+        logger.info("Get Organization detail")
+        val org: Organization = if (orgId.isNotEmpty()) {
+            Organization(orgId)
         } else {
-            org = Organization()
+            Organization()
         }
         with(org) {
+            logger.trace("Get organization detail from database.")
             val detail = dao.getDetail()
             val hosId = detail["pcucode"] ?: ""
 
@@ -100,6 +103,7 @@ class LocalOrganization(
     }
 
     private fun createAirSyncUser(hosId: String): User = User().update {
+        logger.debug("Get user from database")
         name = "airsync$hosId"
         password = UUID.randomUUID().toString().replace("-", "")
         role = User.Role.ORG
