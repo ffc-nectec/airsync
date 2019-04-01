@@ -109,7 +109,8 @@ class HouseMapper : RowMapper<House> {
                         Point(xgis, ygis)
                     else
                         Point(ygis, xgis)
-            } catch (ignore: ResultSetException) {
+            } catch (ex: ResultSetException) {
+                logger.error("xgix, ygis error", ex)
             }
             link = Link(
                 System.JHICS,

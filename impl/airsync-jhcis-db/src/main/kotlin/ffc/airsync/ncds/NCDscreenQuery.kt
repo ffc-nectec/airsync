@@ -1,5 +1,6 @@
 package ffc.airsync.ncds
 
+import ffc.airsync.getLogger
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
@@ -18,6 +19,7 @@ import org.joda.time.DateTime
 import java.sql.ResultSet
 import java.sql.SQLException
 
+private val logger by lazy { getLogger(NCDscreenQuery::class) }
 private const val ncdScreenQuery = """
 SELECT
 	ncd_person_ncd_screen.pcucode,
@@ -109,7 +111,12 @@ private fun createNcd(rs: ResultSet): NCDScreen {
             "4" -> Frequency.USUALLY
             else -> Frequency.UNKNOWN
         },
-        bloodSugar = rs.getDouble("bloodSugar"),
+        bloodSugar = try {
+            rs.getDouble("bloodSugar")
+        } catch (ex: ResultSetException) {
+            logger.error("Cannot get bloodSugar pid=${rs.getString("pid")}", ex)
+            null
+        },
         weight = rs.getString("weight")?.toDoubleOrNull(),
         height = rs.getString("height")?.toDoubleOrNull(),
         waist = rs.getString("waist")?.toDoubleOrNull(),
