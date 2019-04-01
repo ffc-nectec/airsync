@@ -1,8 +1,24 @@
-<Configuration status="warn" name="FFC-API" packages="ffc.airsync.api">
+<Configuration status="warn" name="FFC-Airsync" packages="ffc.airsync">
+    <Properties>
+        <Property name="filename">log/ffc-airsync.log</Property>
+    </Properties>
+
+
     <Appenders>
         <Console name="STDOUT" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %-5p [%t] %-5c{1} - %m%n"/>
         </Console>
+    </Appenders>
+
+    <Appenders>
+        <RollingFile name="FileRolling" fileName="${filename}"
+                     filePattern="log/ffc-airsync.%d{dd-MMM-yyyy-HH:mm}.%i.log.gz">
+            <PatternLayout>
+                <pattern>%d %-5p [%t] %-5c{1} - %m%n</pattern>
+            </PatternLayout>
+            <SizeBasedTriggeringPolicy size="5MB"/>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
     </Appenders>
 
     <Loggers>
@@ -11,5 +27,9 @@
         </Root>
     </Loggers>
 
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="FileRolling"/>
+        </Root>
+    </Loggers>
 </Configuration>
-
