@@ -49,6 +49,7 @@ private const val API = "https://api.ffc.in.th"
 // private const val API = "https://ffc-staging.herokuapp.com"
 // private const val API = "http://127.0.0.1:8080"
 private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
+val logger = getLogger(Main::class.java)
 
 internal class Main constructor(args: Array<String>) {
     @Option(name = "-api", usage = "Api url Ex. https://ffc-nectec.herokuapp.com ")
@@ -62,8 +63,6 @@ internal class Main constructor(args: Array<String>) {
     var noGUI = false
 
     private val processDupplicate: CheckDupplicate = CheckDupplicateWithRest("airsync")
-
-    val logger = getLogger()
 
     val tryIcon: TryIcon
 
@@ -99,7 +98,7 @@ internal class Main constructor(args: Array<String>) {
                 logger.debug("Check process duplicate.")
                 processDupplicate.register()
             } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
-                logger.error("Duplicate process")
+                errMessage("Duplicate", "Duplicate process", ex)
                 Thread.sleep(2000)
                 System.exit(1)
             }
@@ -197,6 +196,7 @@ fun errMessage(key: String, message: String, ex: java.lang.Exception) {
     ex.stackTrace.forEach {
         exMessage += "$it\n}"
     }
+    logger.error(message, ex)
     gui.createMessage(
         key,
         message + ex,
@@ -213,17 +213,5 @@ val gui: AirSyncGUI = try {
 val debug = System.getenv("FFC_DEBUG")
 internal fun printDebug(infoDebug: String) {
     if (debug == null)
-        try {
-            if (Main.instant.noGUI)
-                println(infoDebug)
-            else {
-                println(infoDebug)
-            }
-        } catch (ex: kotlin.UninitializedPropertyAccessException) {
-            ex.printStackTrace()
-            println(infoDebug)
-        } catch (ex: java.awt.HeadlessException) {
-            ex.printStackTrace()
-            println(infoDebug)
-        }
+        logger.debug(infoDebug)
 }
