@@ -3,6 +3,7 @@ package ffc.airsync.visit
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.disease.QueryDisease
 import ffc.airsync.extension
+import ffc.airsync.getLogger
 import ffc.airsync.healthtype.QueryHomeHealthType
 import ffc.airsync.ncds.NCDscreenQuery
 import ffc.airsync.specialpp.LookupSpecialPP
@@ -27,6 +28,7 @@ import kotlin.system.measureTimeMillis
 class VisitJdbi(
     ds: DataSource? = null
 ) : MySqlJdbi(ds), VisitDao {
+    private val logger by lazy { getLogger(this) }
     override fun createHomeVisit(
         homeVisit: HomeVisit,
         healthCareService: HealthCareService,
@@ -294,13 +296,13 @@ class VisitJdbi(
 
             if (i % 200 == 0 || i == size) {
                 progressCallback(((i * 45) / size) + 5)
-                print("Visit $i:$size")
-                print("\tLookupUser:$runtimeLookupUser")
-                print("\tRuntime DB:$runtimeQueryDb")
-                print("\tLookupApi:$runtimeLookupApi")
-                print("\tAllTime:$allRunTime")
-                ((size - i) * avgTime).printTime()
-                println()
+                var message = "Visit $i:$size"
+                message += "\tLookupUser:$runtimeLookupUser"
+                message += "\tRuntime DB:$runtimeQueryDb"
+                message += "\tLookupApi:$runtimeLookupApi"
+                message += "\tAllTime:$allRunTime"
+                message += ((size - i) * avgTime).printTime()
+                logger.debug(message)
             }
 
             outputVisit
@@ -412,13 +414,14 @@ class VisitJdbi(
     }
 }
 
-private fun Long.printTime() {
+private fun Long.printTime(): String {
     if (this > 0) {
         val sec = (this / 1000) % 60
         val min = (this / 60000) % 60
         val hour = (this / 36e5).toInt()
-        print("\t$hour:$min:$sec")
+        return ("\t$hour:$min:$sec")
     }
+    return ""
 }
 
 private inline fun <reified T> mapList(

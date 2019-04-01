@@ -1,5 +1,6 @@
 package ffc.airsync.village
 
+import ffc.airsync.getLogger
 import ffc.entity.Link
 import ffc.entity.Place
 import ffc.entity.System
@@ -11,6 +12,8 @@ import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.UseRowMapper
 import java.sql.ResultSet
+
+private val logger by lazy { getLogger(QueryVillage::class) }
 
 interface QueryVillage {
     @SqlQuery(
@@ -53,7 +56,7 @@ class VillageMapper : RowMapper<Village> {
             places.add(place)
             link = place.link
         }
-        println(village.toJson())
+        logger.debug(village.toJson())
         return village
     }
 }

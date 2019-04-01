@@ -28,8 +28,9 @@ class FFCApiClient(val host: String, val port: Int = 80) : AirSyncUi {
     private val server = Server(JettyServerTuning.threadPool)
 
     init {
-        println("Success sync data..")
-        println("Click http://$host:$port/index.html")
+        val logger = getLogger(this)
+        logger.info("Success sync data..")
+        logger.info("Click http://$host:$port/index.html")
         server.connectors = JettyServerTuning.getConnectors(server, host, port)
         server.handler = context
         server.addBean(JettyServerTuning.getMonitor(server))
