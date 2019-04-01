@@ -1,13 +1,12 @@
 package ffc.airsync.school
 
 import ffc.airsync.getLogger
+import ffc.airsync.utils.getLocation
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.place.Education
 import ffc.entity.place.School
-import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
-import org.jdbi.v3.core.result.ResultSetException
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
@@ -49,16 +48,7 @@ class SchoolMapper : RowMapper<School> {
             educationLevel = Education.byName(rs.getString("maxclass"))
             depend = rs.getString("depen")
             no = rs.getString("address")
-
-            try {
-                val xgis = rs.getDouble("xgis")
-                val ygis = rs.getDouble("ygis")
-                if ((xgis != 0.0) && (ygis != 0.0))
-                    location = Point(ygis, xgis)
-            } catch (ex: ResultSetException) {
-                logger.error("xgis, ygis Error", ex)
-            }
-
+            location = getLocation(rs)
             link = Link(System.JHICS)
             link?.keys?.put("pcucode", rs.getString("pcucode"))
             link?.keys?.put("villcode", rs.getString("villcode"))
