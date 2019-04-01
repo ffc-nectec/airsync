@@ -16,8 +16,8 @@
             <PatternLayout>
                 <pattern>%d %-5p [%t] %-5c{1} - %m%n</pattern>
             </PatternLayout>
-            <SizeBasedTriggeringPolicy size="5MB"/>
-            <DefaultRolloverStrategy max="10"/>
+            <SizeBasedTriggeringPolicy size="1MB"/>
+            <DefaultRolloverStrategy max="50"/>
         </RollingFile>
     </Appenders>
 
