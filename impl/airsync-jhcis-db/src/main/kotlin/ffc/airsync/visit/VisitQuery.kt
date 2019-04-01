@@ -1,6 +1,6 @@
 package ffc.airsync.visit
 
-import ffc.airsync.utils.printDebug
+import ffc.airsync.getLogger
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
@@ -19,6 +19,7 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
 import java.sql.ResultSet
 
+private val logger by lazy { getLogger(VisitQuery::class) }
 private const val visitQuery = """
 SELECT
 	visit.pcucode,
@@ -215,17 +216,18 @@ class VisitMapper : RowMapper<HealthCareService> {
                 if (timestart != null)
                     time = DateTime(visitdate).plus(timestart.time).minusHours(7)
                 else {
-                    printDebug("Visit timestart is null visitno:${rs.getString("visitno")}")
+                    logger.debug("Visit timestart is null visitno:${rs.getString("visitno")}")
                 }
 
                 rs.getTime("timeend")?.let { timeend ->
                     try {
                         endTime = DateTime(visitdate).plus(timeend.time).minusHours(7)
                     } catch (ex: java.lang.IllegalArgumentException) {
-                        printDebug(
+                        logger.error(
                             "Visit time end error " +
                                     "time=$time " +
-                                    "endtime=${DateTime(visitdate).plus(timeend.time).minusHours(7)} ${ex.message}"
+                                    "endtime=${DateTime(visitdate).plus(timeend.time).minusHours(7)} ${ex.message}",
+                            ex
                         )
                     }
                 }

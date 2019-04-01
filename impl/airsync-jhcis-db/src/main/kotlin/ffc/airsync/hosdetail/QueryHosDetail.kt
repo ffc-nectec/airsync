@@ -1,6 +1,6 @@
 package ffc.airsync.hosdetail
 
-import ffc.airsync.utils.printDebug
+import ffc.airsync.getLogger
 import ffc.entity.gson.toJson
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -8,8 +8,11 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import java.sql.ResultSet
 
+private val logger by lazy { getLogger(QueryHosDetail::class) }
+
 interface QueryHosDetail {
-    @SqlQuery("""
+    @SqlQuery(
+        """
 SELECT
 	office.offid as offid,
 	office.tel as tel,
@@ -27,7 +30,6 @@ FROM office
 }
 
 class HosDetailMapper : RowMapper<HashMap<String, String?>> {
-
     override fun map(rs: ResultSet, ctx: StatementContext): HashMap<String, String?> {
         val detailHos = HashMap<String, String?>()
 
@@ -37,7 +39,7 @@ class HosDetailMapper : RowMapper<HashMap<String, String?>> {
         detailHos["name"] = rs.getString("hosname")
         detailHos["province"] = rs.getString("provname")
 
-        printDebug("DetailHos ${detailHos.toJson()}")
+        logger.info("DetailHos ${detailHos.toJson()}")
         return detailHos
     }
 }
