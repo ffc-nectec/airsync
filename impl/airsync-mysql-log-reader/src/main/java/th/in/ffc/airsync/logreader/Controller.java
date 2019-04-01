@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import kotlin.Unit;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import th.in.ffc.airsync.logreader.filter.CreateHash;
 import th.in.ffc.airsync.logreader.filter.Filters;
 import th.in.ffc.airsync.logreader.filter.GetTimeFilter;
@@ -28,7 +30,7 @@ import th.in.ffc.airsync.logreader.filter.NowFilter;
 import th.in.ffc.airsync.logreader.filter.QueryFilter;
 
 public class Controller {
-
+    Logger logger = LogManager.getLogger(this);
     List<Filters> filters = Arrays.asList(
             new GetTimeFilter(Config.timePattern),
             new QueryFilter(Config.logpattern),
@@ -74,7 +76,7 @@ public class Controller {
         try {
             csvwritemodule = new CsvLogWriter(csvfilepath);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e, e);
         }
 
         try {
@@ -88,13 +90,13 @@ public class Controller {
                     if (!record.getLog().equals(""))
                         csvwritemodule.write(record);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.error(e, e);
                 }
                 return Unit.INSTANCE;
             });
             readLogFile.process();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e, e);
             onLogFileExceptionListener.ioException(e);
         }
     }
