@@ -18,7 +18,7 @@
 package ffc.airsync.client.webservice.webresources
 
 import ffc.airsync.client.webservice.module.FirebaseMessage
-import ffc.airsync.localweb.printDebug
+import ffc.airsync.localweb.getLogger
 import ffc.entity.Messaging
 import ffc.entity.gson.parseTo
 import javax.servlet.http.HttpServletRequest
@@ -34,17 +34,19 @@ import javax.ws.rs.core.Response
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/")
 class FirebaseResource {
+
+    private val logger by lazy { getLogger(this) }
     @POST
     @Path("/token")
     fun updateFirebaseToken(@Context req: HttpServletRequest, token: String): Response {
-        printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
-        printDebug("Firebase token $token")
+        logger.info("\nCall firebase update token by ip = " + req.remoteAddr)
+        logger.debug("Firebase token $token")
         val firebaseToken = token.parseTo<HashMap<String, String>>()
-        printDebug("Firebase token = $firebaseToken")
+        logger.trace("Firebase token = $firebaseToken")
 
         val fbm = FirebaseMessage.instant
 
-        printDebug("\tCall update Token")
+        logger.trace("\tCall update Token")
         fbm.updateToken(firebaseToken)
         return Response.status(Response.Status.CREATED).build()
     }
@@ -52,30 +54,30 @@ class FirebaseResource {
     @POST
     @Path("/event")
     fun updateFirebaseEvent(@Context req: HttpServletRequest, message: String): Response {
-        printDebug("\nCall firebase update token by ip = " + req.remoteAddr)
-        printDebug("\tFirebase message data $message")
+        logger.info("\nCall firebase update token by ip = " + req.remoteAddr)
+        logger.debug("\tFirebase message data $message")
         val event = message.parseTo<Payload>()
-        printDebug(
+        logger.debug(
             "\t\t" +
                     "Type = ${event.message.data.type} " +
                     "Url = ${event.message.data.url}"
         )
         val data = event.message.data
 
-        printDebug("\tGet data message")
+        logger.trace("\tGet data message")
         val fbm = FirebaseMessage.instant
 
-        printDebug("\t Check house type.")
+        logger.trace("\t Check house type.")
         try {
             if (data.type.isNotEmpty())
                 fbm.update(data)
             else
-                printDebug("\t\tNot type process in firebase")
+                logger.error("\t\tNot type process in firebase")
         } catch (ex: Exception) {
-            ex.printStackTrace()
+            logger.error(ex, ex)
             throw ex
         }
-        printDebug("End")
+        logger.trace("End update firebase event.")
         return Response.status(Response.Status.CREATED).build()
     }
 }

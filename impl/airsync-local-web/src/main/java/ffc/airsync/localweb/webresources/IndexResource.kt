@@ -17,7 +17,7 @@
 
 package ffc.airsync.client.webservice.webresources
 
-import ffc.airsync.localweb.printDebug
+import ffc.airsync.localweb.getLogger
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.PathParam
@@ -26,11 +26,12 @@ import javax.ws.rs.core.MediaType
 
 @Path("/")
 class IndexResource {
+    private val logger by lazy { getLogger(this) }
     @GET
     @Produces(MediaType.TEXT_HTML)
     @Path("/{webpart:(.*.html)}")
     fun getHtml(@PathParam("webpart") webPart: String): String {
-        printDebug("Get client html web $webPart")
+        logger.info("Get client html web $webPart")
         return loadFile(webPart)
     }
 
@@ -38,7 +39,7 @@ class IndexResource {
     @Produces("text/css")
     @Path("/{webpart:(.*.css)}")
     fun getCss(@PathParam("webpart") webPart: String): String {
-        printDebug("Get client css web $webPart")
+        logger.debug("Get client css web $webPart")
         return loadFile(webPart)
     }
 
@@ -46,7 +47,7 @@ class IndexResource {
     @Produces("application/json")
     @Path("/{webpart:(.*.json)}")
     fun getJson(@PathParam("webpart") webPart: String): String {
-        printDebug("Get client css web $webPart")
+        logger.debug("Get client css web $webPart")
         return loadFile(webPart)
     }
 
@@ -54,16 +55,16 @@ class IndexResource {
     @Produces("application/javascript")
     @Path("/{webpart:(.*.js)}")
     fun getJs(@PathParam("webpart") webPart: String): String {
-        printDebug("Get client js web $webPart")
+        logger.debug("Get client js web $webPart")
         return loadFile(webPart)
     }
 
     private fun loadFile(webPart: String): String {
-            var fileName = webPart.replace("\\.\\.", "")
-            fileName = fileName.replace("^[\\/]+", "")
+        var fileName = webPart.replace("\\.\\.", "")
+        fileName = fileName.replace("^[\\/]+", "")
 
-            printDebug("After filter = $fileName")
-            val classLoader = javaClass.classLoader
+        logger.debug("After filter = $fileName")
+        val classLoader = javaClass.classLoader
 
         return classLoader.getResource(fileName).readText()
     }
