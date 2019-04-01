@@ -17,7 +17,7 @@
 
 package ffc.airsync.house
 
-import ffc.airsync.utils.printDebug
+import ffc.airsync.getLogger
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.ThaiHouseholdId
@@ -36,6 +36,8 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
 import org.joda.time.DateTime
 import java.sql.ResultSet
 import java.sql.Timestamp
+
+private val logger by lazy { getLogger(QueryHouse::class) }
 
 interface QueryHouse {
     @SqlUpdate(
@@ -116,7 +118,7 @@ class HouseMapper : RowMapper<House> {
                 "villcode" to rs.getString("villcode")
             )
         }
-        printDebug("Read house database" + house.toJson())
+        logger.trace("Read house database" + house.toJson())
         return house
     }
 }

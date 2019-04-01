@@ -17,11 +17,11 @@
 
 package ffc.airsync
 
-import ffc.airsync.utils.printDebug
 import org.jdbi.v3.core.Jdbi
 
 inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R {
     var loop = 0
+    val logger by lazy { getLogger(this) }
     while (true) {
         try {
             return withExtension<R, E, RuntimeException>(E::class.java) {
@@ -29,11 +29,11 @@ inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R
             }
         } catch (ex: org.jdbi.v3.core.ConnectionException) {
             if (loop < 3) {
-                printDebug("JDBI Error Loop 1 Except $loop $ex")
+                logger.error("JDBI Error Loop 1 Except $loop $ex")
             } else throw ex
         } catch (ex: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException) {
             if (loop < 3) {
-                printDebug("JDBI Error Loop 2 Except $loop $ex")
+                logger.error("JDBI Error Loop 2 Except $loop $ex")
             } else throw ex
         } finally {
             loop++

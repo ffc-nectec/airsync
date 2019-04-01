@@ -2,7 +2,7 @@ package ffc.airsync.house
 
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.extension
-import ffc.airsync.utils.printDebug
+import ffc.airsync.getLogger
 import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.place.House
@@ -12,6 +12,7 @@ import javax.sql.DataSource
 class HouseJdbi(
     ds: DataSource? = null
 ) : MySqlJdbi(ds), HouseDao {
+    private val logger by lazy { getLogger(this) }
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
         val houses = jdbiDao.extension<QueryHouse, List<House>> { findThat() }
         houses.forEachIndexed { index, house ->
@@ -21,7 +22,7 @@ class HouseJdbi(
                 house.villageName = village.name
             }
 
-            printDebug("HouseXY = " + house.location + ", " + index)
+            logger.trace("HouseXY = " + house.location + ", " + index)
         }
         return houses
     }
@@ -43,8 +44,8 @@ class HouseJdbi(
             pcucode = house.link!!.keys["pcucode"].toString(),
             hcode = house.link!!.keys["hcode"].toString().toInt()
         )
-        printDebug("House update from could = ${houseUpdate.toJson()}")
+        logger.info("House update from could = ${houseUpdate.toJson()}")
         jdbiDao.extension<QueryHouse, Any> { update(houseUpdate) }
-        printDebug("\tFinish upateHouse")
+        logger.debug("\tFinish upateHouse")
     }
 }

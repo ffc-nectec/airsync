@@ -17,7 +17,7 @@
 
 package ffc.airsync.person
 
-import ffc.airsync.utils.printDebug
+import ffc.airsync.getLogger
 import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.System
@@ -34,6 +34,7 @@ import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.sql.ResultSet
 
+private val logger by lazy { getLogger(QueryPerson::class) }
 private const val baseSql = """
 SELECT
 	person.idcard,
@@ -136,7 +137,7 @@ class PersonMapper : RowMapper<Person> {
                         Person.Death(deaddate, disease.map { it.value })
                     }
                 } catch (ex: java.lang.IllegalArgumentException) {
-                    printDebug("Person deat error ${this.name}")
+                    logger.debug("Person deat error ${this.name}")
                     bundle["remove"] = true
                     null
                 }
