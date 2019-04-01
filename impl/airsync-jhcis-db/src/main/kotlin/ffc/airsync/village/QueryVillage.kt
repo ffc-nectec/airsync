@@ -8,6 +8,7 @@ import ffc.entity.Village
 import ffc.entity.gson.toJson
 import me.piruin.geok.geometry.Point
 import org.jdbi.v3.core.mapper.RowMapper
+import org.jdbi.v3.core.result.ResultSetException
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.jdbi.v3.sqlobject.statement.UseRowMapper
@@ -36,15 +37,18 @@ class VillageMapper : RowMapper<Village> {
     override fun map(rs: ResultSet, ctx: StatementContext): Village {
         val village = Village().apply {
             val place = Place().apply {
-                val longitude = rs.getString("longitude")?.toDoubleOrNull()
-                val latitude = rs.getString("latitude")?.toDoubleOrNull()
-
                 villageName = rs.getString("villname") ?: ""
 
-                if (longitude != null && latitude != null)
-                    if ((longitude != 0.0) && (latitude != 0.0))
-                        location = Point(longitude, latitude)
+                try {
+                    val longitude = rs.getString("longitude")?.toDoubleOrNull()
+                    val latitude = rs.getString("latitude")?.toDoubleOrNull()
 
+                    if (longitude != null && latitude != null)
+                        if ((longitude != 0.0) && (latitude != 0.0))
+                            location = Point(longitude, latitude)
+                } catch (ex: ResultSetException) {
+                    logger.error("Error xgis, ygix because convert error", ex)
+                }
                 link = Link(
                     System.JHICS,
                     "pcucode" to rs.getString("pcucode"),
