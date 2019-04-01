@@ -26,13 +26,13 @@ fun <T> callApi(
             return result!!
         } catch (ex: java.net.SocketTimeoutException) {
             if (loop > 5) throw ex
-            logger.error("Time out loop ${++loop}")
+            logger.warn("Time out loop ${++loop}")
         } catch (ex: ApiLoopException) {
             if (loop > 5) throw ex
-            logger.error("Loop api custom by user cannot return standard ${ex.message}")
+            logger.warn("Loop api custom by user cannot return standard ${ex.message}")
         } catch (ex: java.net.SocketException) {
             if (loop > 5) throw ex
-            logger.error("Socket error check network ${++loop}")
+            logger.warn("Socket error check network ${++loop}")
         } finally {
             loop++
             Thread.sleep(10000)
@@ -58,10 +58,10 @@ fun callApiNoReturn(call: () -> Unit) {
             return
         } catch (ex: java.net.SocketTimeoutException) {
             if (loop > 5) throw ex
-            logger.error("Time out loop $loop")
+            logger.warn("Time out loop $loop")
         } catch (ex: java.net.SocketException) {
             if (loop > 5) throw ex
-            logger.error("Socket error check network $loop")
+            logger.warn("Socket error check network $loop")
             Thread.sleep(10000)
         } finally {
             loop++

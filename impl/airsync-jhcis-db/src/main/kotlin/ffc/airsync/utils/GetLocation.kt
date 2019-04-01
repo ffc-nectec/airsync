@@ -20,7 +20,7 @@ fun getLocation(rs: ResultSet): Point? {
         else
             null
     } catch (ex: ResultSetException) {
-        logger.error("xgix, ygis error", ex)
+        logger.warn("xgix, ygis error", ex)
         null
     }
 }

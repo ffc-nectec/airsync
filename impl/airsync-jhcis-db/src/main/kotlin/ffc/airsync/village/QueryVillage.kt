@@ -47,7 +47,7 @@ class VillageMapper : RowMapper<Village> {
                         if ((longitude != 0.0) && (latitude != 0.0))
                             location = Point(longitude, latitude)
                 } catch (ex: ResultSetException) {
-                    logger.error("Error xgis, ygix because convert error", ex)
+                    logger.warn("Error xgis, ygix because convert error", ex)
                 }
                 link = Link(
                     System.JHICS,

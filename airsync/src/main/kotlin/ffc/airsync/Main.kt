@@ -111,7 +111,7 @@ internal class Main constructor(args: Array<String>) {
                 dd.remove("-runnow")
                 parser.parseArgument(dd.toList())
             } catch (cmd: CmdLineException) {
-                logger.error(cmd, cmd)
+                logger.warn(cmd, cmd)
             }
         } catch (ex: Exception) {
             errMessage("Init Error", "Init Error", ex)

@@ -114,7 +114,7 @@ private fun createNcd(rs: ResultSet): NCDScreen {
         bloodSugar = try {
             rs.getDouble("bloodSugar")
         } catch (ex: ResultSetException) {
-            logger.error("Cannot get bloodSugar pid=${rs.getString("pid")}", ex)
+            logger.warn("Cannot get bloodSugar pid=${rs.getString("pid")}", ex)
             null
         },
         weight = rs.getString("weight")?.toDoubleOrNull(),
