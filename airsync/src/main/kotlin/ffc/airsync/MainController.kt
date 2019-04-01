@@ -71,7 +71,7 @@ class MainController(val dao: DatabaseDao) {
         SetupDatabaseWatcher(dao)
         gui.createProgress("Setup", 4, 4, " Sync..")
         gui.remove("Setup")
-        gui.createMessage("Success", "ข้อมูล Sync แล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}")
+        gui.createMessage("Success", "ข้อมูล Sync สำเร็จแล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}")
         gui.enableSyncButton = true
         startLocalAirSyncServer()
     }
