@@ -77,7 +77,7 @@ internal class Main constructor(args: Array<String>) {
             print(getPathJarDir())
             exitProcess(0)
         }
-        logger.info("Run with BuildConfig.VERSION")
+        logger.info("Run with ${BuildConfig.VERSION}")
         gui.setHeader(BuildConfig.VERSION)
         logger.trace("Show gui")
         gui.showWIndows()
