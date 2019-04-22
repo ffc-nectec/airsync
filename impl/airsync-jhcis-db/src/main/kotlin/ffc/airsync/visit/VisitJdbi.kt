@@ -224,8 +224,8 @@ class VisitJdbi(
                 var providerId = ""
                 var patientId = ""
 
-                runtimeLookupUser = runBlocking {
-                    measureTimeMillis {
+                runtimeLookupUser = measureTimeMillis {
+                    runBlocking {
                         launch { providerId = lookupProviderId(healthCare.providerId) }
                         launch { patientId = lookupPatientId(healthCare.patientId) }
                     }
@@ -241,8 +241,8 @@ class VisitJdbi(
                     var ncdScreen: List<NCDScreen> = emptyList()
                     var homeVisit: List<HomeVisit> = emptyList()
 
-                    runtimeQueryDb = runBlocking {
-                        measureTimeMillis {
+                    runtimeQueryDb = measureTimeMillis {
+                        runBlocking {
                             launch { diagnosisIcd10 = getVisitDiag(visitNumber) }
                             launch { specislPP = specialPpList!![visitNumber] ?: emptyList() }
                             launch { ncdScreen = ncdScreenList!![visitNumber] ?: emptyList() }
@@ -250,8 +250,8 @@ class VisitJdbi(
                         }
                     }
 
-                    runtimeLookupApi = runBlocking {
-                        measureTimeMillis {
+                    runtimeLookupApi = measureTimeMillis {
+                        runBlocking {
                             launch { outputVisit.diagnosises = getDiagnosisIcd10(diagnosisIcd10, lookupDisease) }
 
                             launch {
