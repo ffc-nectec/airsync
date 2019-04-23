@@ -4,6 +4,7 @@ import ffc.airsync.Main
 import ffc.airsync.api.person.findByHouseCode
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.houseApi
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person

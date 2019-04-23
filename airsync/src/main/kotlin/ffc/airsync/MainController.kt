@@ -18,7 +18,6 @@
 package ffc.airsync
 
 import ffc.airsync.api.organization.LocalOrganization
-import ffc.airsync.api.organization.orgApi
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.provider.airSyncUiModule
 import ffc.airsync.ui.AirSyncGUI

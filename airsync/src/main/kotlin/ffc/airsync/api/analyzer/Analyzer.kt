@@ -1,5 +1,6 @@
 package ffc.airsync.api.analyzer
 
+import ffc.airsync.analyzerSyncApi
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService

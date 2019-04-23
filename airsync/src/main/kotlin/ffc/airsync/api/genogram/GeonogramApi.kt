@@ -11,6 +11,3 @@ interface GeonogramApi {
         progressCallback: (Int) -> Unit
     ): Map<String, List<Person.Relationship>>
 }
-
-val geonogramApi: GeonogramApi by lazy { RetrofitGeonogramApi() }
-val relation = arrayListOf<Person>()

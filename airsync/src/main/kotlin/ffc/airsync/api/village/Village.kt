@@ -3,6 +3,8 @@ package ffc.airsync.api.village
 import ffc.airsync.Main
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
+import ffc.airsync.villageApi
+import ffc.airsync.villages
 import ffc.entity.Village
 
 val VILLAGELOOKUP = { jVillageId: String ->

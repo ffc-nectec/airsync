@@ -8,6 +8,3 @@ interface AnalyzerSyncApi {
         progressCallback: (Int) -> Unit
     ): Map<String, HealthAnalyzer>
 }
-
-val analyzerSyncApi: AnalyzerSyncApi by lazy { RetofitAnalyzerSyncApi() }
-val analyzer = hashMapOf<String, HealthAnalyzer>()

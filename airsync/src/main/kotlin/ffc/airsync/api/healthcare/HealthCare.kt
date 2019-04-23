@@ -1,11 +1,12 @@
 package ffc.airsync.api.healthcare
 
 import ffc.airsync.Main
-import ffc.airsync.api.homehealthtype.homeHealthTypeApi
-import ffc.airsync.api.icd10.icd10Api
-import ffc.airsync.api.icd10.specialPpApi
-import ffc.airsync.api.person.persons
-import ffc.airsync.api.user.users
+import ffc.airsync.healthCareApi
+import ffc.airsync.homeHealthTypeApi
+import ffc.airsync.icd10Api
+import ffc.airsync.persons
+import ffc.airsync.specialPpApi
+import ffc.airsync.users
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService
