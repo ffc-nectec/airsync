@@ -1,6 +1,7 @@
 package ffc.airsync.gui.drawable
 
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.AirSyncGUI.CoutDown
 import ffc.airsync.ui.AirSyncGUI.Message
 import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
@@ -57,6 +58,11 @@ class AirSyncGUIController : AirSyncGUI {
             }
             is Message -> {
                 CreateMessageItem(listComponent, data, airsync).create(width, height)
+            }
+            is CoutDown -> {
+                CreateCountDownItem(listComponent, data, airsync) {
+                    remove(data.first)
+                }.create(width, height)
             }
         }
     }
