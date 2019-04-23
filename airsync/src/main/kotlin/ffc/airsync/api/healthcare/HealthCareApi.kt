@@ -17,6 +17,3 @@ interface HealthCareApi {
 
     fun updateHealthCare(healthCareService: HealthCareService): HealthCareService
 }
-
-val healthCareApi: HealthCareApi by lazy { RetofitHealthCareApi() }
-val healthCare = arrayListOf<HealthCareService>()

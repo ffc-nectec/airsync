@@ -8,7 +8,7 @@ import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
 import ffc.entity.Person
 
-class RetrofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), GeonogramApi {
+class RetofitGeonogramApi : RetofitApi<GenogramUrl>(GenogramUrl::class.java), GeonogramApi {
     private val logger by lazy { getLogger(this) }
     override fun put(personId: String, relationship: List<Person.Relationship>): List<Person.Relationship> {
         val relationLastUpdate = arrayListOf<Person.Relationship>()

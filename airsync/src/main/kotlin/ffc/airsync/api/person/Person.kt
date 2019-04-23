@@ -1,8 +1,9 @@
 package ffc.airsync.api.person
 
 import ffc.airsync.Main
-import ffc.airsync.api.icd10.icd10Api
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.icd10Api
+import ffc.airsync.personApi
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save

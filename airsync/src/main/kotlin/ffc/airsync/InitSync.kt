@@ -1,23 +1,16 @@
 package ffc.airsync
 
-import ffc.airsync.api.analyzer.analyzer
 import ffc.airsync.api.analyzer.initSync
 import ffc.airsync.api.chronic.Chronics
 import ffc.airsync.api.genogram.initRelation
-import ffc.airsync.api.genogram.relation
-import ffc.airsync.api.healthcare.healthCare
 import ffc.airsync.api.healthcare.initSync
-import ffc.airsync.api.house.houses
 import ffc.airsync.api.house.initSync
 import ffc.airsync.api.person.gets
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.person.mapChronic
-import ffc.airsync.api.person.persons
 import ffc.airsync.api.template.TemplateInit
 import ffc.airsync.api.user.initSync
-import ffc.airsync.api.user.users
 import ffc.airsync.api.village.initSync
-import ffc.airsync.api.village.villages
 import ffc.airsync.gui.ProgressList
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.createProgress
