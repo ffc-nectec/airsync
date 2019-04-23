@@ -72,6 +72,8 @@ class MainController(val dao: DatabaseDao) {
         gui.remove("Setup")
         gui.createMessage("Success", "ข้อมูล Sync เข้าระบบสำเร็จแล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}")
         gui.enableSyncButton = true
+        gui.callGetOtp = { otpApi.get() }
+        gui.enableOtp = true
         startLocalAirSyncServer()
     }
 

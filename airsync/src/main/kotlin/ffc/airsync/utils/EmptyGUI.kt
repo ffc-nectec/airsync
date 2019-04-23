@@ -41,4 +41,8 @@ class EmptyGUI : AirSyncGUI {
     override var enableOtp: Boolean
         get() = false
         set(value) {}
+
+    override var callGetOtp: () -> String
+        get() = { "" }
+        set(value) {}
 }
