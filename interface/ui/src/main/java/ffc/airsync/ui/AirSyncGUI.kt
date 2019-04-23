@@ -17,6 +17,7 @@ interface AirSyncGUI {
     fun setLocation(x: Int, y: Int)
     fun createRightClick(x: Int, y: Int)
     fun hideRightClick()
+    var callGetOtp: () -> String
     var enableOtp: Boolean
     var enableSyncButton: Boolean
 

@@ -25,6 +25,7 @@ class AirSyncGUIController : AirSyncGUI {
     val listComponent = hashMapOf<KEY, Component>()
     val width = airsync.statusPanel.width - 10
     val height = 55
+    var otp: () -> String = { "999 999" }
 
     init {
         val screenSize = getScreenSize()
@@ -38,7 +39,7 @@ class AirSyncGUIController : AirSyncGUI {
         airsync.otpButton.font = kanitBold.deriveFont(22f)
         airsync.otpCallback = MainGUI.Callback {
             airsync.otpButton.isEnabled = false
-            createCountDownMessage("otp", "999 999", 60)
+            createCountDownMessage("otp", callGetOtp(), 60)
             Thread {
                 runBlocking {
                     delay(65000)
@@ -136,5 +137,10 @@ class AirSyncGUIController : AirSyncGUI {
         get() = airsync.otpButton.isEnabled
         set(value) {
             airsync.otpButton.isEnabled = value
+        }
+    override var callGetOtp: () -> String
+        get() = otp
+        set(value) {
+            otp = value
         }
 }
