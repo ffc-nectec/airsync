@@ -19,6 +19,14 @@ public class MainGUI extends javax.swing.JFrame {
     /**
      * Creates new form PopUpGui
      */
+    Callback otpCallback = () -> {
+    };
+
+    interface Callback {
+
+        void callback();
+    }
+
     public MainGUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setType(Type.UTILITY);
@@ -48,6 +56,7 @@ public class MainGUI extends javax.swing.JFrame {
         statusPanel = new javax.swing.JPanel();
         footer = new javax.swing.JPanel();
         openWeb = new javax.swing.JButton();
+        otpButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(51, 255, 0));
         setForeground(java.awt.Color.white);
@@ -120,17 +129,27 @@ public class MainGUI extends javax.swing.JFrame {
             }
         });
 
+        otpButton.setText("OTP");
+        otpButton.setEnabled(false);
+        otpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                otpButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
         footerLayout.setHorizontalGroup(
             footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, footerLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(otpButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(openWeb, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         footerLayout.setVerticalGroup(
             footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(openWeb, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(otpButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         openWeb.getAccessibleContext().setAccessibleDescription("");
@@ -168,6 +187,10 @@ public class MainGUI extends javax.swing.JFrame {
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         setVisible(false);
     }//GEN-LAST:event_closeButtonActionPerformed
+
+    private void otpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otpButtonActionPerformed
+        otpCallback.callback();
+    }//GEN-LAST:event_otpButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +241,7 @@ public class MainGUI extends javax.swing.JFrame {
     private javax.swing.JPanel headerPanel;
     public javax.swing.JLabel icon;
     public javax.swing.JButton openWeb;
+    public javax.swing.JButton otpButton;
     public javax.swing.JPanel statusPanel;
     public javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables

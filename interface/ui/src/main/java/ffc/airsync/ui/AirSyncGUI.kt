@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 typealias KEY = String
 
 interface AirSyncGUI {
-    fun set(data: Pair<KEY, Any>)
+    fun cretaeItemList(data: Pair<KEY, Any>)
     fun createMessageDelay(message: String, type: MESSAGE_TYPE = MESSAGE_TYPE.OK, delay: Long = 1000)
     fun remove(key: KEY)
     fun hideWindows()
@@ -17,6 +17,7 @@ interface AirSyncGUI {
     fun setLocation(x: Int, y: Int)
     fun createRightClick(x: Int, y: Int)
     fun hideRightClick()
+    var enableOtp: Boolean
     var enableSyncButton: Boolean
 
     data class ProgressData(val current: Int, val max: Int, val message: String? = null)
@@ -29,15 +30,15 @@ interface AirSyncGUI {
 }
 
 fun AirSyncGUI.createProgress(key: String, current: Int, max: Int, message: String? = null) {
-    this.set(key to AirSyncGUI.ProgressData(current, max, message))
+    this.cretaeItemList(key to AirSyncGUI.ProgressData(current, max, message))
 }
 
 fun AirSyncGUI.createMessage(key: String, message: String, type: AirSyncGUI.MESSAGE_TYPE = AirSyncGUI.MESSAGE_TYPE.OK) {
-    this.set(key to AirSyncGUI.Message(message, type))
+    this.cretaeItemList(key to AirSyncGUI.Message(message, type))
 }
 
 fun AirSyncGUI.createCountDownMessage(key: String, message: String, count: Int) {
-    this.set(key to AirSyncGUI.CoutDown(message, count))
+    this.cretaeItemList(key to AirSyncGUI.CoutDown(message, count))
 }
 
 fun AirSyncGUI.delayRemove(key: String, delayTime: Long = 500) {
