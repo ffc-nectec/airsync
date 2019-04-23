@@ -2,6 +2,7 @@ package ffc.airsync.gui
 
 import ffc.airsync.BuildConfig
 import ffc.airsync.provider.createArisyncGui
+import ffc.airsync.ui.createCountDownMessage
 import ffc.airsync.ui.createMessage
 import ffc.airsync.ui.createProgress
 import org.junit.Ignore
@@ -22,6 +23,9 @@ class AirSyncGUITest {
         gui.remove("House")
         gui.enableSyncButton = true
         gui.createMessage("Person", "Person \r\nSuccess")
+        Thread.sleep(1000)
+        println("Create countdown")
+        gui.createCountDownMessage("count", "123 432", 50)
         while (true)
             Thread.sleep(10000)
     }
