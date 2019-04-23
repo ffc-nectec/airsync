@@ -5,10 +5,12 @@ import ffc.airsync.ui.AirSyncGUI.CoutDown
 import ffc.airsync.ui.AirSyncGUI.Message
 import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
+import ffc.airsync.ui.createCountDownMessage
 import ffc.airsync.ui.createMessage
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.awt.Component
 import javax.swing.ImageIcon
 import kotlin.random.Random
@@ -33,6 +35,17 @@ class AirSyncGUIController : AirSyncGUI {
         )
         setSyncIcon()
         setLogoIcon()
+        airsync.otpButton.font = kanitBold.deriveFont(22f)
+        airsync.otpCallback = MainGUI.Callback {
+            airsync.otpButton.isEnabled = false
+            createCountDownMessage("otp", "999 999", 60)
+            Thread {
+                runBlocking {
+                    delay(65000)
+                    airsync.otpButton.isEnabled = true
+                }
+            }.start()
+        }
         val icon = "close.png".getImageScalingResource(airsync.closeButton.width, airsync.closeButton.height)
         airsync.closeButton.icon = ImageIcon(icon)
         airsync.headerLabel.font = kanitMedium.deriveFont(airsync.headerLabel.font.size2D)
@@ -51,7 +64,7 @@ class AirSyncGUIController : AirSyncGUI {
         icon.icon = ImageIcon(image)
     }
 
-    override fun set(data: Pair<KEY, Any>) {
+    override fun cretaeItemList(data: Pair<KEY, Any>) {
         when (data.second) {
             is ProgressData -> {
                 CreateProgreassDataItem(listComponent, data, airsync).create(width, height)
@@ -118,5 +131,10 @@ class AirSyncGUIController : AirSyncGUI {
         get() = airsync.openWeb.isEnabled
         set(value) {
             airsync.openWeb.isEnabled = value
+        }
+    override var enableOtp: Boolean
+        get() = airsync.otpButton.isEnabled
+        set(value) {
+            airsync.otpButton.isEnabled = value
         }
 }

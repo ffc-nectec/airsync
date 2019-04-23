@@ -4,7 +4,7 @@ import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.KEY
 
 class EmptyGUI : AirSyncGUI {
-    override fun set(data: Pair<KEY, Any>) {
+    override fun cretaeItemList(data: Pair<KEY, Any>) {
     }
 
     override fun createMessageDelay(message: String, type: AirSyncGUI.MESSAGE_TYPE, delay: Long) {
@@ -35,6 +35,10 @@ class EmptyGUI : AirSyncGUI {
     }
 
     override var enableSyncButton: Boolean
+        get() = false
+        set(value) {}
+
+    override var enableOtp: Boolean
         get() = false
         set(value) {}
 }
