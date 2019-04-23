@@ -11,9 +11,7 @@ internal class CreateMessageItem(
     val data: Pair<KEY, Any>,
     val airsync: MainGUI
 ) {
-
     fun create(width: Int, height: Int) {
-
         if (listComponent[data.first] == null) {
             val newCheckData = SuccessConfirm()
             newCheckData.preferredSize = Dimension(width, height)
