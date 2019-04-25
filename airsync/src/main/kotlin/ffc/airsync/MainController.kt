@@ -25,6 +25,7 @@ import ffc.airsync.ui.createMessage
 import ffc.airsync.ui.createProgress
 import ffc.airsync.ui.delayRemove
 import ffc.airsync.utils.getDataStore
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.toBuddistString
 import ffc.entity.Organization
 import ffc.entity.Token
@@ -72,7 +73,10 @@ class MainController(val dao: DatabaseDao) {
         gui.remove("Setup")
         gui.createMessage("Success", "ข้อมูล Sync เข้าระบบสำเร็จแล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}")
         gui.enableSyncButton = true
-        gui.callGetOtp = { otpApi.get() }
+        gui.callGetOtp = {
+            getLogger(this).info("Get otp")
+            otpApi.get()
+        }
         gui.enableOtp = true
         startLocalAirSyncServer()
     }
