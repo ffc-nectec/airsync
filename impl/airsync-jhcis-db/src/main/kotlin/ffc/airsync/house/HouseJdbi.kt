@@ -1,5 +1,6 @@
 package ffc.airsync.house
 
+import ffc.airsync.Dao
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.extension
 import ffc.airsync.getLogger
@@ -9,7 +10,7 @@ import ffc.entity.place.House
 import java.sql.Timestamp
 
 class HouseJdbi(
-    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+    val jdbiDao: Dao = MySqlJdbi(null)
 ) : HouseDao {
     private val logger by lazy { getLogger(this) }
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {

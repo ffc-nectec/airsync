@@ -19,7 +19,7 @@ package ffc.airsync
 
 import org.jdbi.v3.core.Jdbi
 
-inline fun <reified E, reified R> MySqlJdbi.extension(crossinline call: E.() -> R): R {
+inline fun <reified E, reified R> Dao.extension(crossinline call: E.() -> R): R {
     return instant.extension(call)
 }
 

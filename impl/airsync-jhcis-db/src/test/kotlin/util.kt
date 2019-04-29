@@ -1,5 +1,6 @@
-import ffc.airsync.db.DatabaseDao
 import ffc.airsync.JdbiDao
+import ffc.airsync.MySqlJdbi
+import ffc.airsync.db.DatabaseDao
 import org.h2.jdbcx.JdbcConnectionPool
 import java.sql.DriverManager
 
@@ -18,5 +19,5 @@ fun JdbiDao.createTest(): DatabaseDao {
 
     conn.createStatement().executeQuery("create database jhcisdb")
 
-    return JdbiDao(ds = ds)
+    return JdbiDao(MySqlJdbi(ds))
 }
