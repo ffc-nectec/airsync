@@ -28,25 +28,11 @@ interface VisitDao {
 
     fun getHealthCareService(
         lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String
-    ): List<HealthCareService>
-
-    fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        progressCallback: (Int) -> Unit = {}
-    ): List<HealthCareService>
-
-    fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        whereString: String,
+        whereString: String = "",
         progressCallback: (Int) -> Unit = {}
     ): List<HealthCareService>
 

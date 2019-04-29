@@ -43,9 +43,7 @@ interface DatabaseDao {
 
     fun findPerson(pcucode: String, pid: Long): Person
 
-    fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House>
-
-    fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House>
+    fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String = ""): List<House>
 
     fun getChronic(): List<Chronic>
 
@@ -53,27 +51,16 @@ interface DatabaseDao {
 
     fun queryMaxVisit(): Long
 
-    fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String
-    ): List<HealthCareService>
-
-    fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        progressCallback: (Int) -> Unit = {}
-    ): List<HealthCareService>
-
+    /**
+     * 3
+     */
     fun getHealthCareService(
         lookupPatientId: (pid: String) -> String,
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Disease?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        whereString: String,
+        whereString: String = "",
         progressCallback: (Int) -> Unit = {}
     ): List<HealthCareService>
 

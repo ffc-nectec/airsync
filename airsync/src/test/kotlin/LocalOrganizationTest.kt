@@ -75,10 +75,6 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
@@ -106,17 +102,6 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        progressCallback: (Int) -> Unit
-    ): List<HealthCareService> {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getVillage(): List<Village> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
@@ -130,13 +115,6 @@ class TestDao : DatabaseDao {
     }
 
     override fun getTemple(): List<ReligiousPlace> {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String
-    ): List<HealthCareService> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 

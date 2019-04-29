@@ -2,12 +2,9 @@ package ffc.airsync.visit
 
 import ffc.airsync.Dao
 import ffc.airsync.MySqlJdbi
-import ffc.airsync.disease.QueryDisease
 import ffc.airsync.extension
 import ffc.airsync.getLogger
-import ffc.airsync.healthtype.QueryHomeHealthType
 import ffc.airsync.ncds.NCDscreenQuery
-import ffc.airsync.specialpp.LookupSpecialPP
 import ffc.airsync.specialpp.SpecialppQuery
 import ffc.entity.Person
 import ffc.entity.healthcare.CommunityService
@@ -143,47 +140,6 @@ class VisitJdbi(
             add(insertData)
         }
         jdbiDao.extension<VisitQuery, Unit> { insertVisit(listVisitData) }
-    }
-
-    override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String
-    ): List<HealthCareService> {
-        return getHealthCareService(
-            lookupPatientId, lookupProviderId,
-            lookupDisease = { icd10 ->
-                jdbiDao.extension<QueryDisease, List<Disease>> {
-                    get(icd10)
-                }.firstOrNull()
-            },
-            lookupServiceType = { serviceId ->
-                jdbiDao.extension<QueryHomeHealthType, List<CommunityService.ServiceType>> {
-                    get(serviceId)
-                }.firstOrNull()
-            },
-            lookupSpecialPP = { ppCode ->
-                jdbiDao.extension<LookupSpecialPP, List<SpecialPP.PPType>> { get(ppCode) }.firstOrNull()
-            }
-        )
-    }
-
-    override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        progressCallback: (Int) -> Unit
-    ): List<HealthCareService> {
-        return getHealthCareService(
-            lookupPatientId,
-            lookupProviderId,
-            lookupDisease,
-            lookupSpecialPP,
-            lookupServiceType,
-            "",
-            progressCallback
-        )
     }
 
     override fun getHealthCareService(
