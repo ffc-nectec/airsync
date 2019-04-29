@@ -57,7 +57,7 @@ import ffc.entity.place.School
 import java.io.File
 
 class JdbiDao(
-    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+    val jdbiDao: Dao = MySqlJdbi(null)
 ) : DatabaseDao {
 
     val houses: HouseDao by lazy { HouseJdbi(jdbiDao) }

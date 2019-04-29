@@ -1,11 +1,12 @@
 package ffc.airsync.template
 
+import ffc.airsync.Dao
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.extension
 import ffc.entity.Template
 
 class TemplateJdbi(
-    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+    val jdbiDao: Dao = MySqlJdbi(null)
 ) : TemplateDao {
     override fun get(): List<Template> {
         val output = arrayListOf<Template>()

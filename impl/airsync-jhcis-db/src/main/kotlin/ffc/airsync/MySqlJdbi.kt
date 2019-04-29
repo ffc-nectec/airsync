@@ -12,7 +12,7 @@ import javax.sql.DataSource
 
 class MySqlJdbi(
     var ds: DataSource? = null
-) {
+) : Dao {
 
     init {
         setupJdbiInstant()
@@ -32,7 +32,7 @@ class MySqlJdbi(
         }
     }
 
-    val instant get() = jdbiDao
+    override val instant get() = jdbiDao
 
     private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")

@@ -1,5 +1,6 @@
 package ffc.airsync.visit
 
+import ffc.airsync.Dao
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.disease.QueryDisease
 import ffc.airsync.extension
@@ -25,7 +26,7 @@ import java.util.Queue
 import kotlin.system.measureTimeMillis
 
 class VisitJdbi(
-    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+    val jdbiDao: Dao = MySqlJdbi(null)
 ) : VisitDao {
     private val logger by lazy { getLogger(this) }
     override fun createHomeVisit(
