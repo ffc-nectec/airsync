@@ -94,10 +94,6 @@ class JdbiDao(
         return persons.find(pcucode, pid).first()
     }
 
-    override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
-        return houses.getHouse(lookupVillage)
-    }
-
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House> {
         return houses.getHouse(lookupVillage, whereString)
     }
@@ -154,31 +150,6 @@ class JdbiDao(
     @Deprecated("ย้ายไป Dao")
     override fun getTemple(): List<ReligiousPlace> {
         return jdbiDao.extension<QueryTemple, List<ReligiousPlace>> { get() }
-    }
-
-    override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String
-    ): List<HealthCareService> {
-        return visit.getHealthCareService(lookupPatientId, lookupProviderId)
-    }
-
-    override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> ServiceType?,
-        progressCallback: (Int) -> Unit
-    ): List<HealthCareService> {
-        return visit.getHealthCareService(
-            lookupPatientId,
-            lookupProviderId,
-            lookupDisease,
-            lookupSpecialPP,
-            lookupServiceType,
-            progressCallback
-        )
     }
 
     override fun getHealthCareService(

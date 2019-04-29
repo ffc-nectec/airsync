@@ -13,7 +13,7 @@ class HouseJdbi(
     val jdbiDao: Dao = MySqlJdbi(null)
 ) : HouseDao {
     private val logger by lazy { getLogger(this) }
-    override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
+    private fun getHouseNoWhere(lookupVillage: (jVillageId: String) -> Village?): List<House> {
         val houses = jdbiDao.extension<QueryHouse, List<House>> { findThat() }
         houses.forEachIndexed { index, house ->
             val village = lookupVillage(house.link?.keys?.get("villcode")?.toString() ?: "")
@@ -28,7 +28,7 @@ class HouseJdbi(
     }
 
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House> {
-        if (whereString.isBlank()) return arrayListOf()
+        if (whereString.isBlank()) return getHouseNoWhere(lookupVillage)
         return jdbiDao.extension<QueryHouse, List<House>> { findThat(whereString) }
     }
 
