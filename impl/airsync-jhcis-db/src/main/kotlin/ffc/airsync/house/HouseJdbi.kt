@@ -7,11 +7,10 @@ import ffc.entity.Village
 import ffc.entity.gson.toJson
 import ffc.entity.place.House
 import java.sql.Timestamp
-import javax.sql.DataSource
 
 class HouseJdbi(
-    ds: DataSource? = null
-) : MySqlJdbi(ds), HouseDao {
+    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+) : HouseDao {
     private val logger by lazy { getLogger(this) }
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?): List<House> {
         val houses = jdbiDao.extension<QueryHouse, List<House>> { findThat() }

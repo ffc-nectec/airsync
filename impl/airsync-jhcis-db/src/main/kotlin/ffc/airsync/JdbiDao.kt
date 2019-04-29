@@ -17,7 +17,6 @@
 
 package ffc.airsync
 
-import ffc.airsync.MySqlJdbi.Companion.jdbiDao
 import ffc.airsync.business.QueryBusiness
 import ffc.airsync.chronic.ChronicDao
 import ffc.airsync.chronic.ChronicJdbi
@@ -56,21 +55,20 @@ import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
 import java.io.File
-import javax.sql.DataSource
 
 class JdbiDao(
-    var ds: DataSource? = null
+    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
 ) : DatabaseDao {
 
-    val houses: HouseDao by lazy { HouseJdbi(ds) }
-    val visit: VisitDao by lazy { VisitJdbi(ds) }
-    val persons: PersonDao by lazy { PersonJdbi(ds) }
-    val hos: HosDao by lazy { HosDetailJdbi(ds) }
-    val users: UserDao by lazy { UserJdbi(ds) }
-    val chronic: ChronicDao by lazy { ChronicJdbi(ds) }
-    val village: VillageDao by lazy { VillageJdbi(ds) }
-    val template: TemplateDao by lazy { TemplateJdbi(ds) }
-    val configFromDb: GetMySqlVariable by lazy { MySqlVariableJdbi(ds) }
+    val houses: HouseDao by lazy { HouseJdbi(jdbiDao) }
+    val visit: VisitDao by lazy { VisitJdbi(jdbiDao) }
+    val persons: PersonDao by lazy { PersonJdbi(jdbiDao) }
+    val hos: HosDao by lazy { HosDetailJdbi(jdbiDao) }
+    val users: UserDao by lazy { UserJdbi(jdbiDao) }
+    val chronic: ChronicDao by lazy { ChronicJdbi(jdbiDao) }
+    val village: VillageDao by lazy { VillageJdbi(jdbiDao) }
+    val template: TemplateDao by lazy { TemplateJdbi(jdbiDao) }
+    val configFromDb: GetMySqlVariable by lazy { MySqlVariableJdbi(jdbiDao) }
 
     override fun init() {
         val baseDir = File(configFromDb.mysqlLocation())

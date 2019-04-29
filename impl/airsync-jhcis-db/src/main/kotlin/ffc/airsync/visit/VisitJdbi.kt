@@ -22,12 +22,11 @@ import kotlinx.coroutines.runBlocking
 import org.joda.time.LocalDate
 import java.util.LinkedList
 import java.util.Queue
-import javax.sql.DataSource
 import kotlin.system.measureTimeMillis
 
 class VisitJdbi(
-    ds: DataSource? = null
-) : MySqlJdbi(ds), VisitDao {
+    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+) : VisitDao {
     private val logger by lazy { getLogger(this) }
     override fun createHomeVisit(
         homeVisit: HomeVisit,
