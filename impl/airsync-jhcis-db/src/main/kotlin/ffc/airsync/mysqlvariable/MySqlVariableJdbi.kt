@@ -2,11 +2,10 @@ package ffc.airsync.mysqlvariable
 
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.extension
-import javax.sql.DataSource
 
 class MySqlVariableJdbi(
-    ds: DataSource? = null
-) : MySqlJdbi(ds), GetMySqlVariable {
+    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+) : GetMySqlVariable {
     override fun mysqlLocation(): String {
         return jdbiDao.extension<QueryMySqlVariable, String> { getBaseDir().first() }
     }

@@ -19,6 +19,10 @@ package ffc.airsync
 
 import org.jdbi.v3.core.Jdbi
 
+inline fun <reified E, reified R> MySqlJdbi.extension(crossinline call: E.() -> R): R {
+    return instant.extension(call)
+}
+
 inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R {
     var loop = 0
     val logger by lazy { getLogger(this) }

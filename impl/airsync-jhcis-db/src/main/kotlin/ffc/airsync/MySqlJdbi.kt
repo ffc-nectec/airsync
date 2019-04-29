@@ -10,22 +10,29 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin
 import org.jdbi.v3.sqlobject.kotlin.KotlinSqlObjectPlugin
 import javax.sql.DataSource
 
-abstract class MySqlJdbi(
+class MySqlJdbi(
     var ds: DataSource? = null
 ) {
+
+    init {
+        setupJdbiInstant()
+    }
+
     companion object {
-        lateinit var jdbiDao: Jdbi
+        private lateinit var jdbiDao: Jdbi
         private var dbConfig: DatabaseConfig? = null
     }
 
-    init {
+    private fun setupJdbiInstant() {
         if (dbConfig == null) dbConfig = DatabaseConfig()
         try {
             jdbiDao.toString()
-        } catch (ex: kotlin.UninitializedPropertyAccessException) {
+        } catch (ex: UninitializedPropertyAccessException) {
             jdbiDao = createJdbi()
         }
     }
+
+    val instant get() = jdbiDao
 
     private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")

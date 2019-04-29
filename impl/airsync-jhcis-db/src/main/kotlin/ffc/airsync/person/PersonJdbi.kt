@@ -3,11 +3,10 @@ package ffc.airsync.person
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.extension
 import ffc.entity.Person
-import javax.sql.DataSource
 
 class PersonJdbi(
-    ds: DataSource? = null
-) : MySqlJdbi(ds), PersonDao {
+    val jdbiDao: MySqlJdbi = MySqlJdbi(null)
+) : PersonDao {
     override fun get(): List<Person> {
         return jdbiDao.extension<QueryPerson, List<Person>> { get() }
     }
