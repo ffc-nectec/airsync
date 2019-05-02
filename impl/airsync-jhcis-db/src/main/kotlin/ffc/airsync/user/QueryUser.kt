@@ -34,6 +34,7 @@ class UserMapper : RowMapper<User> {
         return User().update {
             name = rs.getString("username")
             password = rs.getString("password")
+            roles.add(User.Role.PROVIDER)
             link = Link(System.JHICS).apply {
                 keys["username"] = name
                 keys["pcucode"] = rs.getString("pcucode")

@@ -106,6 +106,7 @@ class LocalOrganization(
         logger.debug("Get user from database")
         name = "airsync$hosId"
         password = UUID.randomUUID().toString().replace("-", "")
-        role = User.Role.ORG
+        roles.add(User.Role.ADMIN)
+        roles.add(User.Role.SYNC_AGENT)
     }
 }
