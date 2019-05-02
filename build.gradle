@@ -24,7 +24,7 @@ group 'ffc.airsync'
 version = gitVersion()
 
 ext {
-    entitiesVersion = 'dev-SNAPSHOT'
+    entitiesVersion = '9aa10c47cd'
     jdbiVersion = "3.1.0"
     h2Version = '1.4.197'
 }
