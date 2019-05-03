@@ -5,10 +5,14 @@ import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.ui.createCountDownMessage
 import ffc.airsync.ui.createMessage
 import ffc.airsync.ui.createProgress
+import ffc.airsync.utils.toBuddistString
+import org.joda.time.DateTime
 import org.junit.Ignore
+import org.junit.Test
 
+@Ignore("Example")
 class AirSyncGUITest {
-    @Ignore("Example")
+    @Test
     fun gui() {
         val gui = createArisyncGui()
         gui.setHeader(BuildConfig.VERSION)
@@ -25,8 +29,23 @@ class AirSyncGUITest {
         gui.createMessage("Person", "Person \r\nSuccess")
         Thread.sleep(1000)
         println("Create countdown")
-        gui.createCountDownMessage("count", "123 432", 50)
+        gui.createCountDownMessage("count", "123 432", 60)
+        live()
+    }
+
+    private fun live() {
         while (true)
             Thread.sleep(10000)
+    }
+
+    @Test
+    fun showOtp() {
+        val gui = createArisyncGui()
+        gui.setHeader(BuildConfig.VERSION)
+        gui.showWIndows()
+        gui.createMessage("Success", "ข้อมูล Sync เข้าระบบสำเร็จแล้ว\r\nล่าสุด ${DateTime.now().toBuddistString()}")
+        gui.enableOtp = true
+        gui.callGetOtp = { "123 432" }
+        live()
     }
 }
