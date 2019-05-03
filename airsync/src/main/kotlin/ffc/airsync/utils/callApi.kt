@@ -27,15 +27,17 @@ fun <T> callApi(
         } catch (ex: java.net.SocketTimeoutException) {
             if (loop > 5) throw ex
             logger.warn("Time out loop ${++loop}")
+            Thread.sleep(10000)
         } catch (ex: ApiLoopException) {
             if (loop > 5) throw ex
             logger.warn("Loop api custom by user cannot return standard ${ex.message}")
+            Thread.sleep(10000)
         } catch (ex: java.net.SocketException) {
             if (loop > 5) throw ex
             logger.warn("Socket error check network ${++loop}")
+            Thread.sleep(10000)
         } finally {
             loop++
-            Thread.sleep(10000)
         }
     }
 }

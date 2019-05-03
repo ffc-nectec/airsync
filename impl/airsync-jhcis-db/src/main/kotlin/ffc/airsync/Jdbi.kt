@@ -31,13 +31,14 @@ inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R
             if (loop < 3) {
                 logger.warn("JDBI Error Loop 1 Except $loop $ex")
             } else throw ex
+            Thread.sleep(3000)
         } catch (ex: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException) {
             if (loop < 3) {
                 logger.warn("JDBI Error Loop 2 Except $loop $ex")
             } else throw ex
+            Thread.sleep(3000)
         } finally {
             loop++
-            Thread.sleep(3000)
         }
     }
 }
