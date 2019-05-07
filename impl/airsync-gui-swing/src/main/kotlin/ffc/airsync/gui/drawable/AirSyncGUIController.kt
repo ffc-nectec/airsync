@@ -39,8 +39,8 @@ class AirSyncGUIController : AirSyncGUI {
         airsync.otpButton.font = kanitBold.deriveFont(22f)
         airsync.otpCallback = MainGUI.Callback {
             airsync.otpButton.isEnabled = false
-            createCountDownMessage("otp", callGetOtp(), 60)
             Thread {
+                createCountDownMessage("otp", callGetOtp(), 60)
                 runBlocking {
                     delay(65000)
                     airsync.otpButton.isEnabled = true
