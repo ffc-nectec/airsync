@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(":interface:json-upgrade")
+    compile 'org.mongodb:bson:3.10.2'
+}
