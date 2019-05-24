@@ -154,6 +154,8 @@ private const val visitQueryLast1Year = visitQuery + """
     visit.timestart IS NOT NULL
 		AND
 	visit.timeend IS NOT NULL
+        AND
+    visit.pid <> 0
 """
 
 private const val visitQueryWhere = visitQuery + """
