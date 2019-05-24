@@ -186,8 +186,8 @@ class VisitJdbi(
                         launch { patientId = lookupPatientId(healthCare.patientId) }
                     }
                 }
-                check(providerId.isNotBlank()) { "visit ไม่พบ ผู้ให้บริการ" }
-                check(patientId.isNotBlank()) { "visit ไม่พบ ผู้ใช้บริการ" }
+                check(providerId.isNotBlank()) { "visit ไม่พบ ผู้ให้บริการชื่อ ${healthCare.providerId}" }
+                check(patientId.isNotBlank()) { "visit ไม่พบ ผู้ใช้บริการ pid ${healthCare.patientId}" }
 
                 outputVisit = copyVisit(providerId, patientId, healthCare)
                 outputVisit.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
