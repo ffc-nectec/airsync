@@ -26,6 +26,7 @@ class LogReader(
     val delay: Long = 300,
     val isTest: Boolean = false,
     val tableMaps: Map<String, List<String>>,
+    val lookupIsShutdown: () -> Boolean = { false },
     val onLogInput: (tableName: String, keyWhere: List<String>) -> Unit
 ) : DatabaseWatcherDao {
     private var lineManage: LineManage = when {
@@ -33,6 +34,8 @@ class LogReader(
         else -> LineManage("log.cfg")
     }
     private val keyFilters = arrayListOf<GetWhere>()
+    private val shutdown: () -> Boolean = lookupIsShutdown
+    private var readLogFile: TextFileReader? = null
 
     init {
         keyFilters.add(Update())
@@ -44,6 +47,10 @@ class LogReader(
         thread.start()
     }
 
+    override var isShutdown: Boolean
+        get() = shutdown()
+        set(value) {
+        }
     private val startWithBeforeTable = arrayListOf<String>().apply {
         add("insert into")
         add("update")
@@ -60,8 +67,9 @@ class LogReader(
     )
 
     private fun readSingleLogFileRealTime() {
-        val readLogFile = TextFileReader(filepath, true, delay)
-        readLogFile.setListener(lineManage) { record ->
+        readLogFile = TextFileReader(filepath, true, delay)
+        readLogFile?.setListener(lineManage) { record ->
+            if (shutdown()) readLogFile?.stop()
             if (record.linenumber > lineManage.getLastLineNumber()) {
                 loadFilters.forEach {
                     it.process(record)
@@ -79,7 +87,7 @@ class LogReader(
                 }
             }
         }
-        readLogFile.process()
+        readLogFile?.process()
     }
 
     private fun callBack(tableInLog: String, key: List<String>) {
