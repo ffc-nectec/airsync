@@ -4,6 +4,7 @@ import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.getLogger
+import ffc.airsync.utils.jobFFC
 import ffc.airsync.utils.save
 import ffc.entity.copy
 import ffc.entity.healthcare.HealthCareService
@@ -25,7 +26,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         }
 
         ffc.airsync.provider.databaseWatcher(
-            Config.logfilepath, filter
+            Config.logfilepath, filter, { isShutdown }
         ) { tableName, keyWhere ->
             logger.info("Database watcher $tableName $keyWhere")
             when (tableName) {
@@ -36,69 +37,75 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
     }
 
     private fun houseEvent(keyWhere: List<String>) {
-        if (keyWhere.size == 1) {
-            val house = dao.getHouse(VILLAGELOOKUP, keyWhere.first())
-            house.forEach {
-                try {
-                    val houseSync = findHouseWithKey(it)
-                    houseSync.update(it.timestamp) {
-                        road = it.road
-                        no = it.no
-                        location = it.location
-                        link!!.isSynced = true
-                    }
+        jobFFC {
+            if (keyWhere.size == 1) {
+                val house = dao.getHouse(VILLAGELOOKUP, keyWhere.first())
+                house.forEach {
+                    try {
+                        val houseSync = findHouseWithKey(it)
+                        houseSync.update(it.timestamp) {
+                            road = it.road
+                            no = it.no
+                            location = it.location
+                            link!!.isSynced = true
+                        }
 
-                    houseApi.syncHouseToCloud(houseSync)
-                } catch (ignore: NullPointerException) {
+                        houseApi.syncHouseToCloud(houseSync)
+                    } catch (ignore: NullPointerException) {
+                    }
                 }
             }
         }
     }
 
     private fun visitEvent(keyWhere: List<String>, tableName: String) {
-        when (keyWhere.size) {
-            1 -> {
-                val aggregateRegex =
-                    Regex("""^.*pcucode[` ]+?=[' ]+?(\d+)[' ]+?.*visitno[` ]+?=[' ]+?(\d+)[' ]+?.*$""")
-                val updateWhere = keyWhere.first()
-                val aggregate = aggregateRegex.matchEntire(updateWhere)?.groupValues
+        jobFFC {
+            when (keyWhere.size) {
+                1 -> {
+                    val aggregateRegex =
+                        Regex("""^.*pcucode[` ]+?=[' ]+?(\d+)[' ]+?.*visitno[` ]+?=[' ]+?(\d+)[' ]+?.*$""")
+                    val updateWhere = keyWhere.first()
+                    val aggregate = aggregateRegex.matchEntire(updateWhere)?.groupValues
 
-                if (aggregate?.size == 3)
-                    visitToCloud(aggregate, updateWhere)
-            }
-            2 -> {
-                logger.debug("Insert where")
-            }
-        }
-
-        logger.debug("visit t:$tableName k:$keyWhere")
-    }
-
-    private fun visitToCloud(aggregate: List<String>, updateWhere: String) {
-        val pcucode = aggregate[1]
-        val visitno = aggregate[2].toLongOrNull()
-        visitno?.let { visitNo ->
-            val healthcareDb = getHealthCareFromDb(updateWhere)
-
-            val oldmat = healthCare.find {
-                val checkPcuCode = it.link?.keys?.get("pcucode").toString() == pcucode
-                val checkVisitNumber =
-                    it.link?.keys?.get("visitno").toString() == visitNo.toString()
-                checkPcuCode && checkVisitNumber
-            }
-
-            if (oldmat == null) {
-                val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) {} }
-                healthCare.addAll(healcareCloud)
-            } else {
-                healthcareDb.forEach { it ->
-                    it.link = oldmat.link
-                    it.link?.isSynced = true
-                    healthCareApi.updateHealthCare(it.copy(oldmat.id))
+                    if (aggregate?.size == 3)
+                        visitToCloud(aggregate, updateWhere)
+                }
+                2 -> {
+                    logger.debug("Insert where")
                 }
             }
 
-            healthCare.save()
+            logger.debug("visit t:$tableName k:$keyWhere")
+        }
+    }
+
+    private fun visitToCloud(aggregate: List<String>, updateWhere: String) {
+        jobFFC {
+            val pcucode = aggregate[1]
+            val visitno = aggregate[2].toLongOrNull()
+            visitno?.let { visitNo ->
+                val healthcareDb = getHealthCareFromDb(updateWhere)
+
+                val oldmat = healthCare.find {
+                    val checkPcuCode = it.link?.keys?.get("pcucode").toString() == pcucode
+                    val checkVisitNumber =
+                        it.link?.keys?.get("visitno").toString() == visitNo.toString()
+                    checkPcuCode && checkVisitNumber
+                }
+
+                if (oldmat == null) {
+                    val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) {} }
+                    healthCare.addAll(healcareCloud)
+                } else {
+                    healthcareDb.forEach { it ->
+                        it.link = oldmat.link
+                        it.link?.isSynced = true
+                        healthCareApi.updateHealthCare(it.copy(oldmat.id))
+                    }
+                }
+
+                healthCare.save()
+            }
         }
     }
 

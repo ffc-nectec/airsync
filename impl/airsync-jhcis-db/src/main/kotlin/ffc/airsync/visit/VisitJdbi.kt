@@ -104,7 +104,7 @@ class VisitJdbi(
         )
 
         val updateResult = jdbiDao.extension<VisitQuery, Number> { updateVisit(visitData) }
-        check(updateResult == 1)
+        check(updateResult == 1) { "เกิดการ update มากกว่า 1 แถว visitno=${visitData.visitno}" }
 
         healthCareService.buildInsertDiag(pcucode, visitNum, username).forEach {
             jdbiDao.extension<VisitDiagQuery, Unit> {

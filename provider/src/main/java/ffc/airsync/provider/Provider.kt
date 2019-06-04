@@ -37,7 +37,9 @@ fun databaseDaoModule(): DatabaseDao = JdbiDao()
 fun databaseWatcher(
     filepath: String,
     tableMaps: Map<String, List<String>>,
+    lookupIsShutdown: () -> Boolean,
     onLogInput: (tableName: String, keyWhere: List<String>) -> Unit
-): DatabaseWatcherDao = LogReader(filepath, tableMaps = tableMaps, onLogInput = onLogInput)
+): DatabaseWatcherDao =
+    LogReader(filepath, tableMaps = tableMaps, onLogInput = onLogInput, lookupIsShutdown = lookupIsShutdown)
 
 fun createArisyncGui(): AirSyncGUI = AirSyncGUIController()

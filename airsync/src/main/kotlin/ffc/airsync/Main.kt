@@ -50,6 +50,13 @@ private const val API = "https://api.ffc.in.th"
 // private const val API = "http://127.0.0.1:8080"
 private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
 private val logger = getLogger(Main::class.java)
+private var shutdown = false
+
+var isShutdown
+    set(value) {
+        if (!shutdown) shutdown = value
+    }
+    get() = shutdown
 
 internal class Main constructor(args: Array<String>) {
     @Option(name = "-api", usage = "Api url Ex. https://ffc-nectec.herokuapp.com ")
@@ -164,6 +171,7 @@ internal class Main constructor(args: Array<String>) {
 }
 
 fun main(args: Array<String>) {
+    Runtime.getRuntime().addShutdownHook(ShutdownHook())
     try {
         Main(args).run()
     } catch (ex: org.jdbi.v3.core.ConnectionException) {
