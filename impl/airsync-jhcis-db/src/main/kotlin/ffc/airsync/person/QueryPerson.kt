@@ -33,6 +33,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.sql.ResultSet
+import java.sql.SQLException
 
 private val logger by lazy { getLogger(QueryPerson::class) }
 private const val baseSql = """
@@ -139,6 +140,9 @@ class PersonMapper : RowMapper<Person> {
                 } catch (ex: java.lang.IllegalArgumentException) {
                     logger.debug("Person deat error ${this.name}")
                     bundle["remove"] = true
+                    null
+                } catch (ex: SQLException) {
+                    logger.error(ex.message, ex)
                     null
                 }
             }
