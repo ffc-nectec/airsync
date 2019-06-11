@@ -83,6 +83,7 @@ class NCDscreenMapperAll : RowMapper<HashMap<Long, NCDScreen>> {
 }
 
 private fun createNcd(rs: ResultSet): NCDScreen {
+    val pid = rs.getString("pid") // Use for error.
     return NCDScreen(
         providerId = rs.getString("user_update"),
         patientId = "",
@@ -114,7 +115,7 @@ private fun createNcd(rs: ResultSet): NCDScreen {
         bloodSugar = try {
             rs.getDouble("bloodSugar")
         } catch (ex: ResultSetException) {
-            logger.warn("Cannot get bloodSugar pid=${rs.getString("pid")}", ex)
+            logger.warn("Cannot get bloodSugar pid=$pid", ex)
             null
         },
         weight = rs.getString("weight")?.toDoubleOrNull(),
@@ -128,13 +129,17 @@ private fun createNcd(rs: ResultSet): NCDScreen {
         }
     ).update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
 
-        rs.getDate("screen_date").let {
-            time = DateTime(it)
+        try {
+            rs.getDate("screen_date")?.let {
+                time = DateTime(it)
+            }
+        } catch (ex: SQLException) {
+            logger.error("screen_date ของ pid $pid ผิดไปจากรูปแบบปกติ ${ex.message}", ex)
         }
 
         link = Link(System.JHICS)
         rs.getString("pcucode")?.let { link!!.keys["pcucode"] = it }
-        rs.getString("pid")?.let { link!!.keys["pid"] = it }
+        pid?.let { link!!.keys["pid"] = it }
         rs.getString("no")?.let { link!!.keys["no"] = it }
         try {
             rs.getString("screen_date")?.let { link!!.keys["screen_date"] = it }
