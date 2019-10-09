@@ -25,7 +25,7 @@ private fun jobRemove(job: Any): Int {
 }
 
 fun jobFFC(t: () -> Unit) {
-    jobAdd(t)
+    // jobAdd(t)
     t()
-    jobRemove(t)
+    // jobRemove(t)
 }
