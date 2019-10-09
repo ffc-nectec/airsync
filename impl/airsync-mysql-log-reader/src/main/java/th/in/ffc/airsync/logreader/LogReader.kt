@@ -18,14 +18,14 @@ import java.util.regex.Pattern
  * @param filepath ที่อยู่ของ log file
  * @param delay ค่าหน่วงเวลาในการตรวจสอบ
  * @param isTest ใช้สำหรับกำหนดที่เก็บบันทึก config ของตัว logreader
- * @param tableMaps Filter สำหรับกรอง Table
+ * @param tablesPattern Filter สำหรับกรอง Table
  * @param onLogInput callback จะถูกเรียกเมื่อพบ log ที่ระบุไว้ใน tableMaps
  */
 class LogReader(
     private val filepath: String,
     val delay: Long = 300,
     val isTest: Boolean = false,
-    val tableMaps: Map<String, List<String>>,
+    val tablesPattern: Map<String, List<String>>,
     val lookupIsShutdown: () -> Boolean = { false },
     val onLogInput: (tableName: String, keyWhere: List<String>) -> Unit
 ) : DatabaseWatcherDao {
@@ -90,12 +90,12 @@ class LogReader(
         readLogFile?.process()
     }
 
-    private fun callBack(tableInLog: String, key: List<String>) {
+    private fun callBack(tableNameStringInLog: String, sqlWhereString: List<String>) {
 
-        tableMaps.forEach loop@{ k, v ->
-            v.forEach { value ->
-                if (tableInLog == value) {
-                    onLogInput(k, key)
+        tablesPattern.forEach loop@{ tableKeyName, tablePattern ->
+            tablePattern.forEach { pattern ->
+                if (tableNameStringInLog == pattern) {
+                    onLogInput(tableKeyName, sqlWhereString)
                     return@loop
                 }
             }
