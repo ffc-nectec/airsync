@@ -41,6 +41,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
     ): ArrayList<HealthCareService> {
         val fixSizeCake = 100
         val healthCareSize = healthCare.size / fixSizeCake
+        logger.info("Create health care total ${healthCare.size}")
         UploadSpliter.upload(fixSizeCake, healthCare) { it, index ->
 
             val result = callApi {

@@ -31,7 +31,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             logger.info("Database watcher $tableName $keyWhere")
             when (tableName) {
                 "house" -> houseEvent(keyWhere)
-                "visit" -> visitEvent(keyWhere, tableName)
+                "visit" -> visitEvent(keyWhere)
             }
         }.start()
     }
@@ -58,7 +58,11 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         }
     }
 
-    private fun visitEvent(keyWhere: List<String>, tableName: String) {
+    /**
+     * เมื่อเกิดเหตุการที่ตาราง visit ให้ทำ
+     * @param keyWhere ค่า where จาก sql
+     */
+    private fun visitEvent(keyWhere: List<String>) {
         jobFFC {
             when (keyWhere.size) {
                 1 -> {
@@ -70,16 +74,16 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                     if (aggregate?.size == 3)
                         visitToCloud(aggregate, updateWhere)
                 }
-                2 -> {
-                    logger.debug("Insert where")
+                else -> {
+                    logger.warn("Insert where size ${keyWhere.size}")
                 }
             }
-
-            logger.debug("visit t:$tableName k:$keyWhere")
+            logger.debug("visit k:$keyWhere")
         }
     }
 
     private fun visitToCloud(aggregate: List<String>, updateWhere: String) {
+        logger.info("Create new visit to cloud")
         jobFFC {
             val pcucode = aggregate[1]
             val visitno = aggregate[2].toLongOrNull()
