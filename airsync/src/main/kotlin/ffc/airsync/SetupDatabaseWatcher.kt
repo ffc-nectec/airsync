@@ -20,13 +20,17 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
     private val logger by lazy { getLogger(this) }
 
     private fun databaseWatcher() {
-        val filter = hashMapOf<String, List<String>>().apply {
+        /**
+         * รูปแบบคือ ชื่อ , list รูปแบบ table string ที่จะให้ตรวจจับ
+         * แต่ยังไม่ได้แยกว่า เป็น select, update, delete
+         */
+        val tablesPattern = hashMapOf<String, List<String>>().apply {
             put("house", listOf("house", "`house`", "`jhcisdb`.`house`"))
             put("visit", listOf("visit", "`visit`"))
         }
 
         ffc.airsync.provider.databaseWatcher(
-            Config.logfilepath, filter, { isShutdown }
+            Config.logfilepath, tablesPattern, { isShutdown }
         ) { tableName, keyWhere ->
             logger.info("Database watcher $tableName $keyWhere")
             when (tableName) {
@@ -66,13 +70,24 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         jobFFC {
             when (keyWhere.size) {
                 1 -> {
-                    val aggregateRegex =
-                        Regex("""^.*pcucode[` ]+?=[' ]+?(\d+)[' ]+?.*visitno[` ]+?=[' ]+?(\d+)[' ]+?.*$""")
-                    val updateWhere = keyWhere.first()
-                    val aggregate = aggregateRegex.matchEntire(updateWhere)?.groupValues
-
-                    if (aggregate?.size == 3)
-                        visitToCloud(aggregate, updateWhere)
+                    val sqlWhere = keyWhere.first()
+                    val pattern = listOf(
+                        Regex("""^.*pcucode`?='?(\d+)'?.*visitno`?='?(\d+)'?.*$""")
+                    )
+                    val visitMatchValue: (List<Regex>, String) -> List<String> =
+                        { reg, where ->
+                            var output = listOf<String>()
+                            reg.forEach {
+                                val match = it.matchEntire(where)?.groupValues
+                                if (match?.size == 3 && output.isEmpty()) {
+                                    output = match
+                                }
+                            }
+                            output
+                        }
+                    val aggregate = visitMatchValue(pattern, sqlWhere)
+                    if (aggregate.size == 3)
+                        visitToCloud(aggregate, sqlWhere)
                 }
                 else -> {
                     logger.warn("Insert where size ${keyWhere.size}")
