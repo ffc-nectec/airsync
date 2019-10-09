@@ -25,7 +25,7 @@ class HowToUse {
     @Ignore("How to use LogReader")
     fun exampleLogReader() {
 
-        val logReader = LogReader(Config.logfilepath, tableMaps = filter) { tableName, keyWhere ->
+        val logReader = LogReader(Config.logfilepath, tablesPattern = filter) { tableName, keyWhere ->
             println("Table:$tableName,Where:$keyWhere")
         }
 

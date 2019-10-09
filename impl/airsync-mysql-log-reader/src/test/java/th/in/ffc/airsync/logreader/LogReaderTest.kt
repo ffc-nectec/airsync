@@ -29,7 +29,7 @@ class LogReaderTest {
             logfile,
             isTest = true,
             delay = 100,
-            tableMaps = filter,
+            tablesPattern = filter,
             onLogInput = { tableName,
                 keyWhere ->
 
