@@ -72,7 +72,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                 1 -> {
                     val sqlWhere = keyWhere.first()
                     val pattern = listOf(
-                        Regex("""^.*pcucode`?='?(\d+)'?.*visitno`?='?(\d+)'?.*$""")
+                        Regex("""^.*pcucode[` ]?='?(\d+)'?.*visitno[` ]?='?(\d+)'?.*$""")
                     )
                     val visitMatchValue: (List<Regex>, String) -> List<String> =
                         { reg, where ->
@@ -105,21 +105,21 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             visitno?.let { visitNo ->
                 val healthcareDb = getHealthCareFromDb(updateWhere)
 
-                val oldmat = healthCare.find {
+                val oldHealthcare = healthCare.find {
                     val checkPcuCode = it.link?.keys?.get("pcucode").toString() == pcucode
                     val checkVisitNumber =
                         it.link?.keys?.get("visitno").toString() == visitNo.toString()
                     checkPcuCode && checkVisitNumber
                 }
 
-                if (oldmat == null) {
+                if (oldHealthcare == null) {
                     val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) {} }
                     healthCare.addAll(healcareCloud)
                 } else {
                     healthcareDb.forEach { it ->
-                        it.link = oldmat.link
+                        it.link = oldHealthcare.link
                         it.link?.isSynced = true
-                        healthCareApi.updateHealthCare(it.copy(oldmat.id))
+                        healthCareApi.updateHealthCare(it.copy(oldHealthcare.id))
                     }
                 }
 

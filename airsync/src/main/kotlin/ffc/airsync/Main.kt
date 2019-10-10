@@ -171,7 +171,7 @@ internal class Main constructor(args: Array<String>) {
 }
 
 fun main(args: Array<String>) {
-    Runtime.getRuntime().addShutdownHook(ShutdownHook())
+    // Runtime.getRuntime().addShutdownHook(ShutdownHook())
     try {
         Main(args).run()
     } catch (ex: org.jdbi.v3.core.ConnectionException) {
