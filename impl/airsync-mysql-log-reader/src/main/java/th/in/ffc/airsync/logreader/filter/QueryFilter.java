@@ -31,7 +31,7 @@ public class QueryFilter implements Filters {
 
     @Override
     public QueryRecord process(QueryRecord record) {
-        Matcher matcher = logpattern.matcher(record.getLog());
+        Matcher matcher = logpattern.matcher(record.getLog().toLowerCase());
         if (matcher.find()) {
             record.setLog(record.getLog().replaceFirst("^.*Query( {7}|\\t)", ""));
         } else {

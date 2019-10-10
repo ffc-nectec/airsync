@@ -51,7 +51,7 @@ class LogReader(
         get() = shutdown()
         set(value) {
         }
-    private val startWithBeforeTable = arrayListOf<String>().apply {
+    private val prefixSql = arrayListOf<String>().apply {
         add("insert into")
         add("update")
         add("delete from")
@@ -80,7 +80,7 @@ class LogReader(
 
                 if (record.log.isNotBlank()) {
                     val tableInLog = getTable(record.log)
-                    val key = getPrimaryKey(record)
+                    val key = getPrimaryKey(record.log)
                     callBack(tableInLog, key)
 
                     lineManage.setLastLineNumber(record.linenumber)
@@ -102,11 +102,11 @@ class LogReader(
         }
     }
 
-    private fun getPrimaryKey(record: QueryRecord): List<String> {
+    private fun getPrimaryKey(record: String): List<String> {
         var key1 = listOf<String>()
         keyFilters.forEach {
             if (key1.isEmpty())
-                key1 = it.get(record.log)
+                key1 = it.get(record)
         }
         return key1
     }
@@ -115,7 +115,7 @@ class LogReader(
      * ดึงชื่อตารางออกมาจาก บรรทัดการ query
      */
     private fun getTable(logLine: String): String {
-        startWithBeforeTable.forEach { it ->
+        prefixSql.forEach { it ->
             if (logLine.startsWith(it)) {
                 val pattern = Pattern.compile("""^$it +(`?[\w\d]+`?(\.?`?[\w\d]+`?)?) ?""", Pattern.CASE_INSENSITIVE)
                 val tableMatch = pattern.matcher(logLine.trim())
