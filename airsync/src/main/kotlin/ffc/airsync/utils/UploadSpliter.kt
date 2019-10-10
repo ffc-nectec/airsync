@@ -27,16 +27,16 @@ object UploadSpliter {
         val size = cakePound.size
 
         cakePound.forEachIndexed { index, it ->
-            var log = "Run ${index + 1}"
+            var log = "กำลังใส่ชุดข้อมูลที่ Cloud ชุดที่ ${index + 1}"
             val time = measureTimeMillis {
-                log += (":$size ....")
+                log += (" จากจำนวนทั้งหมด $size ชุด....")
                 howToPutCake(it, index + 1)
             }
             runtime += time
             val realIndex = index + 1
             val timeString = ((size - realIndex) * (runtime / realIndex)).toStringTime()
-            log += "push $timeString"
-            logger.debug(log)
+            log += "ประมาณเวลาเสร็จ $timeString"
+            logger.info(log)
         }
     }
 
