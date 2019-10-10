@@ -55,7 +55,13 @@ private fun List<Person>.mapHouseId(
     forEachIndexed { index, it ->
         if (it.link != null) {
             val hcodePerson = (it.link!!.keys["hcode"] as String)
-            val house = houseFromCloud.find { it.link?.keys?.get("hcode") as String == hcodePerson }
+            val house = houseFromCloud.find {
+                val hcode = (it.link?.keys?.get("hcode") ?: "") as String
+                if (hcode.isNotBlank())
+                    hcode == hcodePerson
+                else
+                    false
+            }
             if (house != null)
                 it.houseId = house.id
             else
@@ -65,25 +71,25 @@ private fun List<Person>.mapHouseId(
     }
 }
 
+/**
+ * นำคนมาแมพหา chronic
+ */
 fun List<Person>.mapChronic(chronic: List<Chronic>) {
     forEach {
-        if (it.link == null) false
-
-        val personPid = it.link!!.keys["pid"] as String
-        if (personPid.isBlank()) false
-
-        val chronicPerson = chronic.filter {
-            if (it.link == null) false
-
-            val chronicPid = it.link!!.keys["pid"] as String
-            if (chronicPid.isBlank()) false
-
-            (chronicPid == personPid)
+        if (it.link != null) {
+            val personPid = it.link!!.keys["pid"] as String
+            if (personPid.isNotBlank()) {
+                val chronicPerson = chronic.filter {
+                    if (it.link != null) {
+                        val chronicPid = (it.link!!.keys["pid"] ?: "") as String
+                        (chronicPid == personPid)
+                    } else
+                        false
+                }
+                if (chronicPerson.isNotEmpty())
+                    it.chronics.addAll(chronicPerson)
+            }
         }
-
-        if (chronicPerson.isEmpty()) false
-
-        it.chronics.addAll(chronicPerson)
     }
 }
 
