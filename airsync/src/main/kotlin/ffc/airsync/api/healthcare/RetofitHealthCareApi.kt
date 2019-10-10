@@ -72,7 +72,8 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
                 }
             }
             healthCareLastUpdate.addAll(result)
-            progressCallback(((index * 50) / healthCareSize) + 50)
+            if (healthCareSize != 0) // fix bug หากยังไม่มี visit จะสร้างครั้งแรกจะถูกหารด้วย 0 จะ error
+                progressCallback(((index * 50) / healthCareSize) + 50)
         }
         return healthCareLastUpdate
     }
