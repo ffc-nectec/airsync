@@ -26,7 +26,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
          */
         val tablesPattern = hashMapOf<String, List<String>>().apply {
             put("house", listOf("house", "`house`", "`jhcisdb`.`house`"))
-            put("visit", listOf("visit", "`visit`"))
+            put("visit", listOf("visit", "`visit`", " visit ", "visitdrug", "visithomehealthindividual"))
         }
 
         ffc.airsync.provider.databaseWatcher(
@@ -69,7 +69,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
     private fun visitEvent(keyWhere: List<String>) {
         jobFFC {
             when (keyWhere.size) {
-                1 -> {
+                1 -> {// พฤติกรรมของ update where
                     val sqlWhere = keyWhere.first()
                     val pattern = listOf(
                         Regex("""^.*pcucode[` ]?='?(\d+)'?.*visitno[` ]?='?(\d+)'?.*$""")
@@ -86,8 +86,21 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                             output
                         }
                     val aggregate = visitMatchValue(pattern, sqlWhere)
-                    if (aggregate.size == 3)
-                        visitToCloud(aggregate, sqlWhere)
+                    if (aggregate.size == 3) {
+                        val pcucode = aggregate[1]
+                        val visitno = aggregate[2].toLongOrNull()
+                        visitToCloud(pcucode, visitno, sqlWhere)
+                    }
+                }
+                2 -> {// พฤติกรรม Insert
+                    val map = keyWhereIsInsertQueryToMapKeyValue(keyWhere)
+                    val pcucode = map["pcucode"]
+                    val visitno = map["visitno"]?.toLongOrNull()
+
+                    if (pcucode != null) {
+                        val sqlWhere = "pcucode ='$pcucode' AND visitno ='$visitno'"
+                        visitToCloud(pcucode, visitno, sqlWhere)
+                    }
                 }
                 else -> {
                     logger.warn("Insert where size ${keyWhere.size}")
@@ -97,11 +110,21 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         }
     }
 
-    private fun visitToCloud(aggregate: List<String>, updateWhere: String) {
+    private fun keyWhereIsInsertQueryToMapKeyValue(keyWhere: List<String>): HashMap<String, String> {
+        val sqlSetKey = keyWhere.first().replace(Regex("""['`]"""), "").split(',')
+        val sqlValueKey = keyWhere.last().replace(Regex("""['`]"""), "").split(',')
+        val map = hashMapOf<String, String>()
+        if (sqlSetKey.size == sqlValueKey.size) {
+            sqlSetKey.forEachIndexed { index, key ->
+                map[key] = sqlValueKey[index]
+            }
+        }
+        return map
+    }
+
+    private fun visitToCloud(pcucode: String, visitno: Long?, updateWhere: String) {
         logger.info("Create new visit to cloud")
         jobFFC {
-            val pcucode = aggregate[1]
-            val visitno = aggregate[2].toLongOrNull()
             visitno?.let { visitNo ->
                 val healthcareDb = getHealthCareFromDb(updateWhere)
 

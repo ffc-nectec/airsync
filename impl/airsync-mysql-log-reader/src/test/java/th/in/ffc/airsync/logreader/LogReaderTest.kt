@@ -22,7 +22,7 @@ class LogReaderTest {
 
         val filter = hashMapOf<String, List<String>>().apply {
             put("house", listOf("house", "`house`", "`jhcisdb`.`house`"))
-            put("visit", listOf("visit", "`visit`"))
+            put("visit", listOf("visit", "`visit`", " visit ", "visitdrug", "visithomehealthindividual"))
         }
 
         readLogFile = LogReader(
@@ -58,6 +58,7 @@ class LogReaderTest {
 
         table.get() `should be equal to` "visit"
         key.get() `should be equal to` """`pcucode`,`visitno`,`visitdate`,`pcucodeperson`,`pid`,`flagservice`,`username`,`rightcode`,`rightno`,`hosmain`,`hossub`,`dateupdate`"""
+
         writer.print("""		      3 Query       UPDATE `house` SET `hno`='78/5' WHERE  `pcucode`='07934' AND `hcode`=305""")
         writer.flush()
         Thread.sleep(200)
@@ -68,6 +69,7 @@ class LogReaderTest {
         writer.println("""181210  3:38:46       1 Query       UPDATE `jhcisdb`.`house` SET `hno`='cmyk' WHERE  `pcucode`='01092' AND `hcode`=7364""")
         writer.flush()
         Thread.sleep(200)
+
         table.get() `should be equal to` "house"
         key.get() `should be equal to` """`pcucode`='01092' AND `hcode`=7364"""
 
