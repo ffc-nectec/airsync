@@ -23,6 +23,7 @@ import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 
 internal class RetofitAPIClient {
 
@@ -31,18 +32,31 @@ internal class RetofitAPIClient {
 
         val createTempDir = createTempDir(prefix, "airsync")
         logger.debug("Retofit temp dir ${createTempDir.absolutePath}")
-        val cacheSize = Cache(createTempDir, cacheKbyte * 1024L)
-
-        val client = OkHttpClient
-            .Builder()
-            .cache(cacheSize)
-            .addInterceptor(DefaultInterceptor())
-            .build()
+        val client = if (cacheKbyte > 0)
+            okHttpClientCache(createTempDir, cacheKbyte)
+        else
+            okHttpClientNoCache()
 
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(ffcGson))
+            .build()
+    }
+
+    private fun okHttpClientCache(createTempDir: File, cacheKbyte: Int): OkHttpClient {
+        val cacheSize = Cache(createTempDir, cacheKbyte * 1024L)
+        return OkHttpClient
+            .Builder()
+            .cache(cacheSize)
+            .addInterceptor(DefaultInterceptor())
+            .build()
+    }
+
+    private fun okHttpClientNoCache(): OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .addInterceptor(DefaultInterceptor())
             .build()
     }
 }
