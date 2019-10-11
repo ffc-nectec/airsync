@@ -69,7 +69,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
     private fun visitEvent(keyWhere: List<String>) {
         jobFFC {
             when (keyWhere.size) {
-                1 -> {// พฤติกรรมของ update where
+                1 -> { // พฤติกรรมของ update where
                     val sqlWhere = keyWhere.first()
                     val pattern = listOf(
                         Regex("""^.*pcucode[` ]?='?(\d+)'?.*visitno[` ]?='?(\d+)'?.*$""")
@@ -92,7 +92,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                         visitToCloud(pcucode, visitno, sqlWhere)
                     }
                 }
-                2 -> {// พฤติกรรม Insert
+                2 -> { // พฤติกรรม Insert
                     val map = keyWhereIsInsertQueryToMapKeyValue(keyWhere)
                     val pcucode = map["pcucode"]
                     val visitno = map["visitno"]?.toLongOrNull()
