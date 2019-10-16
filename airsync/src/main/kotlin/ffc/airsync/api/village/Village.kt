@@ -29,9 +29,8 @@ fun ArrayList<Village>.initSync() {
     } else {
         addAll(cacheFile)
         checkNewDataCreate(jhcisVillage, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
-            getLogger(this).info { "Update new village ${it.toJson()}" }
-            val putVillage = villageApi.toCloud(it)
-            addAll(putVillage)
+            getLogger(this).info { "Create new village ${it.toJson()}" }
+            addAll(villageApi.toCloud(it))
             save()
         }
     }
