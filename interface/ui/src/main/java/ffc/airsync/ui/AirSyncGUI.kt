@@ -35,7 +35,10 @@ fun AirSyncGUI.createProgress(key: String, current: Int, max: Int, message: Stri
 }
 
 fun AirSyncGUI.createMessage(key: String, message: String, type: AirSyncGUI.MESSAGE_TYPE = AirSyncGUI.MESSAGE_TYPE.OK) {
-    this.cretaeItemList(key to AirSyncGUI.Message(message, type))
+    if (message.isNotBlank())
+        this.cretaeItemList(key to AirSyncGUI.Message(message, type))
+    else
+        this.remove(key)
 }
 
 fun AirSyncGUI.createCountDownMessage(key: String, message: String, count: Int) {
