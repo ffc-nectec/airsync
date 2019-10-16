@@ -15,12 +15,12 @@ class RetofitUserApi : RetofitApi<UserUrl>(UserUrl::class.java), UserApi {
                 getuser()
             }
         } catch (ex: java.net.SocketTimeoutException) {
+            Thread.sleep(10000)
             getuser()
         }
     }
 
-    private fun getuser(): List<User> {
-        Thread.sleep(10000)
+    override fun getuser(): List<User> {
         return callApi { restService.getUser(organization.id, tokenBarer).execute().body() }
     }
 }
