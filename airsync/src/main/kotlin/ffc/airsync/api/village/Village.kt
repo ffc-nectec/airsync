@@ -24,14 +24,14 @@ fun ArrayList<Village>.initSync() {
         addAll(load())
     }
 
+    val jhcisVillage = localVillage.getVillage()
     if (localVillage.isEmpty()) {
-        val getVillage = localVillage.getVillage()
-        addAll(villageApi.toCloud(getVillage))
+        addAll(villageApi.toCloud(jhcisVillage))
         save()
     } else {
         val cloudVillage = villageApi.get()
 
-        checkDataUpdate(localVillage, cloudVillage, { local, cloud -> local.name == cloud.name }) {
+        checkDataUpdate(jhcisVillage, cloudVillage, { jhcis, cloud -> jhcis.name == cloud.name }) {
             getLogger(this).info { "Update new village ${it.toJson()}" }
             val putVillage = villageApi.toCloud(it)
             localVillage.addAll(putVillage)
