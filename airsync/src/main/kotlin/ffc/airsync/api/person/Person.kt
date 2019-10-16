@@ -4,10 +4,12 @@ import ffc.airsync.Main
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.icd10Api
 import ffc.airsync.personApi
+import ffc.airsync.utils.checkNewDataCreate
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person
+import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.Disease
 import ffc.entity.place.House
@@ -28,23 +30,42 @@ fun ArrayList<Person>.initSync(
     personIsChronic: List<Person>,
     progressCallback: (Int) -> Unit
 ) {
-    val localPersons = arrayListOf<Person>().apply {
+    val cacheFile = arrayListOf<Person>().apply {
         logger.trace("initSync load person.")
         addAll(load())
     }
 
-    if (localPersons.isEmpty()) {
+    if (cacheFile.isEmpty()) {
         logger.info("Load person from databse.")
-        personIsChronic.mapHouseId(houseFromCloud, progressCallback)
-        localPersons.addAll(personIsChronic)
-        mapDeath(personIsChronic, progressCallback)
-        addAll(personApi.putPerson(localPersons, progressCallback))
-        save()
+        createPersonOnCloud(personIsChronic, houseFromCloud, progressCallback)
     } else {
         logger.info("Load person from airsync file.")
-        addAll(localPersons)
+        addAll(cacheFile)
+        checkNewDataCreate(personIsChronic, cacheFile, { jhcis, cloud ->
+            var out = false
+            jhcis.identities.forEach { jId ->
+                cloud.identities.forEach { cId ->
+                    if (jId == cId) out = true
+                }
+            }
+            out
+        }) {
+            getLogger(this).info { "Create new person ${it.toJson()}" }
+            createPersonOnCloud(it, houseFromCloud, progressCallback)
+        }
     }
     progressCallback(100)
+}
+
+private fun ArrayList<Person>.createPersonOnCloud(
+    personIsChronic: List<Person>,
+    houseFromCloud: List<House>,
+    progressCallback: (Int) -> Unit
+) {
+    personIsChronic.mapHouseId(houseFromCloud, progressCallback)
+    mapDeath(personIsChronic, progressCallback)
+    addAll(personApi.putPerson(personIsChronic, progressCallback))
+    save()
 }
 
 private fun List<Person>.mapHouseId(
