@@ -5,12 +5,20 @@ import ffc.entity.Village
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface VillageUrl {
+
+    @GET("/$APIVERSION/org/{orgId}/village")
+    fun getHouse(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String
+    ): Call<List<Village>>
+
     @POST("/$APIVERSION/org/{orgId}/villages")
     fun create(
         @Path("orgId") orgId: String,
