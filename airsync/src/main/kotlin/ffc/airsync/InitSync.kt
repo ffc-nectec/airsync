@@ -55,39 +55,39 @@ class InitSync : ProgressList {
             }
             gui.remove("Sync")
         }
-        val person = Person().gets()
+        val jhcisDbPerson = Person().gets()
 
         progressTemplate = 5
-        person.mapChronic(Chronics())
+        jhcisDbPerson.mapChronic(Chronics())
         progressTemplate = 10
-        logger.info("ใส่ข้อมูล ช่วยกรอกอัตโนมัติ....")
+        logger.info { "ใส่ข้อมูล ช่วยกรอกอัตโนมัติ...." }
         TemplateInit()
         progressTemplate = 100
 
-        logger.info("ใส่ข้อมูลผู้ใช้ (1/7)")
+        logger.info { "ใส่ข้อมูลผู้ใช้ (1/7)" }
         users.initSync()
         progressUser = 100
 
-        logger.info("เข้าถึงหมู่บ้าน (2/7)")
+        logger.info { "เข้าถึงหมู่บ้าน (2/7)" }
         villages.initSync()
         progressVillage = 100
 
-        logger.info("ดูบ้าน (3/7)")
+        logger.info { "ดูบ้าน (3/7)" }
         message = "สำรวจบ้าน "
-        houses.initSync(person) {
+        houses.initSync(jhcisDbPerson) {
             progressHouse = it
         }
-        logger.info("ดูข้อมูลคน (4/7)")
+        logger.info { "ดูข้อมูลคน (4/7)" }
         message = "สำรวจคน"
-        persons.initSync(houses, person) {
+        persons.initSync(houses, jhcisDbPerson) {
             progressPerson = it
         }
-        logger.info("วิเคราะห์ความสัมพันธ์ (5/7)")
+        logger.info { "วิเคราะห์ความสัมพันธ์ (5/7)" }
         message = "คำนวนความสัมพันธ์"
         relation.initRelation {
             progressRelation = it
         }
-        logger.info("รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)")
+        logger.info { "รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)" }
         message = "วิเคราะห์การให้บริการ"
         healthCare.initSync {
             progressHealthCare = it
@@ -97,7 +97,7 @@ class InitSync : ProgressList {
         analyzer.initSync(healthCare) {
             progressAnalyzer = it
         }
-        logger.info("Finished push. Sync ข้อมูลสำเร็จ")
+        logger.info { "Finished push. Sync ข้อมูลสำเร็จ" }
         isFinish = true
     }
 
