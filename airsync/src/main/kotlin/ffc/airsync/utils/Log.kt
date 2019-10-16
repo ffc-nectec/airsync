@@ -1,8 +1,8 @@
 package ffc.airsync.utils
 
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
+import org.apache.logging.log4j.kotlin.KotlinLogger
+import org.apache.logging.log4j.kotlin.logger
 
-inline fun <reified T> getLogger(clazz: T): Logger {
-    return LogManager.getLogger(T::class.java)
+inline fun <reified T> getLogger(clazz: T): KotlinLogger {
+    return logger(T::class.java.simpleName)
 }

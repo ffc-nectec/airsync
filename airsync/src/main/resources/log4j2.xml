@@ -22,13 +22,13 @@
     </Appenders>
 
     <Loggers>
-        <Root level="info">
+        <Root level="DEBUG">
             <AppenderRef ref="STDOUT"/>
         </Root>
     </Loggers>
 
     <Loggers>
-        <Root level="info">
+        <Root level="DEBUG">
             <AppenderRef ref="FileRolling"/>
         </Root>
     </Loggers>
