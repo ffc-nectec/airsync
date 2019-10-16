@@ -5,4 +5,5 @@ import ffc.entity.Village
 interface VillageApi {
     fun toCloud(villages: List<Village>): List<Village>
     fun editCloud(village: Village): Village
+    fun get(): List<Village>
 }

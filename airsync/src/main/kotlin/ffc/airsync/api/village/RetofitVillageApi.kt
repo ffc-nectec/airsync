@@ -35,6 +35,13 @@ class RetofitVillageApi : RetofitApi<VillageUrl>(VillageUrl::class.java), Villag
         }
     }
 
+    override fun get(): List<Village> {
+        return callApi {
+            val cloud = restService.getHouse(organization.id, tokenBarer).execute()
+            cloud.body() ?: arrayListOf()
+        }
+    }
+
     override fun editCloud(village: Village): Village {
         return callApi {
             val response = restService.edit(
