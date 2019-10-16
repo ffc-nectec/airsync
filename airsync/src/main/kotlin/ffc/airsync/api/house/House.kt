@@ -5,6 +5,7 @@ import ffc.airsync.api.person.findByHouseCode
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.houseApi
+import ffc.airsync.utils.checkNewDataCreate
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.Person
@@ -15,19 +16,26 @@ fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.dao): List<Ho
 }
 
 fun ArrayList<House>.initSync(person: List<Person>, progressCallback: (Int) -> Unit) {
-    val localHouses = arrayListOf<House>().apply {
+    val cacheFile = arrayListOf<House>().apply {
         addAll(load())
     }
 
-    if (localHouses.isEmpty()) {
-        val house = House().gets()
-        checkChronicInHouse(person, house, progressCallback)
-        localHouses.addAll(house)
-
-        addAll(houseApi.putHouse(localHouses, progressCallback))
+    val jhcisHouse = House().gets()
+    if (cacheFile.isEmpty()) {
+        checkChronicInHouse(person, jhcisHouse, progressCallback)
+        addAll(houseApi.putHouse(jhcisHouse, progressCallback))
         save()
     } else {
-        addAll(localHouses)
+        addAll(cacheFile)
+        checkNewDataCreate(jhcisHouse, cacheFile, { jhcis, cloud ->
+            val run = runCatching { jhcis.link!!.keys["pcucode"] == cloud.link!!.keys["pcucode"] }
+            if (run.isSuccess) run.getOrThrow()
+            else false
+        }) {
+            checkChronicInHouse(person, it, progressCallback)
+            addAll(houseApi.putHouse(it, progressCallback))
+            save()
+        }
     }
     progressCallback(100)
 }

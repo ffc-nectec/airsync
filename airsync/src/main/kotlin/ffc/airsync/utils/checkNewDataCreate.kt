@@ -5,9 +5,9 @@ package ffc.airsync.utils
  * @param jhcisData ข้อมูลที่อยู่บน local ในที่นี้จะเป็นข้อมูลจาก jhcis
  * @param cloudData ข้อมูลที่อยู่บน cloud
  * @param checkItem กฏการตรวจสอบว่า วัตถุ local และ cloud เหมือนกัน
- * @param updateNewData ถ้าเกิดมีข้อมูลใหม่จะ update จะให้ทำอย่างไร
+ * @param updateNewData ถ้าเกิดมีข้อมูลใหม่จะ create จะให้ทำอย่างไร
  */
-fun <T> checkDataUpdate(
+fun <T> checkNewDataCreate(
     jhcisData: List<T>,
     cloudData: List<T>,
     checkItem: (jhcis: T, cloud: T) -> Boolean,

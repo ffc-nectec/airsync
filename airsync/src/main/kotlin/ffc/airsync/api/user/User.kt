@@ -3,7 +3,7 @@ package ffc.airsync.api.user
 import ffc.airsync.Main
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.userApi
-import ffc.airsync.utils.checkDataUpdate
+import ffc.airsync.utils.checkNewDataCreate
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
@@ -18,33 +18,32 @@ fun User.gets(dao: DatabaseDao = Main.instant.dao): List<User> {
 }
 
 fun ArrayList<User>.initSync() {
-    val localUser = arrayListOf<User>()
-    localUser.addAll(localUser.load())
+    val cacheFile = arrayListOf<User>()
+    cacheFile.addAll(load())
 
     val jhcisUser = User().gets()
-    if (localUser.isEmpty()) {
-        localUser.addAll(jhcisUser)
-        check(localUser.isNotEmpty()) {
+
+    if (cacheFile.isEmpty()) {
+        check(jhcisUser.isNotEmpty()) {
             "เกิดข้อผิดพลาด " +
                     "ในการดึงข้อมูลการ Login ใน table user " +
                     "ไม่สามารถ ใส่ข้อมูล User ได้"
         }
-        val putUser = userApi.putUser(localUser.toMutableList())
+        val putUser = userApi.putUser(jhcisUser.toMutableList())
         addAll(putUser)
-        check(localUser.isNotEmpty()) {
+        check(isNotEmpty()) {
             "เกิดข้อผิดพลาด " +
                     "ในการ Sync User จาก Cloud"
         }
         save()
     } else {
-        val cloudUser = userApi.getuser()
-        checkDataUpdate(jhcisUser, cloudUser, { jhcis, cloud -> jhcis.name == cloud.name }) {
+        addAll(cacheFile)
+        checkNewDataCreate(jhcisUser, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
             getLogger(this).info { "Update new user ${it.toJson()}" }
             val putUser = userApi.putUser(it.toMutableList())
-            localUser.addAll(putUser)
+            addAll(putUser)
             save()
         }
-        addAll(localUser)
     }
 }
 

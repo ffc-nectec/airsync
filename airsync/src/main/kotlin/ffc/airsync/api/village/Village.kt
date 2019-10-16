@@ -1,7 +1,7 @@
 package ffc.airsync.api.village
 
 import ffc.airsync.Main
-import ffc.airsync.utils.checkDataUpdate
+import ffc.airsync.utils.checkNewDataCreate
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
@@ -20,23 +20,19 @@ val VILLAGELOOKUP = { jVillageId: String ->
 fun List<Village>.getVillage() = Main.instant.dao.getVillage()
 
 fun ArrayList<Village>.initSync() {
-    val localVillage = arrayListOf<Village>().apply {
-        addAll(load())
-    }
+    val cacheFile = arrayListOf<Village>().apply { addAll(load()) }
+    val jhcisVillage = cacheFile.getVillage()
 
-    val jhcisVillage = localVillage.getVillage()
-    if (localVillage.isEmpty()) {
+    if (cacheFile.isEmpty()) {
         addAll(villageApi.toCloud(jhcisVillage))
         save()
     } else {
-        val cloudVillage = villageApi.get()
-
-        checkDataUpdate(jhcisVillage, cloudVillage, { jhcis, cloud -> jhcis.name == cloud.name }) {
+        addAll(cacheFile)
+        checkNewDataCreate(jhcisVillage, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
             getLogger(this).info { "Update new village ${it.toJson()}" }
             val putVillage = villageApi.toCloud(it)
-            localVillage.addAll(putVillage)
+            addAll(putVillage)
             save()
         }
-        addAll(localVillage)
     }
 }
