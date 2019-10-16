@@ -79,6 +79,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
     }
 
     override fun syncHealthCareFromCloud(id: String, dao: DatabaseDao) {
+        logger.info { "Sync from object id:$id" }
         val data = restService.getHomeVisit(orgId = organization.id, authkey = tokenBarer, id = id).execute()
 
         if (data.code() != 200) {
@@ -89,22 +90,29 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
         if (healthCareService.link?.isSynced == true) return
         val pcucode = pcucode
 
-        if (healthCareService.patientId.isTempId() ||
-            healthCareService.providerId.isTempId()
-        )
-            throw IllegalAccessException(
-                "Health Care Service provider or patient isTempId "
-            )
+        val patientId = healthCareService.patientId
+        val providerId = healthCareService.providerId
 
-        val patient = persons.find {
-            it.id == healthCareService.patientId
-        }!!
+        if (patientId.isTempId() || providerId.isTempId()) {
+            val ex = IllegalAccessException("Health Care Service provider or patient isTempId ")
+            logger.error(ex) { ex.message }
+            throw ex
+        }
+
+        val patient = persons.find { it.id == patientId }
+        val provider = users.find { it.id == providerId }
+
+        if (patient == null || provider == null) {
+            logger.error {
+                "ข้อมูลที่ใช้ประกอบการ visit ไม่ครบ " +
+                        "ผู้ให้บริการ $providerId:${provider?.name} " +
+                        "ผู้ถูกเยี่ยม $patientId:${patient?.name}"
+            }
+            return
+        }
 
         logger.debug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
 
-        val provider = users.find {
-            it.id == healthCareService.providerId
-        }!!
 
         if (healthCareService.link!!.keys.isEmpty()) {
             healthCareService.communityServices.forEach {
@@ -136,7 +144,7 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
 
         val result = updateHealthCare(healthCareService)
 
-        logger.info("Result healthcare from cloud $result")
+        logger.info { "Result healthcare from cloud $result" }
     }
 
     override fun updateHealthCare(healthCareService: HealthCareService): HealthCareService {
