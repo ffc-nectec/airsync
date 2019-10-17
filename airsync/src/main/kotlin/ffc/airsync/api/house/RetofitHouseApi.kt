@@ -3,6 +3,7 @@ package ffc.airsync.api.house
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui
 import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
@@ -65,7 +66,7 @@ class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
 
         logger.info("\tPut new house to cloud")
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = _id, house = house).execute()
-        gui.createMessageDelay("พบข้อมูล update บ้าน")
+        gui.createMessageDelay("พบข้อมูล update บ้าน", INFO)
     }
 
     override fun syncHouseToCloud(house: House) {

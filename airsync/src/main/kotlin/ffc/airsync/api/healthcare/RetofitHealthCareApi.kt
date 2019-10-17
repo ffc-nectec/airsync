@@ -113,7 +113,6 @@ class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java
 
         logger.debug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
 
-
         if (healthCareService.link!!.keys.isEmpty()) {
             healthCareService.communityServices.forEach {
                 if (it is HomeVisit) {

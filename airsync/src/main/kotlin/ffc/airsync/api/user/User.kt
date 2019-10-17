@@ -46,5 +46,3 @@ fun ArrayList<User>.initSync() {
         }
     }
 }
-
-
