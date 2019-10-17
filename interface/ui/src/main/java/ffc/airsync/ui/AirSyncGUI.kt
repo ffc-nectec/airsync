@@ -26,7 +26,7 @@ interface AirSyncGUI {
     data class CoutDown(val message: String, val count: Int)
 
     enum class MESSAGE_TYPE {
-        OK, ERROR
+        OK, ERROR, INFO
     }
 }
 
