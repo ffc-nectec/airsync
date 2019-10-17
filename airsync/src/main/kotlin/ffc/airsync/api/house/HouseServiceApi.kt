@@ -11,7 +11,7 @@ import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
 import ffc.entity.place.House
 
-class RetofitHouseApi : RetofitApi<HouseUrl>(HouseUrl::class.java), HouseApi {
+class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), HouseApi {
     private val logger by lazy { getLogger(this) }
     override fun putHouse(houseList: List<House>, progressCallback: (Int) -> Unit): List<House> {
         callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }

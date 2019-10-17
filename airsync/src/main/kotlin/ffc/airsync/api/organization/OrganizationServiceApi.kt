@@ -7,7 +7,7 @@ import ffc.entity.Organization
 import ffc.entity.Token
 import ffc.entity.gson.toJson
 
-class RetofitOrganizationApi : RetofitApi<OrganizationUrl>(OrganizationUrl::class.java), OrganizationApi {
+class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationService::class.java), OrganizationApi {
     private val logger by lazy { getLogger(this) }
     override fun registerOrganization(
         localOrganization: Organization,
@@ -22,7 +22,6 @@ class RetofitOrganizationApi : RetofitApi<OrganizationUrl>(OrganizationUrl::clas
             organization = regisOrgToCloud(localOrganization)
 
             val user = localOrganization.users[0]
-            val authStr = user.name + ":" + user.password
             val bodyLogin = hashMapOf<String, String>()
             bodyLogin["username"] = user.name
             bodyLogin["password"] = user.password

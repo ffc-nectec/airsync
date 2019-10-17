@@ -5,7 +5,7 @@ import ffc.airsync.utils.callApi
 import ffc.airsync.utils.getLogger
 import ffc.entity.healthcare.Icd10
 
-class RetofitIcd10Api : RetofitApi<Icd10Url>(Icd10Url::class.java, 10240), Icd10Api {
+class Icd10ServiceApi : RetofitApi<Icd10Service>(Icd10Service::class.java, 10240), Icd10Api {
     private val logger by lazy { getLogger(this) }
     override fun lookup(icd10: String): Icd10 {
 

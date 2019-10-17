@@ -8,7 +8,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.HashMap
 
-interface NotificationUrl {
+interface NotificationService {
     @POST("/$APIVERSION/org/{orgId}/firebasetoken")
     fun createFirebaseToken(
         @Path("orgId") orgId: String,

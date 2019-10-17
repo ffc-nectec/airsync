@@ -8,7 +8,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface TemplateUrl {
+interface TemplateService {
     @POST("/$APIVERSION/org/{orgId}/template")
     fun clearnAndCreate(
         @Path("orgId") orgId: String,

@@ -9,7 +9,7 @@ import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface Icd10Url {
+interface Icd10Service {
     @GET("/$APIVERSION/disease")
     fun lookupDisease(
         @Header("Authorization") authkey: String,

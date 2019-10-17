@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
 
-interface OtpUrl {
+interface OtpService {
     @GET("/$APIVERSION/org/{orgId}/otp")
     fun get(
         @Header("Authorization") authkey: String,

@@ -13,7 +13,7 @@ import ffc.airsync.utils.isTempId
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 
-class RetofitHealthCareApi : RetofitApi<HealthCareUrl>(HealthCareUrl::class.java), HealthCareApi {
+class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceUrl::class.java), HealthCareApi {
 
     private val logger by lazy { getLogger(this) }
     override fun clearAndCreateHealthCare(

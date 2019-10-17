@@ -9,7 +9,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface UserUrl {
+interface UserService {
     @POST("/$APIVERSION/org/{orgId}/user")
     fun regisUser(
         @Path("orgId") orgId: String,

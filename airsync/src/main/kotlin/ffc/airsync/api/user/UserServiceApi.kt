@@ -4,7 +4,7 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.callApi
 import ffc.entity.User
 
-class RetofitUserApi : RetofitApi<UserUrl>(UserUrl::class.java), UserApi {
+class UserServiceApi : RetofitApi<UserService>(UserService::class.java), UserApi {
     override fun putUser(userInfoList: List<User>): List<User> {
         return try {
             val respond =

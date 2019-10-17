@@ -22,10 +22,10 @@ import ffc.airsync.gui.TryIcon
 import ffc.airsync.provider.createArisyncGui
 import ffc.airsync.provider.databaseDaoModule
 import ffc.airsync.ui.AirSyncGUI
-import ffc.airsync.ui.createMessage
 import ffc.airsync.ui.createProgress
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.EmptyGUI
+import ffc.airsync.utils.createErrorMessage
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.getPathJarDir
 import max.kotlin.checkdupp.CheckDupplicate
@@ -41,14 +41,6 @@ import java.util.TimeZone
 import javax.ws.rs.NotAuthorizedException
 import kotlin.system.exitProcess
 
-const val APIVERSION = "v1"
-
-private const val API = "https://api.ffc.in.th"
-// private const val API = "https://ffcmaekawtom.herokuapp.com"
-// private const val API = "https://ffc-beta.herokuapp.com"
-// private const val API = "https://ffc-staging.herokuapp.com"
-// private const val API = "http://127.0.0.1:8080"
-private const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
 private val logger = getLogger(Main::class.java)
 private var shutdown = false
 
@@ -105,9 +97,9 @@ internal class Main constructor(args: Array<String>) {
                 logger.debug("Check process duplicate.")
                 processDupplicate.register()
             } catch (ex: max.kotlin.checkdupp.DupplicateProcessException) {
-                errMessage("Duplicate", "Duplicate process", ex)
+                createErrorMessage("Duplicate", "Duplicate process", ex, logger)
                 Thread.sleep(2000)
-                System.exit(1)
+                exitProcess(1)
             }
 
             try {
@@ -121,7 +113,7 @@ internal class Main constructor(args: Array<String>) {
                 logger.warn(cmd, cmd)
             }
         } catch (ex: Exception) {
-            errMessage("Init Error", "Init Error", ex)
+            createErrorMessage("Init Error", "Init Error", ex, logger)
             throw ex
         }
     }
@@ -176,40 +168,27 @@ fun main(args: Array<String>) {
         Main(args).run()
     } catch (ex: org.jdbi.v3.core.ConnectionException) {
         gui.remove("Database")
-        errMessage(
+        createErrorMessage(
             "Init Controller Error",
-            "ไม่สามารถเชื่อมต่อ Database ตรวจสอบการตั้งค่า ปิดแล้วเปิด FFC Airsync ใหม่อีกครั้ง", ex
+            "ไม่สามารถเชื่อมต่อ Database ตรวจสอบการตั้งค่า ปิดแล้วเปิด FFC Airsync ใหม่อีกครั้ง", ex, logger
         )
         throw ex
     } catch (ex: ApiLoopException) {
-        errMessage("Api Error", "เกิดข้อผิดพลาด Api", ex)
+        createErrorMessage("Api Error", "เกิดข้อผิดพลาด Api", ex, logger)
         throw ex
     } catch (ex: java.net.SocketTimeoutException) {
-        errMessage("Network Error", "ไม่สามารถเชื่อมต่อกับ Cloud ได้", ex)
+        createErrorMessage("Network Error", "ไม่สามารถเชื่อมต่อกับ Cloud ได้", ex, logger)
         throw ex
     } catch (ex: java.net.SocketException) {
-        errMessage("Socket Error", "Network Socket Error", ex)
+        createErrorMessage("Socket Error", "Network Socket Error", ex, logger)
         throw ex
     } catch (ex: NotAuthorizedException) {
-        errMessage("Auth Error", "Server ปฏิเสทการเชื่อมต่อ Cannot auth ${ex.message}", ex)
+        createErrorMessage("Auth Error", "Server ปฏิเสทการเชื่อมต่อ Cannot auth ${ex.message}", ex, logger)
         throw ex
     } catch (ex: Exception) {
-        errMessage("Error Message", "Init Error $ex", ex)
+        createErrorMessage("Error Message", "Init Error $ex", ex, logger)
         throw ex
     }
-}
-
-fun errMessage(key: String, message: String, ex: java.lang.Exception) {
-    var exMessage = "\n"
-    ex.stackTrace.forEach {
-        exMessage += "$it\n}"
-    }
-    logger.error(message, ex)
-    gui.createMessage(
-        key,
-        message + ex,
-        AirSyncGUI.MESSAGE_TYPE.ERROR
-    )
 }
 
 val gui: AirSyncGUI = try {
