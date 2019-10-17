@@ -2,6 +2,7 @@ package ffc.airsync.gui
 
 import ffc.airsync.BuildConfig
 import ffc.airsync.provider.createArisyncGui
+import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
 import ffc.airsync.ui.createCountDownMessage
 import ffc.airsync.ui.createMessage
 import ffc.airsync.ui.createProgress
@@ -30,6 +31,7 @@ class AirSyncGUITest {
         Thread.sleep(1000)
         println("Create countdown")
         gui.createCountDownMessage("count", "123 432", 60)
+        gui.createMessage("INFO", "Hello สวัสดี...", INFO)
         live()
     }
 
