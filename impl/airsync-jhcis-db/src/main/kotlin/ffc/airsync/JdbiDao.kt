@@ -71,8 +71,12 @@ class JdbiDao(
     val configFromDb: GetMySqlVariable by lazy { MySqlVariableJdbi(jdbiDao) }
 
     override fun init() {
-        val baseDir = File(configFromDb.mysqlLocation())
+        val baseDir = getDatabaseLocaion()
         InitJhcisConfig(File(baseDir, "my.ini"))
+    }
+
+    override fun getDatabaseLocaion(): File {
+        return File(configFromDb.mysqlLocation())
     }
 
     override fun getDetail(): HashMap<String, String> {
