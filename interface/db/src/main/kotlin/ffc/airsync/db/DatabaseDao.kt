@@ -31,9 +31,12 @@ import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
+import java.io.File
 
 interface DatabaseDao {
     fun init()
+
+    fun getDatabaseLocaion(): File
 
     fun getDetail(): HashMap<String, String>
 

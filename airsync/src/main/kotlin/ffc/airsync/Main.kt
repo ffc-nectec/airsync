@@ -35,6 +35,7 @@ import org.kohsuke.args4j.CmdLineParser
 import org.kohsuke.args4j.Option
 import java.awt.event.MouseEvent
 import java.awt.event.MouseListener
+import java.io.File
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.TimeZone
@@ -53,9 +54,6 @@ var isShutdown
 internal class Main constructor(args: Array<String>) {
     @Option(name = "-api", usage = "Api url Ex. https://ffc-nectec.herokuapp.com ")
     private var api = API
-
-    @Option(name = "-mysqllog", usage = "MySQL query log file Ex. C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log ")
-    private var mysqlLog = MYSQLLOG
 
     var skipConfigMyIni = false
 
@@ -153,8 +151,14 @@ internal class Main constructor(args: Array<String>) {
         gui.createProgress("Init Dao", 100, 100, "กำลังตรวจสอบการตั้งค่า Mysql JHCIS")
         gui.remove("Init Dao")
         Config.baseUrlRest = api
-        Config.logfilepath = mysqlLog
+        Config.logfilepath = dbLogfilePath().absolutePath
         MainController(dao).run()
+    }
+
+    private fun dbLogfilePath(): File {
+        val dbLocation = dao.getDatabaseLocaion()
+        val dataDir = File(dbLocation, "data")
+        return File(dataDir, "jlog.log")
     }
 
     companion object {
