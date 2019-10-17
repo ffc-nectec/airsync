@@ -1,6 +1,9 @@
 package ffc.airsync.gui.drawable
 
 import ffc.airsync.ui.AirSyncGUI
+import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.ERROR
+import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
+import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.OK
 import ffc.airsync.ui.KEY
 import java.awt.Component
 import java.awt.Dimension
@@ -22,7 +25,7 @@ internal class CreateMessageItem(
         val checkData = data.second as AirSyncGUI.Message
         val checkDataConfirm = listComponent[data.first] as SuccessConfirm
         checkDataConfirm.icon.icon = when (checkData.type) {
-            AirSyncGUI.MESSAGE_TYPE.OK -> {
+            OK -> {
                 ImageIcon(
                     "check.png".getImageScalingResource(
                         height - 10,
@@ -30,9 +33,17 @@ internal class CreateMessageItem(
                     )
                 )
             }
-            AirSyncGUI.MESSAGE_TYPE.ERROR -> {
+            ERROR -> {
                 ImageIcon(
                     "error.png".getImageScalingResource(
+                        height - 10,
+                        height - 10
+                    )
+                )
+            }
+            INFO -> {
+                ImageIcon(
+                    "info.png".getImageScalingResource(
                         height - 10,
                         height - 10
                     )
