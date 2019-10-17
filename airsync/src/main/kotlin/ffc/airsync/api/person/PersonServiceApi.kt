@@ -8,7 +8,7 @@ import ffc.airsync.utils.callApiNoReturn
 import ffc.entity.Person
 import retrofit2.dsl.enqueue
 
-class RetofitPersonApi : RetofitApi<PersonUrl>(PersonUrl::class.java), PersonApi {
+class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), PersonApi {
     override fun putPerson(personList: List<Person>, progressCallback: (Int) -> Unit): List<Person> {
         val personLastUpdate = arrayListOf<Person>()
         callApiNoReturn { restService.clearnPerson(orgId = organization.id, authkey = tokenBarer).execute() }

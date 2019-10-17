@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
 
-interface HomeHealtyTypeUrl {
+interface HomeHealtyTypeService {
     @GET("/$APIVERSION/homehealth/{id}")
     fun lookupCommunityServiceType(
         @Header("Authorization") authkey: String,

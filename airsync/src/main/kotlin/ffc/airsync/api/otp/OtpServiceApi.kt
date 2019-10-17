@@ -4,7 +4,7 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.callApi
 
-class RetofitOtpApi : RetofitApi<OtpUrl>(OtpUrl::class.java, 0), OtpApi {
+class OtpServiceApi : RetofitApi<OtpService>(OtpService::class.java, 0), OtpApi {
     override fun get(): String {
         return callApi {
             val response = restService.get(

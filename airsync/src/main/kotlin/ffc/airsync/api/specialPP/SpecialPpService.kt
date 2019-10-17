@@ -7,7 +7,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
 
-interface SpecialPpUrl {
+interface SpecialPpService {
     @GET("/$APIVERSION/specialPP/{id}")
     fun lookupSpecialPP(
         @Header("Authorization") authkey: String,

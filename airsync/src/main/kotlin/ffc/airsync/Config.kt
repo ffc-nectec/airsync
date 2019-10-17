@@ -17,6 +17,15 @@
 
 package ffc.airsync
 
+const val API = "https://api.ffc.in.th"
+const val APIVERSION = "v1"
+
+// const val API = "https://ffcmaekawtom.herokuapp.com"
+// const val API = "https://ffc-beta.herokuapp.com"
+// const val API = "https://ffc-staging.herokuapp.com"
+// const val API = "http://127.0.0.1:8080"
+const val MYSQLLOG = "C:\\Program Files\\JHCIS\\MySQL\\data\\jlog.log"
+
 class Config private constructor() {
 
     companion object {

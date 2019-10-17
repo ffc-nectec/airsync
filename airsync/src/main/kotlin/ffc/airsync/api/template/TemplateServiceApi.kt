@@ -5,7 +5,7 @@ import ffc.airsync.utils.callApi
 import ffc.entity.Template
 import javax.ws.rs.NotAuthorizedException
 
-class RetofitTemplateApi : RetofitApi<TemplateUrl>(TemplateUrl::class.java), TemplateApi {
+class TemplateServiceApi : RetofitApi<TemplateService>(TemplateService::class.java), TemplateApi {
     override fun clearAndCreate(template: List<Template>) {
         callApi {
             val response = restService.clearnAndCreate(

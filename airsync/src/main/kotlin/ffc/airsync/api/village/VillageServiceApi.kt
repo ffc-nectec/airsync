@@ -5,7 +5,7 @@ import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.callApi
 import ffc.entity.Village
 
-class RetofitVillageApi : RetofitApi<VillageUrl>(VillageUrl::class.java), VillageApi {
+class VillageServiceApi : RetofitApi<VillageService>(VillageService::class.java), VillageApi {
     override fun toCloud(villages: List<Village>): List<Village> {
         return callApi {
             val output = arrayListOf<Village>()
