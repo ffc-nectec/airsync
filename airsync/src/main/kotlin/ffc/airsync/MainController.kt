@@ -64,7 +64,7 @@ class MainController(val dao: DatabaseDao) {
         gui.delayRemove("Check", 1000)
         InitSync().init(gui)
         gui.createProgress("Setup", 1, 4, " Auto sync..")
-        SetupAutoSync(dao)
+        SetupAutoSync(dao) // TODO แก้ชื่อเป็น cloudWatcher
         gui.createProgress("Setup", 2, 4, " Notification.")
         SetupNotification(dao)
         gui.createProgress("Setup", 3, 4, " Database watcher.")

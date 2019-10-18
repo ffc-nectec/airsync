@@ -42,7 +42,7 @@ interface VillageService {
     ): Call<Village>
 
     @DELETE("/$APIVERSION/org/{orgId}/villages")
-    fun deleteOrg(
+    fun deleteVillage(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<Void>

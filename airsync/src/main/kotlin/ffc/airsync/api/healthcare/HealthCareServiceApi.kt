@@ -22,7 +22,8 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
     private val logger by lazy { getLogger(this) }
     override fun clearAndCreateHealthCare(
         healthCare: List<HealthCareService>,
-        progressCallback: (Int) -> Unit
+        progressCallback: (Int) -> Unit,
+        clearCloud: Boolean
     ): List<HealthCareService> {
         callApiNoReturn { restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute() }
         return _createHealthCare(healthCare, progressCallback)

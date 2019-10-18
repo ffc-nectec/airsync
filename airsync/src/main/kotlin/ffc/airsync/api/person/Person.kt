@@ -51,7 +51,7 @@ fun ArrayList<Person>.initSync(
             out
         }) {
             getLogger(this).info { "Create new person ${it.toJson()}" }
-            createPersonOnCloud(it, houseFromCloud, progressCallback)
+            createPersonOnCloud(it, houseFromCloud, progressCallback, false)
         }
     }
     progressCallback(100)
@@ -60,11 +60,12 @@ fun ArrayList<Person>.initSync(
 private fun ArrayList<Person>.createPersonOnCloud(
     personIsChronic: List<Person>,
     houseFromCloud: List<House>,
-    progressCallback: (Int) -> Unit
+    progressCallback: (Int) -> Unit,
+    clearCloud: Boolean = true
 ) {
     personIsChronic.mapHouseId(houseFromCloud, progressCallback)
     mapDeath(personIsChronic, progressCallback)
-    addAll(personApi.putPerson(personIsChronic, progressCallback))
+    addAll(personApi.putPerson(personIsChronic, progressCallback, clearCloud))
     save()
 }
 
