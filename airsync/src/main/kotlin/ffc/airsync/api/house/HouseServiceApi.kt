@@ -47,7 +47,8 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
                 }
             }
             houseLastUpdate.addAll(result)
-            progressCallback(((index * 50) / houseSize) + 50)
+            if (houseSize != 0)
+                progressCallback(((index * 50) / houseSize) + 50)
         }
         return houseLastUpdate
     }

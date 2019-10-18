@@ -63,6 +63,7 @@ private fun checkChronicInHouse(persons: List<Person>, house: List<House>, progr
             if (personChronic != null)
                 it.haveChronic = true
         }
-        progressCallback((index * 50) / houseSize)
+        if (houseSize != 0)
+            progressCallback((index * 50) / houseSize)
     }
 }

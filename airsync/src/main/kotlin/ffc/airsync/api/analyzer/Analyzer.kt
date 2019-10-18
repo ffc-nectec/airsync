@@ -27,7 +27,8 @@ fun HashMap<String, HealthAnalyzer>.initSync(
             val visit = healthCareService.filter { it.patientId == patientId }
             analyzer.analyze(*visit.toTypedArray())
             localAnalyzer[patientId] = analyzer
-            progressCallback(((index * 40) / sizeOfLoop) + 10)
+            if (sizeOfLoop != 0)
+                progressCallback(((index * 40) / sizeOfLoop) + 10)
         }
 
         val processCloud = hashMapOf<String, HealthAnalyzer>()
