@@ -100,7 +100,8 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
                     `สร้างความสัมพันธ์พี่น้อง`(person, sibling)
             }
         }
-        progressCallback(((index * 50) / size) + 25)
+        if (size != 0)
+            progressCallback(((index * 50) / size) + 25)
     }
 }
 
@@ -123,7 +124,8 @@ private fun List<Person>.groupFamilyNo(
             if (groupByFamilyNo["$hcode:$familyno"] == null) groupByFamilyNo["$hcode:$familyno"] = arrayListOf()
             groupByFamilyNo["$hcode:$familyno"]!!.add(person)
         }
-        progressCallback((i * 25) / size)
+        if (size != 0)
+            progressCallback((i * 25) / size)
     }
     return groupByFamilyNo
 }

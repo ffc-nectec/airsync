@@ -88,7 +88,8 @@ private fun List<Person>.mapHouseId(
             else
                 it.houseId = ""
         }
-        progressCallback((index * 30) / sizeOfLoop)
+        if (sizeOfLoop != 0)
+            progressCallback((index * 30) / sizeOfLoop)
     }
 }
 
@@ -145,6 +146,7 @@ private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
             person.death = Person.Death(death.date, diseaseList.toList())
             logger.debug("Dead ${person.name} ${person.death?.causes?.size}")
         }
-        progressCallback(((index * 20) / sizeOfLoop) + 30)
+        if (sizeOfLoop != 0)
+            progressCallback(((index * 20) / sizeOfLoop) + 30)
     }
 }

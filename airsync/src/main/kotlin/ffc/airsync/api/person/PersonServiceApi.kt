@@ -43,7 +43,8 @@ class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), P
                 }
             }
             personLastUpdate.addAll(result)
-            progressCallback(((index * 50) / sizeOfLoop) + 50)
+            if (sizeOfLoop != 0)
+                progressCallback(((index * 50) / sizeOfLoop) + 50)
         }
         return personLastUpdate
     }

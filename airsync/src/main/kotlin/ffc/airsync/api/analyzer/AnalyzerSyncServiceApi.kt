@@ -35,7 +35,8 @@ class AnalyzerSyncServiceApi : RetofitApi<AnalyzerService>(AnalyzerService::clas
             }
 
             output.putAll(result)
-            progressCallback(((block * 50) / sizeOfLoop) + 50)
+            if (sizeOfLoop != 0)
+                progressCallback(((block * 50) / sizeOfLoop) + 50)
         }
         return output
     }

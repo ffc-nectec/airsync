@@ -68,7 +68,8 @@ class GeonogramServiceApi : RetofitApi<GenogramService>(GenogramService::class.j
                 }
             }
             output.putAll(result)
-            progressCallback(((block * 45) / sizeOfLoop) + 50)
+            if (sizeOfLoop != 0)
+                progressCallback(((block * 45) / sizeOfLoop) + 50)
         }
         return output
     }
