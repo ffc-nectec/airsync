@@ -13,8 +13,9 @@ import ffc.entity.place.House
 
 class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), HouseApi {
     private val logger by lazy { getLogger(this) }
-    override fun putHouse(houseList: List<House>, progressCallback: (Int) -> Unit): List<House> {
-        callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }
+    override fun putHouse(houseList: List<House>, progressCallback: (Int) -> Unit, clearCloud: Boolean): List<House> {
+        if (clearCloud)
+            callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }
 
         logger.info("Start put house to cloud")
         val houseLastUpdate = arrayListOf<House>()

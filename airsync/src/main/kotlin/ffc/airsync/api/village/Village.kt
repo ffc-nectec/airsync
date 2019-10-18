@@ -30,7 +30,7 @@ fun ArrayList<Village>.initSync() {
         addAll(cacheFile)
         checkNewDataCreate(jhcisVillage, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
             getLogger(this).info { "Create new village ${it.toJson()}" }
-            addAll(villageApi.toCloud(it))
+            addAll(villageApi.toCloud(it, false))
             save()
         }
     }

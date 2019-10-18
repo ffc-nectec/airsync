@@ -9,9 +9,14 @@ import ffc.entity.Person
 import retrofit2.dsl.enqueue
 
 class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), PersonApi {
-    override fun putPerson(personList: List<Person>, progressCallback: (Int) -> Unit): List<Person> {
+    override fun putPerson(
+        personList: List<Person>,
+        progressCallback: (Int) -> Unit,
+        clearCloud: Boolean
+    ): List<Person> {
         val personLastUpdate = arrayListOf<Person>()
-        callApiNoReturn { restService.clearnPerson(orgId = organization.id, authkey = tokenBarer).execute() }
+        if (clearCloud)
+            callApiNoReturn { restService.clearnPerson(orgId = organization.id, authkey = tokenBarer).execute() }
 
         val fixSizeCake = 200
         val sizeOfLoop = personList.size / fixSizeCake

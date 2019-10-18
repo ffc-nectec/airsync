@@ -6,10 +6,10 @@ import ffc.airsync.utils.callApi
 import ffc.entity.Village
 
 class VillageServiceApi : RetofitApi<VillageService>(VillageService::class.java), VillageApi {
-    override fun toCloud(villages: List<Village>): List<Village> {
+    override fun toCloud(villages: List<Village>, clearCloud: Boolean): List<Village> {
         return callApi {
             val output = arrayListOf<Village>()
-            callApi { restService.deleteOrg(organization.id, tokenBarer).execute() }
+            callApi { restService.deleteVillage(organization.id, tokenBarer).execute() }
             /*val response = restService.create(
                 orgId = organization.id,
                 authkey = tokenBarer,
