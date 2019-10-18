@@ -6,7 +6,7 @@ import ffc.airsync.syncFlow
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.getLogger
 
-class RetofitSyncCloud(val outMessage: (String) -> Unit) : RetofitApi<SyncUrl>(SyncUrl::class.java), SyncCloud {
+class RetofitSyncCloud : RetofitApi<SyncUrl>(SyncUrl::class.java), SyncCloud {
     override fun sync(dao: DatabaseDao) {
         val syncRespond = callApi { restService.syncData(organization.id, tokenBarer).execute() }
         val syncList = syncRespond.body()
@@ -24,15 +24,12 @@ class RetofitSyncCloud(val outMessage: (String) -> Unit) : RetofitApi<SyncUrl>(S
             log
         }
         if (responseCode != 200 || syncList == null) {
-            outMessage("")
             return
         }
 
-        outMessage("ตรวจสอบข้อมูลจาก Cloud....")
         syncList.forEach {
             syncFlow(it.type, it.id, dao)
         }
-        outMessage("")
     }
 
     companion object {
