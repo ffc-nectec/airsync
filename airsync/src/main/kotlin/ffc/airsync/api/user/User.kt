@@ -39,10 +39,21 @@ fun ArrayList<User>.initSync() {
     } else {
         addAll(cacheFile)
         checkNewDataCreate(jhcisUser, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
-            getLogger(this).info { "Update new user ${it.toJson()}" }
-            val putUser = userApi.putUser(it.toMutableList())
-            addAll(putUser)
-            save()
+            create(it)
         }
     }
+}
+
+fun ArrayList<User>.syncJToCloud() {
+    val jhcisUser = User().gets()
+    checkNewDataCreate(jhcisUser, this, { jhcis, cloud -> jhcis.name == cloud.name }) {
+        create(it)
+    }
+}
+
+private fun ArrayList<User>.create(it: List<User>) {
+    getLogger(this).info { "Update new user ${it.toJson()}" }
+    val putUser = userApi.putUser(it.toMutableList())
+    addAll(putUser)
+    save()
 }
