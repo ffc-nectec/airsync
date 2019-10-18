@@ -60,16 +60,17 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
         logger.debug("\t From house cloud _id = ${house.id} house No. ${house.no}")
         if (house.link?.isSynced == true) return
 
+        gui.createMessageDelay("กำลังดึงข้อมูลบ้านเลขที่\r\n${house.no} จาก Cloud", INFO, 5000)
         databaseDao.upateHouse(house)
         logger.debug("\tUpdate house to database and sync = true")
         house.link?.isSynced = true
 
         logger.info("\tPut new house to cloud")
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = _id, house = house).execute()
-        gui.createMessageDelay("พบข้อมูล update บ้าน", INFO)
     }
 
     override fun syncHouseToCloud(house: House) {
+        gui.createMessageDelay("กำลังส่งข้อมูลบ้านเลขที่\r\n${house.no} ไปยัง Cloud", INFO, 5000)
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = house.id, house = house).execute()
     }
 }

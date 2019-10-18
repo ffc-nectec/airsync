@@ -24,25 +24,29 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         healthCare: List<HealthCareService>,
         progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
-        val healthCareLastUpdate = arrayListOf<HealthCareService>()
         callApiNoReturn { restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute() }
-
-        return _createHealthCare(healthCare, healthCareLastUpdate, progressCallback)
+        return _createHealthCare(healthCare, progressCallback)
     }
 
     override fun createHealthCare(
         healthCare: List<HealthCareService>,
         progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
-        val healthCareLastUpdate = arrayListOf<HealthCareService>()
-        return _createHealthCare(healthCare, healthCareLastUpdate, progressCallback)
+        val providerId = healthCare.firstOrNull()?.providerId
+        val provider = users.find { it.id == providerId } ?: {
+            gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 5000)
+            users.syncJToCloud()
+            users.find { it.id == providerId }
+        }.invoke()
+        logger.info("${provider?.name} กำลังออกเยี่ยม")
+        return _createHealthCare(healthCare, progressCallback)
     }
 
     private fun _createHealthCare(
         healthCare: List<HealthCareService>,
-        healthCareLastUpdate: ArrayList<HealthCareService>,
         progressCallback: (Int) -> Unit
     ): ArrayList<HealthCareService> {
+        val healthCareLastUpdate = arrayListOf<HealthCareService>()
         val fixSizeCake = 100
         val healthCareSize = healthCare.size / fixSizeCake
         logger.info("Create health care total ${healthCare.size}")
@@ -125,7 +129,9 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         logger.debug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
 
         if (healthCareService.link!!.keys.isEmpty()) {
-            gui.createMessageDelay("เจ้าหน้าที่ ${provider.name} กำลังเยี่ยม ${patient.name}", INFO, 10000)
+            val message = "เจ้าหน้าที่ ${provider.name} กำลังเยี่ยม\r\n${patient.name}"
+            logger.info(message.replace(Regex("""[\r\n]"""), " "))
+            gui.createMessageDelay(message, INFO, 10000)
             healthCareService.communityServices.forEach {
                 if (it is HomeVisit) {
                     dao.createHomeVisit(
@@ -139,7 +145,9 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
                 }
             }
         } else {
-            gui.createMessageDelay("เจ้าหน้าที่ ${provider.name} อัพเดทข้อมูลการเยี่ยม ${patient.name}", INFO, 5000)
+            val message = "เจ้าหน้าที่ ${provider.name} อัพเดทข้อมูลการเยี่ยม\r\n${patient.name}"
+            logger.info(message.replace(Regex("""[\r\n]"""), " "))
+            gui.createMessageDelay(message, INFO, 5000)
             healthCareService.communityServices.forEach {
                 if (it is HomeVisit) {
                     dao.updateHomeVisit(
