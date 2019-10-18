@@ -1,8 +1,12 @@
 package ffc.airsync.api.healthcare
 
+import ffc.airsync.api.user.syncJToCloud
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.gui
 import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.ERROR
+import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
 import ffc.airsync.users
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
@@ -99,21 +103,29 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
             throw ex
         }
 
+        val provider = users.find { it.id == providerId } ?: {
+            gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 5000)
+            users.syncJToCloud()
+            users.find { it.id == providerId }
+        }.invoke()
+
         val patient = persons.find { it.id == patientId }
-        val provider = users.find { it.id == providerId }
 
         if (patient == null || provider == null) {
+            val message = "ข้อมูลที่ใช้ประกอบการ visit ไม่ครบ " +
+                    "ผู้ให้บริการ $providerId:${provider?.name} " +
+                    "ผู้ถูกเยี่ยม $patientId:${patient?.name}"
             logger.error {
-                "ข้อมูลที่ใช้ประกอบการ visit ไม่ครบ " +
-                        "ผู้ให้บริการ $providerId:${provider?.name} " +
-                        "ผู้ถูกเยี่ยม $patientId:${patient?.name}"
+                message
             }
+            gui.createMessageDelay(message, ERROR, 5000)
             return
         }
 
         logger.debug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
 
         if (healthCareService.link!!.keys.isEmpty()) {
+            gui.createMessageDelay("เจ้าหน้าที่ ${provider.name} กำลังเยี่ยม ${patient.name}", INFO, 10000)
             healthCareService.communityServices.forEach {
                 if (it is HomeVisit) {
                     dao.createHomeVisit(
@@ -127,6 +139,7 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
                 }
             }
         } else {
+            gui.createMessageDelay("เจ้าหน้าที่ ${provider.name} อัพเดทข้อมูลการเยี่ยม ${patient.name}", INFO, 5000)
             healthCareService.communityServices.forEach {
                 if (it is HomeVisit) {
                     dao.updateHomeVisit(
