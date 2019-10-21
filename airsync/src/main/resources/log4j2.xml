@@ -1,17 +1,11 @@
 <Configuration status="warn" name="FFC-Airsync" packages="ffc.airsync">
-    <Properties>
-        <Property name="filename">log/ffc-airsync.log</Property>
-    </Properties>
-
 
     <Appenders>
         <Console name="STDOUT" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %-5p [%t] %-5c{1} - %m%n"/>
         </Console>
-    </Appenders>
 
-    <Appenders>
-        <RollingFile name="FileRolling" fileName="${filename}"
+        <RollingFile name="RollingFile" fileName="log/ffc-airsync.log"
                      filePattern="log/ffc-airsync.%d{dd-MMM-yyyy-HH:mm}.%i.log.gz">
             <PatternLayout>
                 <pattern>%d %-5p [%t] %-5c{1} - %m%n</pattern>
@@ -24,12 +18,8 @@
     <Loggers>
         <Root level="DEBUG">
             <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="RollingFile" level="INFO"/>
         </Root>
     </Loggers>
 
-    <Loggers>
-        <Root level="DEBUG">
-            <AppenderRef ref="FileRolling"/>
-        </Root>
-    </Loggers>
 </Configuration>
