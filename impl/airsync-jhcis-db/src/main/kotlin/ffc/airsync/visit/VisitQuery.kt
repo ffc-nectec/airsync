@@ -226,10 +226,9 @@ class VisitMapper : RowMapper<HealthCareService> {
                         endTime = DateTime(visitdate).plus(timeend.time).minusHours(7)
                     } catch (ex: java.lang.IllegalArgumentException) {
                         logger.warn(
-                            "Visit time end error " +
-                                    "time=$time " +
-                                    "endtime=${DateTime(visitdate).plus(timeend.time).minusHours(7)} ${ex.message}",
-                            ex
+                            "Visit time end error ตรวจพบข้อมูลขัดแย้งในเรื่องเวลาการ visit " +
+                                    "timestart=$time " +
+                                    "endtime=${DateTime(visitdate).plus(timeend.time).minusHours(7)} ${ex.message}"
                         )
                     }
                 }
