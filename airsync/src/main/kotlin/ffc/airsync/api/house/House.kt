@@ -28,10 +28,14 @@ fun ArrayList<House>.initSync(person: List<Person>, progressCallback: (Int) -> U
     } else {
         addAll(cacheFile)
         checkNewDataCreate(jhcisHouse, cacheFile, { jhcis, cloud ->
-            val run1 = runCatching { jhcis.link!!.keys["pcucode"] == cloud.link!!.keys["pcucode"] }
-            val run2 = runCatching { jhcis.link!!.keys["hcode"] == cloud.link!!.keys["hcode"] }
-            if (run1.isSuccess && run2.isSuccess) run1.getOrThrow() && run2.getOrThrow()
-            else false
+            val pcuCheck = runCatching { jhcis.link!!.keys["pcucode"] == cloud.link!!.keys["pcucode"] }
+            val hcodeCheck = runCatching { jhcis.link!!.keys["hcode"] == cloud.link!!.keys["hcode"] }
+            val keyCheck =
+                if (pcuCheck.isSuccess && hcodeCheck.isSuccess)
+                    pcuCheck.getOrThrow() && hcodeCheck.getOrThrow()
+                else false
+
+            keyCheck
         }) {
             getLogger(this).info { "Create new house ${it.toJson()}" }
             createHouseOnCloud(person, it, progressCallback, false)

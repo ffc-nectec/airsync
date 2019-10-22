@@ -8,7 +8,6 @@ import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.User
-import ffc.entity.gson.toJson
 
 /**
  * ดึงข้อมูล User ทั้งหมดจาก jhcisdb
@@ -52,7 +51,7 @@ fun ArrayList<User>.syncJToCloud() {
 }
 
 private fun ArrayList<User>.create(it: List<User>) {
-    getLogger(this).info { "Update new user ${it.toJson()}" }
+    getLogger(this).info { "Update new user ${it.map { it.name }}" }
     val putUser = userApi.putUser(it.toMutableList())
     addAll(putUser)
     save()

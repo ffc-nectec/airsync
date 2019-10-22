@@ -42,13 +42,12 @@ fun ArrayList<Person>.initSync(
         logger.info("Load person from airsync file.")
         addAll(cacheFile)
         checkNewDataCreate(personIsChronic, cacheFile, { jhcis, cloud ->
-            var out = false
-            jhcis.identities.forEach { jId ->
-                cloud.identities.forEach { cId ->
-                    if (jId == cId) out = true
-                }
-            }
-            out
+            val pcuCheck = runCatching { jhcis.link!!.keys["pcucodeperson"] == cloud.link!!.keys["pcucodeperson"] }
+            val pidCheck = runCatching { jhcis.link!!.keys["pid"] == cloud.link!!.keys["pid"] }
+
+            if (pcuCheck.isSuccess && pidCheck.isSuccess)
+                pcuCheck.getOrThrow() && pidCheck.getOrThrow()
+            else false
         }) {
             getLogger(this).info { "Create new person ${it.toJson()}" }
             createPersonOnCloud(it, houseFromCloud, progressCallback, false)

@@ -150,8 +150,6 @@ class PersonMapper : RowMapper<Person> {
             link = Link(System.JHICS)
 
             getResult("pcucodeperson", rs)?.let { link!!.keys["pcucodeperson"] = it }
-
-            getResult("pcucodeperson", rs)?.let { link!!.keys["pcucodeperson"] = it }
             getResult("pid", rs)?.let { link!!.keys["pid"] = it }
             getResult("hcode", rs)?.let { link!!.keys["hcode"] = it }
 

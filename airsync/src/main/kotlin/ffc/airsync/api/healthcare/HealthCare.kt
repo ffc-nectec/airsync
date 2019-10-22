@@ -7,27 +7,43 @@ import ffc.airsync.icd10Api
 import ffc.airsync.persons
 import ffc.airsync.specialPpApi
 import ffc.airsync.users
+import ffc.airsync.utils.checkNewDataCreate
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
+import ffc.entity.gson.toJson
 import ffc.entity.healthcare.HealthCareService
 
 fun ArrayList<HealthCareService>.initSync(progressCallback: (Int) -> Unit) {
-    val localHealthCare = arrayListOf<HealthCareService>().apply {
+    val cacheFile = arrayListOf<HealthCareService>().apply {
         addAll(load())
     }
 
-    if (localHealthCare.isEmpty()) {
+    val jhcisVisit = getHealthCare(progressCallback)
+    if (cacheFile.isEmpty()) {
         hashMapOf<String, Long>("maxvisit" to Main.instant.dao.queryMaxVisit()).save("maxvisit.json")
         val temp = listOf<HealthCareService>().load("healthTemp.json")
         if (temp.isEmpty()) {
-            localHealthCare.addAll(getHealthCare(progressCallback))
-            localHealthCare.save("healthTemp.json")
+            cacheFile.addAll(jhcisVisit)
+            cacheFile.save("healthTemp.json")
         } else
-            localHealthCare.addAll(temp)
-        addAll(healthCareApi.clearAndCreateHealthCare(localHealthCare, progressCallback))
+            cacheFile.addAll(temp)
+        addAll(healthCareApi.clearAndCreateHealthCare(cacheFile, progressCallback))
         save()
     } else {
-        addAll(localHealthCare)
+        addAll(cacheFile)
+        checkNewDataCreate(jhcisVisit, cacheFile, { jhcis, cloud ->
+            val pcuCheck = runCatching { jhcis.link!!.keys["pcucode"] == cloud.link!!.keys["pcucode"] }
+            val visitNoCheck = runCatching { jhcis.link!!.keys["visitno"] == cloud.link!!.keys["visitno"] }
+
+            if (pcuCheck.isSuccess && visitNoCheck.isSuccess) {
+                pcuCheck.getOrThrow() && visitNoCheck.getOrThrow()
+            } else false
+        }) {
+            getLogger(this).info { "Create new visit ${it.toJson()}" }
+            this.addAll(healthCareApi.clearAndCreateHealthCare(it, progressCallback, false))
+            this.save()
+        }
     }
     progressCallback(100)
 }
