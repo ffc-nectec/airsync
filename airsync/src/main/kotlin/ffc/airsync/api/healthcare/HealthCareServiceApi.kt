@@ -25,7 +25,11 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         progressCallback: (Int) -> Unit,
         clearCloud: Boolean
     ): List<HealthCareService> {
-        callApiNoReturn { restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute() }
+        if (clearCloud)
+            callApiNoReturn {
+                val respond = restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute()
+                check(respond.code() == 200) { "เกิดข้อผิดพลาดการเยี่ยมบ้าน" }
+            }
         return _createHealthCare(healthCare, progressCallback)
     }
 
