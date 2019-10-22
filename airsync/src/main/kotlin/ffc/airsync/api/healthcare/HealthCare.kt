@@ -59,10 +59,9 @@ private fun getHealthCare(progressCallback: (Int) -> Unit): List<HealthCareServi
         lookupPatientId = { pid -> persons.find { it.link!!.keys["pid"] == pid }?.id ?: "" },
         lookupProviderId = { name ->
             val find = users.find { it.name == name }?.id
-            val lastUser = users.last()
             if (find == null)
-                getLogger(DatabaseDao::class).warn("ค้นหาเจ้าหน้าที่ $name ไม่พบ ระบบจะแทนด้วย ${lastUser.name}")
-            find ?: lastUser.id
+                getLogger(DatabaseDao::class).warn("ค้นหาเจ้าหน้าที่ $name ไม่พบ}")
+            find ?: ""
         },
         lookupDisease = { icd10 -> icd10Api.lookup(icd10) },
         lookupServiceType = { serviceId -> homeHealthTypeApi.lookup(serviceId) },
