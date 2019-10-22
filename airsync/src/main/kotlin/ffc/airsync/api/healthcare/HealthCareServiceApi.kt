@@ -3,6 +3,7 @@ package ffc.airsync.api.healthcare
 import ffc.airsync.api.user.syncJToCloud
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui
+import ffc.airsync.healthCare
 import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.ERROR
@@ -14,6 +15,8 @@ import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.isTempId
+import ffc.airsync.utils.save
+import ffc.entity.gson.toJson
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 
@@ -169,7 +172,14 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
 
         val result = updateHealthCare(healthCareService)
 
-        logger.info { "Result healthcare from cloud $result" }
+        healthCare.find { it.id == result.id }?.let {
+            // update cacheFile
+            healthCare.removeIf { it.id == result.id }
+        }
+        healthCare.add(result)
+        healthCare.save()
+
+        logger.info { "Result healthcare from cloud ${result.toJson()}" }
     }
 
     override fun updateHealthCare(healthCareService: HealthCareService): HealthCareService {
@@ -178,7 +188,8 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
                 organization.id, tokenBarer,
                 healthCareService.id, healthCareService
             ).execute()
-        }.body()
-        return result!!
+        }
+        check(result.code() == 200) { "ไม่สามารถ update visit ได้" }
+        return result.body()!!
     }
 }

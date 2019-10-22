@@ -168,7 +168,7 @@ class VisitJdbi(
             Unit
         }
         progressCallback(5)
-        return result.map { healthCare ->
+        return result.mapNotNull { healthCare ->
             var outputVisit = HealthCareService("", "")
 
             var runtimeLookupUser: Long = -1L
@@ -186,8 +186,10 @@ class VisitJdbi(
                         launch { patientId = lookupPatientId(healthCare.patientId) }
                     }
                 }
-                check(providerId.isNotBlank()) { "visit ไม่พบ ผู้ให้บริการชื่อ ${healthCare.providerId}" }
-                check(patientId.isNotBlank()) { "visit ไม่พบ ผู้ใช้บริการ pid ${healthCare.patientId}" }
+                if (providerId.isBlank())
+                    return@mapNotNull null
+                if (patientId.isBlank())
+                    return@mapNotNull null
 
                 outputVisit = copyVisit(providerId, patientId, healthCare)
                 outputVisit.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
