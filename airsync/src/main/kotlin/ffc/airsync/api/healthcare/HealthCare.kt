@@ -1,6 +1,7 @@
 package ffc.airsync.api.healthcare
 
 import ffc.airsync.Main
+import ffc.airsync.db.DatabaseDao
 import ffc.airsync.healthCareApi
 import ffc.airsync.homeHealthTypeApi
 import ffc.airsync.icd10Api
@@ -56,7 +57,13 @@ private fun getHealthCare(progressCallback: (Int) -> Unit): List<HealthCareServi
 
     return Main.instant.dao.getHealthCareService(
         lookupPatientId = { pid -> persons.find { it.link!!.keys["pid"] == pid }?.id ?: "" },
-        lookupProviderId = { name -> (users.find { it.name == name } ?: users.last()).id },
+        lookupProviderId = { name ->
+            val find = users.find { it.name == name }?.id
+            val lastUser = users.last()
+            if (find == null)
+                getLogger(DatabaseDao::class).warn("ค้นหาเจ้าหน้าที่ $name ไม่พบ ระบบจะแทนด้วย ${lastUser.name}")
+            find ?: lastUser.id
+        },
         lookupDisease = { icd10 -> icd10Api.lookup(icd10) },
         lookupServiceType = { serviceId -> homeHealthTypeApi.lookup(serviceId) },
         lookupSpecialPP = { ppCode -> specialPpApi.lookup(ppCode.trim()) },
