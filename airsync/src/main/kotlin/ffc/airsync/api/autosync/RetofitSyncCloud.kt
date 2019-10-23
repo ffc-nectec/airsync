@@ -5,12 +5,11 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.syncFlow
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.getLogger
+import ffc.entity.Entity
 
 class RetofitSyncCloud : RetofitApi<SyncUrl>(SyncUrl::class.java), SyncCloud {
     override fun sync(dao: DatabaseDao) {
-        val syncRespond = callApi { restService.syncData(organization.id, tokenBarer).execute() }
-        val syncList = syncRespond.body()
-        val responseCode = syncRespond.code()
+        val (syncList, responseCode) = getCloud()
 
         logger.info {
             var log = "Sync from cloud http return code:$responseCode "
@@ -27,9 +26,29 @@ class RetofitSyncCloud : RetofitApi<SyncUrl>(SyncUrl::class.java), SyncCloud {
             return
         }
 
+        syncAll(syncList, dao)
+    }
+
+    private fun syncAll(syncList: List<Entity>, dao: DatabaseDao) {
         syncList.forEach {
             syncFlow(it.type, it.id, dao)
         }
+    }
+
+    override fun syncFilter(dao: DatabaseDao, type: List<String>) {
+        val (syncList, responseCode) = getCloud()
+        if (responseCode != 200 || syncList == null) {
+            return
+        }
+        val filter = syncList.filter { type.contains(it.type) }
+        syncAll(filter, dao)
+    }
+
+    private fun getCloud(): Pair<List<Entity>?, Int> {
+        val syncRespond = callApi { restService.syncData(organization.id, tokenBarer).execute() }
+        val syncList = syncRespond.body()
+        val responseCode = syncRespond.code()
+        return Pair(syncList, responseCode)
     }
 
     companion object {
