@@ -18,30 +18,32 @@ fun House.gets(where: String = "", dao: DatabaseDao = Main.instant.dao): List<Ho
 }
 
 fun ArrayList<House>.initSync(person: List<Person>, progressCallback: (Int) -> Unit) {
-    val cacheFile = arrayListOf<House>().apply {
-        addAll(load())
-    }
-
-    val jhcisHouse = House().gets()
-    if (cacheFile.isEmpty()) {
-        createHouseOnCloud(person, jhcisHouse, progressCallback)
-    } else {
-        addAll(cacheFile)
-        checkNewDataCreate(jhcisHouse, cacheFile, { jhcis, cloud ->
-            val pcuCheck = runCatching { jhcis.link!!.keys["pcucode"] == cloud.link!!.keys["pcucode"] }
-            val hcodeCheck = runCatching { jhcis.link!!.keys["hcode"] == cloud.link!!.keys["hcode"] }
-            val keyCheck =
-                if (pcuCheck.isSuccess && hcodeCheck.isSuccess)
-                    pcuCheck.getOrThrow() && hcodeCheck.getOrThrow()
-                else false
-
-            keyCheck
-        }) {
-            getLogger(this).info { "Create new house ${it.toJson()}" }
-            createHouseOnCloud(person, it, progressCallback, false)
+    this.lock {
+        val cacheFile = arrayListOf<House>().apply {
+            addAll(load())
         }
+        val jhcisHouse = House().gets()
+        clear()
+        if (cacheFile.isEmpty()) {
+            createHouseOnCloud(person, jhcisHouse, progressCallback)
+        } else {
+            addAll(cacheFile)
+            checkNewDataCreate(jhcisHouse, cacheFile, { jhcis, cloud ->
+                val pcuCheck = runCatching { jhcis.link!!.keys["pcucode"] == cloud.link!!.keys["pcucode"] }
+                val hcodeCheck = runCatching { jhcis.link!!.keys["hcode"] == cloud.link!!.keys["hcode"] }
+                val keyCheck =
+                    if (pcuCheck.isSuccess && hcodeCheck.isSuccess)
+                        pcuCheck.getOrThrow() && hcodeCheck.getOrThrow()
+                    else false
+
+                keyCheck
+            }) {
+                getLogger(this).info { "Create new house ${it.toJson()}" }
+                createHouseOnCloud(person, it, progressCallback, false)
+            }
+        }
+        progressCallback(100)
     }
-    progressCallback(100)
 }
 
 private fun ArrayList<House>.createHouseOnCloud(
@@ -71,5 +73,13 @@ private fun checkChronicInHouse(persons: List<Person>, house: List<House>, progr
         }
         if (houseSize != 0)
             progressCallback((index * 50) / houseSize)
+    }
+}
+
+private const val houseLock = "lock"
+
+fun List<House>.lock(f: () -> Unit) {
+    synchronized(houseLock) {
+        f()
     }
 }

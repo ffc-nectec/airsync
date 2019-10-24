@@ -3,6 +3,7 @@ package ffc.airsync.api.user
 import ffc.airsync.Main
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.userApi
+import ffc.airsync.users
 import ffc.airsync.utils.checkNewDataCreate
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
@@ -17,28 +18,30 @@ fun User.gets(dao: DatabaseDao = Main.instant.dao): List<User> {
 }
 
 fun ArrayList<User>.initSync() {
-    val cacheFile = arrayListOf<User>()
-    cacheFile.addAll(load())
+    this.lock {
+        val cacheFile = arrayListOf<User>()
+        cacheFile.addAll(load())
 
-    val jhcisUser = User().gets()
-
-    if (cacheFile.isEmpty()) {
-        check(jhcisUser.isNotEmpty()) {
-            "เกิดข้อผิดพลาด " +
-                    "ในการดึงข้อมูลการ Login ใน table user " +
-                    "ไม่สามารถ ใส่ข้อมูล User ได้"
-        }
-        val putUser = userApi.putUser(jhcisUser.toMutableList())
-        addAll(putUser)
-        check(isNotEmpty()) {
-            "เกิดข้อผิดพลาด " +
-                    "ในการ Sync User จาก Cloud"
-        }
-        save()
-    } else {
-        addAll(cacheFile)
-        checkNewDataCreate(jhcisUser, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
-            create(it)
+        val jhcisUser = User().gets()
+        clear()
+        if (cacheFile.isEmpty()) {
+            check(jhcisUser.isNotEmpty()) {
+                "เกิดข้อผิดพลาด " +
+                        "ในการดึงข้อมูลการ Login ใน table user " +
+                        "ไม่สามารถ ใส่ข้อมูล User ได้"
+            }
+            val putUser = userApi.putUser(jhcisUser.toMutableList())
+            addAll(putUser)
+            check(isNotEmpty()) {
+                "เกิดข้อผิดพลาด " +
+                        "ในการ Sync User จาก Cloud"
+            }
+            save()
+        } else {
+            addAll(cacheFile)
+            checkNewDataCreate(jhcisUser, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
+                create(it)
+            }
         }
     }
 }
@@ -55,4 +58,21 @@ private fun ArrayList<User>.create(it: List<User>) {
     val putUser = userApi.putUser(it.toMutableList())
     addAll(putUser)
     save()
+}
+
+private const val userLock = "lock"
+
+fun List<User>.lock(f: () -> Unit) {
+    synchronized(userLock) {
+        f()
+    }
+}
+
+fun findProviderId(name: String): String {
+    val id = (users.find { it.name == name })?.id
+    return if (id == null) {
+        users.initSync()
+        (users.find { it.name == name })!!.id
+    } else
+        id
 }
