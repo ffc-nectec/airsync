@@ -34,6 +34,7 @@ class AirSyncGUIController : AirSyncGUI {
             (screenSize.first - airsync.width) - 20,
             windowsHeigh - (windowsHeigh / 10)
         )
+        airsync.isAlwaysOnTop = true
         setSyncIcon()
         setLogoIcon()
         airsync.otpButton.font = kanitBold.deriveFont(22f)
