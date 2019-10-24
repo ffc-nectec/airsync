@@ -172,12 +172,11 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
 
         val result = updateHealthCare(healthCareService)
 
-        healthCare.find { it.id == result.id }?.let {
-            // update cacheFile
+        healthCare.lock {
             healthCare.removeIf { it.id == result.id }
+            healthCare.add(result)
+            healthCare.save()
         }
-        healthCare.add(result)
-        healthCare.save()
 
         logger.info { "Result healthcare from cloud ${result.toJson()}" }
     }

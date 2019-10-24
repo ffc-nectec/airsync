@@ -1,13 +1,18 @@
 package ffc.airsync.api.person
 
 import ffc.airsync.Main
+import ffc.airsync.api.house.initSync
+import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.houses
 import ffc.airsync.icd10Api
 import ffc.airsync.personApi
+import ffc.airsync.persons
 import ffc.airsync.utils.checkNewDataCreate
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
+import ffc.airsync.villages
 import ffc.entity.Person
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
@@ -30,30 +35,32 @@ fun ArrayList<Person>.initSync(
     personIsChronic: List<Person>,
     progressCallback: (Int) -> Unit
 ) {
-    val cacheFile = arrayListOf<Person>().apply {
-        logger.trace("initSync load person.")
-        addAll(load())
-    }
-
-    if (cacheFile.isEmpty()) {
-        logger.info("Load person from databse.")
-        createPersonOnCloud(personIsChronic, houseFromCloud, progressCallback)
-    } else {
-        logger.info("Load person from airsync file.")
-        addAll(cacheFile)
-        checkNewDataCreate(personIsChronic, cacheFile, { jhcis, cloud ->
-            val pcuCheck = runCatching { jhcis.link!!.keys["pcucodeperson"] == cloud.link!!.keys["pcucodeperson"] }
-            val pidCheck = runCatching { jhcis.link!!.keys["pid"] == cloud.link!!.keys["pid"] }
-
-            if (pcuCheck.isSuccess && pidCheck.isSuccess)
-                pcuCheck.getOrThrow() && pidCheck.getOrThrow()
-            else false
-        }) {
-            getLogger(this).info { "Create new person ${it.toJson()}" }
-            createPersonOnCloud(it, houseFromCloud, progressCallback, false)
+    this.lock {
+        val cacheFile = arrayListOf<Person>().apply {
+            logger.trace("initSync load person.")
+            addAll(load())
         }
+        clear()
+        if (cacheFile.isEmpty()) {
+            logger.info("Load person from databse.")
+            createPersonOnCloud(personIsChronic, houseFromCloud, progressCallback)
+        } else {
+            logger.info("Load person from airsync file.")
+            addAll(cacheFile)
+            checkNewDataCreate(personIsChronic, cacheFile, { jhcis, cloud ->
+                val pcuCheck = runCatching { jhcis.link!!.keys["pcucodeperson"] == cloud.link!!.keys["pcucodeperson"] }
+                val pidCheck = runCatching { jhcis.link!!.keys["pid"] == cloud.link!!.keys["pid"] }
+
+                if (pcuCheck.isSuccess && pidCheck.isSuccess)
+                    pcuCheck.getOrThrow() && pidCheck.getOrThrow()
+                else false
+            }) {
+                getLogger(this).info { "Create new person ${it.toJson()}" }
+                createPersonOnCloud(it, houseFromCloud, progressCallback, false)
+            }
+        }
+        progressCallback(100)
     }
-    progressCallback(100)
 }
 
 private fun ArrayList<Person>.createPersonOnCloud(
@@ -149,4 +156,25 @@ private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
         if (sizeOfLoop != 0)
             progressCallback(((index * 20) / sizeOfLoop) + 30)
     }
+}
+
+private const val personLock = "lock"
+
+fun List<Person>.lock(f: () -> Unit) {
+    synchronized(personLock) {
+        f()
+    }
+}
+
+fun findPersonId(pid: String): String {
+    val id = persons.find { it.link!!.keys["pid"] == pid }?.id
+    return if (id == null) {
+        val syncPerson = SyncPerson()
+        val jhcisDbPerson = syncPerson.prePersonProcess()
+        villages.initSync()
+        houses.initSync(jhcisDbPerson) {}
+        persons.initSync(houses, jhcisDbPerson) {}
+        persons.find { it.link!!.keys["pid"] == pid }!!.id
+    } else
+        id
 }

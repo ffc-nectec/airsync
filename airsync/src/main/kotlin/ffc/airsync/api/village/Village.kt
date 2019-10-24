@@ -20,18 +20,29 @@ val VILLAGELOOKUP = { jVillageId: String ->
 fun List<Village>.getVillage() = Main.instant.dao.getVillage()
 
 fun ArrayList<Village>.initSync() {
-    val cacheFile = arrayListOf<Village>().apply { addAll(load()) }
-    val jhcisVillage = cacheFile.getVillage()
+    this.lock {
+        val cacheFile = arrayListOf<Village>().apply { addAll(load()) }
+        val jhcisVillage = cacheFile.getVillage()
 
-    if (cacheFile.isEmpty()) {
-        addAll(villageApi.toCloud(jhcisVillage))
-        save()
-    } else {
-        addAll(cacheFile)
-        checkNewDataCreate(jhcisVillage, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
-            getLogger(this).info { "Create new village ${it.toJson()}" }
-            addAll(villageApi.toCloud(it, false))
+        clear()
+        if (cacheFile.isEmpty()) {
+            addAll(villageApi.toCloud(jhcisVillage))
             save()
+        } else {
+            addAll(cacheFile)
+            checkNewDataCreate(jhcisVillage, cacheFile, { jhcis, cloud -> jhcis.name == cloud.name }) {
+                getLogger(this).info { "Create new village ${it.toJson()}" }
+                addAll(villageApi.toCloud(it, false))
+                save()
+            }
         }
+    }
+}
+
+private const val villageLock = "lock"
+
+fun List<Village>.lock(f: () -> Unit) {
+    synchronized(villageLock) {
+        f()
     }
 }

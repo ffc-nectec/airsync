@@ -1,5 +1,6 @@
 package ffc.airsync
 
+import ffc.airsync.api.healthcare.lock
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.callApi
@@ -126,42 +127,44 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         logger.info("Create new visit to cloud")
         jobFFC {
             visitno?.let { visitNo ->
-                val healthcareDb = getHealthCareFromDb(updateWhere)
+                val visitJhcis = getHealthCareFromDb(updateWhere)
 
-                val oldHealthcare = healthCare.find {
-                    val checkPcuCode = it.link?.keys?.get("pcucode").toString() == pcucode
-                    val checkVisitNumber =
+                val cloudFind = healthCare.find {
+                    val checkPcu = it.link?.keys?.get("pcucode").toString() == pcucode
+                    val checkVisit =
                         it.link?.keys?.get("visitno").toString() == visitNo.toString()
-                    checkPcuCode && checkVisitNumber
+                    checkPcu && checkVisit
                 }
 
-                if (oldHealthcare == null) {
-                    val healcareCloud = callApi { healthCareApi.createHealthCare(healthcareDb) {} }
-                    healthCare.addAll(healcareCloud)
+                if (cloudFind == null) {
+                    val fromCloud = callApi { healthCareApi.createHealthCare(visitJhcis) {} }
+                    healthCare.lock {
+                        healthCare.addAll(fromCloud)
+                        healthCare.save()
+                    }
                 } else {
-                    healthcareDb.forEach { it ->
-                        it.link = oldHealthcare.link
+                    visitJhcis.forEach { it ->
+                        it.link = cloudFind.link
                         it.link?.isSynced = true
-                        healthCareApi.updateHealthCare(it.copy(oldHealthcare.id))
+                        val update = healthCareApi.updateHealthCare(it.copy(cloudFind.id))
+                        healthCare.lock {
+                            healthCare.removeIf { it.id == update.id }
+                            healthCare.add(update)
+                            healthCare.save()
+                        }
                     }
                 }
-
-                healthCare.save()
             }
         }
     }
 
     private fun getHealthCareFromDb(updateWhere: String): List<HealthCareService> {
         return dao.getHealthCareService(
-            lookupPatientId = { pid ->
-                persons.find { it.link!!.keys["pid"] == pid }?.id ?: ""
-            },
-            lookupProviderId = { name ->
-                (users.find { it.name == name } ?: users.last()).id
-            },
-            lookupDisease = { icd10 -> icd10Api.lookup(icd10) },
-            lookupServiceType = { serviceId -> homeHealthTypeApi.lookup(serviceId) },
-            lookupSpecialPP = { ppCode -> specialPpApi.lookup(ppCode.trim()) },
+            lookupPatientId = lookupPersonId,
+            lookupProviderId = lookupUserId,
+            lookupDisease = lookupDisease,
+            lookupServiceType = lookupServiceType,
+            lookupSpecialPP = lookupSpecialPP,
             whereString = updateWhere
         )
     }

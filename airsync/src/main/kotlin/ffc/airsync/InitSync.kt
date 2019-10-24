@@ -1,13 +1,11 @@
 package ffc.airsync
 
 import ffc.airsync.api.analyzer.initSync
-import ffc.airsync.api.chronic.Chronics
 import ffc.airsync.api.genogram.initRelation
 import ffc.airsync.api.healthcare.initSync
 import ffc.airsync.api.house.initSync
-import ffc.airsync.api.person.gets
+import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
-import ffc.airsync.api.person.mapChronic
 import ffc.airsync.api.template.TemplateInit
 import ffc.airsync.api.user.initSync
 import ffc.airsync.api.village.initSync
@@ -15,7 +13,6 @@ import ffc.airsync.gui.ProgressList
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.createProgress
 import ffc.airsync.utils.getLogger
-import ffc.entity.Person
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -55,10 +52,6 @@ class InitSync : ProgressList {
             }
             gui.remove("Sync")
         }
-        val jhcisDbPerson = Person().gets()
-
-        progressTemplate = 5
-        jhcisDbPerson.mapChronic(Chronics())
         progressTemplate = 10
         logger.info { "ใส่ข้อมูล ช่วยกรอกอัตโนมัติ...." }
         TemplateInit()
@@ -74,6 +67,9 @@ class InitSync : ProgressList {
 
         logger.info { "ดูบ้าน (3/7)" }
         message = "สำรวจบ้าน "
+
+        val syncPerson = SyncPerson()
+        val jhcisDbPerson = syncPerson.prePersonProcess()
         houses.initSync(jhcisDbPerson) {
             progressHouse = it
         }

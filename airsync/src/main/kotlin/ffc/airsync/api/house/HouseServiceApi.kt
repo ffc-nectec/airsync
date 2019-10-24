@@ -2,6 +2,7 @@ package ffc.airsync.api.house
 
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui
+import ffc.airsync.houses
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
 import ffc.airsync.utils.ApiLoopException
@@ -9,6 +10,7 @@ import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
+import ffc.airsync.utils.save
 import ffc.entity.place.House
 
 class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), HouseApi {
@@ -69,6 +71,12 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
 
         logger.info("\tPut new house to cloud")
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = _id, house = house).execute()
+
+        houses.lock {
+            houses.removeIf { house.id == it.id }
+            houses.add(house)
+            houses.save()
+        }
     }
 
     override fun syncHouseToCloud(house: House) {
