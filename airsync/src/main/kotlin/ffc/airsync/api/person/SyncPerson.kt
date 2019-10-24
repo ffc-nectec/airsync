@@ -6,7 +6,7 @@ import ffc.entity.Person
 
 class SyncPerson() : Sync {
     override fun sync() {
-        //TODO รอพัฒนาเพิ่ม ยังไงเพราะจำเป็นต้องผ่าน process ของบ้านด้วย
+        // TODO รอพัฒนาเพิ่ม ยังไงเพราะจำเป็นต้องผ่าน process ของบ้านด้วย
     }
 
     fun prePersonProcess(): List<Person> {
