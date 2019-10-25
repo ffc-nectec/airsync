@@ -11,7 +11,12 @@ import ffc.entity.Village
 import ffc.entity.gson.toJson
 
 val VILLAGELOOKUP = { jVillageId: String ->
-    villages.find { it.link!!.keys["villcode"].toString() == jVillageId }
+    val find = villages.find { it.link!!.keys["villcode"].toString() == jVillageId }
+    if (find == null) {
+        villages.initSync()
+        villages.find { it.link!!.keys["villcode"].toString() == jVillageId }!!
+    } else
+        find
 }
 
 /**

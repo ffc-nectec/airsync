@@ -59,6 +59,7 @@ fun ArrayList<Person>.initSync(
                 createPersonOnCloud(it, houseFromCloud, progressCallback, false)
             }
         }
+        save()
         progressCallback(100)
     }
 }
@@ -72,7 +73,6 @@ private fun ArrayList<Person>.createPersonOnCloud(
     personIsChronic.mapHouseId(houseFromCloud, progressCallback)
     mapDeath(personIsChronic, progressCallback)
     addAll(personApi.putPerson(personIsChronic, progressCallback, clearCloud))
-    save()
 }
 
 private fun List<Person>.mapHouseId(

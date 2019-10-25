@@ -1,7 +1,11 @@
 package ffc.airsync
 
 import ffc.airsync.api.healthcare.lock
+import ffc.airsync.api.house.initSync
+import ffc.airsync.api.person.SyncPerson
+import ffc.airsync.api.person.initSync
 import ffc.airsync.api.village.VILLAGELOOKUP
+import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.getLogger
@@ -28,6 +32,8 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         val tablesPattern = hashMapOf<String, List<String>>().apply {
             put("house", listOf("house", "`house`", "`jhcisdb`.`house`"))
             put("visit", listOf("visit", "`visit`", " visit ", "visitdrug", "visithomehealthindividual"))
+            put("person", listOf("`person`", " person ", "`jhcisdb`.`person`", "person"))
+            put("user", listOf("`user`", " user ", "`jhcisdb`.`user`"))
         }
 
         ffc.airsync.provider.databaseWatcher(
@@ -37,12 +43,32 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             when (tableName) {
                 "house" -> houseEvent(keyWhere)
                 "visit" -> visitEvent(keyWhere)
+                "person" -> personEvent(keyWhere)
+                "user" -> userEvent(keyWhere)
             }
         }.start()
     }
 
+    private fun personEvent(keyWhere: List<String>) {
+        val pattern = Regex("""^.*pcucodeperson[` ]?='?(\d+)'?.*pid[` ]?='?(\d+)'?.*$""")
+        if (pattern.matches(keyWhere.firstOrNull() ?: "")) {
+            turnOnSync()
+        }
+    }
+
+    private fun userEvent(keyWhere: List<String>) {
+        if (keyWhere.size == 1) {
+            val pattern = Regex("""^.*pcucode[` ]?='?(\d+)'?.*username[` ]?='?(.+)'?.*$""")
+            if (pattern.matches(keyWhere[0]))
+                turnOnSync()
+        }
+    }
+
     private fun houseEvent(keyWhere: List<String>) {
         jobFFC {
+            val pattern = Regex("""^.*pcucode[` ]?='?(\d+)'?.*hcode[` ]?='?(\d+)'? AND \d+$""")
+            if (pattern.matches(keyWhere.firstOrNull() ?: ""))
+                turnOnSync()
             if (keyWhere.size == 1) {
                 val house = dao.getHouse(VILLAGELOOKUP, keyWhere.first())
                 house.forEach {
@@ -175,6 +201,17 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                     house.link!!.keys["hcode"] == it.link!!.keys["hcode"]
         }
 
-        return houseFind ?: throw NullPointerException("ค้นหาไม่พบบ้าน")
+        if (houseFind == null) {
+            val syncPerson = SyncPerson()
+            val jhcisDbPerson = syncPerson.prePersonProcess()
+            villages.initSync()
+            houses.initSync(jhcisDbPerson) {}
+            persons.initSync(houses, jhcisDbPerson) {}
+            return houses.find {
+                house.link!!.keys["pcucode"] == it.link!!.keys["pcucode"] &&
+                        house.link!!.keys["hcode"] == it.link!!.keys["hcode"]
+            } ?: throw NullPointerException("ค้นหาไม่พบบ้าน")
+        } else
+            return houseFind
     }
 }

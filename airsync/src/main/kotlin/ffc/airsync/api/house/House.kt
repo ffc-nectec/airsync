@@ -42,6 +42,7 @@ fun ArrayList<House>.initSync(person: List<Person>, progressCallback: (Int) -> U
                 createHouseOnCloud(person, it, progressCallback, false)
             }
         }
+        save()
         progressCallback(100)
     }
 }
@@ -54,7 +55,6 @@ private fun ArrayList<House>.createHouseOnCloud(
 ) {
     checkChronicInHouse(person, jhcisHouse, progressCallback)
     addAll(houseApi.putHouse(jhcisHouse, progressCallback, clearCloud))
-    save()
 }
 
 private fun checkChronicInHouse(persons: List<Person>, house: List<House>, progressCallback: (Int) -> Unit) {
