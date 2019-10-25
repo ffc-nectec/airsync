@@ -42,7 +42,7 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
     ): List<HealthCareService> {
         val providerId = healthCare.firstOrNull()?.providerId
         val provider = users.find { it.id == providerId } ?: {
-            gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 5000)
+            gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 30000)
             users.syncJToCloud()
             users.find { it.id == providerId }
         }.invoke()
@@ -116,7 +116,7 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         }
 
         val provider = users.find { it.id == providerId } ?: {
-            gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 5000)
+            gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 30000)
             users.syncJToCloud()
             users.find { it.id == providerId }
         }.invoke()
@@ -139,7 +139,7 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         if (healthCareService.link!!.keys.isEmpty()) {
             val message = "เจ้าหน้าที่ ${provider.name} กำลังเยี่ยม\r\n${patient.name}"
             logger.info(message.replace(Regex("""[\r\n]"""), " "))
-            gui.createMessageDelay(message, INFO, 10000)
+            gui.createMessageDelay(message, INFO, 60000 * 5L)
             healthCareService.communityServices.forEach {
                 if (it is HomeVisit) {
                     dao.createHomeVisit(
@@ -155,7 +155,7 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         } else {
             val message = "เจ้าหน้าที่ ${provider.name} อัพเดทข้อมูลการเยี่ยม\r\n${patient.name}"
             logger.info(message.replace(Regex("""[\r\n]"""), " "))
-            gui.createMessageDelay(message, INFO, 5000)
+            gui.createMessageDelay(message, INFO, 60000 * 5L)
             healthCareService.communityServices.forEach {
                 if (it is HomeVisit) {
                     dao.updateHomeVisit(

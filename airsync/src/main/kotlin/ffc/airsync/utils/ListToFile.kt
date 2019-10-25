@@ -26,10 +26,12 @@ inline fun <reified T> loadResourceHashMap(fileName: String): HashMap<String, T>
 }
 
 inline fun <reified T> List<T>.save(filename: String = "${getClassNameInList(this)}.json") {
+    getLogger(this).info("List ${T::class.java.simpleName} to file have ${this.size} item.")
     saveResource(this.toJson(), getDataStore(filename))
 }
 
 inline fun <reified T> HashMap<String, T>.save(filename: String) {
+    getLogger(this).info("Map ${T::class.java.simpleName} to file have ${this.size} item.")
     saveResource(this.toJson(), getDataStore(filename))
 }
 

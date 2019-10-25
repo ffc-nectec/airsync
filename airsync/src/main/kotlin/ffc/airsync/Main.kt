@@ -44,6 +44,7 @@ import kotlin.system.exitProcess
 
 private val logger = getLogger(Main::class.java)
 private var shutdown = false
+var countSync = -100
 
 var isShutdown
     set(value) {

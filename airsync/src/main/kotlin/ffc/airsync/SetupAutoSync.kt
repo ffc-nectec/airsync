@@ -9,6 +9,8 @@ import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.syncCloud
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class SetupAutoSync(val dao: DatabaseDao) {
 
@@ -39,9 +41,9 @@ class SetupAutoSync(val dao: DatabaseDao) {
 
     private fun autoSyncToCloud(): Thread {
         return Thread {
-            val hour = 60000L * 60L
             while (true) {
                 try {
+                    delaySync()
                     logger.info("Sync template")
                     runCatching { TemplateInit() }
                     logger.info("Sync user")
@@ -58,9 +60,27 @@ class SetupAutoSync(val dao: DatabaseDao) {
                     }
                 } catch (ignore: Exception) {
                     ignore.printStackTrace()
+                } finally {
+                    countSync = -100
                 }
-                Thread.sleep(hour)
             }
         }
     }
+
+    private fun delaySync() {
+        runBlocking {
+            val min: Long = 60000
+            while (countSync == -100) { // -100 is stop
+                delay(min)
+            }
+            while (countSync > 0) {
+                countSync--
+                delay(min)
+            }
+        }
+    }
+}
+
+fun turnOnSync(min: Int = 60) {
+    countSync = min
 }
