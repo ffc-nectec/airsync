@@ -23,6 +23,8 @@ class LogReaderTest {
         val filter = hashMapOf<String, List<String>>().apply {
             put("house", listOf("house", "`house`", "`jhcisdb`.`house`"))
             put("visit", listOf("visit", "`visit`", " visit ", "visitdrug", "visithomehealthindividual"))
+            put("person", listOf("`person`", " person ", "`jhcisdb`.`person`", "person"))
+            put("user", listOf("`user`", " user ", "`jhcisdb`.`user`"))
         }
 
         readLogFile = LogReader(
@@ -69,9 +71,39 @@ class LogReaderTest {
         writer.println("""181210  3:38:46       1 Query       UPDATE `jhcisdb`.`house` SET `hno`='cmyk' WHERE  `pcucode`='01092' AND `hcode`=7364""")
         writer.flush()
         Thread.sleep(200)
-
         table.get() `should be equal to` "house"
         key.get() `should be equal to` """`pcucode`='01092' AND `hcode`=7364"""
+
+        writer.println(
+            """		      1 Query       UPDATE house SET pets='0', ygis=NULL, houseairflow='0', hid=NULL, foodgarbageware='0', foodcook='0', iodeinuse='0', pcucode='06651', nearhouse=NULL, pid=NULL, garbageerase='0', dateupdate=NULL, foodsanitation='0', wateruse=NULL, whjrk='0', housepic=NULL, road=NULL, area='1', houselight='0', hno='999999', pcucodeperson=NULL, slpp='0', controlmqt='0', cht='0', flag18fileexpo='2', toilet='0', controlcockroach='0', controlinsetdisease='0', housesanitation='0', waterassuage='0', housesurveydate=NULL, hcode='2659', telephonehouse=NULL, foodkeepsafe='0', villcode='57010501', foodwarewash='0', usernamedoc=NULL, waterdrink=NULL, housecomplete='0', waterdrinkeno='0', headhealthhouse=NULL, communityno=NULL, housechar='1', controlrat='0', foodwarekeep='0', xgis=NULL, iodeinsalt='0', pidvola=NULL, controlhousefly='0', pcucodepersonvola=NULL, houseendur='0', petsdung='0', foodcookroom='0', iodeinmaterial='0', foodware='0', kmch='0', garbageware='0', wateruseeno='0', ftlj='0', housecharground=NULL, dateregister=NULL, houseclean='0' , flag18fileexpo='2'  WHERE pcucode='06651' AND hcode='2659' AND 1"""
+        )
+        writer.flush()
+        Thread.sleep(200)
+        table.get() `should be equal to` "house"
+        key.get() `should be equal to` """pcucode='06651' AND hcode='2659' AND 1"""
+
+        writer.println("""		      1 Query       INSERT INTO person (fname,pcucodeperson,pid,hcode,provcodemoi,distcodemoi,subdistcodemoi,prename,familyno,typelive,nation,origin,religion,occupa,hnomoi,mumoi,sex,dateupdate,flagoffline) VALUES ('','06651','18075','2659','57','01','05','','1','1','99','99','01','001','999999','1','1',now(),null)""")
+        writer.flush()
+        Thread.sleep(200)
+        table.get() `should be equal to` "person"
+
+        writer.println("""		      1 Query       UPDATE person SET typelive ='1' WHERE (typelive ='4' or typelive is NULL or typelive ='') AND pid ='18075' AND pcucodeperson ='06651'""")
+        writer.flush()
+        Thread.sleep(200)
+        table.get() `should be equal to` "person"
+        key.get() `should be equal to` """(typelive ='4' or typelive is NULL or typelive ='') AND pid ='18075' AND pcucodeperson ='06651'"""
+
+        writer.println("""		      1 Query       update person set fname ='วิชญาพร',lname ='หนูทอง' where pcucodeperson ='06651' and pid ='18075'""")
+        writer.flush()
+        Thread.sleep(200)
+        table.get() `should be equal to` "person"
+        key.get() `should be equal to` """pcucodeperson ='06651' and pid ='18075'"""
+
+        writer.println("""		      1 Query       update person set person.idcard ='3412542335125' where pcucodeperson ='06651' and pid =18075""")
+        writer.flush()
+        Thread.sleep(200)
+        table.get() `should be equal to` "person"
+        key.get() `should be equal to` """pcucodeperson ='06651' and pid =18075"""
 
         writer.println("""2018-08-09T08:49:32.213221Z	   19 Query	/* ApplicationName=IntelliJ IDEA 2018.2 */ UPDATE `jhcisdb`.`house` t SET t.`hno` = '3/88855' WHERE t.`pcucode` LIKE '07934' ESCAPE '#' AND t.`hcode` = 2""")
 

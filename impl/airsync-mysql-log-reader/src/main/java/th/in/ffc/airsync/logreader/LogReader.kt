@@ -18,7 +18,7 @@ import java.util.regex.Pattern
  * @param filepath ที่อยู่ของ log file
  * @param delay ค่าหน่วงเวลาในการตรวจสอบ
  * @param isTest ใช้สำหรับกำหนดที่เก็บบันทึก config ของตัว logreader
- * @param tablesPattern Filter สำหรับกรอง Table
+ * @param tablesPattern Filter สำหรับกรอง Table เช่น "person", "`person`"
  * @param onLogInput callback จะถูกเรียกเมื่อพบ log ที่ระบุไว้ใน tableMaps
  */
 class LogReader(
@@ -55,6 +55,9 @@ class LogReader(
         add("insert into")
         add("update")
         add("delete from")
+        add("Insert into")
+        add("Update")
+        add("Delete from")
         add("insert into".toUpperCase())
         add("update".toUpperCase())
         add("delete from".toUpperCase())
