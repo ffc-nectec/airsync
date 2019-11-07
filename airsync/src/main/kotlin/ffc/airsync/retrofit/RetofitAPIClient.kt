@@ -30,10 +30,11 @@ internal class RetofitAPIClient {
     private val logger by lazy { getLogger(this) }
     fun getCient(baseUrl: String, cacheKbyte: Int, prefix: String): Retrofit {
 
-        val createTempDir = createTempDir(prefix, "airsync")
-        logger.debug("Retofit temp dir ${createTempDir.absolutePath}")
-        val client = if (cacheKbyte > 0)
+        val client = if (cacheKbyte > 0) {
+            val createTempDir = createTempDir(prefix, "airsync")
+            logger.debug("Retofit temp dir ${createTempDir.absolutePath}")
             okHttpClientCache(createTempDir, cacheKbyte)
+        }
         else
             okHttpClientNoCache()
 
@@ -56,6 +57,7 @@ internal class RetofitAPIClient {
     private fun okHttpClientNoCache(): OkHttpClient {
         return OkHttpClient
             .Builder()
+            .cache(null)
             .addInterceptor(DefaultInterceptor())
             .build()
     }
