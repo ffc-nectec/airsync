@@ -34,8 +34,7 @@ internal class RetofitAPIClient {
             val createTempDir = createTempDir(prefix, "airsync")
             logger.debug("Retofit temp dir ${createTempDir.absolutePath}")
             okHttpClientCache(createTempDir, cacheKbyte)
-        }
-        else
+        } else
             okHttpClientNoCache()
 
         return Retrofit.Builder()
