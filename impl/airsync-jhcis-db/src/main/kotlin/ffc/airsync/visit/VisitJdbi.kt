@@ -6,7 +6,9 @@ import ffc.airsync.extension
 import ffc.airsync.getLogger
 import ffc.airsync.ncds.NCDscreenQuery
 import ffc.airsync.specialpp.SpecialppQuery
+import ffc.entity.Link
 import ffc.entity.Person
+import ffc.entity.System
 import ffc.entity.healthcare.CommunityService
 import ffc.entity.healthcare.Diagnosis
 import ffc.entity.healthcare.Disease
@@ -51,6 +53,11 @@ class VisitJdbi(
             hosmain,
             hossub
         )
+
+        if (healthCareService.link == null) {
+            getLogger(this).info("Create link because new HealthCareService ${healthCareService.id} from cloud.")
+            healthCareService.link = Link(System.JHICS)
+        }
 
         insertVisit(visitData)
 
