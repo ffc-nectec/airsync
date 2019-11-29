@@ -16,6 +16,8 @@ import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.isTempId
 import ffc.airsync.utils.save
+import ffc.entity.Link
+import ffc.entity.System
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
@@ -135,6 +137,8 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         }
 
         logger.debug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
+
+        if (healthCareService.link == null) healthCareService.link = Link(System.JHICS)
 
         if (healthCareService.link!!.keys.isEmpty()) {
             val message = "เจ้าหน้าที่ ${provider.name} กำลังเยี่ยม\r\n${patient.name}"
