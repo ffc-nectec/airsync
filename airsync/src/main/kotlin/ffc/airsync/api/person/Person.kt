@@ -13,6 +13,7 @@ import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.airsync.villages
+import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
@@ -115,11 +116,54 @@ fun List<Person>.mapChronic(chronic: List<Chronic>) {
                     } else
                         false
                 }
-                if (chronicPerson.isNotEmpty())
-                    it.chronics.addAll(chronicPerson)
+
+                val filter = hashMapOf<String, Chronic>()
+
+                chronicPerson.forEach { chronic1 ->
+                    filter["${chronic1.diagDate}${chronic1.disease.name}"] = chronic1
+                }
+                val chronics = filter.map { it.value }
+
+                if (chronics.isNotEmpty()) {
+                    if (!it.chronics.equal(chronics))
+                        it.chronics.addAll(chronics)
+                }
             }
         }
     }
+}
+
+private fun List<Chronic>.equal(other: List<Chronic>): Boolean {
+    forEach { chronic ->
+        if (other.find { it.equal(chronic) } == null) return false
+    }
+    return true
+}
+
+private fun Chronic.equal(other: Chronic?): Boolean {
+    if (this === other) return true
+    if (other !is Chronic) return false
+    if (diagDate != other.diagDate) return false
+    if (dischardDate != other.dischardDate) return false
+    if (disease != other.disease) return false
+    if (link != null)
+        if (link!!.equal(other.link)) return false
+    return true
+}
+
+private fun Link.equal(other: Link?): Boolean {
+    if (other == null) return false
+    if (this === other) return true
+    if (isSynced != other.isSynced) return false
+    if (system != other.system) return false
+    keys.forEach { (t, u) ->
+        if (u is String) {
+            if (other.keys[t].toString() != u.toString()) return false
+        } else {
+            if (other.keys[t] == null) return false
+        }
+    }
+    return true
 }
 
 fun List<Person>.findByHouseCode(hcode: String): List<Person> {
