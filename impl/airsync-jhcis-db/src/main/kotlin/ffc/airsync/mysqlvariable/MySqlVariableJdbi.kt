@@ -14,4 +14,8 @@ class MySqlVariableJdbi(
     override fun mysqlDataDirectory(): String {
         return jdbiDao.extension<QueryMySqlVariable, String> { getDataDir().first() }
     }
+
+    override fun mysqlVersion(): String {
+        return jdbiDao.extension<QueryMySqlVariable, String> { getVersion().first() }
+    }
 }

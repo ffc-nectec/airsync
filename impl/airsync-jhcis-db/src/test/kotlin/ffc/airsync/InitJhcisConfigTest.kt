@@ -17,7 +17,7 @@ class InitJhcisConfigTest {
     @Before
     fun setUp() {
         copyFileUsingStream(mySmall, fileTest)
-        mangeConfig = InitJhcisConfig(fileTest)
+        mangeConfig = InitJhcisConfig(fileTest, "5.0.51b-community-nt-log")
     }
 
     @After
@@ -27,7 +27,7 @@ class InitJhcisConfigTest {
 
     @Ignore("Require admin")
     fun `checkConfig$airsync`() {
-        mangeConfig.writeConfig() `should be equal to` true
+        mangeConfig.writeOldMySqlConfig() `should be equal to` true
 
         ReadOptionMyini(fileTest).read().getValue("mysqld").getValue("log") `should be equal to` "jlog.log"
     }

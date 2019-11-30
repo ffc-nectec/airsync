@@ -14,6 +14,10 @@ interface QueryMySqlVariable {
     @SqlQuery("SHOW VARIABLES LIKE 'datadir'")
     @RegisterRowMapper(VariableMapping::class)
     fun getDataDir(): List<String>
+
+    @SqlQuery("SHOW VARIABLES LIKE 'version'")
+    @RegisterRowMapper(VariableMapping::class)
+    fun getVersion(): List<String>
 }
 
 internal class VariableMapping : RowMapper<String> {
