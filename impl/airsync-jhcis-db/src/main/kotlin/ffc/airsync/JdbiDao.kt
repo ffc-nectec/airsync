@@ -72,7 +72,7 @@ class JdbiDao(
 
     override fun init() {
         val baseDir = getDatabaseLocaion()
-        InitJhcisConfig(File(baseDir, "my.ini"))
+        InitJhcisConfig(File(baseDir, "my.ini"), configFromDb.mysqlVersion())
     }
 
     override fun getDatabaseLocaion(): File {
