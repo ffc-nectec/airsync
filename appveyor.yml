@@ -30,7 +30,8 @@ artifacts:
 
 deploy:
   provider: GitHub
-  auth_token: $(env:GITHUB_TOKEN)
+  auth_token:
+    secure: Wx4a+A2j7+FZilQHiUdVSD6S/iNYL4MyVV76Har0Uz+c349eLCm5dG5pAW4oZidl
   artifact: /.*/
   draft: false
   prerelease: false
