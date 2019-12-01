@@ -79,7 +79,7 @@ class InitSync : ProgressList {
             progressPerson = it
         }
         logger.info { "วิเคราะห์ความสัมพันธ์ (5/7)" }
-        message = "คำนวนความสัมพันธ์"
+        message = "คำนวณความสัมพันธ์"
         relation.initRelation {
             progressRelation = it
         }
