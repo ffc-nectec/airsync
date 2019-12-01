@@ -2,13 +2,14 @@
 
     <Appenders>
         <Console name="STDOUT" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d %-5p [%t] %-5c{1} - %m%n"/>
+            <PatternLayout pattern="%d %-5p [%t] %-5c{1} - %m%n" charset="UTF-8"/>
         </Console>
 
         <RollingFile name="RollingFile" fileName="log/ffc-airsync.log"
                      filePattern="log/ffc-airsync.%d{dd-MMM-yyyy-HH:mm}.%i.log.gz">
             <PatternLayout>
                 <pattern>%d %-5p [%t] %-5c{1} - %m%n</pattern>
+                <charset>UTF-8</charset>
             </PatternLayout>
             <SizeBasedTriggeringPolicy size="1MB"/>
             <DefaultRolloverStrategy max="50"/>
