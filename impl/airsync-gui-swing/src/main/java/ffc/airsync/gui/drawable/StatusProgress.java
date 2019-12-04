@@ -48,6 +48,7 @@ public class StatusProgress extends javax.swing.JPanel {
         setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         setName(""); // NOI18N
 
+        label.setEditable(false);
         label.setBackground(new java.awt.Color(253, 253, 253));
         label.setBorder(null);
         label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
