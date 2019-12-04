@@ -1,6 +1,7 @@
 package ffc.airsync.gui.drawable
 
-import java.awt.Font
+import org.apache.logging.log4j.kotlin.KotlinLogger
+import org.apache.logging.log4j.kotlin.logger
 import java.awt.GraphicsEnvironment
 import java.awt.Image
 import java.awt.Toolkit
@@ -24,5 +25,6 @@ internal fun String.getImageScalingResource(width: Int, height: Int): Image {
     return image.getScaledInstance(width, height, Image.SCALE_SMOOTH)
 }
 
-internal val kanitBold = Font.createFont(Font.TRUETYPE_FONT, "font/Kanit-Bold.otf".getFileResource())
-internal val kanitMedium = Font.createFont(Font.TRUETYPE_FONT, "font/Kanit-Medium.otf".getFileResource())
+inline fun <reified T> getLogger(clazz: T): KotlinLogger {
+    return logger(T::class.java.simpleName)
+}

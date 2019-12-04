@@ -15,7 +15,6 @@ internal class CreateProgreassDataItem(
             val newStatusProgress = StatusProgress()
             newStatusProgress.preferredSize = Dimension(width, height)
             listComponent[data.first] = newStatusProgress
-            newStatusProgress.label.font = kanitMedium.deriveFont(newStatusProgress.label.font.size.toFloat())
             airsync.statusPanel.add(newStatusProgress)
         }
 

@@ -37,7 +37,7 @@ class AirSyncGUIController : AirSyncGUI {
         airsync.isAlwaysOnTop = true
         setSyncIcon()
         setLogoIcon()
-        airsync.otpButton.font = kanitBold.deriveFont(22f)
+        airsync.otpButton.font = airsync.otpButton.font.deriveFont(22f)
         airsync.otpCallback = MainGUI.Callback {
             airsync.otpButton.isEnabled = false
             Thread {
@@ -50,7 +50,6 @@ class AirSyncGUIController : AirSyncGUI {
         }
         val icon = "close.png".getImageScalingResource(airsync.closeButton.width, airsync.closeButton.height)
         airsync.closeButton.icon = ImageIcon(icon)
-        airsync.headerLabel.font = kanitMedium.deriveFont(airsync.headerLabel.font.size2D)
     }
 
     private fun setSyncIcon() {
