@@ -18,7 +18,6 @@ internal class CreateMessageItem(
         if (listComponent[data.first] == null) {
             val newCheckData = SuccessConfirm()
             newCheckData.preferredSize = Dimension(width, height)
-            newCheckData.text.font = kanitMedium.deriveFont(18f)
             listComponent[data.first] = newCheckData
             airsync.statusPanel.add(newCheckData)
         }
