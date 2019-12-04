@@ -37,6 +37,7 @@ public class SuccessConfirm extends javax.swing.JPanel {
 
         text.setEditable(false);
         text.setBorder(null);
+        text.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(text);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
