@@ -11,7 +11,7 @@ import java.util.prefs.Preferences
 private const val MySqlNewVersionWhen = "5.6.1"
 private const val logFileName = "jlog.log"
 
-class InitJhcisConfig(private val myIni: File, private val dbVersion: String) {
+class InitJhcisConfig(myIni: File, dbVersion: String) {
     private val readMyIni = ReadOptionMyini(myIni).read()
     private val writeMyIni = WriteOptionMyini(myIni)
 
@@ -33,7 +33,10 @@ class InitJhcisConfig(private val myIni: File, private val dbVersion: String) {
                     throw Exception("Windows check config my.ini please set log = jlog.log")
                 }
             } else {
-                throw Exception("Windows config my.ini need administrator permission.")
+                throw Exception(
+                    "โปรดเรียกใช้งาน ffc-airsync-installer.exe ใน administrator mode.\n" +
+                            "Windows config my.ini need administrator permission."
+                )
             }
         }
     }
@@ -48,7 +51,10 @@ class InitJhcisConfig(private val myIni: File, private val dbVersion: String) {
                     throw Exception("Windows check config my.ini please set log = jlog.log")
                 }
             } else {
-                throw Exception("Windows config my.ini need administrator permission.")
+                throw Exception(
+                    "โปรดเรียกใช้งาน ffc-airsync-installer.exe ใน administrator mode.\n" +
+                            "Windows config my.ini need administrator permission."
+                )
             }
         }
     }
