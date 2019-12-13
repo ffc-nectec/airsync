@@ -17,6 +17,7 @@
 
 package ffc.airsync.chronic
 
+import ffc.airsync.utils.ignore
 import ffc.airsync.utils.ncdsFilter
 import ffc.entity.Lang
 import ffc.entity.Link
@@ -28,6 +29,7 @@ import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper
 import org.jdbi.v3.sqlobject.statement.SqlQuery
+import org.joda.time.LocalDate
 import java.sql.ResultSet
 
 interface QueryChronic {
@@ -74,7 +76,7 @@ class ChronicMapper : RowMapper<Chronic> {
         val hcode = rs.getInt("hcode")
         val hospCode = rs.getString("pcucodeperson")
         val pid = rs.getInt("pid")
-        // val diagDate = LocalDate.fromDateFields(rs.getDate("datedxfirst"))
+        val diagDate = ignore { LocalDate.fromDateFields(rs.getDate("datedxfirst")) }
 
         val link = Link(
             System.JHICS,
@@ -85,6 +87,7 @@ class ChronicMapper : RowMapper<Chronic> {
 
         return Chronic(disease).apply {
             this.link = link
+            diagDate?.let { this.diagDate = diagDate }
         }
     }
 

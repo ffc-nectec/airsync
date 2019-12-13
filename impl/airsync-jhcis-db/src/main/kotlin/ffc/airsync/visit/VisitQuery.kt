@@ -239,6 +239,7 @@ class VisitMapper : RowMapper<HealthCareService> {
             rs.getString("height")?.let { height = it.toDouble() }
             rs.getString("waist")?.let { waist = it.toDouble() }
             rs.getString("ass")?.let { ass = it.toDouble() }
+            rs.getString("respri")?.let { respiratoryRate = it.toDouble() }
 
             rs.getString("pressure")?.let {
                 bloodPressure = it.getBloodPressure()
