@@ -21,6 +21,7 @@ import ffc.entity.System
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import org.jdbi.v3.core.statement.UnableToExecuteStatementException
 
 class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceUrl::class.java), HealthCareApi {
 
@@ -139,50 +140,62 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         logger.debug("partian id ${(patient.link!!.keys["pid"] as String).toLong()}")
 
         if (healthCareService.link == null) healthCareService.link = Link(System.JHICS)
+        try {
+            if (healthCareService.link!!.keys.isEmpty()) {
+                val message = "เจ้าหน้าที่ ${provider.name} กำลังเยี่ยม\r\n${patient.name}"
+                logger.info(message.replace(Regex("""[\r\n]"""), " "))
+                gui.createMessageDelay(message, INFO, 60000 * 1L)
 
-        if (healthCareService.link!!.keys.isEmpty()) {
-            val message = "เจ้าหน้าที่ ${provider.name} กำลังเยี่ยม\r\n${patient.name}"
-            logger.info(message.replace(Regex("""[\r\n]"""), " "))
-            gui.createMessageDelay(message, INFO, 60000 * 5L)
-            healthCareService.communityServices.forEach {
-                if (it is HomeVisit) {
-                    dao.createHomeVisit(
-                        it,
-                        healthCareService,
-                        pcucode,
-                        pcucode,
-                        patient,
-                        provider.name
-                    )
+                healthCareService.communityServices.forEach {
+                    if (it is HomeVisit) {
+                        dao.createHomeVisit(
+                            it,
+                            healthCareService,
+                            pcucode,
+                            pcucode,
+                            patient,
+                            provider.name
+                        )
+                    }
+                }
+            } else {
+                val message = "เจ้าหน้าที่ ${provider.name} อัพเดทข้อมูลการเยี่ยม\r\n${patient.name}"
+                logger.info(message.replace(Regex("""[\r\n]"""), " "))
+                gui.createMessageDelay(message, INFO, 60000 * 1L)
+                healthCareService.communityServices.forEach {
+                    if (it is HomeVisit) {
+                        dao.updateHomeVisit(
+                            it,
+                            healthCareService,
+                            pcucode,
+                            pcucode,
+                            patient,
+                            provider.name
+                        )
+                    }
                 }
             }
-        } else {
-            val message = "เจ้าหน้าที่ ${provider.name} อัพเดทข้อมูลการเยี่ยม\r\n${patient.name}"
-            logger.info(message.replace(Regex("""[\r\n]"""), " "))
-            gui.createMessageDelay(message, INFO, 60000 * 5L)
-            healthCareService.communityServices.forEach {
-                if (it is HomeVisit) {
-                    dao.updateHomeVisit(
-                        it,
-                        healthCareService,
-                        pcucode,
-                        pcucode,
-                        patient,
-                        provider.name
-                    )
-                }
+
+            val result = updateHealthCare(healthCareService)
+
+            healthCare.lock {
+                healthCare.removeIf { it.id == result.id }
+                healthCare.add(result)
+                healthCare.save()
             }
+
+            logger.info { "Result healthcare from cloud ${result.toJson()}" }
+        } catch (ex: UnableToExecuteStatementException) {
+            val messageErr = ex.message ?: ""
+            if (messageErr.startsWith("com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long")) {
+                gui.createMessageDelay(
+                    "ปฏิเสธข้อมูลจากเจ้าหน้าที่ ${provider.name} " +
+                            "ที่ลงเยื่ยม ${patient.name} เนื่องจากข้อมูลยาวเกินขีดจำกัด JHCISDB " +
+                            "หากแก้ไขข้อมูลจะเข้าได้ตามปกติ"
+                )
+            }
+            throw ex
         }
-
-        val result = updateHealthCare(healthCareService)
-
-        healthCare.lock {
-            healthCare.removeIf { it.id == result.id }
-            healthCare.add(result)
-            healthCare.save()
-        }
-
-        logger.info { "Result healthcare from cloud ${result.toJson()}" }
     }
 
     override fun updateHealthCare(healthCareService: HealthCareService): HealthCareService {
