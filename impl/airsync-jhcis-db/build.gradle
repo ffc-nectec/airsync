@@ -32,6 +32,7 @@ dependencies {
     implementation "org.jdbi:jdbi3-kotlin:$jdbiVersion"
     implementation "org.jdbi:jdbi3-kotlin-sqlobject:$jdbiVersion"
     implementation "mysql:mysql-connector-java:5.1.38"
+    implementation 'org.jetbrains.exposed:exposed:0.17.7'
     compile 'com.github.lionants02:ManageConfigSaveLoad-my.ini:0.4'
     compile 'com.github.lionants02:VersionOperator:1.0.0'
 

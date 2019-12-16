@@ -6,6 +6,7 @@ import ffc.airsync.extension
 import ffc.airsync.getLogger
 import ffc.airsync.ncds.NCDscreenQuery
 import ffc.airsync.specialpp.SpecialppQuery
+import ffc.airsync.visit.fixBug.FixBugDuplicate
 import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.System
@@ -19,6 +20,7 @@ import ffc.entity.healthcare.SpecialPP
 import ffc.entity.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.jdbi.v3.core.statement.UnableToExecuteStatementException
 import org.joda.time.LocalDate
 import java.util.LinkedList
 import java.util.Queue
@@ -38,50 +40,61 @@ class VisitJdbi(
     ): HealthCareService {
 
         val visitNum = getMaxVisit() + 1
-        val rightcode = (patient.link?.keys?.get("rightcode")) as String?
-        val rightno = (patient.link?.keys?.get("rightno")) as String?
-        val hosmain = (patient.link?.keys?.get("hosmain")) as String?
-        val hossub = (patient.link?.keys?.get("hossub")) as String?
-        val visitData = healthCareService.buildInsertData(
-            pcucode,
-            visitNum,
-            pcucodePerson,
-            ((patient.link?.keys?.get("pid")) as String).toLong(),
-            username,
-            rightcode,
-            rightno,
-            hosmain,
-            hossub
-        )
+        try {
+            val rightcode = (patient.link?.keys?.get("rightcode")) as String?
+            val rightno = (patient.link?.keys?.get("rightno")) as String?
+            val hosmain = (patient.link?.keys?.get("hosmain")) as String?
+            val hossub = (patient.link?.keys?.get("hossub")) as String?
+            val visitData = healthCareService.buildInsertData(
+                pcucode,
+                visitNum,
+                pcucodePerson,
+                ((patient.link?.keys?.get("pid")) as String).toLong(),
+                username,
+                rightcode,
+                rightno,
+                hosmain,
+                hossub
+            )
 
-        if (healthCareService.link == null) {
-            getLogger(this).info("Create link because new HealthCareService ${healthCareService.id} from cloud.")
-            healthCareService.link = Link(System.JHICS)
+            if (healthCareService.link == null) {
+                getLogger(this).info("Create link because new HealthCareService ${healthCareService.id} from cloud.")
+                healthCareService.link = Link(System.JHICS)
+            }
+
+            insertVisit(visitData)
+
+            val insertDiagData = healthCareService.buildInsertDiag(pcucode, visitNum, username)
+            jdbiDao.extension<VisitDiagQuery, Unit> {
+                insertVisitDiag(insertDiagData)
+            }
+
+            val visitIndividualData =
+                homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
+            jdbiDao.extension<HomeVisitIndividualQuery, Unit> { insertVitsitIndividual(visitIndividualData) }
+
+            healthCareService.link!!.keys["pcucode"] = pcucode
+            healthCareService.link!!.keys["visitno"] = visitNum.toString()
+
+            ((patient.link?.keys?.get("pid")) as String?)?.let {
+                healthCareService.link!!.keys["pid"] = it
+            }
+            rightcode?.let { healthCareService.link!!.keys["rightcode"] = it }
+            rightno?.let { healthCareService.link!!.keys["rightno"] = it }
+            hosmain?.let { healthCareService.link!!.keys["hosmain"] = it }
+            hossub?.let { healthCareService.link!!.keys["hossub"] = it }
+            healthCareService.link!!.isSynced = true
+
+            return healthCareService
+        } catch (ex: UnableToExecuteStatementException) {
+            val message = ex.message ?: ""
+            if (message.startsWith("com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long")) {
+                logger.warn("พบการใส่ข้อมูลที่มีขนาดใหญ่กว่าที่กำหนดใน field ทำการปฏิเสทข้อมูล")
+                val fixBug = FixBugDuplicate(jdbiDao, visitNum)
+                fixBug.fix()
+            }
+            throw ex
         }
-
-        insertVisit(visitData)
-
-        val insertDiagData = healthCareService.buildInsertDiag(pcucode, visitNum, username)
-        jdbiDao.extension<VisitDiagQuery, Unit> {
-            insertVisitDiag(insertDiagData)
-        }
-
-        val visitIndividualData = homeVisit.buildInsertIndividualData(healthCareService, pcucode, visitNum, username)
-        jdbiDao.extension<HomeVisitIndividualQuery, Unit> { insertVitsitIndividual(visitIndividualData) }
-
-        healthCareService.link!!.keys["pcucode"] = pcucode
-        healthCareService.link!!.keys["visitno"] = visitNum.toString()
-
-        ((patient.link?.keys?.get("pid")) as String?)?.let {
-            healthCareService.link!!.keys["pid"] = it
-        }
-        rightcode?.let { healthCareService.link!!.keys["rightcode"] = it }
-        rightno?.let { healthCareService.link!!.keys["rightno"] = it }
-        hosmain?.let { healthCareService.link!!.keys["hosmain"] = it }
-        hossub?.let { healthCareService.link!!.keys["hossub"] = it }
-        healthCareService.link!!.isSynced = true
-
-        return healthCareService
     }
 
     override fun updateHomeVisit(

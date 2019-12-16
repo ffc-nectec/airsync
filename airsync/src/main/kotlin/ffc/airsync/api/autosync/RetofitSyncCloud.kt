@@ -31,7 +31,11 @@ class RetofitSyncCloud : RetofitApi<SyncUrl>(SyncUrl::class.java), SyncCloud {
 
     private fun syncAll(syncList: List<Entity>, dao: DatabaseDao) {
         syncList.forEach {
-            syncFlow(it.type, it.id, dao)
+            try {
+                syncFlow(it.type, it.id, dao)
+            } catch (ex: Exception) {
+                logger.warn(ex.message ?: "", ex)
+            }
         }
     }
 
