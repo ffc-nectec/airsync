@@ -44,8 +44,15 @@ class VillageMapper : RowMapper<Village> {
                     val latitude = rs.getString("latitude")?.toDoubleOrNull()
 
                     if (longitude != null && latitude != null)
-                        if ((longitude != 0.0) && (latitude != 0.0))
+                        if ((longitude != 0.0) && (latitude != 0.0)) {
+                            if (latitude >= -90 && latitude <= 90) {
+                                if (longitude >= -180 && longitude <= 180)
+                                    location = Point(longitude, latitude)
+                            } else
+                                location = null
+
                             location = Point(longitude, latitude)
+                        }
                 } catch (ex: ResultSetException) {
                     logger.warn("Error xgis, ygix because convert error", ex)
                 }

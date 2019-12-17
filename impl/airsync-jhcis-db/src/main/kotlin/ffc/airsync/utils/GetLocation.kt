@@ -9,7 +9,7 @@ private interface GetLocation
 
 private val logger = getLogger(GetLocation::class)
 fun getLocation(rs: ResultSet): Point? {
-    return try {
+    val point = try {
         val xgis = rs.getDouble("xgis")
         val ygis = rs.getDouble("ygis")
         if ((xgis != 0.0) && (ygis != 0.0))
@@ -25,4 +25,14 @@ fun getLocation(rs: ResultSet): Point? {
     } catch (ex: AssertionError) {
         null
     }
+    if (point != null) {
+        val latitude = point.coordinates.latitude
+        val longitude = point.coordinates.longitude
+        if (latitude >= -90 && latitude <= 90) {
+            if (longitude >= -180 && longitude <= 180)
+                return point
+        } else
+            return null
+    }
+    return point
 }
