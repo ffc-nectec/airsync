@@ -162,7 +162,7 @@ private const val visitQueryWhere = visitQuery + """
     WHERE <where>
 """
 
-private const val visitNumberIndex = """CREATE  INDEX visitnumber ON f43specialpp(visitno)"""
+private const val visitNumberIndex = """CREATE  INDEX visitnumber ON visit(visitno)"""
 
 interface VisitQuery {
 

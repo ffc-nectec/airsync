@@ -4,7 +4,7 @@ import ffc.airsync.Dao
 import ffc.airsync.extension
 import ffc.airsync.utils.ignore
 
-private const val DEEP_FIX = 100
+private const val DEEP_FIX = 5000
 
 class FixBugDuplicate(internal val dao: Dao, internal val visitNumberError: Long) {
 
@@ -30,6 +30,8 @@ class FixBugDuplicate(internal val dao: Dao, internal val visitNumberError: Long
 private fun FixBugDuplicate.deleteVist(visitNumber: Long) {
     ignore { dao.extension<FixBugQuery, Unit> { deleteVisitDiag(visitNumber) } }
     ignore { dao.extension<FixBugQuery, Unit> { deleteVisitHomeHealthIndividual(visitNumber) } }
+    ignore { dao.extension<FixBugQuery, Unit> { deleteF43SpecialPP(visitNumber) } }
+    ignore { dao.extension<FixBugQuery, Unit> { deleteNCDs(visitNumber) } }
     ignore { dao.extension<FixBugQuery, Unit> { deleateVisit(visitNumber) } }
 }
 
