@@ -88,11 +88,12 @@ class VisitJdbi(
             return healthCareService
         } catch (ex: UnableToExecuteStatementException) {
             val message = ex.message ?: ""
-            if (message.startsWith("com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long")) {
-                logger.warn("พบการใส่ข้อมูลที่มีขนาดใหญ่กว่าที่กำหนดใน field ทำการปฏิเสทข้อมูล")
-                val fixBug = FixBugDuplicate(jdbiDao, visitNum)
-                fixBug.fix()
-            }
+            /*if (message.startsWith("com.mysql.jdbc.MysqlDataTruncation: Data truncation: Data too long")) {
+
+            }*/
+            logger.warn("กำลังแก้ไขปัญหาที่เกิดขึ้น")
+            val fixBug = FixBugDuplicate(jdbiDao, visitNum)
+            fixBug.fix()
             throw ex
         }
     }
