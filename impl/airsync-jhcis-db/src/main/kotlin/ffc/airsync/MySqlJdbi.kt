@@ -4,6 +4,7 @@ import ffc.airsync.ncds.NCDscreenQuery
 import ffc.airsync.specialpp.SpecialppQuery
 import ffc.airsync.visit.HomeVisitIndividualQuery
 import ffc.airsync.visit.VisitDiagQuery
+import ffc.airsync.visit.VisitQuery
 import org.jdbi.v3.core.Jdbi
 import org.jdbi.v3.core.kotlin.KotlinPlugin
 import org.jdbi.v3.sqlobject.SqlObjectPlugin
@@ -70,7 +71,7 @@ class MySqlJdbi(
         jdbi.installPlugin(SqlObjectPlugin())
         jdbi.installPlugin(KotlinSqlObjectPlugin())
 
-        // createIndex { jdbi.extension<VisitQuery, Unit> { createIndex() } }
+        createIndex { jdbi.extension<VisitQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<VisitDiagQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<SpecialppQuery, Unit> { createIndex() } }
         createIndex { jdbi.extension<NCDscreenQuery, Unit> { createIndex() } }

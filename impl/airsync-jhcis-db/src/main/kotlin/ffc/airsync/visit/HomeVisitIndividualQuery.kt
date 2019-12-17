@@ -62,7 +62,7 @@ WHERE
 	`pcucode`= :pcucode AND `visitno`= :visitno
 """
 
-private const val homehealthIndex = """CREATE INDEX visithomehealthindividual ON visitdiag(visitno)"""
+private const val homehealthIndex = """CREATE INDEX visitnumber ON visithomehealthindividual(visitno)"""
 
 interface HomeVisitIndividualQuery {
     @SqlUpdate(homehealthIndex)
