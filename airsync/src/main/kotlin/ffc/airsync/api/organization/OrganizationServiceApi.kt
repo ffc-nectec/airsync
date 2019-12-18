@@ -30,7 +30,7 @@ class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationServi
             val tokenFromServer = response.body()
                 ?: throw Exception(
                     "ไม่สามารถ Login org ได้ code:${response.code()} " +
-                            "${response.errorBody()?.byteStream()?.reader()?.readLines()}"
+                            "${response.errorBody()?.byteStream()?.reader()?.readLines()?.toJson()}"
                 )
             logger.debug("\tToken = ${tokenFromServer.toJson()}")
             token = tokenFromServer
