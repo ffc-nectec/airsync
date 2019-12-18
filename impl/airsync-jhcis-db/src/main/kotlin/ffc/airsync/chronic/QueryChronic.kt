@@ -17,7 +17,7 @@
 
 package ffc.airsync.chronic
 
-import ffc.airsync.utils.ignore
+import ffc.airsync.utils.ignoreW
 import ffc.airsync.utils.ncdsFilter
 import ffc.entity.Lang
 import ffc.entity.Link
@@ -76,7 +76,7 @@ class ChronicMapper : RowMapper<Chronic> {
         val hcode = rs.getInt("hcode")
         val hospCode = rs.getString("pcucodeperson")
         val pid = rs.getInt("pid")
-        val diagDate = ignore { LocalDate.fromDateFields(rs.getDate("datedxfirst")) }
+        val diagDate = ignoreW(this) { LocalDate.fromDateFields(rs.getDate("datedxfirst")) }
 
         val link = Link(
             System.JHICS,

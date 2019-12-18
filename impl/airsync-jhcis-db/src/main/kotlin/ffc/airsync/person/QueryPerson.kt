@@ -142,7 +142,7 @@ class PersonMapper : RowMapper<Person> {
                     bundle["remove"] = true
                     null
                 } catch (ex: SQLException) {
-                    logger.error(ex.message, ex)
+                    logger.error(ex) { ex.message }
                     null
                 }
             }
