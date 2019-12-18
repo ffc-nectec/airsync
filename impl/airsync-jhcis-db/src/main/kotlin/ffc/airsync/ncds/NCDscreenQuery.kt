@@ -1,6 +1,7 @@
 package ffc.airsync.ncds
 
 import ffc.airsync.getLogger
+import ffc.airsync.utils.ignoreW
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.healthcare.BloodPressure
@@ -118,13 +119,13 @@ private fun createNcd(rs: ResultSet): NCDScreen {
             logger.warn("Cannot get bloodSugar pid=$pid", ex)
             null
         },
-        weight = rs.getString("weight")?.toDoubleOrNull(),
-        height = rs.getString("height")?.toDoubleOrNull(),
-        waist = rs.getString("waist")?.toDoubleOrNull(),
-        bloodPressure = rs.getString("bloodPressureS1")?.let {
+        weight = ignoreW(NCDscreenQuery::class) { rs.getString("weight")?.toDoubleOrNull() },
+        height = ignoreW(NCDscreenQuery::class) { rs.getString("height")?.toDoubleOrNull() },
+        waist = ignoreW(NCDscreenQuery::class) { rs.getString("waist")?.toDoubleOrNull() },
+        bloodPressure = ignoreW(NCDscreenQuery::class) { rs.getString("bloodPressureS1") }?.let {
             BloodPressure(it.toDouble(), rs.getString("bloodPressureD1").toDouble())
         },
-        bloodPressure2nd = rs.getString("bloodPressureS2")?.let {
+        bloodPressure2nd = ignoreW(NCDscreenQuery::class) { rs.getString("bloodPressureS2") }?.let {
             BloodPressure(it.toDouble(), rs.getString("bloodPressureD2").toDouble())
         }
     ).update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
