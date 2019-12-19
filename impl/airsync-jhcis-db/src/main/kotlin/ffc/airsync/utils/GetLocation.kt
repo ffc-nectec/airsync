@@ -10,8 +10,9 @@ private interface GetLocation
 private val logger = getLogger(GetLocation::class)
 fun getLocation(rs: ResultSet): Point? {
     val point = try {
-        val xgis = rs.getDouble("xgis")
-        val ygis = rs.getDouble("ygis")
+
+        val xgis = stringToDouble(rs.getString("xgis")) ?: 0.0
+        val ygis = stringToDouble(rs.getString("ygis")) ?: 0.0
         if ((xgis != 0.0) && (ygis != 0.0))
             if (xgis < ygis)
                 Point(xgis, ygis)
@@ -35,4 +36,10 @@ fun getLocation(rs: ResultSet): Point? {
             return null
     }
     return point
+}
+
+fun stringToDouble(str: String): Double? {
+    val rex = Regex("""^(\d+\.\d+).*""")
+    val filter = rex.matchEntire(str)?.groupValues
+    return filter?.lastOrNull()?.toDoubleOrNull()
 }
