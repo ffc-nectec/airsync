@@ -36,8 +36,8 @@ class HouseJdbi(
         val houseUpdate = HouseJhcisDb(
             hid = house.identity?.id,
             road = house.road,
-            xgis = house.location?.coordinates?.longitude?.toString(),
-            ygis = house.location?.coordinates?.latitude?.toString(),
+            xgis = house.location?.coordinates?.latitude?.toString(),
+            ygis = house.location?.coordinates?.longitude?.toString(),
             hno = house.no,
             dateUpdate = Timestamp(house.timestamp.plusHours(7).millis),
 
