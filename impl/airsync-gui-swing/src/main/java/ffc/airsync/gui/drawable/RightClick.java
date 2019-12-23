@@ -5,6 +5,7 @@
  */
 package ffc.airsync.gui.drawable;
 
+import java.awt.Color;
 import javax.swing.JFrame;
 
 /**
@@ -17,6 +18,8 @@ public class RightClick extends javax.swing.JFrame {
      * Creates new form RightClick
      */
     private OnOpenAirsync callbackOpenAirsync;
+    private UninstallUI.OnClickUninstall callbackUninstall;
+    private JFrame mainGui;
 
     public RightClick() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,9 +30,11 @@ public class RightClick extends javax.swing.JFrame {
         initComponents();
     }
 
-    public RightClick(OnOpenAirsync onOpenAirsync) {
+    public RightClick(JFrame mainGui, OnOpenAirsync onOpenAirsync, UninstallUI.OnClickUninstall onClickUninstall) {
         this();
         callbackOpenAirsync = onOpenAirsync;
+        callbackUninstall = onClickUninstall;
+        this.mainGui = mainGui;
     }
 
     private void mouseExit() {
@@ -52,6 +57,7 @@ public class RightClick extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        unistallButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +73,7 @@ public class RightClick extends javax.swing.JFrame {
                 jPanel2MouseExited(evt);
             }
         });
-        jPanel2.setLayout(new java.awt.GridLayout(2, 0));
+        jPanel2.setLayout(new java.awt.GridLayout(3, 0));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(76, 189, 148));
@@ -84,6 +90,16 @@ public class RightClick extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton1);
+
+        unistallButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        unistallButton.setText("ถอนการติดตั้ง");
+        unistallButton.setContentAreaFilled(false);
+        unistallButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unistallButtonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(unistallButton);
 
         exitButton.setBackground(new java.awt.Color(245, 245, 245));
         exitButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -104,7 +120,7 @@ public class RightClick extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -131,6 +147,14 @@ public class RightClick extends javax.swing.JFrame {
     private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
         mouseExit();
     }//GEN-LAST:event_jButton1MouseExited
+
+    private void unistallButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unistallButtonActionPerformed
+        // TODO add your handling code here:
+        UninstallUI uninstallUI = new UninstallUI(callbackUninstall);
+        mainGui.setVisible(false);
+        uninstallUI.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_unistallButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,5 +195,6 @@ public class RightClick extends javax.swing.JFrame {
     private javax.swing.JButton exitButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton unistallButton;
     // End of variables declaration//GEN-END:variables
 }
