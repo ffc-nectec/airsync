@@ -143,16 +143,17 @@ public class UninstallUI extends javax.swing.JFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(245, 245, 245));
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("ทดสอบ\nนะครับ");
+        jTextArea1.setText("\n      เมื่อถอนการติดตั้ง FFC-Airsync บนเครื่องนี้แล้ว ข้อมูลของหน่วยงานท่านจะถูกลบออกจาก Cloud และไม่สามารถใช้งานแอปพลิเคชัน FFC ได้จนกว่าจะทำการติดตั้ง FFC-Airsync อีกครั้ง");
         jTextArea1.setBorder(null);
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("กรุณาใส่รหัส PCU");
 
-        inputPcuCode.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        inputPcuCode.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
 
         jPanel3.setBackground(new java.awt.Color(245, 245, 245));
         jPanel3.setLayout(new java.awt.GridLayout(1, 0));
