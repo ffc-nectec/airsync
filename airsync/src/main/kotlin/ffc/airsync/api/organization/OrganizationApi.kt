@@ -8,4 +8,6 @@ interface OrganizationApi {
         localOrganization: Organization,
         onSuccessRegister: (organization: Organization, token: Token) -> Unit
     )
+
+    fun deleteOrganization()
 }

@@ -2,6 +2,7 @@ package ffc.airsync.utils
 
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.KEY
+import ffc.airsync.ui.LookPcuCode
 
 class EmptyGUI : AirSyncGUI {
     override fun cretaeItemList(data: Pair<KEY, Any>) {
@@ -45,4 +46,10 @@ class EmptyGUI : AirSyncGUI {
     override var callGetOtp: () -> String
         get() = { "" }
         set(value) {}
+
+    override fun setLookPcuCode(pcuCode: LookPcuCode) {
+    }
+
+    override fun setCallConfirmUninstall(callback: () -> Unit) {
+    }
 }
