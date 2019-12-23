@@ -5,6 +5,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 typealias KEY = String
+typealias LookPcuCode = () -> String
 
 interface AirSyncGUI {
     fun cretaeItemList(data: Pair<KEY, Any>)
@@ -17,6 +18,9 @@ interface AirSyncGUI {
     fun setLocation(x: Int, y: Int)
     fun createRightClick(x: Int, y: Int)
     fun hideRightClick()
+    fun setLookPcuCode(pcuCode: LookPcuCode)
+    fun setCallConfirmUninstall(callback: () -> Unit)
+
     var callGetOtp: () -> String
     var enableOtp: Boolean
     var enableSyncButton: Boolean

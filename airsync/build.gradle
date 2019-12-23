@@ -47,6 +47,7 @@ dependencies {
 
     compile "args4j:args4j:2.33"
     compile "de.bwaldvogel:mongo-java-server-h2-backend:1.9.8"
+    compile 'com.github.kittinunf.fuel:fuel:2.2.1'
     compile "de.bwaldvogel:mongo-java-server:1.9.8"
     compile "com.google.code.gson:gson:2.8.1"
     compile "org.jdbi:jdbi3-core:$jdbiVersion"
