@@ -46,7 +46,7 @@ class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationServi
     private fun regisOrgToCloud(organization: Organization): Organization {
         val response = restService.regisOrg(organization).execute()
         if (response.code() != 201) {
-            throw Exception("Code ${response.code()} \n Message ${response.errorBody()?.source()}")
+            throw Exception("Code ${response.code()} Message ${response.errorBody()?.byteStream()?.reader()?.readLines()?.toJson()}")
         }
         val restOrg: Organization? = response.body()
 
