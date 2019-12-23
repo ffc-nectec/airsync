@@ -63,8 +63,8 @@ class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationServi
             val response = restService.removeOrganization(
                 organization.id, tokenBarer
             ).execute()
-
             val statusCode = response.code()
+            restService.removeOrganizationStampName(organization.id, organization.name).execute()
             logger.info {
                 "Delete organization response $statusCode"
             }

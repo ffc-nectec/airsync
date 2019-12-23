@@ -25,4 +25,10 @@ interface OrganizationService {
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
     ): Call<Void>
+
+    @DELETE("/$APIVERSION/org/{orgId}/{name}")
+    fun removeOrganizationStampName(
+        @Path("orgId") orgId: String,
+        @Path("name") orgName: String
+    ): Call<Void>
 }
