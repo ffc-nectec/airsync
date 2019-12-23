@@ -58,10 +58,16 @@ class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationServi
     }
 
     override fun deleteOrganization() {
+        logger.info { "Call delete organization api." }
         callApiNoReturn {
-            restService.removeOrganization(
+            val response = restService.removeOrganization(
                 organization.id, tokenBarer
             ).execute()
+
+            val statusCode = response.code()
+            logger.info {
+                "Delete organization response $statusCode"
+            }
         }
     }
 }

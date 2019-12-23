@@ -5,6 +5,7 @@ import ffc.entity.Organization
 import ffc.entity.Token
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -19,7 +20,7 @@ interface OrganizationService {
         @Body bodyLogin: Map<String, String>
     ): Call<Token>
 
-    @POST("/$APIVERSION/org/{orgId}")
+    @DELETE("/$APIVERSION/org/{orgId}")
     fun removeOrganization(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String
