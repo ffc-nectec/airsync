@@ -5,6 +5,7 @@ import ffc.airsync.ui.AirSyncGUI.CoutDown
 import ffc.airsync.ui.AirSyncGUI.Message
 import ffc.airsync.ui.AirSyncGUI.ProgressData
 import ffc.airsync.ui.KEY
+import ffc.airsync.ui.LookPcuCode
 import ffc.airsync.ui.createCountDownMessage
 import ffc.airsync.ui.createMessage
 import kotlinx.coroutines.GlobalScope
@@ -14,13 +15,38 @@ import kotlinx.coroutines.runBlocking
 import java.awt.Component
 import javax.swing.ImageIcon
 import kotlin.random.Random
+import kotlin.system.exitProcess
 
 class AirSyncGUIController : AirSyncGUI {
+    private lateinit var lookPcuCode: LookPcuCode
     // check.png designed by Smashicons from Flaticon
     val airsync = MainGUI()
-    val rightClick = RightClick(RightClick.OnOpenAirsync {
+
+    private val onOpenAirsync = RightClick.OnOpenAirsync {
         airsync.isVisible = true
-    })
+    }
+
+    private lateinit var _callConfirmUninstall: () -> Unit
+    override fun setCallConfirmUninstall(callback: () -> Unit) {
+        _callConfirmUninstall = callback
+    }
+
+    // เมื่อคลิกปุ่ม Uninstall
+    private val onClickUninstall = UninstallUI.OnClickUninstall {
+        val logger = getLogger(this)
+        val pcucode = lookPcuCode()
+        logger.info { "Call Uninstall $pcucode" }
+
+        if (it!! == pcucode) {
+            logger.info("Uninstall FFC $pcucode")
+            _callConfirmUninstall()
+            exitProcess(0)
+        } else {
+            return@OnClickUninstall false
+        }
+    }
+
+    val rightClick = RightClick(airsync, onOpenAirsync, onClickUninstall)
     val random = Random(123182L)
     val listComponent = hashMapOf<KEY, Component>()
     val width = airsync.statusPanel.width - 10
@@ -143,4 +169,8 @@ class AirSyncGUIController : AirSyncGUI {
         set(value) {
             otp = value
         }
+
+    override fun setLookPcuCode(pcuCode: LookPcuCode) {
+        this.lookPcuCode = pcuCode
+    }
 }

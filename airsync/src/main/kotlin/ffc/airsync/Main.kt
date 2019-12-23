@@ -147,6 +147,8 @@ internal class Main constructor(args: Array<String>) {
     val dao: DatabaseDao by lazy { databaseDaoModule() }
 
     fun run() {
+        gui.setLookPcuCode { dao.getDetail()["pcucode"]!! }
+        gui.setCallConfirmUninstall { Uninstall().confirmRemoveOrganization() }
         gui.createProgress("Init Dao", 50, 100, "กำลังตรวจสอบการตั้งค่า Mysql JHCIS")
         if (!skipConfigMyIni) dao.init()
         gui.createProgress("Init Dao", 100, 100, "กำลังตรวจสอบการตั้งค่า Mysql JHCIS")
@@ -169,7 +171,12 @@ internal class Main constructor(args: Array<String>) {
 
 fun main(args: Array<String>) {
     // Runtime.getRuntime().addShutdownHook(ShutdownHook())
+
     try {
+        val uninstall = Uninstall()
+        if (uninstall.isUninstall) {
+            uninstall.removeFile()
+        }
         Main(args).run()
     } catch (ex: org.jdbi.v3.core.ConnectionException) {
         gui.remove("Database")

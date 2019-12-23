@@ -2,6 +2,7 @@ package ffc.airsync.api.organization
 
 import ffc.airsync.api.cloudweakup.RetofitWeakUp
 import ffc.airsync.retrofit.RetofitApi
+import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
 import ffc.entity.Organization
 import ffc.entity.Token
@@ -46,10 +47,21 @@ class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationServi
     private fun regisOrgToCloud(organization: Organization): Organization {
         val response = restService.regisOrg(organization).execute()
         if (response.code() != 201) {
-            throw Exception("Code ${response.code()} Message ${response.errorBody()?.byteStream()?.reader()?.readLines()?.toJson()}")
+            throw Exception(
+                "Code ${response.code()} " +
+                        "Message ${response.errorBody()?.byteStream()?.reader()?.readLines()?.toJson()}"
+            )
         }
         val restOrg: Organization? = response.body()
 
         return restOrg!!
+    }
+
+    override fun deleteOrganization() {
+        callApiNoReturn {
+            restService.removeOrganization(
+                organization.id, tokenBarer
+            ).execute()
+        }
     }
 }
