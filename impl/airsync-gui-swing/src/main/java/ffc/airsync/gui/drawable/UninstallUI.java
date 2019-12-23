@@ -88,7 +88,7 @@ public class UninstallUI extends javax.swing.JFrame {
         inputPcuCode = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        removeButton = new javax.swing.JButton();
         wPcucode = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -166,15 +166,15 @@ public class UninstallUI extends javax.swing.JFrame {
         });
         jPanel3.add(jButton2);
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton3.setText("ถอนการติดตั้ง");
-        jButton3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51), 2));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        removeButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        removeButton.setText("ถอนการติดตั้ง");
+        removeButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 51), 2));
+        removeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                removeButtonActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton3);
+        jPanel3.add(removeButton);
 
         wPcucode.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         wPcucode.setForeground(new java.awt.Color(255, 0, 51));
@@ -246,15 +246,14 @@ public class UninstallUI extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
         // TODO add your handling code here:
         if (onClickUninstallCallback != null) {
             if (!onClickUninstallCallback.callback(inputPcuCode.getText())) {
                 wPcucode.setVisible(true);
             }
         }
-        dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_removeButtonActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -300,7 +299,6 @@ public class UninstallUI extends javax.swing.JFrame {
     private javax.swing.JTextField inputPcuCode;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -309,6 +307,7 @@ public class UninstallUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton removeButton;
     private javax.swing.JLabel wPcucode;
     // End of variables declaration//GEN-END:variables
 }
