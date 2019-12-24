@@ -16,6 +16,7 @@ import ffc.airsync.utils.getLogger
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class InitSync : ProgressList {
 
@@ -52,22 +53,28 @@ class InitSync : ProgressList {
             }
             gui.remove("Sync")
         }
-        progressTemplate = 10
-        logger.info { "ใส่ข้อมูล ช่วยกรอกอัตโนมัติ...." }
-        TemplateInit()
-        progressTemplate = 100
+        runBlocking {
+            launch {
+                progressTemplate = 10
+                logger.info { "ใส่ข้อมูล ช่วยกรอกอัตโนมัติ...." }
+                TemplateInit()
+                progressTemplate = 100
+            }
+            launch {
+                logger.info { "ใส่ข้อมูลผู้ใช้" }
+                users.initSync()
+                progressUser = 100
+            }
 
-        logger.info { "ใส่ข้อมูลผู้ใช้ (1/7)" }
-        users.initSync()
-        progressUser = 100
-
-        logger.info { "เข้าถึงหมู่บ้าน (2/7)" }
-        villages.initSync()
-        progressVillage = 100
+            launch {
+                logger.info { "เข้าถึงหมู่บ้าน" }
+                villages.initSync()
+                progressVillage = 100
+            }
+        }
 
         logger.info { "ดูบ้าน (3/7)" }
         message = "สำรวจบ้าน "
-
         val syncPerson = SyncPerson()
         val jhcisDbPerson = syncPerson.prePersonProcess()
         houses.initSync(jhcisDbPerson) {
