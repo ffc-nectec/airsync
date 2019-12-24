@@ -15,6 +15,6 @@ DEL /S /Q "%FFC_HOME%\uninstall.bat" >> uninstall.log
 setx FFC_HOME "" >> uninstall.log
 REG delete HKCU\Environment /F /V FFC_HOME >> uninstall.log
 
-echo FFC AirSync uninstall successful! >> uninstall.log
+echo FFC AirSync has been successfully uninstalled! >> uninstall.log
 
 exit
