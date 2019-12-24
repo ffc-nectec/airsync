@@ -1,4 +1,4 @@
-@echo off
+@echo on
 echo Uninstall FFC >> "%FFC_HOME%\uninstall.log"
 echo Delete launcher.version >> uninstall.log
 DEL /S /Q "%FFC_HOME%\launcher.version"
