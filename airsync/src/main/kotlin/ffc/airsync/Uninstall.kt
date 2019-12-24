@@ -51,7 +51,10 @@ class Uninstall {
     fun removeFile() {
         require(isUninstall) { "ยังไม่ได้กำหนดค่าสำหรับการลบ" }
         val command = "cmd /k start cmd /k \"\"${FFC_HOME}\\uninstall.bat\" " +
-                "& type \"${FFC_HOME}\\uninstall.log\" & TIMEOUT 10 & exit\""
+                "& type \"${FFC_HOME}\\uninstall.log\" & TIMEOUT 10 & " +
+                "start \"\" " +
+                "https://docs.google.com/forms/d/e/1FAIpQLScsvcWAWFxybLRRsk2QRItqcY21PaP4yphO7vh4icVR5Qy4vQ/viewform" +
+                " & exit\""
         logger.info { "Delete file $command" }
         runtime.exec(command)
         exitProcess(0)
