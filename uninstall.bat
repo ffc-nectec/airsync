@@ -1,3 +1,5 @@
+@echo on
+echo Uninstall FFC AirSync...
 @echo off
 echo Delete launcher.version >> uninstall.log
 DEL /S /Q "%FFC_HOME%\launcher.version" >> uninstall.log
@@ -13,9 +15,6 @@ DEL /S /Q "%FFC_HOME%\uninstall.bat" >> uninstall.log
 setx FFC_HOME "" >> uninstall.log
 REG delete HKCU\Environment /F /V FFC_HOME >> uninstall.log
 
-echo Success uninstall FFC Airsync
+echo FFC AirSync uninstall successful! >> uninstall.log
 
-@echo on
-type uninstall.log
-more uninstall.log
 exit
