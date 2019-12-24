@@ -21,6 +21,7 @@ import javax.swing.border.Border;
 public class UninstallUI extends javax.swing.JFrame {
 
     private OnClickUninstall onClickUninstallCallback;
+    private String redStr;
 
     /**
      * Creates new form UninstallUI
@@ -28,7 +29,8 @@ public class UninstallUI extends javax.swing.JFrame {
     public UninstallUI() {
         getContentPane().setBackground(new Color(245, 245, 245));
         initComponents();
-        wPcucode.setVisible(false);
+        redStr = wPcucode.getText();
+        wPcucode.setText("");
         setLocation(getCenterLocation());
         new Thread(() -> {
             Border mainBorder = jPanel4.getBorder();
@@ -143,10 +145,10 @@ public class UninstallUI extends javax.swing.JFrame {
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(245, 245, 245));
         jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jTextArea1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
-        jTextArea1.setText("\n      เมื่อถอนการติดตั้ง FFC-Airsync บนเครื่องนี้แล้ว ข้อมูลของหน่วยงานท่านจะถูกลบออกจาก Cloud และไม่สามารถใช้งานแอปพลิเคชัน FFC ได้จนกว่าจะทำการติดตั้ง FFC-Airsync อีกครั้ง");
+        jTextArea1.setText("      เมื่อถอนการติดตั้ง FFC-Airsync บนเครื่องนี้แล้ว ข้อมูลของหน่วยงานท่านจะถูกลบออกจากระบบ Cloud และ ไม่สามารถใช้งานแอปฯ FFC 4.0 บนมือถือได้ จนกว่าจะทำการติดตั้งโปรแกรม FFC-Airsync อีกครั้ง");
         jTextArea1.setBorder(null);
         jScrollPane1.setViewportView(jTextArea1);
 
@@ -194,23 +196,22 @@ public class UninstallUI extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(wPcucode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(wPcucode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputPcuCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(wPcucode)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(wPcucode, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -224,8 +225,9 @@ public class UninstallUI extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,7 +253,7 @@ public class UninstallUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (onClickUninstallCallback != null) {
             if (!onClickUninstallCallback.callback(inputPcuCode.getText())) {
-                wPcucode.setVisible(true);
+                wPcucode.setText(redStr);
             }
         }
     }//GEN-LAST:event_removeButtonActionPerformed

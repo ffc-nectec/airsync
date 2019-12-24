@@ -67,8 +67,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -151,7 +152,7 @@
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="wPcucode" max="32767" attributes="0"/>
+                          <Component id="wPcucode" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -161,16 +162,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="158" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="97" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="inputPcuCode" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="wPcucode" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="110" max="32767" attributes="0"/>
-                      <Component id="jPanel3" min="-2" pref="42" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="wPcucode" min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jPanel3" min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -199,11 +199,11 @@
                     </Property>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Tahoma" size="18" style="1"/>
+                      <Font name="Tahoma" size="14" style="1"/>
                     </Property>
                     <Property name="lineWrap" type="boolean" value="true"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="&#xa;      &#xe40;&#xe21;&#xe37;&#xe48;&#xe2d;&#xe16;&#xe2d;&#xe19;&#xe01;&#xe32;&#xe23;&#xe15;&#xe34;&#xe14;&#xe15;&#xe31;&#xe49;&#xe07; FFC-Airsync &#xe1a;&#xe19;&#xe40;&#xe04;&#xe23;&#xe37;&#xe48;&#xe2d;&#xe07;&#xe19;&#xe35;&#xe49;&#xe41;&#xe25;&#xe49;&#xe27; &#xe02;&#xe49;&#xe2d;&#xe21;&#xe39;&#xe25;&#xe02;&#xe2d;&#xe07;&#xe2b;&#xe19;&#xe48;&#xe27;&#xe22;&#xe07;&#xe32;&#xe19;&#xe17;&#xe48;&#xe32;&#xe19;&#xe08;&#xe30;&#xe16;&#xe39;&#xe01;&#xe25;&#xe1a;&#xe2d;&#xe2d;&#xe01;&#xe08;&#xe32;&#xe01; Cloud &#xe41;&#xe25;&#xe30;&#xe44;&#xe21;&#xe48;&#xe2a;&#xe32;&#xe21;&#xe32;&#xe23;&#xe16;&#xe43;&#xe0a;&#xe49;&#xe07;&#xe32;&#xe19;&#xe41;&#xe2d;&#xe1b;&#xe1e;&#xe25;&#xe34;&#xe40;&#xe04;&#xe0a;&#xe31;&#xe19; FFC &#xe44;&#xe14;&#xe49;&#xe08;&#xe19;&#xe01;&#xe27;&#xe48;&#xe32;&#xe08;&#xe30;&#xe17;&#xe33;&#xe01;&#xe32;&#xe23;&#xe15;&#xe34;&#xe14;&#xe15;&#xe31;&#xe49;&#xe07; FFC-Airsync &#xe2d;&#xe35;&#xe01;&#xe04;&#xe23;&#xe31;&#xe49;&#xe07;"/>
+                    <Property name="text" type="java.lang.String" value="      &#xe40;&#xe21;&#xe37;&#xe48;&#xe2d;&#xe16;&#xe2d;&#xe19;&#xe01;&#xe32;&#xe23;&#xe15;&#xe34;&#xe14;&#xe15;&#xe31;&#xe49;&#xe07; FFC-Airsync &#xe1a;&#xe19;&#xe40;&#xe04;&#xe23;&#xe37;&#xe48;&#xe2d;&#xe07;&#xe19;&#xe35;&#xe49;&#xe41;&#xe25;&#xe49;&#xe27; &#xe02;&#xe49;&#xe2d;&#xe21;&#xe39;&#xe25;&#xe02;&#xe2d;&#xe07;&#xe2b;&#xe19;&#xe48;&#xe27;&#xe22;&#xe07;&#xe32;&#xe19;&#xe17;&#xe48;&#xe32;&#xe19;&#xe08;&#xe30;&#xe16;&#xe39;&#xe01;&#xe25;&#xe1a;&#xe2d;&#xe2d;&#xe01;&#xe08;&#xe32;&#xe01;&#xe23;&#xe30;&#xe1a;&#xe1a; Cloud &#xe41;&#xe25;&#xe30; &#xe44;&#xe21;&#xe48;&#xe2a;&#xe32;&#xe21;&#xe32;&#xe23;&#xe16;&#xe43;&#xe0a;&#xe49;&#xe07;&#xe32;&#xe19;&#xe41;&#xe2d;&#xe1b;&#xe2f; FFC 4.0 &#xe1a;&#xe19;&#xe21;&#xe37;&#xe2d;&#xe16;&#xe37;&#xe2d;&#xe44;&#xe14;&#xe49; &#xe08;&#xe19;&#xe01;&#xe27;&#xe48;&#xe32;&#xe08;&#xe30;&#xe17;&#xe33;&#xe01;&#xe32;&#xe23;&#xe15;&#xe34;&#xe14;&#xe15;&#xe31;&#xe49;&#xe07;&#xe42;&#xe1b;&#xe23;&#xe41;&#xe01;&#xe23;&#xe21; FFC-Airsync &#xe2d;&#xe35;&#xe01;&#xe04;&#xe23;&#xe31;&#xe49;&#xe07;"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>
