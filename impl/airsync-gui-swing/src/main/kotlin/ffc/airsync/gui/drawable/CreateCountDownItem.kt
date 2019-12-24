@@ -16,8 +16,8 @@ internal class CreateCountDownItem(
         if (listComponent[data.first] == null) {
             val countDownItem = CoutDownMessage { callBackCountDone() }
             countDownItem.preferredSize = Dimension(width, height)
-            countDownItem.message.font = countDownItem.message.font.deriveFont(30f)
-            countDownItem.couter.font = countDownItem.couter.font.deriveFont(22f)
+            countDownItem.message.font = countDownItem.message.font.deriveFont(24f)
+            countDownItem.couter.font = countDownItem.couter.font.deriveFont(14f)
             listComponent[data.first] = countDownItem
             airsync.statusPanel.add(countDownItem)
         }
