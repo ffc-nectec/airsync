@@ -58,7 +58,7 @@ class Uninstall {
     }
 
     suspend fun createUninstallFile(retryFail: Int = 10) {
-        val response = "https://raw.githubusercontent.com/ffc-nectec/airsync/Uninstaller/uninstall.bat"
+        val response = "https://raw.githubusercontent.com/ffc-nectec/airsync/master/uninstall.bat"
             .httpDownload()
             .fileDestination { response, request ->
                 logger.info { "Uninstall status ${response.statusCode}" }
