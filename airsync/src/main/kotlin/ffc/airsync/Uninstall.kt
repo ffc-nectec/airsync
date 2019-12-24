@@ -27,14 +27,14 @@ class Uninstall {
 
     fun confirmRemoveOrganization() {
         runBlocking {
-            if (orgApi.deleteOrganization()) {
-                logger.info { "ทำการลบข้อมูล" }
-                isUninstall = true
-                createUninstallFile()
-                rerunAirsync()
-            } else {
-                logger.info { "ไม่สามารถลบข้อมูลบน Cloud ได้" }
-            }
+            if (createUninstallFile())
+                if (orgApi.deleteOrganization()) {
+                    logger.info { "ทำการลบข้อมูล" }
+                    isUninstall = true
+                    rerunAirsync()
+                } else {
+                    logger.info { "ไม่สามารถลบข้อมูลบน Cloud ได้" }
+                }
         }
     }
 
@@ -57,7 +57,7 @@ class Uninstall {
         exitProcess(0)
     }
 
-    suspend fun createUninstallFile(retryFail: Int = 10) {
+    suspend fun createUninstallFile(retryFail: Int = 10): Boolean {
         val response = "https://raw.githubusercontent.com/ffc-nectec/airsync/master/uninstall.bat"
             .httpDownload()
             .fileDestination { response, request ->
@@ -69,12 +69,13 @@ class Uninstall {
         val successful = response.second.isSuccessful
         while (retryFail > 0 && !successful) {
             delay(2000)
-            createUninstallFile(retryFail - 1)
+            return createUninstallFile(retryFail - 1)
         }
 
-        if (successful)
+        if (successful) {
             logger.info { "Download ไฟล์ดำเนินการลบ uninstall.bat เสร็จสมบูรณ์ รอบที่ $retryFail" }
-        else {
+            return true
+        } else {
             logger.error { "Download ไฟล์ดำเนินการลบ uninstall.bat ไม่สมบูรณ์ รอบที่ $retryFail" }
             val error = response.third.component2()
             logger.error { "Content error body ${error?.errorData?.toString(Charsets.UTF_8)}" }
