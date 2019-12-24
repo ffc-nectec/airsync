@@ -9,5 +9,5 @@ interface OrganizationApi {
         onSuccessRegister: (organization: Organization, token: Token) -> Unit
     )
 
-    fun deleteOrganization()
+    fun deleteOrganization(): Boolean
 }
