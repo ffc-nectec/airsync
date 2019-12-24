@@ -2,7 +2,7 @@ package ffc.airsync.api.organization
 
 import ffc.airsync.api.cloudweakup.RetofitWeakUp
 import ffc.airsync.retrofit.RetofitApi
-import ffc.airsync.utils.callApiNoReturn
+import ffc.airsync.utils.callApi
 import ffc.airsync.utils.getLogger
 import ffc.entity.Organization
 import ffc.entity.Token
@@ -57,9 +57,9 @@ class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationServi
         return restOrg!!
     }
 
-    override fun deleteOrganization() {
+    override fun deleteOrganization(): Boolean {
         logger.info { "Call delete organization api." }
-        callApiNoReturn {
+        return callApi {
             val response = restService.removeOrganization(
                 organization.id, tokenBarer
             ).execute()
@@ -68,6 +68,7 @@ class OrganizationServiceApi : RetofitApi<OrganizationService>(OrganizationServi
             logger.info {
                 "Delete organization response $statusCode"
             }
+            statusCode == 200
         }
     }
 }
