@@ -4,7 +4,7 @@ import ffc.airsync.api.house.initSync
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.template.TemplateInit
-import ffc.airsync.api.user.initSync
+import ffc.airsync.api.user.syncUser
 import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.getLogger
@@ -12,6 +12,12 @@ import ffc.airsync.utils.syncCloud
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
+/**
+ * จะทำงานทันทีเมื่อสร้าง Object
+ * ระบบ Background thread ที่จะคอย Monitor ข้อมูลบน local
+ * เมื่อมีข้อมูลระหว่าง local กับ cloud ไม่ตรงกันจะทำการ sync อัตโนมัติ
+ * @param dao Database access object ที่เข้าถึงฐานข้อมูลที่ local
+ */
 class SetupAutoSync(val dao: DatabaseDao) {
 
     init {
@@ -48,7 +54,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
                     logger.info("Sync template")
                     runCatching { TemplateInit() }
                     logger.info("Sync user")
-                    runCatching { users.initSync() }
+                    runCatching { syncUser() }
                     logger.info("Sync village")
                     runCatching { villages.initSync() }
                     runCatching {
