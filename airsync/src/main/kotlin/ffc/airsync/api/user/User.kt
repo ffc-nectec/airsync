@@ -30,7 +30,7 @@ fun ArrayList<User>.initSync() {
                         "ในการดึงข้อมูลการ Login ใน table user " +
                         "ไม่สามารถ ใส่ข้อมูล User ได้"
             }
-            val putUser = userApi.putUser(jhcisUser.toMutableList())
+            val putUser = userApi.register(jhcisUser.toMutableList())
             addAll(putUser)
             check(isNotEmpty()) {
                 "เกิดข้อผิดพลาด " +
@@ -55,7 +55,7 @@ fun ArrayList<User>.syncJToCloud() {
 
 private fun ArrayList<User>.create(it: List<User>) {
     getLogger(this).info { "Update new user ${it.map { it.name }}" }
-    val putUser = userApi.putUser(it.toMutableList())
+    val putUser = userApi.register(it.toMutableList())
     addAll(putUser)
     save()
 }
