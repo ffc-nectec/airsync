@@ -17,6 +17,7 @@ fun User.gets(dao: DatabaseDao = Main.instant.dao): List<User> {
     return dao.getUsers()
 }
 
+@Deprecated("ถ้า syncUser OK แล้วจะเปลี่ยนไปใช้", ReplaceWith("syncUser()", "ffc.airsync.api.user.syncUser"))
 fun ArrayList<User>.initSync() {
     this.lock {
         val cacheFile = arrayListOf<User>()
@@ -46,6 +47,26 @@ fun ArrayList<User>.initSync() {
     }
 }
 
+/**
+ * ทำการ sync user จาก local ไปยัง cloud
+ * โดย cloud จะทำงานเรื่องการ ตรวจสอบให้อัตโนมัติ
+ * -- รายการตรวจสอบอัตโนมัติ --
+ * - user ที่มีบน local แต่ไม่มีบน cloud ให้เพิ่มใหม่
+ * - user ที่มีบน local และมีบน cloud ให้ update ข้อมูล
+ * - user ที่มีบน cloud แต่ไม่มีบน local ให้ลบออก
+ */
+fun syncUser() {
+    val jhcisUser = User().gets()
+    if (jhcisUser.isNotEmpty())
+        jhcisUser.lock {
+            val sync = userApi.sync(jhcisUser)
+            if (sync.isNotEmpty())
+                sync.save()
+            else
+                getLogger(sync).warn("User.kt sync user function is empty.")
+        }
+}
+
 fun ArrayList<User>.syncJToCloud() {
     val jhcisUser = User().gets()
     checkNewDataCreate(jhcisUser, this, { jhcis, cloud -> jhcis.name == cloud.name }) {
@@ -71,7 +92,7 @@ fun List<User>.lock(f: () -> Unit) {
 fun findProviderId(name: String): String {
     val id = (users.find { it.name == name })?.id
     return if (id == null) {
-        users.initSync()
+        syncUser()
         (users.find { it.name == name })!!.id
     } else
         id
