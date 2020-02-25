@@ -122,7 +122,11 @@ class PersonMapper : RowMapper<Person> {
                 sex = if (it == "1") Person.Sex.MALE else Person.Sex.FEMALE
             }
 
-            rs.getDate("birth")?.let { birthDate = LocalDate.fromDateFields(it) }
+            try {
+                rs.getDate("birth")?.let { birthDate = LocalDate.fromDateFields(it) }
+            } catch (hotFix: Exception) {
+                logger.warn("Hotfix Chumporn convert date", hotFix)
+            }
 
             death = rs.getString("deadcause")?.let { deadcause ->
                 try {
