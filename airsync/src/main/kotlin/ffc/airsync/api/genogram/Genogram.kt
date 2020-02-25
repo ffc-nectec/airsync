@@ -47,7 +47,7 @@ private fun List<Person>.updateToCloud(progressCallback: (Int) -> Unit) {
         }
     }
     geonogramApi.putBlock(personBlock, progressCallback).forEach { personId, relation ->
-        this.find { it.id == personId }!!.relationships = relation.toMutableList()
+        this.find { it.id == personId }?.relationships = relation.toMutableList()
     }
 }
 
