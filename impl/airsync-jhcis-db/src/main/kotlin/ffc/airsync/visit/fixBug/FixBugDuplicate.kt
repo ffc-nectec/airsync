@@ -17,6 +17,7 @@ class FixBugDuplicate(internal val dao: Dao, internal val visitNumberError: Long
     private fun subFix(mainVisit: VisitFixBug?, mainVisitNuber: Long, deep: Int) {
         if (deep >= DEEP_FIX) return
         val subVisitNumber = mainVisitNuber - deep
+        if (subVisitNumber < 1) return
         val subVisit = getVisitBy(subVisitNumber)
         if (mainVisit == subVisit) {
             deleteVist(subVisitNumber)
