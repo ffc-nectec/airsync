@@ -3,6 +3,8 @@ package ffc.airsync.user
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.User
+import ffc.entity.User.Role.PROVIDER
+import ffc.entity.User.Role.SURVEYOR
 import ffc.entity.update
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -17,7 +19,8 @@ SELECT
 	user.username,
 	user.password,
 	user.pcucode,
-	user.markdelete
+	user.markdelete,
+    user.officertype
 FROM user
 	WHERE
 		user.password IS NOT NULL
@@ -32,9 +35,12 @@ class UserMapper : RowMapper<User> {
 
     override fun map(rs: ResultSet, ctx: StatementContext): User {
         return User().update {
+            val type = rs.getString("officertype") ?: "w"
+            val role = if (type == "w") SURVEYOR else PROVIDER
+
             name = rs.getString("username")
             password = rs.getString("password")
-            roles.add(User.Role.PROVIDER)
+            roles.add(role)
             link = Link(System.JHICS).apply {
                 keys["username"] = name
                 keys["pcucode"] = rs.getString("pcucode")
