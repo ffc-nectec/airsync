@@ -8,6 +8,8 @@ class HosDetailJdbi(
     val jdbiDao: Dao = MySqlJdbi(null)
 ) : HosDao {
     override fun get(): HashMap<String, String> {
-        return jdbiDao.extension<QueryHosDetail, List<kotlin.collections.HashMap<String, String>>> { get() }[0]
+        return jdbiDao.extension<QueryHosDetail, List<HashMap<String, String>>> { get() }.find {
+            it["pcucode"] == MySqlJdbi.dbConfig.currentOrganization
+        } ?: throw Exception("ไม่พบ รหัส pcucode")
     }
 }

@@ -19,9 +19,9 @@ SELECT
 	chospital.hosname as hosname,
 	cprovince.provname as provname
 FROM office
-	LEFT JOIN chospital
+	INNER JOIN chospital
 		ON office.offid = chospital.hoscode
-	LEFT JOIN cprovince
+	INNER JOIN cprovince
 		ON chospital.provcode = cprovince.provcode
     """
     )
@@ -33,7 +33,6 @@ class HosDetailMapper : RowMapper<HashMap<String, String?>> {
     override fun map(rs: ResultSet, ctx: StatementContext): HashMap<String, String?> {
         val detailHos = HashMap<String, String?>()
 
-        rs.next()
         detailHos["pcucode"] = rs.getString("offid")
         detailHos["tel"] = rs.getString("tel")
         detailHos["name"] = rs.getString("hosname")
