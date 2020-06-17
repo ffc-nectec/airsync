@@ -9,7 +9,6 @@ import ffc.entity.User.Role.SURVEYOR
 import ffc.entity.gson.ffcGson
 import ffc.entity.gson.toJson
 import ffc.entity.update
-import max212.kotlin.util.hash.BCrypt
 import max212.kotlin.util.hash.SHA265
 import org.jdbi.v3.core.mapper.RowMapper
 import org.jdbi.v3.core.statement.StatementContext
@@ -42,7 +41,6 @@ FROM user
 
 class UserMapper : RowMapper<User> {
     private val shA265 = SHA265()
-    private val bCrypt = BCrypt(10)
     override fun map(rs: ResultSet, ctx: StatementContext): User {
         var user = User().update {
             val type = rs.getString("officertype") ?: "w"
@@ -54,7 +52,6 @@ class UserMapper : RowMapper<User> {
             link = Link(System.JHICS).apply {
                 keys["username"] = name
                 keys["pcucode"] = rs.getString("pcucode")
-                keys["password"] = bCrypt.hash(password)
                 rs.getString("idcard")?.let { keys["idcard"] = shA265.hash(it) }
             }
         }
