@@ -21,11 +21,10 @@ class MySqlJdbi(
 
     companion object {
         private lateinit var jdbiDao: Jdbi
-        private var dbConfig: DatabaseConfig? = null
+        internal val dbConfig: DatabaseConfig by lazy { DatabaseConfig() }
     }
 
     private fun setupJdbiInstant() {
-        if (dbConfig == null) dbConfig = DatabaseConfig()
         try {
             jdbiDao.toString()
         } catch (ex: UninitializedPropertyAccessException) {
@@ -38,11 +37,11 @@ class MySqlJdbi(
     private fun createJdbi(): Jdbi {
         Class.forName("com.mysql.jdbc.Driver")
         val jdbi: Jdbi
-        val dbHost: String = dbConfig!!.server
-        val dbPort: String = dbConfig!!.port
-        val dbName: String = dbConfig!!.databaseName
-        val dbUsername: String = dbConfig!!.username
-        val dbPassword: String = dbConfig!!.password
+        val dbHost: String = dbConfig.server
+        val dbPort: String = dbConfig.port
+        val dbName: String = dbConfig.databaseName
+        val dbUsername: String = dbConfig.username
+        val dbPassword: String = dbConfig.password
 
         if (ds == null) {
             val dsMySql = com.mysql.jdbc.jdbc2.optional.MysqlDataSource()

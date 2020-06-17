@@ -10,7 +10,7 @@ internal class DatabaseConfig {
 
     init {
         val file = File(jhcisConfigFile)
-        require(file.isFile) { "ไม่พบไฟล์ database.properties ของตัวระบบ JHCIS fail load $jhcisConfigFile" }
+        require(file.isFile) { "ไม่พบไฟล์ $jhcisConfigFile ของตัวระบบ JHCIS" }
         property.load(FileInputStream(file))
     }
 
@@ -19,4 +19,5 @@ internal class DatabaseConfig {
     val username get() = property.getProperty("USERNAME")
     val password get() = property.getProperty("PASSWORD")
     val databaseName get() = property.getProperty("DATABASE")
+    val currentOrganization get() = property.getProperty("PCUCODE")
 }
