@@ -8,13 +8,15 @@ import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.airsync.utils.syncCloud
+import ffc.entity.Entity
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 
 class SyncHealthCare(private val dao: DatabaseDao) : Sync {
-    override fun sync() {
+    override fun sync(): List<Entity>? {
         cloudToLocal()
+        return null
     }
 
     private fun cloudToLocal() {

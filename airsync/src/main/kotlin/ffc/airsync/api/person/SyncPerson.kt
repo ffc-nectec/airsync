@@ -2,14 +2,15 @@ package ffc.airsync.api.person
 
 import ffc.airsync.api.Sync
 import ffc.airsync.api.chronic.Chronics
+import ffc.entity.Entity
 import ffc.entity.Person
 import ffc.entity.healthcare.Chronic
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class SyncPerson() : Sync {
-    override fun sync() {
-        // TODO รอพัฒนาเพิ่ม ยังไงเพราะจำเป็นต้องผ่าน process ของบ้านด้วย
+class SyncPerson : Sync {
+    override fun sync(): List<Entity> {
+        TODO("Not yet implemented")
     }
 
     fun prePersonProcess(): List<Person> {
