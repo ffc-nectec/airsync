@@ -1,5 +1,10 @@
 package ffc.airsync.api
 
+import ffc.entity.Entity
+
 interface Sync {
-    fun sync()
+    /**
+     * @return รายการที่มีการ Sync
+     */
+    fun sync(): List<Entity>?
 }
