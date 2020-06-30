@@ -52,7 +52,10 @@ class UserMapper : RowMapper<User> {
             link = Link(System.JHICS).apply {
                 keys["username"] = name
                 keys["pcucode"] = rs.getString("pcucode")
-                rs.getString("idcard")?.let { keys["idcard"] = shA265.hash(it) }
+                rs.getString("idcard")?.let {
+                    if (!it.isBlank())
+                        keys["idcard"] = shA265.hash(it)
+                }
             }
         }
         rs.getTimestamp("dateupdate").toTimestamp()?.let {
