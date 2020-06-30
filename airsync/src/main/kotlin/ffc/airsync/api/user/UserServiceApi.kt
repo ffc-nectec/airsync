@@ -21,6 +21,13 @@ class UserServiceApi : RetofitApi<UserService>(UserService::class.java), UserApi
     }
 
     override fun getuser(): List<User> {
-        return callApi { restService.getUser(organization.id, tokenBarer).execute().body() }
+        return callApi {
+            val execute = restService.getUser(organization.id, tokenBarer).execute()
+            when (val status = execute.code()) {
+                200 -> execute.body()
+                404 -> emptyList()
+                else -> throw Exception("Api error $status ${execute.errorBody()}")
+            }
+        }
     }
 }
