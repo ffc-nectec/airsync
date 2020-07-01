@@ -7,7 +7,6 @@ import ffc.airsync.api.house.initSync
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.template.TemplateInit
-import ffc.airsync.api.user.initSync
 import ffc.airsync.api.village.initSync
 import ffc.airsync.gui.ProgressList
 import ffc.airsync.ui.AirSyncGUI
@@ -62,7 +61,7 @@ class InitSync : ProgressList {
             }
             launch {
                 logger.info { "ใส่ข้อมูลผู้ใช้" }
-                users.initSync()
+                userManage.sync()
                 progressUser = 100
             }
 

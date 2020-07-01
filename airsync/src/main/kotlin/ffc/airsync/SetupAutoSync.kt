@@ -4,7 +4,6 @@ import ffc.airsync.api.house.initSync
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.template.TemplateInit
-import ffc.airsync.api.user.initSync
 import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.getLogger
@@ -48,7 +47,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
                     logger.info("Sync template")
                     runCatching { TemplateInit() }
                     logger.info("Sync user")
-                    runCatching { users.initSync() }
+                    runCatching { userManage.sync() }
                     logger.info("Sync village")
                     runCatching { villages.initSync() }
                     runCatching {

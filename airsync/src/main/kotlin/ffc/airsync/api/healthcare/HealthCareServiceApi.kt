@@ -1,6 +1,5 @@
 package ffc.airsync.api.healthcare
 
-import ffc.airsync.api.user.syncJToCloud
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui
 import ffc.airsync.healthCare
@@ -8,7 +7,7 @@ import ffc.airsync.persons
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.ERROR
 import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
-import ffc.airsync.users
+import ffc.airsync.userManage
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
@@ -44,10 +43,10 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         val providerId = healthCare.firstOrNull()?.providerId
-        val provider = users.find { it.id == providerId } ?: {
+        val provider = userManage.cloudUser.find { it.id == providerId } ?: {
             gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 30000)
-            users.syncJToCloud()
-            users.find { it.id == providerId }
+            userManage.sync()
+            userManage.cloudUser.find { it.id == providerId }
         }.invoke()
         logger.info("${provider?.name} กำลังออกเยี่ยม")
         return _createHealthCare(healthCare, progressCallback)
@@ -118,10 +117,10 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
             throw ex
         }
 
-        val provider = users.find { it.id == providerId } ?: {
+        val provider = userManage.cloudUser.find { it.id == providerId } ?: {
             gui.createMessageDelay("พบผู้ใช้ใหม่กำลัง Sync...", delay = 30000)
-            users.syncJToCloud()
-            users.find { it.id == providerId }
+            userManage.sync()
+            userManage.cloudUser.find { it.id == providerId }
         }.invoke()
 
         val patient = persons.find { it.id == patientId }

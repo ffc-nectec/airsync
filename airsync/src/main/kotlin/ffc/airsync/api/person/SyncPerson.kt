@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class SyncPerson : Sync {
-    override fun sync(): List<Entity> {
+    override fun sync(force: Boolean): List<Entity> {
         TODO("Not yet implemented")
     }
 
