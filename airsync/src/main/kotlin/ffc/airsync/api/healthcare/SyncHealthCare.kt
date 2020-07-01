@@ -14,7 +14,7 @@ import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 
 class SyncHealthCare(private val dao: DatabaseDao) : Sync {
-    override fun sync(): List<Entity>? {
+    override fun sync(force: Boolean): List<Entity>? {
         cloudToLocal()
         return null
     }

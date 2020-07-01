@@ -3,6 +3,7 @@ package ffc.airsync.api.user
 import ffc.entity.User
 
 interface UserApi {
-    fun putUser(userInfoList: List<User>): List<User>
-    fun getuser(): List<User>
+    fun create(userInfoList: List<User>): List<User>
+    fun get(): List<User>
+    fun update(update: List<User>): List<User>
 }

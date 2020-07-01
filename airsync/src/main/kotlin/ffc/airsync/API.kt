@@ -24,17 +24,17 @@ import ffc.airsync.api.person.PersonServiceApi
 import ffc.airsync.api.specialPP.SpecialPpServiceApi
 import ffc.airsync.api.template.TemplateApi
 import ffc.airsync.api.template.TemplateServiceApi
-import ffc.airsync.api.user.UserApi
-import ffc.airsync.api.user.UserServiceApi
+import ffc.airsync.api.user.UserInterface
+import ffc.airsync.api.user.UserManage
 import ffc.airsync.api.village.VillageApi
 import ffc.airsync.api.village.VillageServiceApi
 import ffc.entity.Person
-import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.analyze.HealthAnalyzer
 import ffc.entity.place.House
 
+val userManage: UserInterface by lazy { UserManage() }
 val otpApi: OtpApi by lazy { OtpServiceApi() }
 val analyzerSyncApi: AnalyzerSyncApi by lazy { AnalyzerSyncServiceApi() }
 val geonogramApi: GeonogramApi by lazy { GeonogramServiceApi() }
@@ -47,7 +47,6 @@ val orgApi: OrganizationApi by lazy { OrganizationServiceApi() }
 val personApi: PersonApi by lazy { PersonServiceApi() }
 val specialPpApi: SpecialPpApi by lazy { SpecialPpServiceApi() }
 val templateApi: TemplateApi by lazy { TemplateServiceApi() }
-val userApi: UserApi by lazy { UserServiceApi() }
 val villageApi: VillageApi by lazy { VillageServiceApi() }
 
 val relation = arrayListOf<Person>()
@@ -55,5 +54,4 @@ val analyzer = hashMapOf<String, HealthAnalyzer>()
 val healthCare = arrayListOf<HealthCareService>()
 val houses = arrayListOf<House>()
 val persons = arrayListOf<Person>()
-val users = arrayListOf<User>()
 val villages = arrayListOf<Village>()
