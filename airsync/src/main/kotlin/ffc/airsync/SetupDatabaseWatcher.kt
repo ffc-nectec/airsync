@@ -70,7 +70,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             if (pattern.matches(keyWhere.firstOrNull() ?: ""))
                 turnOnSync()
             if (keyWhere.size == 1) {
-                val house = dao.getHouse(VILLAGELOOKUP, keyWhere.first())
+                val house = runCatching { dao.getHouse(VILLAGELOOKUP, keyWhere.first()) }.getOrDefault(listOf())
                 house.forEach {
                     try {
                         val houseSync = findHouseWithKey(it)
