@@ -1,27 +1,30 @@
 package ffc.airsync.api.user.sync
 
+import ffc.airsync.api.user.sync.UserDataStatus.CREATE
+import ffc.airsync.api.user.sync.UserDataStatus.EQUAL
+import ffc.airsync.api.user.sync.UserDataStatus.UPDATE
 import ffc.entity.User
 
 /**
  * จับคู่ข้อมูล One กับ Two
  * พร้อมทั้ง check timestamp update
  */
-internal fun mapUserOneWithTwo(one: List<User>, two: List<User>): List<Triple<User, User?, Boolean>> {
-    val mapUser = hashMapOf<User, User?>()
+internal fun mapUserOneWithTwo(one: List<User>, two: List<User>): List<Triple<User, User?, UserDataStatus>> {
+    val result = arrayListOf<Triple<User, User?, UserDataStatus>>()
     one.forEach { localItem ->
-        mapUser[localItem] = two.find { cloudItem -> localItem.eq(cloudItem) }
+        val find = two.find { cloudItem -> localItem.eq(cloudItem) }
+        if (find == null)
+            result.add(Triple(localItem, null, CREATE))
+        else {
+            result.add(Triple(localItem, find, if (localItem.timestamp > find.timestamp) UPDATE else EQUAL))
+        }
     }
-    val result = arrayListOf<Triple<User, User?, Boolean>>()
-    mapUser.forEach { (localItem, cloudItem) ->
-        val update =
-            if (cloudItem == null)
-                false
-            else
-                localItem.timestamp > cloudItem.timestamp
 
-        result.add(Triple(localItem, cloudItem, update))
-    }
     return result.toList()
+}
+
+enum class UserDataStatus {
+    CREATE, UPDATE, EQUAL
 }
 
 internal fun User.eq(eq: User): Boolean {

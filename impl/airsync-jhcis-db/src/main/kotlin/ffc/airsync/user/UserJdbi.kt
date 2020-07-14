@@ -14,7 +14,6 @@ class UserJdbi(
         return jdbiDao.extension<QueryUser, List<User>> { get() }.filter {
             kotlin.runCatching {
                 val test = "${it.name}:" + it.password
-                logger.debug("User test password $test")
             }.isSuccess
         }
     }
