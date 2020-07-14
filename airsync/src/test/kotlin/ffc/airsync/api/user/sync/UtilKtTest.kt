@@ -1,5 +1,8 @@
 package ffc.airsync.api.user.sync
 
+import ffc.airsync.api.user.sync.UserDataStatus.CREATE
+import ffc.airsync.api.user.sync.UserDataStatus.EQUAL
+import ffc.airsync.api.user.sync.UserDataStatus.UPDATE
 import ffc.entity.Link
 import ffc.entity.System
 import ffc.entity.User
@@ -84,10 +87,10 @@ class UtilKtTest {
             }
 
             // Test status update
-            result.find { it.first.name == user1New.name }!!.third `should be equal to` true
-            result.find { it.first.name == user2New.name }!!.third `should be equal to` false
-            result.find { it.first.name == user3New.name }!!.third `should be equal to` false
-            result.find { it.first.name == user4New.name }!!.third `should be equal to` true
+            result.find { it.first.name == user1New.name }!!.third `should be` UPDATE
+            result.find { it.first.name == user2New.name }!!.third `should be` EQUAL
+            result.find { it.first.name == user3New.name }!!.third `should be` EQUAL
+            result.find { it.first.name == user4New.name }!!.third `should be` UPDATE
         }
     }
 
@@ -122,12 +125,12 @@ class UtilKtTest {
             result6!!.second `should equal` null
 
             // Test status update
-            result1.third `should be equal to` true
-            result2.third `should be equal to` false
-            result3.third `should be equal to` false
-            result4.third `should be equal to` true
-            result5.third `should be equal to` false
-            result6.third `should be equal to` false
+            result1.third `should be` UPDATE
+            result2.third `should be` EQUAL
+            result3.third `should be` EQUAL
+            result4.third `should be` UPDATE
+            result5.third `should be` CREATE
+            result6.third `should be` CREATE
         }
     }
 
