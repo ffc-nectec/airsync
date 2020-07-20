@@ -12,6 +12,8 @@ import ffc.entity.Person.Relate.Father
 import ffc.entity.Person.Relate.Married
 import ffc.entity.Person.Relate.Mother
 import ffc.entity.Person.Relate.Sibling
+import ffc.entity.Person.Sex.FEMALE
+import ffc.entity.Person.Sex.MALE
 
 private interface GenogramUtil
 
@@ -62,8 +64,9 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
         if (index % 300 == 0 || index == size)
             logger.trace("createRela $index:$size")
         house.forEach { person ->
-            val familyPosition = (person.link?.keys?.get("familyposition") ?: "") as String
-            if (familyPosition.isNotBlank()) {
+            val charFamily = ((person.link?.keys?.get("familyposition") ?: "") as String).toCharArray().firstOrNull()
+            val familyPosition = if (charFamily != null) JhcisFamilyPosition.valueOf(charFamily) else null
+            if (familyPosition != null) {
                 if (!person.haveFather()) {
                     val father = `ค้นหาความสัมพันธ์ในบ้าน`(house, fatherFamilyPosition(familyPosition))
                     if (father.isNotEmpty() && person.fatherId == null) {
@@ -77,7 +80,7 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
                 if (!person.haveMother()) {
                     val mother = `ค้นหาความสัมพันธ์ในบ้าน`(house, motherFamilyPosition(familyPosition))
                     if (mother.isNotEmpty() && person.motherId == null) {
-                        if (person.sex == Person.Sex.FEMALE)
+                        if (person.sex == FEMALE)
                             `สร้างความสัมพันธ์แม่`(person, mother.first())
                         else
                             `สร้างความสัมพันธ์พ่อ`(person, mother.first())
@@ -147,17 +150,24 @@ private fun List<Person>.groupByHcode(): HashMap<String, ArrayList<Person>> {
 
 private fun `ค้นหาความสัมพันธ์ในบ้าน`(
     house: ArrayList<Person>,
-    personFamilyPosition: String
+    personFamilyPosition: JhcisFamilyPosition?
 ): List<Person> {
-    return if (personFamilyPosition.isNotBlank())
-        house.filter { ((it.link?.keys?.get("familyposition") ?: "") as String) == personFamilyPosition }
+    return if (personFamilyPosition != null)
+        house.filter {
+            val charFamilyPosition =
+                ((it.link?.keys?.get("familyposition") ?: "") as String).toCharArray().firstOrNull()
+            if (charFamilyPosition != null)
+                JhcisFamilyPosition.valueOf(charFamilyPosition) == personFamilyPosition
+            else
+                false
+        }
     else
         arrayListOf()
 }
 
 private fun `ค้นหาความสัมพันธ์ในบ้าน`(
     house: ArrayList<Person>,
-    personFamilyPosition: List<String>
+    personFamilyPosition: List<JhcisFamilyPosition?>
 ): List<Person> {
     return if (personFamilyPosition.isNotEmpty()) {
         val out = ArrayList<Person>()
@@ -182,36 +192,45 @@ internal fun Person.haveSibling(): Boolean = siblingId.isNotEmpty()
 internal fun Person.haveChild(): Boolean = childId.isNotEmpty()
 
 internal fun `สร้างความสัมพันธ์ภรรยา`(person: Person, it: Person) {
-    try {
-        person.addRelationship(Pair(Married, it))
-        it.addRelationship(Pair(Married, person))
-    } catch (ex: java.lang.IllegalArgumentException) {
-    }
+    if (person.`แฟนกันได้ไหม`(it))
+        try {
+            person.addRelationship(Pair(Married, it))
+            it.addRelationship(Pair(Married, person))
+        } catch (ex: java.lang.IllegalArgumentException) {
+        }
+}
+
+private fun Person.`แฟนกันได้ไหม`(person: Person): Boolean {
+    if (sex == MALE && person.sex == FEMALE) return true
+    if (sex == FEMALE && person.sex == MALE) return true
+    return false
 }
 
 internal fun `สร้างความสัมพันธ์แม่`(child: Person, mother: Person) {
 
-    try {
-        if (child.motherId == null) {
-            child.addRelationship(Pair(Mother, mother))
-            mother.addRelationship(Pair(Child, child))
+    if (mother.sex == FEMALE)
+        try {
+            if (child.motherId == null) {
+                child.addRelationship(Pair(Mother, mother))
+                mother.addRelationship(Pair(Child, child))
+            }
+        } catch (ex: java.lang.IllegalArgumentException) {
         }
-    } catch (ex: java.lang.IllegalArgumentException) {
-    }
 }
 
 internal fun `สร้างความสัมพันธ์พ่อ`(child: Person, father: Person) {
-    try {
-        if (child.fatherId == null) {
-            child.addRelationship(Pair(Father, father))
-            father.addRelationship(Pair(Child, child))
+    if (father.sex == MALE)
+        try {
+            if (child.fatherId == null) {
+                child.addRelationship(Pair(Father, father))
+                father.addRelationship(Pair(Child, child))
+            }
+        } catch (ex: java.lang.IllegalArgumentException) {
         }
-    } catch (ex: java.lang.IllegalArgumentException) {
-    }
 }
 
 internal fun `สร้างความสัมพันธ์ลูก`(head: Person, child: List<Person>) {
-    val relationToHead = if (head.sex == Person.Sex.FEMALE) Mother else Father
+    val relationToHead = if (head.sex == FEMALE) Mother else Father
     try {
 
         child.forEach {
