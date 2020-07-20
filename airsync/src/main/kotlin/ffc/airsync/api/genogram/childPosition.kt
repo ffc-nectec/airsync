@@ -1,6 +1,12 @@
 package ffc.airsync.api.genogram
 
-internal fun childPosition(familyPosition: String, foundMate: Boolean): String {
+import ffc.airsync.api.genogram.JhcisFamilyPosition.`คู่สมรส(ของ หนครอบครัว)`
+import ffc.airsync.api.genogram.JhcisFamilyPosition.`บุตร(ของ คู่สมรส)`
+import ffc.airsync.api.genogram.JhcisFamilyPosition.`บุตร(ของ หนครอบครัว)`
+import ffc.airsync.api.genogram.JhcisFamilyPosition.`บุตร`
+import ffc.airsync.api.genogram.JhcisFamilyPosition.`หัวหน้าครอบครัว`
+
+internal fun childPosition(familyPosition: JhcisFamilyPosition, foundMate: Boolean): JhcisFamilyPosition? {
     // leader child
     // child of childWithMate
     // else if (familyPosition.equalsIgnoreCase("3"))
@@ -12,14 +18,14 @@ internal fun childPosition(familyPosition: String, foundMate: Boolean): String {
     // else if (familyPosition.equalsIgnoreCase("5"))
     // childPosition = "ช";
     // Mate child
-    return if (familyPosition == "1")
+    return if (familyPosition == `หัวหน้าครอบครัว`)
         if (foundMate) {
-            "4"
+            `บุตร(ของ หนครอบครัว)`
         } else {
-            "3"
+            `บุตร`
         }
-    else if (familyPosition == "2")
-        "5"
+    else if (familyPosition == `คู่สมรส(ของ หนครอบครัว)`)
+        `บุตร(ของ คู่สมรส)`
     else
-        ""
+        null
 }
