@@ -64,7 +64,10 @@ SELECT house.pcucode,
 	house.xgis,
     house.hid,
 	house.ygis,
-	house.dateupdate
+	house.dateupdate,
+    house.pcucodepersonvola,
+    house.pidvola,
+    house.usernamedoc
 FROM house
 """
     )
@@ -81,7 +84,10 @@ SELECT house.pcucode,
 	house.xgis,
     house.hid,
 	house.ygis,
-	house.dateupdate
+	house.dateupdate,
+    house.pcucodepersonvola,
+    house.pidvola,
+    house.usernamedoc
 FROM house WHERE <where>
 """
     )
@@ -105,7 +111,10 @@ class HouseMapper : RowMapper<House> {
                 "hcode" to rs.getString("hcode"),
                 "pcucode" to rs.getString("pcucode"),
                 "villcode" to rs.getString("villcode")
-            )
+            ).apply {
+                rs.getString("pcucodepersonvola")?.let { keys["pcucodepersonvola"] = it }
+                rs.getString("pidvola")?.let { keys["pidvola"] = it }
+            }
         }
         logger.trace("Read house database" + house.toJson())
         return house
