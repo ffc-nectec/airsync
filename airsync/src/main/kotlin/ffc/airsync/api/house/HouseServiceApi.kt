@@ -58,9 +58,7 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
 
     override fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao) {
         logger.info("Sync From Cloud get house house _id = $_id")
-        val data = restService.getHouse(orgId = organization.id, authkey = tokenBarer, _id = _id).execute()
-        logger.debug("\tRespond code ${data.code()}")
-        val house = data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
+        val house = getHouse(_id)
         logger.debug("\t From house cloud _id = ${house.id} house No. ${house.no}")
         if (house.link?.isSynced == true) return
 
@@ -79,8 +77,15 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
         }
     }
 
-    override fun syncHouseToCloud(house: House) {
+    fun getHouse(_id: String): House {
+        val data = restService.getHouse(orgId = organization.id, authkey = tokenBarer, _id = _id).execute()
+        logger.debug("\tRespond code ${data.code()}")
+        return data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
+    }
+
+    override fun syncHouseToCloud(house: House): House {
         gui.createMessageDelay("กำลังส่งข้อมูลบ้านเลขที่\r\n${house.no} ไปยัง Cloud", INFO, 9000)
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = house.id, house = house).execute()
+        return getHouse(house.id)
     }
 }

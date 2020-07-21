@@ -47,6 +47,18 @@ fun ArrayList<House>.initSync(person: List<Person>, progressCallback: (Int) -> U
     }
 }
 
+fun ArrayList<House>.update(list: List<House>) {
+    list.forEach { updateItem ->
+        val house = find { it.id == updateItem.id }
+        if (house != null) {
+            removeIf { it.id == house.id }
+            add(house)
+        } else
+            getLogger(this).info { "House update map null." }
+    }
+    save()
+}
+
 private fun ArrayList<House>.createHouseOnCloud(
     person: List<Person>,
     jhcisHouse: List<House>,
