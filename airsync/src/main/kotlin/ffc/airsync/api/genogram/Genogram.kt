@@ -59,16 +59,17 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
 
     val size = groupByFamilyNo.count()
     var index = 1
-    groupByFamilyNo.forEach { key, house ->
+    groupByFamilyNo.forEach { key, personInHouse ->
         index++
         if (index % 300 == 0 || index == size)
             logger.trace("createRela $index:$size")
-        house.forEach { person ->
-            val charFamily = ((person.link?.keys?.get("familyposition") ?: "") as String).toCharArray().firstOrNull()
-            val familyPosition = if (charFamily != null) JhcisFamilyPosition.valueOf(charFamily) else null
+        personInHouse.forEach { person ->
+            val charFamilyPosition = person.link?.keys?.get("familyposition")?.toString()?.toCharArray()?.firstOrNull()
+            val familyPosition =
+                if (charFamilyPosition != null) JhcisFamilyPosition.valueOf(charFamilyPosition) else null
             if (familyPosition != null) {
                 if (!person.haveFather()) {
-                    val father = `ค้นหาความสัมพันธ์ในบ้าน`(house, fatherFamilyPosition(familyPosition))
+                    val father = `ค้นหาความสัมพันธ์ในบ้าน`(personInHouse, fatherFamilyPosition(familyPosition))
                     if (father.isNotEmpty() && person.fatherId == null) {
                         if (person.sex == Person.Sex.MALE)
                             `สร้างความสัมพันธ์พ่อ`(person, father.first())
@@ -78,7 +79,7 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
                 }
 
                 if (!person.haveMother()) {
-                    val mother = `ค้นหาความสัมพันธ์ในบ้าน`(house, motherFamilyPosition(familyPosition))
+                    val mother = `ค้นหาความสัมพันธ์ในบ้าน`(personInHouse, motherFamilyPosition(familyPosition))
                     if (mother.isNotEmpty() && person.motherId == null) {
                         if (person.sex == FEMALE)
                             `สร้างความสัมพันธ์แม่`(person, mother.first())
@@ -88,20 +89,20 @@ private fun List<Person>.`สร้างความสัมพันธ์`(p
                 }
 
                 if (!person.haveSpouse()) {
-                    val mate = `ค้นหาความสัมพันธ์ในบ้าน`(house, mateFamilyPosition(familyPosition))
+                    val mate = `ค้นหาความสัมพันธ์ในบ้าน`(personInHouse, mateFamilyPosition(familyPosition))
                     if (mate.isNotEmpty())
                         `สร้างความสัมพันธ์ภรรยา`(person, mate.first())
                 }
 
-                val child = `ค้นหาความสัมพันธ์ในบ้าน`(house, childPosition(familyPosition, person.haveSpouse()))
+                val child = `ค้นหาความสัมพันธ์ในบ้าน`(personInHouse, childPosition(familyPosition, person.haveSpouse()))
                 if (child.isNotEmpty())
                     `สร้างความสัมพันธ์ลูก`(person, child)
 
-                val childWithMate = `ค้นหาความสัมพันธ์ในบ้าน`(house, childWithMatePosition(familyPosition))
+                val childWithMate = `ค้นหาความสัมพันธ์ในบ้าน`(personInHouse, childWithMatePosition(familyPosition))
                 if (childWithMate.isNotEmpty())
                     `สร้างความสัมพันธ์ลูก`(person, childWithMate)
 
-                val sibling = `ค้นหาความสัมพันธ์ในบ้าน`(house, siblingPosition(familyPosition))
+                val sibling = `ค้นหาความสัมพันธ์ในบ้าน`(personInHouse, siblingPosition(familyPosition))
                 if (sibling.isNotEmpty())
                     `สร้างความสัมพันธ์พี่น้อง`(person, sibling)
             }
