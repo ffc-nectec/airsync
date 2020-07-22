@@ -1,8 +1,11 @@
 package ffc.airsync
 
 import ffc.airsync.api.house.initSync
+import ffc.airsync.api.house.update
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
+import ffc.airsync.api.pidvola.VolaProcess
+import ffc.airsync.api.pidvola.VolaProcessV1
 import ffc.airsync.api.template.TemplateInit
 import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
@@ -29,9 +32,14 @@ class SetupAutoSync(val dao: DatabaseDao) {
             while (true) {
                 try {
                     syncCloud.sync(dao)
+                    val volaProcess: VolaProcess = VolaProcessV1()
+                    val volaUser = volaProcess.processUser(userManage.cloudUser, persons)
+                    val volaHouse = volaProcess.processHouse(houses, volaUser)
+                    val houseUpdate = volaHouse.map { houseApi.syncHouseToCloud(it) }
+                    houses.update(houseUpdate)
                 } catch (ignore: Exception) {
                     ignore.printStackTrace()
-                    logger.error(ignore.message!!, ignore)
+                    logger.error("Auto sync error(will auto rerun). Error:${ignore.message}", ignore)
                 }
 
                 Thread.sleep(60000)

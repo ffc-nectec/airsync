@@ -4,11 +4,8 @@ import ffc.airsync.api.analyzer.initSync
 import ffc.airsync.api.genogram.initRelation
 import ffc.airsync.api.healthcare.initSync
 import ffc.airsync.api.house.initSync
-import ffc.airsync.api.house.update
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
-import ffc.airsync.api.pidvola.VolaProcess
-import ffc.airsync.api.pidvola.VolaProcessV1
 import ffc.airsync.api.template.TemplateInit
 import ffc.airsync.api.village.initSync
 import ffc.airsync.gui.ProgressList
@@ -102,13 +99,6 @@ class InitSync : ProgressList {
         analyzer.initSync(healthCare) {
             progressAnalyzer = it
         }
-        logger.info("ตรวจสอบ อสม. ดูแลบ้าน")
-        message = "กรอง อสม. ดูแลบ้าน"
-        val volaProcess: VolaProcess = VolaProcessV1()
-        val volaUser = volaProcess.processUser(userManage.cloudUser, persons)
-        val volaHouse = volaProcess.processHouse(houses, volaUser)
-        val houseUpdate = volaHouse.map { houseApi.syncHouseToCloud(it) }
-        houses.update(houseUpdate)
         logger.info { "Finished push. Sync ข้อมูลสำเร็จ" }
         isFinish = true
     }
