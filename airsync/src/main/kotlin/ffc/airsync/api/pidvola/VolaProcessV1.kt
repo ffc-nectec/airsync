@@ -1,5 +1,6 @@
 package ffc.airsync.api.pidvola
 
+import ffc.airsync.utils.getLogger
 import ffc.entity.Person
 import ffc.entity.User
 import ffc.entity.copy
@@ -7,6 +8,7 @@ import ffc.entity.place.House
 import max212.kotlin.util.hash.SHA265
 
 class VolaProcessV1 : VolaProcess {
+    val logger = getLogger(this)
     override fun processUser(users: List<User>, persons: List<Person>): List<User> {
         val sha256 = SHA265()
         val surveyor = users.filter { it.roles.contains(User.Role.SURVEYOR) }
@@ -20,13 +22,15 @@ class VolaProcessV1 : VolaProcess {
                 } else
                     false
             }
-            val personFindPid = personFind?.link!!.keys["pid"]?.toString()
+            val personFindPid = personFind?.link?.keys?.get("pid")?.toString()
             if (personFindPid != null && user.checkOkAdd(personFindPid)) {
                 user.copy().apply {
                     bundle["pid"] = personFindPid
                 }
-            } else
+            } else {
+                logger.debug { "Cannot map pid user ${user.name}" }
                 null
+            }
         }
     }
 

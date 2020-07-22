@@ -75,6 +75,17 @@ class VolaProcessV1Test {
                 keys["idcard"] = sha265.hash("8888877777663")
             }
         })
+        // Test bug
+        originalUserList.add(User().apply {
+            name = "เจ้าหน้าที่ Bug1"
+            roles.add(PROVIDER)
+        })
+
+        originalUserList.add(User().apply {
+            name = "เจ้าหน้าที่ Bug2"
+            roles.add(PROVIDER)
+            link = Link(JHICS)
+        })
 
         // Setup Person
         originalPersonList.add(Person(prename = "อสม. สมนึก").apply {
