@@ -63,6 +63,9 @@ fun callApiNoReturn(call: () -> Unit) {
             if (loop > 5) throw ex
             logger.warn("Socket error check network $loop")
             Thread.sleep(10000)
+        } catch (ex: ApiLoopException) {
+            if (loop > 5) throw ex
+            logger.warn("Time out loop $loop")
         } finally {
             loop++
         }

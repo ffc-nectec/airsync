@@ -33,7 +33,8 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
         if (clearCloud)
             callApiNoReturn {
                 val respond = restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute()
-                check(respond.code() == 200) { "เกิดข้อผิดพลาดการเยี่ยมบ้าน" }
+                val code = respond.code()
+                check(code == 200) { "เกิดข้อผิดพลาดการเยี่ยมบ้าน $code" }
             }
         return _createHealthCare(healthCare, progressCallback)
     }
