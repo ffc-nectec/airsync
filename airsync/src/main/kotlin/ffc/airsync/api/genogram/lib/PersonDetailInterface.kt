@@ -7,13 +7,13 @@ interface PersonDetailInterface<P> {
     /**
      * พ่อที่ถูกกำหนดใน entity แล้ว
      */
-    fun getFatherInRelation(person: P): P
+    fun getFatherInRelation(person: P): P?
     fun setFather(person: P, fatherIdCard: String)
 
     /**
      * แม่ที่ถูกกำหนดใน entity แล้ว
      */
-    fun getMotherInRelation(person: P): P
+    fun getMotherInRelation(person: P): P?
     fun setMother(person: P, motherIdCard: String)
 
     /**
