@@ -54,7 +54,11 @@ internal class AlgorithmMapMother<P> {
     /**
      * @param persons คนที่แมพ pcucode, houseNumber, รายการคน
      */
-    fun mapMotherByName(persons: List<Person<P>>, func: (person: P) -> MapMotherByName<P>) {
+    fun mapMotherByName(
+        persons: List<Person<P>>,
+        personGroupHouse: Map<Pair<String, String>, List<Person<P>>>,
+        func: (person: P) -> MapMotherByName<P>
+    ) {
         persons.forEach { person ->
             val focusPerson = person.person
             // check have mother
@@ -62,7 +66,8 @@ internal class AlgorithmMapMother<P> {
 
             val motherName = func(focusPerson).motherName
             if (!motherName.isNullOrBlank()) {
-                val mother = persons.find { func(it.person).name == motherName }
+                val mother = personGroupHouse[(person.pcucode to person.houseNumber)]
+                    ?.find { func(it.person).name == motherName }
                 mother?.let {
                     if (func(it.person).age > 13) focusPerson.addMother(mother, func)
                 }
@@ -80,7 +85,11 @@ internal class AlgorithmMapMother<P> {
     /**
      * @param persons คนที่แมพ pcucode, houseNumber, รายการคน
      */
-    fun mapMotherByFirstName(persons: List<Person<P>>, func: (person: P) -> MapMotherByFirstName<P>) {
+    fun mapMotherByFirstName(
+        persons: List<Person<P>>,
+        personGroupHouse: Map<Pair<String, String>, List<Person<P>>>,
+        func: (person: P) -> MapMotherByFirstName<P>
+    ) {
         persons.forEach { person ->
             val focusPerson = person.person
             // check have mother
@@ -88,7 +97,8 @@ internal class AlgorithmMapMother<P> {
 
             val motherFirstName = func(focusPerson).motherFirstName
             if (!motherFirstName.isNullOrBlank()) {
-                val mother = persons.find { func(it.person).firstName == motherFirstName }
+                val mother = personGroupHouse[(person.pcucode to person.houseNumber)]
+                    ?.find { func(it.person).firstName == motherFirstName }
                 mother?.let {
                     if (func(it.person).lastName == func(focusPerson).lastName && func(it.person).age > 13)
                         focusPerson.addMother(mother, func)
