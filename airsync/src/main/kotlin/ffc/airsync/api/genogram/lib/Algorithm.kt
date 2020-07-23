@@ -24,16 +24,24 @@ internal class Algorithm<P> {
      */
     fun mapFatherById(persons: List<Person<P>>, func: (person: P) -> MapFatherByIdGetData<P>) {
         persons.forEach { person ->
-            val rawPerson = person.person
-            if (func(rawPerson).fatherInRelation != null) return@forEach
-            val fatherInformationIdCard = func(rawPerson).fatherInformationIdCard
+            val focusPerson = person.person
+            if (func(focusPerson).fatherInRelation != null) return@forEach
+            val fatherInformationIdCard = func(focusPerson).fatherInformationIdCard
             if (!fatherInformationIdCard.isNullOrBlank()) {
                 val father = persons.find { func(it.person).idCard == fatherInformationIdCard }
-                if (father != null && func(father.person).sex != GENOSEX.FEMALE) {
-                    if (func(father.person).idCard == func(rawPerson).idCard) return@forEach
-                    func(rawPerson).setFather(func(father.person).idCard!!)
-                }
+                addFather(father, func, focusPerson)
             }
+        }
+    }
+
+    private fun addFather(
+        father: Person<P>?,
+        func: (person: P) -> MapFatherByIdGetData<P>,
+        focusPerson: P
+    ) {
+        if (father != null && func(father.person).sex != GENOSEX.FEMALE) {
+            if (func(father.person).idCard == func(focusPerson).idCard) return
+            func(focusPerson).setFather(func(father.person).idCard!!)
         }
     }
 }
