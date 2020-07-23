@@ -9,5 +9,5 @@ interface GenogramProcess<P> {
      * @param dataFunction ฟังชั่นสำหรับดึงข้อมูลคนที่จำเป็นสำหรับการจับคู่ Genogram
      * @return คนที่ใส่ความสัมพันธุ์แล้ว
      */
-    fun process(persons: List<P>): List<P>
+    fun process(persons: List<P>)
 }
