@@ -23,7 +23,8 @@ interface PersonDetailInterface<P> {
     fun addMate(person: P, mateIdCard: String)
 
     fun getIdCard(person: P): String?
-    fun getName(person: P): String?
+    fun getFirstName(person: P): String?
+    fun getLastName(person: P): String?
     fun getPcuCode(person: P): String?
     fun getHouseNumber(person: P): String?
     fun getFatherId(person: P): String?
