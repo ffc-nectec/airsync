@@ -10,7 +10,7 @@ internal class AlgorithmMapMother<P> {
          * พ่อที่ถูกกำหนดมาใน Entity
          */
         val motherInRelation: P?
-        fun setMother(fatherIdCard: String)
+        fun setMother(motherIdCard: String)
     }
 
     private fun P.addMother(
@@ -34,7 +34,7 @@ internal class AlgorithmMapMother<P> {
     fun mapMotherById(persons: List<Person<P>>, func: (person: P) -> MapMotherByIdGetData<P>) {
         persons.forEach { person ->
             val focusPerson = person.person
-            // check have father
+            // check have mother
             if (func(focusPerson).motherInRelation != null) return@forEach
 
             val motherInformationIdCard = func(focusPerson).motherInformationIdCard
@@ -57,7 +57,7 @@ internal class AlgorithmMapMother<P> {
     fun mapMotherByName(persons: List<Person<P>>, func: (person: P) -> MapMotherByName<P>) {
         persons.forEach { person ->
             val focusPerson = person.person
-            // check have father
+            // check have mother
             if (func(focusPerson).motherInRelation != null) return@forEach
 
             val motherName = func(focusPerson).motherName
@@ -83,7 +83,7 @@ internal class AlgorithmMapMother<P> {
     fun mapMotherByFirstName(persons: List<Person<P>>, func: (person: P) -> MapMotherByFirstName<P>) {
         persons.forEach { person ->
             val focusPerson = person.person
-            // check have father
+            // check have mother
             if (func(focusPerson).motherInRelation != null) return@forEach
 
             val motherFirstName = func(focusPerson).motherFirstName
