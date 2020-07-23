@@ -13,7 +13,7 @@ class GenogramProcessWatcarakorn<P>(
             object : GenogramUtil.PreFunctionGetData {
                 override val pcuCode: String? = dataFunction.getPcuCode(it)
                 override val houseNumber: String? = dataFunction.getHouseNumber(it)
-                override val name: String? = dataFunction.getName(it)
+                override val name: String? = "${dataFunction.getFirstName(it)} ${dataFunction.getLastName(it)}"
             }
         }
 
