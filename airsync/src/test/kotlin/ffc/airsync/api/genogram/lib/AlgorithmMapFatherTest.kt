@@ -6,7 +6,7 @@ import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should be`
 import org.junit.Test
 
-class AlgorithmTest {
+class AlgorithmMapFatherTest {
 
     private data class FatherTest(val ownIdCard: String, val sex: GENOSEX?, val fatherInformationIdCard: String?) {
         var fatherRelation: String? = null
@@ -14,7 +14,7 @@ class AlgorithmTest {
 
     @Test
     fun mapFatherById() {
-        val alg = Algorithm<FatherTest>()
+        val alg = AlgorithmMapFather<FatherTest>()
         val persons = arrayListOf(
             Person("1", "1", FatherTest("1", FEMALE, "2"), "สม"),
             Person("1", "1", FatherTest("2", MALE, "1"), "หมาย"),
@@ -23,9 +23,9 @@ class AlgorithmTest {
             Person("1", "1", FatherTest("5", MALE, ""), "คง")
         )
 
-        val func: (person: FatherTest) -> Algorithm.MapFatherByIdGetData<FatherTest> = { person ->
-            object : Algorithm.MapFatherByIdGetData<FatherTest> {
-                override val idCard: String? = person.ownIdCard
+        val func: (person: FatherTest) -> AlgorithmMapFather.MapFatherByIdGetData<FatherTest> = { person ->
+            object : AlgorithmMapFather.MapFatherByIdGetData<FatherTest> {
+                override val idCard: String = person.ownIdCard
                 override val sex: GENOSEX? = person.sex
                 override val fatherInformationIdCard: String? = person.fatherInformationIdCard
                 override val fatherInRelation: FatherTest?

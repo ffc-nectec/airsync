@@ -28,13 +28,13 @@ interface PersonDetailInterface<P> {
     fun getPcuCode(person: P): String?
     fun getHouseNumber(person: P): String?
     fun getFatherId(person: P): String?
-    fun getFatherName(person: P): String?
+    fun getFatherFirstName(person: P): String?
     fun getFatherLastName(person: P): String
     fun getMotherId(person: P): String?
-    fun getMotherName(person: P): String?
+    fun getMotherFirstName(person: P): String?
     fun getMotherLastName(person: P): String?
     fun getMateId(person: P): String?
-    fun getMateName(person: P): String?
+    fun getMateFirstName(person: P): String?
     fun getMateLastName(person: P): String?
     fun getAge(person: P): Int?
     fun getSex(person: P): GENOSEX?
