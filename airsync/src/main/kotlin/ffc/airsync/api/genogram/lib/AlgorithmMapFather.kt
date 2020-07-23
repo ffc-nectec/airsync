@@ -53,8 +53,13 @@ internal class AlgorithmMapFather<P> {
 
     /**
      * @param persons คนที่แมพ pcucode, houseNumber, รายการคน
+     * @param personGroupHouse จัดกลุ่มคนในบ้านเพื่อลดการค้นหม pcucode, houseNumber, รายการคน
      */
-    fun mapFatherByName(persons: List<Person<P>>, func: (person: P) -> MapFatherByName<P>) {
+    fun mapFatherByName(
+        persons: List<Person<P>>,
+        personGroupHouse: Map<Pair<String, String>, List<Person<P>>>,
+        func: (person: P) -> MapFatherByName<P>
+    ) {
         persons.forEach { person ->
             val focusPerson = person.person
             // check have father
@@ -62,7 +67,8 @@ internal class AlgorithmMapFather<P> {
 
             val fatherName = func(focusPerson).fatherName
             if (!fatherName.isNullOrBlank()) {
-                val father = persons.find { func(it.person).name == fatherName }
+                val father = personGroupHouse[(person.pcucode to person.houseNumber)]
+                    ?.find { func(it.person).name == fatherName }
                 father?.let {
                     if (func(it.person).age > 18) focusPerson.addFather(father, func)
                 }
@@ -80,7 +86,11 @@ internal class AlgorithmMapFather<P> {
     /**
      * @param persons คนที่แมพ pcucode, houseNumber, รายการคน
      */
-    fun mapFatherByFirstName(persons: List<Person<P>>, func: (person: P) -> MapFatherByFirstName<P>) {
+    fun mapFatherByFirstName(
+        persons: List<Person<P>>,
+        personGroupHouse: Map<Pair<String, String>, List<Person<P>>>,
+        func: (person: P) -> MapFatherByFirstName<P>
+    ) {
         persons.forEach { person ->
             val focusPerson = person.person
             // check have father
@@ -88,7 +98,8 @@ internal class AlgorithmMapFather<P> {
 
             val fatherFirstName = func(focusPerson).fatherFirstName
             if (!fatherFirstName.isNullOrBlank()) {
-                val father = persons.find { func(it.person).firstName == fatherFirstName }
+                val father = personGroupHouse[(person.pcucode to person.houseNumber)]
+                    ?.find { func(it.person).firstName == fatherFirstName }
                 father?.let {
                     if (func(it.person).lastName == func(focusPerson).lastName && func(it.person).age > 18)
                         focusPerson.addFather(father, func)

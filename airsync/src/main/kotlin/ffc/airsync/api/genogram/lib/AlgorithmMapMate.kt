@@ -77,13 +77,18 @@ internal class AlgorithmMapMate<P> {
     /**
      * @param persons คนที่แมพ pcucode, houseNumber, รายการคน
      */
-    fun mapMateByName(persons: List<Person<P>>, func: (person: P) -> MapMateByName<P>) {
+    fun mapMateByName(
+        persons: List<Person<P>>,
+        personGroupHouse: Map<Pair<String, String>, List<Person<P>>>,
+        func: (person: P) -> MapMateByName<P>
+    ) {
         persons.forEach { person ->
             val focusPerson = person.person
 
             val mateName = func(focusPerson).mateName
             if (!mateName.isNullOrBlank()) {
-                val mate = persons.find { func(it.person).name == mateName }
+                val mate = personGroupHouse[(person.pcucode to person.houseNumber)]
+                    ?.find { func(it.person).name == mateName }
                 mate?.let {
                     if (func(it.person).age.checkAgeMate(func(focusPerson).age)) focusPerson.addMate(mate, func)
                 }
@@ -105,12 +110,17 @@ internal class AlgorithmMapMate<P> {
     /**
      * @param persons คนที่แมพ pcucode, houseNumber, รายการคน
      */
-    fun mapMateByFirstName(persons: List<Person<P>>, func: (person: P) -> MapMateByFirstName<P>) {
+    fun mapMateByFirstName(
+        persons: List<Person<P>>,
+        personGroupHouse: Map<Pair<String, String>, List<Person<P>>>,
+        func: (person: P) -> MapMateByFirstName<P>
+    ) {
         persons.forEach { person ->
             val focusPerson = person.person
             val mateFirstName = func(focusPerson).mateFirstName
             if (!mateFirstName.isNullOrBlank()) {
-                val mate = persons.find { func(it.person).firstName == mateFirstName }
+                val mate = personGroupHouse[(person.pcucode to person.houseNumber)]
+                    ?.find { func(it.person).firstName == mateFirstName }
                 mate?.let {
                     if (func(it.person).age.checkAgeMate(func(focusPerson).age))
                         focusPerson.addMate(mate, func)
