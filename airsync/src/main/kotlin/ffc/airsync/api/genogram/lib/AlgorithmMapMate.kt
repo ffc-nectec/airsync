@@ -32,20 +32,19 @@ internal class AlgorithmMapMate<P> {
      * ตรวจสอบเพศ
      */
     private fun isMate(focusPersonSex: GENOSEX?, mateSex: GENOSEX?): Boolean {
-        return if (focusPersonSex == FEMALE)
+        return if (focusPersonSex == FEMALE) {
             when (mateSex) {
                 MALE -> true
                 null -> true
                 else -> false
-
             }
-        else if (focusPersonSex == MALE)
+        } else if (focusPersonSex == MALE) {
             when (mateSex) {
                 FEMALE -> true
                 null -> true
                 else -> false
             }
-        else
+        } else
             return true
     }
 
