@@ -9,6 +9,7 @@ class GenogramProcessWatcarakorn<P>(
     private val util = GenogramUtil<P>()
 
     override fun process(persons: List<P>) {
+        logger.info { "เตรียมข้อมูลวิเคราะห์ความสัมพันธุ์" }
         val preData = util.prepareInformation(persons) {
             object : GenogramUtil.PreFunctionGetData {
                 override val pcuCode: String? = dataFunction.getPcuCode(it)
@@ -17,9 +18,13 @@ class GenogramProcessWatcarakorn<P>(
             }
         }
 
+        logger.info { "จัดกลุ่มคนในบ้าน" }
         val personGroupHouse = util.personGroupHouse(preData)
+        logger.info { "จัดความสัมพันธุ์พ่อ" }
         fatherProcess(preData, personGroupHouse)
+        logger.info { "จัดความสัมพันธุ์แม่" }
         motherProcess(preData, personGroupHouse)
+        logger.info { "จัดความสัมพันธุ์แฟน" }
         mateProcess(preData, personGroupHouse)
     }
 
@@ -28,6 +33,7 @@ class GenogramProcessWatcarakorn<P>(
         personGroupHouse: Map<Pair<String, String>, List<Person<P>>>
     ) {
         val algorithmMapMate = AlgorithmMapMate<P>()
+        logger.info { "ค้นหาแฟนด้วยเลขบัตรประชาชน" }
         algorithmMapMate.mapMateById(preData) {
             object : AlgorithmMapMate.MapMateByIdGetData<P> {
                 override val mateInformationIdCard: String? = dataFunction.getMateInformationId(it)
@@ -39,6 +45,7 @@ class GenogramProcessWatcarakorn<P>(
                 }
             }
         }
+        logger.info { "ค้นหาแฟนด้วยชื่อนามสกุล" }
         algorithmMapMate.mapMateByName(preData, personGroupHouse) {
             object : AlgorithmMapMate.MapMateByName<P> {
                 override val name: String = "${dataFunction.getFirstName(it)} ${dataFunction.getLastName(it)}"
@@ -61,7 +68,7 @@ class GenogramProcessWatcarakorn<P>(
                 }
             }
         }
-
+        logger.info { "ค้นหาแฟนด้วยชื่อ" }
         algorithmMapMate.mapMateByFirstName(preData, personGroupHouse) {
             object : AlgorithmMapMate.MapMateByFirstName<P> {
                 override val firstName: String = dataFunction.getFirstName(it)
@@ -82,7 +89,7 @@ class GenogramProcessWatcarakorn<P>(
         personGroupHouse: Map<Pair<String, String>, List<Person<P>>>
     ) {
         val algorithmMapMother = AlgorithmMapMother<P>()
-
+        logger.info { "ค้นหาแม่ด้วยเลขบัตรประชาชน" }
         algorithmMapMother.mapMotherById(preData) {
             object : AlgorithmMapMother.MapMotherByIdGetData<P> {
                 override val motherInformationIdCard: String? = dataFunction.getMotherInformationId(it)
@@ -94,7 +101,7 @@ class GenogramProcessWatcarakorn<P>(
                 }
             }
         }
-
+        logger.info { "ค้นหาแม่ด้วยชื่อสกุล" }
         algorithmMapMother.mapMotherByName(preData, personGroupHouse) {
             object : AlgorithmMapMother.MapMotherByName<P> {
                 override val name: String = "${dataFunction.getFirstName(it)} ${dataFunction.getLastName(it)}"
@@ -117,7 +124,7 @@ class GenogramProcessWatcarakorn<P>(
                 }
             }
         }
-
+        logger.info { "ค้นหาแม่ด้วยชื่อ" }
         algorithmMapMother.mapMotherByFirstName(preData, personGroupHouse) {
             object : AlgorithmMapMother.MapMotherByFirstName<P> {
                 override val firstName: String = dataFunction.getFirstName(it)
@@ -139,6 +146,7 @@ class GenogramProcessWatcarakorn<P>(
         personGroupHouse: Map<Pair<String, String>, List<Person<P>>>
     ) {
         val algorithmMapFather = AlgorithmMapFather<P>()
+        logger.info { "ค้นหาพ่อด้วยเลขบัตรประชาชน" }
         algorithmMapFather.mapFatherById(preData) {
             object : AlgorithmMapFather.MapFatherByIdGetData<P> {
                 override val fatherInformationIdCard: String? = dataFunction.getFatherInformationId(it)
@@ -150,7 +158,7 @@ class GenogramProcessWatcarakorn<P>(
                 }
             }
         }
-
+        logger.info { "ค้นหาพ่อด้วยชื่อนามสกุล" }
         algorithmMapFather.mapFatherByName(preData, personGroupHouse) {
             object : AlgorithmMapFather.MapFatherByName<P> {
                 override val name: String = "${dataFunction.getFirstName(it)} ${dataFunction.getLastName(it)}"
@@ -174,7 +182,7 @@ class GenogramProcessWatcarakorn<P>(
                 }
             }
         }
-
+        logger.info { "ค้นหาพ่อด้วยชื่ออย่างเดียว" }
         algorithmMapFather.mapFatherByFirstName(preData, personGroupHouse) {
             object : AlgorithmMapFather.MapFatherByFirstName<P> {
                 override val firstName: String = dataFunction.getFirstName(it)
