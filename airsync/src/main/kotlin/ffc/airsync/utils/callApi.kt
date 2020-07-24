@@ -36,6 +36,9 @@ fun <T> callApi(
             if (loop > 5) throw ex
             logger.warn("Socket error check network ${++loop}")
             Thread.sleep(10000)
+        } catch (ex: java.net.UnknownHostException) {
+            logger.error(ex) { "เน็ตหลุด หรือ เชื่อมต่อกับ server ไม่ได้ delay 10s ${ex.message}" }
+            Thread.sleep(10000)
         }
     }
 }
@@ -59,15 +62,19 @@ fun callApiNoReturn(call: () -> Unit) {
         } catch (ex: java.net.SocketTimeoutException) {
             if (loop > 5) throw ex
             logger.warn("Time out loop $loop")
+            loop++
         } catch (ex: java.net.SocketException) {
             if (loop > 5) throw ex
             logger.warn("Socket error check network $loop")
             Thread.sleep(10000)
+            loop++
         } catch (ex: ApiLoopException) {
             if (loop > 5) throw ex
             logger.warn("Time out loop $loop")
-        } finally {
             loop++
+        } catch (ex: java.net.UnknownHostException) {
+            logger.error(ex) { "เน็ตหลุด หรือ เชื่อมต่อกับ server ไม่ได้ delay 10s ${ex.message}" }
+            Thread.sleep(10000)
         }
     }
 }
