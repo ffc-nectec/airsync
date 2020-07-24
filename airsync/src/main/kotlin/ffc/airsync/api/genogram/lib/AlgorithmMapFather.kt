@@ -35,12 +35,12 @@ internal class AlgorithmMapFather<P> {
         persons.forEach { person ->
             val focusPerson = person.person
             // check have father
-            if (func(focusPerson).fatherInRelation != null) return@forEach
-
-            val fatherInformationIdCard = func(focusPerson).fatherInformationIdCard
-            if (!fatherInformationIdCard.isNullOrBlank()) {
-                val father = persons.find { func(it.person).idCard == fatherInformationIdCard }
-                focusPerson.addFather(father, func)
+            if (func(focusPerson).fatherInRelation == null) {
+                val fatherInformationIdCard = func(focusPerson).fatherInformationIdCard
+                if (!fatherInformationIdCard.isNullOrBlank()) {
+                    val father = persons.find { func(it.person).idCard == fatherInformationIdCard }
+                    focusPerson.addFather(father, func)
+                }
             }
         }
     }
@@ -70,7 +70,7 @@ internal class AlgorithmMapFather<P> {
                 val father = personGroupHouse[(person.pcucode to person.houseNumber)]
                     ?.find { func(it.person).name == fatherName }
                 father?.let {
-                    if (func(it.person).age > 18) focusPerson.addFather(father, func)
+                    if (func(it.person).age > 15) focusPerson.addFather(father, func)
                 }
             }
         }
@@ -101,7 +101,7 @@ internal class AlgorithmMapFather<P> {
                 val father = personGroupHouse[(person.pcucode to person.houseNumber)]
                     ?.find { func(it.person).firstName == fatherFirstName }
                 father?.let {
-                    if (func(it.person).lastName == func(focusPerson).lastName && func(it.person).age > 18)
+                    if (func(it.person).lastName == func(focusPerson).lastName && func(it.person).age > 15)
                         focusPerson.addFather(father, func)
                 }
             }
