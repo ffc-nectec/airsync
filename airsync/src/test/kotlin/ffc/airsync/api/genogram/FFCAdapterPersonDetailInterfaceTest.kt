@@ -55,4 +55,14 @@ class FFCAdapterPersonDetailInterfaceTest {
         test.first `should be` null
         test.second `should be` null
     }
+
+    @Test
+    fun `getFirstAndLastName$airsync_main case 6`() {
+        val funcTst = FFCAdapterPersonDetailInterface(listOf())
+        val name1 = "ปรีชม  มาดี"
+
+        val test = funcTst.getFirstAndLastName(name1)
+        test.first!! `should be equal to` "ปรีชม"
+        test.second!! `should be equal to` "มาดี"
+    }
 }

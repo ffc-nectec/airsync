@@ -154,7 +154,7 @@ class GenogramProcessWatcarakorn<P>(
                 override val sex: GENOSEX? = dataFunction.getSex(it)
                 override val fatherInRelation: P? = dataFunction.getFatherInRelation(it)
                 override fun setFather(fatherIdCard: String) {
-                    dataFunction.setFather(it, idCard)
+                    dataFunction.setFather(it, fatherIdCard)
                 }
             }
         }
@@ -178,7 +178,7 @@ class GenogramProcessWatcarakorn<P>(
                 override val sex: GENOSEX? = dataFunction.getSex(it)
                 override val fatherInRelation: P? = dataFunction.getFatherInRelation(it)
                 override fun setFather(fatherIdCard: String) {
-                    dataFunction.setFather(it, idCard)
+                    dataFunction.setFather(it, fatherIdCard)
                 }
             }
         }
@@ -193,7 +193,7 @@ class GenogramProcessWatcarakorn<P>(
                 override val sex: GENOSEX? = dataFunction.getSex(it)
                 override val fatherInRelation: P? = dataFunction.getFatherInRelation(it)
                 override fun setFather(fatherIdCard: String) {
-                    dataFunction.setFather(it, idCard)
+                    dataFunction.setFather(it, fatherIdCard)
                 }
             }
         }

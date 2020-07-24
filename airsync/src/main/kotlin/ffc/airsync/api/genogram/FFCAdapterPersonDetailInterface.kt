@@ -2,16 +2,18 @@ package ffc.airsync.api.genogram
 
 import ffc.airsync.api.genogram.lib.GENOSEX
 import ffc.airsync.api.genogram.lib.PersonDetailInterface
+import ffc.airsync.utils.getLogger
 import ffc.entity.Person
 import ffc.entity.Person.Relate.Father
 import ffc.entity.Person.Relate.Married
 import ffc.entity.Person.Relate.Mother
 import ffc.entity.THAI_CITIZEN_ID
 
-class FFCAdapterPersonDetailInterface(val persons: List<Person>) : PersonDetailInterface<Person> {
+class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInterface<Person> {
     private val util = Util()
-    private val idCardMapCache = persons.map { getIdCard(it) to it }.toMap()
-    private val idMapCache = persons.map { it.id to it }.toMap()
+    private val idCardMapCache = persons.map { getIdCard(it) to it }.toMap().toSortedMap()
+    private val idMapCache = persons.map { it.id to it }.toMap().toSortedMap()
+    private val logger = getLogger(this)
 
     override fun getAge(person: Person): Int? {
         return person.age
@@ -39,40 +41,52 @@ class FFCAdapterPersonDetailInterface(val persons: List<Person>) : PersonDetailI
 
     override fun getFatherInRelation(person: Person): Person? {
         person.relationships.find { it.relate == Father }?.let { father ->
-            return persons.find { it.id == father.id }
+            val person1 = idMapCache[father.id]
+            if (person1 == null) logger.warn { "ค้นหาไอดีบัตรพ่อไม่เจอ ${father.id}" }
+            return person1
         }
         return null
     }
 
     override fun setFather(person: Person, fatherIdCard: String) {
-        persons.find { getIdCard(it) == fatherIdCard }?.let {
-            util.`สร้างความสัมพันธ์พ่อ`(person, it)
-        }
+        val person1 = idCardMapCache[fatherIdCard]
+        if (person1 == null) logger.warn { "ค้นหาไอดีบัตรพ่อไม่เจอ $fatherIdCard" }
+        person1?.let { util.`สร้างความสัมพันธ์พ่อ`(person, it) }
     }
 
     override fun getMotherInRelation(person: Person): Person? {
         person.relationships.find { it.relate == Mother }?.let { mother ->
-            return persons.find { it.id == mother.id }
+            val person1 = idMapCache[mother.id]
+            if (person1 == null) logger.warn { "ค้นหาไอดีบัตรแม่ไม่เจอ ${mother.id}" }
+            return person1
         }
         return null
     }
 
     override fun setMother(person: Person, motherIdCard: String) {
-        persons.find { getIdCard(it) == motherIdCard }?.let {
+        val person1 = idCardMapCache[motherIdCard]
+        if (person1 == null) logger.warn { "ค้นหาไอดีบัตรแม่ไม่เจอ $motherIdCard" }
+        person1?.let {
             util.`สร้างความสัมพันธ์แม่`(person, it)
         }
     }
 
     override fun getMateInRelation(person: Person): List<Person> {
-        person.relationships.filter { it.relate == Married }.let { mate ->
-            return persons.filter { p ->
-                mate.find { it.id == p.id } != null
+        person.relationships.filter { it.relate == Married }.let { mateRelationList ->
+            val result = arrayListOf<Person>()
+            mateRelationList.forEach { mate ->
+                val person1 = idMapCache[mate.id]
+                if (person1 == null) logger.warn { "ค้นหาไอดีบัตรแฟนไม่เจอ ${mate.id}" }
+                person1?.let { result.add(it) }
             }
+            return result.toList()
         }
     }
 
     override fun addMate(person: Person, mateIdCard: String) {
-        persons.find { getIdCard(it) == mateIdCard }?.let {
+        val person1 = idCardMapCache[mateIdCard]
+        if (person1 == null) logger.warn { "ค้นหาไอดีบัตรแฟนไม่เจอ $mateIdCard" }
+        person1?.let {
             person.addRelationship(Married to it)
         }
     }

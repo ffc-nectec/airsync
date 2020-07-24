@@ -62,14 +62,14 @@ internal class AlgorithmMapMother<P> {
         persons.forEach { person ->
             val focusPerson = person.person
             // check have mother
-            if (func(focusPerson).motherInRelation != null) return@forEach
-
-            val motherName = func(focusPerson).motherName
-            if (!motherName.isNullOrBlank()) {
-                val mother = personGroupHouse[(person.pcucode to person.houseNumber)]
-                    ?.find { func(it.person).name == motherName }
-                mother?.let {
-                    if (func(it.person).age > 13) focusPerson.addMother(mother, func)
+            if (func(focusPerson).motherInRelation == null) {
+                val motherName = func(focusPerson).motherName
+                if (!motherName.isNullOrBlank()) {
+                    val mother = personGroupHouse[(person.pcucode to person.houseNumber)]
+                        ?.find { func(it.person).name == motherName }
+                    mother?.let {
+                        if (func(it.person).age > 15) focusPerson.addMother(mother, func)
+                    }
                 }
             }
         }
@@ -100,7 +100,7 @@ internal class AlgorithmMapMother<P> {
                 val mother = personGroupHouse[(person.pcucode to person.houseNumber)]
                     ?.find { func(it.person).firstName == motherFirstName }
                 mother?.let {
-                    if (func(it.person).lastName == func(focusPerson).lastName && func(it.person).age > 13)
+                    if (func(it.person).lastName == func(focusPerson).lastName && func(it.person).age > 15)
                         focusPerson.addMother(mother, func)
                 }
             }
