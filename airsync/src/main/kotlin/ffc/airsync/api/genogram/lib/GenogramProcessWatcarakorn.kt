@@ -2,12 +2,20 @@ package ffc.airsync.api.genogram.lib
 
 import ffc.airsync.utils.getLogger
 
+/**
+ * อังกอริทึมหาความสัมพันธิ์
+ * @param dataFunction function สำหรับการเรียกใช้ข้อมูลต่างๆจากต้นทาง
+ */
 class GenogramProcessWatcarakorn<P>(
     private val dataFunction: PersonDetailInterface<P>
 ) : GenogramProcess<P> {
     private val logger = getLogger(this)
     private val util = GenogramUtil<P>()
 
+    /**
+     * ประมวลผล Genogram
+     * @param persons รายการคนทั้งหมด
+     */
     override fun process(persons: List<P>) {
         logger.info { "เตรียมข้อมูลวิเคราะห์ความสัมพันธุ์" }
         val preData = util.prepareInformation(persons) {
