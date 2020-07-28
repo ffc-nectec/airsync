@@ -71,8 +71,8 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getPerson(): List<Person> {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    override fun getPerson(lookupDisease: (icd10: String) -> Disease?): List<Person> {
+        TODO("Not yet implemented")
     }
 
     override fun findPerson(pcucode: String, pid: Long): Person {

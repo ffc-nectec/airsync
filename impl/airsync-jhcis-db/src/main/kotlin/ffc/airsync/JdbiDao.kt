@@ -21,6 +21,8 @@ import ffc.airsync.business.QueryBusiness
 import ffc.airsync.chronic.ChronicDao
 import ffc.airsync.chronic.ChronicJdbi
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.disability.DisabilityDao
+import ffc.airsync.disability.DisabilityJdbi
 import ffc.airsync.foodshop.QueryFoodShop
 import ffc.airsync.hosdetail.HosDao
 import ffc.airsync.hosdetail.HosDetailJdbi
@@ -54,6 +56,7 @@ import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
+import kotlinx.coroutines.runBlocking
 import java.io.File
 
 class JdbiDao(
@@ -69,6 +72,7 @@ class JdbiDao(
     val village: VillageDao by lazy { VillageJdbi(jdbiDao) }
     val template: TemplateDao by lazy { TemplateJdbi(jdbiDao) }
     val configFromDb: GetMySqlVariable by lazy { MySqlVariableJdbi(jdbiDao) }
+    val disabilitys: DisabilityDao by lazy { DisabilityJdbi(jdbiDao) }
 
     override fun init() {
         val baseDir = getDatabaseLocaion()
@@ -87,10 +91,34 @@ class JdbiDao(
         return users.get()
     }
 
-    override fun getPerson(): List<Person> {
-        val person = arrayListOf<Person>()
-        person.addAll(persons.get())
-        person.removeIf { it.bundle["remove"] == true }
+    override fun getPerson(lookupDisease: (icd10: String) -> Disease?): List<Person> {
+        val person = persons.get().mapNotNull {
+            if ((it.bundle["remove"] ?: false) == true) {
+                null
+            } else {
+                it
+            }
+        }
+        runBlocking {
+            /**
+             * pcucode,pid to person
+             */
+            val personCache = person.map {
+                val pcuCode = it.link!!.keys["pcucodeperson"]!!.toString()
+                val pid = it.link!!.keys["pid"]!!.toString()
+                Pair(
+                    "$pcuCode:$pid",
+                    it
+                )
+            }.toMap().toSortedMap()
+
+            disabilitys.get(lookupDisease).forEach { disability ->
+                personCache["${disability.first}:${disability.second}"]?.let {
+                    it.disabilities.add(disability.third)
+                }
+            }
+        }
+
         return person.toList()
     }
 

@@ -6,6 +6,7 @@ import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.houses
 import ffc.airsync.icd10Api
+import ffc.airsync.lookupDisease
 import ffc.airsync.personApi
 import ffc.airsync.persons
 import ffc.airsync.utils.checkNewDataCreate
@@ -13,7 +14,6 @@ import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.airsync.villages
-import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.gson.toJson
 import ffc.entity.healthcare.Chronic
@@ -25,7 +25,7 @@ private interface PersonUtil
 private val logger by lazy { getLogger(PersonUtil::class) }
 
 fun Person.gets(dao: DatabaseDao = Main.instant.dao): List<Person> {
-    val persons = dao.getPerson()
+    val persons = dao.getPerson(lookupDisease)
     val chronic = dao.getChronic()
 
     return mapChronics(persons, chronic)
@@ -100,71 +100,6 @@ private fun List<Person>.mapHouseId(
         if (sizeOfLoop != 0)
             progressCallback((index * 30) / sizeOfLoop)
     }
-}
-
-/**
- * นำคนมาแมพหา chronic
- */
-fun List<Person>.mapChronic(chronic: List<Chronic>) {
-    forEach {
-        if (it.link != null) {
-            val personPid = it.link!!.keys["pid"] as String
-            if (personPid.isNotBlank()) {
-                val chronicPerson = chronic.filter {
-                    if (it.link != null) {
-                        val chronicPid = (it.link!!.keys["pid"] ?: "") as String
-                        (chronicPid == personPid)
-                    } else
-                        false
-                }
-
-                val filter = hashMapOf<String, Chronic>()
-
-                chronicPerson.forEach { chronic1 ->
-                    filter["${chronic1.diagDate}${chronic1.disease.name}"] = chronic1
-                }
-                val chronics = filter.map { it.value }
-
-                if (chronics.isNotEmpty()) {
-                    if (!it.chronics.equal(chronics))
-                        it.chronics.addAll(chronics)
-                }
-            }
-        }
-    }
-}
-
-private fun List<Chronic>.equal(other: List<Chronic>): Boolean {
-    forEach { chronic ->
-        if (other.find { it.equal(chronic) } == null) return false
-    }
-    return true
-}
-
-private fun Chronic.equal(other: Chronic?): Boolean {
-    if (this === other) return true
-    if (other !is Chronic) return false
-    if (diagDate != other.diagDate) return false
-    if (dischardDate != other.dischardDate) return false
-    if (disease != other.disease) return false
-    if (link != null)
-        if (link!!.equal(other.link)) return false
-    return true
-}
-
-private fun Link.equal(other: Link?): Boolean {
-    if (other == null) return false
-    if (this === other) return true
-    if (isSynced != other.isSynced) return false
-    if (system != other.system) return false
-    keys.forEach { (t, u) ->
-        if (u is String) {
-            if (other.keys[t].toString() != u.toString()) return false
-        } else {
-            if (other.keys[t] == null) return false
-        }
-    }
-    return true
 }
 
 fun List<Person>.findByHouseCode(hcode: String): List<Person> {
