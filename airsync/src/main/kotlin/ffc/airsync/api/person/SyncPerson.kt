@@ -20,7 +20,7 @@ class SyncPerson : Sync {
             launch { jhcisDbPerson = Person().gets() }
             launch { chronic = Chronics() }
         }
-        jhcisDbPerson.mapChronic(chronic)
+        MapChronicToPerson(jhcisDbPerson, chronic).run()
         return jhcisDbPerson
     }
 }

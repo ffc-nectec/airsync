@@ -42,7 +42,7 @@ interface DatabaseDao {
 
     fun getUsers(): List<User>
 
-    fun getPerson(): List<Person>
+    fun getPerson(lookupDisease: (icd10: String) -> Disease?): List<Person>
 
     fun findPerson(pcucode: String, pid: Long): Person
 
