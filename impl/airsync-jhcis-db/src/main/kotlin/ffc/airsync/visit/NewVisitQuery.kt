@@ -32,21 +32,22 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
 
         return jdbiDao.instant.withHandle<List<HealthCareService>, Exception> { handle ->
             handle.createQuery(sql)
-                .map { rs, ctx ->
+                .map { rs, _ ->
                     val username = rs.getString("username")!!
                     val pid = rs.getString("pid")!!
+                    val timestamp = DateTime(rs.getTimestamp("dateupdate")).minusHours(7)
 
                     HealthCareService(
                         providerId = username.let { lookup().providerId(it) },
                         patientId = pid.let { lookup().patientId(it) },
                         id = generateTempId()
-                    ).update(DateTime(rs.getTimestamp("dateupdate")).minusHours(7)) {
+                    ).update(timestamp) {
 
                         runBlocking {
                             if (providerId.isBlank()) logger.warn { "Cannot find user $username" }
                             if (patientId.isBlank()) logger.warn { "Cannot find person pid $pid" }
                         }
-                        syntom = rs.getString("symptoms")
+                        rs.getString("symptoms")?.let { syntom = it }
 
                         val visitdate = rs.getDate("visitdate")
 

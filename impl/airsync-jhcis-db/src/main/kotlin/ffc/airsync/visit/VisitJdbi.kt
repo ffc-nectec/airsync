@@ -201,8 +201,6 @@ class VisitJdbi(
                 return@mapNotNull null
             }
 
-            val outputVisit = HealthCareService(healthCare.providerId, healthCare.patientId)
-
             var runtimeQueryDb: Long = -1L
             var runtimeLookupApi: Long = -1L
             val allRunTime = measureTimeMillis {
@@ -226,26 +224,26 @@ class VisitJdbi(
 
                     runtimeLookupApi = measureTimeMillis {
                         runBlocking {
-                            launch { outputVisit.diagnosises = getDiagnosisIcd10(diagnosisIcd10, lookupDisease) }
+                            launch { healthCare.diagnosises = getDiagnosisIcd10(diagnosisIcd10, lookupDisease) }
 
                             launch {
                                 specislPP.forEach {
-                                    outputVisit.addSpecialPP(
+                                    healthCare.addSpecialPP(
                                         lookupSpecialPP(it.trim()) ?: SpecialPP.PPType(it, it)
                                     )
                                 }
                             }
 
                             launch {
-                                outputVisit.ncdScreen = ncdScreen.firstOrNull()?.let {
+                                healthCare.ncdScreen = ncdScreen.firstOrNull()?.let {
                                     createNcdScreen(healthCare.providerId, healthCare.patientId, it)
                                 }
                             }
 
                             launch {
                                 homeVisit.firstOrNull()?.let { visit ->
-                                    visit.bundle["dateappoint"]?.let { outputVisit.nextAppoint = it as LocalDate }
-                                    outputVisit.communityServices.add(
+                                    visit.bundle["dateappoint"]?.let { healthCare.nextAppoint = it as LocalDate }
+                                    healthCare.communityServices.add(
                                         HomeVisit(
                                             serviceType = lookupServiceType(visit.serviceType.id.trim())
                                                 ?: visit.serviceType,
@@ -278,7 +276,7 @@ class VisitJdbi(
                 logger.debug(message)
             }
 
-            outputVisit
+            healthCare
         }
     }
 
