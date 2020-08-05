@@ -13,7 +13,7 @@ class JhcisDBds {
         val dbPort = "3333"
         val dbName = "jhcisdb"
         val dbUsername = "root"
-        val dbPassword = "123456"
+        val dbPassword = ""
 
         dsMySql.setURL(
             "jdbc:mysql://$dbHost:$dbPort/$dbName?" +

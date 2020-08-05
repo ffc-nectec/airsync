@@ -24,8 +24,8 @@ group 'ffc.airsync'
 version = gitVersion()
 
 ext {
-    entitiesVersion = '1.1.0'
-    jdbiVersion = "3.1.0"
+    entitiesVersion = '1.1.1alpha-3'
+    jdbiVersion = "3.14.1"
     h2Version = '1.4.197'
 }
 
@@ -33,10 +33,10 @@ allprojects {
     apply plugin: 'idea'
 
     repositories {
+        maven { url 'https://jitpack.io' }
         mavenCentral()
         google()
         jcenter()
-        maven { url 'https://jitpack.io' }
         maven { url "https://dl.bintray.com/blazei/maven" }
     }
 }

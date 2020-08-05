@@ -86,7 +86,9 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
                     ).execute()
                     respond.body() ?: arrayListOf()
                 } else {
-                    val message = "Error Loop ${respond.code()} ${respond.errorBody()?.charStream()?.readText()}"
+                    val message =
+                        "Error index:$index Exam:${it.first().toJson()} Loop ${respond.code()} ${respond.errorBody()
+                            ?.charStream()?.readText()}"
                     throw ApiLoopException(message)
                 }
             }

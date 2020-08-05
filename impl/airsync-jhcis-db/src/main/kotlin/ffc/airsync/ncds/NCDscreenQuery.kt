@@ -61,7 +61,7 @@ interface NCDscreenQuery {
     """
     )
     @RegisterRowMapper(NCDscreenMapper::class)
-    fun get(@Bind("visitnumber") visitnumber: Long): List<NCDScreen>
+    fun getBy(@Bind("visitnumber") visitnumber: Long): List<NCDScreen>
 
     @SqlQuery(
         ncdScreenQuery + """

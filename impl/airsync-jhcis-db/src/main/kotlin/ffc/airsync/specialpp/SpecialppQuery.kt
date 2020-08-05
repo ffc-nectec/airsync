@@ -30,7 +30,7 @@ interface SpecialppQuery {
     """
     )
     @RegisterRowMapper(SpecialPPMapper::class)
-    fun get(@Bind("visitnumber") visitnumber: Long): List<String>
+    fun getBy(@Bind("visitnumber") visitnumber: Long): List<String>
 
     @SqlQuery(
         specialQuery + """
