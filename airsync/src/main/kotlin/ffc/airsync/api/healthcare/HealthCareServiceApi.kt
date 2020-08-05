@@ -34,6 +34,10 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
             callApiNoReturn {
                 val respond = restService.cleanHealthCare(orgId = organization.id, authkey = tokenBarer).execute()
                 val code = respond.code()
+                if (code == 500) {
+                    throw ApiLoopException("500 Loop ${respond.errorBody()}")
+                }
+
                 check(code == 200) { "เกิดข้อผิดพลาดการเยี่ยมบ้าน $code" }
             }
         return _createHealthCare(healthCare, progressCallback)
