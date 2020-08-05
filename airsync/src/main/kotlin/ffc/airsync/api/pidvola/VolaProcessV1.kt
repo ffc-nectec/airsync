@@ -19,7 +19,6 @@ class VolaProcessV1 : VolaProcess {
                 person.getIdCard()?.let {
                     sha256.hash(it) == userIdCard
                 } ?: false
-
             }
             val personFindPid = findPerson?.link?.keys?.get("pid")?.toString()
             if (personFindPid != null && user.checkOkAdd(personFindPid)) {
