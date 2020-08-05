@@ -56,7 +56,6 @@ INNER JOIN cpersonincomplete ON
     )
     @RegisterRowMapper(DisabilityMapper::class)
     fun get(): List<DisabilityData>
-    //fun get(): List<Triple<String, String, Disability?>>
 }
 
 data class DisabilityData(val pcuCode: String, val pid: String, val dis: Disability?)
