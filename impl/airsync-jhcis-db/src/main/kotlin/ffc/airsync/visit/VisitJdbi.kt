@@ -202,46 +202,30 @@ class VisitJdbi(
             }
 
             var runtimeQueryDb: Long = -1L
-            var runtimeLookupApi: Long = -1L
             val allRunTime = measureTimeMillis {
                 i++
 
                 healthCare.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
 
-                    var diagnosisIcd10: List<Diagnosis> = emptyList()
-                    var specislPP: List<String> = emptyList()
-                    var ncdScreen: List<NCDScreen> = emptyList()
-                    var homeVisit: List<HomeVisit> = emptyList()
-
                     runtimeQueryDb = measureTimeMillis {
                         runBlocking {
-                            launch { diagnosisIcd10 = getVisitDiag(visitNumber) }
-                            launch { specislPP = getSpecialPP(visitNumber) }
-                            launch { ncdScreen = getNcdScreen(visitNumber) }
-                            launch { homeVisit = getHomeVisit(visitNumber) }
-                        }
-                    }
-
-                    runtimeLookupApi = measureTimeMillis {
-                        runBlocking {
-                            launch { healthCare.diagnosises = getDiagnosisIcd10(diagnosisIcd10, lookupDisease) }
-
                             launch {
-                                specislPP.forEach {
+                                healthCare.diagnosises = getDiagnosisIcd10(getVisitDiag(visitNumber), lookupDisease)
+                            }
+                            launch {
+                                getSpecialPP(visitNumber).forEach {
                                     healthCare.addSpecialPP(
                                         lookupSpecialPP(it.trim()) ?: SpecialPP.PPType(it, it)
                                     )
                                 }
                             }
-
                             launch {
-                                healthCare.ncdScreen = ncdScreen.firstOrNull()?.let {
+                                healthCare.ncdScreen = getNcdScreen(visitNumber).firstOrNull()?.let {
                                     createNcdScreen(healthCare.providerId, healthCare.patientId, it)
                                 }
                             }
-
                             launch {
-                                homeVisit.firstOrNull()?.let { visit ->
+                                getHomeVisit(visitNumber).firstOrNull()?.let { visit ->
                                     visit.bundle["dateappoint"]?.let { healthCare.nextAppoint = it as LocalDate }
                                     healthCare.communityServices.add(
                                         HomeVisit(
@@ -269,8 +253,7 @@ class VisitJdbi(
             if (i % 200 == 0 || i == size) {
                 progressCallback(((i * 45) / size) + 5)
                 var message = "Visit $i:$size"
-                message += "\tRuntime DB:$runtimeQueryDb"
-                message += "\tLookupApi:$runtimeLookupApi"
+                message += "\tRuntime:$runtimeQueryDb"
                 message += "\tAllTime:$allRunTime"
                 message += ((size - i) * avgTime).printTime()
                 logger.debug(message)
@@ -340,29 +323,14 @@ class VisitJdbi(
         else
             jdbiDao.extension<VisitQuery, List<HealthCareService>> { get(whereString) }
     }
-}
 
-private fun Long.printTime(): String {
-    if (this > 0) {
-        val sec = (this / 1000) % 60
-        val min = (this / 60000) % 60
-        val hour = (this / 36e5).toInt()
-        return ("\t$hour:$min:$sec")
-    }
-    return ""
-}
-
-private inline fun <reified T> mapList(
-    it: Map<Long, T>,
-    resut: HashMap<Long, List<T>>
-) {
-    val toList = it.toList()
-    val key = toList[0].first
-    val value = toList[0].second
-    if (resut[key] == null || resut[key]?.isEmpty() == true)
-        resut[key] = listOf(value)
-    else {
-        resut[key] =
-            listOf(*resut[key]!!.toTypedArray(), value)
+    private fun Long.printTime(): String {
+        if (this > 0) {
+            val sec = (this / 1000) % 60
+            val min = (this / 60000) % 60
+            val hour = (this / 36e5).toInt()
+            return ("\t$hour:$min:$sec")
+        }
+        return ""
     }
 }
