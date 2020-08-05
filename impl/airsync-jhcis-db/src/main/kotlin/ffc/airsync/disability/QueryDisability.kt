@@ -55,14 +55,17 @@ INNER JOIN cpersonincomplete ON
     """
     )
     @RegisterRowMapper(DisabilityMapper::class)
-    fun get(): List<Triple<String, String, Disability>?>
+    fun get(): List<DisabilityData>
+    //fun get(): List<Triple<String, String, Disability?>>
 }
 
-internal class DisabilityMapper : RowMapper<Triple<String, String, Disability>?> {
+data class DisabilityData(val pcuCode: String, val pid: String, val dis: Disability?)
+
+internal class DisabilityMapper : RowMapper<DisabilityData> {
     /**
      * @return pcucode, pid to Disability
      */
-    override fun map(rs: ResultSet, ctx: StatementContext?): Triple<String, String, Disability>? {
+    override fun map(rs: ResultSet, ctx: StatementContext): DisabilityData {
         val pcuCode = rs.getString("pcucodeperson")!!
         val pid = rs.getString("pid")!!
         val typeName = rs.getString("incompletename")!!
@@ -101,9 +104,10 @@ internal class DisabilityMapper : RowMapper<Triple<String, String, Disability>?>
         }
 
         return if (disabilityRun.isSuccess) {
-            Triple(pcuCode, pid, disabilityRun.getOrThrow())
-        } else
-            null
+            DisabilityData(pcuCode, pid, disabilityRun.getOrNull())
+        } else {
+            DisabilityData("", "", null)
+        }
     }
 
     private fun String?.preCause(): Cause {

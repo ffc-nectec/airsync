@@ -17,6 +17,8 @@
 
 package ffc.airsync
 
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.jdbi.v3.core.Jdbi
 
 inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R {
@@ -28,15 +30,15 @@ inline fun <reified E, reified R> Jdbi.extension(crossinline call: E.() -> R): R
                 call(it)
             }
         } catch (ex: org.jdbi.v3.core.ConnectionException) {
-            if (loop < 3) {
+            if (loop < 5) {
                 logger.warn("JDBI Error Loop 1 Except ${++loop} $ex")
+                runBlocking { delay(3000) }
             } else throw ex
-            Thread.sleep(3000)
         } catch (ex: com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException) {
-            if (loop < 3) {
+            if (loop < 5) {
                 logger.warn("JDBI Error Loop 2 Except ${++loop} $ex")
+                runBlocking { delay(3000) }
             } else throw ex
-            Thread.sleep(3000)
         }
     }
 }

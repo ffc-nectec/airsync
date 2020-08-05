@@ -6,6 +6,7 @@ import ffc.airsync.extension
 import ffc.airsync.getLogger
 import ffc.airsync.ncds.NCDscreenQuery
 import ffc.airsync.specialpp.SpecialppQuery
+import ffc.airsync.visit.NewVisitQuery.Lookup
 import ffc.airsync.visit.fixBug.FixBugDuplicate
 import ffc.entity.Link
 import ffc.entity.Person
@@ -173,47 +174,41 @@ class VisitJdbi(
         progressCallback: (Int) -> Unit
     ): List<HealthCareService> {
         var i = 0
-        val result = getVisit(whereString)
+        val result = NewVisitQuery(jdbiDao)
+            .get(whereString) {
+                object : Lookup {
+                    override fun patientId(pid: String): String {
+                        return lookupPatientId(pid)
+                    }
+
+                    override fun providerId(username: String): String {
+                        return lookupProviderId(username)
+                    }
+                }
+            }
         val size = result.size
         val avgTimeRun: Queue<Long> = LinkedList()
         var sumTime = 0L
 
-        var specialPpList: HashMap<Long, List<String>>? = null
-        var ncdScreenList: HashMap<Long, List<NCDScreen>>? = null
-        var homeVisitList: HashMap<Long, List<HomeVisit>>? = null
-        progressCallback(3)
-        runBlocking {
-            launch { specialPpList = getSpecialPP() }
-            launch { ncdScreenList = getNcdScreen() }
-            launch { homeVisitList = getHomeVisit() }
-            Unit
-        }
-        progressCallback(5)
         return result.mapNotNull { healthCare ->
-            var outputVisit = HealthCareService("", "")
 
-            var runtimeLookupUser: Long = -1L
+            if (healthCare.patientId.isBlank()) {
+                logger.warn { "ค้นหา Person ไม่พบ ${healthCare.patientId}" }
+                return@mapNotNull null
+            }
+            if (healthCare.providerId.isBlank()) {
+                logger.warn { "ค้นหา User ไม่พบ ${healthCare.providerId}" }
+                return@mapNotNull null
+            }
+
+            val outputVisit = HealthCareService(healthCare.providerId, healthCare.patientId)
+
             var runtimeQueryDb: Long = -1L
             var runtimeLookupApi: Long = -1L
             val allRunTime = measureTimeMillis {
                 i++
 
-                var providerId = ""
-                var patientId = ""
-
-                runtimeLookupUser = measureTimeMillis {
-                    runBlocking {
-                        launch { providerId = lookupProviderId(healthCare.providerId) }
-                        launch { patientId = lookupPatientId(healthCare.patientId) }
-                    }
-                }
-                if (providerId.isBlank())
-                    return@mapNotNull null
-                if (patientId.isBlank())
-                    return@mapNotNull null
-
-                outputVisit = copyVisit(providerId, patientId, healthCare)
-                outputVisit.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
+                healthCare.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
 
                     var diagnosisIcd10: List<Diagnosis> = emptyList()
                     var specislPP: List<String> = emptyList()
@@ -223,9 +218,9 @@ class VisitJdbi(
                     runtimeQueryDb = measureTimeMillis {
                         runBlocking {
                             launch { diagnosisIcd10 = getVisitDiag(visitNumber) }
-                            launch { specislPP = specialPpList!![visitNumber] ?: emptyList() }
-                            launch { ncdScreen = ncdScreenList!![visitNumber] ?: emptyList() }
-                            launch { homeVisit = homeVisitList!![visitNumber] ?: emptyList() }
+                            launch { specislPP = getSpecialPP(visitNumber) }
+                            launch { ncdScreen = getNcdScreen(visitNumber) }
+                            launch { homeVisit = getHomeVisit(visitNumber) }
                         }
                     }
 
@@ -243,7 +238,7 @@ class VisitJdbi(
 
                             launch {
                                 outputVisit.ncdScreen = ncdScreen.firstOrNull()?.let {
-                                    createNcdScreen(providerId, patientId, it)
+                                    createNcdScreen(healthCare.providerId, healthCare.patientId, it)
                                 }
                             }
 
@@ -276,7 +271,6 @@ class VisitJdbi(
             if (i % 200 == 0 || i == size) {
                 progressCallback(((i * 45) / size) + 5)
                 var message = "Visit $i:$size"
-                message += "\tLookupUser:$runtimeLookupUser"
                 message += "\tRuntime DB:$runtimeQueryDb"
                 message += "\tLookupApi:$runtimeLookupApi"
                 message += "\tAllTime:$allRunTime"
@@ -314,37 +308,6 @@ class VisitJdbi(
         }
     }
 
-    private fun copyVisit(
-        providerId: String,
-        patientId: String,
-        healthCare: HealthCareService
-    ): HealthCareService {
-        return HealthCareService(providerId, patientId).update(healthCare.timestamp) {
-            nextAppoint = healthCare.nextAppoint
-            syntom = healthCare.syntom
-            suggestion = healthCare.suggestion
-            weight = healthCare.weight
-            height = healthCare.height
-            waist = healthCare.waist
-            ass = healthCare.ass
-            bloodPressure = healthCare.bloodPressure
-            bloodPressure2nd = healthCare.bloodPressure2nd
-            pulseRate = healthCare.pulseRate
-            respiratoryRate = healthCare.respiratoryRate
-            bodyTemperature = healthCare.bodyTemperature
-            diagnosises = healthCare.diagnosises
-            note = healthCare.note
-            photosUrl = healthCare.photosUrl
-            communityServices = healthCare.communityServices
-            ncdScreen = healthCare.ncdScreen
-            specialPPs = healthCare.specialPPs
-            principleDx = healthCare.principleDx
-            link = healthCare.link
-            time = healthCare.time
-            endTime = healthCare.endTime
-        }
-    }
-
     private fun getDiagnosisIcd10(
         diagnosisIcd10: List<Diagnosis>,
         lookupDisease: (icd10: String) -> Disease?
@@ -361,28 +324,16 @@ class VisitJdbi(
     private fun getVisitDiag(visitNumber: Long) =
         jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
 
-    private fun getHomeVisit(): HashMap<Long, List<HomeVisit>> {
-        val homeVisitList = hashMapOf<Long, List<HomeVisit>>()
-        jdbiDao.extension<HomeVisitIndividualQuery, List<Map<Long, HomeVisit>>> { getAll() }.forEach {
-            mapList(it, homeVisitList)
-        }
-        return homeVisitList
+    private fun getHomeVisit(visitNumber: Long): List<HomeVisit> {
+        return jdbiDao.extension<HomeVisitIndividualQuery, List<HomeVisit>> { getBy(visitNumber) }
     }
 
-    private fun getNcdScreen(): HashMap<Long, List<NCDScreen>> {
-        val ncdScreenList = hashMapOf<Long, List<NCDScreen>>()
-        jdbiDao.extension<NCDscreenQuery, List<Map<Long, NCDScreen>>> { getAll() }.forEach {
-            mapList(it, ncdScreenList)
-        }
-        return ncdScreenList
+    private fun getNcdScreen(visitNumber: Long): List<NCDScreen> {
+        return jdbiDao.extension<NCDscreenQuery, List<NCDScreen>> { getBy(visitNumber) }
     }
 
-    private fun getSpecialPP(): HashMap<Long, List<String>> {
-        val specialPpList = hashMapOf<Long, List<String>>()
-        jdbiDao.extension<SpecialppQuery, List<Map<Long, String>>> { getAll() }.forEach {
-            mapList(it, specialPpList)
-        }
-        return specialPpList
+    private fun getSpecialPP(visitNumber: Long): List<String> {
+        return jdbiDao.extension<SpecialppQuery, List<String>> { getBy(visitNumber) }
     }
 
     private fun getVisit(whereString: String): List<HealthCareService> {

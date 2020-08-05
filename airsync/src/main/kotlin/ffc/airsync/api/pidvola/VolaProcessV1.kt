@@ -13,16 +13,15 @@ class VolaProcessV1 : VolaProcess {
         val sha256 = SHA265()
         val surveyor = users.filter { it.roles.contains(User.Role.SURVEYOR) }
         return surveyor.mapNotNull { user ->
-            val personFind = persons.find { person ->
-                val userIdCard = user.link?.keys?.get("idcard")?.toString()
-                val personIdCard = person.identities.firstOrNull()?.id
+            val userIdCard = user.link?.keys?.get("idcard")?.toString() ?: return@mapNotNull null
 
-                if (userIdCard != null && personIdCard != null) {
-                    sha256.hash(personIdCard) == userIdCard
-                } else
-                    false
+            val findPerson = persons.find { person ->
+                person.getIdCard()?.let {
+                    sha256.hash(it) == userIdCard
+                } ?: false
+
             }
-            val personFindPid = personFind?.link?.keys?.get("pid")?.toString()
+            val personFindPid = findPerson?.link?.keys?.get("pid")?.toString()
             if (personFindPid != null && user.checkOkAdd(personFindPid)) {
                 user.copy().apply {
                     bundle["pid"] = personFindPid
@@ -59,15 +58,17 @@ class VolaProcessV1 : VolaProcess {
                 } else
                     false
             }
-            val userFindId = user?.id
-            if (userFindId != null && house.checkOkAdd(userFindId)) {
+            val userId = user?.id
+            if (userId != null && house.checkOkAdd(userId)) {
                 house.copy().apply {
-                    allowUserId.add(userFindId)
+                    allowUserId.add(userId)
                 }
             } else
                 null
         }
     }
+
+    private fun Person.getIdCard(): String? = identities.firstOrNull()?.id
 
     /**
      * ตรวจสอบดูว่ามีการกำหนดค่าเดิมซ้ำกันหรือไม่

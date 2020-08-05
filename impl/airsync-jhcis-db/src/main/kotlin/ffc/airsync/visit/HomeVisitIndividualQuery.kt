@@ -74,7 +74,7 @@ WHERE visithomehealthindividual.visitno = :visitnumber
     """
     )
     @RegisterRowMapper(VisitHomeHealthMapper::class)
-    fun get(@Bind("visitnumber") visitnumber: Long): List<HomeVisit>
+    fun getBy(@Bind("visitnumber") visitnumber: Long): List<HomeVisit>
 
     @SqlQuery(
         homeHealthQuery + """

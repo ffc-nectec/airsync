@@ -149,7 +149,7 @@ WHERE
 """
 
 private const val visitQueryLast1Year = visitQuery + """
-    WHERE visit.dateupdate >= NOW() - INTERVAL 1 YEAR
+    WHERE visit.dateupdate >= NOW() - INTERVAL 3 YEAR
         AND
     visit.timestart IS NOT NULL
 		AND
@@ -168,6 +168,17 @@ interface VisitQuery {
 
     @SqlUpdate(visitNumberIndex)
     fun createIndex()
+
+    @SqlQuery(
+        visitQuery + """
+        WHERE `pcucodeperson`= :pcuCode AND `pid`= :pid
+    """
+    )
+    @RegisterRowMapper(VisitMapper::class)
+    fun getBy(
+        @Bind("pcuCode") pcuCode: String,
+        @Bind("pid") pid: String
+    ): List<HealthCareService>
 
     @SqlQuery(visitQueryLast1Year)
     @RegisterRowMapper(VisitMapper::class)
