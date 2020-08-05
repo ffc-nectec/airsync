@@ -189,6 +189,7 @@ class VisitJdbi(
         val size = result.size
         val avgTimeRun: Queue<Long> = LinkedList()
         var sumTime = 0L
+        val sugarLabQuery = SugarLabQuery(jdbiDao)
 
         return result.mapNotNull { healthCare ->
 
@@ -236,6 +237,11 @@ class VisitJdbi(
                                             result = visit.result
                                         )
                                     )
+                                }
+                            }
+                            launch {
+                                sugarLabQuery.get(healthCare.pcuCode(), healthCare.visitNumber().toInt())?.let {
+                                    healthCare.sugarLab = it
                                 }
                             }
                         }
@@ -333,4 +339,7 @@ class VisitJdbi(
         }
         return ""
     }
+
+    private fun HealthCareService.pcuCode(): String = link!!.keys["pcucode"]?.toString()!!
+    private fun HealthCareService.visitNumber(): String = link!!.keys["visitno"]?.toString()!!
 }
