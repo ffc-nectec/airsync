@@ -1,5 +1,7 @@
 package ffc.airsync.utils
 
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlin.system.measureTimeMillis
 
 private interface CallApi
@@ -27,18 +29,18 @@ fun <T> callApi(
         } catch (ex: java.net.SocketTimeoutException) {
             if (loop > 5) throw ex
             logger.warn("Time out loop ${++loop}")
-            Thread.sleep(10000)
+            runBlocking { delay(1000) }
         } catch (ex: ApiLoopException) {
             if (loop > 5) throw ex
             logger.warn("Loop ${++loop} api custom by user cannot return standard ${ex.message}")
-            Thread.sleep(10000)
+            runBlocking { delay(1000) }
         } catch (ex: java.net.SocketException) {
             if (loop > 5) throw ex
             logger.warn("Socket error check network ${++loop}")
-            Thread.sleep(10000)
+            runBlocking { delay(1000) }
         } catch (ex: java.net.UnknownHostException) {
             logger.error(ex) { "เน็ตหลุด หรือ เชื่อมต่อกับ server ไม่ได้ delay 10s ${ex.message}" }
-            Thread.sleep(10000)
+            runBlocking { delay(1000) }
         }
     }
 }
@@ -63,15 +65,17 @@ fun callApiNoReturn(call: () -> Unit) {
             if (loop > 5) throw ex
             logger.warn("Time out loop $loop")
             loop++
+            runBlocking { delay(1000) }
         } catch (ex: java.net.SocketException) {
             if (loop > 5) throw ex
             logger.warn("Socket error check network $loop")
-            Thread.sleep(10000)
             loop++
+            runBlocking { delay(1000) }
         } catch (ex: ApiLoopException) {
             if (loop > 5) throw ex
             logger.warn("Time out loop $loop")
             loop++
+            runBlocking { delay(1000) }
         } catch (ex: java.net.UnknownHostException) {
             logger.error(ex) { "เน็ตหลุด หรือ เชื่อมต่อกับ server ไม่ได้ delay 10s ${ex.message}" }
             Thread.sleep(10000)
