@@ -29,6 +29,7 @@ import ffc.airsync.house.HouseJdbi
 import ffc.airsync.mysqlvariable.GetMySqlVariable
 import ffc.airsync.mysqlvariable.MySqlVariableJdbi
 import ffc.airsync.person.NewQueryPerson
+import ffc.airsync.person.PersonDao.Lookup
 import ffc.airsync.school.QuerySchool
 import ffc.airsync.template.TemplateDao
 import ffc.airsync.template.TemplateJdbi
@@ -89,7 +90,7 @@ class JdbiDao(
         val disabilityFunc = DisabilityJdbi(jdbiDao)
         val chronicFunc = NewQueryChronic(jdbiDao)
         return NewQueryPerson(jdbiDao).get {
-            object : NewQueryPerson.Lookup {
+            object : Lookup {
                 override fun lookupDisease(icd10: String): Icd10 = lookupDisease(icd10)
                 override fun lookupChronic(pcuCode: String, pid: String): List<Chronic> =
                     chronicFunc.getBy(pcuCode, pid) {
@@ -108,7 +109,7 @@ class JdbiDao(
         val disabilityFunc = DisabilityJdbi(jdbiDao)
         val chronicFunc = NewQueryChronic(jdbiDao)
         return NewQueryPerson(jdbiDao).findBy(pcucode, pid.toString()) {
-            object : NewQueryPerson.Lookup {
+            object : Lookup {
                 override fun lookupDisease(icd10: String): Icd10 = lookupDisease(icd10)
                 override fun lookupChronic(pcuCode: String, pid: String): List<Chronic> =
                     chronicFunc.getBy(pcuCode, pid) {

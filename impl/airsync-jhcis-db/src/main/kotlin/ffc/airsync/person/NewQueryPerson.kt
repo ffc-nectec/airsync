@@ -3,32 +3,24 @@ package ffc.airsync.person
 import ffc.airsync.Dao
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.getLogger
+import ffc.airsync.person.PersonDao.Lookup
 import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.ThaiCitizenId
 import ffc.entity.healthcare.Behavior
-import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.Disability
 import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.Frequency
-import ffc.entity.healthcare.Icd10
 import ffc.entity.update
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class NewQueryPerson(private val jdbiDao: Dao = MySqlJdbi(null)) {
+class NewQueryPerson(private val jdbiDao: Dao = MySqlJdbi(null)) : PersonDao {
     private val logger = getLogger(this)
 
-    interface Lookup {
-        fun lookupDisease(icd10: String): Icd10
-        fun lookupChronic(pcuCode: String, pid: String): List<Chronic>
-        fun lookupDisability(pcuCode: String, pid: String): List<Disability>
-    }
-
-    fun findBy(pcuCode: String, pid: String, lookup: () -> Lookup): Person {
+    override fun findBy(pcuCode: String, pid: String, lookup: () -> Lookup): Person {
         return jdbiDao.instant.withHandle<List<Person>, Exception> { handle ->
             handle.createQuery(
                 query + """
@@ -45,7 +37,7 @@ class NewQueryPerson(private val jdbiDao: Dao = MySqlJdbi(null)) {
         }.first()
     }
 
-    fun get(lookup: () -> Lookup): List<Person> {
+    override fun get(lookup: () -> Lookup): List<Person> {
         return jdbiDao.instant.withHandle<List<Person>, Exception> { handle ->
             handle.createQuery(query).map { rs, _ ->
                 getPersonResult(rs, lookup)
