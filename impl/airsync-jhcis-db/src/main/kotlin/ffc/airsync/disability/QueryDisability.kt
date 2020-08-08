@@ -14,7 +14,7 @@ import ffc.entity.healthcare.Disability.Group.INTELLECTUAL
 import ffc.entity.healthcare.Disability.Group.LEARNING
 import ffc.entity.healthcare.Disability.Group.MENTAL
 import ffc.entity.healthcare.Disability.Group.MOBILITY
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.Severity
 import ffc.entity.healthcare.Severity.HI
 import ffc.entity.healthcare.Severity.LOW
@@ -118,8 +118,8 @@ internal class DisabilityMapper : RowMapper<DisabilityData> {
         }
     }
 
-    private fun String.preDisease(): Disease {
-        return Disease(generateTempId(), this.trim())
+    private fun String.preDisease(): Icd10 {
+        return Icd10(generateTempId(), this.trim())
     }
 
     private fun String?.preSeverity(): Severity {

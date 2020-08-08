@@ -1,11 +1,12 @@
 package ffc.airsync.disability
 
 import ffc.entity.healthcare.Disability
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.Icd10
 
 interface DisabilityDao {
-    /**
-     * @return pcucode, pid , Disability
-     */
-    fun get(lookupDisease: (icd10: String) -> Disease?): List<Triple<String, String, Disability>>
+    fun get(
+        pcuCode: String,
+        pid: String,
+        lookupDisease: (icd10: String) -> Icd10?
+    ): List<Disability>
 }

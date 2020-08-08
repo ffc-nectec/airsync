@@ -4,7 +4,6 @@ import ffc.entity.Person
 import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
-import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.CommunityService
 import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HealthCareService
@@ -71,20 +70,16 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getPerson(lookupDisease: (icd10: String) -> Disease?): List<Person> {
-        TODO("Not yet implemented")
-    }
-
-    override fun findPerson(pcucode: String, pid: Long): Person {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getChronic(): List<Chronic> {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    override fun getPerson(lookupDisease: (icd10: String) -> Disease): List<Person> {
+        TODO("Not yet implemented")
+    }
+
+    override fun findPerson(pcucode: String, pid: Long, lookupDisease: (icd10: String) -> Disease): Person {
+        TODO("Not yet implemented")
     }
 
     override fun upateHouse(house: House) {

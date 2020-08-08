@@ -17,7 +17,8 @@ class Icd10ServiceApi : RetofitApi<Icd10Service>(Icd10Service::class.java, 10240
             ).execute()
             if (response.code() != 200) {
                 val errorBody = response.errorBody()?.byteStream()?.reader()?.readLines()
-                logger.warn("Error LookupICD10=$icd10Upper error=${response.code()} body=$errorBody")
+                val message = "Error LookupICD10=$icd10Upper error=${response.code()} body=$errorBody"
+                logger.warn(Exception(message)) { message }
             }
             response.body() ?: Icd10(icd10 = icd10Upper, id = icd10Upper, name = "")
         }
