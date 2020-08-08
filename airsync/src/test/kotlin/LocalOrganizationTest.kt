@@ -5,9 +5,9 @@ import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.CommunityService
-import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.Business
 import ffc.entity.place.House
@@ -74,11 +74,23 @@ class TestDao : DatabaseDao {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getPerson(lookupDisease: (icd10: String) -> Disease): List<Person> {
+    override fun getPerson(lookupDisease: (icd10: String) -> Icd10): List<Person> {
         TODO("Not yet implemented")
     }
 
-    override fun findPerson(pcucode: String, pid: Long, lookupDisease: (icd10: String) -> Disease): Person {
+    override fun findPerson(pcucode: String, pid: Long, lookupDisease: (icd10: String) -> Icd10): Person {
+        TODO("Not yet implemented")
+    }
+
+    override fun getHealthCareService(
+        lookupPatientId: (pid: String) -> String,
+        lookupProviderId: (name: String) -> String,
+        lookupDisease: (icd10: String) -> Icd10?,
+        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
+        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
+        whereString: String,
+        progressCallback: (Int) -> Unit
+    ): List<HealthCareService> {
         TODO("Not yet implemented")
     }
 
@@ -114,18 +126,6 @@ class TestDao : DatabaseDao {
     }
 
     override fun getTemple(): List<ReligiousPlace> {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
-        whereString: String,
-        progressCallback: (Int) -> Unit
-    ): List<HealthCareService> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
