@@ -89,7 +89,7 @@ class InitSync : ProgressList {
         relation.initRelation {
             progressRelation = it
         }
-        logger.info { "รวบรวมข้อมูลการให้บริการ 1 ปี... (6/7)" }
+        logger.info { "รวบรวมข้อมูลการให้บริการ 3 ปี... (6/7)" }
         message = "วิเคราะห์การให้บริการ"
         healthCare.initSync {
             progressHealthCare = it
