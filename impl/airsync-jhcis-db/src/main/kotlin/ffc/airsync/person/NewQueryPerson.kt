@@ -64,12 +64,12 @@ class NewQueryPerson(private val jdbiDao: Dao = MySqlJdbi(null)) : PersonDao {
             }
 
             behavior = Behavior(
-                rs.getString("ciga").ciga(),
-                rs.getString("wisky").wisky(),
+                rs.getString("ciga").smoke(),
+                rs.getString("wisky").alcohol(),
                 rs.getString("exercise").exercise(),
                 rs.getString("bigaccidentever").bigaccidentever(),
                 rs.getString("tonic").tonic(),
-                null,
+                rs.getString("habitfoming").habitfoming(),
                 rs.getString("drugbyyourseft").drugbyyourseft(),
                 rs.getString("sugar").sugar(),
                 rs.getString("salt").salt()
@@ -210,7 +210,8 @@ SELECT
 	personbehavior.habitfoming,
 	personbehavior.drugbyyourseft,
 	personbehavior.sugar,
-	personbehavior.salt
+	personbehavior.salt,
+	personbehavior.dateupdate
 
 FROM person
     LEFT JOIN personbehavior ON
@@ -229,58 +230,66 @@ FROM person
 		person.pid=persondeath.pid
     """
 
-    private fun String?.wisky(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        1 -> Frequency.RARELY
-        2 -> Frequency.OCCASIONALLY
-        else -> Frequency.USUALLY
+    private fun String?.alcohol(): Frequency = when (this?.toInt()) {
+        1 -> Frequency.NEVER
+        2 -> Frequency.RARELY
+        3 -> Frequency.OCCASIONALLY
+        4 -> Frequency.USUALLY
+        else -> Frequency.UNKNOWN
     }
 
-    private fun String?.ciga(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        1, 2, 3 -> Frequency.RARELY
-        4, 5, 6 -> Frequency.OCCASIONALLY
-        else -> Frequency.USUALLY
+    private fun String?.smoke(): Frequency = when (this?.toInt()) {
+        1 -> Frequency.NEVER
+        2 -> Frequency.RARELY
+        3 -> Frequency.OCCASIONALLY
+        4 -> Frequency.USUALLY
+        else -> Frequency.UNKNOWN
     }
 
     private fun String?.exercise(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        1 -> Frequency.RARELY
-        2 -> Frequency.OCCASIONALLY
-        else -> Frequency.USUALLY
+        1 -> Frequency.NEVER
+        2 -> Frequency.RARELY
+        3 -> Frequency.OCCASIONALLY
+        4 -> Frequency.USUALLY
+        else -> Frequency.UNKNOWN
     }
 
-    private fun String?.bigaccidentever(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        else -> Frequency.RARELY
+    private fun String?.bigaccidentever(): Boolean? = when (this?.toInt()) {
+        null -> null
+        0, 9 -> false
+        else -> true
     }
 
-    private fun String?.tonic(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        else -> Frequency.OCCASIONALLY
+    private fun String?.tonic(): Boolean? = when (this?.toInt()) {
+        null -> null
+        0, 9 -> false
+        else -> true
     }
 
-    private fun String?.drugbyyourseft(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        else -> Frequency.USUALLY
+    private fun String?.drugbyyourseft(): Boolean? = when (this?.toInt()) {
+        null -> null
+        0, 9 -> false
+        else -> true
     }
 
-    private fun String?.sugar(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        else -> Frequency.USUALLY
+    private fun String?.sugar(): Boolean? = when (this?.toInt()) {
+        null -> null
+        0, 9 -> false
+        else -> true
     }
 
-    private fun String?.salt(): Frequency = when (this?.toInt()) {
-        null -> Frequency.UNKNOWN
-        0 -> Frequency.NEVER
-        else -> Frequency.USUALLY
+    private fun String?.salt(): Boolean? = when (this?.toInt()) {
+        null -> null
+        0, 9 -> false
+        else -> true
+    }
+
+    private fun String?.habitfoming(): Boolean? {
+        return when (this?.trim()) {
+            null -> null
+            "0", "9" -> false
+            else -> true
+        }
     }
 
     private fun getResult(column: String, rs: ResultSet): String? {
