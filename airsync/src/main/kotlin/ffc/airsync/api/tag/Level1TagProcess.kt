@@ -1,6 +1,6 @@
 package ffc.airsync.api.tag
 
-import ffc.airsync.persons
+import ffc.entity.Entity
 import ffc.entity.Person
 import ffc.entity.place.House
 
@@ -8,7 +8,11 @@ import ffc.entity.place.House
  * ประมวลผล tags ต้องทำหลังจาก sync ข้อมูลขึ้น cloud แล้ว
  * เพราะจำเป็นต้องใช้ id จริงในการ update ข้อมูล
  */
-class Level1TagProcess(persons: List<Person>, houses: List<House>, private val func: UpdateData) : TagProcess {
+class Level1TagProcess(
+    private val persons: List<Person>,
+    private val houses: List<House>,
+    private val func: () -> UpdateData
+) : TagProcess {
 
     interface UpdateData {
         fun updateHouse(house: House)
@@ -29,24 +33,29 @@ class Level1TagProcess(persons: List<Person>, houses: List<House>, private val f
     }
 
     private fun chronic(person: Person) {
+        val tagName = "chronic"
         ChronicTag().run(person) {
-            person.tags.add("chronic")
-            func.updatePerson(person)
-            houseCacheSearch["${person.pcuCode()}:${person.hCode()}"]?.let {
-                it.tags.add("chronic")
-                func.updateHouse(it)
-            }
+            if (it.addTag(tagName)) func().updatePerson(it)
+            val house = houseCacheSearch["${person.pcuCode()}:${person.hCode()}"]
+            if (house.addTag(tagName))
+                func().updateHouse(house!!)
         }
     }
 
+    private fun Entity?.addTag(tagName: String): Boolean {
+        if (this == null) return false
+        if (tags.contains(tagName)) return false
+        tags.add(tagName)
+        return true
+    }
+
     private fun disableTag(person: Person) {
+        val tagName = "disable"
         DisableTag().run(person) {
-            person.tags.add("disable")
-            func.updatePerson(person)
-            houseCacheSearch["${person.pcuCode()}:${person.hCode()}"]?.let {
-                it.tags.add("disable")
-                func.updateHouse(it)
-            }
+            if (it.addTag(tagName)) func().updatePerson(it)
+            val house = houseCacheSearch["${person.pcuCode()}:${person.hCode()}"]
+            if (house.addTag(tagName))
+                func().updateHouse(house!!)
         }
     }
 
