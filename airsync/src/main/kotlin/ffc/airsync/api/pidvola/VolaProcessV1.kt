@@ -7,6 +7,10 @@ import ffc.entity.copy
 import ffc.entity.place.House
 import max212.kotlin.util.hash.SHA265
 
+/**
+ * ตอนนี้ยังไม่ได้ประมวลผลถึงคน
+ * ตอนนี้ถึงแต่บ้านที่ อสม. ดูแล
+ */
 class VolaProcessV1 : VolaProcess {
     val logger = getLogger(this)
     override fun processUser(users: List<User>, persons: List<Person>): List<User> {
