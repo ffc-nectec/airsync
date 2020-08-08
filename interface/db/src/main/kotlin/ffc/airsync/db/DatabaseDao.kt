@@ -21,11 +21,10 @@ import ffc.entity.Person
 import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
-import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.CommunityService
-import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.Business
 import ffc.entity.place.House
@@ -42,13 +41,11 @@ interface DatabaseDao {
 
     fun getUsers(): List<User>
 
-    fun getPerson(lookupDisease: (icd10: String) -> Disease?): List<Person>
+    fun getPerson(lookupDisease: (icd10: String) -> Icd10): List<Person>
 
-    fun findPerson(pcucode: String, pid: Long): Person
+    fun findPerson(pcucode: String, pid: Long, lookupDisease: (icd10: String) -> Icd10): Person
 
     fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String = ""): List<House>
-
-    fun getChronic(): List<Chronic>
 
     fun upateHouse(house: House)
 
@@ -60,7 +57,7 @@ interface DatabaseDao {
     fun getHealthCareService(
         lookupPatientId: (pid: String) -> String,
         lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
+        lookupDisease: (icd10: String) -> Icd10?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
         whereString: String = "",

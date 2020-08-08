@@ -18,10 +18,8 @@
 package ffc.airsync
 
 import ffc.airsync.business.QueryBusiness
-import ffc.airsync.chronic.ChronicDao
-import ffc.airsync.chronic.ChronicJdbi
+import ffc.airsync.chronic.NewQueryChronic
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.disability.DisabilityDao
 import ffc.airsync.disability.DisabilityJdbi
 import ffc.airsync.foodshop.QueryFoodShop
 import ffc.airsync.hosdetail.HosDao
@@ -30,8 +28,7 @@ import ffc.airsync.house.HouseDao
 import ffc.airsync.house.HouseJdbi
 import ffc.airsync.mysqlvariable.GetMySqlVariable
 import ffc.airsync.mysqlvariable.MySqlVariableJdbi
-import ffc.airsync.person.PersonDao
-import ffc.airsync.person.PersonJdbi
+import ffc.airsync.person.NewQueryPerson
 import ffc.airsync.school.QuerySchool
 import ffc.airsync.template.TemplateDao
 import ffc.airsync.template.TemplateJdbi
@@ -48,15 +45,15 @@ import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
 import ffc.entity.healthcare.CommunityService.ServiceType
-import ffc.entity.healthcare.Disease
+import ffc.entity.healthcare.Disability
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
-import kotlinx.coroutines.runBlocking
 import java.io.File
 
 class JdbiDao(
@@ -65,14 +62,11 @@ class JdbiDao(
 
     val houses: HouseDao by lazy { HouseJdbi(jdbiDao) }
     val visit: VisitDao by lazy { VisitJdbi(jdbiDao) }
-    val persons: PersonDao by lazy { PersonJdbi(jdbiDao) }
     val hos: HosDao by lazy { HosDetailJdbi(jdbiDao) }
     val users: UserDao by lazy { UserJdbi(jdbiDao) }
-    val chronic: ChronicDao by lazy { ChronicJdbi(jdbiDao) }
     val village: VillageDao by lazy { VillageJdbi(jdbiDao) }
     val template: TemplateDao by lazy { TemplateJdbi(jdbiDao) }
     val configFromDb: GetMySqlVariable by lazy { MySqlVariableJdbi(jdbiDao) }
-    val disabilitys: DisabilityDao by lazy { DisabilityJdbi(jdbiDao) }
 
     override fun init() {
         val baseDir = getDatabaseLocaion()
@@ -91,46 +85,47 @@ class JdbiDao(
         return users.get()
     }
 
-    override fun getPerson(lookupDisease: (icd10: String) -> Disease?): List<Person> {
-        val person = persons.get().mapNotNull {
-            if ((it.bundle["remove"] ?: false) == true) {
-                null
-            } else {
-                it
+    override fun getPerson(lookupDisease: (icd10: String) -> Icd10): List<Person> {
+        val disabilityFunc = DisabilityJdbi(jdbiDao)
+        val chronicFunc = NewQueryChronic(jdbiDao)
+        return NewQueryPerson(jdbiDao).get {
+            object : NewQueryPerson.Lookup {
+                override fun lookupDisease(icd10: String): Icd10 = lookupDisease(icd10)
+                override fun lookupChronic(pcuCode: String, pid: String): List<Chronic> =
+                    chronicFunc.getBy(pcuCode, pid) {
+                        object : NewQueryChronic.Lookup {
+                            override fun lookupDisease(icd10: String): Icd10 = lookupDisease(icd10)
+                        }
+                    }
+
+                override fun lookupDisability(pcuCode: String, pid: String): List<Disability> =
+                    disabilityFunc.get(pcuCode, pid, lookupDisease)
             }
         }
-        runBlocking {
-            /**
-             * pcucode,pid to person
-             */
-            val personCache = person.map {
-                val pcuCode = it.link!!.keys["pcucodeperson"]!!.toString()
-                val pid = it.link!!.keys["pid"]!!.toString()
-                Pair(
-                    "$pcuCode:$pid",
-                    it
-                )
-            }.toMap().toSortedMap()
-
-            disabilitys.get(lookupDisease).forEach { disability ->
-                personCache["${disability.first}:${disability.second}"]?.let {
-                    it.disabilities.add(disability.third)
-                }
-            }
-        }
-
-        return person.toList()
     }
 
-    override fun findPerson(pcucode: String, pid: Long): Person {
-        return persons.find(pcucode, pid).first()
+    override fun findPerson(pcucode: String, pid: Long, lookupDisease: (icd10: String) -> Icd10): Person {
+        val disabilityFunc = DisabilityJdbi(jdbiDao)
+        val chronicFunc = NewQueryChronic(jdbiDao)
+        return NewQueryPerson(jdbiDao).findBy(pcucode, pid.toString()) {
+            object : NewQueryPerson.Lookup {
+                override fun lookupDisease(icd10: String): Icd10 = lookupDisease(icd10)
+                override fun lookupChronic(pcuCode: String, pid: String): List<Chronic> =
+                    chronicFunc.getBy(pcuCode, pid) {
+                        object : NewQueryChronic.Lookup {
+                            override fun lookupDisease(icd10: String): Icd10 = lookupDisease(icd10)
+                        }
+                    }
+
+                override fun lookupDisability(pcuCode: String, pid: String): List<Disability> =
+                    disabilityFunc.get(pcuCode, pid, lookupDisease)
+            }
+        }
     }
 
     override fun getHouse(lookupVillage: (jVillageId: String) -> Village?, whereString: String): List<House> {
         return houses.getHouse(lookupVillage, whereString)
     }
-
-    override fun getChronic(): List<Chronic> = chronic.get()
 
     override fun upateHouse(house: House) {
         houses.upateHouse(house)
@@ -187,7 +182,7 @@ class JdbiDao(
     override fun getHealthCareService(
         lookupPatientId: (pid: String) -> String,
         lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
+        lookupDisease: (icd10: String) -> Icd10?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> ServiceType?,
         whereString: String,

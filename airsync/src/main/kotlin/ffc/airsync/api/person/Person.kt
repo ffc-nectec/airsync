@@ -5,7 +5,6 @@ import ffc.airsync.api.house.initSync
 import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.houses
-import ffc.airsync.icd10Api
 import ffc.airsync.lookupDisease
 import ffc.airsync.personApi
 import ffc.airsync.persons
@@ -16,8 +15,6 @@ import ffc.airsync.utils.save
 import ffc.airsync.villages
 import ffc.entity.Person
 import ffc.entity.gson.toJson
-import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.Disease
 import ffc.entity.place.House
 
 private interface PersonUtil
@@ -25,10 +22,7 @@ private interface PersonUtil
 private val logger by lazy { getLogger(PersonUtil::class) }
 
 fun Person.gets(dao: DatabaseDao = Main.instant.dao): List<Person> {
-    val persons = dao.getPerson(lookupDisease)
-    val chronic = dao.getChronic()
-
-    return mapChronics(persons, chronic)
+    return dao.getPerson(lookupDisease)
 }
 
 fun ArrayList<Person>.initSync(
@@ -73,7 +67,6 @@ private fun ArrayList<Person>.createPersonOnCloud(
 ) {
     // TODO Optimize ได้มีการ loop ซ้ำแบบเดียวกัน 2 function หรือจะใช้แบบ async แยกทำก็ได้
     personIsChronic.mapHouseId(houseFromCloud, progressCallback)
-    mapDeath(personIsChronic, progressCallback)
     addAll(personApi.putPerson(personIsChronic, progressCallback, clearCloud))
 }
 
@@ -105,36 +98,6 @@ private fun List<Person>.mapHouseId(
 fun List<Person>.findByHouseCode(hcode: String): List<Person> {
     return filter {
         (it.link!!.keys["hcode"] as String).trim() == hcode
-    }
-}
-
-private fun mapChronics(persons: List<Person>, chronics: List<Chronic>): List<Person> {
-    logger.trace("Map chronics to person")
-    persons.forEach { person ->
-        person.chronics.addAll(chronics.filter {
-            it.link!!.keys["pid"] == person.link!!.keys["pid"]
-        })
-    }
-    return persons
-}
-
-private fun mapDeath(persons: List<Person>, progressCallback: (Int) -> Unit) {
-    logger.trace("Process person death.")
-    val lookUpIcd10 = { icd10: String -> icd10Api.lookup(icd10) }
-
-    val sizeOfLoop = persons.size
-    persons.forEachIndexed { index, person ->
-        val death = person.death
-        if (death != null) {
-            val diseaseList = arrayListOf<Disease>()
-            death.causes.forEach {
-                diseaseList.add(lookUpIcd10(it.name))
-            }
-            person.death = Person.Death(death.date, diseaseList.toList())
-            logger.debug("Dead ${person.name} ${person.death?.causes?.size}")
-        }
-        if (sizeOfLoop != 0)
-            progressCallback(((index * 20) / sizeOfLoop) + 30)
     }
 }
 

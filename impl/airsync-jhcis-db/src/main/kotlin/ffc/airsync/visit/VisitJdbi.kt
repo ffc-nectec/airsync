@@ -13,9 +13,9 @@ import ffc.entity.Person
 import ffc.entity.System
 import ffc.entity.healthcare.CommunityService
 import ffc.entity.healthcare.Diagnosis
-import ffc.entity.healthcare.Disease
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
+import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.NCDScreen
 import ffc.entity.healthcare.SpecialPP
 import ffc.entity.update
@@ -167,7 +167,7 @@ class VisitJdbi(
     override fun getHealthCareService(
         lookupPatientId: (pid: String) -> String,
         lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Disease?,
+        lookupDisease: (icd10: String) -> Icd10?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
         lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
         whereString: String,
@@ -297,7 +297,7 @@ class VisitJdbi(
 
     private fun getDiagnosisIcd10(
         diagnosisIcd10: List<Diagnosis>,
-        lookupDisease: (icd10: String) -> Disease?
+        lookupDisease: (icd10: String) -> Icd10?
     ): MutableList<Diagnosis> {
         return diagnosisIcd10.map {
             Diagnosis(
