@@ -3,6 +3,7 @@ package ffc.airsync.house.newlib
 import ffc.airsync.MySqlUnitTestServer
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should be`
+import org.junit.Ignore
 import org.junit.Test
 import java.sql.DriverManager
 
