@@ -2,6 +2,7 @@ package ffc.airsync.visit
 
 import ffc.airsync.JhcisDBds
 import ffc.airsync.MySqlJdbi
+import org.junit.Ignore
 import org.junit.Test
 
 @Ignore("สำหรับทดสอบฐานจริง")
