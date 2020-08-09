@@ -4,7 +4,7 @@ import ffc.airsync.JhcisDBds
 import ffc.airsync.MySqlJdbi
 import org.junit.Test
 
-// @Ignore("สำหรับทดสอบฐานจริง")
+@Ignore("สำหรับทดสอบฐานจริง")
 class NewVisitQueryTest {
     private val jdbi = NewVisitQuery(MySqlJdbi(JhcisDBds().get()))
 

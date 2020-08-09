@@ -6,6 +6,7 @@ import org.amshove.kluent.`should be`
 import org.junit.Test
 import java.sql.DriverManager
 
+@Ignore("สำหรับทดสอบฐานจริง")
 class HouseExposedSqlTest {
 
     @Test
