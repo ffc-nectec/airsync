@@ -47,7 +47,9 @@ class NewProcessAnalyzer : NewAnalyzer {
         }.toMap()
     }
 
-    private fun createProcessList(healthCareServices: List<HealthCareService>): HashMap<String, ArrayList<HealthCareService>> {
+    private fun createProcessList(
+        healthCareServices: List<HealthCareService>
+    ): HashMap<String, ArrayList<HealthCareService>> {
         val processList = hashMapOf<String, ArrayList<HealthCareService>>()
         healthCareServices.forEach {
             if (processList[it.patientId] == null) processList[it.patientId] = arrayListOf()
