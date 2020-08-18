@@ -20,11 +20,21 @@
 package ffc.airsync.api.analyzer
 
 import ffc.airsync.analyzerSyncApi
+import ffc.airsync.api.analyzer.lib.NewAnalyzer.AddTag
+import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag
+import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.OK
+import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.StickBed
+import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.StickHouse
 import ffc.airsync.api.analyzer.lib.NewProcessAnalyzer
+import ffc.airsync.api.house.updateLocalData
+import ffc.airsync.houseApi
+import ffc.airsync.houses
+import ffc.airsync.persons
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.analyze.HealthAnalyzer
+import ffc.entity.place.House
 
 fun HashMap<String, HealthAnalyzer>.initSync(
     healthCareService: List<HealthCareService>,
@@ -36,19 +46,44 @@ fun HashMap<String, HealthAnalyzer>.initSync(
 
     if (localAnalyzer.isEmpty()) {
         val processCloud = hashMapOf<String, HealthAnalyzer>()
+        val listHouseUpdate = arrayListOf<House?>()
+
         processCloud.putAll(
             analyzerSyncApi.insert(
-                NewProcessAnalyzer().analyzerGroup(healthCareService),
+                NewProcessAnalyzer().analyzerGroupAutoAddTag(healthCareService) {
+                    object : AddTag {
+                        private val cachePersonLookup = persons.map { it.id to it }.toMap().toSortedMap()
+                        private val cacheHouseLookup = houses.map { it.id to it }.toMap().toSortedMap()
+
+                        override fun addTag(patientId: String, tag: Tag) {
+                            val findHouseId = cachePersonLookup[patientId]?.houseId ?: return
+                            val house = cacheHouseLookup[findHouseId] ?: return
+
+                            when (tag) {
+                                StickBed -> listHouseUpdate.add(house.addTag("elder-activities-mid"))
+                                StickHouse -> listHouseUpdate.add(house.addTag("elder-activities-very_hi"))
+                                OK -> listHouseUpdate.add(house.addTag("elder-activities-ok"))
+                            }
+                        }
+
+                        override fun getAge(patientId: String): Int = cachePersonLookup[patientId]?.age ?: 0
+                    }
+                },
                 progressCallback
             )
         )
-
+        houses.updateLocalData(listHouseUpdate.mapNotNull { it })
         localAnalyzer.clear()
         localAnalyzer.putAll(processCloud)
-
         localAnalyzer.save("analyzer.json")
     } else {
         putAll(localAnalyzer)
     }
     progressCallback(100)
+}
+
+private fun House.addTag(tagName: String): House? {
+    if (tags.contains(tagName)) return null
+    tags.add(tagName)
+    return houseApi.syncHouseToCloud(this)
 }
