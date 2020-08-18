@@ -1,6 +1,7 @@
 package ffc.airsync
 
 import ffc.airsync.api.house.initSync
+import ffc.airsync.api.house.lock
 import ffc.airsync.api.house.updateLocalData
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
@@ -50,30 +51,34 @@ class SetupAutoSync(val dao: DatabaseDao) {
     private fun syncTags() {
         val updateHouse = arrayListOf<House>()
 
-        Level1TagProcess(persons, houses) {
-            object : Level1TagProcess.UpdateData {
-                override fun updateHouse(house: House) {
-                    try {
-                        updateHouse.add(houseApi.syncHouseToCloud(house))
-                    } catch (ex: Exception) {
-                        logger.warn(ex) { "Tag update house error" }
+        houses.lock {
+            Level1TagProcess(persons, houses) {
+                object : Level1TagProcess.UpdateData {
+                    override fun updateHouse(house: House) {
+                        try {
+                            updateHouse.add(houseApi.syncHouseToCloud(house))
+                        } catch (ex: Exception) {
+                            logger.warn(ex) { "Tag update house error" }
+                        }
+                    }
+
+                    override fun updatePerson(person: Person) {
+                        // TODO ตอนนี้ใช้ดูแค่คน
                     }
                 }
-
-                override fun updatePerson(person: Person) {
-                    // TODO ตอนนี้ใช้ดูแค่คน
-                }
-            }
-        }.process()
-        houses.updateLocalData(updateHouse)
+            }.process()
+            houses.updateLocalData(updateHouse)
+        }
     }
 
     private fun syncVola() {
-        val volaProcess: VolaProcess = VolaProcessV1()
-        val volaUser = volaProcess.processUser(userManage.cloudUser, persons)
-        val volaHouse = volaProcess.processHouse(houses, volaUser)
-        val houseUpdate = volaHouse.map { houseApi.syncHouseToCloud(it) }
-        houses.updateLocalData(houseUpdate)
+        houses.lock {
+            val volaProcess: VolaProcess = VolaProcessV1()
+            val volaUser = volaProcess.processUser(userManage.cloudUser, persons)
+            val volaHouse = volaProcess.processHouse(houses, volaUser)
+            val houseUpdate = volaHouse.map { houseApi.syncHouseToCloud(it) }
+            houses.updateLocalData(houseUpdate)
+        }
     }
 
     private fun autoSyncToCloud(): Thread {
