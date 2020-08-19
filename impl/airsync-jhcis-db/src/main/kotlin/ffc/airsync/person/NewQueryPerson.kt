@@ -249,7 +249,8 @@ FROM person
 		person.pid=persondeath.pid
     """
 
-    private fun String?.alcohol(): Frequency = when (this?.toInt()) {
+    private fun String?.alcohol(): Frequency? = when (this?.toInt()) {
+        null -> null
         1 -> Frequency.NEVER
         2 -> Frequency.RARELY
         3 -> Frequency.OCCASIONALLY
@@ -257,7 +258,8 @@ FROM person
         else -> Frequency.UNKNOWN
     }
 
-    private fun String?.smoke(): Frequency = when (this?.toInt()) {
+    private fun String?.smoke(): Frequency? = when (this?.toInt()) {
+        null -> null
         1 -> Frequency.NEVER
         2 -> Frequency.RARELY
         3 -> Frequency.OCCASIONALLY
@@ -265,42 +267,43 @@ FROM person
         else -> Frequency.UNKNOWN
     }
 
-    private fun String?.exercise(): Frequency = when (this?.toInt()) {
-        1 -> Frequency.NEVER
-        2 -> Frequency.RARELY
-        3 -> Frequency.OCCASIONALLY
-        4 -> Frequency.USUALLY
+    private fun String?.exercise(): Frequency? = when (this?.toInt()) {
+        null -> null
+        0 -> Frequency.NEVER
+        1 -> Frequency.RARELY
+        2 -> Frequency.OCCASIONALLY
+        3 -> Frequency.USUALLY
         else -> Frequency.UNKNOWN
     }
 
     private fun String?.bigaccidentever(): Boolean? = when (this?.toInt()) {
-        null -> null
-        0, 9 -> false
-        else -> true
+        0 -> false
+        1 -> true
+        else -> null
     }
 
     private fun String?.tonic(): Boolean? = when (this?.toInt()) {
-        null -> null
-        0, 9 -> false
-        else -> true
+        0 -> false
+        1 -> true
+        else -> null
     }
 
     private fun String?.drugbyyourseft(): Boolean? = when (this?.toInt()) {
-        null -> null
-        0, 9 -> false
-        else -> true
+        0 -> false
+        1 -> true
+        else -> null
     }
 
     private fun String?.sugar(): Boolean? = when (this?.toInt()) {
-        null -> null
-        0, 9 -> false
-        else -> true
+        0 -> false
+        1 -> true
+        else -> null
     }
 
     private fun String?.salt(): Boolean? = when (this?.toInt()) {
-        null -> null
-        0, 9 -> false
-        else -> true
+        0 -> false
+        1 -> true
+        else -> null
     }
 
     private fun String?.habitfoming(): Boolean? {
