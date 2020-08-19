@@ -23,6 +23,7 @@ import ffc.airsync.api.genogram.lib.GENOSEX
 import ffc.airsync.api.genogram.lib.PersonDetailInterface
 import ffc.airsync.utils.getLogger
 import ffc.entity.Person
+import ffc.entity.Person.Relate.Divorced
 import ffc.entity.Person.Relate.Father
 import ffc.entity.Person.Relate.Married
 import ffc.entity.Person.Relate.Mother
@@ -106,7 +107,9 @@ class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInter
         val person1 = idCardMapCache[mateIdCard]
         if (person1 == null) logger.warn { "ค้นหาไอดีบัตรแฟนไม่เจอ $mateIdCard" }
         person1?.let {
-            person.addRelationship(Married to it)
+            val marridStatus = it.link?.keys?.get("marystatusth")?.toString()
+            val relation = if (marridStatus?.trim() == "คู่") Married else Divorced
+            person.addRelationship(relation to it)
         }
     }
 
