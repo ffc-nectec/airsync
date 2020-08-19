@@ -35,8 +35,6 @@ import ffc.entity.healthcare.Disability.Group.MENTAL
 import ffc.entity.healthcare.Disability.Group.MOBILITY
 import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.Severity
-import ffc.entity.healthcare.Severity.HI
-import ffc.entity.healthcare.Severity.LOW
 import ffc.entity.healthcare.Severity.MID
 import ffc.entity.healthcare.Severity.OK
 import ffc.entity.healthcare.Severity.UNDEFINED
@@ -143,11 +141,9 @@ internal class DisabilityMapper : RowMapper<DisabilityData> {
 
     private fun String?.preSeverity(): Severity {
         return when (this?.trim()) {
-            "0", "1" -> OK
-            "2", "3" -> LOW
-            "4", "5" -> MID
-            "6", "7" -> HI
-            "8", "9" -> VERY_HI
+            "1" -> OK
+            "2" -> MID
+            "3" -> VERY_HI
             else -> UNDEFINED
         }
     }
