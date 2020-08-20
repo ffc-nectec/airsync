@@ -94,7 +94,7 @@ class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInter
     }
 
     override fun getMateInRelation(person: Person): List<Person> {
-        person.relationships.filter { it.relate == Married }.let { mateRelationList ->
+        person.relationships.filter { it.relate == Married || it.relate == Divorced }.let { mateRelationList ->
             val result = arrayListOf<Person>()
             mateRelationList.forEach { mate ->
                 val person1 = idMapCache[mate.id]
