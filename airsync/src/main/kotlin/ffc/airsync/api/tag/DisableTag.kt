@@ -23,7 +23,7 @@ import ffc.entity.Person
 
 internal class DisableTag {
     fun run(person: Person, addTag: (person: Person) -> Unit) {
-        val condition = person.disabilities.isNotEmpty()
+        val condition = person.disabilities.size > 0
         if (condition) {
             addTag(person)
         }

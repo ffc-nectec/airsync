@@ -38,10 +38,8 @@ class Level1TagProcess(
         fun updatePerson(person: Person)
     }
 
-    val houseCacheSearch = houses.map { house ->
-        val pcuCode = house.link!!.keys["pcucode"]!!.toString()
-        val hCode = house.link!!.keys["hcode"]!!.toString()
-        "$pcuCode:$hCode" to house
+    val houseCacheSearch = houses.map {
+        it.id to it
     }.toMap().toSortedMap()
 
     override fun process() {
@@ -55,7 +53,7 @@ class Level1TagProcess(
         val tagName = "chronic"
         ChronicTag().run(person) {
             if (it.addTag(tagName)) func().updatePerson(it)
-            val house = houseCacheSearch["${person.pcuCode()}:${person.hCode()}"]
+            val house = houseCacheSearch[person.houseId]
             if (house.addTag(tagName))
                 func().updateHouse(house!!)
         }
@@ -72,7 +70,7 @@ class Level1TagProcess(
         val tagName = "disable"
         DisableTag().run(person) {
             if (it.addTag(tagName)) func().updatePerson(it)
-            val house = houseCacheSearch["${person.pcuCode()}:${person.hCode()}"]
+            val house = houseCacheSearch[person.houseId]
             if (house.addTag(tagName))
                 func().updateHouse(house!!)
         }
