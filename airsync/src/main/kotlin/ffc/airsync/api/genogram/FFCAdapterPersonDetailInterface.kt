@@ -23,11 +23,13 @@ import ffc.airsync.api.genogram.lib.GENOSEX
 import ffc.airsync.api.genogram.lib.PersonDetailInterface
 import ffc.airsync.utils.getLogger
 import ffc.entity.Person
+import ffc.entity.Person.Relate
 import ffc.entity.Person.Relate.Divorced
 import ffc.entity.Person.Relate.Father
 import ffc.entity.Person.Relate.Married
 import ffc.entity.Person.Relate.Mother
 import ffc.entity.THAI_CITIZEN_ID
+import ffc.entity.gson.toJson
 
 class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInterface<Person> {
     private val util = Util()
@@ -103,13 +105,51 @@ class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInter
         }
     }
 
+    private var countRelationError = 0
+    var debugErrorRelation = hashSetOf<String>()
     override fun addMate(person: Person, mateIdCard: String) {
+        val baseStatus = person.link?.keys?.get("marystatusth")?.toString()?.trim()
         val person1 = idCardMapCache[mateIdCard]
         if (person1 == null) logger.warn { "ค้นหาไอดีบัตรแฟนไม่เจอ $mateIdCard" }
         person1?.let {
-            val marridStatus = it.link?.keys?.get("marystatusth")?.toString()
-            val relation = if (marridStatus?.trim() == "คู่") Married else Divorced
-            person.addRelationship(relation to it)
+            val mStatus = it.link?.keys?.get("marystatusth")?.toString()?.trim()
+            val relation = marriedCondition(baseStatus, mateIdCard)
+            try {
+                person.addRelationship(relation to it)
+            } catch (ex: java.lang.IllegalArgumentException) {
+                countRelationError++
+                val bPcucode = person.link?.keys?.get("pcucodeperson")?.toString()
+                val basePid = person.link?.keys?.get("pid")?.toString()
+                val baseName = person.name
+                val mPcuCode = person1.link?.keys?.get("pcucodeperson")?.toString()
+                val mbasePid = person1.link?.keys?.get("pid")?.toString()
+                val mbaseName = person1.name
+                debugErrorRelation.add("$baseStatus:$mStatus")
+                logger.error { "count:$countRelationError base:marr=$baseStatus:$mStatus" }
+                logger.error(ex) {
+                    "count:$countRelationError " +
+                            "คนหลัก $baseName pcucode:$bPcucode pid:$basePid " +
+                            " คู่ครอง $mbaseName pcucode:$mPcuCode pid:$mbasePid " +
+                            " Debug คนหลัก ${person.relationships.toJson()} " +
+                            " Debug คนสัมพัน ${person1.relationships.toJson()}"
+                }
+            }
+        }
+    }
+
+    private fun marriedCondition(first: String?, second: String?): Relate {
+        return if (first != second) {
+            val groupRelate = listOf(first, second)
+            when {
+                groupRelate.contains("หย่า") -> Divorced
+                groupRelate.contains("แยก") -> Divorced
+                else -> Married
+            }
+        } else {
+            when (first) {
+                "โสด", "คู่", "ไม่ทราบ" -> Married
+                else -> Divorced
+            }
         }
     }
 
