@@ -26,6 +26,7 @@ import ffc.entity.place.House
 /**
  * ประมวลผล tags ต้องทำหลังจาก sync ข้อมูลขึ้น cloud แล้ว
  * เพราะจำเป็นต้องใช้ id จริงในการ update ข้อมูล
+ * จะมี tag ที่เกี่ยวกับการวิเคราะห์โรค จะอยู่ที่ ffc/airsync/api/analyzer/Analyzer.kt
  */
 class Level1TagProcess(
     private val persons: List<Person>,
@@ -52,30 +53,43 @@ class Level1TagProcess(
     private fun chronic(person: Person) {
         val tagName = "chronic"
         ChronicTag().run(person) {
-            if (it.addTag(tagName)) func().updatePerson(it)
-            val house = houseCacheSearch[person.houseId]
-            if (house.addTag(tagName))
-                func().updateHouse(house!!)
+            val personUpdate = it.addTag(tagName)
+            if (personUpdate != null) func().updatePerson(personUpdate)
+
+            if (!it.isDead) {
+                val house = houseCacheSearch[person.houseId]
+                val houseUpdate = house.addTag(tagName)
+                if (houseUpdate != null) func().updateHouse(houseUpdate)
+            }
         }
     }
 
-    private fun Entity?.addTag(tagName: String): Boolean {
-        if (this == null) return false
-        if (tags.contains(tagName)) return false
+    private fun <T : Entity> T?.addTag(tagName: String): T? {
+        if (this == null) return null
+        if (tags.contains(tagName)) return null
         tags.add(tagName)
-        return true
+        return this
+    }
+
+    private fun <T : Entity> T?.removeTag(tagName: String): T? {
+        if (this == null) return null
+        return if (tags.contains(tagName)) {
+            tags.remove(tagName)
+            this
+        } else null
     }
 
     private fun disableTag(person: Person) {
         val tagName = "disable"
         DisableTag().run(person) {
-            if (it.addTag(tagName)) func().updatePerson(it)
-            val house = houseCacheSearch[person.houseId]
-            if (house.addTag(tagName))
-                func().updateHouse(house!!)
+            val personUpdate = it.addTag(tagName)
+            if (personUpdate != null) func().updatePerson(personUpdate)
+
+            if (!it.isDead) {
+                val house = houseCacheSearch[person.houseId]
+                val houseUpdate = house.addTag(tagName)
+                if (houseUpdate != null) func().updateHouse(houseUpdate)
+            }
         }
     }
-
-    private fun Person.pcuCode() = link!!.keys["pcucodeperson"]!!.toString()
-    private fun Person.hCode() = link!!.keys["hcode"]!!.toString()
 }

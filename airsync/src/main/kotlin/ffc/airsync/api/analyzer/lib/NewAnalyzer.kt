@@ -38,7 +38,9 @@ interface NewAnalyzer {
 
     interface AddTag {
         fun addTag(patientId: String, tag: Tag)
+        fun removeTag(patientId: String, tag: Tag)
         fun getAge(patientId: String): Int
+        fun isLife(patientId: String): Boolean
     }
 
     enum class Tag { StickHouse, StickBed, OK }
