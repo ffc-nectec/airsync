@@ -94,7 +94,8 @@ class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInter
     }
 
     override fun getMateInRelation(person: Person): List<Person> {
-        person.relationships.filter { it.relate == Married || it.relate == Divorced }.let { mateRelationList ->
+        // ปล่อยไว้ เพราะ เรามีตรวจสอบการหย่าด้วย ถ้าแก้ให้ waring หาย หย่าจะไม่มา
+        person.relationships.filter { it.relate == Married }.let { mateRelationList ->
             val result = arrayListOf<Person>()
             mateRelationList.forEach { mate ->
                 val person1 = idMapCache[mate.id]
@@ -114,6 +115,7 @@ class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInter
         person1?.let {
             val mStatus = it.link?.keys?.get("marystatusth")?.toString()?.trim()
             val relation = marriedCondition(baseStatus, mateIdCard)
+            if (relation == Divorced) logger.info { "Divorced ${person.name} with ${person1.name}" }
             try {
                 person.addRelationship(relation to it)
             } catch (ex: java.lang.IllegalArgumentException) {
@@ -143,6 +145,7 @@ class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInter
             when {
                 groupRelate.contains("หย่า") -> Divorced
                 groupRelate.contains("แยก") -> Divorced
+                groupRelate.contains("หม้าย") -> Divorced
                 else -> Married
             }
         } else {
