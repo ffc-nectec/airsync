@@ -69,15 +69,21 @@ class NewProcessAnalyzer : NewAnalyzer {
             val analyzer = analyzer(item.value)
 
             // หาผู้สูงอายุติดบ้าน ติดเตียง
-            if (addTag().getAge(item.key) >= 60)
+            val patientId = item.key
+            if (addTag().getAge(patientId) >= 60 && addTag().isLife(patientId)) {
                 analyzer.result[ACTIVITIES]?.let {
                     when ((it as HealthProblem).severity) {
-                        MID -> addTag().addTag(item.key, StickHouse)
-                        LOW -> addTag().addTag(item.key, StickBed)
-                        else -> addTag().addTag(item.key, OK)
+                        MID -> addTag().addTag(patientId, StickHouse)
+                        LOW -> addTag().addTag(patientId, StickBed)
+                        else -> addTag().addTag(patientId, OK)
                     }
                 }
-            item.key to analyzer
+            } else {
+                addTag().removeTag(patientId, StickHouse)
+                addTag().removeTag(patientId, StickBed)
+                addTag().removeTag(patientId, OK)
+            }
+            patientId to analyzer
         }.toMap()
     }
 }

@@ -66,7 +66,20 @@ fun HashMap<String, HealthAnalyzer>.initSync(
                             }
                         }
 
+                        override fun removeTag(patientId: String, tag: Tag) {
+                            val findHouseId = cachePersonLookup[patientId]?.houseId ?: return
+                            val house = cacheHouseLookup[findHouseId] ?: return
+
+                            when (tag) {
+                                StickBed -> listHouseUpdate.add(house.removeTag("elder-activities-mid"))
+                                StickHouse -> listHouseUpdate.add(house.removeTag("elder-activities-very_hi"))
+                                OK -> listHouseUpdate.add(house.removeTag("elder-activities-ok"))
+                            }
+                        }
+
                         override fun getAge(patientId: String): Int = cachePersonLookup[patientId]?.age ?: 0
+                        override fun isLife(patientId: String): Boolean =
+                            !(cachePersonLookup[patientId]?.isDead ?: true)
                     }
                 },
                 progressCallback
@@ -86,4 +99,11 @@ private fun House.addTag(tagName: String): House? {
     if (tags.contains(tagName)) return null
     tags.add(tagName)
     return houseApi.syncHouseToCloud(this)
+}
+
+private fun House.removeTag(tagName: String): House? {
+    return if (tags.contains(tagName)) {
+        tags.remove(tagName)
+        this
+    } else null
 }
