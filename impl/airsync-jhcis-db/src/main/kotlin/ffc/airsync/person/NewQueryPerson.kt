@@ -46,6 +46,8 @@ class NewQueryPerson(private val jdbiDao: Dao = MySqlJdbi(null)) : PersonDao {
     WHERE
 	person.pcucodeperson = :pcucode AND
 	person.pid = :pid
+    AND ((person.typelive <= 3 OR person.typelive = 5)
+	AND person.hcode != 1)
             """
             )
                 .bind("pcucode", pcuCode)
@@ -58,7 +60,13 @@ class NewQueryPerson(private val jdbiDao: Dao = MySqlJdbi(null)) : PersonDao {
 
     override fun get(lookup: () -> Lookup): List<Person> {
         return jdbiDao.instant.withHandle<List<Person>, Exception> { handle ->
-            handle.createQuery(query).map { rs, _ ->
+            handle.createQuery(
+                query + """
+WHERE
+	(person.typelive <= 3 OR person.typelive = 5)
+	AND person.hcode != 1
+            """
+            ).map { rs, _ ->
                 getPersonResult(rs, lookup)
             }.list().mapNotNull { it }
         }
