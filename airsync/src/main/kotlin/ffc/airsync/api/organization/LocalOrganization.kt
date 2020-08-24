@@ -19,6 +19,8 @@
 
 package ffc.airsync.api.organization
 
+import ffc.airsync.api.organization.prop.FfcOrganizationProperty
+import ffc.airsync.api.organization.prop.OrganizationProperty
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.getLogger
 import ffc.entity.Link
@@ -26,86 +28,51 @@ import ffc.entity.Organization
 import ffc.entity.System
 import ffc.entity.User
 import ffc.entity.update
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.util.Properties
+import java.io.File
 import java.util.UUID
 
 class LocalOrganization(
     val dao: DatabaseDao,
-    var logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf"
+    logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf"
 ) {
     private val logger by lazy { getLogger(this) }
-
-    private lateinit var properties: Properties
+    private val prop: OrganizationProperty = FfcOrganizationProperty(File(logConfig))
     val organization: Organization
 
     init {
-        loadProperty()
         organization = getOrganizationDetail(orgId)
     }
 
     var token: String
-        get() = getProperty("token")
-        set(value) = setProperty("token", value)
+        get() = prop.token ?: ""
+        set(value) {
+            prop.token = value
+        }
 
     var orgId: String
-        get() = getProperty("orgId")
-        set(value) = setProperty("orgId", value)
+        get() = prop.organizationId ?: ""
+        set(value) {
+            prop.organizationId = value
+        }
 
     var userOrg: User
-        get() = User(getProperty("userIdOrg")).apply {
-            name = getProperty("userOrg")
-        }
+        get() = prop.adminUser!!
         set(value) {
-            setProperty("userIdOrg", value.id)
-            setProperty("userOrg", value.name)
+            prop.adminUser = value
         }
-
-    var everPutData: Boolean
-        get() = getProperty("EverPutData").toBoolean()
-        set(value) {
-            setProperty("EverPutData", value.toString())
-        }
-
-    fun getProperty(key: String): String {
-        loadProperty()
-        return properties.getProperty(key, "")
-    }
-
-    fun setProperty(key: String, value: String) {
-        properties.setProperty(key, value)
-        saveProperty()
-    }
-
-    private fun saveProperty() {
-        properties.store(FileOutputStream(logConfig), null)
-    }
-
-    private fun loadProperty() {
-        logger.trace("Load config property from file.")
-        val conf = Properties()
-        try {
-            conf.load(FileInputStream(logConfig))
-        } catch (ignore: java.io.FileNotFoundException) {
-            logger.debug("ไม่พบ config file ของ airsync อาจเป็นเพราะเข้าใช้งานครั้งแรก ระบบจะสร้างให้อัตโนมัติ")
-        }
-        properties = conf
-    }
 
     private fun getOrganizationDetail(orgId: String): Organization {
-        logger.info("Get Organization detail")
         val org: Organization = if (orgId.isNotEmpty()) {
+            logger.info("Get organization id from config.")
             Organization(orgId)
         } else {
+            logger.info("Create new organization")
             Organization()
         }
         with(org) {
             logger.trace("Get organization detail from database.")
             val detail = dao.getDetail()
             val hosId = detail["pcucode"] ?: ""
-
-            // pcucode.append(hosId)
 
             name = detail["name"] ?: ""
             name = name.replace(Regex("""[\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=\<\>\{\}\|\`\^\\\"\% \.]"""), "")
