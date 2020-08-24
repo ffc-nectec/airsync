@@ -34,22 +34,23 @@ import ffc.entity.place.ReligiousPlace
 import ffc.entity.place.School
 import org.amshove.kluent.`should be equal to`
 import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import java.io.File
 
 class LocalOrganizationTest {
 
-    val propertyStore = LocalOrganization(TestDao(), "propertyStoreTest.cnf")
+    val logConfig = "src/test/resources/propertyStoreTest.cnf"
+    val propertyStore = LocalOrganization(TestDao(), logConfig)
 
     @After
     fun tearDown() {
-        File("propertyStoreTest.cnf").deleteOnExit()
+        File(logConfig).delete()
     }
 
-    @Test
-    fun setAndGetProperty() {
-        propertyStore.setProperty("wow", "nectec")
-        propertyStore.getProperty("wow") `should be equal to` "nectec"
+    @Before
+    fun setUp() {
+        File(logConfig).delete()
     }
 
     @Test
