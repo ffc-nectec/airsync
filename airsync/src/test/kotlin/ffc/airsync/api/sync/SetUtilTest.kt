@@ -35,7 +35,7 @@ class SetUtilTest {
             }
         }
 
-        result `should equal` listOf("2", "3", "5")
+        result `should equal` listOf("2" to "2", "3" to "3", "5" to "5")
     }
 
     @Test
