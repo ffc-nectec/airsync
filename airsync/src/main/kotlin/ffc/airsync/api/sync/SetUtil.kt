@@ -32,8 +32,9 @@ internal class SetUtil<T> {
     /**
      * @return list identity
      */
-    fun intersection(a: List<T>, b: List<T>, func: (main: T) -> Func<T>): List<String> {
-        return {
+    fun intersection(a: List<T>, b: List<T>, func: (main: T) -> Func<T>): List<Pair<T, T>> {
+
+        val preData = run {
             val aSet = a.map {
                 func(it).identity
             }.toSet().toSortedSet()
@@ -43,12 +44,34 @@ internal class SetUtil<T> {
             }.toSet().toSortedSet()
 
             aSet intersect bSet
-        }.invoke()
-            .toList()
+        }.mapNotNull { it }.toSortedSet()
+
+        val aDataSet = createCacheObject(a, func)
+        val bDataSet = createCacheObject(b, func)
+
+        return preData.map {
+            aDataSet[it]!! to bDataSet[it]!!
+        }
     }
 
-    fun difference(a: List<T>, b: List<T>, func: (main: T) -> Func<T>): List<String> {
+    /**
+     * สร้างแคชสำหรับการค้นหา
+     */
+    private fun createCacheObject(
+        a: List<T>,
+        func: (main: T) -> Func<T>
+    ): HashMap<String, T> {
         return {
+            val temp = hashMapOf<String, T>()
+            a.forEach {
+                temp[func(it).identity] = it
+            }
+            temp
+        }.invoke()
+    }
+
+    fun difference(a: List<T>, b: List<T>, func: (main: T) -> Func<T>): List<T> {
+        val preData = {
             val aSet = a.map {
                 func(it).identity
             }.toSet().toSortedSet()
@@ -58,6 +81,9 @@ internal class SetUtil<T> {
             }.toSet().toSortedSet()
             aSet subtract bSet
         }.invoke()
-            .toList()
+
+        val aDataSet = createCacheObject(a, func)
+
+        return preData.map { aDataSet[it]!! }
     }
 }
