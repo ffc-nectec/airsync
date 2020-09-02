@@ -106,9 +106,24 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
         return data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
     }
 
-    override fun set(house: House): House {
+    override fun update(house: House): House {
         gui.createMessageDelay("กำลังส่งข้อมูลบ้านเลขที่\r\n${house.no} ไปยัง Cloud", INFO, 9000)
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = house.id, house = house).execute()
         return getHouse(house.id)
+    }
+
+    override fun update(houses: List<House>): List<House> {
+        val output = arrayListOf<House>()
+        UploadSpliter.upload(100, houses) { it, index ->
+            val response = callApi {
+                restService.putHouses(organization.id, tokenBarer, it).execute()
+            }
+            if (response.code() == 200 || response.code() == 201) {
+                output.addAll(response.body()!!)
+            } else {
+                throw ApiLoopException("Cannot update person ${response.code()}")
+            }
+        }
+        return output
     }
 }

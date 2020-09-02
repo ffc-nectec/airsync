@@ -53,6 +53,13 @@ interface HouseService {
         @Body house: House
     ): Call<Void>
 
+    @PUT("/$APIVERSION/org/{orgId}/houses")
+    fun putHouses(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body houseList: List<House>
+    ): Call<List<House>>
+
     @DELETE("/$APIVERSION/org/{orgId}/houses")
     fun clernHouse(
         @Path("orgId") orgId: String,

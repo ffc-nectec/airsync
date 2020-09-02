@@ -100,7 +100,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                             link!!.isSynced = true
                         }
 
-                        houseApi.set(houseSync)
+                        houseApi.update(houseSync)
                     } catch (ignore: NullPointerException) {
                     }
                 }

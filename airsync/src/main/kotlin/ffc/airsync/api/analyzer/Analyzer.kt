@@ -98,7 +98,7 @@ fun HashMap<String, HealthAnalyzer>.initSync(
 private fun House.addTag(tagName: String): House? {
     if (tags.contains(tagName)) return null
     tags.add(tagName)
-    return houseApi.set(this)
+    return houseApi.update(this)
 }
 
 private fun House.removeTag(tagName: String): House? {
