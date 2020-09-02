@@ -26,7 +26,6 @@ import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.OK
 import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.StickBed
 import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.StickHouse
 import ffc.airsync.api.analyzer.lib.NewProcessAnalyzer
-import ffc.airsync.houseApi
 import ffc.airsync.houseManage
 import ffc.airsync.persons
 import ffc.airsync.utils.load
@@ -101,7 +100,7 @@ fun HashMap<String, HealthAnalyzer>.initSync(
 private fun House.addTag(tagName: String): House? {
     if (tags.contains(tagName)) return null
     tags.add(tagName)
-    return houseApi.update(this)
+    return this
 }
 
 private fun House.removeTag(tagName: String): House? {
