@@ -24,7 +24,7 @@ import ffc.airsync.api.sync.ProSync.UpdateFunc
 /**
  * Process การ sync
  */
-internal class V1ProSync<T> : ProSync<T> {
+class V1ProSync<T> : ProSync<T> {
     private val util = SetUtil<T>()
 
     override fun update(a: List<T>, b: List<T>, func: (item: T) -> UpdateFunc<T>) {

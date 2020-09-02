@@ -71,7 +71,7 @@ fun ArrayList<House>.updateLocalData(list: List<House>) {
         val house = find { it.id == updateItem.id }
         if (house != null) {
             removeIf { it.id == house.id }
-            add(house)
+            add(updateItem)
         } else
             getLogger(this).info { "House update map null." }
     }

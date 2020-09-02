@@ -17,30 +17,18 @@
  *
  */
 
-package ffc.airsync.api.sync
+package ffc.airsync.utils
 
-interface ProSync<T> {
-    interface UpdateFunc<T> {
-        val identity: String
+import ffc.entity.Entity
 
-        /**
-         * https://en.wikipedia.org/wiki/Unix_time
-         */
-        val unixTime: Long
-
-        /**
-         * อัพเดทไปยัง item
-         */
-        fun updateTo(item: T)
+infix fun <T : Entity> List<T>.`อัพเดทไปยัง`(list: ArrayList<T>) {
+    this.forEach { updateItem ->
+        val thisFind = list.find { it.id == updateItem.id }
+        if (thisFind != null) {
+            list.removeIf { it.id == thisFind.id }
+            list.add(updateItem)
+        } else {
+            list.add(updateItem)
+        }
     }
-
-    fun update(a: List<T>, b: List<T>, func: (item: T) -> UpdateFunc<T>)
-
-    interface CreateFunc<T> {
-        val identity: String
-        val bIsDelete: Boolean
-        fun createInB()
-    }
-
-    fun createNewDataInB(a: List<T>, b: List<T>, func: (item: T) -> CreateFunc<T>)
 }

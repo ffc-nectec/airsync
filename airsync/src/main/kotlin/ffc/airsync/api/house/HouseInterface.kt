@@ -17,30 +17,12 @@
  *
  */
 
-package ffc.airsync.api.sync
+package ffc.airsync.api.house
 
-interface ProSync<T> {
-    interface UpdateFunc<T> {
-        val identity: String
+import ffc.airsync.api.Sync
+import ffc.entity.place.House
 
-        /**
-         * https://en.wikipedia.org/wiki/Unix_time
-         */
-        val unixTime: Long
-
-        /**
-         * อัพเดทไปยัง item
-         */
-        fun updateTo(item: T)
-    }
-
-    fun update(a: List<T>, b: List<T>, func: (item: T) -> UpdateFunc<T>)
-
-    interface CreateFunc<T> {
-        val identity: String
-        val bIsDelete: Boolean
-        fun createInB()
-    }
-
-    fun createNewDataInB(a: List<T>, b: List<T>, func: (item: T) -> CreateFunc<T>)
+interface HouseInterface : Sync {
+    val local: List<House>
+    val cloud: List<House>
 }
