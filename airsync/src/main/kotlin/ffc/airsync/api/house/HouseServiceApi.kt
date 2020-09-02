@@ -34,7 +34,11 @@ import ffc.entity.place.House
 
 class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), HouseApi {
     private val logger by lazy { getLogger(this) }
-    override fun putHouse(houseList: List<House>, progressCallback: (Int) -> Unit, clearCloud: Boolean): List<House> {
+    override fun createHouse(
+        houseList: List<House>,
+        progressCallback: (Int) -> Unit,
+        clearCloud: Boolean
+    ): List<House> {
         if (clearCloud)
             callApiNoReturn { restService.clernHouse(orgId = organization.id, authkey = tokenBarer).execute() }
 
@@ -75,9 +79,9 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
         return houseLastUpdate
     }
 
-    override fun syncHouseFromCloud(_id: String, databaseDao: DatabaseDao) {
-        logger.info("Sync From Cloud get house house _id = $_id")
-        val house = getHouse(_id)
+    override fun get(houseId: String, databaseDao: DatabaseDao) {
+        logger.info("Sync From Cloud get house house _id = $houseId")
+        val house = getHouse(houseId)
         logger.debug("\t From house cloud _id = ${house.id} house No. ${house.no}")
         if (house.link?.isSynced == true) return
 
@@ -87,7 +91,7 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
         house.link?.isSynced = true
 
         logger.info("\tPut new house to cloud")
-        restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = _id, house = house).execute()
+        restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = houseId, house = house).execute()
 
         houses.lock {
             houses.removeIf { house.id == it.id }
@@ -96,13 +100,13 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
         }
     }
 
-    fun getHouse(_id: String): House {
+    private fun getHouse(_id: String): House {
         val data = restService.getHouse(orgId = organization.id, authkey = tokenBarer, _id = _id).execute()
         logger.debug("\tRespond code ${data.code()}")
         return data.body() ?: throw IllegalArgumentException("ไม่มี เลขบ้าน getHouse")
     }
 
-    override fun syncHouseToCloud(house: House): House {
+    override fun set(house: House): House {
         gui.createMessageDelay("กำลังส่งข้อมูลบ้านเลขที่\r\n${house.no} ไปยัง Cloud", INFO, 9000)
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = house.id, house = house).execute()
         return getHouse(house.id)
