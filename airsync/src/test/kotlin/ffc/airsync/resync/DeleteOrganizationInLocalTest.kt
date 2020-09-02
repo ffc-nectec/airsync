@@ -17,13 +17,25 @@
  *
  */
 
-package ffc.airsync.api.house
+package ffc.airsync.resync
 
-import ffc.airsync.db.DatabaseDao
-import ffc.entity.place.House
+import ffc.entity.gson.toJson
+import org.junit.Before
+import org.junit.Test
+import java.io.File
 
-interface HouseApi {
-    fun createHouse(houseList: List<House>, progressCallback: (Int) -> Unit, clearCloud: Boolean = true): List<House>
-    fun get(houseId: String, databaseDao: DatabaseDao)
-    fun set(house: House): House
+class DeleteOrganizationInLocalTest {
+
+    @Before
+    fun setUp() {
+        File("src/test/resources/testDelete").mkdir()
+        File("src/test/resources/testDelete/1.txt").createNewFile()
+        File("src/test/resources/testDelete/2.txt").createNewFile()
+    }
+
+    @Test
+    fun delete() {
+        val rootDirectory = File("src/test/resources/testDelete")
+        println(rootDirectory.list().toJson())
+    }
 }

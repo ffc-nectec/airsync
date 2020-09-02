@@ -85,7 +85,7 @@ private fun ArrayList<House>.createHouseOnCloud(
     clearCloud: Boolean = true
 ) {
     checkChronicInHouse(person, jhcisHouse, progressCallback)
-    addAll(houseApi.putHouse(jhcisHouse, progressCallback, clearCloud))
+    addAll(houseApi.createHouse(jhcisHouse, progressCallback, clearCloud))
 }
 
 private fun checkChronicInHouse(persons: List<Person>, house: List<House>, progressCallback: (Int) -> Unit) {

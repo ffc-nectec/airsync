@@ -53,7 +53,7 @@ class SetupNotification(val dao: DatabaseDao) {
 
 fun syncFlow(type: String, id: String, dao: DatabaseDao) {
     when (type) {
-        House::class.java.simpleName -> houseApi.syncHouseFromCloud(id, dao)
+        House::class.java.simpleName -> houseApi.get(id, dao)
         HealthCareService::class.java.simpleName -> healthCareApi.syncHealthCareFromCloud(id, dao)
         HomeVisit::class.java.simpleName -> healthCareApi.syncHealthCareFromCloud(id, dao)
         Person::class.java.simpleName -> {

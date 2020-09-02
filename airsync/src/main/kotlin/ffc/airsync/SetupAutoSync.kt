@@ -75,7 +75,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
                 object : Level1TagProcess.UpdateData {
                     override fun updateHouse(house: House) {
                         try {
-                            updateHouse.add(houseApi.syncHouseToCloud(house))
+                            updateHouse.add(houseApi.set(house))
                         } catch (ex: Exception) {
                             logger.warn(ex) { "Tag update house error" }
                         }
@@ -95,7 +95,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
             val volaProcess: VolaProcess = VolaProcessV1()
             val volaUser = volaProcess.processUser(userManage.cloudUser, persons)
             val volaHouse = volaProcess.processHouse(houses, volaUser)
-            val houseUpdate = volaHouse.map { houseApi.syncHouseToCloud(it) }
+            val houseUpdate = volaHouse.map { houseApi.set(it) }
             houses.updateLocalData(houseUpdate)
         }
     }
