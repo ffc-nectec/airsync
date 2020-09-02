@@ -25,5 +25,6 @@ import ffc.entity.place.House
 interface HouseApi {
     fun createHouse(houseList: List<House>, progressCallback: (Int) -> Unit, clearCloud: Boolean = true): List<House>
     fun get(houseId: String, databaseDao: DatabaseDao)
-    fun set(house: House): House
+    fun update(house: House): House
+    fun update(houses: List<House>): List<House>
 }
