@@ -28,6 +28,8 @@ import ffc.airsync.api.healthcare.HealthCareServiceApi
 import ffc.airsync.api.homehealthtype.HomeHealthTypeApi
 import ffc.airsync.api.homehealthtype.HomeHealthTypeServiceApi
 import ffc.airsync.api.house.HouseApi
+import ffc.airsync.api.house.HouseInterface
+import ffc.airsync.api.house.HouseManage
 import ffc.airsync.api.house.HouseServiceApi
 import ffc.airsync.api.icd10.Icd10Api
 import ffc.airsync.api.icd10.Icd10ServiceApi
@@ -45,6 +47,7 @@ import ffc.airsync.api.template.TemplateApi
 import ffc.airsync.api.template.TemplateServiceApi
 import ffc.airsync.api.user.UserInterface
 import ffc.airsync.api.user.UserManage
+import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.api.village.VillageApi
 import ffc.airsync.api.village.VillageServiceApi
 import ffc.entity.Person
@@ -54,6 +57,30 @@ import ffc.entity.healthcare.analyze.HealthAnalyzer
 import ffc.entity.place.House
 
 val userManage: UserInterface by lazy { UserManage() }
+val houseManage: HouseInterface by lazy {
+    HouseManage {
+        object : HouseManage.Func {
+            override fun villageLookup(villageCode: String): Village? {
+                return VILLAGELOOKUP(villageCode)
+            }
+
+            override fun chronicInHouse(pcuCode: String, hcode: String): Boolean {
+                val personChronic = persons.find {
+                    val personHCode = it.link!!.keys["hcode"] as String
+                    // ไม่หาบ้านเลขที่ 1 นอกเขต
+                    if (personHCode == "1") return@find false
+                    val checkHCode = personHCode.trim() == hcode
+                    val checkPcuCode = (it.link!!.keys["pcucode"] as String).trim() == pcuCode
+                    if (checkHCode && checkPcuCode) {
+                        it.haveChronic
+                    } else
+                        false
+                }
+                return personChronic != null
+            }
+        }
+    }
+}
 val otpApi: OtpApi by lazy { OtpServiceApi() }
 val analyzerSyncApi: AnalyzerSyncApi by lazy { AnalyzerSyncServiceApi() }
 val geonogramApi: GeonogramApi by lazy { GeonogramServiceApi() }
