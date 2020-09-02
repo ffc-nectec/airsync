@@ -25,4 +25,10 @@ import ffc.entity.place.House
 interface HouseInterface : Sync {
     val local: List<House>
     val cloud: List<House>
+    fun directUpdateCloudData(list: List<House>)
+
+    /**
+     * เวลา auto sync เรียกอัพเดทเฉพาะ Object
+     */
+    fun sync(id: String)
 }

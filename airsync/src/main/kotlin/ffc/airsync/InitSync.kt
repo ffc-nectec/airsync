@@ -22,7 +22,6 @@ package ffc.airsync
 import ffc.airsync.api.analyzer.initSync
 import ffc.airsync.api.genogram.initRelation
 import ffc.airsync.api.healthcare.initSync
-import ffc.airsync.api.house.initSync
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.template.TemplateInit
@@ -95,12 +94,10 @@ class InitSync : ProgressList {
         message = "สำรวจบ้าน "
         val syncPerson = SyncPerson()
         val jhcisDbPerson = syncPerson.prePersonProcess()
-        houses.initSync(jhcisDbPerson) {
-            progressHouse = it
-        }
+        houseManage.sync()
         logger.info { "ดูข้อมูลคน (4/7)" }
         message = "สำรวจคน"
-        persons.initSync(houses, jhcisDbPerson) {
+        persons.initSync(houseManage.cloud, jhcisDbPerson) {
             progressPerson = it
         }
         logger.info { "วิเคราะห์ความสัมพันธ์ (5/7)" }

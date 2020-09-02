@@ -20,10 +20,9 @@
 package ffc.airsync.api.person
 
 import ffc.airsync.Main
-import ffc.airsync.api.house.initSync
 import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
-import ffc.airsync.houses
+import ffc.airsync.houseManage
 import ffc.airsync.lookupDisease
 import ffc.airsync.personApi
 import ffc.airsync.persons
@@ -134,8 +133,8 @@ fun findPersonId(pid: String): String {
         val syncPerson = SyncPerson()
         val jhcisDbPerson = syncPerson.prePersonProcess()
         villages.initSync()
-        houses.initSync(jhcisDbPerson) {}
-        persons.initSync(houses, jhcisDbPerson) {}
+        houseManage.sync()
+        persons.initSync(houseManage.cloud, jhcisDbPerson) {}
         persons.find { it.link!!.keys["pid"] == pid }!!.id
     } else
         id

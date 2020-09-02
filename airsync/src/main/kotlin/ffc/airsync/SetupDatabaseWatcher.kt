@@ -20,7 +20,6 @@
 package ffc.airsync
 
 import ffc.airsync.api.healthcare.lock
-import ffc.airsync.api.house.initSync
 import ffc.airsync.api.person.SyncPerson
 import ffc.airsync.api.person.initSync
 import ffc.airsync.api.village.VILLAGELOOKUP
@@ -215,7 +214,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
     }
 
     private fun findHouseWithKey(house: House): House {
-        val houseFind = houses.find {
+        val houseFind = houseManage.cloud.find {
             house.link!!.keys["pcucode"] == it.link!!.keys["pcucode"] &&
                     house.link!!.keys["hcode"] == it.link!!.keys["hcode"]
         }
@@ -224,9 +223,9 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
             val syncPerson = SyncPerson()
             val jhcisDbPerson = syncPerson.prePersonProcess()
             villages.initSync()
-            houses.initSync(jhcisDbPerson) {}
-            persons.initSync(houses, jhcisDbPerson) {}
-            return houses.find {
+            houseManage.sync()
+            persons.initSync(houseManage.cloud, jhcisDbPerson) {}
+            return houseManage.cloud.find {
                 house.link!!.keys["pcucode"] == it.link!!.keys["pcucode"] &&
                         house.link!!.keys["hcode"] == it.link!!.keys["hcode"]
             } ?: throw NullPointerException("ค้นหาไม่พบบ้าน")
