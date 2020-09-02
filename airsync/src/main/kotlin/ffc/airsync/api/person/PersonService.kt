@@ -44,7 +44,7 @@ interface PersonService {
     ): Call<List<Person>>
 
     @POST("/$APIVERSION/org/{orgId}/persons/sync/{block}")
-    fun insertPersonBlock(
+    fun createPersonBySyncProtocol(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int,
@@ -52,14 +52,21 @@ interface PersonService {
     ): Call<List<Person>>
 
     @PUT("/$APIVERSION/org/{orgId}/persons/sync/{block}")
-    fun confirmPersonBlock(
+    fun confirmPersonSyncProtocolBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
     ): Call<Void>
 
+    @PUT("/$APIVERSION/org/{orgId}/persons")
+    fun updatePersons(
+        @Path("orgId") orgId: String,
+        @Header("Authorization") authkey: String,
+        @Body persons: List<Person>
+    ): Call<List<Person>>
+
     @DELETE("/$APIVERSION/org/{orgId}/persons/sync/{block}")
-    fun unConfirmPersonBlock(
+    fun unConfirmPersonSyncProtocolBlock(
         @Path("orgId") orgId: String,
         @Header("Authorization") authkey: String,
         @Path("block") block: Int
