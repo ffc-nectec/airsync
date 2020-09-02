@@ -27,10 +27,8 @@ import ffc.airsync.api.healthcare.HealthCareApi
 import ffc.airsync.api.healthcare.HealthCareServiceApi
 import ffc.airsync.api.homehealthtype.HomeHealthTypeApi
 import ffc.airsync.api.homehealthtype.HomeHealthTypeServiceApi
-import ffc.airsync.api.house.HouseApi
 import ffc.airsync.api.house.HouseInterface
 import ffc.airsync.api.house.HouseManage
-import ffc.airsync.api.house.HouseServiceApi
 import ffc.airsync.api.icd10.Icd10Api
 import ffc.airsync.api.icd10.Icd10ServiceApi
 import ffc.airsync.api.icd10.SpecialPpApi
@@ -85,7 +83,6 @@ val analyzerSyncApi: AnalyzerSyncApi by lazy { AnalyzerSyncServiceApi() }
 val geonogramApi: GeonogramApi by lazy { GeonogramServiceApi() }
 val healthCareApi: HealthCareApi by lazy { HealthCareServiceApi() }
 val homeHealthTypeApi: HomeHealthTypeApi by lazy { HomeHealthTypeServiceApi() }
-val houseApi: HouseApi by lazy { HouseServiceApi() }
 val icd10Api: Icd10Api by lazy { Icd10ServiceApi() }
 val notificationApi: NotificationApi by lazy { NotificationServiceApi() }
 val orgApi: OrganizationApi by lazy { OrganizationServiceApi() }

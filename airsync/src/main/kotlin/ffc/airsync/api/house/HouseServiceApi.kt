@@ -29,7 +29,7 @@ import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
 import ffc.entity.place.House
 
-class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), HouseApi {
+internal class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), HouseApi {
     private val logger by lazy { getLogger(this) }
     override fun createHouse(
         houseList: List<House>,

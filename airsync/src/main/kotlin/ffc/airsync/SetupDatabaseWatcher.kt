@@ -99,7 +99,7 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
                             link!!.isSynced = true
                         }
 
-                        houseApi.update(houseSync)
+                        houseManage.directUpdateCloudData(listOf(houseSync))
                     } catch (ignore: NullPointerException) {
                     }
                 }

@@ -34,9 +34,10 @@ import java.io.File
 
 class HouseManage(
     val dao: DatabaseDao = Main.instant.dao,
-    val houseApi: HouseApi = HouseServiceApi(),
     private val func: () -> Func
 ) : HouseInterface {
+
+    private val houseApi: HouseApi = HouseServiceApi()
     private var cloudCache = arrayListOf<House>()
     private val file = File("data", "house.json")
 
