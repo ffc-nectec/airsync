@@ -54,7 +54,6 @@ import ffc.entity.Person
 import ffc.entity.Village
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.analyze.HealthAnalyzer
-import ffc.entity.place.House
 
 val userManage: UserInterface by lazy { UserManage() }
 val houseManage: HouseInterface by lazy {
@@ -98,6 +97,5 @@ val villageApi: VillageApi by lazy { VillageServiceApi() }
 val relation = arrayListOf<Person>()
 val analyzer = hashMapOf<String, HealthAnalyzer>()
 val healthCare = arrayListOf<HealthCareService>()
-val houses = arrayListOf<House>()
 val persons = arrayListOf<Person>()
 val villages = arrayListOf<Village>()

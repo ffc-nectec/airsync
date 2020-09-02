@@ -19,9 +19,7 @@
 
 package ffc.airsync.api.house
 
-import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui
-import ffc.airsync.houses
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
 import ffc.airsync.utils.ApiLoopException
@@ -29,7 +27,6 @@ import ffc.airsync.utils.UploadSpliter
 import ffc.airsync.utils.callApi
 import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
-import ffc.airsync.utils.save
 import ffc.entity.place.House
 
 class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), HouseApi {
@@ -79,25 +76,20 @@ class HouseServiceApi : RetofitApi<HouseService>(HouseService::class.java), Hous
         return houseLastUpdate
     }
 
-    override fun get(houseId: String, databaseDao: DatabaseDao) {
+    override fun get(houseId: String): House? {
         logger.info("Sync From Cloud get house house _id = $houseId")
         val house = getHouse(houseId)
         logger.debug("\t From house cloud _id = ${house.id} house No. ${house.no}")
-        if (house.link?.isSynced == true) return
+        if (house.link?.isSynced == true) return null
 
         gui.createMessageDelay("กำลังดึงข้อมูลบ้านเลขที่\r\n${house.no} จาก Cloud", INFO, 60000)
-        databaseDao.upateHouse(house)
         logger.debug("\tUpdate house to database and sync = true")
         house.link?.isSynced = true
 
         logger.info("\tPut new house to cloud")
         restService.putHouse(orgId = organization.id, authkey = tokenBarer, _id = houseId, house = house).execute()
 
-        houses.lock {
-            houses.removeIf { house.id == it.id }
-            houses.add(house)
-            houses.save()
-        }
+        return house
     }
 
     private fun getHouse(_id: String): House {

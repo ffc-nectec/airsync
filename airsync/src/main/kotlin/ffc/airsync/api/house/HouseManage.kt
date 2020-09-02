@@ -41,7 +41,6 @@ class HouseManage(
     private val file = File("data", "house.json")
 
     init {
-
         cloudCache.addAll(ffcFileLoad<House>(file))
     }
 
@@ -62,10 +61,19 @@ class HouseManage(
 
     private fun getHcode(it: House) = it.link!!.keys["hcode"] as String
 
-    override val cloud: List<House> = cloudCache.toList()
+    override val cloud: List<House> = cloudCache
 
+    private val lock = Any()
     override fun sync(force: Boolean): List<Entity>? {
+        return synchronized(lock) {
+            syncSync()
+        }
+    }
+
+    private fun syncSync(): List<House> {
         val proSync: ProSync<House> = V1ProSync()
+
+        // ดูว่ามีอะไรอัพเดทไหม
         run {
             val listUpdate = arrayListOf<House>()
             proSync.update(local, cloudCache) { house ->
@@ -84,6 +92,8 @@ class HouseManage(
                 }
             }
         }
+
+        // ดูว่ามีอะไรต้องสร้างใหม่บน cloud ไหม
         run {
             val listCreateDataToCloud = arrayListOf<House>()
             proSync.createNewDataInB(local, cloudCache) { house ->
@@ -103,6 +113,25 @@ class HouseManage(
             }
         }
         return cloudCache.toList()
+    }
+
+    override fun directUpdateCloudData(list: List<House>) {
+        val update = houseApi.update(list)
+        if (update.isNotEmpty()) {
+            synchronized(file) {
+                update `อัพเดทไปยัง` cloudCache
+                ffcFileSave(file, cloudCache)
+            }
+        }
+    }
+
+    override fun sync(id: String) {
+        val get = houseApi.get(id) ?: return
+        dao.upateHouse(get)
+        synchronized(file) {
+            listOf(get) `อัพเดทไปยัง` cloudCache
+            ffcFileSave(file, cloudCache)
+        }
     }
 
     private fun House.getIdentity(): String = "${getPcuCode(this)}:${this.no}"
