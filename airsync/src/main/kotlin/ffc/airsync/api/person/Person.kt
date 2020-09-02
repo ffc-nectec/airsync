@@ -86,7 +86,7 @@ private fun ArrayList<Person>.createPersonOnCloud(
 ) {
     // TODO Optimize ได้มีการ loop ซ้ำแบบเดียวกัน 2 function หรือจะใช้แบบ async แยกทำก็ได้
     personIsChronic.mapHouseId(houseFromCloud, progressCallback)
-    addAll(personApi.putPerson(personIsChronic, progressCallback, clearCloud))
+    addAll(personApi.createPerson(personIsChronic, progressCallback, clearCloud))
 }
 
 private fun List<Person>.mapHouseId(

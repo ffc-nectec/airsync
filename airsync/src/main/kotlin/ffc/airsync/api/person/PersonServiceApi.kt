@@ -28,7 +28,7 @@ import ffc.entity.Person
 import retrofit2.dsl.enqueue
 
 class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), PersonApi {
-    override fun putPerson(
+    override fun createPerson(
         personList: List<Person>,
         progressCallback: (Int) -> Unit,
         clearCloud: Boolean
@@ -42,13 +42,13 @@ class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), P
         UploadSpliter.upload(fixSizeCake, personList) { it, index ->
 
             val result = callApi {
-                restService.unConfirmPersonBlock(
+                restService.unConfirmPersonSyncProtocolBlock(
                     orgId = organization.id,
                     authkey = tokenBarer,
                     block = index
                 ).execute()
 
-                val response = restService.insertPersonBlock(
+                val response = restService.createPersonBySyncProtocol(
                     orgId = organization.id,
                     authkey = tokenBarer,
                     personList = it,
@@ -56,14 +56,14 @@ class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), P
                 ).execute()
 
                 if (response.code() == 201 || response.code() == 200) {
-                    restService.confirmPersonBlock(
+                    restService.confirmPersonSyncProtocolBlock(
                         orgId = organization.id,
                         authkey = tokenBarer,
                         block = index
                     ).enqueue { }
                     response.body() ?: arrayListOf()
                 } else {
-                    throw ApiLoopException("Cannot Login ${response.code()}")
+                    throw ApiLoopException("Cannot create person ${response.code()}")
                 }
             }
             personLastUpdate.addAll(result)
@@ -71,5 +71,21 @@ class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), P
                 progressCallback(((index * 50) / sizeOfLoop) + 50)
         }
         return personLastUpdate
+    }
+
+    override fun updatePersons(personList: List<Person>): List<Person> {
+        val output = arrayListOf<Person>()
+        UploadSpliter.upload(100, personList) { it, index ->
+            val response = callApi {
+                restService.updatePersons(organization.id, tokenBarer, it).execute()
+            }
+
+            if (response.code() == 200 || response.code() == 201) {
+                output.addAll(response.body()!!)
+            } else {
+                throw ApiLoopException("Cannot update person ${response.code()}")
+            }
+        }
+        return output.toList()
     }
 }
