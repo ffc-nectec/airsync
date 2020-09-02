@@ -62,6 +62,20 @@ inline fun <reified T> List<T>.load(filename: String = "${getClassNameInList(thi
     }
 }
 
+inline fun <reified R> ffcFileLoad(file: File): List<R> {
+    if (!file.isFile) return emptyList()
+    return FileReader(file).readText().parseTo<List<Any>>().map {
+        it.toJson().parseTo<R>()
+    }
+}
+
+inline fun <reified T> ffcFileSave(file: File, data: List<T>) {
+    require(!file.isDirectory) { "ไม่สามารถบันทึก file ${file.absolutePath} ลง Directory ได้" }
+    val fileWriter = FileWriter(file)
+    fileWriter.write(data.toJson())
+    fileWriter.close()
+}
+
 inline fun <reified T> HashMap<String, T>.load(filename: String): HashMap<String, T> {
     return try {
         loadResourceHashMap(getDataStore(filename))
