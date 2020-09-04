@@ -20,6 +20,7 @@
 package ffc.airsync.api.house
 
 import ffc.airsync.Main
+import ffc.airsync.api.person.getPersons
 import ffc.airsync.api.sync.ProSync
 import ffc.airsync.api.sync.V1ProSync
 import ffc.airsync.db.DatabaseDao
@@ -28,10 +29,12 @@ import ffc.airsync.utils.ffcFileLoad
 import ffc.airsync.utils.ffcFileSave
 import ffc.airsync.utils.getLogger
 import ffc.entity.Entity
+import ffc.entity.Person
 import ffc.entity.Village
 import ffc.entity.copy
 import ffc.entity.place.House
 import java.io.File
+import java.util.SortedSet
 
 class HouseManage(
     val dao: DatabaseDao = Main.instant.dao,
@@ -49,17 +52,17 @@ class HouseManage(
 
     interface Func {
         fun villageLookup(villageCode: String): Village?
-        fun chronicInHouse(pcuCode: String, hcode: String): Boolean
     }
 
     override val local: List<House>
         get() {
             val houseFromDatabase = dao.getHouse(lookupVillage = { func().villageLookup(it) })
             logger.info { "House from jhcisdb size:${houseFromDatabase.size}" }
+            val listHouseChronic = getPersons().findHouseIsChronic()
             return houseFromDatabase.map {
                 val hcode = getHcode(it)
                 val pcuCode = getPcuCode(it)
-                it.haveChronic = func().chronicInHouse(pcuCode, hcode)
+                it.haveChronic = listHouseChronic.contains("$pcuCode:$hcode")
                 it
             }
         }
@@ -144,6 +147,18 @@ class HouseManage(
             listOf(get) `อัพเดทไปยัง` cloudCache
             ffcFileSave(file, cloudCache)
         }
+    }
+
+    private fun List<Person>.findHouseIsChronic(): SortedSet<String> {
+        val output = HashSet<String>()
+        forEach {
+            if (!it.haveChronic) return@forEach
+            val hCode = it.link!!.keys["hcode"]?.toString()?.trim()
+            if (hCode == "1") return@forEach // ไม่เอาบ้านนอกเขต
+            val pcuCoce = it.link!!.keys["pcucodeperson"]?.toString()?.trim()
+            output.add("$pcuCoce:$hCode")
+        }
+        return output.toSortedSet()
     }
 
     private fun House.getIdentity(): String = "${getPcuCode(this)}:${getHcode(this)}"
