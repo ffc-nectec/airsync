@@ -46,7 +46,7 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
             visitQuery
         else
             visitQuery + """
-    WHERE $where
+    AND $where
 """
 
         return jdbiDao.instant.withHandle<List<HealthCareService>, Exception> { handle ->
@@ -171,6 +171,10 @@ SELECT
 	visit.diagnote
 FROM
 	visit
+JOIN person ON
+	person.pcucodeperson = visit.pcucode AND
+	person.pid = visit.pid
+
     WHERE visit.dateupdate >= NOW() - INTERVAL 3 YEAR
         AND
     visit.timestart IS NOT NULL
@@ -178,5 +182,7 @@ FROM
 	visit.timeend IS NOT NULL
         AND
     visit.pid <> 0
+        	AND
+   person.hcode <> 1
 """
 }
