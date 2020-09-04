@@ -60,21 +60,6 @@ val houseManage: HouseInterface by lazy {
             override fun villageLookup(villageCode: String): Village? {
                 return VILLAGELOOKUP(villageCode)
             }
-
-            override fun chronicInHouse(pcuCode: String, hcode: String): Boolean {
-                val personChronic = persons.find {
-                    val personHCode = it.link!!.keys["hcode"] as String
-                    // ไม่หาบ้านเลขที่ 1 นอกเขต
-                    if (personHCode == "1") return@find false
-                    val checkHCode = personHCode.trim() == hcode
-                    val checkPcuCode = (it.link!!.keys["pcucode"] as String).trim() == pcuCode
-                    if (checkHCode && checkPcuCode) {
-                        it.haveChronic
-                    } else
-                        false
-                }
-                return personChronic != null
-            }
         }
     }
 }

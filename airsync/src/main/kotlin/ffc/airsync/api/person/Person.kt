@@ -40,6 +40,10 @@ private interface PersonUtil
 private val logger by lazy { getLogger(PersonUtil::class) }
 
 fun Person.gets(dao: DatabaseDao = Main.instant.dao): List<Person> {
+    return getPersons(dao)
+}
+
+fun getPersons(dao: DatabaseDao = Main.instant.dao): List<Person> {
     return dao.getPerson(lookupDisease)
 }
 
