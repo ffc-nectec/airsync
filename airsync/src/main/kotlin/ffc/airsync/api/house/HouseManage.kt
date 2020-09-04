@@ -26,6 +26,7 @@ import ffc.airsync.db.DatabaseDao
 import ffc.airsync.utils.`อัพเดทไปยัง`
 import ffc.airsync.utils.ffcFileLoad
 import ffc.airsync.utils.ffcFileSave
+import ffc.airsync.utils.getLogger
 import ffc.entity.Entity
 import ffc.entity.Village
 import ffc.entity.copy
@@ -40,6 +41,7 @@ class HouseManage(
     private val houseApi: HouseApi = HouseServiceApi()
     private var cloudCache = arrayListOf<House>()
     private val file = File("data", "house.json")
+    private val logger = getLogger(this)
 
     init {
         cloudCache.addAll(ffcFileLoad<House>(file))
@@ -51,11 +53,15 @@ class HouseManage(
     }
 
     override val local: List<House>
-        get() = dao.getHouse(lookupVillage = { func().villageLookup(it) }).map {
-            val hcode = getHcode(it)
-            val pcuCode = getPcuCode(it)
-            it.haveChronic = func().chronicInHouse(pcuCode, hcode)
-            it
+        get() {
+            val houseFromDatabase = dao.getHouse(lookupVillage = { func().villageLookup(it) })
+            logger.info { "House from jhcisdb size:${houseFromDatabase.size}" }
+            return houseFromDatabase.map {
+                val hcode = getHcode(it)
+                val pcuCode = getPcuCode(it)
+                it.haveChronic = func().chronicInHouse(pcuCode, hcode)
+                it
+            }
         }
 
     private fun getPcuCode(it: House) = it.link!!.keys["pcucode"] as String
@@ -87,6 +93,7 @@ class HouseManage(
                 }
             }
             if (listUpdate.isNotEmpty()) {
+                logger.info { "House update size:${listUpdate.size}" }
                 synchronized(file) {
                     houseApi.update(listUpdate) `อัพเดทไปยัง` cloudCache
                     ffcFileSave(file, cloudCache)
@@ -107,8 +114,12 @@ class HouseManage(
                 }
             }
             if (listCreateDataToCloud.isNotEmpty()) {
+                logger.info { "House create size:${listCreateDataToCloud.size}" }
                 synchronized(file) {
-                    houseApi.createHouse(listCreateDataToCloud, {}, false) `อัพเดทไปยัง` cloudCache
+                    if (cloudCache.isEmpty())
+                        houseApi.createHouse(listCreateDataToCloud, {}, true) `อัพเดทไปยัง` cloudCache
+                    else
+                        houseApi.createHouse(listCreateDataToCloud, {}, false) `อัพเดทไปยัง` cloudCache
                     ffcFileSave(file, cloudCache)
                 }
             }
@@ -135,5 +146,5 @@ class HouseManage(
         }
     }
 
-    private fun House.getIdentity(): String = "${getPcuCode(this)}:${this.no}"
+    private fun House.getIdentity(): String = "${getPcuCode(this)}:${getHcode(this)}"
 }
