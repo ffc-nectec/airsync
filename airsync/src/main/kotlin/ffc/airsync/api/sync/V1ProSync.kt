@@ -56,4 +56,16 @@ class V1ProSync<T> : ProSync<T> {
             func(it).createInB()
         }
     }
+
+    override fun deleteDataInB(a: List<T>, b: List<T>, func: (item: T) -> ProSync.DeleteFunc) {
+        val deletePreData = util.difference(b, a) {
+            object : SetUtil.Func<T> {
+                override val identity: String = func(it).identity
+            }
+        }.filter { !func(it).bIsDelete }
+
+        deletePreData.forEach {
+            func(it).deleteInB()
+        }
+    }
 }
