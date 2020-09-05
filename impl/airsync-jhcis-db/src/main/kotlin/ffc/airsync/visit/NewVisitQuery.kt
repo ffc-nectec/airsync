@@ -36,7 +36,7 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
     private val logger = getLogger(this)
 
     interface Lookup {
-        fun patientId(pid: String): String
+        fun patientId(pcuCode: String, pid: String): String
         fun providerId(username: String): String
     }
 
@@ -55,10 +55,11 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
                     val username = rs.getString("username")!!
                     val pid = rs.getString("pid")!!
                     val timestamp = DateTime(rs.getTimestamp("dateupdate")).minusHours(7)
+                    val pcuCode = rs.getString("pcucode")!!
 
                     HealthCareService(
-                        providerId = username.let { lookup().providerId(it) },
-                        patientId = pid.let { lookup().patientId(it) },
+                        providerId = lookup().providerId(username),
+                        patientId = lookup().patientId(pcuCode, pid),
                         id = generateTempId()
                     ).update(timestamp) {
 
@@ -84,8 +85,10 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
                                     logger.warn(
                                         "Visit time end error ตรวจพบข้อมูลขัดแย้งในเรื่องเวลาการ visit " +
                                                 "timestart=$time " +
-                                                "endtime=${DateTime(visitdate).plus(timeend.time)
-                                                    .minusHours(7)} ${ex.message}"
+                                                "endtime=${
+                                                    DateTime(visitdate).plus(timeend.time)
+                                                        .minusHours(7)
+                                                } ${ex.message}"
                                     )
                                 }
                             }
@@ -112,7 +115,7 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
 
                         link = Link(System.JHICS)
                         link!!.isSynced = true
-                        rs.getString("pcucode")?.let { link!!.keys["pcucode"] = it }
+                        pcuCode.let { link!!.keys["pcucode"] = it }
                         rs.getString("visitno")?.let { link!!.keys["visitno"] = it }
                         pid.let { link!!.keys["pid"] = it }
                         rs.getString("rightcode")?.let { link!!.keys["rightcode"] = it }

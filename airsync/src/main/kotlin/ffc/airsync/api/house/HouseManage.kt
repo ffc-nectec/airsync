@@ -20,10 +20,10 @@
 package ffc.airsync.api.house
 
 import ffc.airsync.Main
-import ffc.airsync.api.person.getPersons
 import ffc.airsync.api.sync.ProSync
 import ffc.airsync.api.sync.V1ProSync
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.personManage
 import ffc.airsync.utils.`อัพเดทไปยัง`
 import ffc.airsync.utils.ffcFileLoad
 import ffc.airsync.utils.ffcFileSave
@@ -58,7 +58,7 @@ class HouseManage(
         get() {
             val houseFromDatabase = dao.getHouse(lookupVillage = { func().villageLookup(it) })
             logger.info { "House from jhcisdb size:${houseFromDatabase.size}" }
-            val listHouseChronic = getPersons().findHouseIsChronic()
+            val listHouseChronic = personManage.local.findHouseIsChronic()
             return houseFromDatabase.map {
                 val hcode = getHcode(it)
                 val pcuCode = getPcuCode(it)

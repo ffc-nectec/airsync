@@ -184,7 +184,7 @@ class VisitJdbi(
     }
 
     override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
+        lookupPatientId: (pcuCode: String, pid: String) -> String,
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Icd10?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
@@ -196,8 +196,8 @@ class VisitJdbi(
         val result = NewVisitQuery(jdbiDao)
             .get(whereString) {
                 object : Lookup {
-                    override fun patientId(pid: String): String {
-                        return lookupPatientId(pid)
+                    override fun patientId(pcuCode: String, pid: String): String {
+                        return lookupPatientId(pcuCode, pid)
                     }
 
                     override fun providerId(username: String): String {

@@ -27,7 +27,7 @@ import ffc.airsync.utils.callApiNoReturn
 import ffc.entity.Person
 import retrofit2.dsl.enqueue
 
-class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), PersonApi {
+internal class PersonServiceApi : RetofitApi<PersonService>(PersonService::class.java), PersonApi {
     override fun createPerson(
         personList: List<Person>,
         progressCallback: (Int) -> Unit,

@@ -39,6 +39,8 @@ import ffc.airsync.api.organization.OrganizationServiceApi
 import ffc.airsync.api.otp.OtpApi
 import ffc.airsync.api.otp.OtpServiceApi
 import ffc.airsync.api.person.PersonApi
+import ffc.airsync.api.person.PersonInterface
+import ffc.airsync.api.person.PersonManage
 import ffc.airsync.api.person.PersonServiceApi
 import ffc.airsync.api.specialPP.SpecialPpServiceApi
 import ffc.airsync.api.template.TemplateApi
@@ -51,6 +53,7 @@ import ffc.airsync.api.village.VillageServiceApi
 import ffc.entity.Person
 import ffc.entity.Village
 import ffc.entity.healthcare.HealthCareService
+import ffc.entity.healthcare.Icd10
 import ffc.entity.healthcare.analyze.HealthAnalyzer
 
 val userManage: UserInterface by lazy { UserManage() }
@@ -59,6 +62,15 @@ val houseManage: HouseInterface by lazy {
         object : HouseManage.Func {
             override fun villageLookup(villageCode: String): Village? {
                 return VILLAGELOOKUP(villageCode)
+            }
+        }
+    }
+}
+val personManage: PersonInterface by lazy {
+    PersonManage {
+        object : PersonManage.Func {
+            override fun lookupDisease(icd10: String): Icd10 {
+                return icd10Api.lookup(icd10)
             }
         }
     }
