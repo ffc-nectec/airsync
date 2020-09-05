@@ -36,11 +36,11 @@ interface ProSync<T> {
 
     fun update(a: List<T>, b: List<T>, func: (item: T) -> UpdateFunc<T>)
 
-    interface CreateFunc<T> {
+    interface CreateFunc {
         val identity: String
         val bIsDelete: Boolean
         fun createInB()
     }
 
-    fun createNewDataInB(a: List<T>, b: List<T>, func: (item: T) -> CreateFunc<T>)
+    fun createNewDataInB(a: List<T>, b: List<T>, func: (item: T) -> CreateFunc)
 }

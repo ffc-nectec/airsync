@@ -108,7 +108,7 @@ class HouseManage(
         run {
             val listCreateDataToCloud = arrayListOf<House>()
             proSync.createNewDataInB(local, cloudCache) { house ->
-                object : ProSync.CreateFunc<House> {
+                object : ProSync.CreateFunc {
                     override val identity: String = house.getIdentity()
                     override val bIsDelete: Boolean = false
                     override fun createInB() {
@@ -126,6 +126,9 @@ class HouseManage(
                     ffcFileSave(file, cloudCache)
                 }
             }
+        }
+        // TODO ลบข้อมูลบน cloud ยังไม่ได้พัฒนา
+        run {
         }
         return cloudCache.toList()
     }
