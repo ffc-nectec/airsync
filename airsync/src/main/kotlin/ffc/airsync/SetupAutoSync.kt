@@ -19,8 +19,6 @@
 
 package ffc.airsync
 
-import ffc.airsync.api.person.SyncPerson
-import ffc.airsync.api.person.initSync
 import ffc.airsync.api.pidvola.VolaProcess
 import ffc.airsync.api.pidvola.VolaProcessV1
 import ffc.airsync.api.tag.Level1TagProcess
@@ -105,11 +103,9 @@ class SetupAutoSync(val dao: DatabaseDao) {
                     runCatching { villages.initSync() }
                     runCatching {
                         logger.info("Sync person")
-                        val syncPerson = SyncPerson()
-                        val jhcisDbPerson = syncPerson.prePersonProcess()
                         houseManage.sync()
                         logger.info("Sync house")
-                        persons.initSync(houseManage.cloud, jhcisDbPerson) {}
+                        personManage.sync()
                     }
                 } catch (ignore: Exception) {
                     ignore.printStackTrace()

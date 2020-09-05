@@ -29,7 +29,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-interface PersonService {
+internal interface PersonService {
     @DELETE("/$APIVERSION/org/{orgId}/persons")
     fun clearnPerson(
         @Path("orgId") orgId: String,

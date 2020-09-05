@@ -46,7 +46,7 @@ interface VisitDao {
     ): HealthCareService
 
     fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
+        lookupPatientId: (pcuCode: String, pid: String) -> String,
         lookupProviderId: (name: String) -> String,
         lookupDisease: (icd10: String) -> Icd10?,
         lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,

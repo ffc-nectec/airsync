@@ -20,8 +20,6 @@
 package ffc.airsync
 
 import ffc.airsync.api.healthcare.lock
-import ffc.airsync.api.person.SyncPerson
-import ffc.airsync.api.person.initSync
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.api.village.initSync
 import ffc.airsync.db.DatabaseDao
@@ -220,11 +218,9 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
         }
 
         if (houseFind == null) {
-            val syncPerson = SyncPerson()
-            val jhcisDbPerson = syncPerson.prePersonProcess()
             villages.initSync()
             houseManage.sync()
-            persons.initSync(houseManage.cloud, jhcisDbPerson) {}
+            personManage.sync()
             return houseManage.cloud.find {
                 house.link!!.keys["pcucode"] == it.link!!.keys["pcucode"] &&
                         house.link!!.keys["hcode"] == it.link!!.keys["hcode"]

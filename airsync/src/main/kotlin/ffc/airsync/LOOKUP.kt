@@ -19,12 +19,17 @@
 
 package ffc.airsync
 
-import ffc.airsync.api.person.findPersonId
 import org.apache.logging.log4j.kotlin.logger
 
-val lookupPersonId = { pid: String ->
+val lookupPersonId = { pcuCode: String, pid: String ->
     try {
-        findPersonId(pid)
+        val id = personManage.findPersonIdInCloud(pcuCode, pid)?.id
+        if (id == null) {
+            personManage.sync()
+            personManage.findPersonIdInCloud(pcuCode, pid)?.id
+                ?: throw NoSuchElementException("ไม่พบข้อมูลคน pcucode:$pcuCode pid:$pid ใน cloud")
+        } else
+            id
     } catch (ex: KotlinNullPointerException) {
         logger("Lookup").warn(ex) { "Lookup person Error ${ex.message}" }
         ""
