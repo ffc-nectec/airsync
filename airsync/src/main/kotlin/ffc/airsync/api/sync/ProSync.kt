@@ -37,10 +37,28 @@ interface ProSync<T> {
     fun update(a: List<T>, b: List<T>, func: (item: T) -> UpdateFunc<T>)
 
     interface CreateFunc {
+        /**
+         * เอกลักษณ์ object
+         */
         val identity: String
+
+        /**
+         * สถานะ confirm การลบ
+         */
         val bIsDelete: Boolean
         fun createInB()
     }
 
     fun createNewDataInB(a: List<T>, b: List<T>, func: (item: T) -> CreateFunc)
+
+    interface DeleteFunc {
+        val identity: String
+        val bIsDelete: Boolean
+        fun deleteInB()
+    }
+
+    /**
+     * ดูว่าข้อมูลอะไรที่มีใน a แต่ไม่มีใน b ให้ลบใน b ทิ้ง
+     */
+    fun deleteDataInB(a: List<T>, b: List<T>, func: (item: T) -> DeleteFunc)
 }
