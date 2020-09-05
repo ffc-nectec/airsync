@@ -45,7 +45,7 @@ class V1ProSync<T> : ProSync<T> {
         }
     }
 
-    override fun createNewDataInB(a: List<T>, b: List<T>, func: (item: T) -> ProSync.CreateFunc<T>) {
+    override fun createNewDataInB(a: List<T>, b: List<T>, func: (item: T) -> ProSync.CreateFunc) {
         val createPreData = util.difference(a, b) {
             object : SetUtil.Func<T> {
                 override val identity: String = func(it).identity
