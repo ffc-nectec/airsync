@@ -19,6 +19,7 @@
 
 package ffc.airsync.visit
 
+import ffc.airsync.getLogger
 import ffc.entity.healthcare.Diagnosis
 import ffc.entity.healthcare.Disease
 import org.jdbi.v3.core.mapper.RowMapper
@@ -38,7 +39,8 @@ SELECT
 	visitdiag.dxtype,
 	visitdiag.appointdate,
 	visitdiag.dateupdate,
-	visitdiag.doctordiag
+	visitdiag.doctordiag,
+    visitdiag.visitno
 FROM
     visitdiag
 """
@@ -90,6 +92,10 @@ interface VisitDiagQuery {
     @RegisterRowMapper(VisitDiagMapper::class)
     fun getDiag(@Bind("visitnumber") visitnumber: Long): List<Diagnosis>
 
+    @SqlQuery(visitDiagQuery)
+    @RegisterRowMapper(VisitDiagMapperHaveVisitNo::class)
+    fun getDiagAll(): List<Pair<Long, Diagnosis>>
+
     @SqlBatch(insertVisitDiag)
     fun insertVisitDiag(@BindBean insertDiagData: Iterable<InsertDiagData>)
 
@@ -99,20 +105,32 @@ interface VisitDiagQuery {
 
 class VisitDiagMapper : RowMapper<Diagnosis> {
     override fun map(rs: ResultSet, ctx: StatementContext?): Diagnosis {
-        val icd10 = rs.getString("diagcode")
-        return Diagnosis(
-            disease = Disease(
-                id = icd10,
-                name = ""
-            ),
-            dxType = when (rs.getString("dxtype")) {
-                "01" -> Diagnosis.Type.PRINCIPLE_DX
-                "02" -> Diagnosis.Type.CO_MORBIDITY
-                "03" -> Diagnosis.Type.COMPLICATION
-                "04" -> Diagnosis.Type.OTHER
-                else -> Diagnosis.Type.EXTERNAL_CAUSE
-            },
-            isContinued = rs.getString("conti") == "1"
-        )
+        return mapData(rs)
     }
+}
+
+class VisitDiagMapperHaveVisitNo : RowMapper<Pair<Long, Diagnosis>> {
+    private val logger = getLogger(this)
+    override fun map(rs: ResultSet, ctx: StatementContext?): Pair<Long, Diagnosis> {
+        logger.debug { "VisitDiagMapper" }
+        return rs.getLong("visitno") to mapData(rs)
+    }
+}
+
+private fun mapData(rs: ResultSet): Diagnosis {
+    val icd10 = rs.getString("diagcode")
+    return Diagnosis(
+        disease = Disease(
+            id = icd10,
+            name = ""
+        ),
+        dxType = when (rs.getString("dxtype")) {
+            "01" -> Diagnosis.Type.PRINCIPLE_DX
+            "02" -> Diagnosis.Type.CO_MORBIDITY
+            "03" -> Diagnosis.Type.COMPLICATION
+            "04" -> Diagnosis.Type.OTHER
+            else -> Diagnosis.Type.EXTERNAL_CAUSE
+        },
+        isContinued = rs.getString("conti") == "1"
+    )
 }

@@ -19,12 +19,10 @@
 
 package ffc.airsync.visit
 
+import ffc.airsync.db.DatabaseDao.LookupHealthCareService
 import ffc.entity.Person
-import ffc.entity.healthcare.CommunityService
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
-import ffc.entity.healthcare.Icd10
-import ffc.entity.healthcare.SpecialPP
 
 interface VisitDao {
     fun createHomeVisit(
@@ -46,13 +44,9 @@ interface VisitDao {
     ): HealthCareService
 
     fun getHealthCareService(
-        lookupPatientId: (pcuCode: String, pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Icd10?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
         whereString: String = "",
-        progressCallback: (Int) -> Unit = {}
+        progressCallback: (Int) -> Unit = {},
+        lookup: () -> LookupHealthCareService
     ): List<HealthCareService>
 
     fun getMaxVisit(): Long

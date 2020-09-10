@@ -19,16 +19,8 @@
 
 package ffc.airsync.api.person
 
-import ffc.airsync.api.Sync
-import ffc.entity.Entity
 import ffc.entity.Person
 
-class SyncPerson : Sync {
-    override fun sync(force: Boolean): List<Entity> {
-        TODO("Not yet implemented")
-    }
-
-    fun prePersonProcess(): List<Person> {
-        return Person().gets()
-    }
-}
+fun Person.getHcode() = link?.keys?.get("hcode")?.toString()?.trim()
+fun Person.getPcuCode() = link?.keys?.get("pcucodeperson")?.toString()?.trim()
+fun Person.getPid() = link?.keys?.get("pid")?.toString()?.trim()

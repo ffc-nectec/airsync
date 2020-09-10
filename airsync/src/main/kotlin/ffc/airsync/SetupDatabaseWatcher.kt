@@ -19,6 +19,7 @@
 
 package ffc.airsync
 
+import ffc.airsync.api.healthcare.HealthCareFuncLookup
 import ffc.airsync.api.healthcare.lock
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.api.village.initSync
@@ -27,6 +28,8 @@ import ffc.airsync.utils.callApi
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.jobFFC
 import ffc.airsync.utils.save
+import ffc.entity.Person
+import ffc.entity.User
 import ffc.entity.copy
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.place.House
@@ -201,13 +204,25 @@ class SetupDatabaseWatcher(val dao: DatabaseDao) {
     }
 
     private fun getHealthCareFromDb(updateWhere: String): List<HealthCareService> {
+
         return dao.getHealthCareService(
-            lookupPatientId = lookupPersonId,
-            lookupProviderId = lookupUserId,
-            lookupDisease = lookupDisease,
-            lookupServiceType = lookupServiceType,
-            lookupSpecialPP = lookupSpecialPP,
-            whereString = updateWhere
+            whereString = updateWhere,
+            lookup = {
+                HealthCareFuncLookup {
+                    object : HealthCareFuncLookup.Func {
+                        override val users: List<User> = userManage.cloudUser
+                        override val persons: List<Person> = personManage.cloud
+
+                        override fun syncUser() {
+                            userManage.sync()
+                        }
+
+                        override fun syncPerson() {
+                            personManage.sync()
+                        }
+                    }
+                }
+            }
         )
     }
 

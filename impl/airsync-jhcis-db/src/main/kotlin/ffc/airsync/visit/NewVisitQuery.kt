@@ -36,8 +36,8 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
     private val logger = getLogger(this)
 
     interface Lookup {
-        fun patientId(pcuCode: String, pid: String): String
-        fun providerId(username: String): String
+        fun patientId(pcuCode: String, pid: String): String?
+        fun providerId(username: String): String?
     }
 
     fun get(where: String, lookup: () -> Lookup): List<HealthCareService> {
@@ -58,8 +58,8 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
                     val pcuCode = rs.getString("pcucode")!!
 
                     HealthCareService(
-                        providerId = lookup().providerId(username),
-                        patientId = lookup().patientId(pcuCode, pid),
+                        providerId = lookup().providerId(username) ?: "",
+                        patientId = lookup().patientId(pcuCode, pid) ?: "",
                         id = generateTempId()
                     ).update(timestamp) {
 

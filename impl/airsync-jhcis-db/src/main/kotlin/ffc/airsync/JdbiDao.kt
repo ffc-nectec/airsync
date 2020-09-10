@@ -22,6 +22,7 @@ package ffc.airsync
 import ffc.airsync.business.QueryBusiness
 import ffc.airsync.chronic.NewQueryChronic
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.db.DatabaseDao.LookupHealthCareService
 import ffc.airsync.disability.DisabilityJdbi
 import ffc.airsync.foodshop.QueryFoodShop
 import ffc.airsync.hosdetail.HosDao
@@ -47,12 +48,10 @@ import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
 import ffc.entity.healthcare.Chronic
-import ffc.entity.healthcare.CommunityService.ServiceType
 import ffc.entity.healthcare.Disability
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.Icd10
-import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
@@ -183,21 +182,12 @@ class JdbiDao(
     }
 
     override fun getHealthCareService(
-        lookupPatientId: (pcuCode: String, pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Icd10?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> ServiceType?,
         whereString: String,
-        progressCallback: (Int) -> Unit
+        progressCallback: (Int) -> Unit,
+        lookup: () -> LookupHealthCareService
     ): List<HealthCareService> {
         return visit.getHealthCareService(
-            lookupPatientId,
-            lookupProviderId,
-            lookupDisease,
-            lookupSpecialPP,
-            lookupServiceType,
-            whereString
+            whereString, progressCallback, lookup
         )
     }
 
