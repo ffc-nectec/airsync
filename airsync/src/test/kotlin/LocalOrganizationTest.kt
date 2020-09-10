@@ -23,11 +23,9 @@ import ffc.entity.Person
 import ffc.entity.Template
 import ffc.entity.User
 import ffc.entity.Village
-import ffc.entity.healthcare.CommunityService
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
 import ffc.entity.healthcare.Icd10
-import ffc.entity.healthcare.SpecialPP
 import ffc.entity.place.Business
 import ffc.entity.place.House
 import ffc.entity.place.ReligiousPlace
@@ -103,13 +101,9 @@ class TestDao : DatabaseDao {
     }
 
     override fun getHealthCareService(
-        lookupPatientId: (pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Icd10?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
         whereString: String,
-        progressCallback: (Int) -> Unit
+        progressCallback: (Int) -> Unit,
+        lookup: () -> DatabaseDao.LookupHealthCareService
     ): List<HealthCareService> {
         TODO("Not yet implemented")
     }
