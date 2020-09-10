@@ -32,7 +32,7 @@ class NewVisitQueryTest {
     fun get() {
         val result = jdbi.get("") {
             object : NewVisitQuery.Lookup {
-                override fun patientId(pid: String): String = pid
+                override fun patientId(pcuCode: String, pid: String): String? = pid
                 override fun providerId(username: String): String = username
             }
         }

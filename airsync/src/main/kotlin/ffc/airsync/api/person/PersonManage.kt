@@ -67,10 +67,6 @@ class PersonManage(
             return persons
         }
 
-    private fun Person.getHcode() = link?.keys?.get("hcode")?.toString()?.trim()
-    private fun Person.getPcuCode() = link?.keys?.get("pcucodeperson")?.toString()?.trim()
-    private fun Person.getPid() = link?.keys?.get("pid")?.toString()?.trim()
-
     override val cloud: List<Person> = cloudCache
 
     /**

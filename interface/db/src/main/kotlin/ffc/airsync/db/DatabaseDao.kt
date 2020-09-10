@@ -53,17 +53,21 @@ interface DatabaseDao {
 
     fun queryMaxVisit(): Long
 
+    interface LookupHealthCareService {
+        fun lookupPatientId(pcuCode: String, pid: String): String?
+        fun lookupProviderId(name: String): String?
+        fun lookupDisease(icd10: String): Icd10?
+        fun lookupSpecialPP(ppCode: String): SpecialPP.PPType?
+        fun lookupServiceType(serviceId: String): CommunityService.ServiceType?
+    }
+
     /**
      * 3
      */
     fun getHealthCareService(
-        lookupPatientId: (pcuCode: String, pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Icd10?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
         whereString: String = "",
-        progressCallback: (Int) -> Unit = {}
+        progressCallback: (Int) -> Unit = {},
+        lookup: () -> LookupHealthCareService
     ): List<HealthCareService>
 
     fun createHomeVisit(

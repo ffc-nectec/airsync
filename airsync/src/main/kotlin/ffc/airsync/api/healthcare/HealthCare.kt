@@ -20,12 +20,11 @@
 package ffc.airsync.api.healthcare
 
 import ffc.airsync.Main
-import ffc.airsync.lookupDisease
-import ffc.airsync.lookupPersonId
-import ffc.airsync.lookupServiceType
-import ffc.airsync.lookupSpecialPP
-import ffc.airsync.lookupUserId
+import ffc.airsync.personManage
+import ffc.airsync.userManage
 import ffc.airsync.utils.load
+import ffc.entity.Person
+import ffc.entity.User
 import ffc.entity.healthcare.HealthCareService
 
 fun ArrayList<HealthCareService>.initSync(progressCallback: (Int) -> Unit) {
@@ -50,12 +49,23 @@ private fun getHealthCareFromDb(progressCallback: (Int) -> Unit): List<HealthCar
     )*/
 
     return Main.instant.dao.getHealthCareService(
-        lookupPatientId = lookupPersonId,
-        lookupProviderId = lookupUserId,
-        lookupDisease = lookupDisease,
-        lookupServiceType = lookupServiceType,
-        lookupSpecialPP = lookupSpecialPP,
-        progressCallback = progressCallback
+        progressCallback = progressCallback,
+        lookup = {
+            HealthCareFuncLookup {
+                object : HealthCareFuncLookup.Func {
+                    override val users: List<User> = userManage.cloudUser
+                    override val persons: List<Person> = personManage.cloud
+
+                    override fun syncUser() {
+                        userManage.sync()
+                    }
+
+                    override fun syncPerson() {
+                        personManage.sync()
+                    }
+                }
+            }
+        }
     )
 }
 

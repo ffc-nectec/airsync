@@ -21,6 +21,7 @@ package ffc.airsync.visit
 
 import ffc.airsync.Dao
 import ffc.airsync.MySqlJdbi
+import ffc.airsync.db.DatabaseDao
 import ffc.airsync.extension
 import ffc.airsync.getLogger
 import ffc.airsync.ncds.NCDscreenQuery
@@ -30,7 +31,6 @@ import ffc.airsync.visit.fixBug.FixBugDuplicate
 import ffc.entity.Link
 import ffc.entity.Person
 import ffc.entity.System
-import ffc.entity.healthcare.CommunityService
 import ffc.entity.healthcare.Diagnosis
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.HomeVisit
@@ -44,6 +44,7 @@ import org.jdbi.v3.core.statement.UnableToExecuteStatementException
 import org.joda.time.LocalDate
 import java.util.LinkedList
 import java.util.Queue
+import java.util.SortedMap
 import kotlin.system.measureTimeMillis
 
 class VisitJdbi(
@@ -184,24 +185,20 @@ class VisitJdbi(
     }
 
     override fun getHealthCareService(
-        lookupPatientId: (pcuCode: String, pid: String) -> String,
-        lookupProviderId: (name: String) -> String,
-        lookupDisease: (icd10: String) -> Icd10?,
-        lookupSpecialPP: (ppCode: String) -> SpecialPP.PPType?,
-        lookupServiceType: (serviceId: String) -> CommunityService.ServiceType?,
         whereString: String,
-        progressCallback: (Int) -> Unit
+        progressCallback: (Int) -> Unit,
+        lookup: () -> DatabaseDao.LookupHealthCareService
     ): List<HealthCareService> {
         var i = 0
         val result = NewVisitQuery(jdbiDao)
             .get(whereString) {
                 object : Lookup {
-                    override fun patientId(pcuCode: String, pid: String): String {
-                        return lookupPatientId(pcuCode, pid)
+                    override fun patientId(pcuCode: String, pid: String): String? {
+                        return lookup().lookupPatientId(pcuCode, pid)
                     }
 
-                    override fun providerId(username: String): String {
-                        return lookupProviderId(username)
+                    override fun providerId(username: String): String? {
+                        return lookup().lookupProviderId(username)
                     }
                 }
             }
@@ -224,18 +221,19 @@ class VisitJdbi(
             var runtimeQueryDb: Long = -1L
             val allRunTime = measureTimeMillis {
                 i++
-
                 healthCare.link?.keys?.get("visitno")?.toString()?.toLong()?.let { visitNumber ->
 
                     runtimeQueryDb = measureTimeMillis {
                         runBlocking {
                             launch {
-                                healthCare.diagnosises = getDiagnosisIcd10(getVisitDiag(visitNumber), lookupDisease)
+                                healthCare.diagnosises = getDiagnosisIcd10(
+                                    getVisitDiag(visitNumber)
+                                ) { icd10 -> lookup().lookupDisease(icd10) }
                             }
                             launch {
                                 getSpecialPP(visitNumber).forEach {
                                     healthCare.addSpecialPP(
-                                        lookupSpecialPP(it.trim()) ?: SpecialPP.PPType(it, it)
+                                        lookup().lookupSpecialPP(it.trim()) ?: SpecialPP.PPType(it, it)
                                     )
                                 }
                             }
@@ -249,7 +247,7 @@ class VisitJdbi(
                                     visit.bundle["dateappoint"]?.let { healthCare.nextAppoint = it as LocalDate }
                                     healthCare.communityServices.add(
                                         HomeVisit(
-                                            serviceType = lookupServiceType(visit.serviceType.id.trim())
+                                            serviceType = lookup().lookupServiceType(visit.serviceType.id.trim())
                                                 ?: visit.serviceType,
                                             detail = visit.detail,
                                             plan = visit.plan,
@@ -329,6 +327,16 @@ class VisitJdbi(
 
     private fun getVisitDiag(visitNumber: Long) =
         jdbiDao.extension<VisitDiagQuery, List<Diagnosis>> { getDiag(visitNumber) }
+
+    private fun getVisitDiagCache(lookupDisease: (icd10: String) -> Icd10?): SortedMap<Long, List<Diagnosis>> {
+        return NewVisitDiagQuery(jdbiDao) {
+            object : NewVisitDiagQuery.Lookup {
+                override fun lookupIcd10(icd10: String): Icd10 {
+                    return lookupDisease(icd10.trim()) ?: Icd10(icd10, icd10)
+                }
+            }
+        }.get()
+    }
 
     private fun getHomeVisit(visitNumber: Long): List<HomeVisit> {
         return jdbiDao.extension<HomeVisitIndividualQuery, List<HomeVisit>> { getBy(visitNumber) }
