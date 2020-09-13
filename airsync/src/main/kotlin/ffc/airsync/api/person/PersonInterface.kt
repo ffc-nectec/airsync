@@ -26,4 +26,9 @@ interface PersonInterface : Sync {
     val cloud: List<Person>
     val local: List<Person>
     fun findPersonIdInCloud(pcuCode: String, pid: String): Person?
+
+    /**
+     * ลบข้อมูลทั้งหมด ใช้เมื่อต้องการจะ Sync ใหม่เท่านั้น
+     */
+    fun clear()
 }

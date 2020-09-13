@@ -25,5 +25,5 @@ interface Sync {
     /**
      * @return รายการที่มีการ Sync
      */
-    fun sync(force: Boolean = false): List<Entity>?
+    fun sync(forceUpdate: Boolean = false): List<Entity>?
 }

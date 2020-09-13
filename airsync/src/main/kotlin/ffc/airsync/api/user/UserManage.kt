@@ -41,7 +41,7 @@ class UserManage(
             return cloudCache
         }
 
-    override fun sync(force: Boolean): List<Entity> {
+    override fun sync(forceUpdate: Boolean): List<Entity> {
         runBlocking {
             val local = localUser
             val cloud = userApi.get()
@@ -53,7 +53,7 @@ class UserManage(
                 userApi.create(create)
         }
 
-        if (force) runBlocking {
+        if (forceUpdate) runBlocking {
             val local = localUser
             val cloud = userApi.get()
             val (_, _, all) = UpdateAndCreateList().getList(local, cloud)

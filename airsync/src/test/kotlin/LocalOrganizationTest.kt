@@ -39,7 +39,7 @@ import java.io.File
 class LocalOrganizationTest {
 
     val logConfig = "src/test/resources/propertyStoreTest.cnf"
-    val propertyStore = LocalOrganization(TestDao(), logConfig)
+    private val propertyStore = LocalOrganization(TestDao(), File(logConfig))
 
     @After
     fun tearDown() {

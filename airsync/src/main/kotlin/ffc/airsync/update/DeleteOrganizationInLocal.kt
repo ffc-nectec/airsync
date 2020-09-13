@@ -17,10 +17,16 @@
  *
  */
 
-package ffc.airsync.resync
+package ffc.airsync.update
 
-class ffcReSync : ReSync {
-    override fun reSync(): Boolean {
-        TODO("Not yet implemented")
+import java.io.File
+
+internal class DeleteOrganizationInLocal(private val pathFolder: File) {
+    init {
+        require(pathFolder.isDirectory) { "จำเป็นต้องใส่ Directory เท่านั้น" }
+    }
+
+    fun delete() {
+        pathFolder.delete()
     }
 }

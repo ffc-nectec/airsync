@@ -34,7 +34,7 @@ interface ProSync<T> {
         fun updateTo(item: T)
     }
 
-    fun update(a: List<T>, b: List<T>, func: (item: T) -> UpdateFunc<T>)
+    fun update(a: List<T>, b: List<T>, forceUpdate: Boolean = false, func: (item: T) -> UpdateFunc<T>)
 
     interface CreateFunc {
         /**

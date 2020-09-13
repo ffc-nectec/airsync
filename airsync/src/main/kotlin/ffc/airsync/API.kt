@@ -38,10 +38,8 @@ import ffc.airsync.api.organization.OrganizationApi
 import ffc.airsync.api.organization.OrganizationServiceApi
 import ffc.airsync.api.otp.OtpApi
 import ffc.airsync.api.otp.OtpServiceApi
-import ffc.airsync.api.person.PersonApi
 import ffc.airsync.api.person.PersonInterface
 import ffc.airsync.api.person.PersonManage
-import ffc.airsync.api.person.PersonServiceApi
 import ffc.airsync.api.specialPP.SpecialPpServiceApi
 import ffc.airsync.api.template.TemplateApi
 import ffc.airsync.api.template.TemplateServiceApi
@@ -83,7 +81,6 @@ val homeHealthTypeApi: HomeHealthTypeApi by lazy { HomeHealthTypeServiceApi() }
 val icd10Api: Icd10Api by lazy { Icd10ServiceApi() }
 val notificationApi: NotificationApi by lazy { NotificationServiceApi() }
 val orgApi: OrganizationApi by lazy { OrganizationServiceApi() }
-val personApi: PersonApi by lazy { PersonServiceApi() }
 val specialPpApi: SpecialPpApi by lazy { SpecialPpServiceApi() }
 val templateApi: TemplateApi by lazy { TemplateServiceApi() }
 val villageApi: VillageApi by lazy { VillageServiceApi() }
@@ -91,5 +88,4 @@ val villageApi: VillageApi by lazy { VillageServiceApi() }
 val relation = arrayListOf<Person>()
 val analyzer = hashMapOf<String, HealthAnalyzer>()
 val healthCare = arrayListOf<HealthCareService>()
-val persons = arrayListOf<Person>()
 val villages = arrayListOf<Village>()
