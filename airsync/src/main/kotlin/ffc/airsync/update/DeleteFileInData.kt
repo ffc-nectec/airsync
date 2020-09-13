@@ -17,16 +17,9 @@
  *
  */
 
-package ffc.airsync.resync
+package ffc.airsync.update
 
-import java.io.File
-
-internal class DeleteOrganizationInLocal(private val pathFolder: File) {
-    init {
-        require(pathFolder.isDirectory) { "จำเป็นต้องใส่ Directory เท่านั้น" }
-    }
-
+class DeleteFileInData(fileName: String) {
     fun delete() {
-        pathFolder.delete()
     }
 }

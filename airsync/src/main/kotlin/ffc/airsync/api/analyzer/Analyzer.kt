@@ -27,7 +27,7 @@ import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.StickBed
 import ffc.airsync.api.analyzer.lib.NewAnalyzer.Tag.StickHouse
 import ffc.airsync.api.analyzer.lib.NewProcessAnalyzer
 import ffc.airsync.houseManage
-import ffc.airsync.persons
+import ffc.airsync.personManage
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
 import ffc.entity.healthcare.HealthCareService
@@ -50,7 +50,7 @@ fun HashMap<String, HealthAnalyzer>.initSync(
             analyzerSyncApi.insert(
                 NewProcessAnalyzer().analyzerGroupAutoAddTag(healthCareService) {
                     object : AddTag {
-                        private val cachePersonLookup = persons.map { it.id to it }.toMap().toSortedMap()
+                        private val cachePersonLookup = personManage.cloud.map { it.id to it }.toMap().toSortedMap()
                         private val cacheHouseLookup = houseManage.cloud.map { it.id to it }.toMap().toSortedMap()
 
                         override fun addTag(patientId: String, tag: Tag) {

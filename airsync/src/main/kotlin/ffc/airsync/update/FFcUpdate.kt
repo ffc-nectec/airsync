@@ -17,11 +17,22 @@
  *
  */
 
-package ffc.airsync.resync
+package ffc.airsync.update
 
-interface ReSync {
-    /**
-     * @return true หากเกิดกระบวนการ re-sync, false หากไม่เกิดการ re-sync
-     */
-    fun reSync(): Boolean
+import ffc.airsync.utils.getDataStore
+import java.io.File
+
+class FFcUpdate : ReSync {
+    private val currentVersion = "2"
+    private val version = reSyncProperties(File(getDataStore("reSync.cnf")))
+
+    override fun checkUpdateData(): Boolean {
+        when (version.gerVersion()) {
+            "1" -> {
+                Update1To2().runUpdate()
+                version.setVersion(currentVersion)
+            }
+        }
+        return true
+    }
 }

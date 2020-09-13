@@ -21,7 +21,7 @@ package ffc.airsync.api.genogram
 
 import ffc.airsync.api.genogram.lib.GenogramProcessWatcarakorn
 import ffc.airsync.geonogramApi
-import ffc.airsync.persons
+import ffc.airsync.personManage
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.load
 import ffc.airsync.utils.save
@@ -37,7 +37,7 @@ fun ArrayList<Person>.initRelation(progressCallback: (Int) -> Unit) {
     }
 
     if (localRelation.isEmpty()) {
-        this.addAll(persons)
+        this.addAll(personManage.cloud)
         this.forEach {
             it.relationships.clear()
         }

@@ -49,6 +49,11 @@ class PersonManage(
         cloudCache.addAll(ffcFileLoad(file))
     }
 
+    override fun clear() {
+        cloudCache.clear()
+        file.delete()
+    }
+
     interface Func {
         fun lookupDisease(icd10: String): Icd10
     }
@@ -81,24 +86,25 @@ class PersonManage(
     }
 
     private val lock = Any()
-    override fun sync(force: Boolean): List<Entity>? {
+    override fun sync(forceUpdate: Boolean): List<Entity>? {
         return synchronized(lock) {
-            syncSync()
+            syncSync(forceUpdate)
         }
     }
 
-    private fun syncSync(): List<Entity>? {
+    private fun syncSync(forceUpdate: Boolean): List<Entity>? {
         val proSync: ProSync<Person> = V1ProSync()
 
         // ดูว่ามีอะไร update ไหม
         run {
             val listUpdate = arrayListOf<Person>()
-            proSync.update(local, cloudCache) { person ->
+            proSync.update(local, cloudCache, forceUpdate) { person ->
                 object : ProSync.UpdateFunc<Person> {
                     override val identity: String = person.getIdentity()
                     override val unixTime: Long = person.timestamp.millis
                     override fun updateTo(item: Person) {
-                        listUpdate.add(person.copy(item.id))
+                        if (person.isTempId)
+                            listUpdate.add(person.copy(item.id))
                     }
                 }
             }

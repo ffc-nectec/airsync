@@ -17,7 +17,7 @@
  *
  */
 
-package ffc.airsync.resync
+package ffc.airsync.update
 
 import java.io.File
 import java.io.FileInputStream
@@ -29,8 +29,7 @@ import java.util.Properties
  * สมคร re-sync หรือไม่
  */
 internal class reSyncProperties(
-    private val propertyFile: File,
-    private val currentVersion: String
+    private val propertyFile: File
 ) {
     private val prop = Properties()
 
@@ -39,19 +38,15 @@ internal class reSyncProperties(
         prop.load(FileInputStream(propertyFile))
     }
 
-    /**
-     * ตรวจสอบว่าต้อง sync ข้อมูลทั้งหมดหรือไม่
-     * ตรวจโดยหาก current version กับในไฟล์ config ว่า version ไม่ตรงกันหรือไม่
-     */
-    fun isReSync(): Boolean {
-        return prop.getProperty("version") != currentVersion
+    fun gerVersion(): String {
+        return prop.getProperty("version") ?: "1"
     }
 
     /**
      * หลัง sync ทั้งหมดแล้วต้องทำการ set current version ใหม่ใส่เข้าไป
      */
-    fun setTagName() {
-        prop["version"] = currentVersion
+    fun setVersion(version: String) {
+        prop["version"] = version
         prop.store(FileOutputStream(propertyFile), null)
     }
 }

@@ -17,7 +17,7 @@
  *
  */
 
-package ffc.airsync.resync
+package ffc.airsync.update
 
 import ffc.airsync.api.organization.OrganizationService
 import ffc.airsync.retrofit.ApiFactory

@@ -31,4 +31,9 @@ interface HouseInterface : Sync {
      * เวลา auto sync เรียกอัพเดทเฉพาะ Object
      */
     fun sync(id: String)
+
+    /**
+     * ลบข้อมูลทั้งหมด ใช้เมื่อต้องการจะ Sync ใหม่เท่านั้น
+     */
+    fun clear()
 }

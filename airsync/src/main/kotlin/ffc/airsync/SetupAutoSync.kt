@@ -64,7 +64,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
 
     private fun syncTags() {
         val updateHouse = arrayListOf<House>()
-        Level1TagProcess(persons, houseManage.cloud) {
+        Level1TagProcess(personManage.cloud, houseManage.cloud) {
             object : Level1TagProcess.UpdateData {
                 override fun updateHouse(house: House) {
                     try {
@@ -85,7 +85,7 @@ class SetupAutoSync(val dao: DatabaseDao) {
 
     private fun syncVola() {
         val volaProcess: VolaProcess = VolaProcessV1()
-        val volaUser = volaProcess.processUser(userManage.cloudUser, persons)
+        val volaUser = volaProcess.processUser(userManage.cloudUser, personManage.cloud)
         val volaHouse = volaProcess.processHouse(houseManage.cloud, volaUser)
         houseManage.directUpdateCloudData(volaHouse)
     }

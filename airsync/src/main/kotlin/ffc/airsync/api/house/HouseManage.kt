@@ -54,6 +54,11 @@ class HouseManage(
         fun villageLookup(villageCode: String): Village?
     }
 
+    override fun clear() {
+        cloudCache.clear()
+        file.delete()
+    }
+
     override val local: List<House>
         get() {
             val houseFromDatabase = dao.getHouse(lookupVillage = { func().villageLookup(it) })
@@ -74,24 +79,25 @@ class HouseManage(
     override val cloud: List<House> = cloudCache
 
     private val lock = Any()
-    override fun sync(force: Boolean): List<Entity>? {
+    override fun sync(forceUpdate: Boolean): List<Entity>? {
         return synchronized(lock) {
-            syncSync()
+            syncSync(forceUpdate)
         }
     }
 
-    private fun syncSync(): List<House> {
+    private fun syncSync(forceUpdate: Boolean): List<House> {
         val proSync: ProSync<House> = V1ProSync()
 
         // ดูว่ามีอะไรอัพเดทไหม
         run {
             val listUpdate = arrayListOf<House>()
-            proSync.update(local, cloudCache) { house ->
+            proSync.update(local, cloudCache, forceUpdate) { house ->
                 object : ProSync.UpdateFunc<House> {
                     override val unixTime: Long = house.timestamp.millis
                     override val identity: String = house.getIdentity()
                     override fun updateTo(item: House) {
-                        listUpdate.add(house.copy(item.id))
+                        if (house.isTempId)
+                            listUpdate.add(house.copy(item.id))
                     }
                 }
             }

@@ -17,16 +17,11 @@
  *
  */
 
-package ffc.airsync.api.person
+package ffc.airsync.update
 
-import ffc.entity.Person
-
-internal interface PersonApi {
-    fun createPerson(
-        personList: List<Person>,
-        progressCallback: (Int) -> Unit,
-        clearCloud: Boolean = true
-    ): List<Person>
-
-    fun updatePersons(personList: List<Person>): List<Person>
+interface ReSync {
+    /**
+     * @return true หากเกิดกระบวนการ re-sync, false หากไม่เกิดการ re-sync
+     */
+    fun checkUpdateData(): Boolean
 }

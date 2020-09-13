@@ -27,6 +27,7 @@ import ffc.airsync.api.village.initSync
 import ffc.airsync.gui.ProgressList
 import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.createProgress
+import ffc.airsync.update.FFcUpdate
 import ffc.airsync.utils.getLogger
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -68,6 +69,7 @@ class InitSync : ProgressList {
             }
             gui.remove("Sync")
         }
+        FFcUpdate().checkUpdateData()
         runBlocking {
             launch {
                 progressTemplate = 10

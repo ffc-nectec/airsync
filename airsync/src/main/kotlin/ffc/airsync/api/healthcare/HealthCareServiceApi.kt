@@ -22,7 +22,7 @@ package ffc.airsync.api.healthcare
 import ffc.airsync.db.DatabaseDao
 import ffc.airsync.gui
 import ffc.airsync.healthCare
-import ffc.airsync.persons
+import ffc.airsync.personManage
 import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.ERROR
 import ffc.airsync.ui.AirSyncGUI.MESSAGE_TYPE.INFO
@@ -110,8 +110,10 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
                     respond.body() ?: arrayListOf()
                 } else {
                     val message =
-                        "Error index:$index Exam:${it.first().toJson()} Loop ${respond.code()} ${respond.errorBody()
-                            ?.charStream()?.readText()}"
+                        "Error index:$index Exam:${it.first().toJson()} Loop ${respond.code()} ${
+                            respond.errorBody()
+                                ?.charStream()?.readText()
+                        }"
                     throw ApiLoopException(message)
                 }
             }
@@ -149,7 +151,7 @@ class HealthCareServiceApi : RetofitApi<HealthCareServiceUrl>(HealthCareServiceU
             userManage.cloudUser.find { it.id == providerId }
         }.invoke()
 
-        val patient = persons.find { it.id == patientId }
+        val patient = personManage.cloud.find { it.id == patientId }
 
         if (patient == null || provider == null) {
             val message = "ข้อมูลที่ใช้ประกอบการ visit ไม่ครบ " +

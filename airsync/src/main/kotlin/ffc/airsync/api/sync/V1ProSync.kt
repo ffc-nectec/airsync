@@ -27,7 +27,7 @@ import ffc.airsync.api.sync.ProSync.UpdateFunc
 class V1ProSync<T> : ProSync<T> {
     private val util = SetUtil<T>()
 
-    override fun update(a: List<T>, b: List<T>, func: (item: T) -> UpdateFunc<T>) {
+    override fun update(a: List<T>, b: List<T>, forceUpdate: Boolean, func: (item: T) -> UpdateFunc<T>) {
         val updatePreData = util.intersection(a, b) {
             object : SetUtil.Func<T> {
                 override val identity: String = func(it).identity
@@ -35,13 +35,19 @@ class V1ProSync<T> : ProSync<T> {
         }
 
         updatePreData.forEach { item ->
-
-            if (func(item.first).unixTime > func(item.second).unixTime) {
+            if (forceUpdate) {
                 func(item.first).updateTo(item.second)
-            } else if (func(item.second).unixTime > func(item.first).unixTime) {
-                func(item.second).updateTo(item.first)
-            }
+            } else
+                normalUpdate(func, item)
             // == ไม่ต้องเอาเพราะแปลว่าไม่มีการอัพเดท
+        }
+    }
+
+    private fun normalUpdate(func: (item: T) -> UpdateFunc<T>, item: Pair<T, T>) {
+        if (func(item.first).unixTime > func(item.second).unixTime) {
+            func(item.first).updateTo(item.second)
+        } else if (func(item.second).unixTime > func(item.first).unixTime) {
+            func(item.second).updateTo(item.first)
         }
     }
 
