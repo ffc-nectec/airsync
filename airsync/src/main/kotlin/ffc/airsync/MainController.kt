@@ -1,18 +1,20 @@
 /*
- * Copyright (c) 2018 NECTEC
- *   National Electronics and Computer Technology Center, Thailand
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ *  * Copyright 2020 NECTEC
+ *  *   National Electronics and Computer Technology Center, Thailand
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *    http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
  *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package ffc.airsync
@@ -30,15 +32,15 @@ import ffc.airsync.utils.toBuddistString
 import ffc.entity.Organization
 import ffc.entity.Token
 import org.joda.time.DateTime
+import java.io.File
 
 class MainController(val dao: DatabaseDao) {
 
-    private val property: LocalOrganization
-    var everLogin: Boolean = false
+    private val orgProperty: LocalOrganization
 
     init {
         gui.createProgress("Database", 3, 10, "กำลังเชื่อมต่อ...")
-        property = LocalOrganization(dao, getDataStore("ffcProperty.cnf"))
+        orgProperty = LocalOrganization(dao, File(getDataStore("ffcProperty.cnf")))
         gui.createProgress("Database", 10, 10, "เชื่อมต่อสำเร็จ")
         gui.delayRemove("Database", 1000)
     }
@@ -46,7 +48,7 @@ class MainController(val dao: DatabaseDao) {
     fun run() {
         gui.showWIndows()
         gui.createProgress("Check", 15, 100, "Get organization config.")
-        val orgLocal = property.organization
+        val orgLocal = orgProperty.organization
         gui.createProgress("Check", 35, 100, "Validate config.")
         checkProperty(orgLocal)
         gui.createProgress("Check", 75, 100, "Validate cloud.")
@@ -82,20 +84,19 @@ class MainController(val dao: DatabaseDao) {
     }
 
     private fun checkProperty(org: Organization) {
-        val token = property.token
+        val token = orgProperty.token
         if (token.isNotEmpty()) {
-            everLogin = true
-            val user = property.userOrg
+            val user = orgProperty.userOrg
             org.users.add(user)
-            org.bundle["token"] = Token(user, property.token)
+            org.bundle["token"] = Token(user, orgProperty.token)
         }
     }
 
     private fun registerOrg(orgPropertyStore: Organization) {
         orgApi.registerOrganization(orgPropertyStore) { organization, token ->
-            property.token = token.token
-            property.orgId = organization.id
-            property.userOrg = organization.users[0]
+            orgProperty.token = token.token
+            orgProperty.orgId = organization.id
+            orgProperty.userOrg = organization.users[0]
         }
     }
 

@@ -31,12 +31,12 @@ import ffc.entity.update
 import java.io.File
 import java.util.UUID
 
-class LocalOrganization(
+internal class LocalOrganization(
     val dao: DatabaseDao,
-    logConfig: String = "C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf"
+    logConfig: File = File("C:\\Program Files\\JHCIS\\MySQL\\data\\ffcProperty.cnf")
 ) {
     private val logger by lazy { getLogger(this) }
-    private val prop: OrganizationProperty = FfcOrganizationProperty(File(logConfig))
+    private val prop: OrganizationProperty = FfcOrganizationProperty(logConfig)
     val organization: Organization
 
     init {
