@@ -34,6 +34,7 @@ internal class reSyncProperties(
     private val prop = Properties()
 
     init {
+        if (!propertyFile.isFile) propertyFile.createNewFile()
         require(propertyFile.isFile) { "ต้องเป็นไฟล์" }
         prop.load(FileInputStream(propertyFile))
     }

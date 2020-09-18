@@ -22,9 +22,11 @@ package ffc.airsync.api.user
 import ffc.airsync.Main
 import ffc.airsync.api.user.sync.UpdateAndCreateList
 import ffc.airsync.db.DatabaseDao
+import ffc.airsync.utils.getLogger
 import ffc.entity.Entity
 import ffc.entity.User
 import ffc.entity.copy
+import ffc.entity.gson.toJson
 import kotlinx.coroutines.runBlocking
 
 class UserManage(
@@ -32,6 +34,7 @@ class UserManage(
     val userApi: UserApi = UserServiceApi()
 ) : UserInterface {
     private var cloudCache = listOf<User>()
+    private val logger = getLogger(this)
     override val localUser: List<User> get() = dao.getUsers()
 
     override val cloudUser: List<User>
@@ -42,24 +45,32 @@ class UserManage(
         }
 
     override fun sync(forceUpdate: Boolean): List<Entity> {
-        runBlocking {
+        logger.info { "Sync user forceUpdate:$forceUpdate" }
+        if (forceUpdate) runBlocking {
+            val local = localUser
+            val cloud = userApi.get()
+            val (_, _, all) = UpdateAndCreateList().getList(local, cloud)
+            all.forEach {
+                logger.debug { "Force update user ${it.name}" }
+                userApi.update(listOf(it))
+            }
+        }
+        else runBlocking {
             val local = localUser
             val cloud = userApi.get()
             val (update, create, all) = UpdateAndCreateList().getList(local, cloud)
 
             if (update.isNotEmpty())
-                userApi.update(update)
-            if (create.isNotEmpty())
+                update.forEach {
+                    logger.debug { "Update user ${it.name}" }
+                    userApi.update(listOf(it))
+                }
+            if (create.isNotEmpty()) {
+                logger.debug { "Create user Size:${create.size} name:${create.map { it.name }.toJson()}" }
                 userApi.create(create)
+            }
         }
-
-        if (forceUpdate) runBlocking {
-            val local = localUser
-            val cloud = userApi.get()
-            val (_, _, all) = UpdateAndCreateList().getList(local, cloud)
-            userApi.update(all)
-        }
-
+        logger.debug { "Get user form api to cloudCache" }
         cloudCache = userApi.get().copy()
         return cloudCache.copy()
     }
