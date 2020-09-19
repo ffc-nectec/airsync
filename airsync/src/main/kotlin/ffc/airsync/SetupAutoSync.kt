@@ -32,6 +32,11 @@ import ffc.entity.place.House
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
+/**
+ * พัฒนาขึ้นมาทดแทน Notification เดิมเพราะ Server ติด Firewall
+ * เชื่อมต่อไปยัง Notification server ไม่ได้ โดยการทำงาน
+ * จะทำตามรอบเวลาที่กำหนด
+ */
 class SetupAutoSync(val dao: DatabaseDao) {
 
     init {

@@ -29,6 +29,10 @@ import ffc.entity.place.House
 
 private val logger by lazy { getLogger(SetupNotification::class) }
 
+/**
+ * ใช้สำหรับรับ Notification จาก API เพื่อ Sync
+ * ข้อมูลเข้าฐาน JHCISDB
+ */
 class SetupNotification(val dao: DatabaseDao) {
 
     init {

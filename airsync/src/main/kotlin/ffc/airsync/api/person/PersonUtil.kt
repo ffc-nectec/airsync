@@ -21,6 +21,17 @@ package ffc.airsync.api.person
 
 import ffc.entity.Person
 
+/**
+ * ดึงข้อมูล hcode เป็นคีย์ของ รหัสบ้านในฐาน JHCISDB
+ */
 fun Person.getHcode() = link?.keys?.get("hcode")?.toString()?.trim()
+
+/**
+ * ดึงข้อมูล pcucode เป็นคีย์ของ รหัสหน่วยงานในฐาน JHCISDB
+ */
 fun Person.getPcuCode() = link?.keys?.get("pcucodeperson")?.toString()?.trim()
+
+/**
+ * ดึงข้อมูล pid เป็นคีย์ของ รหัสคนในฐาน JHCISDB
+ */
 fun Person.getPid() = link?.keys?.get("pid")?.toString()?.trim()

@@ -22,6 +22,9 @@ package ffc.airsync.api.template
 import ffc.airsync.Main
 import ffc.airsync.templateApi
 
+/**
+ * สร้าง Template การกรอกข้อมูลสำเร็จรูปที่บน JHCISDB ไปยัง Cloud
+ */
 class TemplateInit {
     init {
         val template = Main.instant.dao.getTemplate()

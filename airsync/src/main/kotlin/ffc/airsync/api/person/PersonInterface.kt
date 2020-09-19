@@ -22,9 +22,27 @@ package ffc.airsync.api.person
 import ffc.airsync.api.Sync
 import ffc.entity.Person
 
+/**
+ * ใช้เพื่อให้ airsync เข้าถึงข้อมูล person
+ * ปรับจากเดินที่เข้าถึง dao โดยตรง มาเป็นผ่าน Interface
+ */
 interface PersonInterface : Sync {
+    /**
+     * เข้าถึงข้อมูลบน cloud จาก API
+     * ภายในอาจมีการทำแคชเอาไว้
+     */
     val cloud: List<Person>
+
+    /**
+     * เข้าถึงข้อมูลจาก Local ฐาน JHCISDB
+     */
     val local: List<Person>
+
+    /**
+     * คันหา person ในชุดข้อมูล Cloud
+     * ปกติใช้เพื่อในการแมพหา id ของ Object
+     * เพราะ ข้อมูลบน Cloud จะมี Id ที่สร้างจาก api แต่ใน Local จะเป็น Temp ID
+     */
     fun findPersonIdInCloud(pcuCode: String, pid: String): Person?
 
     /**
