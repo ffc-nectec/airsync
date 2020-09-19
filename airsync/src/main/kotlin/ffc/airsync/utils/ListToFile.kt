@@ -94,8 +94,17 @@ inline fun <reified T> getClassNameInList(list: List<T>): String {
 }
 
 fun getDataStore(filename: String): String {
+    return getPathRefToDataFile(filename).absolutePath
+}
+
+/**
+ * สร้างเส้นทางไปยังที่เก็บข้อมูล data ของระบบ
+ * @param filename ชื่อไฟล์ที่จะอยู่ใน data
+ * @return ตัว Object file ที่ชี้ไปยัง filename ที่ระบุ
+ */
+fun getPathRefToDataFile(filename: String): File {
     val dataDirectory = File(getPathJarDir(), "data")
     if (!dataDirectory.exists())
         dataDirectory.mkdirs()
-    return File(dataDirectory, filename).absolutePath
+    return File(dataDirectory, filename)
 }

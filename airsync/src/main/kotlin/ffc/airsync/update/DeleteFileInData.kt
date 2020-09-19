@@ -19,7 +19,10 @@
 
 package ffc.airsync.update
 
-class DeleteFileInData(fileName: String) {
+import ffc.airsync.utils.getPathRefToDataFile
+
+class DeleteFileInData(private val fileName: String) {
     fun delete() {
+        getPathRefToDataFile(fileName).delete()
     }
 }
