@@ -35,6 +35,10 @@ import ffc.entity.healthcare.HealthCareService
 import ffc.entity.place.House
 import ffc.entity.update
 
+/**
+ * เป็นตัวที่คอยตรวจสอบความเปลี่ยนแปลงของ Database
+ * เพื่อที่จะได้ Sync ข้อมูลไปยัง Cloud
+ */
 class SetupDatabaseWatcher(val dao: DatabaseDao) {
 
     init {

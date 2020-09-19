@@ -22,7 +22,17 @@ package ffc.airsync.api.user
 import ffc.airsync.api.Sync
 import ffc.entity.User
 
+/**
+ * Interface สำหรับการเข้าถึงข้อมูล User
+ */
 interface UserInterface : Sync {
+    /**
+     * ข้อมูลใน Local จากฐาน JHCISDB
+     */
     val localUser: List<User>
+
+    /**
+     * ข้อมูลบน Cloud จาก API
+     */
     val cloudUser: List<User>
 }

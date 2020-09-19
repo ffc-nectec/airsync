@@ -22,8 +22,19 @@ package ffc.airsync.api.house
 import ffc.airsync.api.Sync
 import ffc.entity.place.House
 
+/**
+ * ใช้เพื่อให้ airsync เข้าถึงข้อมูล house
+ * ปรับจากเดินที่เข้าถึง dao โดยตรง มาเป็นผ่าน Interface
+ */
 interface HouseInterface : Sync {
+    /**
+     * เข้าถึงข้อมูลใน Local จากฐาน JHCISDB
+     */
     val local: List<House>
+
+    /**
+     * เข้าถึงข้อมูลใน Cloud จาก api
+     */
     val cloud: List<House>
     fun directUpdateCloudData(list: List<House>)
 
