@@ -28,12 +28,12 @@ import ffc.airsync.utils.`อัพเดทไปยัง`
 import ffc.airsync.utils.ffcFileLoad
 import ffc.airsync.utils.ffcFileSave
 import ffc.airsync.utils.getLogger
+import ffc.airsync.utils.getPathRefToDataFile
 import ffc.entity.Entity
 import ffc.entity.Person
 import ffc.entity.Village
 import ffc.entity.copy
 import ffc.entity.place.House
-import java.io.File
 import java.util.SortedSet
 
 class HouseManage(
@@ -43,7 +43,7 @@ class HouseManage(
 
     private val houseApi: HouseApi = HouseServiceApi()
     private var cloudCache = arrayListOf<House>()
-    private val file = File("data", "house.json")
+    private val file = getPathRefToDataFile("house.json")
     private val logger = getLogger(this)
 
     init {

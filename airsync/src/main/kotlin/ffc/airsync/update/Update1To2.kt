@@ -26,27 +26,42 @@ import ffc.airsync.houseManage
 import ffc.airsync.personManage
 import ffc.airsync.relation
 import ffc.airsync.userManage
+import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.syncCloud
 import ffc.airsync.villages
 
 internal class Update1To2 {
+    private val logger = getLogger(this)
     fun runUpdate() {
+        logger.info { "Run update." }
         if (userManage.cloudUser.isNotEmpty()) {
+            logger.info { "User is not empty. แสดงว่าเคย sync มาแล้ว" }
+            logger.info { "ใหัอัพเดทข้อมูล user" }
             userManage.sync(true)
+            logger.info { "Sync ข้อมูลที่ค้างอยู่บน cloud ลงสู่ jhcisdb" }
             syncCloud.sync(Main.instant.dao)
-            houseManage.sync(true)
-            personManage.sync(true)
         }
+        logger.info { "Relation clear" }
         relation.clear()
+        logger.info { "Analyzer clear" }
         analyzer.clear()
+        logger.info { "HealthCare clear" }
         healthCare.clear()
+        logger.info { "Village clear" }
         villages.clear()
+        logger.info { "House clear" }
         houseManage.clear()
+        logger.info { "Person clear" }
         personManage.clear()
+        logger.info { "Delete Village.json" }
         DeleteFileInData("Village.json").delete()
+        logger.info { "Delete healthTemp.json" }
         DeleteFileInData("healthTemp.json").delete()
+        logger.info { "Delete HealthCareService.json" }
         DeleteFileInData("HealthCareService.json").delete()
+        logger.info { "Delete analyzer.json" }
         DeleteFileInData("analyzer.json").delete()
+        logger.info { "Delete relation.json" }
         DeleteFileInData("relation.json").delete()
     }
 }
