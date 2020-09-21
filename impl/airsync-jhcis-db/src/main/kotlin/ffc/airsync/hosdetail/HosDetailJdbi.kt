@@ -27,8 +27,12 @@ class HosDetailJdbi(
     val jdbiDao: Dao = MySqlJdbi(null)
 ) : HosDao {
     override fun get(): HashMap<String, String> {
+        val currentOrganization = MySqlJdbi.dbConfig.currentOrganization
         return jdbiDao.extension<QueryHosDetail, List<HashMap<String, String>>> { get() }.find {
-            it["pcucode"] == MySqlJdbi.dbConfig.currentOrganization
-        } ?: throw Exception("ไม่พบ รหัส pcucode")
+            it["pcucode"] == currentOrganization
+        } ?: throw Exception(
+            "ไม่พบรหัส pcucode Debug: Config in file " +
+                    "${MySqlJdbi.dbConfig.jhcisConfigFile} is $currentOrganization"
+        )
     }
 }
