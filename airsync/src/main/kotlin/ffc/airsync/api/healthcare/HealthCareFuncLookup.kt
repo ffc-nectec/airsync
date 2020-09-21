@@ -53,7 +53,7 @@ class HealthCareFuncLookup(private val func: () -> Func) : LookupHealthCareServi
 
     private fun userSortedMap(user: List<User>): SortedMap<String, User> {
         return user.map {
-            it.name to it
+            it.name.trim() to it
         }.toMap().toSortedMap()
     }
 
@@ -72,12 +72,19 @@ class HealthCareFuncLookup(private val func: () -> Func) : LookupHealthCareServi
     }
 
     override fun lookupProviderId(name: String): String? {
-        val search = cacheSearchUser[name]?.id
+        val search = func().users.find { it.name.trim() == name.trim() }?.id
         return if (search == null) {
             func().syncUser()
             cacheSearchUser = userSortedMap(func().users)
-            val search2 = cacheSearchUser[name]?.id
-            if (search2.isNullOrBlank()) logger.warn(NullPointerException()) { "Lookup user Error $name" }
+            val search2 = func().users.find { it.name.trim() == name.trim() }?.id
+            if (search2.isNullOrBlank()) logger.warn(NullPointerException()) {
+                "Lookup user Error $name " +
+                        "in ${
+                            cacheSearchUser.map {
+                                "${it.key}:${it.value.name}, "
+                            }
+                        }"
+            }
             search2
         } else
             search
