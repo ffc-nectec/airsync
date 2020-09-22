@@ -29,6 +29,7 @@ import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.createProgress
 import ffc.airsync.update.FFcUpdate
 import ffc.airsync.utils.getLogger
+import ffc.airsync.utils.syncCloud
 import ffc.entity.Person
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -109,6 +110,8 @@ class InitSync : ProgressList {
         healthCare.initSync {
             progressHealthCare = it
         }
+        logger.info("Sync cloud to jhcisdb")
+        syncCloud.sync(Main.instant.dao)
         logger.info("สำรวจความเจ็บป่วย (7/7)")
         message = "วิเคราะห์ความเจ็บป่วย"
         SyncAnalyzer(healthCare).sync()
