@@ -28,7 +28,6 @@ import ffc.entity.healthcare.BloodPressure
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.update
 import ffc.entity.util.generateTempId
-import kotlinx.coroutines.runBlocking
 import org.joda.time.DateTime
 
 internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
@@ -53,42 +52,48 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
             handle.createQuery(sql)
                 .map { rs, _ ->
                     val username = rs.getString("username") ?: ""
-                    val pid = rs.getString("pid")!!
+                    val pid = rs.getString("pid") ?: ""
                     val timestamp = DateTime(rs.getTimestamp("dateupdate")).minusHours(7)
-                    val pcuCode = rs.getString("pcucode")!!
+                    val pcuCode = rs.getString("pcucode") ?: ""
+
+                    val providerId = (if (username.isNotEmpty()) lookup().providerId(username) else "") ?: ""
+                    val patientId = lookup().patientId(pcuCode, pid) ?: ""
+
+                    // ถ้า providerId เป็น null หรือ patientId เป็น Null ไม่ต้องประมวลผลต่อ
+                    if (providerId.isEmpty() || patientId.isEmpty() || pcuCode.isEmpty()) {
+                        if (providerId.isBlank() || providerId == username)
+                            logger.warn { "Skip data. Cannot find user $username will set value is $providerId" }
+                        if (patientId.isBlank())
+                            logger.warn { "Skip data. Cannot find person pid $pid" }
+                        if (pcuCode.isEmpty())
+                            logger.warn { "Skip data. pcucode is empty" }
+                        return@map null
+                    }
 
                     HealthCareService(
-                        providerId = (if (username.isNotEmpty()) lookup().providerId(username) else "") ?: "",
-                        patientId = lookup().patientId(pcuCode, pid) ?: "",
+                        providerId = providerId,
+                        patientId = patientId,
                         id = generateTempId()
                     ).update(timestamp) {
+                        val visitDate = rs.getDate("visitdate")
 
-                        runBlocking {
-                            if (providerId.isBlank() || providerId == username) logger.warn {
-                                "Cannot find user $username will set value is $providerId"
-                            }
-                            if (patientId.isBlank()) logger.warn { "Cannot find person pid $pid" }
-                        }
                         rs.getString("symptoms")?.let { syntom = it }
-
-                        val visitdate = rs.getDate("visitdate")
-
                         rs.getTime("timestart").let { timestart ->
                             if (timestart != null)
-                                time = DateTime(visitdate).plus(timestart.time).minusHours(7)
+                                time = DateTime(visitDate).plus(timestart.time).minusHours(7)
                             else {
                                 logger.debug("Visit timestart is null visitno:${rs.getString("visitno")}")
                             }
 
                             rs.getTime("timeend")?.let { timeend ->
                                 try {
-                                    endTime = DateTime(visitdate).plus(timeend.time).minusHours(7)
+                                    endTime = DateTime(visitDate).plus(timeend.time).minusHours(7)
                                 } catch (ex: java.lang.IllegalArgumentException) {
                                     logger.warn(
                                         "Visit time end error ตรวจพบข้อมูลขัดแย้งในเรื่องเวลาการ visit " +
                                                 "timestart=$time " +
                                                 "endtime=${
-                                                    DateTime(visitdate).plus(timeend.time)
+                                                    DateTime(visitDate).plus(timeend.time)
                                                         .minusHours(7)
                                                 } ${ex.message}"
                                     )
@@ -112,7 +117,6 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
                         }
 
                         rs.getString("temperature")?.let { bodyTemperature = it.toDouble() }
-
                         rs.getString("diagnote")?.let { note = it }
 
                         link = Link(System.JHICS)
@@ -125,7 +129,7 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
                         rs.getString("hosmain")?.let { link!!.keys["hosmain"] = it }
                         rs.getString("hossub")?.let { link!!.keys["hossub"] = it }
                     }
-                }.list()
+                }.list().mapNotNull { it }
         }
     }
 
