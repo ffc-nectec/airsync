@@ -20,7 +20,7 @@
 package ffc.airsync
 
 import ffc.airsync.api.analyzer.initSync
-import ffc.airsync.api.genogram.initRelation
+import ffc.airsync.api.genogram.SyncGenogram
 import ffc.airsync.api.healthcare.initSync
 import ffc.airsync.api.template.TemplateInit
 import ffc.airsync.api.village.initSync
@@ -29,6 +29,7 @@ import ffc.airsync.ui.AirSyncGUI
 import ffc.airsync.ui.createProgress
 import ffc.airsync.update.FFcUpdate
 import ffc.airsync.utils.getLogger
+import ffc.entity.Person
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -98,8 +99,10 @@ class InitSync : ProgressList {
         personManage.sync()
         logger.info { "วิเคราะห์ความสัมพันธ์ (5/7)" }
         message = "คำนวณความสัมพันธ์"
-        relation.initRelation {
-            progressRelation = it
+        SyncGenogram().sync {
+            object : SyncGenogram.Func {
+                override val person: List<Person> = personManage.cloud
+            }
         }
         logger.info { "รวบรวมข้อมูลการให้บริการ 3 ปี... (6/7)" }
         message = "วิเคราะห์การให้บริการ"
