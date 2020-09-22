@@ -22,17 +22,26 @@ package ffc.airsync.hosdetail
 import ffc.airsync.Dao
 import ffc.airsync.MySqlJdbi
 import ffc.airsync.extension
+import ffc.airsync.getLogger
 
 class HosDetailJdbi(
     val jdbiDao: Dao = MySqlJdbi(null)
 ) : HosDao {
     override fun get(): HashMap<String, String> {
         val currentOrganization = MySqlJdbi.dbConfig.currentOrganization
-        return jdbiDao.extension<QueryHosDetail, List<HashMap<String, String>>> { get() }.find {
+        val hosList = jdbiDao.extension<QueryHosDetail, List<HashMap<String, String>>> { get() }
+        val configFile = MySqlJdbi.dbConfig.jhcisConfigFile
+        return hosList.find {
             it["pcucode"] == currentOrganization
+        } ?: hosList.find {
+            val code = it["pcucode"]?.trim() ?: ""
+            val condition = code.isNotEmpty() && (code != "0000x")
+            if (condition)
+                getLogger(this).warn("ใช้ Default $code เพราะค้นหารหัส pcucode ในไฟล์ $configFile ไม่พบ")
+            condition
         } ?: throw Exception(
             "ไม่พบรหัส pcucode Debug: Config in file " +
-                    "${MySqlJdbi.dbConfig.jhcisConfigFile} is $currentOrganization"
+                    "$configFile is $currentOrganization"
         )
     }
 }
