@@ -19,7 +19,7 @@
 
 package ffc.airsync
 
-import ffc.airsync.api.analyzer.initSync
+import ffc.airsync.api.analyzer.SyncAnalyzer
 import ffc.airsync.api.genogram.SyncGenogram
 import ffc.airsync.api.healthcare.initSync
 import ffc.airsync.api.template.TemplateInit
@@ -111,9 +111,7 @@ class InitSync : ProgressList {
         }
         logger.info("สำรวจความเจ็บป่วย (7/7)")
         message = "วิเคราะห์ความเจ็บป่วย"
-        analyzer.initSync(healthCare) {
-            progressAnalyzer = it
-        }
+        SyncAnalyzer(healthCare).sync()
         logger.info { "Finished push. Sync ข้อมูลสำเร็จ" }
         isFinish = true
     }
