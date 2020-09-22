@@ -58,7 +58,7 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
                     val pcuCode = rs.getString("pcucode")!!
 
                     HealthCareService(
-                        providerId = (if (username.isNotEmpty()) lookup().providerId(username) else "") ?: username,
+                        providerId = (if (username.isNotEmpty()) lookup().providerId(username) else "") ?: "",
                         patientId = lookup().patientId(pcuCode, pid) ?: "",
                         id = generateTempId()
                     ).update(timestamp) {
