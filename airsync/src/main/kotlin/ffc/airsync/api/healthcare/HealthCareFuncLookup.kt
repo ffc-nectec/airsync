@@ -84,6 +84,7 @@ class HealthCareFuncLookup(private val func: () -> Func) : LookupHealthCareServi
                                 "${it.key}:${it.value.name}, "
                             }
                         }"
+                // TODO ต้องพัฒนาเพิ่มถ้าค้นหาไม่เจอให้สร้างใหม่แต่สร้างในแบบที่ login ไม่ได้
             }
             search2
         } else
