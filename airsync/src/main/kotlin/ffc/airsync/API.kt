@@ -48,11 +48,9 @@ import ffc.airsync.api.user.UserManage
 import ffc.airsync.api.village.VILLAGELOOKUP
 import ffc.airsync.api.village.VillageApi
 import ffc.airsync.api.village.VillageServiceApi
-import ffc.entity.Person
 import ffc.entity.Village
 import ffc.entity.healthcare.HealthCareService
 import ffc.entity.healthcare.Icd10
-import ffc.entity.healthcare.analyze.HealthAnalyzer
 
 val userManage: UserInterface by lazy { UserManage() }
 val houseManage: HouseInterface by lazy {
@@ -85,7 +83,5 @@ val specialPpApi: SpecialPpApi by lazy { SpecialPpServiceApi() }
 val templateApi: TemplateApi by lazy { TemplateServiceApi() }
 val villageApi: VillageApi by lazy { VillageServiceApi() }
 
-val relation = arrayListOf<Person>()
-val analyzer = hashMapOf<String, HealthAnalyzer>()
 val healthCare = arrayListOf<HealthCareService>()
 val villages = arrayListOf<Village>()

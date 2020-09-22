@@ -20,11 +20,9 @@
 package ffc.airsync.update
 
 import ffc.airsync.Main
-import ffc.airsync.analyzer
 import ffc.airsync.healthCare
 import ffc.airsync.houseManage
 import ffc.airsync.personManage
-import ffc.airsync.relation
 import ffc.airsync.userManage
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.syncCloud
@@ -41,10 +39,6 @@ internal class Update1To2 {
             logger.info { "Sync ข้อมูลที่ค้างอยู่บน cloud ลงสู่ jhcisdb" }
             syncCloud.sync(Main.instant.dao)
         }
-        logger.info { "Relation clear" }
-        relation.clear()
-        logger.info { "Analyzer clear" }
-        analyzer.clear()
         logger.info { "HealthCare clear" }
         healthCare.clear()
         logger.info { "Village clear" }
