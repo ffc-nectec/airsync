@@ -50,7 +50,8 @@ class UserManage(
             val local = localUser
             val cloud = userApi.get()
             val (_, _, all) = UpdateAndCreateList().getList(local, cloud)
-            all.forEach {
+            val allData = all.filter { it.name.trim().isNotEmpty() }
+            allData.forEach {
                 logger.debug { "Force update user ${it.name}" }
                 userApi.update(listOf(it))
             }
@@ -59,15 +60,17 @@ class UserManage(
             val local = localUser
             val cloud = userApi.get()
             val (update, create, all) = UpdateAndCreateList().getList(local, cloud)
+            val updateData = update.filter { it.name.trim().isNotEmpty() }
+            val createData = create.filter { it.name.trim().isNotEmpty() }
 
-            if (update.isNotEmpty())
-                update.forEach {
+            if (updateData.isNotEmpty())
+                updateData.forEach {
                     logger.debug { "Update user ${it.name}" }
                     userApi.update(listOf(it))
                 }
-            if (create.isNotEmpty()) {
-                logger.debug { "Create user Size:${create.size} name:${create.map { it.name }.toJson()}" }
-                userApi.create(create)
+            if (createData.isNotEmpty()) {
+                logger.debug { "Create user Size:${createData.size} name:${createData.map { it.name }.toJson()}" }
+                userApi.create(createData)
             }
         }
         logger.debug { "Get user form api to cloudCache" }
