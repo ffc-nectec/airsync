@@ -46,7 +46,8 @@ class UserServiceApi : RetofitApi<UserService>(UserService::class.java), UserApi
             when (val status = execute.code()) {
                 200 -> execute.body()
                 404 -> emptyList()
-                else -> throw Exception("Api error $status ${execute.errorBody()}")
+                else ->
+                    throw Exception("Api error $status ${execute.errorBody()?.byteStream()?.reader()?.readText()}")
             }
         }
     }
