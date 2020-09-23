@@ -33,7 +33,15 @@ import ffc.entity.gson.toJson
 
 class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInterface<Person> {
     private val util = Util()
-    private val idCardMapCache = persons.map { getIdCard(it) to it }.toMap().toSortedMap()
+    private val idCardMapCache = persons.map {
+        val idCard = getIdCard(it)
+        if (idCard == null)
+            null
+        else
+            idCard to it
+    }.mapNotNull { it }
+        .toMap()
+        .toSortedMap()
     private val idMapCache = persons.map { it.id to it }.toMap().toSortedMap()
     private val logger = getLogger(this)
 
@@ -57,8 +65,8 @@ class FFCAdapterPersonDetailInterface(persons: List<Person>) : PersonDetailInter
         return person.link?.keys?.get("hcode")?.toString()
     }
 
-    override fun getIdCard(person: Person): String {
-        return person.identities.find { it.type == THAI_CITIZEN_ID }!!.id
+    override fun getIdCard(person: Person): String? {
+        return person.identities.find { it.type == THAI_CITIZEN_ID }?.id
     }
 
     override fun getFatherInRelation(person: Person): Person? {
