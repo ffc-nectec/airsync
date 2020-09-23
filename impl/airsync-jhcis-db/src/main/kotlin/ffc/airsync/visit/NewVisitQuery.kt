@@ -41,6 +41,13 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
 
     fun get(where: String, lookup: () -> Lookup): List<HealthCareService> {
 
+        val lookupManage = LookupManage {
+            object : LookupManage.Lookup {
+                override fun patientId(pcuCode: String, pid: String): String? = lookup().patientId(pcuCode, pid)
+                override fun providerId(username: String): String? = lookup().providerId(username)
+            }
+        }
+
         val sql = if (where.isBlank())
             visitQuery
         else
@@ -56,8 +63,8 @@ internal class NewVisitQuery(val jdbiDao: Dao = MySqlJdbi(null)) {
                     val timestamp = DateTime(rs.getTimestamp("dateupdate")).minusHours(7)
                     val pcuCode = rs.getString("pcucode") ?: ""
 
-                    val providerId = (if (username.isNotEmpty()) lookup().providerId(username) else "") ?: ""
-                    val patientId = lookup().patientId(pcuCode, pid) ?: ""
+                    val providerId = (if (username.isNotEmpty()) lookupManage.lookupProviderId(username) else "") ?: ""
+                    val patientId = lookupManage.lookupPatientId(pcuCode, pid) ?: ""
 
                     // ถ้า providerId เป็น null หรือ patientId เป็น Null ไม่ต้องประมวลผลต่อ
                     if (providerId.isEmpty() || patientId.isEmpty() || pcuCode.isEmpty()) {
