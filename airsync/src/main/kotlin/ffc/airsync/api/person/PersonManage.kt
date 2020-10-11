@@ -154,5 +154,19 @@ class PersonManage(
         }
     }
 
+    override fun updateRelation(listUpdateRelation: List<Pair<String, List<Person.Relationship>>>) {
+        val cacheSet = cloudCache.map {
+            it.id to it
+        }.toMap().toSortedMap()
+        listUpdateRelation.forEach { (personId, relation) ->
+            cacheSet[personId]?.relationships?.clear()
+            cacheSet[personId]?.relationships?.addAll(relation)
+        }
+
+        synchronized(file) {
+            ffcFileSave(file, cloudCache)
+        }
+    }
+
     private fun Person.getIdentity(): String = "${getPcuCode()}:${getPid()}"
 }

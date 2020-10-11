@@ -23,12 +23,14 @@ import ffc.airsync.api.genogram.lib.GenogramProcessWatcarakorn
 import ffc.airsync.geonogramApi
 import ffc.airsync.utils.getLogger
 import ffc.entity.Person
+import ffc.entity.Person.Relationship
 
 class SyncGenogram {
     private val logger = getLogger(this)
 
     interface Func {
         val person: List<Person>
+        fun updatePerson(objectId: String, relation: List<Relationship>)
     }
 
     fun sync(func: () -> Func) {
@@ -39,11 +41,11 @@ class SyncGenogram {
             it.relationships.clear()
         }
         GenogramProcessWatcarakorn(FFCAdapterPersonDetailInterface(personTemp)).process(personTemp)
-        personTemp.updateToCloud()
+        personTemp.updateToCloud(func)
     }
 
-    private fun List<Person>.updateToCloud() {
-        val personBlock = hashMapOf<String, List<Person.Relationship>>()
+    private fun List<Person>.updateToCloud(func: () -> Func) {
+        val personBlock = hashMapOf<String, List<Relationship>>()
 
         forEach {
             if (it.relationships.isNotEmpty()) {
@@ -52,6 +54,7 @@ class SyncGenogram {
         }
         geonogramApi.putBlock(personBlock) {}.forEach { (personId, relation) ->
             this.find { it.id == personId }?.relationships = relation.toMutableList()
+            func().updatePerson(personId, relation)
         }
     }
 }
