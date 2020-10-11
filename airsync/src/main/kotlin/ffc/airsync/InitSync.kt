@@ -31,6 +31,7 @@ import ffc.airsync.update.FFcUpdate
 import ffc.airsync.utils.getLogger
 import ffc.airsync.utils.syncCloud
 import ffc.entity.Person
+import ffc.entity.Person.Relationship
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -100,11 +101,7 @@ class InitSync : ProgressList {
         personManage.sync()
         logger.info { "วิเคราะห์ความสัมพันธ์ (5/7)" }
         message = "คำนวณความสัมพันธ์"
-        SyncGenogram().sync {
-            object : SyncGenogram.Func {
-                override val person: List<Person> = personManage.cloud
-            }
-        }
+        syncGenogram()
         logger.info { "รวบรวมข้อมูลการให้บริการ 3 ปี... (6/7)" }
         message = "วิเคราะห์การให้บริการ"
         healthCare.initSync {
@@ -117,6 +114,19 @@ class InitSync : ProgressList {
         SyncAnalyzer(healthCare).sync()
         logger.info { "Finished push. Sync ข้อมูลสำเร็จ" }
         isFinish = true
+    }
+
+    private fun syncGenogram() {
+        val update = arrayListOf<Pair<String, List<Relationship>>>()
+        SyncGenogram().sync {
+            object : SyncGenogram.Func {
+                override val person: List<Person> = personManage.cloud
+                override fun updatePerson(objectId: String, relation: List<Relationship>) {
+                    update.add(objectId to relation)
+                }
+            }
+        }
+        personManage.updateRelation(update)
     }
 
     override fun get(): Map<String, Int> {

@@ -21,6 +21,7 @@ package ffc.airsync.api.person
 
 import ffc.airsync.api.Sync
 import ffc.entity.Person
+import ffc.entity.Person.Relationship
 
 /**
  * ใช้เพื่อให้ airsync เข้าถึงข้อมูล person
@@ -37,6 +38,11 @@ interface PersonInterface : Sync {
      * เข้าถึงข้อมูลจาก Local ฐาน JHCISDB
      */
     val local: List<Person>
+
+    /**
+     * List personId,List relatoin
+     */
+    fun updateRelation(listUpdateRelation: List<Pair<String, List<Relationship>>>)
 
     /**
      * คันหา person ในชุดข้อมูล Cloud
