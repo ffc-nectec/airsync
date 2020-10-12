@@ -23,7 +23,6 @@ import ffc.airsync.retrofit.RetofitApi
 import ffc.airsync.utils.ApiLoopException
 import ffc.airsync.utils.UploadSpliterMap
 import ffc.airsync.utils.callApi
-import ffc.airsync.utils.callApiNoReturn
 import ffc.airsync.utils.getLogger
 import ffc.entity.Person
 
@@ -62,7 +61,6 @@ class GeonogramServiceApi : RetofitApi<GenogramService>(GenogramService::class.j
         progressCallback: (Int) -> Unit
     ): Map<String, List<Person.Relationship>> {
         val output = hashMapOf<String, List<Person.Relationship>>()
-        callApiNoReturn { restService.cleanAll(organization.id, tokenBarer).execute() }
         val fixSizeCake = 100
         val sizeOfLoop = relationship.size / fixSizeCake
         UploadSpliterMap.upload(fixSizeCake, relationship) { list, block ->
