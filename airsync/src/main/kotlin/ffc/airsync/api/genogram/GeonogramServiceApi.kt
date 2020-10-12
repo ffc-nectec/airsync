@@ -66,8 +66,6 @@ class GeonogramServiceApi : RetofitApi<GenogramService>(GenogramService::class.j
         UploadSpliterMap.upload(fixSizeCake, relationship) { list, block ->
 
             val result = callApi {
-                restService.unConfirmBlock(organization.id, tokenBarer, block).execute()
-
                 val response = restService.insertBlock(
                     organization.id, tokenBarer,
                     block = block,
@@ -75,10 +73,6 @@ class GeonogramServiceApi : RetofitApi<GenogramService>(GenogramService::class.j
                 ).execute()
 
                 if (response.code() == 201 || response.code() == 200) {
-                    restService.confirmBlock(
-                        organization.id, tokenBarer,
-                        block = block
-                    )
                     response.body()
                 } else {
                     throw ApiLoopException("Response code wrong.")

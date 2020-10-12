@@ -23,8 +23,6 @@ import ffc.airsync.APIVERSION
 import ffc.entity.Person
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -46,31 +44,4 @@ interface GenogramService {
         @Path("block") block: Int,
         @Body relationship: Map<String, @JvmSuppressWildcards List<Person.Relationship>>
     ): Call<Map<String, List<Person.Relationship>>>
-
-    @GET("/$APIVERSION/org/{orgId}/person/relationships/sync/{block}")
-    fun getBlock(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String,
-        @Path("block") block: Int
-    ): Call<Map<String, List<Person.Relationship>>>
-
-    @PUT("/$APIVERSION/org/{orgId}/person/relationships/sync/{block}")
-    fun confirmBlock(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String,
-        @Path("block") block: Int
-    ): Call<Void>
-
-    @DELETE("/$APIVERSION/org/{orgId}/person/relationships/sync/{block}")
-    fun unConfirmBlock(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String,
-        @Path("block") block: Int
-    ): Call<Void>
-
-    @DELETE("/$APIVERSION/org/{orgId}/person/relationships/sync/clean")
-    fun cleanAll(
-        @Path("orgId") orgId: String,
-        @Header("Authorization") authkey: String
-    ): Call<Void>
 }
